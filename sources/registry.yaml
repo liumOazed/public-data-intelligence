@@ -112,3 +112,27 @@ sources:
       benchmarked model, five results each, about 400 records a run. Listings include
       marketplace sellers, so a price is not always Amazon's own. Listing prices, not
       transaction prices.
+
+  bestbuy_brightdata:
+    name: Best Buy listings via Bright Data
+    owner: Bright Data (data provider); Best Buy (retailer)
+    url: https://brightdata.com/products/web-scraper
+    endpoint: https://api.brightdata.com/datasets/v3/trigger
+    licence: >-
+      Best Buy's website terms have not been read for this project yet, so reuse rights are
+      unconfirmed. Until they are, the rows are handled like Amazon's: never committed or
+      published, kept in a private Actions cache, and only derived tables reach the site.
+      Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights
+      in the collected data and makes the customer solely responsible for lawful use.
+    frequency: weekly collection
+    typical_lag: same day
+    status: amber
+    publish: derived
+    module: tech-value
+    terms_checked: unconfirmed
+    secret: BRIGHTDATA_API_KEY
+    notes: >-
+      Added 14 November 2026. One keyword search per benchmarked model, five results each,
+      about 400 records a run. Collection is slow (over 20 minutes for four searches in the
+      first test) and about a third of the first test's records were collector timeouts.
+      Only bare parts sold by Best Buy itself count. Listing prices, not transaction prices.

@@ -65,3 +65,38 @@ def test_only_amazon_or_the_brand_itself_counts_as_new():
     ]
     rows = brightdata.parse(records, {("cpu", "amd ryzen 7 5700x")}, "2026-11-14")
     assert [r["sku"] for r in rows] == ["A1", "B1"]
+
+
+def test_bestbuy_keeps_new_parts_sold_by_best_buy_itself(fixtures):
+    records = json.loads((fixtures / "brightdata_bestbuy_sample.json").read_text())
+    wanted = {("cpu", "amd ryzen 7 9800x3d"), ("gpu", "nvidia rtx 5070")}
+    rows = brightdata.parse_bestbuy(records, wanted, "2026-11-14")
+    # Not the whole PC, the 5060 Ti nobody asked for, the marketplace seller, the refurbished
+    # card or the collector's timeout row.
+    assert [r["sku"] for r in rows] == ["1001", "1002"]
+    by_sku = {r["sku"]: r for r in rows}
+    assert by_sku["1001"]["sale_price"] == 879.99
+    assert by_sku["1001"]["source"] == "bestbuy_brightdata"
+    assert by_sku["1001"]["online_availability"]
+    assert not by_sku["1002"]["online_availability"]
+
+
+def test_both_stores_are_started_before_either_is_read(monkeypatch):
+    calls = []
+    wanted = [("gpu", "nvidia rtx 5070")]
+    monkeypatch.setenv("BRIGHTDATA_API_KEY", "k")
+    monkeypatch.setattr(brightdata.retail, "targets", lambda: wanted)
+    monkeypatch.setattr(brightdata, "start", lambda s, w: calls.append(("start", s)) or s)
+
+    def finish(store, snapshot, w, day):
+        calls.append(("finish", store))
+        raise brightdata.CollectError("not ready in time")
+
+    monkeypatch.setattr(brightdata, "finish", finish)
+    brightdata.main()  # a store that fails is a warning, not a crash
+    assert calls == [
+        ("start", "bestbuy"),
+        ("start", "amazon"),
+        ("finish", "amazon"),
+        ("finish", "bestbuy"),
+    ]

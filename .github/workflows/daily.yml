@@ -37,10 +37,10 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
 
-      - name: Restore the private Amazon price files (Actions cache, never committed)
+      - name: Restore the private Amazon and Best Buy price files (Actions cache, never committed)
         uses: actions/cache/restore@v4
         with:
-          path: data/store/tech_value/prices/*_amazon_brightdata.parquet
+          path: data/store/tech_value/prices/*_brightdata.parquet
           key: amazon-prices-${{ github.run_id }}
           restore-keys: amazon-prices-
 

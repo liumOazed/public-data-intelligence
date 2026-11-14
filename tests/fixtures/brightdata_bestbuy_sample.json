@@ -1,0 +1,72 @@
+[
+ {
+  "title": "GIGABYTE - NVIDIA GeForce RTX 5070 GAMING OC 12G GDDR7 PCI Express 5.0 Graphics Card - Black",
+  "url": "https://www.example.invalid/product/a",
+  "sku": "1001",
+  "final_price": "$879.99",
+  "currency": "USD",
+  "seller": "{\"name\": \"Best Buy\", \"url\": \"https://www.example.invalid/\"}",
+  "store_name": "Best Buy",
+  "brand": "GIGABYTE",
+  "availability_new": "In_stock",
+  "product_category": "Best Buy>Computers & Tablets>Computer Cards & Components>GPUs / Video Graphics Cards"
+ },
+ {
+  "title": "AMD - Ryzen 7 9800X3D 8-Core - 16-Thread 4.7 GHz (5.2 GHz Max Boost) Socket AM5 Unlocked Desktop Processor - Silver",
+  "url": "https://www.example.invalid/product/b",
+  "sku": "1002",
+  "final_price": "$479.00",
+  "currency": "USD",
+  "seller": {
+   "name": "Best Buy"
+  },
+  "brand": "AMD",
+  "availability_new": "Out_of_stock",
+  "product_category": "Best Buy>Computers & Tablets>Computer Cards & Components>CPUs / Processors"
+ },
+ {
+  "title": "CyberPowerPC - Gaming Desktop - AMD Ryzen 7 9800X3D 2024 - NVIDIA GeForce RTX 5070 12GB - 32GB DDR5 Memory - 2TB SSD Storage - Black",
+  "url": "https://www.example.invalid/product/c",
+  "sku": "1003",
+  "final_price": "$2,499.99",
+  "currency": "USD",
+  "seller": "{\"name\": \"Best Buy\", \"url\": \"https://www.example.invalid/\"}",
+  "availability_new": "In_stock",
+  "product_category": "Best Buy>Computers & Tablets>PC Gaming>Gaming Desktops"
+ },
+ {
+  "title": "PNY - NVIDIA GeForce RTX 5060 Ti Overclocked 8GB GDDR7 PCI Express 5.0 Graphics Card with Dual Fan - Black",
+  "url": "https://www.example.invalid/product/d",
+  "sku": "1004",
+  "final_price": "$499.99",
+  "currency": "USD",
+  "seller": "{\"name\": \"Best Buy\", \"url\": \"https://www.example.invalid/\"}",
+  "availability_new": "In_stock",
+  "product_category": "Best Buy>Computers & Tablets>Computer Cards & Components>GPUs / Video Graphics Cards"
+ },
+ {
+  "title": "ASUS - NVIDIA GeForce RTX 5070 12GB GDDR7 Graphics Card - Black",
+  "url": "https://www.example.invalid/product/e",
+  "sku": "1005",
+  "final_price": "$520.00",
+  "currency": "USD",
+  "seller": "{\"name\": \"Tech Outlet Marketplace\"}",
+  "availability_new": "In_stock",
+  "product_category": "Best Buy>Computers & Tablets>Computer Cards & Components>GPUs / Video Graphics Cards"
+ },
+ {
+  "title": "Geek Squad Certified Refurbished MSI - NVIDIA GeForce RTX 5070 12GB GDDR7 Graphics Card - Black",
+  "url": "https://www.example.invalid/product/f",
+  "sku": "1006",
+  "final_price": "$489.99",
+  "currency": "USD",
+  "seller": "{\"name\": \"Best Buy\", \"url\": \"https://www.example.invalid/\"}",
+  "availability_new": "In_stock",
+  "product_category": "Best Buy>Computers & Tablets>Computer Cards & Components>GPUs / Video Graphics Cards"
+ },
+ {
+  "input": "{\"url\": \"https://www.example.invalid/product/g\"}",
+  "error": "Crawler error: Timed out waiting for graphql response",
+  "error_code": "timeout"
+ }
+]

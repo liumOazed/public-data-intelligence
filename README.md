@@ -35,13 +35,14 @@ one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not in
   found prices for 34 of the 80 most-benchmarked models on its first run. It reads robots.txt
   on every run, says what it is and does nothing to get past a bot wall. Zones and PCNation
   turned out to be unusable, and a probe of 30 more stores found none that lists parts, so
-  the crawler covers one store. Amazon US listings are added once a week through Bright Data's
-  Web Scraper API (secret `BRIGHTDATA_API_KEY`, free allowance of 5,000 records a month, about
-  1,700 used). Raw Amazon rows are never committed: Amazon's terms exclude collecting and
-  reusing its prices, so they live in a private Actions cache and only the derived tables
+  the crawler covers one store. Amazon US and Best Buy listings are added once a week through
+  Bright Data's Web Scraper API (secret `BRIGHTDATA_API_KEY`, free allowance of 5,000 records
+  a month, about 3,500 used by both). Raw Amazon and Best Buy rows are never committed:
+  Amazon's terms exclude collecting and reusing its prices, and Best Buy's rows are treated
+  the same way, so they live in a private Actions cache and only the derived tables
   (lowest price per model, history, fair price) are published. The ranking shows the lowest listing, the median listing
   and the number of stores.
-- The Best Buy API collector is built but inactive: Best Buy issues keys to company email
+- The collector for Best Buy's own API is built but inactive: Best Buy issues keys to company email
   addresses only. eBay's API licence does not allow stored price history or price statistics.
 - The test samples in [`tests/fixtures/`](tests/fixtures/README.md) are still hand-written.
 - Nobody has read the reuse terms of SPEC or Blender Open Data yet. Each is marked

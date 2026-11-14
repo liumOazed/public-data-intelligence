@@ -71,13 +71,16 @@ AUTOML_PRESET = "medium_quality"
 # A listing priced under this share of the model's median listing is ignored as a likely mislabel.
 MIN_SHARE_OF_MEDIAN_PRICE = 0.5
 
-# Bright Data Web Scraper API (Amazon US search by keyword). Every delivered record is billed
-# against a free monthly allowance of 5,000, so results per model are capped.
+# Bright Data Web Scraper API (Amazon US and Best Buy search by keyword). Every delivered
+# record is billed against a free monthly allowance of 5,000, so results per model are capped.
 BRIGHTDATA_API = "https://api.brightdata.com/datasets/v3"
 BRIGHTDATA_KEY_ENV = "BRIGHTDATA_API_KEY"
 BRIGHTDATA_AMAZON_DATASET = "gd_l7q7dkf244hwjntr0"
 BRIGHTDATA_RESULTS_PER_MODEL = 5
 BRIGHTDATA_WAIT_S = 20 * 60
+BRIGHTDATA_BESTBUY_DATASET = "gd_ltre1jqe1jfr7cccf"
+# Best Buy pages are slow to collect: four searches took over 20 minutes in the first test.
+BRIGHTDATA_BESTBUY_WAIT_S = 60 * 60
 
 # A source that is collected weekly still counts on the days between its runs.
 PRICE_MAX_AGE_DAYS = 8
