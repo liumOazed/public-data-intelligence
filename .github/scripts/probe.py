@@ -8,57 +8,62 @@ import requests
 from bs4 import BeautifulSoup
 
 UA = "pdi-research-bot/0.1 (+https://github.com/liumOazed/public-data-intelligence)"
-URLS = [
-    "https://www.zones.com/site/locate/refine.html?txt_search=rtx+5070",
-    "https://www.pcnation.com/web/search?q=rtx+5070",
-    "https://www.pcnation.com/?q=rtx%205070",
-]
 
 
-def path(el, depth=5):
-    out = []
-    while el is not None and el.name and len(out) < depth:
-        cls = ".".join(el.get("class", [])[:3])
-        out.append(f"{el.name}{'.' + cls if cls else ''}")
-        el = el.parent
-    return " < ".join(out)
-
-
-for url in URLS:
+def get(url):
     host = url.split("/")[2]
     rp = urllib.robotparser.RobotFileParser()
-    try:
-        r = requests.get(f"https://{host}/robots.txt", headers={"User-Agent": UA}, timeout=30)
-        rp.parse(r.text.splitlines())
-        print(f"\n===== {url}\nrobots {r.status_code} allowed={rp.can_fetch(UA, url)}")
-        if not rp.can_fetch(UA, url):
-            continue
-        time.sleep(2)
-        r = requests.get(url, headers={"User-Agent": UA}, timeout=40)
-    except Exception as e:  # noqa: BLE001
-        print("error", e)
-        continue
-    html = r.text
-    print("status", r.status_code, "bytes", len(html), "final", r.url)
-    soup = BeautifulSoup(html, "html.parser")
-    print("title", soup.title.string if soup.title else None)
-    print("ld+json blocks", len(soup.select('script[type="application/ld+json"]')))
-    seen = {}
-    for node in soup.find_all(string=re.compile(r"\$\s?\d[\d,]*\.\d\d")):
-        p = path(node.parent)
-        seen[p] = seen.get(p, 0) + 1
-    for p, n in sorted(seen.items(), key=lambda x: -x[1])[:8]:
-        print("PRICE", n, p)
-    seen = {}
-    for a in soup.find_all("a", string=re.compile(r"5070", re.I)):
-        p = path(a) + " href=" + str(a.get("href"))[:60]
-        seen[path(a)] = (seen.get(path(a), (0, ""))[0] + 1, p)
-    for _, (n, p) in sorted(seen.items(), key=lambda x: -x[1][0])[:6]:
-        print("LINK", n, p)
-    m = re.search(r"\$\s?\d[\d,]*\.\d\d", html)
-    if m:
-        s = max(0, m.start() - 3500)
-        print("SNIPPET", re.sub(r"\s+", " ", html[s : m.start() + 1500]))
-    for pat in ("__NEXT_DATA__", "application/json", "api/", "algolia", "searchspring", "klevu"):
-        print("has", pat, pat in html)
+    r = requests.get(f"https://{host}/robots.txt", headers={"User-Agent": UA}, timeout=30)
+    rp.parse(r.text.splitlines())
+    print(f"\n===== {url}\nallowed={rp.can_fetch(UA, url)}")
+    if not rp.can_fetch(UA, url):
+        return None
     time.sleep(2)
+    r = requests.get(url, headers={"User-Agent": UA}, timeout=40)
+    print("status", r.status_code, "bytes", len(r.text), "final", r.url)
+    return r.text
+
+
+def squash(s):
+    return re.sub(r"\s+", " ", s)
+
+
+for q in ("rtx+5070", "ryzen+7+9800x3d"):
+    for page in ("refine", "search"):
+        html = get(f"https://www.zones.com/site/locate/{page}.html?txt_search={q}")
+        if not html:
+            continue
+        soup = BeautifulSoup(html, "html.parser")
+        prods = soup.select(".js-product")
+        print(
+            "js-product blocks",
+            len(prods),
+            "h1",
+            [h.get_text(" ", strip=True) for h in soup.select("h1")][:3],
+        )
+        for p in prods[:2]:
+            for t in p.select("svg, script, style, img"):
+                t.decompose()
+            print("BLOCK", squash(str(p))[:3500])
+        for p in prods[:25]:
+            a = p.select_one("a[href]")
+            pr = p.select_one(".product-price")
+            print(
+                "ROW",
+                squash(p.get_text(" ", strip=True))[:110],
+                "|",
+                pr.get_text(" ", strip=True) if pr else None,
+                "|",
+                a.get("href")[:70] if a else None,
+            )
+
+html = get("https://www.pcnation.com/?q=rtx%205070") or ""
+for m in list(re.finditer(r"api/", html))[:12]:
+    print("API", squash(html[max(0, m.start() - 150) : m.start() + 150]))
+print(
+    "SCRIPTS", [s.get("src") for s in BeautifulSoup(html, "html.parser").select("script[src]")][:25]
+)
+r = requests.get("https://www.pcnation.com/robots.txt", headers={"User-Agent": UA}, timeout=30)
+print("PCN ROBOTS", squash(r.text)[:1500])
+r = requests.get("https://www.zones.com/robots.txt", headers={"User-Agent": UA}, timeout=30)
+print("ZONES ROBOTS", squash(r.text)[:1500])
