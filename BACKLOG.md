@@ -5,8 +5,8 @@ built, and are looked at again when the current module meets its exit criterion.
 
 ## Tech Value
 
-- Find a US price source whose terms allow stored daily prices. Best Buy needs a company
-  email for a key. eBay's API licence rules out price history and price statistics.
+- Add parsers for Zones and PCNation, which allow crawling and answered the probe.
+- Read Central Computers' terms of use and record the date in the registry.
 - Find out why about 14% of Blender Open Data launches are unreadable by the parser.
 
 - Replace the hand-written test samples in `tests/fixtures/` with small slices of real

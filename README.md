@@ -10,7 +10,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 | Order | Module | Status |
 |---|---|---|
 | 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Built; pipeline and failure Issue proven on GitHub, Pages deploy not yet run |
-| 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks and model run on live data; **no price source yet** (see below) |
+| 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks, model and price crawler run on live data; prices come from one small retailer (see below) |
 | 2 | Macro Monitor | Not started |
 | 3 | Trade and Supply Chain | Not started |
 | 4 | Federal Procurement | Not started |
@@ -28,12 +28,15 @@ one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not in
   (an AutoGluon ensemble) and 0.102 for the plain regression, against a fold spread of 0.143.
   The plain regression was not the pick and the pick was not changed afterwards; see the
   failures log on the site.
-- **There is no price source.** Best Buy only issues API keys to company email addresses, and
-  eBay's API licence does not allow stored price history, price statistics or price modelling.
-  The Best Buy collector is built and tested on a hand-written sample only; it has never run
-  live and its two category ids are from memory. The value page shows benchmark scores and
-  says no prices have been collected. Exit criteria 2 and 3 below stay open until a permitted
-  price source exists.
+- **Prices come from a crawler, and coverage is thin.** Of 24 US retailers tested from
+  GitHub's servers on 14 November 2026, 17 answered with a bot wall or not at all (Newegg,
+  Amazon, Best Buy, Walmart, B&H, Micro Center among them), 4 disallow search pages in
+  robots.txt, and 3 could be used. The crawler covers one of those, Central Computers, and
+  found prices for 36 of the 80 most-benchmarked models on its first run. It reads robots.txt
+  on every run, says what it is and does nothing to get past a bot wall. Zones and PCNation
+  answered too but their pages are not parsed yet.
+- The Best Buy API collector is built but inactive: Best Buy issues keys to company email
+  addresses only. eBay's API licence does not allow stored price history or price statistics.
 - The test samples in [`tests/fixtures/`](tests/fixtures/README.md) are still hand-written.
 - Nobody has read the reuse terms of SPEC or Blender Open Data yet. Each is marked
   `terms_checked: unconfirmed` in [`sources/registry.yaml`](sources/registry.yaml).
@@ -68,7 +71,7 @@ failures log.
 These are the steps only the repository owner can do.
 
 1. **Enable Pages.** Settings, Pages, set *Source* to **GitHub Actions**.
-2. **Prices are optional for now.** If you get a Best Buy API key (it needs a company email
+2. **Nothing to set up for prices.** The crawler needs no key. If you later get a Best Buy API key (it needs a company email
    address), add it as the `BESTBUY_API_KEY` Actions secret and read Best Buy's API terms on
    caching and display first. Without it the daily run skips the price collector with a
    warning.
