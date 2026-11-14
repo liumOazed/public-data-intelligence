@@ -57,5 +57,5 @@ sources:
     terms_checked: unconfirmed
     secret: BESTBUY_API_KEY
     notes: >-
-      Listing prices at one US retailer, not transaction prices. Needs a free API key stored as an
-      Actions secret. Daily prices cannot be backfilled, so this collector should run from day one.
+      Not collecting. Best Buy issues API keys to company email addresses only, so there is no
+      key yet. Listing prices at one US retailer, not transaction prices. Daily prices cannot be backfilled, so this collector should run from day one.

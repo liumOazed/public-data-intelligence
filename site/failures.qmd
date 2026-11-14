@@ -9,7 +9,7 @@ will look significant by chance, so the count of attempts is part of every resul
 
 | Date | Module | What was tried | Outcome |
 |---|---|---|---|
-| | | Nothing has been tested against live data yet. | |
+| 2026-11-14 | Tech Value | First live evaluation: cores-times-clock baseline, plain regression and AutoGluon on 13,388 SPEC results. | Validation picked the AutoGluon ensemble. On the holdout it beat the baseline (0.222 against 0.488 mean absolute log error, fold spread 0.143), so the test passes. The plain regression, which validation did not pick, scored 0.102 on the same holdout. The pick was not changed after seeing this: choosing by holdout score would turn the holdout into a tuning set. |
 
 ## Collector repairs
 
@@ -18,4 +18,4 @@ or dropped.
 
 | Date | Source | What broke | Fix |
 |---|---|---|---|
-| | | No repairs yet. | |
+| 2026-11-14 | SPEC CPU 2017 | First live run stopped: the schema rejected a result with a 2007 hardware-availability date. | The lower bound was too tight (2010). SPEC CPU 2017 has been run on older hardware; bound moved to 2000. |

@@ -9,8 +9,8 @@ GitHub Actions. There is no server, no database and no Streamlit.
 
 | Order | Module | Status |
 |---|---|---|
-| 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Built, not yet run on GitHub |
-| 1 | **Tech Value**: CPU and GPU performance per dollar, and which processors beat their specifications | Built, **not yet run against live data** (see below) |
+| 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Built; pipeline and failure Issue proven on GitHub, Pages deploy not yet run |
+| 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks and model run on live data; **no price source yet** (see below) |
 | 2 | Macro Monitor | Not started |
 | 3 | Trade and Supply Chain | Not started |
 | 4 | Federal Procurement | Not started |
@@ -20,18 +20,23 @@ one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not in
 
 ### What has and has not been checked
 
-- The parsers, the model, the join and the export are covered by tests, and the site renders.
-- **No collector has run against its live source yet.** The environment this was built in
-  could not reach `spec.org`, `opendata.blender.org` or `api.bestbuy.com`. The parsers were
-  written from knowledge of each format and tested on hand-written samples
-  ([`tests/fixtures/`](tests/fixtures/README.md)). The first weekly run on GitHub is the real
-  test. Each collector validates what it gets and stops with an Issue if the format is not
-  what it expects, so a wrong assumption shows up as a failed run, not as wrong numbers.
-- The two Best Buy category ids in `pdi/tech_value/config.py` are from memory and need
-  checking against the live category API.
-- Nobody has read the reuse terms of any source yet. Each is marked `terms_checked:
-  unconfirmed` in [`sources/registry.yaml`](sources/registry.yaml). Best Buy's API terms in
-  particular restrict caching and display of prices; read them before sharing the price pages.
+- **SPEC and Blender collectors run against the live sources** (first on 14 November 2026:
+  13,388 SPEC results, 348,813 usable Blender launches). About 14% of Blender launches could
+  not be read by the parser; the reason has not been looked into yet.
+- **The model test passed on live data.** On the newest generation, mean absolute log error
+  was 0.488 for the cores-times-clock baseline, 0.222 for the model validation picked
+  (an AutoGluon ensemble) and 0.102 for the plain regression, against a fold spread of 0.143.
+  The plain regression was not the pick and the pick was not changed afterwards; see the
+  failures log on the site.
+- **There is no price source.** Best Buy only issues API keys to company email addresses, and
+  eBay's API licence does not allow stored price history, price statistics or price modelling.
+  The Best Buy collector is built and tested on a hand-written sample only; it has never run
+  live and its two category ids are from memory. The value page shows benchmark scores and
+  says no prices have been collected. Exit criteria 2 and 3 below stay open until a permitted
+  price source exists.
+- The test samples in [`tests/fixtures/`](tests/fixtures/README.md) are still hand-written.
+- Nobody has read the reuse terms of SPEC or Blender Open Data yet. Each is marked
+  `terms_checked: unconfirmed` in [`sources/registry.yaml`](sources/registry.yaml).
 
 ## Tech Value exit criterion
 
@@ -63,13 +68,15 @@ failures log.
 These are the steps only the repository owner can do.
 
 1. **Enable Pages.** Settings, Pages, set *Source* to **GitHub Actions**.
-2. **Add the price API key.** Register at <https://developer.bestbuy.com/>, then Settings,
-   Secrets and variables, Actions, add `BESTBUY_API_KEY`. Until it exists the daily run skips
-   the price collector with a warning and the value page says no prices have been collected.
-   Daily prices cannot be backfilled, so this is the one step with a deadline.
+2. **Prices are optional for now.** If you get a Best Buy API key (it needs a company email
+   address), add it as the `BESTBUY_API_KEY` Actions secret and read Best Buy's API terms on
+   caching and display first. Without it the daily run skips the price collector with a
+   warning.
 3. **Run the weekly workflow once by hand.** Actions, *Weekly benchmarks and model selection*,
    Run workflow. It collects SPEC and Blender data, trains AutoGluon, commits the derived
    tables and deploys the site. If it fails, it opens an Issue that says which step broke.
+   A manual run on any branch other than `main` is a dry run: it tests the pipeline and
+   publishes nothing.
 4. If `main` is protected, allow `github-actions[bot]` to push to it. The scheduled jobs commit
    derived tables to `main`.
 
