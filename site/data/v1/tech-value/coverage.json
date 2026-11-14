@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-14T13:47:29+00:00",
+  "generated_at": "2026-11-14T13:56:09+00:00",
   "rows": 2,
   "columns": [
    "kind",

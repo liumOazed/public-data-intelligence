@@ -1,0 +1,111 @@
+---
+title: "Tech Value: fair price"
+subtitle: "Which parts cost less, or more, than their benchmark performance predicts"
+---
+
+```{python}
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+# Bundle the table script into the page instead of loading it from a CDN.
+init_notebook_mode(connected=False)
+
+parts, meta = site.load("tech-value", "fair_price")
+board, board_meta = site.load("tech-value", "fair_price_leaderboard")
+verdicts = meta.get("verdicts") or {}
+threshold = meta.get("gap_pct_threshold")
+KINDS = {"gpu": "Graphics cards", "cpu": "Processors"}
+```
+
+A **fair price** is the price a part would have if price followed its
+[Blender benchmark](https://opendata.blender.org/) score and nothing else. The **gap** is how
+far the lowest listing is from that price: a negative gap means the part is cheap for the
+rendering performance it delivers.
+
+The fair price for a part always comes from a fit that never saw that part. Several models
+compete, and a naive baseline (every part costs the same per point of score) is always on the
+leaderboard. A model only replaces the baseline when it clearly beats it.
+
+```{python}
+#| output: asis
+for kind, label in KINDS.items():
+    v = verdicts.get(kind)
+    if v:
+        print(f'::: {{.verdict}}\n**{label}: does a model beat the baseline?** {v["statement"]}\n:::\n')
+```
+
+A gap is a question, not an answer. Blender measures rendering only. A processor built for
+games, or a graphics card with more memory, can cost more than its rendering score predicts
+and still be priced sensibly. Graphics cards also run on different Blender backends, which
+favours NVIDIA, so AMD and Intel cards look expensive here for that reason alone.
+
+```{python}
+def section(kind: str):
+    part = parts[parts["kind"] == kind] if len(parts) else parts
+    if part.empty:
+        return Markdown(site.empty_state(meta, KINDS[kind]))
+    fig = px.scatter(
+        part, x="score", y="price_usd", color="reading", symbol="confidence",
+        hover_name="model_key", log_x=True, log_y=True,
+        hover_data={"fair_price_usd": ":.0f", "gap_pct": ":.0f", "n_listings": True},
+        category_orders={"reading": ["below fair price", "near fair price", "above fair price"]},
+        labels={"score": "Blender score (log scale)", "price_usd": "Lowest listing, USD (log scale)",
+                "reading": "Reading", "confidence": "Listings"},
+    )
+    line = part.sort_values("score")
+    fig.add_scatter(x=line["score"], y=line["fair_price_usd"], mode="lines",
+                    line=dict(dash="dot", width=1), name="Fair price", hoverinfo="skip")
+    fig.update_layout(margin=dict(t=20))
+    fig.show()
+    names = {m["id"]: m["name"] for m in meta.get("sources", [])}
+    table = part.assign(Cheapest=[
+        f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
+        for key, url in zip(part["retailer"], part["listing_url"])
+    ])[["model_key", "gap_pct", "price_usd", "fair_price_usd", "reading", "confidence",
+        "n_listings", "Cheapest"]].rename(columns={
+        "model_key": "Model", "gap_pct": "Gap (%)", "price_usd": "Lowest price (USD)",
+        "fair_price_usd": "Fair price (USD)", "reading": "Reading",
+        "confidence": "Confidence", "n_listings": "Listings", "Cheapest": "Cheapest at",
+    }).round({"Gap (%)": 0, "Fair price (USD)": 0})
+    return show(table, paging=True, pageLength=25, order=[[1, "asc"]], showIndex=False,
+                classes="display compact", allow_html=True)
+```
+
+## Graphics cards
+
+```{python}
+section("gpu")
+```
+
+## Processors
+
+```{python}
+section("cpu")
+```
+
+A part with a **single listing** is shown but was not used to fit the fair price. One listing
+is often a marketplace seller's asking price for a part that is no longer made.
+
+## Leaderboard
+
+Error is measured by leaving each part out in turn and predicting its price from the others.
+
+```{python}
+if board.empty:
+    display(Markdown(site.empty_state(board_meta, "Fair price leaderboard")))
+else:
+    table = board.assign(kind=board["kind"].map(KINDS)).rename(columns={
+        "kind": "Parts", "model": "Model", "n_parts": "Parts fitted",
+        "mae_log": "Mean error (log)", "median_abs_pct_error": "Typical error (%)",
+        "used": "Used", "is_baseline": "Baseline",
+    }).round({"Mean error (log)": 3, "Typical error (%)": 1})
+    show(table, paging=False, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+print(site.source_note(meta))
+```

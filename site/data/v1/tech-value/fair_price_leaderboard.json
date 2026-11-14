@@ -1,0 +1,156 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "fair_price_leaderboard",
+  "description": "Leave-one-out error of each fair price model, per kind of part, with the naive baseline.",
+  "generated_at": "2026-11-14T13:56:09+00:00",
+  "rows": 8,
+  "columns": [
+   "kind",
+   "model",
+   "n_parts",
+   "mae_log",
+   "median_abs_pct_error",
+   "used",
+   "is_baseline"
+  ],
+  "sources": [
+   {
+    "id": "amazon_brightdata",
+    "name": "Amazon US listings via Bright Data",
+    "url": "https://brightdata.com/products/web-scraper",
+    "licence": "Bright Data customer terms. Amazon's own conditions of use do not permit automated collection; Bright Data collects public listing pages as a commercial service. Terms have not been read in full.",
+    "frequency": "weekly collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-14T13:47:04+00:00"
+   },
+   {
+    "id": "centralcomputer",
+    "name": "Central Computers online store",
+    "url": "https://www.centralcomputer.com/",
+    "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
+    "frequency": "daily collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-14T13:43:01+00:00"
+   },
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "Published by Blender as public domain (CC0). Confirm on the site before relying on it.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-14T13:38:35+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "A fair price here means the price predicted from Blender rendering score alone. A part can cost more for reasons the benchmark does not measure, such as gaming performance, memory size or power draw.",
+   "Graphics cards are scored on different Blender backends (OptiX, HIP, oneAPI), which favours NVIDIA cards, so AMD and Intel cards look more expensive for their score.",
+   "The fit uses a few dozen parts. Gaps under the stated typical error are noise."
+  ],
+  "blender_version": "4.5",
+  "status": null,
+  "verdicts": {
+   "gpu": {
+    "used": "Naive baseline (same price per point)",
+    "best_challenger": "Random forest",
+    "n_parts": 20,
+    "mae_log_baseline": 0.326744504134312,
+    "mae_log_best": 0.3061954826714075,
+    "gain": 0.020549021462904493,
+    "gain_standard_error": 0.050908946328971375,
+    "beats_baseline": false,
+    "typical_error_pct": 33.140650572511355,
+    "statement": "No model clearly beats the same-price-per-point baseline on 20 parts, so the baseline sets the fair price. It is typically off by 33%, so read the gaps as rough."
+   },
+   "cpu": {
+    "used": "Naive baseline (same price per point)",
+    "best_challenger": null,
+    "n_parts": 25,
+    "mae_log_baseline": 0.2012678780801933,
+    "mae_log_best": 0.2012678780801933,
+    "gain": 0.0,
+    "gain_standard_error": 0.0,
+    "beats_baseline": false,
+    "typical_error_pct": 17.566848935348588,
+    "statement": "No model clearly beats the same-price-per-point baseline on 25 parts, so the baseline sets the fair price. It is typically off by 18%, so read the gaps as rough."
+   }
+  },
+  "gap_pct_threshold": 15.0
+ },
+ "data": [
+  {
+   "kind": "gpu",
+   "model": "Naive baseline (same price per point)",
+   "n_parts": 20,
+   "mae_log": 0.326744504134312,
+   "median_abs_pct_error": 33.140650572511355,
+   "used": true,
+   "is_baseline": true
+  },
+  {
+   "kind": "gpu",
+   "model": "Straight line (log price on log score)",
+   "n_parts": 20,
+   "mae_log": 0.36989851664802437,
+   "median_abs_pct_error": 31.61707518986233,
+   "used": false,
+   "is_baseline": false
+  },
+  {
+   "kind": "gpu",
+   "model": "Straight line with brand",
+   "n_parts": 20,
+   "mae_log": 0.34379213339917564,
+   "median_abs_pct_error": 36.256944983623455,
+   "used": false,
+   "is_baseline": false
+  },
+  {
+   "kind": "gpu",
+   "model": "Random forest",
+   "n_parts": 20,
+   "mae_log": 0.3061954826714075,
+   "median_abs_pct_error": 25.01458899859631,
+   "used": false,
+   "is_baseline": false
+  },
+  {
+   "kind": "cpu",
+   "model": "Naive baseline (same price per point)",
+   "n_parts": 25,
+   "mae_log": 0.2012678780801933,
+   "median_abs_pct_error": 17.566848935348588,
+   "used": true,
+   "is_baseline": true
+  },
+  {
+   "kind": "cpu",
+   "model": "Straight line (log price on log score)",
+   "n_parts": 25,
+   "mae_log": 0.20457974671935503,
+   "median_abs_pct_error": 14.65766087744492,
+   "used": false,
+   "is_baseline": false
+  },
+  {
+   "kind": "cpu",
+   "model": "Straight line with brand",
+   "n_parts": 25,
+   "mae_log": 0.21216740336011372,
+   "median_abs_pct_error": 17.157735152579093,
+   "used": false,
+   "is_baseline": false
+  },
+  {
+   "kind": "cpu",
+   "model": "Random forest",
+   "n_parts": 25,
+   "mae_log": 0.2938400944055279,
+   "median_abs_pct_error": 27.929481327505144,
+   "used": false,
+   "is_baseline": false
+  }
+ ]
+}
