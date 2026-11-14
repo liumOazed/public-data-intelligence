@@ -1,0 +1,46 @@
+name: Build and deploy site
+
+# Renders the Quarto site from the files under site/data/v1/ and publishes it to GitHub Pages.
+# Called at the end of the scheduled pipelines; can also be run by hand.
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The pipeline job that ran just before this one pushed new data to main.
+          ref: main
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra site
+      - uses: quarto-dev/quarto-actions/setup@v2
+      - name: Render
+        run: QUARTO_PYTHON="$PWD/.venv/bin/python" quarto render site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

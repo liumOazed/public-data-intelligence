@@ -1,0 +1,33 @@
+---
+title: "Public Data Intelligence"
+toc: false
+---
+
+Research pages built only from free, public data for the **United States** and six
+**Southeast Asian** economies: Indonesia, Vietnam, Thailand, Malaysia, the Philippines and
+Singapore. Everything here is computed by scheduled jobs before the site is published. There is
+no server behind these pages.
+
+## Modules
+
+| Order | Module | Question it answers | Status |
+|---|---|---|---|
+| 1 | [Tech Value](tech-value/index.qmd) | Which CPU or GPU gives the most performance per dollar at US retail today, and which ones beat what their specifications predict? | Live |
+| 2 | Macro Monitor | What moved this month in the US and the six Southeast Asian economies, and is the move unusual? | Not started |
+| 3 | Trade and Supply Chain | How is US demand shifting across Southeast Asian suppliers, by product? | Not started |
+| 4 | Federal Procurement | Where is US federal contract money moving, and who is winning it? | Not started |
+
+Modules are built one at a time, in this order. The next one does not start until the current
+one meets its exit criterion, which is written in the
+[repository README](https://github.com/liumOazed/public-data-intelligence#readme).
+
+## How to read these pages
+
+- Every table and chart carries its source, the date the data was retrieved, how often it
+  updates and what it cannot tell you.
+- Every model is shown next to a naive baseline. If the model does not beat the baseline, the
+  page says "no signal found".
+- A score or a flag here is a research lead. It is not advice.
+
+See [Methodology](methodology.qmd) for how each number is made and
+[Failures log](failures.qmd) for what was tried and did not work.

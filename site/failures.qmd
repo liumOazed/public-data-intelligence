@@ -1,0 +1,21 @@
+---
+title: "Failures log"
+---
+
+Everything that was tried and did not work, false alarms included. Test twenty signals and one
+will look significant by chance, so the count of attempts is part of every result.
+
+## Signals and models tried
+
+| Date | Module | What was tried | Outcome |
+|---|---|---|---|
+| | | Nothing has been tested against live data yet. | |
+
+## Collector repairs
+
+A source that needs more than two repairs in a month is downgraded to a manual monthly entry,
+or dropped.
+
+| Date | Source | What broke | Fix |
+|---|---|---|---|
+| | | No repairs yet. | |

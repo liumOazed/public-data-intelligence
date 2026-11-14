@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+# Raw snapshots are never committed or published. See methodology.
+data/raw/
+# AutoGluon model artefacts; only the leaderboard table is kept.
+data/models/
+# Quarto build output
+site/_site/
+site/.quarto/
+site/**/*_files/
+site/**/*.quarto_ipynb
+/.quarto/

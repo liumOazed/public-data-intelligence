@@ -1,0 +1,125 @@
+---
+title: "Tech Value: model and leaderboard"
+subtitle: "What was tried, how it was tested, and whether it beats the naive baseline"
+---
+
+```{python}
+import plotly.express as px
+from IPython.display import Markdown
+
+from pdi import site
+
+board, meta = site.load("tech-value", "leaderboard")
+holdout, hold_meta = site.load("tech-value", "holdout")
+folds, fold_meta = site.load("tech-value", "folds")
+coef, coef_meta = site.load("tech-value", "coefficients")
+verdict = hold_meta.get("verdict") or {}
+automl = meta.get("automl")
+```
+
+## Result
+
+```{python}
+#| output: asis
+if not verdict:
+    print(site.empty_state(hold_meta, "Model result"))
+else:
+    print(f'::: {{.verdict}}\n**{verdict["statement"]}**\n\n'
+          f'Holdout error (mean absolute error in log score): baseline '
+          f'{verdict["holdout_mae_log_baseline"]:.3f}, picked model '
+          f'{verdict["holdout_mae_log_picked"]:.3f}. Improvement '
+          f'{verdict["holdout_improvement"]:.3f} against a fold-to-fold spread of '
+          f'{verdict["fold_spread"]:.3f}.\n\n'
+          f'Published model: **{verdict["published_model"]}**.\n:::')
+```
+
+The test, written before any result was seen: a model trained on older processor generations
+must predict the newest generation better than a **cores-times-clock baseline**, by more than
+the spread between time-ordered folds. If it does not, the baseline is published and the page
+says "no signal found".
+
+```{python}
+#| output: asis
+if verdict:
+    c = meta["counts"]
+    print("| Period | Processors first available | Results | Processors | Used for |\n|---|---|---|---|---|")
+    print(f'| Train | before {meta["valid_start"]} | {c["train"]["results"]:,} | {c["train"]["processors"]:,} | fitting every model |')
+    print(f'| Validation | {meta["valid_start"]} to {meta["holdout_start"]} | {c["validation"]["results"]:,} | {c["validation"]["processors"]:,} | ranking models and making the pick |')
+    print(f'| Holdout | from {meta["holdout_start"]} | {c["holdout"]["results"]:,} | {c["holdout"]["processors"]:,} | one score, after the pick |')
+```
+
+## Holdout: the newest generation
+
+Scored once, for the baseline, the plain regression and the single model the leaderboard
+picked. The leaderboard below is not the result; this table is.
+
+```{python}
+if not holdout.empty:
+    display(Markdown(holdout.assign(published=holdout["published"].map({True: "Yes", False: ""}))
+        [["model", "n_results", "mae_log", "median_abs_pct_error", "published"]]
+        .rename(columns={"model": "Model", "n_results": "Results", "mae_log": "MAE (log score)",
+                         "median_abs_pct_error": "Median abs. error %", "published": "Published"})
+        .to_markdown(index=False, floatfmt=".3f")))
+```
+
+## Leaderboard (validation period)
+
+Every model tried, ranked on the validation period. The naive baseline is always a row.
+
+```{python}
+if not board.empty:
+    cols = {"rank": "Rank", "model": "Model", "mae_log": "MAE (log score)",
+            "median_abs_pct_error": "Median abs. error %", "n_results": "Results"}
+    if "fit_time_s" in board.columns:
+        cols["fit_time_s"] = "Fit time (s)"
+    display(Markdown(board[list(cols)].rename(columns=cols).to_markdown(
+        index=False, floatfmt=".3f", missingval="")))
+```
+
+```{python}
+#| output: asis
+if not board.empty:
+    if automl:
+        print(f'AutoGluon {automl["autogluon_version"]} last trained on {automl["trained_at"][:10]} '
+              f'with the `{automl["preset"]}` preset, a {automl["time_limit_s"]}-second limit, '
+              f'on CPU, over {automl["n_spec_results"]:,} results. It retrains weekly, not on every run.')
+    else:
+        print("AutoGluon has not been trained yet. The leaderboard shows the baseline and the "
+              "plain regression only until the weekly training job has run.")
+```
+
+## Fold-to-fold spread
+
+Expanding-window folds inside the period before the holdout. Each fold trains on everything
+earlier and tests on the next block of processors. The standard deviation of the improvement
+column is the noise level the holdout improvement has to clear.
+
+```{python}
+if not folds.empty:
+    display(Markdown(folds.rename(columns={
+        "fold": "Fold", "train_until": "Trained on processors before", "n_train": "Train results",
+        "n_test": "Test results", "baseline_mae_log": "Baseline MAE", "plain_mae_log": "Plain MAE",
+        "improvement": "Improvement"}).to_markdown(index=False, floatfmt=".3f")))
+```
+
+## The plain regression
+
+The ranking of over- and under-performers uses this model, not the AutoML winner, because
+every term in it can be read. The AutoML score only shows how much signal the plain model
+leaves behind. Features are in logs, so the coefficient on `log_cores` is an elasticity: the
+percentage change in score for a one percent change in core count.
+
+```{python}
+if not coef.empty:
+    display(Markdown(coef.rename(columns={"term": "Term", "coefficient": "Coefficient",
+        "std_error": "Std. error", "p_value": "p-value"}).to_markdown(index=False, floatfmt=".4f")))
+```
+
+```{python}
+#| output: asis
+if not coef.empty:
+    print(f'R² {coef_meta["r_squared"]:.3f} on {coef_meta["n_results"]:,} results, fitted on all '
+          f'periods for description only. The standard errors treat results as independent, '
+          f'which they are not (many results share a processor), so they are too small.')
+print(site.source_note(meta))
+```

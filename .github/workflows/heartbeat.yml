@@ -1,0 +1,40 @@
+name: Heartbeat
+
+# Never assume the cron ran. GitHub disables scheduled workflows after 60 days without repo
+# activity and can skip runs under load. This opens an Issue when the daily pipeline has had
+# no successful run for 48 hours.
+
+on:
+  schedule:
+    - cron: "5 21 * * *" # 21:05 UTC every day, about twelve hours after the daily run
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the last successful daily run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          last=$(gh run list --workflow daily.yml --status success --limit 1 \
+            --json createdAt --jq '.[0].createdAt // empty')
+          if [ -z "$last" ]; then
+            age_h=9999
+          else
+            age_h=$(( ( $(date -u +%s) - $(date -u -d "$last" +%s) ) / 3600 ))
+          fi
+          echo "last successful daily run: ${last:-never} (${age_h}h ago)"
+          if [ "$age_h" -gt 48 ]; then
+            .github/scripts/open_issue.sh "Heartbeat: no successful daily run in 48 hours" \
+              "Last successful run of the daily pipeline: ${last:-never}. Checked $(date -u +%FT%TZ). If the schedule was disabled, re-enable it under Actions."
+            exit 1
+          fi

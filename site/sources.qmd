@@ -1,0 +1,21 @@
+---
+title: "Sources"
+---
+
+Every source the pipeline touches, from the
+[source registry](https://github.com/liumOazed/public-data-intelligence/blob/main/sources/registry.yaml).
+Green sources are free, programmatic and stable. Amber sources are public but awkward, or
+their reuse terms still need reading. Raw responses are never published; only derived tables
+and charts are, with attribution.
+
+```{python}
+from IPython.display import Markdown
+
+from pdi import site
+
+Markdown(site.registry_table().drop(columns=["id"]).to_markdown(index=False))
+```
+
+"Unconfirmed" under *Terms last read* means nobody has read that source's terms yet and the
+entry was written from memory. Those need reading before the pages built on them are shared
+widely.

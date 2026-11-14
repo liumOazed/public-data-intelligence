@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: _site
+  # The data contract is published as-is so anyone can check a number against its file.
+  resources:
+    - "data/v1/**"
+
+website:
+  title: "Public Data Intelligence"
+  description: "Research pages built from free public data for the United States and Southeast Asia."
+  repo-url: https://github.com/liumOazed/public-data-intelligence
+  repo-actions: [source]
+  navbar:
+    left:
+      - text: "Tech Value"
+        menu:
+          - text: "Value ranking"
+            href: tech-value/index.qmd
+          - text: "Over- and under-performers"
+            href: tech-value/residuals.qmd
+          - text: "Model and leaderboard"
+            href: tech-value/model.qmd
+      - text: "Methodology"
+        href: methodology.qmd
+      - text: "Sources"
+        href: sources.qmd
+      - text: "Failures log"
+        href: failures.qmd
+  page-footer:
+    center: >-
+      Research output, not advice. Every number is rebuilt from public sources by a scheduled
+      job; see Methodology.
+
+format:
+  html:
+    theme:
+      light: [cosmo, styles.scss]
+      dark: [darkly, styles.scss]
+    toc: true
+    page-layout: full
+    code-fold: true
+    code-tools: false
+
+execute:
+  echo: false
+  warning: false
+  # Always re-run: the pages are only as fresh as the files they read.
+  freeze: false
+  cache: false
+
+jupyter: python3
