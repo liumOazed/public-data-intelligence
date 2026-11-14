@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-14T13:47:29+00:00",
+  "generated_at": "2026-11-14T13:56:09+00:00",
   "rows": 70,
   "columns": [
    "date",

@@ -12,7 +12,7 @@ import json
 import pandas as pd
 
 from pdi.common.export import write_table
-from pdi.tech_value import config, model, value
+from pdi.tech_value import config, fair_price, model, value
 
 M = config.MODULE
 SPEC_LIMITS = [
@@ -31,6 +31,14 @@ PRICE_LIMITS = [
 BLENDER_LIMITS = [
     "Blender Open Data is crowd-submitted: cooling, memory and drivers are not controlled.",
     "Scores come from a single Blender version and are never combined across versions.",
+]
+FAIR_LIMITS = [
+    "A fair price here means the price predicted from Blender rendering score alone. A part "
+    "can cost more for reasons the benchmark does not measure, such as gaming performance, "
+    "memory size or power draw.",
+    "Graphics cards are scored on different Blender backends (OptiX, HIP, oneAPI), which "
+    "favours NVIDIA cards, so AMD and Intel cards look more expensive for their score.",
+    "The fit uses a few dozen parts. Gaps under the stated typical error are noise.",
 ]
 
 
@@ -136,6 +144,31 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         description="Latest US retail price per model joined to its Blender benchmark score.",
         limitations=PRICE_LIMITS + BLENDER_LIMITS,
         **common,
+    )
+    fair = fair_price.evaluate(table)
+    fair_extra = {
+        **extra,
+        "verdicts": fair.verdicts,
+        "gap_pct_threshold": config.FAIR_PRICE_GAP_PCT,
+    }
+    write_table(
+        M,
+        "fair_price",
+        fair.parts,
+        description="Per part: the price its Blender score would predict, and how far the "
+        "lowest listing is from it. Predictions for parts with two or more listings come "
+        "from a fit that left that part out.",
+        limitations=PRICE_LIMITS + BLENDER_LIMITS + FAIR_LIMITS,
+        **{**common, "extra": fair_extra},
+    )
+    write_table(
+        M,
+        "fair_price_leaderboard",
+        fair.leaderboard,
+        description="Leave-one-out error of each fair price model, per kind of part, with "
+        "the naive baseline.",
+        limitations=FAIR_LIMITS,
+        **{**common, "extra": fair_extra},
     )
     write_table(
         M,

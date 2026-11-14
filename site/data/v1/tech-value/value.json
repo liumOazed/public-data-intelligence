@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "value",
   "description": "Latest US retail price per model joined to its Blender benchmark score.",
-  "generated_at": "2026-11-14T13:47:29+00:00",
+  "generated_at": "2026-11-14T13:56:02+00:00",
   "rows": 70,
   "columns": [
    "kind",
