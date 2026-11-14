@@ -153,3 +153,17 @@ def test_registry_is_complete():
 
 def test_api_keys_never_reach_disk():
     assert "SECRET" not in redact("https://api.bestbuy.com/v1/products?apiKey=SECRET&page=1")
+
+
+def test_a_price_far_below_the_median_cannot_set_the_headline():
+    prices = _prices().assign(source="store_a")
+    latest = prices[prices["date"] == prices["date"].max()]
+    row = latest[latest["model_key"] == "amd ryzen 9 7950x"].iloc[[0]]
+    extra = pd.concat(
+        [row.assign(sale_price=460.0, source="store_b"), row.assign(sale_price=90.0, sku="bad")]
+    )
+    bench, _ = value.benchmark_by_model(_blender())
+    top = value.value_table(pd.concat([prices, extra]), bench).iloc[0]
+    assert top["price_usd"] == 450.0 and top["n_ignored_low"] == 1
+    assert top["n_retailers"] == 2
+    assert top["median_price_usd"] >= top["price_usd"]

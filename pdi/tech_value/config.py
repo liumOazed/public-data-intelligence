@@ -67,3 +67,6 @@ VINTAGE_ORIGIN = "2017-01-01"
 
 AUTOML_TIME_LIMIT_S = 900
 AUTOML_PRESET = "medium_quality"
+
+# A listing priced under this share of the model's median listing is ignored as a likely mislabel.
+MIN_SHARE_OF_MEDIAN_PRICE = 0.5
