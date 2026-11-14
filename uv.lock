@@ -1617,6 +1617,7 @@ name = "pdi"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "beautifulsoup4" },
     { name = "duckdb" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
@@ -1647,6 +1648,7 @@ site = [
 [package.metadata]
 requires-dist = [
     { name = "autogluon-tabular", extras = ["lightgbm", "catboost", "xgboost"], marker = "extra == 'automl'", specifier = ">=1.2" },
+    { name = "beautifulsoup4", specifier = ">=4.12" },
     { name = "duckdb", specifier = ">=1.0" },
     { name = "itables", marker = "extra == 'site'", specifier = ">=2.0" },
     { name = "jupyter", marker = "extra == 'site'", specifier = ">=1.0" },

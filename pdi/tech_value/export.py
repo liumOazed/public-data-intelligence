@@ -22,7 +22,8 @@ SPEC_LIMITS = [
     "Scores are SPECrate 2017 Integer base. No other suite or metric is mixed in.",
 ]
 PRICE_LIMITS = [
-    "Prices are listing prices at one US retailer (Best Buy), not transaction prices.",
+    "Prices are listing prices at the retailers named, not transaction prices. Coverage is "
+    "limited to retailers that allow automated collection, so this is not the whole market.",
     "The price shown is the cheapest new listing available online on the collection date.",
     "Score per dollar measures rendering throughput per dollar. It is a research lead, "
     "not buying advice.",
@@ -117,14 +118,17 @@ def export_model(spec: pd.DataFrame) -> None:
 def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
     bench, version = value.benchmark_by_model(blender)
     table = value.value_table(prices, bench)
-    got = {"blender_opendata": _retrieved(blender), "bestbuy_products": _retrieved(prices)}
+    price_sources = sorted(prices["source"].dropna().unique()) if not prices.empty else []
+    got = {"blender_opendata": _retrieved(blender)}
+    for key in price_sources:
+        got[key] = _retrieved(prices[prices["source"] == key])
     status = []
     if prices.empty:
         status.append("No retail prices have been collected yet.")
     if blender.empty:
         status.append("Blender Open Data has not been collected yet.")
     extra = {"blender_version": version, "status": " ".join(status) or None}
-    common = dict(sources=["bestbuy_products", "blender_opendata"], retrieved_at=got, extra=extra)
+    common = dict(sources=[*price_sources, "blender_opendata"], retrieved_at=got, extra=extra)
     write_table(
         M,
         "value",

@@ -13,6 +13,7 @@ dependencies = [
     "pandera[pandas]>=0.20",
     "requests>=2.31",
     "pyyaml>=6",
+    "beautifulsoup4>=4.12",
 ]
 
 [project.optional-dependencies]

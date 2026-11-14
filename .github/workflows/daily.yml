@@ -28,7 +28,10 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
 
-      - name: Collect and tidy retail prices
+      - name: Collect retail prices (crawler)
+        run: uv run python -m pdi.tech_value.retail
+
+      - name: Collect retail prices (Best Buy API, skipped without a key)
         env:
           BESTBUY_API_KEY: ${{ secrets.BESTBUY_API_KEY }}
         run: uv run python -m pdi.tech_value.bestbuy
@@ -46,6 +49,9 @@ jobs:
         run: uv run python -m pdi.tech_value.export
 
       - name: Commit derived tables
+        # A manual run on another branch is a dry run: it tests the pipeline against live
+        # sources and publishes nothing.
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -59,7 +65,7 @@ jobs:
           fi
 
       - name: Open an Issue on failure
-        if: failure()
+        if: failure() && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -68,4 +74,5 @@ jobs:
 
   site:
     needs: pipeline
+    if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/site.yml

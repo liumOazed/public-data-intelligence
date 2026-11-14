@@ -76,7 +76,8 @@ TIDY_SCHEMA = pa.DataFrameSchema(
         "l2_mb_per_core": pa.Column(float, pa.Check.in_range(0, 64), nullable=True),
         "l3_mb_per_core": pa.Column(float, pa.Check.in_range(0, 512), nullable=True),
         "memory_gb": pa.Column(float, pa.Check.in_range(1, 65536), nullable=True),
-        "hw_avail": pa.Column("datetime64[ns]", pa.Check.ge(pd.Timestamp("2010-01-01"))),
+        # SPEC CPU 2017 has been run on hardware from as early as 2007.
+        "hw_avail": pa.Column("datetime64[ns]", pa.Check.ge(pd.Timestamp("2000-01-01"))),
         "base_score": pa.Column(float, pa.Check.in_range(0.5, 100000)),
     },
     strict=False,

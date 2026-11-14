@@ -57,5 +57,25 @@ sources:
     terms_checked: unconfirmed
     secret: BESTBUY_API_KEY
     notes: >-
-      Listing prices at one US retailer, not transaction prices. Needs a free API key stored as an
-      Actions secret. Daily prices cannot be backfilled, so this collector should run from day one.
+      Not collecting. Best Buy issues API keys to company email addresses only, so there is no
+      key yet. Listing prices at one US retailer, not transaction prices. Daily prices cannot be backfilled, so this collector should run from day one.
+
+  centralcomputer:
+    name: Central Computers online store
+    owner: Central Computers
+    url: https://www.centralcomputer.com/
+    endpoint: https://www.centralcomputer.com/catalogsearch/result/
+    licence: >-
+      No data licence. Public search pages are crawled where robots.txt allows it. Site terms of
+      use have not been read.
+    frequency: daily collection
+    typical_lag: same day
+    status: amber
+    publish: derived
+    module: tech-value
+    terms_checked: unconfirmed
+    notes: >-
+      A small US retailer (California). Collected by a crawler that reads robots.txt on every
+      run, identifies itself and waits between requests. Listing prices, not transaction prices,
+      and only what this one store stocks. Checked on 14 November 2026: robots.txt allowed the
+      search page and the site answered a plainly identified client.

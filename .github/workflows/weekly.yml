@@ -33,6 +33,9 @@ jobs:
       - name: Collect and tidy Blender Open Data
         run: uv run python -m pdi.tech_value.blender
 
+      - name: Collect retail prices (crawler)
+        run: uv run python -m pdi.tech_value.retail
+
       - name: Keep the small raw responses (never committed, never published)
         if: always()
         uses: actions/upload-artifact@v4
@@ -50,7 +53,21 @@ jobs:
       - name: Model and export
         run: uv run python -m pdi.tech_value.export
 
+      - name: Show the result
+        run: |
+          uv run python - <<'PY'
+          import json
+          d = json.load(open('site/data/v1/tech-value/holdout.json'))
+          print(json.dumps(d['meta'].get('verdict'), indent=1))
+          print(json.dumps(d['meta'].get('counts'), indent=1))
+          for row in d['data']:
+              print(row)
+          PY
+
       - name: Commit derived tables
+        # A manual run on another branch is a dry run: it tests the pipeline against live
+        # sources and publishes nothing.
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -64,7 +81,7 @@ jobs:
           fi
 
       - name: Open an Issue on failure
-        if: failure()
+        if: failure() && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -73,4 +90,5 @@ jobs:
 
   site:
     needs: pipeline
+    if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/site.yml

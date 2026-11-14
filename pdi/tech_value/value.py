@@ -17,7 +17,12 @@ def load_prices() -> pd.DataFrame:
     files = sorted(config.PRICES_DIR.glob("*.parquet")) if config.PRICES_DIR.exists() else []
     if not files:
         return pd.DataFrame()
-    return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
+    prices = pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
+    if "source" not in prices.columns:
+        prices["source"] = None
+    # Files written before sources were named came from the Best Buy API.
+    prices["source"] = prices["source"].fillna("bestbuy_products")
+    return prices
 
 
 def benchmark_by_model(blender: pd.DataFrame) -> tuple[pd.DataFrame, str | None]:
@@ -48,12 +53,15 @@ def benchmark_by_model(blender: pd.DataFrame) -> tuple[pd.DataFrame, str | None]
 def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
     """Latest price per model joined to its benchmark score.
 
-    Price is the cheapest new listing available online on the latest collection date.
+    Price is the cheapest new listing available online on the latest collection date, across
+    the retailers collected, with the retailer named beside it.
     Models with a price and no score stay in the table with an empty score, so coverage is
     visible instead of silently dropped.
     """
     if prices.empty:
         return pd.DataFrame()
+    if "source" not in prices.columns:
+        prices = prices.assign(source="bestbuy_products")
     con = duckdb.connect()
     con.register("prices", prices)
     if bench.empty:
@@ -82,6 +90,8 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
             SELECT category AS kind, model_key,
                    count(*) AS n_listings,
                    min(sale_price) AS price_usd,
+                   arg_min(source, sale_price) AS retailer,
+                   count(DISTINCT source) AS n_retailers,
                    arg_min(name, sale_price) AS listing_name,
                    arg_min(url, sale_price) AS listing_url,
                    arg_min(price_update_date, sale_price) AS price_date,
@@ -89,7 +99,8 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
                    max(date) AS collected_date
             FROM latest GROUP BY ALL
         )
-        SELECT c.kind, c.model_key, c.price_usd, c.price_date, c.collected_date,
+        SELECT c.kind, c.model_key, c.price_usd, c.retailer, c.n_retailers, c.price_date,
+               c.collected_date,
                c.regular_price_usd, c.n_listings, c.listing_name, c.listing_url,
                b.median_score AS score, b.p25_score, b.p75_score, b.n_runs,
                b.device_type AS backend, b.blender_version,
