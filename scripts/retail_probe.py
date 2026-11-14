@@ -15,14 +15,24 @@ import requests
 
 UA = "pdi-research-bot/0.1 (+https://github.com/liumOazed/public-data-intelligence)"
 SITES = {
-    "newegg": "https://www.newegg.com/p/pl?d=rtx+4070",
-    "bhphoto": "https://www.bhphotovideo.com/c/search?q=rtx%204070",
-    "microcenter": "https://www.microcenter.com/search/search_results.aspx?Ntt=rtx+4070",
-    "amazon": "https://www.amazon.com/s?k=rtx+4070",
-    "bestbuy": "https://www.bestbuy.com/site/searchpage.jsp?st=rtx+4070",
-    "walmart": "https://www.walmart.com/search?q=rtx+4070",
-    "adorama": "https://www.adorama.com/l/?searchinfo=rtx%204070",
-    "centralcomputer": "https://www.centralcomputer.com/catalogsearch/result/?q=rtx+4070",
+    "shopblt": "https://www.shopblt.com/cgi-bin/shop/shop.cgi?action=thispage&thispage=01100500U001_BMP3497P.shtml&order_id=!ORDERID!",
+    "shopblt_search": "https://www.shopblt.com/search/order_id=!ORDERID!&s_max=25&t_all=1&s_all=rtx+4070",
+    "provantage": "https://www.provantage.com/service/searchsvcs?QUERY=rtx+4070",
+    "antonline": "https://www.antonline.com/search?q=rtx+4070",
+    "superbiiz": "https://www.superbiiz.com/query.php?s=rtx+4070",
+    "connection": "https://www.connection.com/product/searchpage?SearchType=1&term=rtx+4070",
+    "cdw": "https://www.cdw.com/search/?key=rtx%204070",
+    "zones": "https://www.zones.com/site/locate/refine.html?txt_search=rtx+4070",
+    "pcnation": "https://www.pcnation.com/web/search?q=rtx+4070",
+    "neobits": "https://www.neobits.com/search?keywords=rtx+4070",
+    "directdial": "https://www.directdial.com/us/search/rtx%204070",
+    "gamestop": "https://www.gamestop.com/search/?q=rtx+4070",
+    "target": "https://www.target.com/s?searchTerm=rtx+4070",
+    "officedepot": "https://www.officedepot.com/a/search/?q=rtx+4070",
+    "staples": "https://www.staples.com/rtx+4070/directory_rtx%204070",
+    "dell": "https://www.dell.com/en-us/search/rtx%204070",
+    "amd_shop": "https://shop-us-en.amd.com/",
+    "centralcomputer_gpu": "https://www.centralcomputer.com/catalogsearch/result/?q=ryzen+9800x3d",
 }
 LD = re.compile(r"<script[^>]+application/ld\+json[^>]*>(.*?)</script>", re.S | re.I)
 PRICE = re.compile(r"\$\s?\d[\d,]*\.\d\d")
