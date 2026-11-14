@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "benchmarks",
   "description": "Blender benchmark median per recognised model, whether or not it has a price.",
-  "generated_at": "2026-11-14T07:58:18+00:00",
-  "rows": 472,
+  "generated_at": "2026-11-14T08:04:05+00:00",
+  "rows": 322,
   "columns": [
    "kind",
    "model_key",
@@ -202,17 +202,6 @@
    "p75_score": 6426.453045196155
   },
   {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 9700x",
-   "device_name": "AMD Ryzen 7 9700X 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 439,
-   "median_score": 309.29725789809453,
-   "p25_score": 287.95652619526675,
-   "p75_score": 324.9097709816117
-  },
-  {
    "kind": "gpu",
    "model_key": "nvidia rtx 4060",
    "device_name": "NVIDIA GeForce RTX 4060",
@@ -222,6 +211,17 @@
    "median_score": 3181.915702474297,
    "p25_score": 3088.225050614525,
    "p75_score": 3223.152286989188
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 9700x",
+   "device_name": "AMD Ryzen 7 9700X 8-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 439,
+   "median_score": 309.29725789809453,
+   "p25_score": 287.95652619526675,
+   "p75_score": 324.9097709816117
   },
   {
    "kind": "cpu",
@@ -422,17 +422,6 @@
    "p75_score": 2854.4864490510804
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core ultra 9 275hx",
-   "device_name": "Intel Core Ultra 9 275HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 229,
-   "median_score": 456.47817005694475,
-   "p25_score": 420.9721702574557,
-   "p75_score": 512.287162882292
-  },
-  {
    "kind": "gpu",
    "model_key": "nvidia rtx 4080",
    "device_name": "NVIDIA GeForce RTX 4080",
@@ -533,17 +522,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 7700",
-   "device_name": "AMD Ryzen 7 7700 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 156,
-   "median_score": 265.8537830836924,
-   "p25_score": 254.384240640796,
-   "p75_score": 285.1032210306897
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 5 3600",
    "device_name": "AMD Ryzen 5 3600 6-Core Processor",
    "device_type": "CPU",
@@ -552,6 +530,17 @@
    "median_score": 130.3442263293196,
    "p25_score": 121.26927014692696,
    "p75_score": 137.3092576139993
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 7700",
+   "device_name": "AMD Ryzen 7 7700 8-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 156,
+   "median_score": 265.8537830836924,
+   "p25_score": 254.384240640796,
+   "p75_score": 285.1032210306897
   },
   {
    "kind": "cpu",
@@ -675,17 +664,6 @@
    "p75_score": 2411.4643912774536
   },
   {
-   "kind": "gpu",
-   "model_key": "amd rx 7900 xt",
-   "device_name": "AMD Radeon RX 7900 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 123,
-   "median_score": 3635.8357940849382,
-   "p25_score": 3534.63855356532,
-   "p75_score": 3754.1356395203857
-  },
-  {
    "kind": "cpu",
    "model_key": "amd ryzen 9 3900x",
    "device_name": "AMD Ryzen 9 3900X 12-Core Processor",
@@ -695,6 +673,17 @@
    "median_score": 268.35270795659983,
    "p25_score": 248.3005540920538,
    "p75_score": 283.36772429385974
+  },
+  {
+   "kind": "gpu",
+   "model_key": "amd rx 7900 xt",
+   "device_name": "AMD Radeon RX 7900 XT",
+   "device_type": "HIP",
+   "blender_version": "4.5",
+   "n_runs": 123,
+   "median_score": 3635.8357940849382,
+   "p25_score": 3534.63855356532,
+   "p75_score": 3754.1356395203857
   },
   {
    "kind": "cpu",
@@ -742,17 +731,6 @@
   },
   {
    "kind": "gpu",
-   "model_key": "amd rx 7800 xt",
-   "device_name": "AMD Radeon RX 7800 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 112,
-   "median_score": 2461.15504440525,
-   "p25_score": 2376.7788138712776,
-   "p75_score": 2532.7854004083056
-  },
-  {
-   "kind": "gpu",
    "model_key": "nvidia gtx 1660 super",
    "device_name": "NVIDIA GeForce GTX 1660 SUPER",
    "device_type": "OPTIX",
@@ -763,15 +741,15 @@
    "p75_score": 763.5096077230174
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i5-13450hx",
-   "device_name": "13th Gen Intel Core i5-13450HX",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "amd rx 7800 xt",
+   "device_name": "AMD Radeon RX 7800 XT",
+   "device_type": "HIP",
    "blender_version": "4.5",
-   "n_runs": 111,
-   "median_score": 206.10021343822683,
-   "p25_score": 165.84384575150014,
-   "p75_score": 222.433989619046
+   "n_runs": 112,
+   "median_score": 2461.15504440525,
+   "p25_score": 2376.7788138712776,
+   "p75_score": 2532.7854004083056
   },
   {
    "kind": "gpu",
@@ -794,17 +772,6 @@
    "median_score": 173.72269064072046,
    "p25_score": 162.8557900843452,
    "p75_score": 183.93275106719176
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-13900hx",
-   "device_name": "13th Gen Intel Core i9-13900HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 105,
-   "median_score": 367.3647947228755,
-   "p25_score": 294.24375961769647,
-   "p75_score": 427.5605725652544
   },
   {
    "kind": "gpu",
@@ -830,17 +797,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-14600k",
-   "device_name": "Intel Core i5-14600K",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 101,
-   "median_score": 299.8972091473281,
-   "p25_score": 283.2722963594173,
-   "p75_score": 316.26822912138107
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i7-12700kf",
    "device_name": "12th Gen Intel Core i7-12700KF",
    "device_type": "CPU",
@@ -849,6 +805,17 @@
    "median_score": 292.40682079100645,
    "p25_score": 264.69596098740897,
    "p75_score": 305.48844989420945
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-14600k",
+   "device_name": "Intel Core i5-14600K",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 101,
+   "median_score": 299.8972091473281,
+   "p25_score": 283.2722963594173,
+   "p75_score": 316.26822912138107
   },
   {
    "kind": "cpu",
@@ -882,17 +849,6 @@
    "median_score": 194.24178579001602,
    "p25_score": 183.47697740919517,
    "p75_score": 201.05387992354017
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-14700hx",
-   "device_name": "Intel Core i7-14700HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 91,
-   "median_score": 334.870415168696,
-   "p25_score": 292.6033743771816,
-   "p75_score": 352.3312915035623
   },
   {
    "kind": "cpu",
@@ -940,17 +896,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-13650hx",
-   "device_name": "13th Gen Intel Core i7-13650HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 89,
-   "median_score": 214.03449529458916,
-   "p25_score": 172.7946883547643,
-   "p75_score": 263.46281018046045
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i5-13400f",
    "device_name": "13th Gen Intel Core i5-13400F",
    "device_type": "CPU",
@@ -970,17 +915,6 @@
    "median_score": 1462.0818063839133,
    "p25_score": 1416.3304636218581,
    "p75_score": 1504.5528869895143
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-14900hx",
-   "device_name": "Intel Core i9-14900HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 84,
-   "median_score": 331.6841026221708,
-   "p25_score": 263.0345446447905,
-   "p75_score": 383.93035625698315
   },
   {
    "kind": "gpu",
@@ -1017,17 +951,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 9 5900xt",
-   "device_name": "AMD Ryzen 9 5900XT 16-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 76,
-   "median_score": 363.35101693641275,
-   "p25_score": 336.2651132281183,
-   "p75_score": 399.9486754207938
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i5-14600kf",
    "device_name": "Intel Core i5-14600KF",
    "device_type": "CPU",
@@ -1036,6 +959,17 @@
    "median_score": 309.603893850127,
    "p25_score": 293.04728659396926,
    "p75_score": 321.0790751385721
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 5900xt",
+   "device_name": "AMD Ryzen 9 5900XT 16-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 76,
+   "median_score": 363.35101693641275,
+   "p25_score": 336.2651132281183,
+   "p75_score": 399.9486754207938
   },
   {
    "kind": "gpu",
@@ -1050,17 +984,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 7435hs",
-   "device_name": "AMD Ryzen 7 7435HS",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 75,
-   "median_score": 189.42277621736054,
-   "p25_score": 165.53187327332276,
-   "p75_score": 223.4597719679578
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i5-12600kf",
    "device_name": "12th Gen Intel Core i5-12600KF",
    "device_type": "CPU",
@@ -1069,17 +992,6 @@
    "median_score": 272.1333820771832,
    "p25_score": 232.62585370001625,
    "p75_score": 273.8145330760253
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-12700h",
-   "device_name": "12th Gen Intel Core i7-12700H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 73,
-   "median_score": 174.89732846249325,
-   "p25_score": 152.09377675166365,
-   "p75_score": 207.3745151703116
   },
   {
    "kind": "gpu",
@@ -1105,39 +1017,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-12500h",
-   "device_name": "12th Gen Intel Core i5-12500H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 71,
-   "median_score": 140.29398649389685,
-   "p25_score": 115.4312785066245,
-   "p75_score": 153.9334067122236
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-14650hx",
-   "device_name": "Intel Core i7-14650HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 69,
-   "median_score": 281.3666399494452,
-   "p25_score": 239.96895069015494,
-   "p75_score": 307.58285567898065
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-13620h",
-   "device_name": "13th Gen Intel Core i7-13620H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 69,
-   "median_score": 157.7778084569851,
-   "p25_score": 109.19490191385987,
-   "p75_score": 187.62123603385646
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 5 7600",
    "device_name": "AMD Ryzen 5 7600 6-Core Processor",
    "device_type": "CPU",
@@ -1146,17 +1025,6 @@
    "median_score": 198.07782599364225,
    "p25_score": 187.53812168638217,
    "p75_score": 209.12013331753553
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-12900k",
-   "device_name": "12th Gen Intel Core i9-12900K",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 68,
-   "median_score": 353.56474998716385,
-   "p25_score": 336.0795360355387,
-   "p75_score": 380.06217872464845
   },
   {
    "kind": "cpu",
@@ -1171,14 +1039,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-11400h",
-   "device_name": "11th Gen Intel Core i5-11400H @ 2.70GHz",
+   "model_key": "intel core i9-12900k",
+   "device_name": "12th Gen Intel Core i9-12900K",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 68,
-   "median_score": 104.2233774254497,
-   "p25_score": 76.94911708705646,
-   "p75_score": 123.1845092643596
+   "median_score": 353.56474998716385,
+   "p25_score": 336.0795360355387,
+   "p75_score": 380.06217872464845
   },
   {
    "kind": "cpu",
@@ -1190,28 +1058,6 @@
    "median_score": 474.97533963080997,
    "p25_score": 458.28780318731,
    "p75_score": 488.2605313106046
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 7735hs",
-   "device_name": "AMD Ryzen 7 7735HS with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 67,
-   "median_score": 173.98853858730038,
-   "p25_score": 141.61094214703422,
-   "p75_score": 192.93632023826717
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 5700x3d",
-   "device_name": "AMD Ryzen 7 5700X3D 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 66,
-   "median_score": 186.79912400096217,
-   "p25_score": 177.39807128285747,
-   "p75_score": 197.09701994415894
   },
   {
    "kind": "gpu",
@@ -1226,14 +1072,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-13900h",
-   "device_name": "13th Gen Intel Core i9-13900H",
+   "model_key": "amd ryzen 7 5700x3d",
+   "device_name": "AMD Ryzen 7 5700X3D 8-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 66,
-   "median_score": 185.1676011155837,
-   "p25_score": 157.48923103209205,
-   "p75_score": 217.8139214492755
+   "median_score": 186.79912400096217,
+   "p25_score": 177.39807128285747,
+   "p75_score": 197.09701994415894
   },
   {
    "kind": "cpu",
@@ -1247,17 +1093,6 @@
    "p75_score": 518.8656975767326
   },
   {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 5800h",
-   "device_name": "AMD Ryzen 7 5800H with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 64,
-   "median_score": 152.74222623658397,
-   "p25_score": 130.6774029713789,
-   "p75_score": 164.78205350422377
-  },
-  {
    "kind": "gpu",
    "model_key": "nvidia gtx 1080 ti",
    "device_name": "NVIDIA GeForce GTX 1080 Ti",
@@ -1269,15 +1104,15 @@
    "p75_score": 842.1433077730888
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i9-13900kf",
-   "device_name": "13th Gen Intel Core i9-13900KF",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "nvidia gtx 1060",
+   "device_name": "NVIDIA GeForce GTX 1060 6GB",
+   "device_type": "OPTIX",
    "blender_version": "4.5",
    "n_runs": 62,
-   "median_score": 485.24739391692253,
-   "p25_score": 454.76932470443035,
-   "p75_score": 550.0342943068413
+   "median_score": 360.1542341371138,
+   "p25_score": 349.9272897031474,
+   "p75_score": 365.85535889478814
   },
   {
    "kind": "gpu",
@@ -1292,36 +1127,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-9750h",
-   "device_name": "Intel Core i7-9750H CPU @ 2.60GHz",
+   "model_key": "intel core i9-13900kf",
+   "device_name": "13th Gen Intel Core i9-13900KF",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 62,
-   "median_score": 90.27589512600133,
-   "p25_score": 73.18770965623364,
-   "p75_score": 112.08900831335666
-  },
-  {
-   "kind": "gpu",
-   "model_key": "nvidia gtx 1060",
-   "device_name": "NVIDIA GeForce GTX 1060 6GB",
-   "device_type": "OPTIX",
-   "blender_version": "4.5",
-   "n_runs": 62,
-   "median_score": 360.1542341371138,
-   "p25_score": 349.9272897031474,
-   "p75_score": 365.85535889478814
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 155h",
-   "device_name": "Intel Core Ultra 7 155H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 59,
-   "median_score": 151.38100625193792,
-   "p25_score": 124.08531085529391,
-   "p75_score": 179.07728577163056
+   "median_score": 485.24739391692253,
+   "p25_score": 454.76932470443035,
+   "p75_score": 550.0342943068413
   },
   {
    "kind": "gpu",
@@ -1346,15 +1159,15 @@
    "p75_score": 24.89859490583347
   },
   {
-   "kind": "gpu",
-   "model_key": "amd rx 6900 xt",
-   "device_name": "AMD Radeon RX 6900 XT",
-   "device_type": "HIP",
+   "kind": "cpu",
+   "model_key": "intel core i9-9900k",
+   "device_name": "Intel Core i9-9900K CPU @ 3.60GHz",
+   "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 56,
-   "median_score": 2603.424639226693,
-   "p25_score": 2567.1170970379744,
-   "p75_score": 2618.209212726464
+   "median_score": 169.67030501065898,
+   "p25_score": 155.44883965048882,
+   "p75_score": 184.61188802989628
   },
   {
    "kind": "cpu",
@@ -1368,15 +1181,15 @@
    "p75_score": 1903.10355130367
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i9-9900k",
-   "device_name": "Intel Core i9-9900K CPU @ 3.60GHz",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "amd rx 6900 xt",
+   "device_name": "AMD Radeon RX 6900 XT",
+   "device_type": "HIP",
    "blender_version": "4.5",
    "n_runs": 56,
-   "median_score": 169.67030501065898,
-   "p25_score": 155.44883965048882,
-   "p75_score": 184.61188802989628
+   "median_score": 2603.424639226693,
+   "p25_score": 2567.1170970379744,
+   "p75_score": 2618.209212726464
   },
   {
    "kind": "gpu",
@@ -1390,50 +1203,6 @@
    "p75_score": 2526.022972118537
   },
   {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 7945hx",
-   "device_name": "AMD Ryzen 9 7945HX with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 54,
-   "median_score": 483.2359142251914,
-   "p25_score": 444.6517174716388,
-   "p75_score": 557.1871132155254
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 9 285h",
-   "device_name": "Intel Core Ultra 9 285H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 54,
-   "median_score": 225.79271663933866,
-   "p25_score": 184.49956787319874,
-   "p75_score": 263.1469379470706
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-11800h",
-   "device_name": "11th Gen Intel Core i7-11800H @ 2.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 52,
-   "median_score": 123.26225324830335,
-   "p25_score": 102.40129371707746,
-   "p75_score": 145.176564051571
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 5600h",
-   "device_name": "AMD Ryzen 5 5600H with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 51,
-   "median_score": 118.18967270880187,
-   "p25_score": 106.49302059409266,
-   "p75_score": 131.39608986293172
-  },
-  {
    "kind": "gpu",
    "model_key": "amd rx 5700 xt",
    "device_name": "AMD Radeon RX 5700 XT",
@@ -1443,39 +1212,6 @@
    "median_score": 961.0867998827234,
    "p25_score": 935.5375727281248,
    "p75_score": 977.1261317470096
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-13420h",
-   "device_name": "13th Gen Intel Core i5-13420H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 50,
-   "median_score": 121.03201274533477,
-   "p25_score": 100.43623868993727,
-   "p75_score": 140.5785850186616
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 5500u",
-   "device_name": "AMD Ryzen 5 5500U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 49,
-   "median_score": 90.83529850991032,
-   "p25_score": 57.65302179228088,
-   "p75_score": 109.04979296472558
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 7840hs",
-   "device_name": "AMD Ryzen 7 7840HS w/ Radeon 780M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 49,
-   "median_score": 211.14888180330811,
-   "p25_score": 189.69085866834598,
-   "p75_score": 224.27526174138836
   },
   {
    "kind": "cpu",
@@ -1501,14 +1237,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 8845hs",
-   "device_name": "AMD Ryzen 7 8845HS w/ Radeon 780M Graphics",
+   "model_key": "intel core i7-14700f",
+   "device_name": "Intel Core i7-14700F",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 46,
-   "median_score": 216.8277083996631,
-   "p25_score": 193.21515206679769,
-   "p75_score": 233.41153633694287
+   "median_score": 294.65256734916386,
+   "p25_score": 276.87531836240504,
+   "p75_score": 394.83204901933146
   },
   {
    "kind": "cpu",
@@ -1520,17 +1256,6 @@
    "median_score": 157.59281611136038,
    "p25_score": 148.69316768734808,
    "p75_score": 161.31313547098057
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-14700f",
-   "device_name": "Intel Core i7-14700F",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 46,
-   "median_score": 294.65256734916386,
-   "p25_score": 276.87531836240504,
-   "p75_score": 394.83204901933146
   },
   {
    "kind": "cpu",
@@ -1577,17 +1302,6 @@
    "p75_score": 2957.911518472102
   },
   {
-   "kind": "gpu",
-   "model_key": "amd rx 6800 xt",
-   "device_name": "AMD Radeon RX 6800 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 42,
-   "median_score": 2406.1274110847626,
-   "p25_score": 2358.2856382134178,
-   "p75_score": 2427.7901627155024
-  },
-  {
    "kind": "cpu",
    "model_key": "intel core i7-8700k",
    "device_name": "Intel Core i7-8700K CPU @ 3.70GHz",
@@ -1597,6 +1311,17 @@
    "median_score": 122.43573472002174,
    "p25_score": 113.34217504122317,
    "p75_score": 133.23512435452398
+  },
+  {
+   "kind": "gpu",
+   "model_key": "amd rx 6800 xt",
+   "device_name": "AMD Radeon RX 6800 XT",
+   "device_type": "HIP",
+   "blender_version": "4.5",
+   "n_runs": 42,
+   "median_score": 2406.1274110847626,
+   "p25_score": 2358.2856382134178,
+   "p75_score": 2427.7901627155024
   },
   {
    "kind": "gpu",
@@ -1621,17 +1346,6 @@
    "p75_score": 148.42862822376938
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 255hx",
-   "device_name": "Intel Core Ultra 7 255HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 40,
-   "median_score": 395.92411347243905,
-   "p25_score": 319.4599701743265,
-   "p75_score": 421.9871903850448
-  },
-  {
    "kind": "gpu",
    "model_key": "nvidia rtx 2080 super",
    "device_name": "NVIDIA GeForce RTX 2080 SUPER",
@@ -1641,28 +1355,6 @@
    "median_score": 2292.6398782189526,
    "p25_score": 2214.768763136332,
    "p75_score": 2332.9235910287507
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 7600x3d",
-   "device_name": "AMD Ryzen 5 7600X3D 6-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 39,
-   "median_score": 239.77781811275395,
-   "p25_score": 199.313000334789,
-   "p75_score": 240.90691861155548
-  },
-  {
-   "kind": "gpu",
-   "model_key": "nvidia rtx 2050",
-   "device_name": "NVIDIA GeForce RTX 2050",
-   "device_type": "OPTIX",
-   "blender_version": "4.5",
-   "n_runs": 39,
-   "median_score": 744.3479340607834,
-   "p25_score": 686.893733029097,
-   "p75_score": 834.5424165058164
   },
   {
    "kind": "gpu",
@@ -1676,37 +1368,26 @@
    "p75_score": 1069.4622629088626
   },
   {
+   "kind": "gpu",
+   "model_key": "nvidia rtx 2050",
+   "device_name": "NVIDIA GeForce RTX 2050",
+   "device_type": "OPTIX",
+   "blender_version": "4.5",
+   "n_runs": 39,
+   "median_score": 744.3479340607834,
+   "p25_score": 686.893733029097,
+   "p75_score": 834.5424165058164
+  },
+  {
    "kind": "cpu",
-   "model_key": "amd ryzen 9 8940hx",
-   "device_name": "AMD Ryzen 9 8940HX with Radeon Graphics",
+   "model_key": "amd ryzen 5 7600x3d",
+   "device_name": "AMD Ryzen 5 7600X3D 6-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 39,
-   "median_score": 470.6462022657948,
-   "p25_score": 448.97246378137993,
-   "p75_score": 493.10423531867224
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-14700",
-   "device_name": "Intel Core i7-14700",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 38,
-   "median_score": 299.9184945289526,
-   "p25_score": 269.37521739091005,
-   "p75_score": 349.7880189683159
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8665u",
-   "device_name": "Intel Core i7-8665U CPU @ 1.90GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 38,
-   "median_score": 47.48468510386131,
-   "p25_score": 45.331860149282846,
-   "p75_score": 54.262737251001724
+   "median_score": 239.77781811275395,
+   "p25_score": 199.313000334789,
+   "p75_score": 240.90691861155548
   },
   {
    "kind": "cpu",
@@ -1721,6 +1402,17 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core i7-14700",
+   "device_name": "Intel Core i7-14700",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 38,
+   "median_score": 299.9184945289526,
+   "p25_score": 269.37521739091005,
+   "p75_score": 349.7880189683159
+  },
+  {
+   "kind": "cpu",
    "model_key": "intel core i5-10400f",
    "device_name": "Intel Core i5-10400F CPU @ 2.90GHz",
    "device_type": "CPU",
@@ -1729,50 +1421,6 @@
    "median_score": 113.72655913757626,
    "p25_score": 107.00183346857963,
    "p75_score": 117.40136972037939
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-13700h",
-   "device_name": "13th Gen Intel Core i7-13700H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 37,
-   "median_score": 177.62029917486043,
-   "p25_score": 137.75821774342367,
-   "p75_score": 194.94868088923397
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-12450h",
-   "device_name": "12th Gen Intel Core i5-12450H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 37,
-   "median_score": 110.20569572799266,
-   "p25_score": 75.33948938383321,
-   "p75_score": 128.1045413357176
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8700",
-   "device_name": "Intel Core i7-8700 CPU @ 3.20GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 36,
-   "median_score": 114.78588512803198,
-   "p25_score": 106.45624937827807,
-   "p75_score": 123.03790845181973
-  },
-  {
-   "kind": "gpu",
-   "model_key": "nvidia gtx 1050",
-   "device_name": "NVIDIA GeForce GTX 1050",
-   "device_type": "OPTIX",
-   "blender_version": "4.5",
-   "n_runs": 36,
-   "median_score": 172.82481489266576,
-   "p25_score": 136.77047381946872,
-   "p75_score": 178.9007109318791
   },
   {
    "kind": "cpu",
@@ -1787,6 +1435,17 @@
   },
   {
    "kind": "gpu",
+   "model_key": "nvidia gtx 1050",
+   "device_name": "NVIDIA GeForce GTX 1050",
+   "device_type": "OPTIX",
+   "blender_version": "4.5",
+   "n_runs": 36,
+   "median_score": 172.82481489266576,
+   "p25_score": 136.77047381946872,
+   "p75_score": 178.9007109318791
+  },
+  {
+   "kind": "gpu",
    "model_key": "amd rx 6800",
    "device_name": "AMD Radeon RX 6800",
    "device_type": "HIP",
@@ -1798,47 +1457,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-6700k",
-   "device_name": "Intel Core i7-6700K CPU @ 4.00GHz",
+   "model_key": "intel core i7-8700",
+   "device_name": "Intel Core i7-8700 CPU @ 3.20GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 35,
-   "median_score": 84.89664250068668,
-   "p25_score": 77.85605047907515,
-   "p75_score": 95.1519999296139
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8750h",
-   "device_name": "Intel Core i7-8750H CPU @ 2.20GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 35,
-   "median_score": 83.5823585862703,
-   "p25_score": 66.4892263861489,
-   "p75_score": 89.61952119546291
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 6950 xt",
-   "device_name": "AMD Radeon RX 6950 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 35,
-   "median_score": 2623.099574841015,
-   "p25_score": 2577.004865072909,
-   "p75_score": 2674.993499427402
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 258v",
-   "device_name": "Intel Core Ultra 7 258V",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 35,
-   "median_score": 123.80558146132901,
-   "p25_score": 97.23430801362447,
-   "p75_score": 137.8653697745077
+   "n_runs": 36,
+   "median_score": 114.78588512803198,
+   "p25_score": 106.45624937827807,
+   "p75_score": 123.03790845181973
   },
   {
    "kind": "cpu",
@@ -1853,6 +1479,39 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core ultra 7 258v",
+   "device_name": "Intel Core Ultra 7 258V",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 35,
+   "median_score": 123.80558146132901,
+   "p25_score": 97.23430801362447,
+   "p75_score": 137.8653697745077
+  },
+  {
+   "kind": "gpu",
+   "model_key": "amd rx 6950 xt",
+   "device_name": "AMD Radeon RX 6950 XT",
+   "device_type": "HIP",
+   "blender_version": "4.5",
+   "n_runs": 35,
+   "median_score": 2623.099574841015,
+   "p25_score": 2577.004865072909,
+   "p75_score": 2674.993499427402
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-6700k",
+   "device_name": "Intel Core i7-6700K CPU @ 4.00GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 35,
+   "median_score": 84.89664250068668,
+   "p25_score": 77.85605047907515,
+   "p75_score": 95.1519999296139
+  },
+  {
+   "kind": "cpu",
    "model_key": "amd ryzen 7 8700g",
    "device_name": "AMD Ryzen 7 8700G w/ Radeon 780M Graphics",
    "device_type": "CPU",
@@ -1861,28 +1520,6 @@
    "median_score": 250.17851613314718,
    "p25_score": 236.1474895961238,
    "p75_score": 272.0945734609756
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 4700u",
-   "device_name": "AMD Ryzen 7 4700U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 34,
-   "median_score": 47.317779440867355,
-   "p25_score": 45.140306406111485,
-   "p75_score": 79.89607559780285
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 6900hs",
-   "device_name": "AMD Ryzen 9 6900HS with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 34,
-   "median_score": 178.3070749999657,
-   "p25_score": 168.19966099370583,
-   "p75_score": 194.68390537583417
   },
   {
    "kind": "cpu",
@@ -1897,39 +1534,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd threadripper 7960x",
-   "device_name": "AMD Ryzen Threadripper 7960X 24-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 33,
-   "median_score": 916.7098570546934,
-   "p25_score": 857.5725197054455,
-   "p75_score": 922.0418342602281
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-12450hx",
-   "device_name": "12th Gen Intel Core i5-12450HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 33,
-   "median_score": 134.36546935190373,
-   "p25_score": 104.91909362990468,
-   "p75_score": 140.86833375063884
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-10300h",
-   "device_name": "Intel Core i5-10300H CPU @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 33,
-   "median_score": 63.35222165017055,
-   "p25_score": 51.32174786251473,
-   "p75_score": 67.78348523290961
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 9 9900x3d",
    "device_name": "AMD Ryzen 9 9900X3D 12-Core Processor",
    "device_type": "CPU",
@@ -1941,47 +1545,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-12650h",
-   "device_name": "12th Gen Intel Core i7-12650H",
+   "model_key": "amd threadripper 7960x",
+   "device_name": "AMD Ryzen Threadripper 7960X 24-Cores",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 32,
-   "median_score": 153.01175407030945,
-   "p25_score": 126.52048849948052,
-   "p75_score": 171.00338836348337
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-10750h",
-   "device_name": "Intel Core i7-10750H CPU @ 2.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 32,
-   "median_score": 90.14498825037819,
-   "p25_score": 78.6827312344921,
-   "p75_score": 107.16814880778918
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 9 185h",
-   "device_name": "Intel Core Ultra 9 185H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 32,
-   "median_score": 206.69871565100416,
-   "p25_score": 170.64302691379774,
-   "p75_score": 226.09929264019817
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 5900hx",
-   "device_name": "AMD Ryzen 9 5900HX with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 32,
-   "median_score": 157.53865760642879,
-   "p25_score": 143.27192596647498,
-   "p75_score": 174.1531595312909
+   "n_runs": 33,
+   "median_score": 916.7098570546934,
+   "p25_score": 857.5725197054455,
+   "p75_score": 922.0418342602281
   },
   {
    "kind": "gpu",
@@ -1996,17 +1567,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 9 7900x3d",
-   "device_name": "AMD Ryzen 9 7900X3D 12-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 31,
-   "median_score": 402.03201611510923,
-   "p25_score": 390.05705751674157,
-   "p75_score": 418.4679445108065
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i7-7700",
    "device_name": "Intel Core i7-7700 CPU @ 3.60GHz",
    "device_type": "CPU",
@@ -2018,14 +1578,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-9980hk",
-   "device_name": "Intel(R) Core(TM) i9-9980HK CPU @ 2.40GHz",
+   "model_key": "amd ryzen 9 7900x3d",
+   "device_name": "AMD Ryzen 9 7900X3D 12-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 31,
-   "median_score": 124.5065584028647,
-   "p25_score": 110.69125980440718,
-   "p75_score": 139.06452401867853
+   "median_score": 402.03201611510923,
+   "p25_score": 390.05705751674157,
+   "p75_score": 418.4679445108065
   },
   {
    "kind": "gpu",
@@ -2051,17 +1611,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core ultra 7 255h",
-   "device_name": "Intel Core Ultra 7 255H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 30,
-   "median_score": 212.9382493233661,
-   "p25_score": 159.44524912169027,
-   "p75_score": 250.01556927280205
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 5 5600gt",
    "device_name": "AMD Ryzen 5 5600GT with Radeon Graphics",
    "device_type": "CPU",
@@ -2070,39 +1619,6 @@
    "median_score": 157.18302926869382,
    "p25_score": 137.82631269470613,
    "p75_score": 170.89372732876984
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-9880h",
-   "device_name": "Intel(R) Core(TM) i9-9880H CPU @ 2.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 30,
-   "median_score": 126.77952962619587,
-   "p25_score": 112.1063851193249,
-   "p75_score": 137.17551262857745
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-9600k",
-   "device_name": "Intel Core i5-9600K CPU @ 3.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 29,
-   "median_score": 101.48286596769765,
-   "p25_score": 88.88263225366816,
-   "p75_score": 106.83445050757348
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-12400",
-   "device_name": "12th Gen Intel Core i5-12400",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 29,
-   "median_score": 154.33804341633808,
-   "p25_score": 147.08038593396148,
-   "p75_score": 160.00229695892224
   },
   {
    "kind": "cpu",
@@ -2117,6 +1633,28 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core i5-12400",
+   "device_name": "12th Gen Intel Core i5-12400",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 29,
+   "median_score": 154.33804341633808,
+   "p25_score": 147.08038593396148,
+   "p75_score": 160.00229695892224
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-9600k",
+   "device_name": "Intel Core i5-9600K CPU @ 3.70GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 29,
+   "median_score": 101.48286596769765,
+   "p25_score": 88.88263225366816,
+   "p75_score": 106.83445050757348
+  },
+  {
+   "kind": "cpu",
    "model_key": "intel core i9-10900k",
    "device_name": "Intel Core i9-10900K CPU @ 3.70GHz",
    "device_type": "CPU",
@@ -2125,17 +1663,6 @@
    "median_score": 239.40410862677982,
    "p25_score": 222.9814441295991,
    "p75_score": 249.50832495537793
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-3770",
-   "device_name": "Intel Core i7-3770 CPU @ 3.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 28,
-   "median_score": 47.74842213872385,
-   "p25_score": 43.565966961625435,
-   "p75_score": 49.46205873528395
   },
   {
    "kind": "cpu",
@@ -2150,14 +1677,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 6800h",
-   "device_name": "AMD Ryzen 7 6800H with Radeon Graphics",
+   "model_key": "intel core i7-3770",
+   "device_name": "Intel Core i7-3770 CPU @ 3.40GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 28,
-   "median_score": 162.25410259086317,
-   "p25_score": 114.69815625606607,
-   "p75_score": 180.12882774852548
+   "median_score": 47.74842213872385,
+   "p25_score": 43.565966961625435,
+   "p75_score": 49.46205873528395
   },
   {
    "kind": "cpu",
@@ -2169,17 +1696,6 @@
    "median_score": 75.97969695380112,
    "p25_score": 66.95279559918505,
    "p75_score": 85.84632557795197
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 4800h",
-   "device_name": "AMD Ryzen 7 4800H with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 27,
-   "median_score": 142.0154229267218,
-   "p25_score": 110.3990702815088,
-   "p75_score": 152.10043941946853
   },
   {
    "kind": "cpu",
@@ -2205,14 +1721,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-9400f",
-   "device_name": "Intel Core i5-9400F CPU @ 2.90GHz",
+   "model_key": "amd threadripper 3970x",
+   "device_name": "AMD Ryzen Threadripper 3970X 32-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 26,
-   "median_score": 79.48347859110174,
-   "p25_score": 72.79102307730146,
-   "p75_score": 86.30496171749465
+   "median_score": 689.0519180988872,
+   "p25_score": 662.3623314249667,
+   "p75_score": 715.4629125128149
   },
   {
    "kind": "cpu",
@@ -2227,25 +1743,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd threadripper 3970x",
-   "device_name": "AMD Ryzen Threadripper 3970X 32-Core Processor",
+   "model_key": "intel core i5-9400f",
+   "device_name": "Intel Core i5-9400F CPU @ 2.90GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 26,
-   "median_score": 689.0519180988872,
-   "p25_score": 662.3623314249667,
-   "p75_score": 715.4629125128149
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-13950hx",
-   "device_name": "13th Gen Intel Core i9-13950HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 25,
-   "median_score": 366.80193309738655,
-   "p25_score": 231.58706100526496,
-   "p75_score": 403.9463446898312
+   "median_score": 79.48347859110174,
+   "p25_score": 72.79102307730146,
+   "p75_score": 86.30496171749465
   },
   {
    "kind": "cpu",
@@ -2260,14 +1765,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-12900h",
-   "device_name": "12th Gen Intel Core i9-12900H",
+   "model_key": "intel core i7-7700hq",
+   "device_name": "Intel Core i7-7700HQ CPU @ 2.80GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 25,
-   "median_score": 178.29659830362698,
-   "p25_score": 124.95607677667022,
-   "p75_score": 213.08836001690688
+   "median_score": 61.27365658647297,
+   "p25_score": 51.30327381345408,
+   "p75_score": 64.82427550251494
   },
   {
    "kind": "gpu",
@@ -2281,17 +1786,6 @@
    "p75_score": 600.7707211595691
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i5-14500hx",
-   "device_name": "Intel Core i5-14500HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 25,
-   "median_score": 196.84018896330727,
-   "p25_score": 137.60208062102947,
-   "p75_score": 217.92287672510565
-  },
-  {
    "kind": "gpu",
    "model_key": "nvidia rtx 2000",
    "device_name": "NVIDIA RTX 2000 Ada Generation",
@@ -2303,15 +1797,48 @@
    "p75_score": 2774.6058165408785
   },
   {
+   "kind": "gpu",
+   "model_key": "amd rx 7700 xt",
+   "device_name": "AMD Radeon RX 7700 XT",
+   "device_type": "HIP",
+   "blender_version": "4.5",
+   "n_runs": 24,
+   "median_score": 2083.5732658095085,
+   "p25_score": 2024.4655589458935,
+   "p75_score": 2124.953173383795
+  },
+  {
+   "kind": "gpu",
+   "model_key": "amd rx 6650 xt",
+   "device_name": "AMD Radeon RX 6650 XT",
+   "device_type": "HIP",
+   "blender_version": "4.5",
+   "n_runs": 24,
+   "median_score": 1064.8007286305078,
+   "p25_score": 1038.2404036676603,
+   "p75_score": 1084.6006601175984
+  },
+  {
    "kind": "cpu",
-   "model_key": "intel core i7-7700hq",
-   "device_name": "Intel Core i7-7700HQ CPU @ 2.80GHz",
+   "model_key": "amd ryzen 5 8600g",
+   "device_name": "AMD Ryzen 5 8600G w/ Radeon 760M Graphics",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 25,
-   "median_score": 61.27365658647297,
-   "p25_score": 51.30327381345408,
-   "p75_score": 64.82427550251494
+   "n_runs": 24,
+   "median_score": 184.46522919453128,
+   "p25_score": 172.9980261133258,
+   "p75_score": 195.34842475192485
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper 9960x",
+   "device_name": "AMD Ryzen Threadripper 9960X 24-Cores",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 24,
+   "median_score": 894.0913176910258,
+   "p25_score": 868.3029023899122,
+   "p75_score": 933.6839436663464
   },
   {
    "kind": "cpu",
@@ -2323,28 +1850,6 @@
    "median_score": 122.7615208401381,
    "p25_score": 104.54591946272197,
    "p75_score": 138.8332212007242
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 7730u",
-   "device_name": "AMD Ryzen 7 7730U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 24,
-   "median_score": 126.62378499687973,
-   "p25_score": 83.93218260439117,
-   "p75_score": 138.62665872359497
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 7700 xt",
-   "device_name": "AMD Radeon RX 7700 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 24,
-   "median_score": 2083.5732658095085,
-   "p25_score": 2024.4655589458935,
-   "p75_score": 2124.953173383795
   },
   {
    "kind": "cpu",
@@ -2369,37 +1874,15 @@
    "p75_score": 574.3777239348166
   },
   {
-   "kind": "cpu",
-   "model_key": "amd threadripper 9960x",
-   "device_name": "AMD Ryzen Threadripper 9960X 24-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 24,
-   "median_score": 894.0913176910258,
-   "p25_score": 868.3029023899122,
-   "p75_score": 933.6839436663464
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 8600g",
-   "device_name": "AMD Ryzen 5 8600G w/ Radeon 760M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 24,
-   "median_score": 184.46522919453128,
-   "p25_score": 172.9980261133258,
-   "p75_score": 195.34842475192485
-  },
-  {
    "kind": "gpu",
-   "model_key": "amd rx 6650 xt",
-   "device_name": "AMD Radeon RX 6650 XT",
+   "model_key": "amd rx 6750 xt",
+   "device_name": "AMD Radeon RX 6750 XT",
    "device_type": "HIP",
    "blender_version": "4.5",
-   "n_runs": 24,
-   "median_score": 1064.8007286305078,
-   "p25_score": 1038.2404036676603,
-   "p75_score": 1084.6006601175984
+   "n_runs": 23,
+   "median_score": 1539.1206104502107,
+   "p25_score": 1487.6237941751851,
+   "p75_score": 1556.4541616104902
   },
   {
    "kind": "cpu",
@@ -2411,17 +1894,6 @@
    "median_score": 265.46711887700167,
    "p25_score": 220.05039710038147,
    "p75_score": 272.7807088808522
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 6750 xt",
-   "device_name": "AMD Radeon RX 6750 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 23,
-   "median_score": 1539.1206104502107,
-   "p25_score": 1487.6237941751851,
-   "p75_score": 1556.4541616104902
   },
   {
    "kind": "cpu",
@@ -2436,28 +1908,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-11850h",
-   "device_name": "11th Gen Intel Core i7-11850H @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 23,
-   "median_score": 137.18320178679144,
-   "p25_score": 117.26846744395532,
-   "p75_score": 156.265864719867
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-13700hx",
-   "device_name": "13th Gen Intel Core i7-13700HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 23,
-   "median_score": 226.62438870686543,
-   "p25_score": 193.9381546377668,
-   "p75_score": 263.95746992522777
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd threadripper 9970x",
    "device_name": "AMD Ryzen Threadripper 9970X 32-Cores",
    "device_type": "CPU",
@@ -2466,17 +1916,6 @@
    "median_score": 1177.242692980051,
    "p25_score": 1145.9040102815832,
    "p75_score": 1193.5696942190657
-  },
-  {
-   "kind": "gpu",
-   "model_key": "nvidia gtx 970",
-   "device_name": "NVIDIA GeForce GTX 970",
-   "device_type": "OPTIX",
-   "blender_version": "4.5",
-   "n_runs": 22,
-   "median_score": 254.7610004334266,
-   "p25_score": 247.16016738415004,
-   "p75_score": 290.3696783299506
   },
   {
    "kind": "cpu",
@@ -2501,26 +1940,15 @@
    "p75_score": 699.3170124058736
   },
   {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 9955hx",
-   "device_name": "AMD Ryzen 9 9955HX 16-Core Processor",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "nvidia gtx 970",
+   "device_name": "NVIDIA GeForce GTX 970",
+   "device_type": "OPTIX",
    "blender_version": "4.5",
-   "n_runs": 21,
-   "median_score": 555.9355478015533,
-   "p25_score": 464.4106296542904,
-   "p75_score": 580.4543867960772
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 4500",
-   "device_name": "AMD Ryzen 5 4500 6-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 21,
-   "median_score": 123.8049369087208,
-   "p25_score": 113.93881897472582,
-   "p75_score": 128.88623738846061
+   "n_runs": 22,
+   "median_score": 254.7610004334266,
+   "p25_score": 247.16016738415004,
+   "p75_score": 290.3696783299506
   },
   {
    "kind": "gpu",
@@ -2532,6 +1960,17 @@
    "median_score": 696.339291867991,
    "p25_score": 594.4089011484975,
    "p75_score": 796.1165305778235
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 4500",
+   "device_name": "AMD Ryzen 5 4500 6-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 21,
+   "median_score": 123.8049369087208,
+   "p25_score": 113.93881897472582,
+   "p75_score": 128.88623738846061
   },
   {
    "kind": "gpu",
@@ -2557,14 +1996,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-8250u",
-   "device_name": "Intel Core i5-8250U CPU @ 1.60GHz",
+   "model_key": "intel core i7-9700f",
+   "device_name": "Intel Core i7-9700F CPU @ 3.00GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 20,
-   "median_score": 47.802967936683785,
-   "p25_score": 37.666979607561395,
-   "p75_score": 56.49937362442169
+   "n_runs": 19,
+   "median_score": 128.02239848751827,
+   "p25_score": 113.47976705019005,
+   "p75_score": 134.33015783273993
   },
   {
    "kind": "gpu",
@@ -2579,14 +2018,25 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-1235u",
-   "device_name": "12th Gen Intel Core i5-1235U",
+   "model_key": "amd ryzen 7 8700f",
+   "device_name": "AMD Ryzen 7 8700F 8-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 19,
-   "median_score": 61.38292555838984,
-   "p25_score": 40.511008192456536,
-   "p75_score": 85.15929521347458
+   "median_score": 240.6607703363839,
+   "p25_score": 234.60377113831612,
+   "p75_score": 256.4345288774433
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 9850x3d",
+   "device_name": "AMD Ryzen 7 9850X3D 8-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 19,
+   "median_score": 345.1553844286246,
+   "p25_score": 342.86527975488457,
+   "p75_score": 351.783046672655
   },
   {
    "kind": "cpu",
@@ -2598,50 +2048,6 @@
    "median_score": 68.29952049744608,
    "p25_score": 60.5409604499371,
    "p75_score": 72.12033215211828
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 7535hs",
-   "device_name": "AMD Ryzen 5 7535HS with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 129.61849875066028,
-   "p25_score": 106.31295149153148,
-   "p75_score": 140.2163881083947
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8550u",
-   "device_name": "Intel Core i7-8550U CPU @ 1.80GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 40.22492259159761,
-   "p25_score": 34.08373447040514,
-   "p75_score": 48.22288554922408
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-10885h",
-   "device_name": "Intel Core i9-10885H CPU @ 2.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 164.1246059131278,
-   "p25_score": 104.09247037045617,
-   "p75_score": 175.7728943778191
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 8700f",
-   "device_name": "AMD Ryzen 7 8700F 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 240.6607703363839,
-   "p25_score": 234.60377113831612,
-   "p75_score": 256.4345288774433
   },
   {
    "kind": "cpu",
@@ -2666,61 +2072,6 @@
    "p75_score": 574.1620238594863
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i7-9700f",
-   "device_name": "Intel Core i7-9700F CPU @ 3.00GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 128.02239848751827,
-   "p25_score": 113.47976705019005,
-   "p75_score": 134.33015783273993
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 9850x3d",
-   "device_name": "AMD Ryzen 7 9850X3D 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 345.1553844286246,
-   "p25_score": 342.86527975488457,
-   "p75_score": 351.783046672655
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-13980hx",
-   "device_name": "13th Gen Intel Core i9-13980HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 19,
-   "median_score": 335.14727512496455,
-   "p25_score": 264.4607807907951,
-   "p75_score": 384.6596077173895
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 9 285hx",
-   "device_name": "Intel Core Ultra 9 285HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 18,
-   "median_score": 495.29944538563245,
-   "p25_score": 458.3484182578659,
-   "p75_score": 535.4559896632418
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-10400",
-   "device_name": "Intel Core i5-10400 CPU @ 2.90GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 18,
-   "median_score": 116.93303095622977,
-   "p25_score": 113.96554885748567,
-   "p75_score": 118.53064557563505
-  },
-  {
    "kind": "gpu",
    "model_key": "intel arc a380",
    "device_name": "Intel(R) Arc(TM) A380 Graphics",
@@ -2730,28 +2081,6 @@
    "median_score": 520.250357005762,
    "p25_score": 482.2030756249681,
    "p75_score": 633.3449365353641
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 7235hs",
-   "device_name": "AMD Ryzen 5 7235HS",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 18,
-   "median_score": 78.46148821181629,
-   "p25_score": 70.4964827731419,
-   "p75_score": 84.60141447035379
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-12800hx",
-   "device_name": "12th Gen Intel Core i7-12800HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 18,
-   "median_score": 248.13190700654226,
-   "p25_score": 229.83555785012504,
-   "p75_score": 260.12679880704707
   },
   {
    "kind": "cpu",
@@ -2777,47 +2106,25 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 9 8945hs",
-   "device_name": "AMD Ryzen 9 8945HS w/ Radeon 780M Graphics",
+   "model_key": "intel core i5-10400",
+   "device_name": "Intel Core i5-10400 CPU @ 2.90GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 18,
-   "median_score": 206.58674166558768,
-   "p25_score": 126.69826969061617,
-   "p75_score": 236.0404070005709
+   "median_score": 116.93303095622977,
+   "p25_score": 113.96554885748567,
+   "p75_score": 118.53064557563505
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-8350u",
-   "device_name": "Intel Core i5-8350U CPU @ 1.70GHz",
+   "model_key": "amd threadripper pro 7995wx",
+   "device_name": "AMD Ryzen Threadripper PRO 7995WX 96-Cores",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 17,
-   "median_score": 46.87203562158252,
-   "p25_score": 23.40523103850596,
-   "p75_score": 54.29682445596411
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 3800x",
-   "device_name": "AMD Ryzen 7 3800X 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 17,
-   "median_score": 172.8142151465294,
-   "p25_score": 155.54801397800537,
-   "p75_score": 190.09144628687568
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 7940hs",
-   "device_name": "AMD Ryzen 9 7940HS w/ Radeon 780M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 17,
-   "median_score": 231.90458129302482,
-   "p25_score": 212.06448878055022,
-   "p75_score": 250.20940090676703
+   "median_score": 2993.7131865592505,
+   "p25_score": 2446.994761476666,
+   "p75_score": 3461.6523692965784
   },
   {
    "kind": "gpu",
@@ -2832,47 +2139,58 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 6850h",
-   "device_name": "AMD Ryzen 7 PRO 6850H with Radeon Graphics",
+   "model_key": "amd ryzen 7 3800x",
+   "device_name": "AMD Ryzen 7 3800X 8-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 17,
-   "median_score": 183.3467330868429,
-   "p25_score": 180.86492569899082,
-   "p75_score": 184.94522423861275
+   "median_score": 172.8142151465294,
+   "p25_score": 155.54801397800537,
+   "p75_score": 190.09144628687568
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-1255u",
-   "device_name": "12th Gen Intel Core i7-1255U",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 17,
-   "median_score": 75.7537977024809,
-   "p25_score": 67.99801641782202,
-   "p75_score": 83.38412630189237
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 7995wx",
-   "device_name": "AMD Ryzen Threadripper PRO 7995WX 96-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 17,
-   "median_score": 2993.7131865592505,
-   "p25_score": 2446.994761476666,
-   "p75_score": 3461.6523692965784
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 5 225h",
-   "device_name": "Intel Core Ultra 5 225H",
+   "model_key": "intel core i7-9700",
+   "device_name": "Intel Core i7-9700 CPU @ 3.00GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 16,
-   "median_score": 188.53175836711867,
-   "p25_score": 167.46735866927455,
-   "p75_score": 215.9444379468202
+   "median_score": 107.74426365638696,
+   "p25_score": 86.90996419137537,
+   "p75_score": 115.36579439530274
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-8400",
+   "device_name": "Intel Core i5-8400 CPU @ 2.80GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 16,
+   "median_score": 78.13581957202265,
+   "p25_score": 69.62914952652044,
+   "p75_score": 83.088398577259
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5700",
+   "device_name": "AMD Ryzen 7 5700",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 16,
+   "median_score": 187.7878358767379,
+   "p25_score": 179.22876049765924,
+   "p75_score": 202.84125550171603
+  },
+  {
+   "kind": "gpu",
+   "model_key": "intel arc b390",
+   "device_name": "Intel(R) Arc(TM) B390 GPU",
+   "device_type": "ONEAPI",
+   "blender_version": "4.5",
+   "n_runs": 16,
+   "median_score": 1265.0337485700975,
+   "p25_score": 1179.3802937834391,
+   "p75_score": 1282.5110274892602
   },
   {
    "kind": "cpu",
@@ -2897,70 +2215,15 @@
    "p75_score": 143.7723078201846
   },
   {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 5700",
-   "device_name": "AMD Ryzen 7 5700",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 16,
-   "median_score": 187.7878358767379,
-   "p25_score": 179.22876049765924,
-   "p75_score": 202.84125550171603
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-9700",
-   "device_name": "Intel Core i7-9700 CPU @ 3.00GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 16,
-   "median_score": 107.74426365638696,
-   "p25_score": 86.90996419137537,
-   "p75_score": 115.36579439530274
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-7200u",
-   "device_name": "Intel Core i5-7200U CPU @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 16,
-   "median_score": 23.663140287181914,
-   "p25_score": 18.619571137243348,
-   "p75_score": 35.093466682417215
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-8400",
-   "device_name": "Intel Core i5-8400 CPU @ 2.80GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 16,
-   "median_score": 78.13581957202265,
-   "p25_score": 69.62914952652044,
-   "p75_score": 83.088398577259
-  },
-  {
    "kind": "gpu",
-   "model_key": "intel arc b390",
-   "device_name": "Intel(R) Arc(TM) B390 GPU",
-   "device_type": "ONEAPI",
+   "model_key": "amd rx 7800",
+   "device_name": "AMD Radeon RX 7800M",
+   "device_type": "HIP",
    "blender_version": "4.5",
-   "n_runs": 16,
-   "median_score": 1265.0337485700975,
-   "p25_score": 1179.3802937834391,
-   "p75_score": 1282.5110274892602
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 5700u",
-   "device_name": "AMD Ryzen 7 5700U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 16,
-   "median_score": 117.59294778451205,
-   "p25_score": 79.17368618149278,
-   "p75_score": 124.23725522724011
+   "n_runs": 15,
+   "median_score": 1935.7680357755091,
+   "p25_score": 1846.5586419451802,
+   "p75_score": 2038.4473417930512
   },
   {
    "kind": "cpu",
@@ -2975,17 +2238,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 7445hs",
-   "device_name": "AMD Ryzen 7 7445HS w/ Radeon 740M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 15,
-   "median_score": 134.80100211820286,
-   "p25_score": 126.80874615607745,
-   "p75_score": 137.49971052007749
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd threadripper 9980x",
    "device_name": "AMD Ryzen Threadripper 9980X 64-Cores",
    "device_type": "CPU",
@@ -2994,28 +2246,6 @@
    "median_score": 2028.7539284372995,
    "p25_score": 1931.4595990745454,
    "p75_score": 2245.42560332768
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-5350u",
-   "device_name": "Intel(R) Core(TM) i5-5350U CPU @ 1.80GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 15,
-   "median_score": 21.820675413130516,
-   "p25_score": 20.197257900985555,
-   "p75_score": 23.262151482223196
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 7800",
-   "device_name": "AMD Radeon RX 7800M",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 15,
-   "median_score": 1935.7680357755091,
-   "p25_score": 1846.5586419451802,
-   "p75_score": 2038.4473417930512
   },
   {
    "kind": "gpu",
@@ -3041,17 +2271,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core ultra 9 288v",
-   "device_name": "Intel Core Ultra 9 288V",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 14,
-   "median_score": 112.93878569292465,
-   "p25_score": 76.22181033871283,
-   "p75_score": 138.57654402787404
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i3-9100f",
    "device_name": "Intel Core i3-9100F CPU @ 3.60GHz",
    "device_type": "CPU",
@@ -3060,39 +2279,6 @@
    "median_score": 67.59158723525707,
    "p25_score": 53.95121511149435,
    "p75_score": 68.70706458390403
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 9995wx",
-   "device_name": "AMD Ryzen Threadripper PRO 9995WX 96-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 14,
-   "median_score": 2645.4131549190847,
-   "p25_score": 2413.112063026021,
-   "p75_score": 3176.8960978644545
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-13700f",
-   "device_name": "13th Gen Intel Core i7-13700F",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 14,
-   "median_score": 280.7977346955476,
-   "p25_score": 256.5779219268092,
-   "p75_score": 340.78589120442757
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 3800xt",
-   "device_name": "AMD Ryzen 7 3800XT 8-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 14,
-   "median_score": 191.32104278614776,
-   "p25_score": 177.05866352889547,
-   "p75_score": 199.82133394768266
   },
   {
    "kind": "cpu",
@@ -3107,6 +2293,50 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core ultra 9 288v",
+   "device_name": "Intel Core Ultra 9 288V",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 14,
+   "median_score": 112.93878569292465,
+   "p25_score": 76.22181033871283,
+   "p75_score": 138.57654402787404
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9995wx",
+   "device_name": "AMD Ryzen Threadripper PRO 9995WX 96-Cores",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 14,
+   "median_score": 2645.4131549190847,
+   "p25_score": 2413.112063026021,
+   "p75_score": 3176.8960978644545
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 3800xt",
+   "device_name": "AMD Ryzen 7 3800XT 8-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 14,
+   "median_score": 191.32104278614776,
+   "p25_score": 177.05866352889547,
+   "p75_score": 199.82133394768266
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-13700f",
+   "device_name": "13th Gen Intel Core i7-13700F",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 14,
+   "median_score": 280.7977346955476,
+   "p25_score": 256.5779219268092,
+   "p75_score": 340.78589120442757
+  },
+  {
+   "kind": "cpu",
    "model_key": "intel core i5-3470",
    "device_name": "Intel Core i5-3470 CPU @ 3.20GHz",
    "device_type": "CPU",
@@ -3115,83 +2345,6 @@
    "median_score": 31.89970414545583,
    "p25_score": 30.456737968734608,
    "p75_score": 33.89146056669102
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-4770",
-   "device_name": "Intel Core i7-4770 CPU @ 3.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 62.91210638389374,
-   "p25_score": 51.7857862391558,
-   "p75_score": 71.66984312606286
-  },
-  {
-   "kind": "gpu",
-   "model_key": "nvidia rtx 5000",
-   "device_name": "Quadro RTX 5000",
-   "device_type": "OPTIX",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 1704.8452804253773,
-   "p25_score": 978.9878971734975,
-   "p75_score": 2108.6395541187985
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-9850h",
-   "device_name": "Intel Core i7-9850H CPU @ 2.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 88.08112325492121,
-   "p25_score": 76.60835343072625,
-   "p75_score": 103.7482379755481
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-1260p",
-   "device_name": "12th Gen Intel Core i7-1260P",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 85.96710521721873,
-   "p25_score": 70.45466752540241,
-   "p75_score": 115.59671760289399
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-11700",
-   "device_name": "11th Gen Intel Core i7-11700 @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 127.67280188848983,
-   "p25_score": 114.0739223289343,
-   "p75_score": 155.8265661719327
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper 1950x",
-   "device_name": "AMD Ryzen Threadripper 1950X 16-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 266.64361578520135,
-   "p25_score": 217.1277314494086,
-   "p75_score": 294.085518112969
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 8645hs",
-   "device_name": "AMD Ryzen 5 8645HS w/ Radeon 760M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 13,
-   "median_score": 157.7588418330269,
-   "p25_score": 146.09134708994003,
-   "p75_score": 167.72629198319558
   },
   {
    "kind": "cpu",
@@ -3206,47 +2359,69 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-10210u",
-   "device_name": "Intel Core i5-10210U CPU @ 1.60GHz",
+   "model_key": "intel core i7-11700",
+   "device_name": "11th Gen Intel Core i7-11700 @ 2.50GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 13,
-   "median_score": 36.189234370718744,
-   "p25_score": 26.365170094074593,
-   "p75_score": 45.319662040451334
+   "median_score": 127.67280188848983,
+   "p25_score": 114.0739223289343,
+   "p75_score": 155.8265661719327
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-13850hx",
-   "device_name": "13th Gen Intel Core i7-13850HX",
+   "model_key": "intel core i7-4770",
+   "device_name": "Intel Core i7-4770 CPU @ 3.40GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 292.206873745126,
-   "p25_score": 280.7911736802637,
-   "p75_score": 297.6874905061884
+   "n_runs": 13,
+   "median_score": 62.91210638389374,
+   "p25_score": 51.7857862391558,
+   "p75_score": 71.66984312606286
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-7820x",
-   "device_name": "Intel Core i7-7820X CPU @ 3.60GHz",
+   "model_key": "amd threadripper 1950x",
+   "device_name": "AMD Ryzen Threadripper 1950X 16-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 158.56518405963098,
-   "p25_score": 148.78246652562166,
-   "p75_score": 169.7454533704835
+   "n_runs": 13,
+   "median_score": 266.64361578520135,
+   "p25_score": 217.1277314494086,
+   "p75_score": 294.085518112969
+  },
+  {
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5000",
+   "device_name": "Quadro RTX 5000",
+   "device_type": "OPTIX",
+   "blender_version": "4.5",
+   "n_runs": 13,
+   "median_score": 1704.8452804253773,
+   "p25_score": 978.9878971734975,
+   "p75_score": 2108.6395541187985
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 5825u",
-   "device_name": "AMD Ryzen 7 5825U with Radeon Graphics",
+   "model_key": "intel core ultra 7 265f",
+   "device_name": "Intel Core Ultra 7 265F",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 12,
-   "median_score": 130.33645490428722,
-   "p25_score": 123.3216817187959,
-   "p75_score": 150.66974132238602
+   "median_score": 359.17427231658075,
+   "p25_score": 355.30547161369066,
+   "p75_score": 364.53624507623385
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 1600",
+   "device_name": "AMD Ryzen 5 1600 Six-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 12,
+   "median_score": 96.71429518405702,
+   "p25_score": 92.41128358386005,
+   "p75_score": 108.77839937206394
   },
   {
    "kind": "cpu",
@@ -3272,94 +2447,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 9 7845hx",
-   "device_name": "AMD Ryzen 9 7845HX with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 270.88056110624217,
-   "p25_score": 168.8543563858014,
-   "p75_score": 345.54393368717274
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8565u",
-   "device_name": "Intel Core i7-8565U CPU @ 1.80GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 49.31061741603824,
-   "p25_score": 40.71809864691416,
-   "p75_score": 53.228790917912576
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 265f",
-   "device_name": "Intel Core Ultra 7 265F",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 359.17427231658075,
-   "p25_score": 355.30547161369066,
-   "p75_score": 364.53624507623385
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 256v",
-   "device_name": "Intel Core Ultra 7 256V",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 121.24250821388522,
-   "p25_score": 108.5905675637375,
-   "p75_score": 133.59626533383715
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8850h",
-   "device_name": "Intel Core i7-8850H CPU @ 2.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 71.43993143467179,
-   "p25_score": 60.749093071417214,
-   "p75_score": 81.99356663883484
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 3400g",
-   "device_name": "AMD Ryzen 5 3400G with Radeon Vega Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 68.6669885934353,
-   "p25_score": 60.17671531500558,
-   "p75_score": 70.39960270269769
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-11375h",
-   "device_name": "11th Gen Intel Core i7-11375H @ 3.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 60.677996081983274,
-   "p25_score": 51.58077278930161,
-   "p75_score": 64.153350959328
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-9300h",
-   "device_name": "Intel Core i5-9300H CPU @ 2.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 12,
-   "median_score": 64.71450280695393,
-   "p25_score": 58.08174147240388,
-   "p75_score": 71.37782817234825
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core ultra 7 265",
    "device_name": "Intel Core Ultra 7 265",
    "device_type": "CPU",
@@ -3371,14 +2458,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 1600",
-   "device_name": "AMD Ryzen 5 1600 Six-Core Processor",
+   "model_key": "intel core i7-7820x",
+   "device_name": "Intel Core i7-7820X CPU @ 3.60GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 12,
-   "median_score": 96.71429518405702,
-   "p25_score": 92.41128358386005,
-   "p75_score": 108.77839937206394
+   "median_score": 158.56518405963098,
+   "p25_score": 148.78246652562166,
+   "p75_score": 169.7454533704835
   },
   {
    "kind": "cpu",
@@ -3393,36 +2480,25 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 7520u",
-   "device_name": "AMD Ryzen 5 7520U with Radeon Graphics",
+   "model_key": "amd ryzen 5 3400g",
+   "device_name": "AMD Ryzen 5 3400G with Radeon Vega Graphics",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 11,
-   "median_score": 42.81874090940783,
-   "p25_score": 24.564118816043642,
-   "p75_score": 66.54386297578787
+   "n_runs": 12,
+   "median_score": 68.6669885934353,
+   "p25_score": 60.17671531500558,
+   "p75_score": 70.39960270269769
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-10920x",
-   "device_name": "Intel Core i9-10920X CPU @ 3.50GHz",
+   "model_key": "intel core ultra 7 256v",
+   "device_name": "Intel Core Ultra 7 256V",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 11,
-   "median_score": 251.40360354796425,
-   "p25_score": 242.77118483004512,
-   "p75_score": 256.06180183703225
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 6600h",
-   "device_name": "AMD Ryzen 5 6600H with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 11,
-   "median_score": 128.1487022496357,
-   "p25_score": 100.91447262455296,
-   "p75_score": 133.98111719509825
+   "n_runs": 12,
+   "median_score": 121.24250821388522,
+   "p25_score": 108.5905675637375,
+   "p75_score": 133.59626533383715
   },
   {
    "kind": "cpu",
@@ -3437,14 +2513,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core ultra 5 125h",
-   "device_name": "Intel Core Ultra 5 125H",
+   "model_key": "intel core i9-10920x",
+   "device_name": "Intel Core i9-10920X CPU @ 3.50GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 11,
-   "median_score": 142.96437926858715,
-   "p25_score": 96.68067311080252,
-   "p75_score": 163.27243018859562
+   "median_score": 251.40360354796425,
+   "p25_score": 242.77118483004512,
+   "p75_score": 256.06180183703225
   },
   {
    "kind": "cpu",
@@ -3459,160 +2535,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 4600h",
-   "device_name": "AMD Ryzen 5 4600H with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 11,
-   "median_score": 102.22775260951069,
-   "p25_score": 88.14084526070847,
-   "p75_score": 120.11418045596754
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-8265u",
-   "device_name": "Intel Core i5-8265U CPU @ 1.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 11,
-   "median_score": 47.87128911998376,
-   "p25_score": 36.198105920275786,
-   "p75_score": 50.25913115774099
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-1355u",
-   "device_name": "13th Gen Intel Core i7-1355U",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 11,
-   "median_score": 88.50351925381878,
-   "p25_score": 45.118162656601996,
-   "p75_score": 98.55787887257691
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-10875h",
-   "device_name": "Intel Core i7-10875H CPU @ 2.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 126.9775390686313,
-   "p25_score": 111.45097177268559,
-   "p75_score": 163.47552841701022
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 5995wx",
-   "device_name": "AMD Ryzen Threadripper PRO 5995WX 64-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 1290.391056764328,
-   "p25_score": 1111.15010799661,
-   "p75_score": 1505.5134388239603
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-7360u",
-   "device_name": "Intel(R) Core(TM) i5-7360U CPU @ 2.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 29.37863601689177,
-   "p25_score": 21.784408296969502,
-   "p75_score": 30.94873645014033
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-12900ks",
-   "device_name": "12th Gen Intel Core i9-12900KS",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 373.0150784503858,
-   "p25_score": 355.1407260011831,
-   "p75_score": 410.88987191378465
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-11370h",
-   "device_name": "11th Gen Intel Core i7-11370H @ 3.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 80.52475150073633,
-   "p25_score": 68.04209679562237,
-   "p75_score": 88.94220985255289
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-5257u",
-   "device_name": "Intel(R) Core(TM) i5-5257U CPU @ 2.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 21.323396939878997,
-   "p25_score": 16.630604078610716,
-   "p75_score": 24.672419926104094
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-7300u",
-   "device_name": "Intel Core i5-7300U CPU @ 2.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 23.647156180676795,
-   "p25_score": 20.1428807180097,
-   "p75_score": 27.271977176959624
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 4750u",
-   "device_name": "AMD Ryzen 7 PRO 4750U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 116.95618366505937,
-   "p25_score": 106.50581170632731,
-   "p75_score": 122.86869350844663
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 2700",
-   "device_name": "AMD Ryzen 7 2700 Eight-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 124.24371141575102,
-   "p25_score": 110.25957552574381,
-   "p75_score": 148.04017664089776
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 5 226v",
-   "device_name": "Intel Core Ultra 5 226V",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 104.0110961357689,
-   "p25_score": 89.80208316821444,
-   "p75_score": 122.78056646781663
-  },
-  {
-   "kind": "gpu",
-   "model_key": "nvidia gtx 980 ti",
-   "device_name": "NVIDIA GeForce GTX 980 Ti",
-   "device_type": "OPTIX",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 504.61509747833935,
-   "p25_score": 394.957916302875,
-   "p75_score": 529.0136010023663
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 7 1700",
    "device_name": "AMD Ryzen 7 1700 Eight-Core Processor",
    "device_type": "CPU",
@@ -3621,39 +2543,6 @@
    "median_score": 116.58068485105646,
    "p25_score": 112.88073375295949,
    "p75_score": 123.86635518408663
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 5 225f",
-   "device_name": "Intel Core Ultra 5 225F",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 212.81555323655786,
-   "p25_score": 207.09884115728875,
-   "p75_score": 221.06884754764104
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-10510u",
-   "device_name": "Intel Core i7-10510U CPU @ 1.80GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 37.88296288689916,
-   "p25_score": 29.083687725868586,
-   "p75_score": 53.308518288646205
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-10310u",
-   "device_name": "Intel Core i5-10310U CPU @ 1.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 10,
-   "median_score": 45.11610126813475,
-   "p25_score": 36.92981661415335,
-   "p75_score": 64.65392720801516
   },
   {
    "kind": "cpu",
@@ -3679,25 +2568,47 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-11950h",
-   "device_name": "11th Gen Intel Core i9-11950H @ 2.60GHz",
+   "model_key": "amd threadripper pro 5995wx",
+   "device_name": "AMD Ryzen Threadripper PRO 5995WX 64-Cores",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 10,
-   "median_score": 165.51439597318537,
-   "p25_score": 135.81519444411177,
-   "p75_score": 169.83410283707758
+   "median_score": 1290.391056764328,
+   "p25_score": 1111.15010799661,
+   "p75_score": 1505.5134388239603
   },
   {
    "kind": "cpu",
-   "model_key": "intel core ultra 7 265h",
-   "device_name": "Intel Core Ultra 7 265H",
+   "model_key": "intel core i9-12900ks",
+   "device_name": "12th Gen Intel Core i9-12900KS",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 10,
-   "median_score": 252.90780970732447,
-   "p25_score": 215.03324785665458,
-   "p75_score": 266.36868357471826
+   "median_score": 373.0150784503858,
+   "p25_score": 355.1407260011831,
+   "p75_score": 410.88987191378465
+  },
+  {
+   "kind": "gpu",
+   "model_key": "nvidia gtx 980 ti",
+   "device_name": "NVIDIA GeForce GTX 980 Ti",
+   "device_type": "OPTIX",
+   "blender_version": "4.5",
+   "n_runs": 10,
+   "median_score": 504.61509747833935,
+   "p25_score": 394.957916302875,
+   "p75_score": 529.0136010023663
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core ultra 5 225f",
+   "device_name": "Intel Core Ultra 5 225F",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 10,
+   "median_score": 212.81555323655786,
+   "p25_score": 207.09884115728875,
+   "p75_score": 221.06884754764104
   },
   {
    "kind": "cpu",
@@ -3712,36 +2623,25 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 2600x",
-   "device_name": "AMD Ryzen 5 2600X Six-Core Processor",
+   "model_key": "amd ryzen 7 2700",
+   "device_name": "AMD Ryzen 7 2700 Eight-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 105.3332770779465,
-   "p25_score": 95.54303746267533,
-   "p75_score": 108.76045768358382
+   "n_runs": 10,
+   "median_score": 124.24371141575102,
+   "p25_score": 110.25957552574381,
+   "p75_score": 148.04017664089776
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 5625u",
-   "device_name": "AMD Ryzen 5 5625U with Radeon Graphics",
+   "model_key": "intel core ultra 5 226v",
+   "device_name": "Intel Core Ultra 5 226V",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 84.14875978079468,
-   "p25_score": 68.03505535987694,
-   "p75_score": 105.68287921037552
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper 2990wx",
-   "device_name": "AMD Ryzen Threadripper 2990WX 32-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 455.3053047000849,
-   "p25_score": 441.36503070766105,
-   "p75_score": 543.357220422612
+   "n_runs": 10,
+   "median_score": 104.0110961357689,
+   "p25_score": 89.80208316821444,
+   "p75_score": 122.78056646781663
   },
   {
    "kind": "cpu",
@@ -3756,14 +2656,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd threadripper 3990x",
-   "device_name": "AMD Ryzen Threadripper 3990X 64-Core Processor",
+   "model_key": "amd ryzen 5 2600x",
+   "device_name": "AMD Ryzen 5 2600X Six-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 9,
-   "median_score": 1140.430780100996,
-   "p25_score": 1076.0877895929887,
-   "p75_score": 1261.1100635290338
+   "median_score": 105.3332770779465,
+   "p25_score": 95.54303746267533,
+   "p75_score": 108.76045768358382
   },
   {
    "kind": "cpu",
@@ -3778,50 +2678,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-4870hq",
-   "device_name": "Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 58.771235002974166,
-   "p25_score": 56.22732780372201,
-   "p75_score": 59.865906998268656
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 265hx",
-   "device_name": "Intel Core Ultra 7 265HX",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 386.01337567272196,
-   "p25_score": 337.5901587135137,
-   "p75_score": 419.65436690899594
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-14900",
-   "device_name": "Intel Core i9-14900",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 317.90236995829974,
-   "p25_score": 256.9980086777604,
-   "p75_score": 419.18353799523544
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 6900hx",
-   "device_name": "AMD Ryzen 9 6900HX with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 183.34670660502366,
-   "p25_score": 164.35935644549517,
-   "p75_score": 189.32080221708986
-  },
-  {
-   "kind": "cpu",
    "model_key": "intel core i7-13700",
    "device_name": "13th Gen Intel Core i7-13700",
    "device_type": "CPU",
@@ -3833,58 +2689,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-13500h",
-   "device_name": "13th Gen Intel Core i5-13500H",
+   "model_key": "amd threadripper 2990wx",
+   "device_name": "AMD Ryzen Threadripper 2990WX 32-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 9,
-   "median_score": 153.53151538088423,
-   "p25_score": 142.69298906247104,
-   "p75_score": 183.03655280280435
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-13400",
-   "device_name": "13th Gen Intel Core i5-13400",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 191.88531112359422,
-   "p25_score": 165.7012510917958,
-   "p75_score": 221.548605287851
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 5600x3d",
-   "device_name": "AMD Ryzen 5 5600X3D 6-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 180.08559336156532,
-   "p25_score": 143.211420454703,
-   "p75_score": 187.94530029916592
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-10700f",
-   "device_name": "Intel Core i7-10700F CPU @ 2.90GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 159.4143733845512,
-   "p25_score": 138.7073193158708,
-   "p75_score": 165.58820960510448
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-11400",
-   "device_name": "11th Gen Intel Core i5-11400 @ 2.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 9,
-   "median_score": 127.82464758751192,
-   "p25_score": 114.29057961069864,
-   "p75_score": 131.8607064112971
+   "median_score": 455.3053047000849,
+   "p25_score": 441.36503070766105,
+   "p75_score": 543.357220422612
   },
   {
    "kind": "cpu",
@@ -3899,14 +2711,69 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 9 4900hs",
-   "device_name": "AMD Ryzen 9 4900HS with Radeon Graphics",
+   "model_key": "intel core i9-14900",
+   "device_name": "Intel Core i9-14900",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 9,
-   "median_score": 131.84853310777382,
-   "p25_score": 123.91234154266462,
-   "p75_score": 161.23715202665147
+   "median_score": 317.90236995829974,
+   "p25_score": 256.9980086777604,
+   "p75_score": 419.18353799523544
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-4870hq",
+   "device_name": "Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 9,
+   "median_score": 58.771235002974166,
+   "p25_score": 56.22732780372201,
+   "p75_score": 59.865906998268656
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-11400",
+   "device_name": "11th Gen Intel Core i5-11400 @ 2.60GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 9,
+   "median_score": 127.82464758751192,
+   "p25_score": 114.29057961069864,
+   "p75_score": 131.8607064112971
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-10700f",
+   "device_name": "Intel Core i7-10700F CPU @ 2.90GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 9,
+   "median_score": 159.4143733845512,
+   "p25_score": 138.7073193158708,
+   "p75_score": 165.58820960510448
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 5600x3d",
+   "device_name": "AMD Ryzen 5 5600X3D 6-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 9,
+   "median_score": 180.08559336156532,
+   "p25_score": 143.211420454703,
+   "p75_score": 187.94530029916592
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper 3990x",
+   "device_name": "AMD Ryzen Threadripper 3990X 64-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 9,
+   "median_score": 1140.430780100996,
+   "p25_score": 1076.0877895929887,
+   "p75_score": 1261.1100635290338
   },
   {
    "kind": "cpu",
@@ -3921,157 +2788,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 7745hx",
-   "device_name": "AMD Ryzen 7 7745HX with Radeon Graphics",
+   "model_key": "intel core i5-13400",
+   "device_name": "13th Gen Intel Core i5-13400",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 9,
-   "median_score": 251.8022812396236,
-   "p25_score": 216.82025589525875,
-   "p75_score": 254.15086811220667
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-11900h",
-   "device_name": "11th Gen Intel Core i9-11900H @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 135.9299179421248,
-   "p25_score": 107.35863805110206,
-   "p75_score": 142.01727669660065
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 8745hs",
-   "device_name": "AMD Ryzen 7 8745HS w/ Radeon 780M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 236.1518532674791,
-   "p25_score": 212.4750526265808,
-   "p75_score": 249.55409123641172
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-10850h",
-   "device_name": "Intel Core i7-10850H CPU @ 2.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 89.25753439762548,
-   "p25_score": 80.1554102600887,
-   "p75_score": 103.10385902097667
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 7940hx",
-   "device_name": "AMD Ryzen 9 7940HX with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 473.4753053570231,
-   "p25_score": 461.34104617092805,
-   "p75_score": 501.13967625129783
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-11300h",
-   "device_name": "11th Gen Intel Core i5-11300H @ 3.10GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 75.58160096910585,
-   "p25_score": 71.17059976847497,
-   "p75_score": 78.748539816295
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-4770k",
-   "device_name": "Intel Core i7-4770K CPU @ 3.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 67.1569150500201,
-   "p25_score": 63.24711316771044,
-   "p75_score": 80.24637530757366
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-8365u",
-   "device_name": "Intel Core i5-8365U CPU @ 1.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 42.618235221471345,
-   "p25_score": 29.85149170260921,
-   "p75_score": 64.36221767606283
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-8257u",
-   "device_name": "Intel(R) Core(TM) i5-8257U CPU @ 1.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 50.27716763627238,
-   "p25_score": 45.61818387534754,
-   "p75_score": 60.26345899616314
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-2600",
-   "device_name": "Intel Core i7-2600 CPU @ 3.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 42.05744424587043,
-   "p25_score": 40.214115391126214,
-   "p75_score": 43.39545908884678
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper 2920x",
-   "device_name": "AMD Ryzen Threadripper 2920X 12-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 208.33088647027938,
-   "p25_score": 183.14520540185057,
-   "p75_score": 230.93592316321957
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 6800u",
-   "device_name": "AMD Ryzen 7 6800U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 155.1042803677117,
-   "p25_score": 148.59331625829444,
-   "p75_score": 159.01452773645354
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 3900",
-   "device_name": "AMD Ryzen 9 3900 12-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 247.1208809535703,
-   "p25_score": 213.63651460094093,
-   "p75_score": 261.77803324218775
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 5900hs",
-   "device_name": "AMD Ryzen 9 5900HS with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 149.2732675627975,
-   "p25_score": 102.8347370188792,
-   "p75_score": 154.75921882366936
+   "median_score": 191.88531112359422,
+   "p25_score": 165.7012510917958,
+   "p75_score": 221.548605287851
   },
   {
    "kind": "cpu",
@@ -4086,6 +2810,39 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core i7-6950x",
+   "device_name": "Intel Core i7-6950X CPU @ 3.00GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 8,
+   "median_score": 186.5033317872231,
+   "p25_score": 165.03441969329288,
+   "p75_score": 197.65858241710993
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 3900",
+   "device_name": "AMD Ryzen 9 3900 12-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 8,
+   "median_score": 247.1208809535703,
+   "p25_score": 213.63651460094093,
+   "p75_score": 261.77803324218775
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-2600",
+   "device_name": "Intel Core i7-2600 CPU @ 3.40GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 8,
+   "median_score": 42.05744424587043,
+   "p25_score": 40.214115391126214,
+   "p75_score": 43.39545908884678
+  },
+  {
+   "kind": "cpu",
    "model_key": "amd ryzen 5 4650g",
    "device_name": "AMD Ryzen 5 PRO 4650G with Radeon Graphics",
    "device_type": "CPU",
@@ -4094,50 +2851,6 @@
    "median_score": 124.43413801122736,
    "p25_score": 116.654227154757,
    "p75_score": 129.88958826609056
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 5955wx",
-   "device_name": "AMD Ryzen Threadripper PRO 5955WX 16-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 412.1573004651875,
-   "p25_score": 408.34999968192835,
-   "p75_score": 416.91941351244446
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 268v",
-   "device_name": "Intel Core Ultra 7 268V",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 112.2498732789445,
-   "p25_score": 78.40701222454018,
-   "p75_score": 118.468614847135
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 5850u",
-   "device_name": "AMD Ryzen 7 PRO 5850U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 117.41416616037996,
-   "p25_score": 112.1826527372391,
-   "p75_score": 121.48731838481726
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 165h",
-   "device_name": "Intel Core Ultra 7 165H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 8,
-   "median_score": 195.43062590761525,
-   "p25_score": 185.6535481711058,
-   "p75_score": 209.34387986669083
   },
   {
    "kind": "cpu",
@@ -4152,102 +2865,58 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-6950x",
-   "device_name": "Intel Core i7-6950X CPU @ 3.00GHz",
+   "model_key": "intel core ultra 7 268v",
+   "device_name": "Intel Core Ultra 7 268V",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 8,
-   "median_score": 186.5033317872231,
-   "p25_score": 165.03441969329288,
-   "p75_score": 197.65858241710993
+   "median_score": 112.2498732789445,
+   "p25_score": 78.40701222454018,
+   "p75_score": 118.468614847135
   },
   {
    "kind": "cpu",
-   "model_key": "amd threadripper pro 9955wx",
-   "device_name": "AMD Ryzen Threadripper PRO 9955WX 16-Cores",
+   "model_key": "amd threadripper 2920x",
+   "device_name": "AMD Ryzen Threadripper 2920X 12-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 582.9263844905744,
-   "p25_score": 345.1957773535268,
-   "p75_score": 621.0119255303387
+   "n_runs": 8,
+   "median_score": 208.33088647027938,
+   "p25_score": 183.14520540185057,
+   "p75_score": 230.93592316321957
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 4500u",
-   "device_name": "AMD Ryzen 5 4500U with Radeon Graphics",
+   "model_key": "intel core i7-4770k",
+   "device_name": "Intel Core i7-4770K CPU @ 3.50GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 69.85489271808382,
-   "p25_score": 69.06344755916727,
-   "p75_score": 78.32812349397548
+   "n_runs": 8,
+   "median_score": 67.1569150500201,
+   "p25_score": 63.24711316771044,
+   "p75_score": 80.24637530757366
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i3-1315u",
-   "device_name": "13th Gen Intel Core i3-1315U",
+   "model_key": "amd threadripper pro 5955wx",
+   "device_name": "AMD Ryzen Threadripper PRO 5955WX 16-Cores",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 64.5574068216392,
-   "p25_score": 56.69510919881774,
-   "p75_score": 79.35689480938098
+   "n_runs": 8,
+   "median_score": 412.1573004651875,
+   "p25_score": 408.34999968192835,
+   "p75_score": 416.91941351244446
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-6200u",
-   "device_name": "Intel Core i5-6200U CPU @ 2.30GHz",
+   "model_key": "amd ryzen 9 3900xt",
+   "device_name": "AMD Ryzen 9 3900XT 12-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 7,
-   "median_score": 25.92022097324392,
-   "p25_score": 20.11592354181461,
-   "p75_score": 30.152213055138976
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-7500u",
-   "device_name": "Intel Core i7-7500U CPU @ 2.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 17.69179473699122,
-   "p25_score": 11.554177818380134,
-   "p75_score": 20.627004422517246
-  },
-  {
-   "kind": "gpu",
-   "model_key": "intel arc b570",
-   "device_name": "Intel(R) Arc(TM) B570 Graphics",
-   "device_type": "ONEAPI",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 1853.0211425949456,
-   "p25_score": 1782.6565337987504,
-   "p75_score": 1866.4776317031074
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 7650 gre",
-   "device_name": "AMD Radeon RX 7650 GRE",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 1226.094504374022,
-   "p25_score": 1186.390780074776,
-   "p75_score": 1255.2087656400272
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 7975wx",
-   "device_name": "AMD Ryzen Threadripper PRO 7975WX 32-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 1073.1804347313546,
-   "p25_score": 990.8448074560335,
-   "p75_score": 1186.1783419734393
+   "median_score": 277.4493835876258,
+   "p25_score": 254.9349581264794,
+   "p75_score": 287.45554934602825
   },
   {
    "kind": "cpu",
@@ -4273,47 +2942,25 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 7840u",
-   "device_name": "AMD Ryzen 7 PRO 7840U w/ Radeon 780M Graphics",
+   "model_key": "amd threadripper pro 9955wx",
+   "device_name": "AMD Ryzen Threadripper PRO 9955WX 16-Cores",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 7,
-   "median_score": 116.5085011221853,
-   "p25_score": 100.52673360371605,
-   "p75_score": 159.5983289741476
+   "median_score": 582.9263844905744,
+   "p25_score": 345.1957773535268,
+   "p75_score": 621.0119255303387
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i7-10870h",
-   "device_name": "Intel Core i7-10870H CPU @ 2.20GHz",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "intel arc b570",
+   "device_name": "Intel(R) Arc(TM) B570 Graphics",
+   "device_type": "ONEAPI",
    "blender_version": "4.5",
    "n_runs": 7,
-   "median_score": 121.3777009085896,
-   "p25_score": 77.85791050187792,
-   "p75_score": 137.09368090302272
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 8945hx",
-   "device_name": "AMD Ryzen 9 8945HX with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 499.3312375157128,
-   "p25_score": 437.8008940196712,
-   "p75_score": 508.2379305197659
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-10900f",
-   "device_name": "Intel Core i9-10900F CPU @ 2.80GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 197.6753990401628,
-   "p25_score": 158.48890972636798,
-   "p75_score": 235.4167730925379
+   "median_score": 1853.0211425949456,
+   "p25_score": 1782.6565337987504,
+   "p75_score": 1866.4776317031074
   },
   {
    "kind": "cpu",
@@ -4328,61 +2975,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd threadripper 1920x",
-   "device_name": "AMD Ryzen Threadripper 1920X 12-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 223.44844652846587,
-   "p25_score": 196.75179602013756,
-   "p75_score": 235.0000508401354
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-12800h",
-   "device_name": "12th Gen Intel Core i7-12800H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 160.09880698393488,
-   "p25_score": 140.3923059734664,
-   "p75_score": 245.85875025548333
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 7640hs",
-   "device_name": "AMD Ryzen 5 7640HS w/ Radeon 760M Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 170.17621832149666,
-   "p25_score": 161.82942346982648,
-   "p75_score": 200.40116167034355
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 3900xt",
-   "device_name": "AMD Ryzen 9 3900XT 12-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 277.4493835876258,
-   "p25_score": 254.9349581264794,
-   "p75_score": 287.45554934602825
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i3-1215u",
-   "device_name": "12th Gen Intel Core i3-1215U",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 7,
-   "median_score": 57.16781532751539,
-   "p25_score": 28.53480619982353,
-   "p75_score": 58.32142790480043
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 3 3200g",
    "device_name": "AMD Ryzen 3 3200G with Radeon Vega Graphics",
    "device_type": "CPU",
@@ -4391,6 +2983,39 @@
    "median_score": 45.82086864652391,
    "p25_score": 34.025069329406975,
    "p75_score": 57.14173603430906
+  },
+  {
+   "kind": "gpu",
+   "model_key": "amd rx 7650 gre",
+   "device_name": "AMD Radeon RX 7650 GRE",
+   "device_type": "HIP",
+   "blender_version": "4.5",
+   "n_runs": 7,
+   "median_score": 1226.094504374022,
+   "p25_score": 1186.390780074776,
+   "p75_score": 1255.2087656400272
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i9-10900f",
+   "device_name": "Intel Core i9-10900F CPU @ 2.80GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 7,
+   "median_score": 197.6753990401628,
+   "p25_score": 158.48890972636798,
+   "p75_score": 235.4167730925379
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper 1920x",
+   "device_name": "AMD Ryzen Threadripper 1920X 12-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 7,
+   "median_score": 223.44844652846587,
+   "p25_score": 196.75179602013756,
+   "p75_score": 235.0000508401354
   },
   {
    "kind": "cpu",
@@ -4405,36 +3030,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-7500",
-   "device_name": "Intel Core i5-7500 CPU @ 3.40GHz",
+   "model_key": "amd threadripper pro 7975wx",
+   "device_name": "AMD Ryzen Threadripper PRO 7975WX 32-Cores",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 53.326078127584864,
-   "p25_score": 38.41719796046628,
-   "p75_score": 62.356388914380176
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-4460",
-   "device_name": "Intel Core i5-4460 CPU @ 3.20GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 39.892781383019035,
-   "p25_score": 25.532267113546922,
-   "p75_score": 53.340539502519604
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 3 2200g",
-   "device_name": "AMD Ryzen 3 2200G with Radeon Vega Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 55.949400438118516,
-   "p25_score": 44.66956630720431,
-   "p75_score": 56.144131063707306
+   "n_runs": 7,
+   "median_score": 1073.1804347313546,
+   "p25_score": 990.8448074560335,
+   "p75_score": 1186.1783419734393
   },
   {
    "kind": "cpu",
@@ -4460,14 +3063,36 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i3-12100",
-   "device_name": "12th Gen Intel Core i3-12100",
+   "model_key": "intel core i7-6820hq",
+   "device_name": "Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 6,
-   "median_score": 96.60669379170285,
-   "p25_score": 90.52086233684332,
-   "p75_score": 111.28949324029736
+   "median_score": 51.31685211395571,
+   "p25_score": 42.80895111714044,
+   "p75_score": 56.932695689319985
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-7500",
+   "device_name": "Intel Core i5-7500 CPU @ 3.40GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 6,
+   "median_score": 53.326078127584864,
+   "p25_score": 38.41719796046628,
+   "p75_score": 62.356388914380176
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 3 2200g",
+   "device_name": "AMD Ryzen 3 2200G with Radeon Vega Graphics",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 6,
+   "median_score": 55.949400438118516,
+   "p25_score": 44.66956630720431,
+   "p75_score": 56.144131063707306
   },
   {
    "kind": "cpu",
@@ -4482,94 +3107,6 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i7-2600k",
-   "device_name": "Intel Core i7-2600K CPU @ 3.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 52.801039399208804,
-   "p25_score": 42.2109318823958,
-   "p75_score": 57.916340363641595
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-6820hq",
-   "device_name": "Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 51.31685211395571,
-   "p25_score": 42.80895111714044,
-   "p75_score": 56.932695689319985
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-1334u",
-   "device_name": "13th Gen Intel Core i5-1334U",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 50.13674513655356,
-   "p25_score": 37.46702966347363,
-   "p75_score": 76.51112647367687
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-8650u",
-   "device_name": "Intel Core i7-8650U CPU @ 1.90GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 47.69782261382953,
-   "p25_score": 38.06149533668098,
-   "p75_score": 53.4267947445087
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 5500gt",
-   "device_name": "AMD Ryzen 5 5500GT with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 140.27467212130244,
-   "p25_score": 131.05166001920114,
-   "p75_score": 142.59506381388306
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-12500",
-   "device_name": "12th Gen Intel Core i5-12500",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 152.89234655061688,
-   "p25_score": 148.5400937035869,
-   "p75_score": 160.8900377038086
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-14900f",
-   "device_name": "Intel Core i9-14900F",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 320.3870210972128,
-   "p25_score": 279.21785387481094,
-   "p75_score": 530.9285683427028
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-11500",
-   "device_name": "11th Gen Intel Core i5-11500 @ 2.70GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 141.48622993012188,
-   "p25_score": 125.63824526131198,
-   "p75_score": 145.94985410809488
-  },
-  {
-   "kind": "cpu",
    "model_key": "amd ryzen 5 5600xt",
    "device_name": "AMD Ryzen 5 5600XT 6-Core Processor",
    "device_type": "CPU",
@@ -4581,135 +3118,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 5500x3d",
-   "device_name": "AMD Ryzen 5 5500X3D 6-Core Processor",
+   "model_key": "intel core i5-12500",
+   "device_name": "12th Gen Intel Core i5-12500",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 6,
-   "median_score": 144.45129536721566,
-   "p25_score": 132.02407335389194,
-   "p75_score": 146.1530896499145
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-10600",
-   "device_name": "Intel(R) Core(TM) i5-10600 CPU @ 3.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 139.14896023435006,
-   "p25_score": 116.48885698215895,
-   "p75_score": 148.0213926477885
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 5 225u",
-   "device_name": "Intel Core Ultra 5 225U",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 133.46123592507539,
-   "p25_score": 117.84845774526013,
-   "p75_score": 133.9010724502415
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-5250u",
-   "device_name": "Intel(R) Core(TM) i5-5250U CPU @ 1.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 14.878796305392736,
-   "p25_score": 11.903151146739116,
-   "p75_score": 16.87119765006913
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-5300u",
-   "device_name": "Intel Core i5-5300U CPU @ 2.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 18.844860738123174,
-   "p25_score": 13.501177730598119,
-   "p75_score": 20.980114195116045
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-7267u",
-   "device_name": "Intel(R) Core(TM) i5-7267U CPU @ 3.10GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 24.4560034184731,
-   "p25_score": 20.370626496573312,
-   "p75_score": 31.75386154247241
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 7530u",
-   "device_name": "AMD Ryzen 5 7530U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 79.80200689856778,
-   "p25_score": 69.42623468086572,
-   "p75_score": 92.11825434537022
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 5500 xt",
-   "device_name": "Radeon RX 5500 XT",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 507.39564004734575,
-   "p25_score": 472.383981979198,
-   "p75_score": 512.5348779196719
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-13900",
-   "device_name": "13th Gen Intel Core i9-13900",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 397.0313683576824,
-   "p25_score": 300.2905013475999,
-   "p75_score": 501.9686269463358
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-10500h",
-   "device_name": "Intel Core i5-10500H CPU @ 2.50GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 93.80926220542669,
-   "p25_score": 77.54662349978368,
-   "p75_score": 113.48501586041667
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-9400",
-   "device_name": "Intel Core i5-9400 CPU @ 2.90GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 84.33840441109965,
-   "p25_score": 82.463448766162,
-   "p75_score": 91.70902509383501
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 7 155u",
-   "device_name": "Intel Core Ultra 7 155U",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 87.7125367531625,
-   "p25_score": 66.69535697903163,
-   "p75_score": 101.28438533438599
+   "median_score": 152.89234655061688,
+   "p25_score": 148.5400937035869,
+   "p75_score": 160.8900377038086
   },
   {
    "kind": "gpu",
@@ -4735,58 +3151,25 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core ultra 5 125u",
-   "device_name": "Intel Core Ultra 5 125U",
+   "model_key": "intel core i3-12100",
+   "device_name": "12th Gen Intel Core i3-12100",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 6,
-   "median_score": 80.39206812280975,
-   "p25_score": 66.8888471246677,
-   "p75_score": 92.14020937157143
+   "median_score": 96.60669379170285,
+   "p25_score": 90.52086233684332,
+   "p75_score": 111.28949324029736
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-6300u",
-   "device_name": "Intel Core i5-6300U CPU @ 2.40GHz",
+   "model_key": "intel core i5-9400",
+   "device_name": "Intel Core i5-9400 CPU @ 2.90GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 6,
-   "median_score": 22.333313017761604,
-   "p25_score": 12.513212292251927,
-   "p75_score": 24.139208986650278
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-6600u",
-   "device_name": "Intel Core i7-6600U CPU @ 2.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 22.52094019723337,
-   "p25_score": 19.873314594137224,
-   "p75_score": 25.941119997242573
-  },
-  {
-   "kind": "gpu",
-   "model_key": "amd rx 9070 gre",
-   "device_name": "AMD Radeon RX 9070 GRE",
-   "device_type": "HIP",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 2374.2198685190124,
-   "p25_score": 2318.5157847914534,
-   "p75_score": 2406.3215795671094
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 7430u",
-   "device_name": "AMD Ryzen 5 7430U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 6,
-   "median_score": 90.79989945951415,
-   "p25_score": 59.21997429850406,
-   "p75_score": 108.37136642180187
+   "median_score": 84.33840441109965,
+   "p25_score": 82.463448766162,
+   "p75_score": 91.70902509383501
   },
   {
    "kind": "cpu",
@@ -4801,135 +3184,113 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-8300h",
-   "device_name": "Intel Core i5-8300H CPU @ 2.30GHz",
+   "model_key": "intel core i9-14900f",
+   "device_name": "Intel Core i9-14900F",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 50.787019259472544,
-   "p25_score": 34.61673544382079,
-   "p75_score": 70.40757449071539
+   "n_runs": 6,
+   "median_score": 320.3870210972128,
+   "p25_score": 279.21785387481094,
+   "p75_score": 530.9285683427028
   },
   {
    "kind": "gpu",
-   "model_key": "nvidia rtx 4500",
-   "device_name": "NVIDIA RTX 4500 Ada Generation",
-   "device_type": "OPTIX",
+   "model_key": "amd rx 5500 xt",
+   "device_name": "Radeon RX 5500 XT",
+   "device_type": "HIP",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 5673.646358733224,
-   "p25_score": 5062.105983700063,
-   "p75_score": 5771.062491756684
+   "n_runs": 6,
+   "median_score": 507.39564004734575,
+   "p25_score": 472.383981979198,
+   "p75_score": 512.5348779196719
   },
   {
    "kind": "cpu",
-   "model_key": "intel core ultra 5 245kf",
-   "device_name": "Intel Core Ultra 5 245KF",
+   "model_key": "intel core i9-13900",
+   "device_name": "13th Gen Intel Core i9-13900",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 340.28833036689383,
-   "p25_score": 307.5281660690208,
-   "p75_score": 365.63053102261483
+   "n_runs": 6,
+   "median_score": 397.0313683576824,
+   "p25_score": 300.2905013475999,
+   "p75_score": 501.9686269463358
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-4460",
+   "device_name": "Intel Core i5-4460 CPU @ 3.20GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 6,
+   "median_score": 39.892781383019035,
+   "p25_score": 25.532267113546922,
+   "p75_score": 53.340539502519604
   },
   {
    "kind": "gpu",
-   "model_key": "nvidia gtx 980",
-   "device_name": "NVIDIA GeForce GTX 980",
-   "device_type": "OPTIX",
+   "model_key": "amd rx 9070 gre",
+   "device_name": "AMD Radeon RX 9070 GRE",
+   "device_type": "HIP",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 292.8037848253681,
-   "p25_score": 267.51051587378845,
-   "p75_score": 347.4042574953583
+   "n_runs": 6,
+   "median_score": 2374.2198685190124,
+   "p25_score": 2318.5157847914534,
+   "p75_score": 2406.3215795671094
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-12950hx",
-   "device_name": "12th Gen Intel Core i9-12950HX",
+   "model_key": "intel core i7-2600k",
+   "device_name": "Intel Core i7-2600K CPU @ 3.40GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 248.58875770705686,
-   "p25_score": 158.91849178897874,
-   "p75_score": 304.6881146470733
+   "n_runs": 6,
+   "median_score": 52.801039399208804,
+   "p25_score": 42.2109318823958,
+   "p75_score": 57.916340363641595
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-7960x",
-   "device_name": "Intel Core i9-7960X CPU @ 2.80GHz",
+   "model_key": "intel core i5-11500",
+   "device_name": "11th Gen Intel Core i5-11500 @ 2.70GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 285.39959197151757,
-   "p25_score": 263.46477725321415,
-   "p75_score": 319.2693523038039
+   "n_runs": 6,
+   "median_score": 141.48622993012188,
+   "p25_score": 125.63824526131198,
+   "p75_score": 145.94985410809488
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-11900",
-   "device_name": "11th Gen Intel Core i9-11900 @ 2.50GHz",
+   "model_key": "amd ryzen 5 5500x3d",
+   "device_name": "AMD Ryzen 5 5500X3D 6-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 182.79410680811708,
-   "p25_score": 108.49910394943957,
-   "p75_score": 199.14239957810537
+   "n_runs": 6,
+   "median_score": 144.45129536721566,
+   "p25_score": 132.02407335389194,
+   "p75_score": 146.1530896499145
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-4590",
-   "device_name": "Intel Core i5-4590 CPU @ 3.30GHz",
+   "model_key": "intel core i5-10600",
+   "device_name": "Intel(R) Core(TM) i5-10600 CPU @ 3.30GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 44.62391897558593,
-   "p25_score": 41.08026678233371,
-   "p75_score": 49.35187059950495
+   "n_runs": 6,
+   "median_score": 139.14896023435006,
+   "p25_score": 116.48885698215895,
+   "p75_score": 148.0213926477885
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i9-13900hk",
-   "device_name": "13th Gen Intel Core i9-13900HK",
+   "model_key": "amd ryzen 5 5500gt",
+   "device_name": "AMD Ryzen 5 5500GT with Radeon Graphics",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 200.99613106298227,
-   "p25_score": 185.6440927949135,
-   "p75_score": 215.00050896798436
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i9-10910",
-   "device_name": "Intel(R) Core(TM) i9-10910 CPU @ 3.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 217.837970626405,
-   "p25_score": 205.18790432635376,
-   "p75_score": 219.97883315778077
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 5 338h",
-   "device_name": "Intel Core Ultra 5 338H",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 213.1324595228487,
-   "p25_score": 209.1058662259406,
-   "p75_score": 213.70913612061764
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core ultra 5 235",
-   "device_name": "Intel Core Ultra 5 235",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 309.87081469178764,
-   "p25_score": 298.94738754575235,
-   "p75_score": 327.27992300817925
+   "n_runs": 6,
+   "median_score": 140.27467212130244,
+   "p25_score": 131.05166001920114,
+   "p75_score": 142.59506381388306
   },
   {
    "kind": "gpu",
@@ -4944,58 +3305,58 @@
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 7 5800hs",
-   "device_name": "AMD Ryzen 7 5800HS with Radeon Graphics",
+   "model_key": "intel core ultra 5 235",
+   "device_name": "Intel Core Ultra 5 235",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 149.79313235532172,
-   "p25_score": 118.8651923085869,
-   "p75_score": 167.91008518416072
+   "median_score": 309.87081469178764,
+   "p25_score": 298.94738754575235,
+   "p75_score": 327.27992300817925
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 4600g",
-   "device_name": "AMD Ryzen 5 4600G with Radeon Graphics",
+   "model_key": "intel core i9-7960x",
+   "device_name": "Intel Core i9-7960X CPU @ 2.80GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 113.26821799288888,
-   "p25_score": 108.8499375573004,
-   "p75_score": 134.01619303620416
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-10600kf",
-   "device_name": "Intel Core i5-10600KF CPU @ 4.10GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 121.40504518853287,
-   "p25_score": 105.10882531351217,
-   "p75_score": 133.31329376999525
+   "median_score": 285.39959197151757,
+   "p25_score": 263.46477725321415,
+   "p75_score": 319.2693523038039
   },
   {
    "kind": "gpu",
-   "model_key": "amd rx 6500 xt",
-   "device_name": "AMD Radeon RX6500 XT",
-   "device_type": "HIP",
+   "model_key": "nvidia gtx 980",
+   "device_name": "NVIDIA GeForce GTX 980",
+   "device_type": "OPTIX",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 415.5077547418013,
-   "p25_score": 408.4264337901733,
-   "p75_score": 428.7024194540693
+   "median_score": 292.8037848253681,
+   "p25_score": 267.51051587378845,
+   "p75_score": 347.4042574953583
   },
   {
    "kind": "cpu",
-   "model_key": "amd ryzen 5 5650u",
-   "device_name": "AMD Ryzen 5 PRO 5650U with Radeon Graphics",
+   "model_key": "intel core ultra 5 245kf",
+   "device_name": "Intel Core Ultra 5 245KF",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 99.72926928106767,
-   "p25_score": 94.11073325722536,
-   "p75_score": 119.39499091229321
+   "median_score": 340.28833036689383,
+   "p25_score": 307.5281660690208,
+   "p75_score": 365.63053102261483
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i9-13900f",
+   "device_name": "13th Gen Intel Core i9-13900F",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 402.73000014128013,
+   "p25_score": 300.43480299394207,
+   "p75_score": 434.821963577384
   },
   {
    "kind": "gpu",
@@ -5020,70 +3381,37 @@
    "p75_score": 429.9913639083543
   },
   {
-   "kind": "cpu",
-   "model_key": "intel core i9-13900f",
-   "device_name": "13th Gen Intel Core i9-13900F",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "amd rx 6500 xt",
+   "device_name": "AMD Radeon RX6500 XT",
+   "device_type": "HIP",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 402.73000014128013,
-   "p25_score": 300.43480299394207,
-   "p75_score": 434.821963577384
+   "median_score": 415.5077547418013,
+   "p25_score": 408.4264337901733,
+   "p75_score": 428.7024194540693
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-10500",
-   "device_name": "Intel Core i5-10500 CPU @ 3.10GHz",
+   "model_key": "amd ryzen 5 2400g",
+   "device_name": "AMD Ryzen 5 2400G with Radeon Vega Graphics",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 120.50628383576154,
-   "p25_score": 114.94680342945901,
-   "p75_score": 133.50666991841516
+   "median_score": 66.62510131188702,
+   "p25_score": 59.3130889735055,
+   "p75_score": 72.96027832897295
   },
   {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 5675u",
-   "device_name": "AMD Ryzen 5 PRO 5675U with Radeon Graphics",
-   "device_type": "CPU",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4500",
+   "device_name": "NVIDIA RTX 4500 Ada Generation",
+   "device_type": "OPTIX",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 119.71998452873845,
-   "p25_score": 79.35073928661734,
-   "p75_score": 133.0679531599675
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 1700x",
-   "device_name": "AMD Ryzen 7 1700X Eight-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 126.0551827817669,
-   "p25_score": 120.21206424431232,
-   "p75_score": 137.5465194086612
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 4650u",
-   "device_name": "AMD Ryzen 5 PRO 4650U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 84.95776278407772,
-   "p25_score": 52.3817142843955,
-   "p75_score": 100.58752048681336
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 7 5800u",
-   "device_name": "AMD Ryzen 7 5800U with Radeon Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 89.74714597450878,
-   "p25_score": 74.32340420050069,
-   "p75_score": 130.6546075832194
+   "median_score": 5673.646358733224,
+   "p25_score": 5062.105983700063,
+   "p75_score": 5771.062491756684
   },
   {
    "kind": "gpu",
@@ -5095,50 +3423,6 @@
    "median_score": 92.243520935649,
    "p25_score": 89.64668183952278,
    "p75_score": 113.21148756535743
-  },
-  {
-   "kind": "gpu",
-   "model_key": "intel arc a580",
-   "device_name": "Intel(R) Arc(TM) A580 Graphics",
-   "device_type": "ONEAPI",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 1876.0973637617021,
-   "p25_score": 1866.3814836841952,
-   "p75_score": 2259.7536875417554
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 9965wx",
-   "device_name": "AMD Ryzen Threadripper PRO 9965WX 24-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 899.6007666296329,
-   "p25_score": 872.0597658869331,
-   "p75_score": 991.2870629198718
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 9975wx",
-   "device_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 1297.9026408972775,
-   "p25_score": 1229.6640239770982,
-   "p75_score": 1320.7104454634577
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd threadripper pro 7965wx",
-   "device_name": "AMD Ryzen Threadripper PRO 7965WX 24-Cores",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 775.4045839427131,
-   "p25_score": 755.0155080918048,
-   "p75_score": 776.0305193015365
   },
   {
    "kind": "cpu",
@@ -5153,6 +3437,116 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core i9-10910",
+   "device_name": "Intel(R) Core(TM) i9-10910 CPU @ 3.60GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 217.837970626405,
+   "p25_score": 205.18790432635376,
+   "p75_score": 219.97883315778077
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9965wx",
+   "device_name": "AMD Ryzen Threadripper PRO 9965WX 24-Cores",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 899.6007666296329,
+   "p25_score": 872.0597658869331,
+   "p75_score": 991.2870629198718
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 7965wx",
+   "device_name": "AMD Ryzen Threadripper PRO 7965WX 24-Cores",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 775.4045839427131,
+   "p25_score": 755.0155080918048,
+   "p75_score": 776.0305193015365
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9975wx",
+   "device_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 1297.9026408972775,
+   "p25_score": 1229.6640239770982,
+   "p75_score": 1320.7104454634577
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i9-11900",
+   "device_name": "11th Gen Intel Core i9-11900 @ 2.50GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 182.79410680811708,
+   "p25_score": 108.49910394943957,
+   "p75_score": 199.14239957810537
+  },
+  {
+   "kind": "gpu",
+   "model_key": "intel arc a580",
+   "device_name": "Intel(R) Arc(TM) A580 Graphics",
+   "device_type": "ONEAPI",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 1876.0973637617021,
+   "p25_score": 1866.3814836841952,
+   "p75_score": 2259.7536875417554
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-10600kf",
+   "device_name": "Intel Core i5-10600KF CPU @ 4.10GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 121.40504518853287,
+   "p25_score": 105.10882531351217,
+   "p75_score": 133.31329376999525
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 1700x",
+   "device_name": "AMD Ryzen 7 1700X Eight-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 126.0551827817669,
+   "p25_score": 120.21206424431232,
+   "p75_score": 137.5465194086612
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i5-10500",
+   "device_name": "Intel Core i5-10500 CPU @ 3.10GHz",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 120.50628383576154,
+   "p25_score": 114.94680342945901,
+   "p75_score": 133.50666991841516
+  },
+  {
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 4600g",
+   "device_name": "AMD Ryzen 5 4600G with Radeon Graphics",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 5,
+   "median_score": 113.26821799288888,
+   "p25_score": 108.8499375573004,
+   "p75_score": 134.01619303620416
+  },
+  {
+   "kind": "cpu",
    "model_key": "intel core i5-4690k",
    "device_name": "Intel Core i5-4690K CPU @ 3.50GHz",
    "device_type": "CPU",
@@ -5164,25 +3558,14 @@
   },
   {
    "kind": "cpu",
-   "model_key": "intel core i5-8279u",
-   "device_name": "Intel(R) Core(TM) i5-8279U CPU @ 2.40GHz",
+   "model_key": "intel core i5-4590",
+   "device_name": "Intel Core i5-4590 CPU @ 3.30GHz",
    "device_type": "CPU",
    "blender_version": "4.5",
    "n_runs": 5,
-   "median_score": 62.07586690597428,
-   "p25_score": 49.145750475398806,
-   "p75_score": 64.2396304915716
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 2400g",
-   "device_name": "AMD Ryzen 5 2400G with Radeon Vega Graphics",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 66.62510131188702,
-   "p25_score": 59.3130889735055,
-   "p75_score": 72.96027832897295
+   "median_score": 44.62391897558593,
+   "p25_score": 41.08026678233371,
+   "p75_score": 49.35187059950495
   },
   {
    "kind": "cpu",
@@ -5194,39 +3577,6 @@
    "median_score": 35.93431262959581,
    "p25_score": 31.990943859842602,
    "p75_score": 52.274316834273506
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i3-7020u",
-   "device_name": "Intel Core i3-7020U CPU @ 2.30GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 20.6394063604478,
-   "p25_score": 17.81722501739694,
-   "p75_score": 20.73942988046734
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-8210y",
-   "device_name": "Intel(R) Core(TM) i5-8210Y CPU @ 1.60GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 20.30276188155075,
-   "p25_score": 18.48717003506036,
-   "p75_score": 20.612187752339754
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i5-4260u",
-   "device_name": "Intel(R) Core(TM) i5-4260U CPU @ 1.40GHz",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 5,
-   "median_score": 16.045939576323317,
-   "p25_score": 14.344190503528743,
-   "p75_score": 20.403786901670713
   }
  ]
 }

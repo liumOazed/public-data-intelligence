@@ -35,3 +35,31 @@ def test_no_robots_means_no_crawling():
             raise retail.requests.ConnectionError
 
     assert not retail.Robots(Dead()).allowed("https://www.example.invalid/search?q=x")
+
+
+def test_whole_computers_are_not_parts():
+    # Both were kept as CPU listings on the first live run.
+    mini = retail.Listing(
+        sku="a",
+        name="MINISFORUM Mini PC NAB9S Intel Core i9-13900HX 14 Cores 32GB RAM DDR4 1TB PCIe4.0 SSD Mini Desktop Computer",
+        price=799.99,
+        in_stock=True,
+        url="https://www.example.invalid/a",
+    )
+    tower = retail.Listing(
+        sku="b",
+        name="HP Z2 G1i Workstation - Intel Core Ultra 7 265K - 32 GB - 1 TB SSD - Small Form Factor - Windows 11 Pro",
+        price=3818.99,
+        in_stock=True,
+        url="https://www.example.invalid/b",
+    )
+    part = retail.Listing(
+        sku="c",
+        name="Intel Core Ultra 7 265K Desktop Processor 20 Cores 5.5GHz Turbo 125W TDP Boxed",
+        price=309.99,
+        in_stock=True,
+        url="https://www.example.invalid/c",
+    )
+    assert not retail.keep(mini, "cpu", "intel core i9-13900hx")
+    assert not retail.keep(tower, "cpu", "intel core ultra 7 265k")
+    assert retail.keep(part, "cpu", "intel core ultra 7 265k")

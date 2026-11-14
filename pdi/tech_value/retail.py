@@ -54,6 +54,15 @@ _ACCESSORY = re.compile(
 )
 
 
+# A whole computer names its processor too. These words never appear on a bare CPU or graphics card.
+_SYSTEM = re.compile(
+    r"\b(mini\s?pc|workstation|desktop\s+(?:computer|pc)|gaming\s+(?:pc|desktop)|barebones?|"
+    r"all-in-one|nuc|tower|motherboard|combo|bundle|windows\s+1[01]|ssd|hdd|nvme|"
+    r"\d+\s?gb\s+(?:ram|ddr[345]|memory))\b",
+    re.I,
+)
+
+
 class NoTargets(RuntimeError):
     """There is nothing to look up yet."""
 
@@ -121,7 +130,7 @@ def search_term(key: str) -> str:
 
 def keep(listing: Listing, kind: str, key: str) -> bool:
     """A listing counts only if its name is recognised as exactly the model searched for."""
-    if _ACCESSORY.search(listing.name):
+    if _ACCESSORY.search(listing.name) or _SYSTEM.search(listing.name):
         return False
     if listing.price < config.MIN_PART_PRICE[kind]:
         return False

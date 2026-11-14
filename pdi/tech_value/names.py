@@ -19,6 +19,9 @@ _RYZEN = re.compile(r"\bryzen\s+([3579])\s+(?:pro\s+)?(\d{4}[a-z]?(?:3d)?[a-z]?)
 _CORE_ULTRA = re.compile(r"\bcore\s+ultra\s+([3579])\s+(?:processor\s+)?(\d{3}[a-z]{0,2})\b")
 _CORE_I = re.compile(r"\b(i[3579])[-\s](\d{4,5}[a-z]{0,2})\b")
 
+# Laptop chips: Core i ... H/HX/HK/HS/U/P/Y and Ryzen ... H/HS/HX/U. They are not sold as parts.
+_MOBILE_CPU = re.compile(r"\d(?:h[xks]?|u|p|y)$")
+
 _GEFORCE = re.compile(r"\b(rtx|gtx)\s*(\d{3,4})(\s*ti)?(\s*super)?\b")
 _RADEON = re.compile(r"\brx\s*(\d{4})(?:\s*(xtx|xt|gre)\b)?")
 _ARC = re.compile(r"\barc\s+(?:pro\s+)?([ab]\d{3})\b")
@@ -44,6 +47,8 @@ def model_key(name: str | None) -> tuple[str, str] | None:
         return None  # a whole system, not a part
     if gpu:
         return ("gpu", gpu)
+    if cpu and _MOBILE_CPU.search(cpu):
+        return None
     if cpu:
         return ("cpu", cpu)
     return None

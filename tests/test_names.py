@@ -61,3 +61,10 @@ def test_ti_and_super_are_distinct_models():
         model_key(n) for n in ("RTX 4070", "RTX 4070 SUPER", "RTX 4070 Ti", "RTX 4070 Ti SUPER")
     }
     assert len(keys) == 4
+
+
+def test_laptop_chips_are_not_desktop_parts():
+    assert model_key("13th Gen Intel(R) Core(TM) i9-13900HX") is None
+    assert model_key("AMD Ryzen 7 7840HS w/ Radeon 780M Graphics") is None
+    assert model_key("AMD Ryzen 7 5800X3D") == ("cpu", "amd ryzen 7 5800x3d")
+    assert model_key("Intel Core i5-12400F") == ("cpu", "intel core i5-12400f")

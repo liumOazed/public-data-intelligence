@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-14T07:58:18+00:00",
+  "generated_at": "2026-11-14T08:04:05+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -45,16 +45,16 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 40,
-   "listings_recognised": 40,
-   "models_priced": 24,
-   "models_with_score": 24,
+   "listings": 34,
+   "listings_recognised": 34,
+   "models_priced": 22,
+   "models_with_score": 22,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 108,
-   "listings_recognised": 108,
+   "listings": 90,
+   "listings_recognised": 90,
    "models_priced": 12,
    "models_with_score": 12,
    "share_with_score": 1.0
