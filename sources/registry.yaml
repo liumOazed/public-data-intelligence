@@ -1,0 +1,61 @@
+# Source registry. Every source the pipeline touches has one entry here.
+#
+# status:        green = free, programmatic, stable; amber = public but awkward or terms unclear;
+#                red = closing, gated or prohibited (do not build on it).
+# publish:       what may appear on the public site. "derived" means aggregates, model outputs and
+#                charts with attribution, never the raw response.
+# terms_checked: the date somebody last read the source's terms. Re-read amber sources twice a year.
+#                "unconfirmed" means nobody has read them yet and the entry is from memory.
+sources:
+  spec_cpu2017:
+    name: SPEC CPU 2017 published results
+    owner: Standard Performance Evaluation Corporation
+    url: https://www.spec.org/cpu2017/results/
+    endpoint: https://www.spec.org/cgi-bin/osgresults
+    licence: >-
+      SPEC fair use rules: results may be cited with attribution to SPEC and the retrieval date,
+      and estimates must be labelled as estimates.
+    frequency: weekly collection; SPEC publishes new results about every two weeks
+    typical_lag: results appear weeks to months after the test date
+    status: green
+    publish: derived
+    module: tech-value
+    terms_checked: unconfirmed
+    notes: >-
+      Vendor-submitted and dominated by servers. Used to prove the residual method, not to rank
+      consumer parts.
+
+  blender_opendata:
+    name: Blender Open Data benchmark snapshots
+    owner: Blender Foundation
+    url: https://opendata.blender.org/
+    endpoint: https://opendata.blender.org/snapshots/opendata-latest.zip
+    licence: Published by Blender as public domain (CC0). Confirm on the site before relying on it.
+    frequency: weekly collection; snapshots are regenerated daily
+    typical_lag: about one day
+    status: green
+    publish: derived
+    module: tech-value
+    terms_checked: unconfirmed
+    notes: >-
+      Crowd-submitted, so the test configuration (memory, cooling, drivers) is not controlled.
+      Scores from different Blender versions are never combined.
+
+  bestbuy_products:
+    name: Best Buy Products API
+    owner: Best Buy
+    url: https://developer.bestbuy.com/
+    endpoint: https://api.bestbuy.com/v1/products
+    licence: >-
+      Best Buy developer API terms. They restrict caching and display of prices; read them before
+      the price history is shown publicly.
+    frequency: daily collection
+    typical_lag: same day; each price carries Best Buy's own price update date
+    status: amber
+    publish: derived
+    module: tech-value
+    terms_checked: unconfirmed
+    secret: BESTBUY_API_KEY
+    notes: >-
+      Listing prices at one US retailer, not transaction prices. Needs a free API key stored as an
+      Actions secret. Daily prices cannot be backfilled, so this collector should run from day one.

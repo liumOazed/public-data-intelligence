@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths-ignore: ["data/**", "site/data/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra site --extra dev
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run pytest -q
+      - uses: quarto-dev/quarto-actions/setup@v2
+      - name: Render the site
+        run: |
+          uv run python -m pdi.tech_value.export
+          QUARTO_PYTHON="$PWD/.venv/bin/python" quarto render site

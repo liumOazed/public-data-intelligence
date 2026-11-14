@@ -1,0 +1,137 @@
+---
+title: "Tech Value: performance per dollar"
+subtitle: "US retail prices against open benchmark scores, for desktop CPUs and graphics cards"
+---
+
+```{python}
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+# Bundle the table script into the page instead of loading it from a CDN.
+init_notebook_mode(connected=False)
+
+value, meta = site.load("tech-value", "value")
+history, hist_meta = site.load("tech-value", "price_history")
+coverage, cov_meta = site.load("tech-value", "coverage")
+bench, bench_meta = site.load("tech-value", "benchmarks")
+version = meta.get("blender_version")
+
+COLUMNS = {
+    "model_key": "Model",
+    "score_per_dollar": "Score per $",
+    "price_usd": "Price (USD)",
+    "price_date": "Price last changed",
+    "collected_date": "Price collected",
+    "score": "Benchmark score",
+    "n_runs": "Benchmark runs",
+    "backend": "Backend",
+    "n_listings": "Listings",
+}
+
+
+def ranking(kind: str, label: str):
+    part = value[value["kind"] == kind] if len(value) else value
+    if part.empty:
+        return Markdown(site.empty_state(meta, label))
+    table = part[list(COLUMNS)].rename(columns=COLUMNS).round(
+        {"Score per $": 3, "Benchmark score": 1}
+    )
+    return show(table, paging=True, pageLength=25, order=[[1, "desc"]], showIndex=False,
+                classes="display compact")
+```
+
+**Score per dollar** is the median [Blender benchmark](https://opendata.blender.org/) score of
+a part divided by its cheapest new listing at one US retailer. It measures rendering throughput
+per dollar and nothing else: not gaming frame rates, not power draw, not noise. Treat a high
+value as a reason to look closer, not as a recommendation.
+
+Every price is shown with two dates: when the retailer last changed it, and when this site
+collected it.
+
+## Graphics cards
+
+```{python}
+ranking("gpu", "Graphics cards")
+```
+
+## Desktop CPUs
+
+```{python}
+ranking("cpu", "Desktop CPUs")
+```
+
+```{python}
+#| output: asis
+if version:
+    print(f"Benchmark scores are from Blender **{version}** only.")
+print(site.source_note(meta))
+```
+
+## Price history
+
+Lowest new, online-available listing per model, one point per day collected. Daily prices
+cannot be backfilled, so this chart only goes back to the day the collector was switched on.
+
+```{python}
+if history.empty:
+    display(Markdown(site.empty_state(hist_meta, "Price history")))
+else:
+    ranked = value.dropna(subset=["score_per_dollar"]).head(12)["model_key"]
+    shown = history[history["model_key"].isin(ranked)] if len(ranked) else history
+    fig = px.line(
+        shown, x="date", y="price_usd", color="model_key", markers=True,
+        labels={"date": "Date collected", "price_usd": "Lowest listing (USD)", "model_key": "Model"},
+    )
+    fig.update_layout(hovermode="x unified", legend_title_text="", margin=dict(t=20))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+print(site.source_note(hist_meta))
+```
+
+## Coverage
+
+How much of what is on sale could be matched. A listing has to be recognised as a specific
+model, and that model needs enough benchmark runs on the Blender version in use. Unmatched
+products are left out of the ranking, never guessed.
+
+```{python}
+if coverage.empty:
+    display(Markdown(site.empty_state(cov_meta, "Coverage")))
+else:
+    display(Markdown(coverage.rename(columns={
+        "kind": "Kind", "listings": "Listings collected",
+        "listings_recognised": "Recognised as a model", "models_priced": "Distinct models priced",
+        "models_with_score": "Models with a benchmark score", "share_with_score": "Share with score",
+    }).to_markdown(index=False, floatfmt=".0%")))
+```
+
+## Benchmark scores without prices
+
+All recognised models with enough benchmark runs, whether or not a price has been collected.
+
+```{python}
+if bench.empty:
+    display(Markdown(site.empty_state(bench_meta, "Benchmark scores")))
+else:
+    show(
+        bench[["kind", "model_key", "median_score", "p25_score", "p75_score", "n_runs", "device_type"]]
+        .rename(columns={
+            "kind": "Kind", "model_key": "Model", "median_score": "Median score",
+            "p25_score": "25th pct", "p75_score": "75th pct", "n_runs": "Runs",
+            "device_type": "Backend",
+        }).round(1),
+        paging=True, pageLength=15, order=[[2, "desc"]], showIndex=False,
+        classes="display compact",
+    )
+```
+
+```{python}
+#| output: asis
+print(site.source_note(bench_meta))
+```

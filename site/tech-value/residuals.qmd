@@ -1,0 +1,82 @@
+---
+title: "Tech Value: over- and under-performers"
+subtitle: "Processors whose published benchmark score differs from what their specifications predict"
+---
+
+```{python}
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+# Bundle the table script into the page instead of loading it from a CDN.
+init_notebook_mode(connected=False)
+
+res, meta = site.load("tech-value", "residuals")
+verdict = meta.get("verdict") or {}
+```
+
+For every processor with enough published SPEC CPU 2017 results, this page compares its
+**SPECrate 2017 Integer base** score with the score a plain regression predicts from its
+specifications: cores, clock speed, cache per core, chips, multithreading, vendor and release
+date. The prediction for a processor always comes from a model that never saw that processor.
+
+**A positive residual is a question, not an answer.** A processor that beats its prediction
+may be a better design, or it may have been tested with more memory, a newer compiler or a
+tuned operating system. The tested configuration is shown beside every residual for that
+reason.
+
+```{python}
+#| output: asis
+if verdict:
+    print(f'::: {{.verdict}}\n**Does the model carry signal?** {verdict["statement"]} '
+          f'See [Model and leaderboard](model.qmd).\n:::')
+```
+
+```{python}
+if res.empty:
+    display(Markdown(site.empty_state(meta, "Residual ranking")))
+else:
+    fig = px.scatter(
+        res, x="first_avail", y="residual_pct", color="vendor",
+        hover_name="processor",
+        hover_data={"n_results": True, "median_score": ":.0f", "residual_pct": ":.1f"},
+        labels={"first_avail": "First hardware availability",
+                "residual_pct": "Score above or below prediction (%)", "vendor": "Vendor"},
+    )
+    fig.add_hline(y=0, line_dash="dot")
+    fig.update_layout(margin=dict(t=20))
+    fig.show()
+```
+
+## Ranking
+
+```{python}
+if not res.empty:
+    table = res.assign(
+        Disclosure=[f'<a href="{u}">report</a>' if u else "" for u in res["disclosure_url"]]
+    )[[
+        "processor", "residual_pct", "residual_pct_min", "residual_pct_max", "n_results",
+        "median_score", "first_avail", "config_chips", "config_memory", "config_compiler",
+        "config_os", "config_test_date", "Disclosure",
+    ]].rename(columns={
+        "processor": "Processor", "residual_pct": "Residual %", "residual_pct_min": "Lowest %",
+        "residual_pct_max": "Highest %", "n_results": "Results", "median_score": "Median score",
+        "first_avail": "First available", "config_chips": "Chips tested",
+        "config_memory": "Memory tested", "config_compiler": "Compiler", "config_os": "OS",
+        "config_test_date": "Test date",
+    }).round(1)
+    show(table, paging=True, pageLength=25, order=[[1, "desc"]], showIndex=False,
+         classes="display compact",
+         allow_html=True)
+```
+
+```{python}
+#| output: asis
+if not res.empty:
+    print(f"Residual % is the median over a processor's results. Processors with fewer than "
+          f"{meta['min_results']} published results are not ranked. The configuration shown is "
+          f"that of the result closest to the processor's median.")
+print(site.source_note(meta))
+```

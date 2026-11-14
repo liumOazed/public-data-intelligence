@@ -1,0 +1,112 @@
+---
+title: "Methodology"
+---
+
+How every number on this site is made, in enough detail to reproduce one. The code is in the
+[repository](https://github.com/liumOazed/public-data-intelligence); each step below names
+the file that does it.
+
+## The pipeline
+
+Every scheduled run goes through the same six steps.
+
+1. **Collect.** One small script per source fetches the latest file or API response and
+   saves it untouched, with the retrieval time, the URL and a checksum.
+2. **Validate.** A schema check confirms the columns, types and value ranges look right. If
+   they do not, the run stops and opens a GitHub Issue, and the site keeps showing the last
+   good data.
+3. **Transform.** Raw files become tidy tables: one row per entity per date, standard units,
+   standard names.
+4. **Model.** Baselines, regressions and residuals are computed from the tidy tables.
+5. **Export.** Each page gets a small JSON file under `data/v1/` holding only what it shows,
+   with its own label: source, retrieval date, frequency, typical lag and known limitations.
+6. **Build and deploy.** Quarto renders the pages from those files and the workflow
+   publishes them.
+
+Raw responses are never edited and never published. Fixes happen in transform code, so any
+number can be rebuilt from its source. The files under
+[`data/v1/`](https://github.com/liumOazed/public-data-intelligence/tree/main/site/data/v1)
+are a contract: pages read only from them, by fixed paths and fixed column names.
+
+## Rules the pipeline enforces
+
+1. **Baseline before model.** Every model page shows a naive comparison. A model that does
+   not beat it is published as "no signal found", which is a result.
+2. **Split by time, never at random.** Train on the past, test on what came after.
+3. **Write the test before looking at outcomes.** Split dates and thresholds are committed in
+   code before the first result is seen.
+4. **Count the attempts.** Everything tried is listed in the [failures log](failures.qmd).
+5. **Respect small samples.** Prefer the simpler model when the gap is within noise.
+6. **Never mix incomparable measurements.** Different benchmark versions, listing and
+   transaction prices, base and peak scores: separate columns, never averaged together.
+7. **Label every number.** The label comes from the metadata file, so it cannot be forgotten.
+
+## Tech Value
+
+### Benchmarks
+
+Two open benchmark sources are used for two different jobs, and their scores are never
+combined.
+
+- **SPEC CPU 2017** results are submitted by hardware vendors under a published run rule, and
+  each one discloses the full tested configuration. That makes them the ground truth for the
+  specification model. They are dominated by servers. One suite and one metric are used:
+  **SPECrate 2017 Integer, base**.
+- **Blender Open Data** is crowd-submitted and covers consumer CPUs and graphics cards. It is
+  used for the value ranking. A launch counts only if it used a single device and finished all
+  three standard scenes; its score is the sum of samples per minute over those scenes. Scores
+  are grouped by device, compute backend and Blender version, a group needs at least five
+  runs, and the ranking uses a single Blender version.
+
+### Prices
+
+Prices come from one US retailer's product API, once a day. The price of a model is its
+cheapest new listing that is available online on the collection date. Refurbished and open-box
+listings are left out. These are listing prices, not what anyone paid. Daily prices cannot be
+backfilled, so the history starts on the day the collector was switched on.
+
+Retail listings and benchmark devices are matched by a model key parsed from their names
+(`pdi/tech_value/names.py`). A name that is not recognised is left unmatched and counted on the
+coverage table. Nothing is matched by guesswork.
+
+### The model
+
+The target is the log of the SPEC score of one published result.
+
+- **Naive baseline:** score is proportional to cores times clock speed. One constant is fitted.
+- **Plain regression:** ordinary least squares on log cores, log clock speed, log chips,
+  multithreading, log cache per core (L2 and L3), vendor, and years since 2017 at first
+  availability.
+- **AutoGluon Tabular:** trains boosted trees, random forests and ensembles of them on the same
+  information, on a weekly schedule with a fixed time limit on CPU.
+
+Processors are assigned to a period by the first hardware-availability date they appear with,
+so one processor is never on both sides of a split. Models are fitted on the training period.
+The validation period ranks them and makes the pick. The holdout, which is the newest
+generation, is scored once for the pick and for the two reference models.
+
+The pick has to beat the baseline on the holdout by more than the fold-to-fold spread: the
+standard deviation, across expanding time-ordered folds, of the baseline error minus the plain
+model error. Otherwise the baseline is published. The current result, the leaderboard and the
+split dates are on the [model page](tech-value/model.qmd).
+
+### Residuals
+
+The ranking of over- and under-performers uses out-of-fold predictions from the plain
+regression: each processor is predicted by a model fitted without any of its results. A
+processor's residual is the median over its results, and it needs at least three.
+
+A residual is not a quality score. SPEC results for the same processor differ with memory,
+compiler and operating system, and vendors choose which configurations to submit. The tested
+configuration is shown beside each residual so that it can be checked first.
+
+### Reproducing a number
+
+```bash
+uv sync --extra site
+uv run python -m pdi.tech_value.spec      # collect and tidy SPEC results
+uv run python -m pdi.tech_value.export    # fit the plain model and write data/v1/
+```
+
+The holdout error of the plain regression in `site/data/v1/tech-value/holdout.json` should
+match the model page for the same retrieval date.

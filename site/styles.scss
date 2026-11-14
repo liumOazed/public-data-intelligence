@@ -1,0 +1,18 @@
+/*-- scss:rules --*/
+.source-note {
+  font-size: 0.85rem;
+  color: var(--bs-secondary-color);
+  border-left: 3px solid var(--bs-border-color);
+  padding: 0.25rem 0 0.25rem 0.9rem;
+  margin: 0.75rem 0 2rem 0;
+}
+.source-note p { margin-bottom: 0.25rem; }
+.source-note ul { margin-bottom: 0; }
+.verdict {
+  font-size: 1.1rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.5rem 0;
+}
+table.dataTable { font-size: 0.9rem; }
