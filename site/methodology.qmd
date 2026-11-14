@@ -90,6 +90,12 @@ conditions of use exclude collecting and reusing its prices, so the raw Amazon r
 out of the public repository. Only the lowest price per model, its history and the fair price
 built from it are published.
 
+Amazon's data has no field for a listing's condition. A listing is dropped as used or renewed
+when its title says so, when Amazon files it under "Amazon Renewed", or when it is sold by
+Amazon Resale or a seller that names itself a refurbisher. A marketplace seller offering a used
+part under a new-looking listing with none of those signs cannot be told apart, so some used
+prices may remain. Rows with a single listing are marked low confidence for that reason.
+
 Retail listings and benchmark devices are matched by a model key parsed from their names
 (`pdi/tech_value/names.py`). A name that is not recognised is left unmatched and counted on the
 coverage table. Nothing is matched by guesswork.

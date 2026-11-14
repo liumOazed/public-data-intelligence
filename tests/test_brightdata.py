@@ -21,3 +21,35 @@ def test_no_key_means_no_request(monkeypatch):
     monkeypatch.delenv("BRIGHTDATA_API_KEY", raising=False)
     with pytest.raises(brightdata.MissingKey):
         brightdata.collect()
+
+
+def test_used_and_renewed_listings_are_dropped_even_with_a_clean_title():
+    base = {"title": "EVGA GeForce RTX 3070 XC3 Ultra Gaming 8GB", "currency": "USD"}
+    records = [
+        # Renewed listing whose title does not say so: only the category gives it away.
+        {
+            **base,
+            "asin": "R1",
+            "final_price": 384.97,
+            "seller_name": "Some Store",
+            "root_bs_category": "Amazon Renewed",
+        },
+        # Amazon's own used-goods store.
+        {
+            **base,
+            "asin": "R2",
+            "final_price": 392.14,
+            "seller_name": "Amazon Resale",
+            "root_bs_category": "Computer Graphics Cards",
+        },
+        {**base, "asin": "R3", "final_price": 349.99, "buybox_seller": "Renewed Technology Group"},
+        {
+            **base,
+            "asin": "N1",
+            "final_price": 585.0,
+            "seller_name": "Amazon.com",
+            "root_bs_category": "Computer Graphics Cards",
+        },
+    ]
+    rows = brightdata.parse(records, {("gpu", "nvidia rtx 3070")}, "2026-11-14")
+    assert [r["sku"] for r in rows] == ["N1"]
