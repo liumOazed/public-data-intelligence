@@ -93,7 +93,8 @@ for url in URLS:
         if h in html
     ]
     print(
-        f"{host}: status {r.status_code} bytes {len(html)} prices {prices} hits5070 {hits} hints {hints} final {r.url[:90]}"
+        f"{host}: status {r.status_code} bytes {len(html)} prices {prices} "
+        f"hits5070 {hits} hints {hints} final {r.url[:90]}"
     )
     if r.status_code == 200 and prices >= 5 and hits >= 5:
         soup = BeautifulSoup(html, "html.parser")
