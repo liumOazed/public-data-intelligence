@@ -1,12 +1,13 @@
-"""Amazon US listings through Bright Data's Web Scraper API: a second price source.
+"""Amazon US and Best Buy listings through Bright Data's Web Scraper API.
 
 Bright Data is a paid data provider with a free monthly allowance. One keyword search is sent
-per benchmarked model and a few results are kept for each, so a run stays well inside that
-allowance; the hard caps below exist because every delivered record is billed. The API key
-comes from the BRIGHTDATA_API_KEY environment variable (an Actions secret) and is only ever
-sent in a request header.
+per benchmarked model to each store and a few results are kept for each, so a run stays close
+to that allowance; the hard caps below exist because every delivered record is billed. The
+API key comes from the BRIGHTDATA_API_KEY environment variable (an Actions secret) and is
+only ever sent in a request header.
 
-Runs weekly, not daily: 80 models x 5 results is 400 records a run, about 1,700 a month.
+Runs weekly, not daily: 80 models x 5 results is 400 records a run for each store, about
+3,500 a month for both.
 """
 
 from __future__ import annotations
@@ -25,6 +26,9 @@ from pdi.tech_value import config, retail
 from pdi.tech_value.names import model_key
 
 SOURCE = "amazon_brightdata"
+BESTBUY_SOURCE = "bestbuy_brightdata"
+# Best Buy files a bare part under one of these; whole PCs sit under "Gaming Desktops".
+_BESTBUY_PART_CATEGORIES = ("gpus / video graphics cards", "cpus / processors")
 _OUT_OF_STOCK = ("unavailable", "out of stock")
 
 
@@ -124,33 +128,109 @@ def parse(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[d
     return rows
 
 
-def fetch_records(keywords: list[str], key: str) -> list[dict]:
-    """Start one batch job, wait for it, return its records."""
-    headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+def _seller_name(record: dict) -> str:
+    seller = record.get("seller")
+    if isinstance(seller, str) and seller.strip().startswith("{"):
+        try:
+            seller = json.loads(seller)
+        except ValueError:
+            seller = None
+    if isinstance(seller, dict):
+        seller = seller.get("name")
+    return str(seller or record.get("store_name") or "").strip()
+
+
+def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[dict]:
+    """Keep new, in-stock parts sold by Best Buy itself and recognised as a wanted model.
+
+    Best Buy's search is loose: a search for one card returns other cards and whole PCs. A
+    record counts only if Best Buy files it as a bare processor or graphics card, Best Buy is
+    the seller (not a marketplace seller), nothing in the title marks it refurbished, open-box
+    or pre-owned, and its name parses to exactly a model that was asked for.
+    """
+    rows, seen = [], set()
+    for r in records:
+        if not isinstance(r, dict) or r.get("error") or r.get("warning"):
+            continue
+        name, price = r.get("title"), _price(r)
+        if not name or price is None:
+            continue
+        if str(r.get("currency") or "USD").upper() not in ("USD", "$"):
+            continue
+        if _seller_name(r).lower() != "best buy" or _USED_SELLER.search(name):
+            continue
+        category = str(r.get("product_category") or "").lower()
+        if not category.endswith(_BESTBUY_PART_CATEGORIES):
+            continue
+        found = model_key(name)
+        if found not in wanted:
+            continue
+        kind, key = found
+        sku = str(r.get("sku") or r.get("product_id") or r.get("url") or name)
+        listing = retail.Listing(
+            name=name,
+            price=price,
+            url=r.get("url"),
+            sku=sku,
+            in_stock=str(r.get("availability_new") or "").lower() == "in_stock",
+        )
+        if sku in seen or not retail.keep(listing, kind, key):
+            continue
+        seen.add(sku)
+        rows.append(
+            {
+                "date": day,
+                "source": BESTBUY_SOURCE,
+                "sku": sku,
+                "name": name,
+                "category": kind,
+                "sale_price": price,
+                "regular_price": None,
+                "price_update_date": None,
+                "online_availability": listing.in_stock,
+                "url": listing.url,
+                "model_key": key,
+                "seller": "Best Buy",
+                "retrieved_at": utc_now().isoformat(),
+            }
+        )
+    return rows
+
+
+def start_job(keywords: list[str], key: str, dataset: str, by: str) -> str:
+    """Start one batch job of keyword searches and return its id.
+
+    `by` is both the discovery type and the input field name: "keyword" for Amazon,
+    "keywords" for Best Buy.
+    """
     per_input = config.BRIGHTDATA_RESULTS_PER_MODEL
     resp = requests.post(
         f"{config.BRIGHTDATA_API}/trigger",
         params={
-            "dataset_id": config.BRIGHTDATA_AMAZON_DATASET,
+            "dataset_id": dataset,
             "type": "discover_new",
-            "discover_by": "keyword",
+            "discover_by": by,
             "include_errors": "true",
             # Both caps, in both places the API reads them: records are billed.
             "limit_per_input": per_input,
             "limit_multiple_results": per_input * len(keywords),
         },
-        headers=headers,
-        json={"input": [{"keyword": k} for k in keywords], "limit_per_input": per_input},
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        json={"input": [{by: k} for k in keywords], "limit_per_input": per_input},
         timeout=60,
     )
     if resp.status_code != 200:
         raise CollectError(f"Bright Data trigger: HTTP {resp.status_code} {resp.text[:300]}")
     snapshot = resp.json()["snapshot_id"]
     print(f"Bright Data job {snapshot} started for {len(keywords)} keywords")
+    return snapshot
 
-    deadline = time.monotonic() + config.BRIGHTDATA_WAIT_S
+
+def wait_job(snapshot: str, key: str, wait_s: int) -> list[dict]:
+    """Wait for a job to finish and return its records."""
+    headers = {"Authorization": f"Bearer {key}"}
+    deadline = time.monotonic() + wait_s
     while True:
-        time.sleep(15)
         status = requests.get(
             f"{config.BRIGHTDATA_API}/progress/{snapshot}", headers=headers, timeout=60
         ).json()
@@ -160,6 +240,7 @@ def fetch_records(keywords: list[str], key: str) -> list[dict]:
             raise CollectError(f"Bright Data job {snapshot} failed: {status}")
         if time.monotonic() > deadline:
             raise CollectError(f"Bright Data job {snapshot} not ready in time: {status}")
+        time.sleep(15)
     data = requests.get(
         f"{config.BRIGHTDATA_API}/snapshot/{snapshot}",
         params={"format": "json"},
@@ -171,45 +252,100 @@ def fetch_records(keywords: list[str], key: str) -> list[dict]:
     return data.json()
 
 
-def collect(today: date | None = None, limit_models: int | None = None) -> pd.DataFrame:
+# name -> (source key, dataset, discovery type and input field, parser, longest wait)
+STORES = {
+    "amazon": (
+        SOURCE,
+        config.BRIGHTDATA_AMAZON_DATASET,
+        "keyword",
+        parse,
+        config.BRIGHTDATA_WAIT_S,
+    ),
+    "bestbuy": (
+        BESTBUY_SOURCE,
+        config.BRIGHTDATA_BESTBUY_DATASET,
+        "keywords",
+        parse_bestbuy,
+        config.BRIGHTDATA_BESTBUY_WAIT_S,
+    ),
+}
+
+
+def _key() -> str:
     key = os.environ.get(config.BRIGHTDATA_KEY_ENV, "").strip()
     if not key:
         raise MissingKey(f"{config.BRIGHTDATA_KEY_ENV} is not set")
-    day = (today or date.today()).isoformat()
-    wanted = retail.targets()[: limit_models or None]
-    records = fetch_records([retail.search_term(k) for _, k in wanted], key)
+    return key
+
+
+def start(store: str, wanted: list[tuple[str, str]]) -> str:
+    _, dataset, by, _, _ = STORES[store]
+    return start_job([retail.search_term(k) for _, k in wanted], _key(), dataset, by)
+
+
+def finish(store: str, snapshot: str, wanted: list[tuple[str, str]], day: str) -> pd.DataFrame:
+    source, _, _, parser, wait_s = STORES[store]
+    records = wait_job(snapshot, _key(), wait_s)
 
     raw_dir = config.RAW_DIR / "brightdata" / day
     raw_dir.mkdir(parents=True, exist_ok=True)
     # Raw records kept untouched for this run's artifact; never committed or published.
-    (raw_dir / "amazon.json").write_text(json.dumps(records))
+    (raw_dir / f"{store}.json").write_text(json.dumps(records))
 
-    rows = parse(records, set(wanted), day)
+    rows = parser(records, set(wanted), day)
+    errors = sum(1 for r in records if isinstance(r, dict) and r.get("error"))
     models = len({r["model_key"] for r in rows})
     print(
-        f"{SOURCE}: {len(records)} records delivered, {len(rows)} listings kept, "
-        f"{models} of {len(wanted)} models found"
+        f"{source}: {len(records)} records delivered ({errors} errors), {len(rows)} listings "
+        f"kept, {models} of {len(wanted)} models found"
     )
     if not rows:
         sample = json.dumps(records[:2])[:1500]
-        raise CollectError(f"Bright Data returned no usable listings. First records: {sample}")
+        raise CollectError(f"{source} returned no usable listings. First records: {sample}")
     df = retail.TIDY_SCHEMA.validate(pd.DataFrame(rows))
     config.PRICES_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(config.PRICES_DIR / f"{day}_{SOURCE}.parquet", index=False)
+    df.to_parquet(config.PRICES_DIR / f"{day}_{source}.parquet", index=False)
     return df
 
 
-if __name__ == "__main__":
+def collect(
+    today: date | None = None, limit_models: int | None = None, store: str = "amazon"
+) -> pd.DataFrame:
+    _key()
+    day = (today or date.today()).isoformat()
+    wanted = retail.targets()[: limit_models or None]
+    return finish(store, start(store, wanted), wanted, day)
+
+
+def main() -> None:
+    """Collect both stores. Best Buy's job is slow, so it is started first and read last."""
     try:
-        table = collect(limit_models=int(os.environ.get("PDI_BRIGHTDATA_LIMIT_MODELS") or 0))
+        _key()
+        wanted = retail.targets()[: int(os.environ.get("PDI_BRIGHTDATA_LIMIT_MODELS") or 0) or None]
     except (MissingKey, retail.NoTargets) as exc:
         print(f"::warning title=Bright Data skipped::{exc}")
-        raise SystemExit(0) from None
-    except (CollectError, requests.RequestException) as exc:
-        # A second source going missing must not stop the benchmarks and the first source
-        # from being published. The warning shows on the run page.
-        print(f"::warning title=Bright Data failed::{exc}")
-        raise SystemExit(0) from None
-    print(table.groupby("category")["model_key"].nunique())
-    cols = ["model_key", "sale_price", "seller", "name"]
-    print(table.sort_values(["model_key", "sale_price"])[cols].to_string(max_colwidth=70))
+        return
+    day = date.today().isoformat()
+    jobs = {}
+    for store in ("bestbuy", "amazon"):
+        try:
+            jobs[store] = start(store, wanted)
+        except (CollectError, requests.RequestException) as exc:
+            print(f"::warning title=Bright Data {store} failed::{exc}")
+    for store in ("amazon", "bestbuy"):
+        if store not in jobs:
+            continue
+        try:
+            table = finish(store, jobs[store], wanted, day)
+        except (CollectError, requests.RequestException) as exc:
+            # A second source going missing must not stop the benchmarks and the first source
+            # from being published. The warning shows on the run page.
+            print(f"::warning title=Bright Data {store} failed::{exc}")
+            continue
+        print(table.groupby("category")["model_key"].nunique())
+        cols = ["model_key", "sale_price", "seller", "name"]
+        print(table.sort_values(["model_key", "sale_price"])[cols].to_string(max_colwidth=70))
+
+
+if __name__ == "__main__":
+    main()

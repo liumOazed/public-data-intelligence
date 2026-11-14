@@ -65,8 +65,9 @@ value as a reason to look closer, not as a recommendation.
 
 Every price is shown with the retailer it came from and the date this site collected it.
 Prices come from one store that allows automated collection and, once a week, from Amazon US
-listings supplied by a data provider. Only Amazon listings sold by Amazon.com or the part's own
-brand are counted, so every price is for a new part. A cheaper listing may exist elsewhere.
+and Best Buy listings supplied by a data provider. Only Amazon listings sold by Amazon.com or
+the part's own brand, and Best Buy listings sold by Best Buy itself, are counted, so every
+price is for a new part. A cheaper listing may exist elsewhere.
 
 A row marked **Low: single listing** has only one listing behind its price. That is often a
 marketplace seller's asking price for a part that is no longer made, so treat its score per

@@ -85,9 +85,9 @@ listing that is in stock on the collection date. Refurbished and open-box listin
 accessories are left out. These are listing prices, not what anyone paid. Daily prices cannot be
 backfilled, so the history starts on the day the collector was switched on.
 
-Once a week, Amazon US listings are added from a data provider, Bright Data. Amazon's
-conditions of use exclude collecting and reusing its prices, so the raw Amazon rows are kept
-out of the public repository. Only the lowest price per model, its history and the fair price
+Once a week, Amazon US and Best Buy listings are added from a data provider, Bright Data.
+Amazon's conditions of use exclude collecting and reusing its prices, and Best Buy's rows are
+treated the same way, so the raw rows from both are kept out of the public repository. Only the lowest price per model, its history and the fair price
 built from it are published.
 
 Amazon's data has no field for a listing's condition, so only new stock that can be vouched
@@ -96,6 +96,11 @@ marketplace seller is left out, because a used part offered under a new-looking 
 be told apart from a new one. Listings filed under "Amazon Renewed" or sold by Amazon Resale
 are dropped as well. The cost is coverage: older parts that Amazon no longer stocks have no
 Amazon price.
+
+Best Buy's search is loose and returns other models and whole PCs beside the part asked for.
+A Best Buy listing counts only if Best Buy files it as a bare processor or graphics card,
+Best Buy is the seller, the title does not mark it refurbished, open-box or pre-owned, and
+its name parses to exactly the model searched for.
 
 Retail listings and benchmark devices are matched by a model key parsed from their names
 (`pdi/tech_value/names.py`). A name that is not recognised is left unmatched and counted on the

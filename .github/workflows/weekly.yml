@@ -21,7 +21,7 @@ concurrency:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,10 +31,10 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen --extra automl
 
-      - name: Restore the private Amazon price files (Actions cache, never committed)
+      - name: Restore the private Amazon and Best Buy price files (Actions cache, never committed)
         uses: actions/cache/restore@v4
         with:
-          path: data/store/tech_value/prices/*_amazon_brightdata.parquet
+          path: data/store/tech_value/prices/*_brightdata.parquet
           key: amazon-prices-${{ github.run_id }}
           restore-keys: amazon-prices-
 
@@ -47,18 +47,18 @@ jobs:
       - name: Collect retail prices (crawler)
         run: uv run python -m pdi.tech_value.retail
 
-      - name: Collect Amazon prices (Bright Data, skipped without a key)
+      - name: Collect Amazon and Best Buy prices (Bright Data, skipped without a key)
         env:
           BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
           # Records are billed, so a dry run on another branch asks for four models only.
           PDI_BRIGHTDATA_LIMIT_MODELS: ${{ github.ref != 'refs/heads/main' && '4' || '' }}
         run: uv run python -m pdi.tech_value.brightdata
 
-      - name: Save the private Amazon price files for the daily runs
+      - name: Save the private Amazon and Best Buy price files for the daily runs
         if: github.ref == 'refs/heads/main'
         uses: actions/cache/save@v4
         with:
-          path: data/store/tech_value/prices/*_amazon_brightdata.parquet
+          path: data/store/tech_value/prices/*_brightdata.parquet
           key: amazon-prices-${{ github.run_id }}
 
       - name: Keep the small raw responses (never committed, never published)
