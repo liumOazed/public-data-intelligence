@@ -185,3 +185,23 @@ def test_a_weekly_source_still_counts_between_its_runs():
     top = value.value_table(pd.concat([prices, extra]), bench).iloc[0]
     assert top["price_usd"] == 440.0 and top["retailer"] == "store_weekly"
     assert top["n_retailers"] == 2
+
+
+def test_single_listing_is_marked_low_confidence():
+    prices = pd.DataFrame(
+        {
+            "date": ["2026-11-14"] * 3,
+            "source": ["store_a", "store_b", "store_a"],
+            "category": ["cpu"] * 3,
+            "model_key": ["ryzen 7 7700x", "ryzen 7 7700x", "ryzen 5 5600"],
+            "name": ["a", "b", "c"],
+            "url": ["u1", "u2", "u3"],
+            "sale_price": [300.0, 310.0, 120.0],
+            "regular_price": [300.0, 310.0, 120.0],
+            "online_availability": [True] * 3,
+            "price_update_date": ["2026-11-14"] * 3,
+        }
+    )
+    table = value.value_table(prices, pd.DataFrame()).set_index("model_key")
+    assert table.loc["ryzen 7 7700x", "confidence"] == "normal"
+    assert table.loc["ryzen 5 5600", "confidence"] == "low"

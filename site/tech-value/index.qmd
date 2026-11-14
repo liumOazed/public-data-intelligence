@@ -26,13 +26,18 @@ COLUMNS = {
     "Retailer": "Cheapest at",
     "median_price_usd": "Median price (USD)",
     "n_retailers": "Stores",
+    "Confidence": "Confidence",
     "collected_date": "Price collected",
     "score": "Benchmark score",
     "n_runs": "Benchmark runs",
     "backend": "Backend",
     "n_listings": "Listings",
 }
-COLUMNS = {k: v for k, v in COLUMNS.items() if k == "Retailer" or k in value.columns}
+COLUMNS = {
+    k: v for k, v in COLUMNS.items()
+    if k == "Retailer" or k in value.columns or (k == "Confidence" and "confidence" in value.columns)
+}
+CONFIDENCE = {"low": "Low: single listing", "normal": "Normal"}
 
 
 def ranking(kind: str, label: str):
@@ -44,6 +49,8 @@ def ranking(kind: str, label: str):
         f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
         for key, url in zip(part["retailer"], part["listing_url"])
     ])
+    if "confidence" in part.columns:
+        part = part.assign(Confidence=part["confidence"].map(CONFIDENCE))
     table = part[list(COLUMNS)].rename(columns=COLUMNS).round(
         {"Score per $": 3, "Benchmark score": 1}
     )
@@ -60,6 +67,10 @@ Every price is shown with the retailer it came from and the date this site colle
 Prices come from one store that allows automated collection and, once a week, from Amazon US
 listings supplied by a data provider. Amazon listings include marketplace sellers. A cheaper
 listing may exist elsewhere.
+
+A row marked **Low: single listing** has only one listing behind its price. That is often a
+marketplace seller's asking price for a part that is no longer made, so treat its score per
+dollar as unreliable. Type "Normal" in the search box to hide those rows.
 
 ```{python}
 #| output: asis
