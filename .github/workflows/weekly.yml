@@ -33,6 +33,9 @@ jobs:
       - name: Collect and tidy Blender Open Data
         run: uv run python -m pdi.tech_value.blender
 
+      - name: Collect retail prices (crawler)
+        run: uv run python -m pdi.tech_value.retail
+
       - name: Keep the small raw responses (never committed, never published)
         if: always()
         uses: actions/upload-artifact@v4

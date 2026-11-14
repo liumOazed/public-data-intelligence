@@ -60,9 +60,13 @@ combined.
 
 ### Prices
 
-Prices come from one US retailer's product API, once a day. The price of a model is its
-cheapest new listing that is available online on the collection date. Refurbished and open-box
-listings are left out. These are listing prices, not what anyone paid. Daily prices cannot be
+Prices are collected once a day by a crawler that searches each retailer for each benchmarked
+model. A retailer is used only if its robots.txt allows the page and it answers a client that
+says what it is; the crawler waits between requests and does nothing to get past a bot wall.
+Most large US retailers block automated clients, so coverage is a small part of the market
+and is listed on the [sources page](sources.qmd). The price of a model is its cheapest new
+listing that is in stock on the collection date. Refurbished and open-box listings and
+accessories are left out. These are listing prices, not what anyone paid. Daily prices cannot be
 backfilled, so the history starts on the day the collector was switched on.
 
 Retail listings and benchmark devices are matched by a model key parsed from their names

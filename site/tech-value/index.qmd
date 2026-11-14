@@ -23,7 +23,7 @@ COLUMNS = {
     "model_key": "Model",
     "score_per_dollar": "Score per $",
     "price_usd": "Price (USD)",
-    "price_date": "Price last changed",
+    "Retailer": "Retailer",
     "collected_date": "Price collected",
     "score": "Benchmark score",
     "n_runs": "Benchmark runs",
@@ -36,20 +36,26 @@ def ranking(kind: str, label: str):
     part = value[value["kind"] == kind] if len(value) else value
     if part.empty:
         return Markdown(site.empty_state(meta, label))
+    names = {m["id"]: m["name"] for m in meta.get("sources", [])}
+    part = part.assign(Retailer=[
+        f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
+        for key, url in zip(part["retailer"], part["listing_url"])
+    ])
     table = part[list(COLUMNS)].rename(columns=COLUMNS).round(
         {"Score per $": 3, "Benchmark score": 1}
     )
     return show(table, paging=True, pageLength=25, order=[[1, "desc"]], showIndex=False,
-                classes="display compact")
+                classes="display compact", allow_html=True)
 ```
 
 **Score per dollar** is the median [Blender benchmark](https://opendata.blender.org/) score of
-a part divided by its cheapest new listing at one US retailer. It measures rendering throughput
+a part divided by its cheapest new listing among the US retailers collected. It measures rendering throughput
 per dollar and nothing else: not gaming frame rates, not power draw, not noise. Treat a high
 value as a reason to look closer, not as a recommendation.
 
-Every price is shown with two dates: when the retailer last changed it, and when this site
-collected it.
+Every price is shown with the retailer it came from and the date this site collected it.
+Only retailers that allow automated collection are covered, so a cheaper listing may exist
+elsewhere.
 
 ## Graphics cards
 

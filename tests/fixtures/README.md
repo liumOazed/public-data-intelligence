@@ -13,3 +13,4 @@ slice of a real response (and re-run the tests) so the parser is pinned to the t
 | `spec_rint2017_sample.csv` | SPEC CPU 2017 results dump (`op=dump&format=csvdump`) |
 | `blender_sample.jsonl` | Blender Open Data snapshot, one launch per line |
 | `bestbuy_cpu_page.json` | Best Buy Products API page |
+| `magento_search_sample.html` | Search-results page of a Magento storefront (Central Computers) |

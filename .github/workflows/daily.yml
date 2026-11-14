@@ -28,7 +28,10 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
 
-      - name: Collect and tidy retail prices
+      - name: Collect retail prices (crawler)
+        run: uv run python -m pdi.tech_value.retail
+
+      - name: Collect retail prices (Best Buy API, skipped without a key)
         env:
           BESTBUY_API_KEY: ${{ secrets.BESTBUY_API_KEY }}
         run: uv run python -m pdi.tech_value.bestbuy

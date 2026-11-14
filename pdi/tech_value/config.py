@@ -39,6 +39,19 @@ BESTBUY_FIELDS = (
 # Below this share of recognisable product names, assume the category id is wrong and stop.
 BESTBUY_MIN_RECOGNISED = 0.2
 
+# --- Retail crawler -----------------------------------------------------------------------------
+# Retailers are crawled only where robots.txt allows the page and the site answers a plainly
+# identified client. Nothing here tries to get past a bot wall.
+CRAWLER_USER_AGENT = "pdi-research-bot/0.1 (+https://github.com/liumOazed/public-data-intelligence)"
+CRAWLER_PAUSE_S = 2.0
+# How many benchmarked models of each kind to look up per day, most-benchmarked first.
+CRAWLER_MODELS_PER_KIND = 40
+# Below these a "CPU" or "GPU" listing is an accessory, not the part.
+MIN_PART_PRICE = {"cpu": 40.0, "gpu": 80.0}
+# If fewer than this many searched models come back with any listing at all, treat the
+# retailer's page format as changed and stop.
+CRAWLER_MIN_MODELS_FOUND = 3
+
 # --- Model evaluation, written before any result was seen ---------------------------------------
 # Processors are assigned to a period by the first hardware-availability date they appear with.
 # Train on older generations, pick on the next ones, test once on the newest.

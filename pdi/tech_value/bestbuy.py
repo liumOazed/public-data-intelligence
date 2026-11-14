@@ -87,6 +87,7 @@ def parse_page(body: dict, category: str, day: str) -> list[dict]:
         rows.append(
             {
                 "date": day,
+                "source": "bestbuy_products",
                 "sku": str(p["sku"]),
                 "name": p.get("name"),
                 "manufacturer": p.get("manufacturer"),
