@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "leaderboard",
   "description": "Validation-period error of every model tried. The naive baseline is always a row. Lower is better.",
-  "generated_at": "2026-11-14T17:01:39+00:00",
+  "generated_at": "2026-11-14T18:52:06+00:00",
   "rows": 10,
   "columns": [
    "rank",
@@ -23,7 +23,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC publishes new results about every two weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-14T13:38:33+00:00"
+    "retrieved_at": "2026-11-14T18:44:43+00:00"
    }
   ],
   "preliminary": false,
@@ -52,7 +52,7 @@
    }
   },
   "automl": {
-   "trained_at": "2026-11-14T13:47:27+00:00",
+   "trained_at": "2026-11-14T18:52:04+00:00",
    "autogluon_version": "1.6.3",
    "python_version": "3.12.16",
    "preset": "medium_quality",
@@ -71,7 +71,7 @@
    "mae_log": 0.08260101700848327,
    "median_abs_pct_error": 4.638472546085597,
    "kind": "automl",
-   "fit_time_s": 11.0
+   "fit_time_s": 8.8
   },
   {
    "rank": 2,
@@ -91,7 +91,7 @@
    "mae_log": 0.0970718756313481,
    "median_abs_pct_error": 5.059424861606473,
    "kind": "automl",
-   "fit_time_s": 0.5
+   "fit_time_s": 0.4
   },
   {
    "rank": 4,
@@ -101,7 +101,7 @@
    "mae_log": 0.10680132314404053,
    "median_abs_pct_error": 6.93271347164564,
    "kind": "automl",
-   "fit_time_s": 9.7
+   "fit_time_s": 7.8
   },
   {
    "rank": 5,
@@ -131,7 +131,7 @@
    "mae_log": 0.11794668546789479,
    "median_abs_pct_error": 7.604383726336855,
    "kind": "automl",
-   "fit_time_s": 0.8
+   "fit_time_s": 0.6
   },
   {
    "rank": 8,
@@ -151,7 +151,7 @@
    "mae_log": 0.1466356736885488,
    "median_abs_pct_error": 9.256188598005028,
    "kind": "automl",
-   "fit_time_s": 1.3
+   "fit_time_s": 1.0
   },
   {
    "rank": 10,

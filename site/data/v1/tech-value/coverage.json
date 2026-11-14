@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-14T17:01:44+00:00",
+  "generated_at": "2026-11-14T18:52:09+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -21,7 +21,7 @@
     "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T16:19:40+00:00"
+    "retrieved_at": "2026-11-14T18:51:46+00:00"
    },
    {
     "id": "centralcomputer",
@@ -30,7 +30,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T17:01:25+00:00"
+    "retrieved_at": "2026-11-14T18:49:18+00:00"
    },
    {
     "id": "blender_opendata",
@@ -39,13 +39,15 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-14T13:38:35+00:00"
+    "retrieved_at": "2026-11-14T18:44:44+00:00"
    }
   ],
   "preliminary": false,
   "limitations": [
    "Prices are listing prices at the retailers named, not transaction prices. Coverage is limited to retailers that allow automated collection, so this is not the whole market.",
    "The price shown is the cheapest new listing available online on the collection date.",
+   "Amazon prices count only listings sold by Amazon.com or the part's own brand. Marketplace sellers are left out because their listings cannot be confirmed as new.",
+   "A price backed by a single listing is marked low confidence: it is often one marketplace seller's asking price for a discontinued part.",
    "Score per dollar measures rendering throughput per dollar. It is a research lead, not buying advice."
   ],
   "blender_version": "4.5",
@@ -54,18 +56,18 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 81,
-   "listings_recognised": 81,
-   "models_priced": 40,
-   "models_with_score": 40,
+   "listings": 52,
+   "listings_recognised": 52,
+   "models_priced": 27,
+   "models_with_score": 27,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 173,
-   "listings_recognised": 173,
-   "models_priced": 30,
-   "models_with_score": 30,
+   "listings": 112,
+   "listings_recognised": 112,
+   "models_priced": 14,
+   "models_with_score": 14,
    "share_with_score": 1.0
   }
  ]
