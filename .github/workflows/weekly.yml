@@ -36,6 +36,13 @@ jobs:
       - name: Collect retail prices (crawler)
         run: uv run python -m pdi.tech_value.retail
 
+      - name: Collect Amazon prices (Bright Data, skipped without a key)
+        env:
+          BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+          # Records are billed, so a dry run on another branch asks for four models only.
+          PDI_BRIGHTDATA_LIMIT_MODELS: ${{ github.ref != 'refs/heads/main' && '4' || '' }}
+        run: uv run python -m pdi.tech_value.brightdata
+
       - name: Keep the small raw responses (never committed, never published)
         if: always()
         uses: actions/upload-artifact@v4

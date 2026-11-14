@@ -53,8 +53,8 @@ def benchmark_by_model(blender: pd.DataFrame) -> tuple[pd.DataFrame, str | None]
 def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
     """Latest price per model joined to its benchmark score.
 
-    Price is the cheapest new listing available online on the latest collection date, across
-    the retailers collected, with the retailer named beside it. The median listing price and
+    Price is the cheapest new listing available online in each retailer's latest collection,
+    across the retailers collected, with the retailer named beside it. The median listing price and
     the number of retailers are kept beside it so an unusual lowest price is visible.
     Models with a price and no score stay in the table with an empty score, so coverage is
     visible instead of silently dropped.
@@ -83,8 +83,12 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
     return con.execute(
         """
         WITH latest AS (
-            SELECT * FROM prices
-            WHERE date = (SELECT max(date) FROM prices)
+            -- Each source's own latest collection, as long as it is recent: sources are
+            -- collected on different schedules.
+            SELECT p.* FROM prices p
+            JOIN (SELECT source, max(date) AS date FROM prices GROUP BY source) s
+              USING (source, date)
+            WHERE CAST(p.date AS DATE) >= (SELECT max(CAST(date AS DATE)) FROM prices) - ?
               AND model_key IS NOT NULL AND online_availability
         ),
         typical AS (
@@ -123,7 +127,7 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
         FROM cheapest c LEFT JOIN bench b USING (kind, model_key)
         ORDER BY score_per_dollar DESC NULLS LAST, c.price_usd
         """,
-        [config.MIN_SHARE_OF_MEDIAN_PRICE],
+        [config.PRICE_MAX_AGE_DAYS, config.MIN_SHARE_OF_MEDIAN_PRICE],
     ).df()
 
 

@@ -35,7 +35,9 @@ one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not in
   found prices for 34 of the 80 most-benchmarked models on its first run. It reads robots.txt
   on every run, says what it is and does nothing to get past a bot wall. Zones and PCNation
   turned out to be unusable, and a probe of 30 more stores found none that lists parts, so
-  every price comes from one store. The ranking shows the lowest listing, the median listing
+  the crawler covers one store. Amazon US listings are added once a week through Bright Data's
+  Web Scraper API (secret `BRIGHTDATA_API_KEY`, free allowance of 5,000 records a month, about
+  1,700 used). The ranking shows the lowest listing, the median listing
   and the number of stores.
 - The Best Buy API collector is built but inactive: Best Buy issues keys to company email
   addresses only. eBay's API licence does not allow stored price history or price statistics.

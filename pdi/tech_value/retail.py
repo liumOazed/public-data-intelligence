@@ -49,7 +49,7 @@ TIDY_SCHEMA = pa.DataFrameSchema(
 # Listings that name a part but are not the part.
 _ACCESSORY = re.compile(
     r"\b(water\s?block|backplate|bracket|riser|cable|adapter|cooler for|heatsink for|"
-    r"compatible with|for use with|support bracket|refurbished|open box|used)\b",
+    r"compatible with|for use with|support bracket|refurbished|renewed|open box|used)\b",
     re.I,
 )
 

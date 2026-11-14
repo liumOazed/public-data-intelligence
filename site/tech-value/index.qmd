@@ -57,8 +57,9 @@ per dollar and nothing else: not gaming frame rates, not power draw, not noise. 
 value as a reason to look closer, not as a recommendation.
 
 Every price is shown with the retailer it came from and the date this site collected it.
-Only retailers that allow automated collection are covered, so a cheaper listing may exist
-elsewhere.
+Prices come from one store that allows automated collection and, once a week, from Amazon US
+listings supplied by a data provider. Amazon listings include marketplace sellers. A cheaper
+listing may exist elsewhere.
 
 ## Graphics cards
 

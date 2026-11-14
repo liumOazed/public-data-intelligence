@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "residuals",
   "description": "Per processor: median out-of-fold residual of the plain regression, with the tested configuration of a typical result.",
-  "generated_at": "2026-11-14T08:22:25+00:00",
+  "generated_at": "2026-11-14T08:51:14+00:00",
   "rows": 537,
   "columns": [
    "processor",

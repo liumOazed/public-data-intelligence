@@ -1,0 +1,64 @@
+[
+ {
+  "title": "AMD Ryzen 7 9800X3D 8-Core, 16-Thread Desktop Processor",
+  "url": "https://www.example.invalid/dp/B0AAA",
+  "asin": "B0AAA",
+  "price": 449.0,
+  "currency": "USD",
+  "availability": "In Stock",
+  "seller_name": "Example Store"
+ },
+ {
+  "title": "AMD Ryzen 7 9800X3D Desktop Processor (Renewed)",
+  "url": "https://www.example.invalid/dp/B0BBB",
+  "asin": "B0BBB",
+  "price": 380.0,
+  "currency": "USD",
+  "availability": "In Stock"
+ },
+ {
+  "title": "Gaming Desktop PC AMD Ryzen 7 9800X3D 32GB DDR5 2TB NVMe SSD Windows 11",
+  "url": "https://www.example.invalid/dp/B0CCC",
+  "asin": "B0CCC",
+  "price": 1899.0,
+  "currency": "USD",
+  "availability": "In Stock"
+ },
+ {
+  "title": "MSI GeForce RTX 5070 12G VENTUS 2X OC Graphics Card",
+  "url": "https://www.example.invalid/dp/B0DDD",
+  "asin": "B0DDD",
+  "final_price": "$579.99",
+  "currency": "USD",
+  "availability": "Currently unavailable."
+ },
+ {
+  "title": "ASUS PRIME GeForce RTX 5070 12GB GDDR7 Graphics Card",
+  "url": "https://www.example.invalid/dp/B0EEE",
+  "asin": "B0EEE",
+  "final_price": "$549.99",
+  "currency": "USD",
+  "availability": "In Stock"
+ },
+ {
+  "title": "ASUS PRIME GeForce RTX 5070 Ti 16GB Graphics Card",
+  "url": "https://www.example.invalid/dp/B0FFF",
+  "asin": "B0FFF",
+  "price": 829.0,
+  "currency": "USD",
+  "availability": "In Stock"
+ },
+ {
+  "title": "Intel Core i7-14700K Desktop Processor",
+  "asin": "B0GGG",
+  "price": 310.0,
+  "currency": "CAD",
+  "availability": "In Stock"
+ },
+ {
+  "error": "dead page",
+  "input": {
+   "keyword": "rtx 5070"
+  }
+ }
+]
