@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-14T15:29:12+00:00",
+  "generated_at": "2026-11-14T15:57:05+00:00",
   "rows": 70,
   "columns": [
    "date",
@@ -29,7 +29,7 @@
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T15:28:54+00:00"
+    "retrieved_at": "2026-11-14T15:56:46+00:00"
    },
    {
     "id": "blender_opendata",
