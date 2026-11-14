@@ -13,14 +13,17 @@ sources:
     url: https://www.spec.org/cpu2017/results/
     endpoint: https://www.spec.org/cgi-bin/osgresults
     licence: >-
-      SPEC fair use rules: results may be cited with attribution to SPEC and the retrieval date,
-      and estimates must be labelled as estimates.
+      SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the
+      source and retrieval date are stated, the licensee of each result is identifiable, the SPEC
+      trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same
+      benchmark release, and derived values and estimates are clearly labelled and never called
+      SPEC metrics. The site does all of these.
     frequency: weekly collection; SPEC publishes new results about every two weeks
     typical_lag: results appear weeks to months after the test date
     status: green
     publish: derived
     module: tech-value
-    terms_checked: unconfirmed
+    terms_checked: 2026-11-14
     notes: >-
       Vendor-submitted and dominated by servers. Used to prove the residual method, not to rank
       consumer parts.
@@ -30,13 +33,15 @@ sources:
     owner: Blender Foundation
     url: https://opendata.blender.org/
     endpoint: https://opendata.blender.org/snapshots/opendata-latest.zip
-    licence: Published by Blender as public domain (CC0). Confirm on the site before relying on it.
+    licence: >-
+      CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the
+      LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.
     frequency: weekly collection; snapshots are regenerated daily
     typical_lag: about one day
     status: green
     publish: derived
     module: tech-value
-    terms_checked: unconfirmed
+    terms_checked: 2026-11-14
     notes: >-
       Crowd-submitted, so the test configuration (memory, cooling, drivers) is not controlled.
       Scores from different Blender versions are never combined.
@@ -66,14 +71,16 @@ sources:
     url: https://www.centralcomputer.com/
     endpoint: https://www.centralcomputer.com/catalogsearch/result/
     licence: >-
-      No data licence. Public search pages are crawled where robots.txt allows it. Site terms of
-      use have not been read.
+      No data licence and no website-use terms found. The store's "Terms and Conditions" pages
+      cover orders, returns and warranty; none of the text read mentions automated access or
+      reuse. Public search pages are crawled only where robots.txt allows it. The site shows a
+      lowest price per model with a link back, never the store's listings in bulk.
     frequency: daily collection
     typical_lag: same day
     status: amber
     publish: derived
     module: tech-value
-    terms_checked: unconfirmed
+    terms_checked: 2026-11-14
     notes: >-
       A small US retailer (California). Collected by a crawler that reads robots.txt on every
       run, identifies itself and waits between requests. Listing prices, not transaction prices,
@@ -86,15 +93,18 @@ sources:
     url: https://brightdata.com/products/web-scraper
     endpoint: https://api.brightdata.com/datasets/v3/trigger
     licence: >-
-      Bright Data customer terms. Amazon's own conditions of use do not permit automated
-      collection; Bright Data collects public listing pages as a commercial service. Terms have
-      not been read in full.
+      Amazon's Conditions of Use exclude "any collection and use of any product listings,
+      descriptions, or prices" and "any use of data mining, robots, or similar data gathering
+      and extraction tools". Bright Data's Master Service Agreement (https://brightdata.com/license)
+      grants no rights in the collected data, bars republishing it to offer a competing product,
+      and makes the customer solely responsible for lawful use. Using these prices publicly is a
+      risk the project owner has chosen to take knowingly.
     frequency: weekly collection
     typical_lag: same day
     status: amber
     publish: derived
     module: tech-value
-    terms_checked: unconfirmed
+    terms_checked: 2026-11-14
     secret: BRIGHTDATA_API_KEY
     notes: >-
       Paid provider with a free allowance of 5,000 records a month. One keyword search per

@@ -21,6 +21,11 @@ SPEC_LIMITS = [
     "Each result is one tested configuration: memory, compiler and operating system differ "
     "between results for the same processor.",
     "Scores are SPECrate 2017 Integer base. No other suite or metric is mixed in.",
+    "Predicted scores and residuals are this site's estimates derived from SPEC results. "
+    "They are not SPEC metrics and were not produced by SPEC-compliant runs.",
+    "SPEC, SPEC CPU and SPECrate are registered trademarks of the Standard Performance "
+    "Evaluation Corporation. The licensee behind each result is named in its SPEC disclosure, "
+    "linked from every row.",
 ]
 PRICE_LIMITS = [
     "Prices are listing prices at the retailers named, not transaction prices. Coverage is "
