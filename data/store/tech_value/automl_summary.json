@@ -1,5 +1,5 @@
 {
- "trained_at": "2026-11-14T07:58:15+00:00",
+ "trained_at": "2026-11-14T13:47:27+00:00",
  "autogluon_version": "1.6.3",
  "python_version": "3.12.16",
  "preset": "medium_quality",
@@ -15,7 +15,7 @@
    "mae_log": 0.08260101700848327,
    "median_abs_pct_error": 4.638472546085597,
    "kind": "automl",
-   "fit_time_s": 9.5
+   "fit_time_s": 11.0
   },
   {
    "model": "AutoGluon: XGBoost",
@@ -33,7 +33,7 @@
    "mae_log": 0.10680132314404053,
    "median_abs_pct_error": 6.93271347164564,
    "kind": "automl",
-   "fit_time_s": 8.2
+   "fit_time_s": 9.7
   },
   {
    "model": "AutoGluon: LightGBM",
@@ -42,7 +42,7 @@
    "mae_log": 0.1106815533141005,
    "median_abs_pct_error": 6.375840337147706,
    "kind": "automl",
-   "fit_time_s": 0.5
+   "fit_time_s": 0.4
   },
   {
    "model": "AutoGluon: LightGBMXT",

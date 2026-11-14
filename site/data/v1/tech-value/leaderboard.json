@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "leaderboard",
   "description": "Validation-period error of every model tried. The naive baseline is always a row. Lower is better.",
-  "generated_at": "2026-11-14T08:51:13+00:00",
+  "generated_at": "2026-11-14T13:47:29+00:00",
   "rows": 10,
   "columns": [
    "rank",
@@ -23,7 +23,7 @@
     "licence": "SPEC fair use rules: results may be cited with attribution to SPEC and the retrieval date, and estimates must be labelled as estimates.",
     "frequency": "weekly collection; SPEC publishes new results about every two weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-14T07:53:06+00:00"
+    "retrieved_at": "2026-11-14T13:38:33+00:00"
    }
   ],
   "preliminary": false,
@@ -50,7 +50,7 @@
    }
   },
   "automl": {
-   "trained_at": "2026-11-14T07:58:15+00:00",
+   "trained_at": "2026-11-14T13:47:27+00:00",
    "autogluon_version": "1.6.3",
    "python_version": "3.12.16",
    "preset": "medium_quality",
@@ -69,15 +69,15 @@
    "mae_log": 0.08260101700848327,
    "median_abs_pct_error": 4.638472546085597,
    "kind": "automl",
-   "fit_time_s": 9.5
+   "fit_time_s": 11.0
   },
   {
    "rank": 2,
    "model": "Plain regression (OLS)",
    "period": "validation",
    "n_results": 2355,
-   "mae_log": 0.08307238513930837,
-   "median_abs_pct_error": 6.23623010138489,
+   "mae_log": 0.08307238513930855,
+   "median_abs_pct_error": 6.236230101385551,
    "kind": "plain",
    "fit_time_s": null
   },
@@ -99,7 +99,7 @@
    "mae_log": 0.10680132314404053,
    "median_abs_pct_error": 6.93271347164564,
    "kind": "automl",
-   "fit_time_s": 8.2
+   "fit_time_s": 9.7
   },
   {
    "rank": 5,
@@ -109,7 +109,7 @@
    "mae_log": 0.1106815533141005,
    "median_abs_pct_error": 6.375840337147706,
    "kind": "automl",
-   "fit_time_s": 0.5
+   "fit_time_s": 0.4
   },
   {
    "rank": 6,
@@ -157,7 +157,7 @@
    "period": "validation",
    "n_results": 2355,
    "mae_log": 0.4556707252687942,
-   "median_abs_pct_error": 38.30771348943791,
+   "median_abs_pct_error": 38.3077134894379,
    "kind": "baseline",
    "fit_time_s": null
   }

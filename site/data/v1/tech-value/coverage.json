@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-14T08:51:14+00:00",
+  "generated_at": "2026-11-14T13:47:29+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -15,13 +15,22 @@
   ],
   "sources": [
    {
+    "id": "amazon_brightdata",
+    "name": "Amazon US listings via Bright Data",
+    "url": "https://brightdata.com/products/web-scraper",
+    "licence": "Bright Data customer terms. Amazon's own conditions of use do not permit automated collection; Bright Data collects public listing pages as a commercial service. Terms have not been read in full.",
+    "frequency": "weekly collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-14T13:47:04+00:00"
+   },
+   {
     "id": "centralcomputer",
     "name": "Central Computers online store",
     "url": "https://www.centralcomputer.com/",
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T07:57:45+00:00"
+    "retrieved_at": "2026-11-14T13:43:01+00:00"
    },
    {
     "id": "blender_opendata",
@@ -30,7 +39,7 @@
     "licence": "Published by Blender as public domain (CC0). Confirm on the site before relying on it.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-14T07:53:09+00:00"
+    "retrieved_at": "2026-11-14T13:38:35+00:00"
    }
   ],
   "preliminary": false,
@@ -45,18 +54,18 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 34,
-   "listings_recognised": 34,
-   "models_priced": 22,
-   "models_with_score": 22,
+   "listings": 80,
+   "listings_recognised": 80,
+   "models_priced": 40,
+   "models_with_score": 40,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 90,
-   "listings_recognised": 90,
-   "models_priced": 12,
-   "models_with_score": 12,
+   "listings": 169,
+   "listings_recognised": 169,
+   "models_priced": 30,
+   "models_with_score": 30,
    "share_with_score": 1.0
   }
  ]
