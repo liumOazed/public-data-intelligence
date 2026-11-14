@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-14T16:11:14+00:00",
+  "generated_at": "2026-11-14T17:01:44+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -18,10 +18,10 @@
     "id": "amazon_brightdata",
     "name": "Amazon US listings via Bright Data",
     "url": "https://brightdata.com/products/web-scraper",
-    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. Amber until the project owner decides how these prices are published.",
+    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T13:47:04+00:00"
+    "retrieved_at": "2026-11-14T16:19:40+00:00"
    },
    {
     "id": "centralcomputer",
@@ -30,7 +30,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T16:10:55+00:00"
+    "retrieved_at": "2026-11-14T17:01:25+00:00"
    },
    {
     "id": "blender_opendata",
@@ -54,16 +54,16 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 80,
-   "listings_recognised": 80,
+   "listings": 81,
+   "listings_recognised": 81,
    "models_priced": 40,
    "models_with_score": 40,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 169,
-   "listings_recognised": 169,
+   "listings": 173,
+   "listings_recognised": 173,
    "models_priced": 30,
    "models_with_score": 30,
    "share_with_score": 1.0

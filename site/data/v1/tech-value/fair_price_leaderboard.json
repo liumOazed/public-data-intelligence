@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price_leaderboard",
   "description": "Leave-one-out error of each fair price model, per kind of part, with the naive baseline.",
-  "generated_at": "2026-11-14T16:11:14+00:00",
+  "generated_at": "2026-11-14T17:01:44+00:00",
   "rows": 8,
   "columns": [
    "kind",
@@ -19,10 +19,10 @@
     "id": "amazon_brightdata",
     "name": "Amazon US listings via Bright Data",
     "url": "https://brightdata.com/products/web-scraper",
-    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. Amber until the project owner decides how these prices are published.",
+    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T13:47:04+00:00"
+    "retrieved_at": "2026-11-14T16:19:40+00:00"
    },
    {
     "id": "centralcomputer",
@@ -31,7 +31,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T16:10:55+00:00"
+    "retrieved_at": "2026-11-14T17:01:25+00:00"
    },
    {
     "id": "blender_opendata",
@@ -55,34 +55,34 @@
    "gpu": {
     "used": "Naive baseline (same price per point)",
     "best_challenger": "Random forest",
-    "n_parts": 20,
-    "mae_log_baseline": 0.326744504134312,
-    "mae_log_best": 0.3061954826714075,
-    "gain": 0.020549021462904493,
-    "gain_standard_error": 0.050908946328971375,
+    "n_parts": 23,
+    "mae_log_baseline": 0.3404397863154775,
+    "mae_log_best": 0.30631243265647345,
+    "gain": 0.034127353659004024,
+    "gain_standard_error": 0.03616812184747354,
     "beats_baseline": false,
-    "typical_error_pct": 33.140650572511355,
+    "typical_error_pct": 36.8300696941159,
     "finding": {
      "label": "observation",
      "reason": "The fair price is the same price per point of score for every part, so the gap is score per dollar restated. No model beat that baseline out of sample."
     },
-    "statement": "No model clearly beats the same-price-per-point baseline on 20 parts, so the baseline sets the fair price. It is typically off by 33%, so read the gaps as rough."
+    "statement": "No model clearly beats the same-price-per-point baseline on 23 parts, so the baseline sets the fair price. It is typically off by 37%, so read the gaps as rough."
    },
    "cpu": {
     "used": "Naive baseline (same price per point)",
-    "best_challenger": null,
-    "n_parts": 25,
-    "mae_log_baseline": 0.2012678780801933,
-    "mae_log_best": 0.2012678780801933,
-    "gain": 0.0,
-    "gain_standard_error": 0.0,
+    "best_challenger": "Straight line (log price on log score)",
+    "n_parts": 24,
+    "mae_log_baseline": 0.23073633091621845,
+    "mae_log_best": 0.21434528756923807,
+    "gain": 0.016391043346980383,
+    "gain_standard_error": 0.017039459457734996,
     "beats_baseline": false,
-    "typical_error_pct": 17.566848935348588,
+    "typical_error_pct": 24.34830058767201,
     "finding": {
      "label": "observation",
      "reason": "The fair price is the same price per point of score for every part, so the gap is score per dollar restated. No model beat that baseline out of sample."
     },
-    "statement": "No model clearly beats the same-price-per-point baseline on 25 parts, so the baseline sets the fair price. It is typically off by 18%, so read the gaps as rough."
+    "statement": "No model clearly beats the same-price-per-point baseline on 24 parts, so the baseline sets the fair price. It is typically off by 24%, so read the gaps as rough."
    }
   },
   "gap_pct_threshold": 15.0
@@ -91,72 +91,72 @@
   {
    "kind": "gpu",
    "model": "Naive baseline (same price per point)",
-   "n_parts": 20,
-   "mae_log": 0.326744504134312,
-   "median_abs_pct_error": 33.140650572511355,
+   "n_parts": 23,
+   "mae_log": 0.3404397863154775,
+   "median_abs_pct_error": 36.8300696941159,
    "used": true,
    "is_baseline": true
   },
   {
    "kind": "gpu",
    "model": "Straight line (log price on log score)",
-   "n_parts": 20,
-   "mae_log": 0.36989851664802437,
-   "median_abs_pct_error": 31.61707518986233,
+   "n_parts": 23,
+   "mae_log": 0.3577254513687757,
+   "median_abs_pct_error": 40.50303325445868,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "gpu",
    "model": "Straight line with brand",
-   "n_parts": 20,
-   "mae_log": 0.34379213339917564,
-   "median_abs_pct_error": 36.256944983623455,
+   "n_parts": 23,
+   "mae_log": 0.3305743346073128,
+   "median_abs_pct_error": 31.77459431520529,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "gpu",
    "model": "Random forest",
-   "n_parts": 20,
-   "mae_log": 0.3061954826714075,
-   "median_abs_pct_error": 25.01458899859631,
+   "n_parts": 23,
+   "mae_log": 0.30631243265647345,
+   "median_abs_pct_error": 29.39505984547761,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "cpu",
    "model": "Naive baseline (same price per point)",
-   "n_parts": 25,
-   "mae_log": 0.2012678780801933,
-   "median_abs_pct_error": 17.566848935348588,
+   "n_parts": 24,
+   "mae_log": 0.23073633091621845,
+   "median_abs_pct_error": 24.34830058767201,
    "used": true,
    "is_baseline": true
   },
   {
    "kind": "cpu",
    "model": "Straight line (log price on log score)",
-   "n_parts": 25,
-   "mae_log": 0.20457974671935503,
-   "median_abs_pct_error": 14.65766087744492,
+   "n_parts": 24,
+   "mae_log": 0.21434528756923807,
+   "median_abs_pct_error": 17.93706118768368,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "cpu",
    "model": "Straight line with brand",
-   "n_parts": 25,
-   "mae_log": 0.21216740336011372,
-   "median_abs_pct_error": 17.157735152579093,
+   "n_parts": 24,
+   "mae_log": 0.22270778517963633,
+   "median_abs_pct_error": 22.43988699299618,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "cpu",
    "model": "Random forest",
-   "n_parts": 25,
-   "mae_log": 0.2938400944055279,
-   "median_abs_pct_error": 27.929481327505144,
+   "n_parts": 24,
+   "mae_log": 0.3058683621186869,
+   "median_abs_pct_error": 25.795900168028986,
    "used": false,
    "is_baseline": false
   }

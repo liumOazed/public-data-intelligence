@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-14T16:11:14+00:00",
+  "generated_at": "2026-11-14T17:01:44+00:00",
   "rows": 70,
   "columns": [
    "date",
@@ -17,10 +17,10 @@
     "id": "amazon_brightdata",
     "name": "Amazon US listings via Bright Data",
     "url": "https://brightdata.com/products/web-scraper",
-    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. Amber until the project owner decides how these prices are published.",
+    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T13:47:04+00:00"
+    "retrieved_at": "2026-11-14T16:19:40+00:00"
    },
    {
     "id": "centralcomputer",
@@ -29,7 +29,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T16:10:55+00:00"
+    "retrieved_at": "2026-11-14T17:01:25+00:00"
    },
    {
     "id": "blender_opendata",
@@ -73,8 +73,8 @@
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "amd rx 7800 xt",
-   "price_usd": 918.98,
-   "n_listings": 2
+   "price_usd": 839.22,
+   "n_listings": 3
   },
   {
    "date": "2026-11-14",
@@ -94,7 +94,7 @@
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "amd rx 9060 xt",
-   "price_usd": 659.99,
+   "price_usd": 559.99,
    "n_listings": 8
   },
   {
@@ -143,7 +143,7 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5600x",
-   "price_usd": 142.88,
+   "price_usd": 149.43,
    "n_listings": 1
   },
   {
@@ -157,14 +157,14 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 5 7600x",
-   "price_usd": 164.99,
+   "price_usd": 161.64,
    "n_listings": 3
   },
   {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 5 9600x",
-   "price_usd": 177.99,
+   "price_usd": 179.99,
    "n_listings": 3
   },
   {
@@ -185,7 +185,7 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5800x",
-   "price_usd": 267.19,
+   "price_usd": 267.1,
    "n_listings": 1
   },
   {
@@ -227,8 +227,8 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 7 9700x",
-   "price_usd": 269.0,
-   "n_listings": 3
+   "price_usd": 254.99,
+   "n_listings": 4
   },
   {
    "date": "2026-11-14",
@@ -262,7 +262,7 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 9 7900",
-   "price_usd": 344.59,
+   "price_usd": 344.5,
    "n_listings": 1
   },
   {
@@ -276,7 +276,7 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 9 7950x",
-   "price_usd": 575.86,
+   "price_usd": 598.95,
    "n_listings": 2
   },
   {
@@ -304,14 +304,14 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 9 9950x3d",
-   "price_usd": 624.0,
-   "n_listings": 3
+   "price_usd": 260.0,
+   "n_listings": 4
   },
   {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd threadripper 7970x",
-   "price_usd": 1915.94,
+   "price_usd": 1915.99,
    "n_listings": 3
   },
   {
@@ -381,8 +381,8 @@
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "intel core i9-14900k",
-   "price_usd": 454.99,
-   "n_listings": 2
+   "price_usd": 549.99,
+   "n_listings": 1
   },
   {
    "date": "2026-11-14",
@@ -403,7 +403,7 @@
    "kind": "gpu",
    "model_key": "nvidia gtx 1660 super",
    "price_usd": 195.95,
-   "n_listings": 1
+   "n_listings": 2
   },
   {
    "date": "2026-11-14",
@@ -417,7 +417,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 3050",
    "price_usd": 249.99,
-   "n_listings": 7
+   "n_listings": 8
   },
   {
    "date": "2026-11-14",
@@ -431,7 +431,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 3070",
    "price_usd": 328.99,
-   "n_listings": 1
+   "n_listings": 2
   },
   {
    "date": "2026-11-14",
@@ -472,15 +472,15 @@
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 4070 ti",
-   "price_usd": 929.99,
-   "n_listings": 1
+   "price_usd": 839.99,
+   "n_listings": 2
   },
   {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 4070 ti super",
    "price_usd": 1139.0,
-   "n_listings": 4
+   "n_listings": 2
   },
   {
    "date": "2026-11-14",
@@ -507,7 +507,7 @@
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5060",
-   "price_usd": 449.99,
+   "price_usd": 469.99,
    "n_listings": 11
   },
   {
@@ -515,7 +515,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 5060 ti",
    "price_usd": 519.99,
-   "n_listings": 16
+   "n_listings": 17
   },
   {
    "date": "2026-11-14",
@@ -528,7 +528,7 @@
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5070 ti",
-   "price_usd": 1199.99,
+   "price_usd": 260.0,
    "n_listings": 16
   },
   {
