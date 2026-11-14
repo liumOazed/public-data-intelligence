@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 from datetime import date
 
@@ -44,6 +45,36 @@ def _price(record: dict) -> float | None:
     return None
 
 
+# Amazon gives no condition field. These are the signals a listing is not new: it sits in the
+# "Amazon Renewed" bestseller category, or it is sold by Amazon's used-goods store or by a
+# seller that names itself a refurbisher.
+_USED_SELLER = re.compile(
+    r"renew|refurb|resale|warehouse|\bused\b|open[\s-]?box|pre[\s-]?owned", re.IGNORECASE
+)
+
+
+def looks_used(record: dict) -> bool:
+    if "renewed" in str(record.get("root_bs_category") or "").lower():
+        return True
+    sellers = (record.get("seller_name"), record.get("buybox_seller"))
+    return any(_USED_SELLER.search(str(s)) for s in sellers if s)
+
+
+def sold_new(record: dict) -> bool:
+    """True only when the seller is Amazon itself or the part's own brand.
+
+    Marketplace sellers can offer a used part under a new-looking listing, and nothing in the
+    data tells those apart, so they are all left out. That costs coverage and buys certainty.
+    """
+    seller = str(record.get("buybox_seller") or record.get("seller_name") or "").strip().lower()
+    if not seller:
+        return False
+    if seller in ("amazon.com", "amazon"):
+        return True
+    brand = str(record.get("brand") or "").strip().lower()
+    return bool(brand) and seller.split()[0] == brand.split()[0]
+
+
 def parse(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[dict]:
     """Keep new, in-stock, US-dollar listings recognised as exactly one wanted part."""
     rows, seen = [], set()
@@ -54,6 +85,8 @@ def parse(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[d
         if not name or price is None:
             continue
         if str(r.get("currency") or "USD").upper() not in ("USD", "$"):
+            continue
+        if looks_used(r) or not sold_new(r):
             continue
         found = model_key(name)
         if found not in wanted:

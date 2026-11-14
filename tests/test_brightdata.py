@@ -21,3 +21,47 @@ def test_no_key_means_no_request(monkeypatch):
     monkeypatch.delenv("BRIGHTDATA_API_KEY", raising=False)
     with pytest.raises(brightdata.MissingKey):
         brightdata.collect()
+
+
+def test_used_and_renewed_listings_are_dropped_even_with_a_clean_title():
+    base = {"title": "EVGA GeForce RTX 3070 XC3 Ultra Gaming 8GB", "currency": "USD"}
+    records = [
+        # Renewed listing whose title does not say so: only the category gives it away.
+        {
+            **base,
+            "asin": "R1",
+            "final_price": 384.97,
+            "seller_name": "Some Store",
+            "root_bs_category": "Amazon Renewed",
+        },
+        # Amazon's own used-goods store.
+        {
+            **base,
+            "asin": "R2",
+            "final_price": 392.14,
+            "seller_name": "Amazon Resale",
+            "root_bs_category": "Computer Graphics Cards",
+        },
+        {**base, "asin": "R3", "final_price": 349.99, "buybox_seller": "Renewed Technology Group"},
+        {
+            **base,
+            "asin": "N1",
+            "final_price": 585.0,
+            "seller_name": "Amazon.com",
+            "root_bs_category": "Computer Graphics Cards",
+        },
+    ]
+    rows = brightdata.parse(records, {("gpu", "nvidia rtx 3070")}, "2026-11-14")
+    assert [r["sku"] for r in rows] == ["N1"]
+
+
+def test_only_amazon_or_the_brand_itself_counts_as_new():
+    base = {"title": "AMD Ryzen 7 5700X 8-Core Desktop Processor", "currency": "USD"}
+    records = [
+        {**base, "asin": "M1", "final_price": 120.0, "seller_name": "Hcir Equipment"},
+        {**base, "asin": "M2", "final_price": 130.0},  # no seller named at all
+        {**base, "asin": "A1", "final_price": 189.0, "buybox_seller": "Amazon.com"},
+        {**base, "asin": "B1", "final_price": 185.0, "seller_name": "AMD Official", "brand": "AMD"},
+    ]
+    rows = brightdata.parse(records, {("cpu", "amd ryzen 7 5700x")}, "2026-11-14")
+    assert [r["sku"] for r in rows] == ["A1", "B1"]

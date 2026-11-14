@@ -90,6 +90,13 @@ conditions of use exclude collecting and reusing its prices, so the raw Amazon r
 out of the public repository. Only the lowest price per model, its history and the fair price
 built from it are published.
 
+Amazon's data has no field for a listing's condition, so only new stock that can be vouched
+for is counted: a listing must be sold by Amazon.com itself or by the part's own brand. Every
+marketplace seller is left out, because a used part offered under a new-looking listing cannot
+be told apart from a new one. Listings filed under "Amazon Renewed" or sold by Amazon Resale
+are dropped as well. The cost is coverage: older parts that Amazon no longer stocks have no
+Amazon price.
+
 Retail listings and benchmark devices are matched by a model key parsed from their names
 (`pdi/tech_value/names.py`). A name that is not recognised is left unmatched and counted on the
 coverage table. Nothing is matched by guesswork.
