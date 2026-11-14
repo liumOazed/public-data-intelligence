@@ -85,6 +85,11 @@ listing that is in stock on the collection date. Refurbished and open-box listin
 accessories are left out. These are listing prices, not what anyone paid. Daily prices cannot be
 backfilled, so the history starts on the day the collector was switched on.
 
+Once a week, Amazon US listings are added from a data provider, Bright Data. Amazon's
+conditions of use exclude collecting and reusing its prices, so the raw Amazon rows are kept
+out of the public repository. Only the lowest price per model, its history and the fair price
+built from it are published.
+
 Retail listings and benchmark devices are matched by a model key parsed from their names
 (`pdi/tech_value/names.py`). A name that is not recognised is left unmatched and counted on the
 coverage table. Nothing is matched by guesswork.

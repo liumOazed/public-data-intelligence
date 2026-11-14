@@ -37,7 +37,9 @@ one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not in
   turned out to be unusable, and a probe of 30 more stores found none that lists parts, so
   the crawler covers one store. Amazon US listings are added once a week through Bright Data's
   Web Scraper API (secret `BRIGHTDATA_API_KEY`, free allowance of 5,000 records a month, about
-  1,700 used). The ranking shows the lowest listing, the median listing
+  1,700 used). Raw Amazon rows are never committed: Amazon's terms exclude collecting and
+  reusing its prices, so they live in a private Actions cache and only the derived tables
+  (lowest price per model, history, fair price) are published. The ranking shows the lowest listing, the median listing
   and the number of stores.
 - The Best Buy API collector is built but inactive: Best Buy issues keys to company email
   addresses only. eBay's API licence does not allow stored price history or price statistics.

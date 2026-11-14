@@ -33,6 +33,13 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
 
+      - name: Restore the private Amazon price files (Actions cache, never committed)
+        uses: actions/cache/restore@v4
+        with:
+          path: data/store/tech_value/prices/*_amazon_brightdata.parquet
+          key: amazon-prices-${{ github.run_id }}
+          restore-keys: amazon-prices-
+
       - name: Collect retail prices (crawler)
         env:
           PDI_FIRE_DRILL: ${{ inputs.fire_drill && '1' || '' }}
