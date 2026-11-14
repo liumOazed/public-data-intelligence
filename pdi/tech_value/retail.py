@@ -49,7 +49,16 @@ TIDY_SCHEMA = pa.DataFrameSchema(
 # Listings that name a part but are not the part.
 _ACCESSORY = re.compile(
     r"\b(water\s?block|backplate|bracket|riser|cable|adapter|cooler for|heatsink for|"
-    r"compatible with|for use with|support bracket|refurbished|open box|used)\b",
+    r"compatible with|for use with|support bracket|refurbished|renewed|open box|used)\b",
+    re.I,
+)
+
+
+# A whole computer names its processor too. These words never appear on a bare CPU or graphics card.
+_SYSTEM = re.compile(
+    r"\b(mini\s?pc|workstation|desktop\s+(?:computer|pc)|gaming\s+(?:pc|desktop)|barebones?|"
+    r"all-in-one|nuc|tower|motherboard|combo|bundle|windows\s+1[01]|ssd|hdd|nvme|"
+    r"\d+\s?gb\s+(?:ram|ddr[345]|memory))\b",
     re.I,
 )
 
@@ -121,7 +130,7 @@ def search_term(key: str) -> str:
 
 def keep(listing: Listing, kind: str, key: str) -> bool:
     """A listing counts only if its name is recognised as exactly the model searched for."""
-    if _ACCESSORY.search(listing.name):
+    if _ACCESSORY.search(listing.name) or _SYSTEM.search(listing.name):
         return False
     if listing.price < config.MIN_PART_PRICE[kind]:
         return False

@@ -5,7 +5,7 @@ built, and are looked at again when the current module meets its exit criterion.
 
 ## Tech Value
 
-- Add parsers for Zones and PCNation, which allow crawling and answered the probe.
+- A second price source. 54 US stores were tested and only Central Computers allows a polite crawler and lists parts. The Best Buy API (needs a non-free email address) is the best remaining option.
 - Read Central Computers' terms of use and record the date in the registry.
 - Find out why about 14% of Blender Open Data launches are unreadable by the parser.
 

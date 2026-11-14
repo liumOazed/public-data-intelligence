@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-14T07:58:18+00:00",
-  "rows": 36,
+  "generated_at": "2026-11-14T08:51:14+00:00",
+  "rows": 34,
   "columns": [
    "date",
    "kind",
@@ -213,13 +213,6 @@
   {
    "date": "2026-11-14",
    "kind": "cpu",
-   "model_key": "intel core i9-13900hx",
-   "price_usd": 799.99,
-   "n_listings": 1
-  },
-  {
-   "date": "2026-11-14",
-   "kind": "cpu",
    "model_key": "intel core i9-14900k",
    "price_usd": 549.99,
    "n_listings": 1
@@ -227,16 +220,9 @@
   {
    "date": "2026-11-14",
    "kind": "cpu",
-   "model_key": "intel core ultra 7 265k",
-   "price_usd": 3818.99,
-   "n_listings": 3
-  },
-  {
-   "date": "2026-11-14",
-   "kind": "cpu",
    "model_key": "intel core ultra 9 285k",
    "price_usd": 619.99,
-   "n_listings": 4
+   "n_listings": 2
   },
   {
    "date": "2026-11-14",
@@ -257,7 +243,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 5060",
    "price_usd": 489.99,
-   "n_listings": 12
+   "n_listings": 8
   },
   {
    "date": "2026-11-14",
@@ -271,28 +257,28 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 5070",
    "price_usd": 899.99,
-   "n_listings": 13
+   "n_listings": 7
   },
   {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5070 ti",
    "price_usd": 1199.99,
-   "n_listings": 15
+   "n_listings": 12
   },
   {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5080",
    "price_usd": 1899.99,
-   "n_listings": 20
+   "n_listings": 16
   },
   {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5090",
    "price_usd": 5499.99,
-   "n_listings": 13
+   "n_listings": 12
   }
  ]
 }

@@ -79,3 +79,25 @@ sources:
       run, identifies itself and waits between requests. Listing prices, not transaction prices,
       and only what this one store stocks. Checked on 14 November 2026: robots.txt allowed the
       search page and the site answered a plainly identified client.
+
+  amazon_brightdata:
+    name: Amazon US listings via Bright Data
+    owner: Bright Data (data provider); Amazon (retailer)
+    url: https://brightdata.com/products/web-scraper
+    endpoint: https://api.brightdata.com/datasets/v3/trigger
+    licence: >-
+      Bright Data customer terms. Amazon's own conditions of use do not permit automated
+      collection; Bright Data collects public listing pages as a commercial service. Terms have
+      not been read in full.
+    frequency: weekly collection
+    typical_lag: same day
+    status: amber
+    publish: derived
+    module: tech-value
+    terms_checked: unconfirmed
+    secret: BRIGHTDATA_API_KEY
+    notes: >-
+      Paid provider with a free allowance of 5,000 records a month. One keyword search per
+      benchmarked model, five results each, about 400 records a run. Listings include
+      marketplace sellers, so a price is not always Amazon's own. Listing prices, not
+      transaction prices.

@@ -22,14 +22,17 @@ version = meta.get("blender_version")
 COLUMNS = {
     "model_key": "Model",
     "score_per_dollar": "Score per $",
-    "price_usd": "Price (USD)",
-    "Retailer": "Retailer",
+    "price_usd": "Lowest price (USD)",
+    "Retailer": "Cheapest at",
+    "median_price_usd": "Median price (USD)",
+    "n_retailers": "Stores",
     "collected_date": "Price collected",
     "score": "Benchmark score",
     "n_runs": "Benchmark runs",
     "backend": "Backend",
     "n_listings": "Listings",
 }
+COLUMNS = {k: v for k, v in COLUMNS.items() if k == "Retailer" or k in value.columns}
 
 
 def ranking(kind: str, label: str):
@@ -54,8 +57,9 @@ per dollar and nothing else: not gaming frame rates, not power draw, not noise. 
 value as a reason to look closer, not as a recommendation.
 
 Every price is shown with the retailer it came from and the date this site collected it.
-Only retailers that allow automated collection are covered, so a cheaper listing may exist
-elsewhere.
+Prices come from one store that allows automated collection and, once a week, from Amazon US
+listings supplied by a data provider. Amazon listings include marketplace sellers. A cheaper
+listing may exist elsewhere.
 
 ## Graphics cards
 

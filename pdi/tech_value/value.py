@@ -53,8 +53,9 @@ def benchmark_by_model(blender: pd.DataFrame) -> tuple[pd.DataFrame, str | None]
 def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
     """Latest price per model joined to its benchmark score.
 
-    Price is the cheapest new listing available online on the latest collection date, across
-    the retailers collected, with the retailer named beside it.
+    Price is the cheapest new listing available online in each retailer's latest collection,
+    across the retailers collected, with the retailer named beside it. The median listing price and
+    the number of retailers are kept beside it so an unusual lowest price is visible.
     Models with a price and no score stay in the table with an empty score, so coverage is
     visible instead of silently dropped.
     """
@@ -82,14 +83,32 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
     return con.execute(
         """
         WITH latest AS (
-            SELECT * FROM prices
-            WHERE date = (SELECT max(date) FROM prices)
+            -- Each source's own latest collection, as long as it is recent: sources are
+            -- collected on different schedules.
+            SELECT p.* FROM prices p
+            JOIN (SELECT source, max(date) AS date FROM prices GROUP BY source) s
+              USING (source, date)
+            WHERE CAST(p.date AS DATE) >= (SELECT max(CAST(date AS DATE)) FROM prices) - ?
               AND model_key IS NOT NULL AND online_availability
+        ),
+        typical AS (
+            SELECT category, model_key, median(sale_price) AS median_price,
+                   count(*) AS n_all
+            FROM latest GROUP BY ALL
+        ),
+        -- A listing under half the typical price is far more often a mislabelled product
+        -- than a bargain, so it cannot set the headline price.
+        trusted AS (
+            SELECT l.*, t.median_price, t.n_all
+            FROM latest l JOIN typical t USING (category, model_key)
+            WHERE l.sale_price >= ? * t.median_price
         ),
         cheapest AS (
             SELECT category AS kind, model_key,
                    count(*) AS n_listings,
+                   any_value(n_all) - count(*) AS n_ignored_low,
                    min(sale_price) AS price_usd,
+                   median(sale_price) AS median_price_usd,
                    arg_min(source, sale_price) AS retailer,
                    count(DISTINCT source) AS n_retailers,
                    arg_min(name, sale_price) AS listing_name,
@@ -97,17 +116,18 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
                    arg_min(price_update_date, sale_price) AS price_date,
                    arg_min(regular_price, sale_price) AS regular_price_usd,
                    max(date) AS collected_date
-            FROM latest GROUP BY ALL
+            FROM trusted GROUP BY ALL
         )
-        SELECT c.kind, c.model_key, c.price_usd, c.retailer, c.n_retailers, c.price_date,
-               c.collected_date,
-               c.regular_price_usd, c.n_listings, c.listing_name, c.listing_url,
+        SELECT c.kind, c.model_key, c.price_usd, c.median_price_usd, c.retailer, c.n_retailers,
+               c.price_date, c.collected_date,
+               c.regular_price_usd, c.n_listings, c.n_ignored_low, c.listing_name, c.listing_url,
                b.median_score AS score, b.p25_score, b.p75_score, b.n_runs,
                b.device_type AS backend, b.blender_version,
                b.median_score / c.price_usd AS score_per_dollar
         FROM cheapest c LEFT JOIN bench b USING (kind, model_key)
         ORDER BY score_per_dollar DESC NULLS LAST, c.price_usd
-        """
+        """,
+        [config.PRICE_MAX_AGE_DAYS, config.MIN_SHARE_OF_MEDIAN_PRICE],
     ).df()
 
 
