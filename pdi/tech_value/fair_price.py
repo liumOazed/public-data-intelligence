@@ -25,6 +25,7 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 
+from pdi.common import findings
 from pdi.tech_value import config
 
 BASELINE = "Naive baseline (same price per point)"
@@ -115,6 +116,9 @@ def evaluate(table: pd.DataFrame) -> Result:
                 "statement": f"Only {len(train)} parts have two or more listings, fewer than "
                 f"the {config.FAIR_PRICE_MIN_PARTS} needed to fit a fair price.",
                 "n_parts": int(len(train)),
+                "finding": findings.observation(
+                    "Too few parts to fit or test a fair price; only the measured prices are shown."
+                ),
             }
             continue
         y = train["log_price"].to_numpy()
@@ -149,6 +153,15 @@ def evaluate(table: pd.DataFrame) -> Result:
             "gain_standard_error": se,
             "beats_baseline": bool(beats),
             "typical_error_pct": typical,
+            "finding": findings.from_test(
+                beats,
+                passed=f"{picked} beat the naive baseline when predicting prices it was not "
+                "fitted on, by more than twice the standard error of the gain.",
+                failed="The fair price is the same price per point of score for every part, "
+                "so the gap is score per dollar restated. No model beat that baseline out of "
+                "sample.",
+                otherwise=findings.OBSERVATION,
+            ),
             "statement": (
                 f"{picked} predicts a part's price within {typical:.0f}% for a typical part "
                 f"and beats the same-price-per-point baseline by more than twice the "

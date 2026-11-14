@@ -26,6 +26,7 @@ def test_baseline_is_kept_when_price_is_proportional_to_score():
     result = fair_price.evaluate(_table(slope=1.0))
     verdict = result.verdicts["cpu"]
     assert verdict["used"] == fair_price.BASELINE and not verdict["beats_baseline"]
+    assert verdict["finding"]["label"] == "observation"
     board = result.leaderboard
     assert board["is_baseline"].sum() == 1 and board["used"].sum() == 1
     assert set(board["model"]) == set(fair_price.MODELS)
@@ -35,6 +36,7 @@ def test_a_line_replaces_the_baseline_when_price_rises_slower_than_score():
     result = fair_price.evaluate(_table(n=30, slope=0.5, noise=0.03))
     verdict = result.verdicts["cpu"]
     assert verdict["beats_baseline"] and verdict["used"] != fair_price.BASELINE
+    assert verdict["finding"]["label"] == "prediction"
 
 
 def test_cheap_and_dear_parts_are_flagged_and_single_listings_do_not_fit():

@@ -61,6 +61,11 @@ Prices come from one store that allows automated collection and, once a week, fr
 listings supplied by a data provider. Amazon listings include marketplace sellers. A cheaper
 listing may exist elsewhere.
 
+```{python}
+#| output: asis
+print(site.finding_line(meta.get("finding")))
+```
+
 ## Graphics cards
 
 ```{python}
@@ -84,6 +89,11 @@ print(site.source_note(meta))
 
 Lowest new, online-available listing per model, one point per day collected. Daily prices
 cannot be backfilled, so this chart only goes back to the day the collector was switched on.
+
+```{python}
+#| output: asis
+print(site.finding_line(hist_meta.get("finding")))
+```
 
 ```{python}
 if history.empty:
