@@ -8,6 +8,11 @@ on:
   schedule:
     - cron: "17 9 * * *" # 09:17 UTC every day; scheduled start times can slip
   workflow_dispatch:
+    inputs:
+      fire_drill:
+        description: "Make the crawler fail on purpose, to check that an Issue opens"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -29,6 +34,8 @@ jobs:
       - run: uv sync --frozen
 
       - name: Collect retail prices (crawler)
+        env:
+          PDI_FIRE_DRILL: ${{ inputs.fire_drill && '1' || '' }}
         run: uv run python -m pdi.tech_value.retail
 
       - name: Collect retail prices (Best Buy API, skipped without a key)

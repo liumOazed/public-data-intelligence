@@ -12,6 +12,7 @@ Rules the crawler keeps:
 
 from __future__ import annotations
 
+import os
 import re
 import time
 import urllib.robotparser
@@ -249,6 +250,10 @@ def collect(today: date | None = None) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    if os.environ.get("PDI_FIRE_DRILL") == "1":
+        # A deliberate failure, started by hand, to prove a broken collector stops the
+        # publish and opens an Issue. Nothing is fetched.
+        raise SystemExit("Fire drill: the retail crawler was told to fail.")
     try:
         table = collect()
     except NoTargets as exc:
