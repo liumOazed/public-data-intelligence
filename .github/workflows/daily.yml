@@ -30,6 +30,10 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The newest commit on the branch when the job starts, not the one the run was
+          # queued on: another pipeline run may have pushed data while this one waited.
+          ref: ${{ github.ref_name }}
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
 
@@ -74,7 +78,9 @@ jobs:
             echo "nothing changed"
           else
             git commit -m "Daily data update $(date -u +%F)"
-            git pull --rebase origin main
+            # If another run pushed in between, this run's freshly built tables win: both
+            # were built from the same sources, and this run's are newer.
+            git pull --rebase -X theirs origin main
             git push origin HEAD:main
           fi
 
