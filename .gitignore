@@ -7,6 +7,9 @@ __pycache__/
 data/raw/
 # AutoGluon model artefacts; only the leaderboard table is kept.
 data/models/
+# Raw Amazon listing rows from Bright Data stay out of the public repo (Amazon's terms exclude
+# collecting and reusing its prices). They live in a private Actions cache the runs share.
+data/store/tech_value/prices/*_amazon_brightdata.parquet
 # Quarto build output
 site/_site/
 site/.quarto/

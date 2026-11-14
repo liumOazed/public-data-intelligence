@@ -27,6 +27,13 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen --extra automl
 
+      - name: Restore the private Amazon price files (Actions cache, never committed)
+        uses: actions/cache/restore@v4
+        with:
+          path: data/store/tech_value/prices/*_amazon_brightdata.parquet
+          key: amazon-prices-${{ github.run_id }}
+          restore-keys: amazon-prices-
+
       - name: Collect and tidy SPEC CPU 2017 results
         run: uv run python -m pdi.tech_value.spec
 
@@ -42,6 +49,13 @@ jobs:
           # Records are billed, so a dry run on another branch asks for four models only.
           PDI_BRIGHTDATA_LIMIT_MODELS: ${{ github.ref != 'refs/heads/main' && '4' || '' }}
         run: uv run python -m pdi.tech_value.brightdata
+
+      - name: Save the private Amazon price files for the daily runs
+        if: github.ref == 'refs/heads/main'
+        uses: actions/cache/save@v4
+        with:
+          path: data/store/tech_value/prices/*_amazon_brightdata.parquet
+          key: amazon-prices-${{ github.run_id }}
 
       - name: Keep the small raw responses (never committed, never published)
         if: always()
