@@ -16,3 +16,19 @@
   margin: 1rem 0 1.5rem 0;
 }
 table.dataTable { font-size: 0.9rem; }
+.finding {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.45rem;
+  margin-right: 0.35rem;
+  border: 1px solid currentColor;
+}
+.finding:hover { text-decoration: none; opacity: 0.85; }
+.finding-observation { color: var(--bs-secondary-color); }
+.finding-explanation { color: #9a6700; }
+.finding-prediction { color: #1a7f37; }

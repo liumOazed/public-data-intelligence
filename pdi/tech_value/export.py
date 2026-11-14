@@ -11,6 +11,7 @@ import json
 
 import pandas as pd
 
+from pdi.common import findings
 from pdi.common.export import write_table
 from pdi.tech_value import config, fair_price, model, value
 
@@ -63,6 +64,16 @@ def export_model(spec: pd.DataFrame) -> None:
 
     df = model.prepare(spec)
     ev = model.evaluate(df, automl)
+    spec_finding = findings.from_test(
+        ev.verdict["beats_baseline"],
+        passed="The published model predicts scores for the newest processor generation, "
+        "which it never saw, better than the cores-times-clock baseline by more than the "
+        "fold-to-fold spread.",
+        failed="No model beat the cores-times-clock baseline on the newest generation, so "
+        "nothing here is a forecast.",
+        otherwise=findings.EXPLANATION,
+    )
+    ev.verdict["finding"] = spec_finding
     split = {
         "target": "log of SPECrate 2017 Integer base score",
         "valid_start": config.VALID_START,
@@ -108,7 +119,14 @@ def export_model(spec: pd.DataFrame) -> None:
         plain.coefficients(),
         description="Plain regression fitted on all results. Features are in logs, so a "
         "coefficient on log_cores is an elasticity.",
-        extra={"r_squared": float(plain.result.rsquared), "n_results": int(len(df))},
+        extra={
+            "r_squared": float(plain.result.rsquared),
+            "n_results": int(len(df)),
+            "finding": findings.explanation(
+                "Coefficients describe how score moves with each specification across the "
+                "results the regression was fitted on. They are a description, not a forecast."
+            ),
+        },
         **common,
     )
     ranking = model.residual_ranking(model.out_of_fold_residuals(df))
@@ -118,7 +136,15 @@ def export_model(spec: pd.DataFrame) -> None:
         ranking,
         description="Per processor: median out-of-fold residual of the plain regression, with "
         "the tested configuration of a typical result.",
-        extra={"min_results": config.MIN_RESULTS_FOR_RANK, "verdict": ev.verdict},
+        extra={
+            "min_results": config.MIN_RESULTS_FOR_RANK,
+            "verdict": ev.verdict,
+            "finding": findings.explanation(
+                "A residual is the part of a processor's score its specifications do not "
+                "account for, using the readable plain regression. It points at what does not "
+                "fit; it does not forecast anything."
+            ),
+        },
         **common,
     )
 
@@ -137,13 +163,16 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         status.append("Blender Open Data has not been collected yet.")
     extra = {"blender_version": version, "status": " ".join(status) or None}
     common = dict(sources=[*price_sources, "blender_opendata"], retrieved_at=got, extra=extra)
+    observed = findings.observation(
+        "Measured benchmark score divided by the lowest listed price. No model is involved."
+    )
     write_table(
         M,
         "value",
         table,
         description="Latest US retail price per model joined to its Blender benchmark score.",
         limitations=PRICE_LIMITS + BLENDER_LIMITS,
-        **common,
+        **{**common, "extra": {**extra, "finding": observed}},
     )
     fair = fair_price.evaluate(table)
     fair_extra = {
@@ -176,7 +205,13 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         value.price_history(prices),
         description="Daily lowest new, online-available listing price per model.",
         limitations=PRICE_LIMITS,
-        **common,
+        **{
+            **common,
+            "extra": {
+                **extra,
+                "finding": findings.observation("Listed prices as collected, day by day."),
+            },
+        },
     )
     write_table(
         M,

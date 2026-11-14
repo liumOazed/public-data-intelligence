@@ -32,6 +32,7 @@ reason.
 if verdict:
     print(f'::: {{.verdict}}\n**Does the model carry signal?** {verdict["statement"]} '
           f'See [Model and leaderboard](model.qmd).\n:::')
+print(site.finding_line(meta.get("finding")))
 ```
 
 ```{python}

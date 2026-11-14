@@ -65,3 +65,30 @@ def registry_table() -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+FINDING_NAMES = {
+    "observation": "Observation",
+    "explanation": "Explanation",
+    "prediction": "Prediction",
+}
+
+
+def finding_badge(finding: dict | None, to_root: str = "..") -> str:
+    """The label as an inline badge, linked to where the three labels are defined.
+
+    `to_root` is the relative path from the page to the site root, so links survive the
+    project subpath on GitHub Pages.
+    """
+    if not finding:
+        return ""
+    label = finding["label"]
+    href = f"{to_root}/methodology.qmd#finding-labels"
+    return f"[{FINDING_NAMES[label]}]({href}){{.finding .finding-{label}}}"
+
+
+def finding_line(finding: dict | None, to_root: str = "..") -> str:
+    """Badge plus the reason, as its own paragraph above a chart or table."""
+    if not finding:
+        return ""
+    return f"\n{finding_badge(finding, to_root)} {finding['reason']}\n"

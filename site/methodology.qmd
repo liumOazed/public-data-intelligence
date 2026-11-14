@@ -40,6 +40,22 @@ are a contract: pages read only from them, by fixed paths and fixed column names
 6. **Never mix incomparable measurements.** Different benchmark versions, listing and
    transaction prices, base and peak scores: separate columns, never averaged together.
 7. **Label every number.** The label comes from the metadata file, so it cannot be forgotten.
+8. **Say what kind of finding it is.** Every finding carries one of the three labels below.
+
+## Finding labels
+
+Each finding on this site is tagged with what kind of claim it is. The tag is set in code from
+the test result, never typed by hand on a page
+([`pdi/common/findings.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/common/findings.py)).
+
+| Label | What it means | What it does not mean |
+|---|---|---|
+| [Observation]{.finding .finding-observation} | A measured value, or simple arithmetic on measured values, such as score divided by price. No model is involved. | It says nothing about why, or about what comes next. |
+| [Explanation]{.finding .finding-explanation} | A fitted model describes a relationship, such as how score rises with core count, or what is left over after it. | The model has not shown it predicts data it never saw better than the naive baseline, so it is a description, not a forecast. |
+| [Prediction]{.finding .finding-prediction} | A model's output, published only because that model beat the naive baseline on data it never saw, by more than the noise level fixed before the test. | It is not certain. The page shows the size of its typical error. |
+
+A finding moves up to **prediction** only by passing its module's out-of-sample test. If a
+later run fails the test, the label drops back on that run, automatically.
 
 ## Tech Value
 

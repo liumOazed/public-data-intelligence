@@ -27,6 +27,9 @@ one meets its exit criterion, which is written in the
   updates and what it cannot tell you.
 - Every model is shown next to a naive baseline. If the model does not beat the baseline, the
   page says "no signal found".
+- Every finding is labelled as an observation, an explanation or a prediction. Only a model
+  that beat the naive baseline on data it never saw can produce a prediction. See
+  [finding labels](methodology.qmd#finding-labels).
 - A score or a flag here is a research lead. It is not advice.
 
 See [Methodology](methodology.qmd) for how each number is made and

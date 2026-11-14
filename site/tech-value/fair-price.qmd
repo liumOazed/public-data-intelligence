@@ -34,7 +34,8 @@ leaderboard. A model only replaces the baseline when it clearly beats it.
 for kind, label in KINDS.items():
     v = verdicts.get(kind)
     if v:
-        print(f'::: {{.verdict}}\n**{label}: does a model beat the baseline?** {v["statement"]}\n:::\n')
+        print(f'::: {{.verdict}}\n**{label}: does a model beat the baseline?** {v["statement"]}\n'
+              f'{site.finding_line(v.get("finding"))}:::\n')
 ```
 
 A gap is a question, not an answer. Blender measures rendering only. A processor built for
