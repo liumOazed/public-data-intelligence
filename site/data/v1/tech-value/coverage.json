@@ -1,0 +1,63 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "coverage",
+  "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
+  "generated_at": "2026-11-14T07:58:18+00:00",
+  "rows": 2,
+  "columns": [
+   "kind",
+   "listings",
+   "listings_recognised",
+   "models_priced",
+   "models_with_score",
+   "share_with_score"
+  ],
+  "sources": [
+   {
+    "id": "centralcomputer",
+    "name": "Central Computers online store",
+    "url": "https://www.centralcomputer.com/",
+    "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
+    "frequency": "daily collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-14T07:57:45+00:00"
+   },
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "Published by Blender as public domain (CC0). Confirm on the site before relying on it.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-14T07:53:09+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Prices are listing prices at the retailers named, not transaction prices. Coverage is limited to retailers that allow automated collection, so this is not the whole market.",
+   "The price shown is the cheapest new listing available online on the collection date.",
+   "Score per dollar measures rendering throughput per dollar. It is a research lead, not buying advice."
+  ],
+  "blender_version": "4.5",
+  "status": null
+ },
+ "data": [
+  {
+   "kind": "cpu",
+   "listings": 40,
+   "listings_recognised": 40,
+   "models_priced": 24,
+   "models_with_score": 24,
+   "share_with_score": 1.0
+  },
+  {
+   "kind": "gpu",
+   "listings": 108,
+   "listings_recognised": 108,
+   "models_priced": 12,
+   "models_with_score": 12,
+   "share_with_score": 1.0
+  }
+ ]
+}

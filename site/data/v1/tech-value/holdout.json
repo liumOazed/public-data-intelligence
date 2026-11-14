@@ -1,0 +1,101 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "holdout",
+  "description": "Error on the newest generation, scored once after the pick was made on validation.",
+  "generated_at": "2026-11-14T07:58:17+00:00",
+  "rows": 3,
+  "columns": [
+   "model",
+   "period",
+   "n_results",
+   "mae_log",
+   "median_abs_pct_error",
+   "kind",
+   "published"
+  ],
+  "sources": [
+   {
+    "id": "spec_cpu2017",
+    "name": "SPEC CPU 2017 published results",
+    "url": "https://www.spec.org/cpu2017/results/",
+    "licence": "SPEC fair use rules: results may be cited with attribution to SPEC and the retrieval date, and estimates must be labelled as estimates.",
+    "frequency": "weekly collection; SPEC publishes new results about every two weeks",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": "2026-11-14T07:53:06+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "SPEC results are submitted by hardware vendors and are dominated by servers.",
+   "Each result is one tested configuration: memory, compiler and operating system differ between results for the same processor.",
+   "Scores are SPECrate 2017 Integer base. No other suite or metric is mixed in."
+  ],
+  "target": "log of SPECrate 2017 Integer base score",
+  "valid_start": "2023-01-01",
+  "holdout_start": "2024-06-01",
+  "counts": {
+   "train": {
+    "results": 9405,
+    "processors": 401
+   },
+   "validation": {
+    "results": 2355,
+    "processors": 130
+   },
+   "holdout": {
+    "results": 1628,
+    "processors": 113
+   }
+  },
+  "automl": {
+   "trained_at": "2026-11-14T07:58:15+00:00",
+   "autogluon_version": "1.6.3",
+   "python_version": "3.12.16",
+   "preset": "medium_quality",
+   "time_limit_s": 900,
+   "n_spec_results": 13388,
+   "valid_start": "2023-01-01",
+   "holdout_start": "2024-06-01"
+  },
+  "verdict": {
+   "picked_on_validation": "AutoGluon: WeightedEnsemble_L2",
+   "holdout_mae_log_baseline": 0.48840348530045175,
+   "holdout_mae_log_picked": 0.22197473919010294,
+   "holdout_improvement": 0.26642874611034884,
+   "fold_spread": 0.14283701465673218,
+   "beats_baseline": true,
+   "published_model": "AutoGluon: WeightedEnsemble_L2",
+   "statement": "AutoGluon: WeightedEnsemble_L2 beats the cores-times-clock baseline on the newest generation by more than the spread between folds."
+  }
+ },
+ "data": [
+  {
+   "model": "Naive baseline (cores x clock)",
+   "period": "holdout",
+   "n_results": 1628,
+   "mae_log": 0.48840348530045175,
+   "median_abs_pct_error": 38.80074518015215,
+   "kind": "baseline",
+   "published": false
+  },
+  {
+   "model": "Plain regression (OLS)",
+   "period": "holdout",
+   "n_results": 1628,
+   "mae_log": 0.10201665899437573,
+   "median_abs_pct_error": 7.772981139875829,
+   "kind": "plain",
+   "published": false
+  },
+  {
+   "model": "AutoGluon: WeightedEnsemble_L2",
+   "period": "holdout",
+   "n_results": 1628,
+   "mae_log": 0.22197473919010294,
+   "median_abs_pct_error": 16.619745491547835,
+   "kind": "automl",
+   "published": true
+  }
+ ]
+}
