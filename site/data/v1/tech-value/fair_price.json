@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price",
   "description": "Per part: the price its Blender score would predict, and how far the lowest listing is from it. Predictions for parts with two or more listings come from a fit that left that part out.",
-  "generated_at": "2026-11-14T15:57:05+00:00",
+  "generated_at": "2026-11-14T16:11:14+00:00",
   "rows": 70,
   "columns": [
    "kind",
@@ -24,7 +24,7 @@
     "id": "amazon_brightdata",
     "name": "Amazon US listings via Bright Data",
     "url": "https://brightdata.com/products/web-scraper",
-    "licence": "Bright Data customer terms. Amazon's own conditions of use do not permit automated collection; Bright Data collects public listing pages as a commercial service. Terms have not been read in full.",
+    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. Amber until the project owner decides how these prices are published.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
     "retrieved_at": "2026-11-14T13:47:04+00:00"
@@ -33,16 +33,16 @@
     "id": "centralcomputer",
     "name": "Central Computers online store",
     "url": "https://www.centralcomputer.com/",
-    "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
+    "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T15:56:46+00:00"
+    "retrieved_at": "2026-11-14T16:10:55+00:00"
    },
    {
     "id": "blender_opendata",
     "name": "Blender Open Data benchmark snapshots",
     "url": "https://opendata.blender.org/",
-    "licence": "Published by Blender as public domain (CC0). Confirm on the site before relying on it.",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
     "retrieved_at": "2026-11-14T13:38:35+00:00"
@@ -291,8 +291,8 @@
    "score": 299.8972091473281,
    "n_listings": 4,
    "n_retailers": 2,
-   "retailer": "centralcomputer",
-   "listing_url": "https://www.centralcomputer.com/intel-core-i5-14600k-14th-gen-processor-14-cores-20-threads-6-8-3-5ghz-base-clock-5-3ghz-turbo-125w-tdp.html"
+   "retailer": "amazon_brightdata",
+   "listing_url": "https://www.amazon.com/dp/B0CGJ9STNF?th=1&psc=1&language=en_US&currency=USD"
   },
   {
    "kind": "cpu",
@@ -851,8 +851,8 @@
    "score": 1344.743926934933,
    "n_listings": 7,
    "n_retailers": 2,
-   "retailer": "centralcomputer",
-   "listing_url": "https://www.centralcomputer.com/gigabyte-gv-n3050wf2ocv2-6gd-geforce-rtx-3050-windforce-6gb-gddr6-pci-express-4-0-x8-atx-graphics-card-7680x4320-1-54ghz-core-96-bit-bus-width-pci-express-4-0-2x-displayport-hdmi.html"
+   "retailer": "amazon_brightdata",
+   "listing_url": "https://www.amazon.com/GIGABYTE-GeForce-WINDFORCE-Graphics-GV-N3050WF2OCV2-6GD/dp/B0DQK4XSC7?th=1&psc=1&language=en_US&currency=USD"
   },
   {
    "kind": "gpu",

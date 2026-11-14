@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "leaderboard",
   "description": "Validation-period error of every model tried. The naive baseline is always a row. Lower is better.",
-  "generated_at": "2026-11-14T15:57:00+00:00",
+  "generated_at": "2026-11-14T16:11:10+00:00",
   "rows": 10,
   "columns": [
    "rank",
@@ -20,7 +20,7 @@
     "id": "spec_cpu2017",
     "name": "SPEC CPU 2017 published results",
     "url": "https://www.spec.org/cpu2017/results/",
-    "licence": "SPEC fair use rules: results may be cited with attribution to SPEC and the retrieval date, and estimates must be labelled as estimates.",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC publishes new results about every two weeks",
     "typical_lag": "results appear weeks to months after the test date",
     "retrieved_at": "2026-11-14T13:38:33+00:00"
@@ -30,7 +30,9 @@
   "limitations": [
    "SPEC results are submitted by hardware vendors and are dominated by servers.",
    "Each result is one tested configuration: memory, compiler and operating system differ between results for the same processor.",
-   "Scores are SPECrate 2017 Integer base. No other suite or metric is mixed in."
+   "Scores are SPECrate 2017 Integer base. No other suite or metric is mixed in.",
+   "Predicted scores and residuals are this site's estimates derived from SPEC results. They are not SPEC metrics and were not produced by SPEC-compliant runs.",
+   "SPEC, SPEC CPU and SPECrate are registered trademarks of the Standard Performance Evaluation Corporation. The licensee behind each result is named in its SPEC disclosure, linked from every row."
   ],
   "target": "log of SPECrate 2017 Integer base score",
   "valid_start": "2023-01-01",

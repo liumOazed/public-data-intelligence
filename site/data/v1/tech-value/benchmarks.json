@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "benchmarks",
   "description": "Blender benchmark median per recognised model, whether or not it has a price.",
-  "generated_at": "2026-11-14T15:57:05+00:00",
+  "generated_at": "2026-11-14T16:11:14+00:00",
   "rows": 322,
   "columns": [
    "kind",
@@ -21,7 +21,7 @@
     "id": "blender_opendata",
     "name": "Blender Open Data benchmark snapshots",
     "url": "https://opendata.blender.org/",
-    "licence": "Published by Blender as public domain (CC0). Confirm on the site before relying on it.",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
     "retrieved_at": "2026-11-14T13:38:35+00:00"
