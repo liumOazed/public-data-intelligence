@@ -148,22 +148,33 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
     the seller (not a marketplace seller), nothing in the title marks it refurbished, open-box
     or pre-owned, and its name parses to exactly a model that was asked for.
     """
-    rows, seen = [], set()
+    rows, seen, dropped = [], set(), []
     for r in records:
         if not isinstance(r, dict) or r.get("error") or r.get("warning"):
+            dropped.append(("collector error", str((r or {}).get("error"))[:60]))
             continue
         name, price = r.get("title"), _price(r)
+        crumbs = r.get("breadcrumbs")
+        if not r.get("product_category") and isinstance(crumbs, list):
+            crumbs = ">".join(str(c.get("name")) for c in crumbs if isinstance(c, dict))
+        category = str(r.get("product_category") or crumbs or "").lower()
+        found = model_key(name) if name else None
         if not name or price is None:
-            continue
-        if str(r.get("currency") or "USD").upper() not in ("USD", "$"):
-            continue
-        if _seller_name(r).lower() != "best buy" or _USED_SELLER.search(name):
-            continue
-        category = str(r.get("product_category") or "").lower()
-        if not category.endswith(_BESTBUY_PART_CATEGORIES):
-            continue
-        found = model_key(name)
-        if found not in wanted:
+            reason = "no title or price"
+        elif str(r.get("currency") or "USD").upper() not in ("USD", "$"):
+            reason = "not US dollars"
+        elif _seller_name(r).lower() != "best buy":
+            reason = f"seller is {_seller_name(r) or 'unnamed'}"
+        elif _USED_SELLER.search(name):
+            reason = "not new"
+        elif not category.endswith(_BESTBUY_PART_CATEGORIES):
+            reason = f"category {category.rsplit('>', 1)[-1] or 'missing'}"
+        elif found not in wanted:
+            reason = f"not a model asked for ({found[1] if found else 'unrecognised'})"
+        else:
+            reason = None
+        if reason:
+            dropped.append((reason, str(name)[:60]))
             continue
         kind, key = found
         sku = str(r.get("sku") or r.get("product_id") or r.get("url") or name)
@@ -175,6 +186,7 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
             in_stock=str(r.get("availability_new") or "").lower() == "in_stock",
         )
         if sku in seen or not retail.keep(listing, kind, key):
+            dropped.append(("duplicate, accessory or below the price floor", name[:60]))
             continue
         seen.add(sku)
         rows.append(
@@ -194,6 +206,9 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
                 "retrieved_at": utc_now().isoformat(),
             }
         )
+    # Why each record was left out, so a thin week can be told from a broken filter.
+    for reason, name in dropped:
+        print(f"{BESTBUY_SOURCE} dropped: {reason} | {name}")
     return rows
 
 
