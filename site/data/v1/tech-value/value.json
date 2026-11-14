@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "value",
   "description": "Latest US retail price per model joined to its Blender benchmark score.",
-  "generated_at": "2026-11-14T14:12:14+00:00",
+  "generated_at": "2026-11-14T15:29:09+00:00",
   "rows": 70,
   "columns": [
    "kind",
@@ -44,7 +44,7 @@
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T14:11:57+00:00"
+    "retrieved_at": "2026-11-14T15:28:54+00:00"
    },
    {
     "id": "blender_opendata",
@@ -65,7 +65,11 @@
    "Scores come from a single Blender version and are never combined across versions."
   ],
   "blender_version": "4.5",
-  "status": null
+  "status": null,
+  "finding": {
+   "label": "observation",
+   "reason": "Measured benchmark score divided by the lowest listed price. No model is involved."
+  }
  },
  "data": [
   {
@@ -359,15 +363,15 @@
    "model_key": "nvidia rtx 3050",
    "price_usd": 249.99,
    "median_price_usd": 269.99,
-   "retailer": "amazon_brightdata",
+   "retailer": "centralcomputer",
    "n_retailers": 2,
    "price_date": null,
    "collected_date": "2026-11-14",
    "regular_price_usd": null,
    "n_listings": 7,
    "n_ignored_low": 0,
-   "listing_name": "GIGABYTE GeForce RTX 3050 WINDFORCE OC V2 6G Graphics Card, 2X WINDFORCE Fans, 6GB GDDR6 96-bit GDDR6, GV-N3050WF2OCV2-6GD Graphics Card",
-   "listing_url": "https://www.amazon.com/GIGABYTE-GeForce-WINDFORCE-Graphics-GV-N3050WF2OCV2-6GD/dp/B0DQK4XSC7?th=1&psc=1&language=en_US&currency=USD",
+   "listing_name": "GIGABYTE GV-N3050WF2OCV2-6GD GeForce RTX 3050 WINDFORCE 6GB GDDR6 PCI Express 4.0 x8 ATX Graphics Card 7680x4320 1.54GHz Core 96 bit Bus Width PCI Express 4.0 2x DisplayPort HDMI",
+   "listing_url": "https://www.centralcomputer.com/gigabyte-gv-n3050wf2ocv2-6gd-geforce-rtx-3050-windforce-6gb-gddr6-pci-express-4-0-x8-atx-graphics-card-7680x4320-1-54ghz-core-96-bit-bus-width-pci-express-4-0-2x-displayport-hdmi.html",
    "score": 1344.743926934933,
    "p25_score": 1195.4478135173072,
    "p75_score": 1450.2349718838784,
@@ -1019,15 +1023,15 @@
    "model_key": "intel core i5-14600k",
    "price_usd": 249.99,
    "median_price_usd": 249.99,
-   "retailer": "amazon_brightdata",
+   "retailer": "centralcomputer",
    "n_retailers": 2,
    "price_date": null,
    "collected_date": "2026-11-14",
    "regular_price_usd": null,
    "n_listings": 4,
    "n_ignored_low": 0,
-   "listing_name": "Intel\u00ae Core\u2122 i5-14600K Desktop Processor",
-   "listing_url": "https://www.amazon.com/dp/B0CGJ9STNF?th=1&psc=1&language=en_US&currency=USD",
+   "listing_name": "Intel Core i5-14600K 14th Gen Processor 14 Cores 20 Threads (6 + 8) 3.5GHz Base Clock 5.3GHz Turbo 125W TDPRetail Box BX8071514600K",
+   "listing_url": "https://www.centralcomputer.com/intel-core-i5-14600k-14th-gen-processor-14-cores-20-threads-6-8-3-5ghz-base-clock-5-3ghz-turbo-125w-tdp.html",
    "score": 299.8972091473281,
    "p25_score": 283.2722963594173,
    "p75_score": 316.26822912138107,

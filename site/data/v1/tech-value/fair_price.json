@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price",
   "description": "Per part: the price its Blender score would predict, and how far the lowest listing is from it. Predictions for parts with two or more listings come from a fit that left that part out.",
-  "generated_at": "2026-11-14T14:12:21+00:00",
+  "generated_at": "2026-11-14T15:29:12+00:00",
   "rows": 70,
   "columns": [
    "kind",
@@ -36,7 +36,7 @@
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T14:11:57+00:00"
+    "retrieved_at": "2026-11-14T15:28:54+00:00"
    },
    {
     "id": "blender_opendata",
@@ -72,6 +72,10 @@
     "gain_standard_error": 0.050908946328971375,
     "beats_baseline": false,
     "typical_error_pct": 33.140650572511355,
+    "finding": {
+     "label": "observation",
+     "reason": "The fair price is the same price per point of score for every part, so the gap is score per dollar restated. No model beat that baseline out of sample."
+    },
     "statement": "No model clearly beats the same-price-per-point baseline on 20 parts, so the baseline sets the fair price. It is typically off by 33%, so read the gaps as rough."
    },
    "cpu": {
@@ -84,6 +88,10 @@
     "gain_standard_error": 0.0,
     "beats_baseline": false,
     "typical_error_pct": 17.566848935348588,
+    "finding": {
+     "label": "observation",
+     "reason": "The fair price is the same price per point of score for every part, so the gap is score per dollar restated. No model beat that baseline out of sample."
+    },
     "statement": "No model clearly beats the same-price-per-point baseline on 25 parts, so the baseline sets the fair price. It is typically off by 18%, so read the gaps as rough."
    }
   },
@@ -283,8 +291,8 @@
    "score": 299.8972091473281,
    "n_listings": 4,
    "n_retailers": 2,
-   "retailer": "amazon_brightdata",
-   "listing_url": "https://www.amazon.com/dp/B0CGJ9STNF?th=1&psc=1&language=en_US&currency=USD"
+   "retailer": "centralcomputer",
+   "listing_url": "https://www.centralcomputer.com/intel-core-i5-14600k-14th-gen-processor-14-cores-20-threads-6-8-3-5ghz-base-clock-5-3ghz-turbo-125w-tdp.html"
   },
   {
    "kind": "cpu",
@@ -360,8 +368,8 @@
    "kind": "cpu",
    "model_key": "intel core i9-14900k",
    "price_usd": 454.99,
-   "fair_price_usd": 444.4579478611349,
-   "gap_pct": 2.369639735220952,
+   "fair_price_usd": 444.45794786113487,
+   "gap_pct": 2.369639735220974,
    "reading": "near fair price",
    "confidence": "two or more listings",
    "score": 507.59013687784545,
@@ -808,8 +816,8 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 4080 super",
    "price_usd": 1469.0,
-   "fair_price_usd": 1584.7205394335613,
-   "gap_pct": -7.302267911219484,
+   "fair_price_usd": 1584.720539433561,
+   "gap_pct": -7.302267911219474,
    "reading": "near fair price",
    "confidence": "two or more listings",
    "score": 8419.169921411025,
@@ -843,8 +851,8 @@
    "score": 1344.743926934933,
    "n_listings": 7,
    "n_retailers": 2,
-   "retailer": "amazon_brightdata",
-   "listing_url": "https://www.amazon.com/GIGABYTE-GeForce-WINDFORCE-Graphics-GV-N3050WF2OCV2-6GD/dp/B0DQK4XSC7?th=1&psc=1&language=en_US&currency=USD"
+   "retailer": "centralcomputer",
+   "listing_url": "https://www.centralcomputer.com/gigabyte-gv-n3050wf2ocv2-6gd-geforce-rtx-3050-windforce-6gb-gddr6-pci-express-4-0-x8-atx-graphics-card-7680x4320-1-54ghz-core-96-bit-bus-width-pci-express-4-0-2x-displayport-hdmi.html"
   },
   {
    "kind": "gpu",
