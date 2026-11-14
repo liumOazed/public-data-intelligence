@@ -172,6 +172,11 @@ if __name__ == "__main__":
     except (MissingKey, retail.NoTargets) as exc:
         print(f"::warning title=Bright Data skipped::{exc}")
         raise SystemExit(0) from None
+    except (CollectError, requests.RequestException) as exc:
+        # A second source going missing must not stop the benchmarks and the first source
+        # from being published. The warning shows on the run page.
+        print(f"::warning title=Bright Data failed::{exc}")
+        raise SystemExit(0) from None
     print(table.groupby("category")["model_key"].nunique())
     cols = ["model_key", "sale_price", "seller", "name"]
     print(table.sort_values(["model_key", "sale_price"])[cols].to_string(max_colwidth=70))
