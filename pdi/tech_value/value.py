@@ -120,14 +120,22 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
         )
         SELECT c.kind, c.model_key, c.price_usd, c.median_price_usd, c.retailer, c.n_retailers,
                c.price_date, c.collected_date,
-               c.regular_price_usd, c.n_listings, c.n_ignored_low, c.listing_name, c.listing_url,
+               c.regular_price_usd, c.n_listings,
+               -- One listing is often a marketplace seller's asking price for a part that is
+               -- no longer made, so its price is flagged rather than trusted.
+               CASE WHEN c.n_listings >= ? THEN 'normal' ELSE 'low' END AS confidence,
+               c.n_ignored_low, c.listing_name, c.listing_url,
                b.median_score AS score, b.p25_score, b.p75_score, b.n_runs,
                b.device_type AS backend, b.blender_version,
                b.median_score / c.price_usd AS score_per_dollar
         FROM cheapest c LEFT JOIN bench b USING (kind, model_key)
         ORDER BY score_per_dollar DESC NULLS LAST, c.price_usd
         """,
-        [config.PRICE_MAX_AGE_DAYS, config.MIN_SHARE_OF_MEDIAN_PRICE],
+        [
+            config.PRICE_MAX_AGE_DAYS,
+            config.MIN_SHARE_OF_MEDIAN_PRICE,
+            config.FAIR_PRICE_MIN_LISTINGS,
+        ],
     ).df()
 
 
