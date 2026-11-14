@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "value",
   "description": "Latest US retail price per model joined to its Blender benchmark score.",
-  "generated_at": "2026-11-14T13:56:02+00:00",
+  "generated_at": "2026-11-14T14:12:14+00:00",
   "rows": 70,
   "columns": [
    "kind",
@@ -44,7 +44,7 @@
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T13:43:01+00:00"
+    "retrieved_at": "2026-11-14T14:11:57+00:00"
    },
    {
     "id": "blender_opendata",

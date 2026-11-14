@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price_leaderboard",
   "description": "Leave-one-out error of each fair price model, per kind of part, with the naive baseline.",
-  "generated_at": "2026-11-14T13:56:09+00:00",
+  "generated_at": "2026-11-14T14:12:21+00:00",
   "rows": 8,
   "columns": [
    "kind",
@@ -31,7 +31,7 @@
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T13:43:01+00:00"
+    "retrieved_at": "2026-11-14T14:11:57+00:00"
    },
    {
     "id": "blender_opendata",
@@ -93,8 +93,8 @@
    "kind": "gpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 20,
-   "mae_log": 0.36989851664802437,
-   "median_abs_pct_error": 31.61707518986233,
+   "mae_log": 0.3698985166480247,
+   "median_abs_pct_error": 31.617075189862387,
    "used": false,
    "is_baseline": false
   },
@@ -102,8 +102,8 @@
    "kind": "gpu",
    "model": "Straight line with brand",
    "n_parts": 20,
-   "mae_log": 0.34379213339917564,
-   "median_abs_pct_error": 36.256944983623455,
+   "mae_log": 0.34379213339917575,
+   "median_abs_pct_error": 36.2569449836234,
    "used": false,
    "is_baseline": false
   },
@@ -129,8 +129,8 @@
    "kind": "cpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 25,
-   "mae_log": 0.20457974671935503,
-   "median_abs_pct_error": 14.65766087744492,
+   "mae_log": 0.20457974671935553,
+   "median_abs_pct_error": 14.657660877444819,
    "used": false,
    "is_baseline": false
   },
@@ -138,7 +138,7 @@
    "kind": "cpu",
    "model": "Straight line with brand",
    "n_parts": 25,
-   "mae_log": 0.21216740336011372,
+   "mae_log": 0.21216740336011317,
    "median_abs_pct_error": 17.157735152579093,
    "used": false,
    "is_baseline": false

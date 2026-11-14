@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price",
   "description": "Per part: the price its Blender score would predict, and how far the lowest listing is from it. Predictions for parts with two or more listings come from a fit that left that part out.",
-  "generated_at": "2026-11-14T13:56:09+00:00",
+  "generated_at": "2026-11-14T14:12:21+00:00",
   "rows": 70,
   "columns": [
    "kind",
@@ -36,7 +36,7 @@
     "licence": "No data licence. Public search pages are crawled where robots.txt allows it. Site terms of use have not been read.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-14T13:43:01+00:00"
+    "retrieved_at": "2026-11-14T14:11:57+00:00"
    },
    {
     "id": "blender_opendata",
@@ -360,8 +360,8 @@
    "kind": "cpu",
    "model_key": "intel core i9-14900k",
    "price_usd": 454.99,
-   "fair_price_usd": 444.45794786113487,
-   "gap_pct": 2.369639735220974,
+   "fair_price_usd": 444.4579478611349,
+   "gap_pct": 2.369639735220952,
    "reading": "near fair price",
    "confidence": "two or more listings",
    "score": 507.59013687784545,
@@ -808,8 +808,8 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 4080 super",
    "price_usd": 1469.0,
-   "fair_price_usd": 1584.720539433561,
-   "gap_pct": -7.302267911219474,
+   "fair_price_usd": 1584.7205394335613,
+   "gap_pct": -7.302267911219484,
    "reading": "near fair price",
    "confidence": "two or more listings",
    "score": 8419.169921411025,
