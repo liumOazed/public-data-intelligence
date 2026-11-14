@@ -25,5 +25,3 @@ jobs:
         run: |
           uv run python -m pdi.tech_value.export
           QUARTO_PYTHON="$PWD/.venv/bin/python" quarto render site
-      - name: Temporary retailer probe
-        run: uv run python .github/scripts/probe.py || true

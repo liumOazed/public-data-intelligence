@@ -32,9 +32,11 @@ one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not in
   GitHub's servers on 14 November 2026, 17 answered with a bot wall or not at all (Newegg,
   Amazon, Best Buy, Walmart, B&H, Micro Center among them), 4 disallow search pages in
   robots.txt, and 3 could be used. The crawler covers one of those, Central Computers, and
-  found prices for 36 of the 80 most-benchmarked models on its first run. It reads robots.txt
+  found prices for 34 of the 80 most-benchmarked models on its first run. It reads robots.txt
   on every run, says what it is and does nothing to get past a bot wall. Zones and PCNation
-  answered too but their pages are not parsed yet.
+  turned out to be unusable, and a probe of 30 more stores found none that lists parts, so
+  every price comes from one store. The ranking shows the lowest listing, the median listing
+  and the number of stores.
 - The Best Buy API collector is built but inactive: Best Buy issues keys to company email
   addresses only. eBay's API licence does not allow stored price history or price statistics.
 - The test samples in [`tests/fixtures/`](tests/fixtures/README.md) are still hand-written.

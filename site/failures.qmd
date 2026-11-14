@@ -20,3 +20,4 @@ or dropped.
 | Date | Source | What broke | Fix |
 |---|---|---|---|
 | 2026-11-14 | SPEC CPU 2017 | First live run stopped: the schema rejected a result with a 2007 hardware-availability date. | The lower bound was too tight (2010). SPEC CPU 2017 has been run on older hardware; bound moved to 2000. |
+| 2026-11-14 | Tech Value | A second and third price source. Zones and PCNation were checked in detail, then 30 more US stores were probed. | Zones builds its result list in the browser and PCNation disallows search in robots.txt. Of the 30 others, 5 answered a polite crawler and all 5 list mostly whole computers, not parts. In total 54 stores were tested and one is usable, so every price still comes from a single store. The first live crawl also kept 24 whole computers as part listings, and two set the price of a processor until the filter was fixed. |
