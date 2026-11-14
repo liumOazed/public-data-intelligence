@@ -97,8 +97,8 @@ sources:
       descriptions, or prices" and "any use of data mining, robots, or similar data gathering
       and extraction tools". Bright Data's Master Service Agreement (https://brightdata.com/license)
       grants no rights in the collected data, bars republishing it to offer a competing product,
-      and makes the customer solely responsible for lawful use. Using these prices publicly is a
-      risk the project owner has chosen to take knowingly.
+      and makes the customer solely responsible for lawful use. Amber until the project owner
+      decides how these prices are published.
     frequency: weekly collection
     typical_lag: same day
     status: amber
