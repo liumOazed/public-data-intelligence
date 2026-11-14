@@ -17,6 +17,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen --extra site --extra dev
+      - name: Temporary retailer probe
+        run: uv run python .github/scripts/probe.py || true
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run pytest -q
