@@ -24,6 +24,7 @@ def _healthy(root, now=NOW):
     )
     _write(root, "macro", "series", 70, fresh, [("fred", fresh), ("bis", fresh)])
     _write(root, "macro", "history", 10, fresh, [("fred", fresh)])
+    _write(root, "energy", "demand_latest", 6, fresh, [("ember_monthly", now - timedelta(days=7))])
 
 
 def test_healthy_tables_pass(tmp_path):
