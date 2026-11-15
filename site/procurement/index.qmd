@@ -153,36 +153,53 @@ else:
     print(site.finding_line(check_meta.get("finding")))
 ```
 
+### Where the difference comes from
+
+The rule above failed, so every month outside the limit was checked again, one transaction at
+a time: the transactions behind USAspending's search figure were listed and matched with the
+download on award, modification, date and amount. This second check was added after the first
+failed, and it [is recorded as a new test](../failures.qmd).
+
 ```{python}
 #| output: asis
-diag = [d for d in check_meta.get("diagnosis", []) if d.get("listed_rows")]
-if diag:
-    rows = sum(d["listed_rows"] for d in diag)
-    rep = sum(d["repeated_rows"] for d in diag)
-    closed = sum(1 for d in diag
-                 if d["gap_after_removing_repeats_share"] <= check_meta["tolerance_pct"] / 100)
-    print(f'**Why the months differ.** For the {len(diag)} months furthest apart, the '
-          f'transactions behind USAspending\'s search figure were listed one by one. Of '
-          f'{rows:,} rows listed, {rep:,} were a second copy of a transaction already in the '
-          f'list, with the same internal id. With each transaction counted once, '
-          f'{closed} of the {len(diag)} months come within the limit of the download.\n')
-    print(site.finding_line(check_meta.get("finding")))
+rec = check_meta.get("reconciliation") or []
+if rec and "extra_copies" in rec[0]:
+    copies = sum(d["extra_copies"] for d in rec)
+    copies_sum = sum(d["extra_copies_sum"] for d in rec)
+    missing = sum(d["search_rows_not_in_download"] for d in rec)
+    done = sum(d["reconciled"] for d in rec)
+    worst = max(d["gap_after_copies_share"] for d in rec)
+    if check_meta.get("all_missed_months_reconciled"):
+        print(f'::: {{.verdict}}\n**The download is complete; the search figure counts some '
+              f'transactions twice.** In all {len(rec)} months outside the limit, every '
+              f'transaction the search lists is also in the download. The search lists '
+              f'{copies:,} transactions a second time, worth ${copies_sum / 1e6:,.1f} million '
+              f'together. With those second copies removed, the search and the download agree '
+              f'to within {100 * worst:.3f}% in every one of these months. The figures on this '
+              f'page are the download, with each transaction counted once.\n:::\n')
+    else:
+        print(f'::: {{.verdict}}\n**Not fully explained.** {done} of {len(rec)} months outside '
+              f'the limit reconcile row by row. {missing:,} transactions the search lists are '
+              f'not in the download. Until every month reconciles, treat the monthly figures '
+              f'as approximate.\n:::\n')
+    print(site.finding_line(check_meta.get("reconcile_finding")))
 ```
 
 ```{python}
-diag = [d for d in check_meta.get("diagnosis", []) if d.get("listed_rows")]
-if diag:
-    t = pd.DataFrame(diag)
-    t = t.assign(ours=t["ours"] / 1e6, listed_sum=t["listed_sum"] / 1e6,
-                 repeated_sum=t["repeated_sum"] / 1e6, listed_once_sum=t["listed_once_sum"] / 1e6,
-                 gap=100 * t["gap_after_removing_repeats_share"])[
-        ["period", "ours", "listed_sum", "repeated_rows", "repeated_sum", "listed_once_sum", "gap"]
-    ].rename(columns={"period": "Month", "ours": "Download, $m",
-                      "listed_sum": "Search figure, $m", "repeated_rows": "Rows listed twice",
-                      "repeated_sum": "Value of the second copies, $m",
-                      "listed_once_sum": "Search, each counted once, $m",
-                      "gap": "Gap that remains, %"}).round(2)
-    show(t, paging=False, showIndex=False, classes="display compact")
+rec = check_meta.get("reconciliation") or []
+if rec and "extra_copies" in rec[0]:
+    t = pd.DataFrame(rec)
+    t = t.assign(download=t["download"] / 1e6, search=t["search"] / 1e6,
+                 extra_copies_sum=t["extra_copies_sum"] / 1e6,
+                 gap=100 * t["gap_after_copies_share"])[
+        ["period", "download", "search", "extra_copies", "extra_copies_sum",
+         "search_rows_not_in_download", "gap", "reconciled"]
+    ].rename(columns={"period": "Month", "download": "Download, $m",
+                      "search": "Search figure, $m", "extra_copies": "Second copies in search",
+                      "extra_copies_sum": "Value of second copies, $m",
+                      "search_rows_not_in_download": "Search rows missing from download",
+                      "gap": "Gap left, %", "reconciled": "Reconciled"}).round(3)
+    show(t, paging=True, pageLength=10, showIndex=False, classes="display compact")
 ```
 
 ```{python}

@@ -38,7 +38,9 @@ nine days, or any published file is out of date: a source retrieved longer ago t
 allowance (two days for daily sources, nine for weekly ones), a file not regenerated within two
 days, or a key table empty. It closes the Issue when every check passes. GitHub starts
 scheduled runs hours late on free accounts, so the 48-hour window is wide on purpose. The
-monthly brief lists the days with no successful run.
+monthly brief lists the days with no successful run. GitHub can also drop a scheduled start altogether, so
+the daily workflow has a second slot at 19:47 UTC that does nothing if a run already succeeded
+that day.
 
 ## Trade and Supply Chain
 

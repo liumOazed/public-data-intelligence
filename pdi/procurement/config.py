@@ -26,7 +26,7 @@ COHORTS = STORE_DIR / "award_cohorts.parquet"  # one row per fiscal year of firs
 CHECK = STORE_DIR / "totals_check.parquet"  # period, ours, published, gap_share
 SUPPLIERS = STORE_DIR / "suppliers.json"  # supplier id -> name, for the named suppliers only
 CLEANING = STORE_DIR / "cleaning.json"  # how many names, registrations and groups
-DIAGNOSIS = STORE_DIR / "diagnosis.json"  # why the worst months differ from the published figure
+DIAGNOSIS = STORE_DIR / "diagnosis.json"  # row-by-row reconciliation of the missed months
 RETRIEVED = STORE_DIR / "retrieved.json"
 
 API = "https://api.usaspending.gov"
@@ -109,10 +109,20 @@ COLUMNS = [
 # The criterion is met only if every month is. The figures are stored and shown either way,
 # with the verdict beside them.
 TOTALS_TOLERANCE = 0.01
-# When months miss the limit, the collector lists the transactions behind USAspending's figure
-# for the worst of them (this many at most) and counts how many appear more than once under the
-# same internal id. That is a diagnosis shown beside the verdict; it does not change the verdict.
-DIAGNOSE_MONTHS = 6
+# --- Second check: reconcile every missed month row by row ----------------------------------
+# Added on 15 November 2026, after the criterion above was found not met, and after eight of
+# the 26 missed months had been compared row by row (in all eight, every transaction in
+# USAspending's search was also in the download, and the search held extra exact copies of a
+# few). It is a new test, recorded in the failures log; the verdict above stands as it is.
+#
+# For every month outside the 1% limit, the collector lists the transactions behind
+# USAspending's search figure (spending by transaction, same filters) and matches them with
+# the download on award, modification, date and amount. The month is reconciled when
+#   1. every transaction the search lists is in the download, and
+#   2. after removing the search's extra copies of a transaction the download holds once, the
+#      search and the download differ by no more than RECONCILE_TOLERANCE of the month.
+# The module's figures stand only if every missed month is reconciled.
+RECONCILE_TOLERANCE = 0.001
 
 # --- Supplier name cleaning ---------------------------------------------------------------------
 # A supplier is the parent company where the source names one (recipient_parent_uei), else the

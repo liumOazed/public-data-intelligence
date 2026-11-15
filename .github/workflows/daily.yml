@@ -7,6 +7,9 @@ name: Daily pipeline
 on:
   schedule:
     - cron: "17 9 * * *" # 09:17 UTC every day; scheduled start times can slip
+    # A second chance. GitHub can drop a scheduled start altogether (it did on 15 November
+    # 2026). This one runs the pipeline only if no run has succeeded yet today.
+    - cron: "47 19 * * *"
   workflow_dispatch:
     inputs:
       fire_drill:
@@ -26,7 +29,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run=true
+          if [ "${{ github.event.schedule }}" = "47 19 * * *" ]; then
+            today=$(date -u +%F)
+            done_today=$(gh run list --repo "${{ github.repository }}" --workflow daily.yml \
+              --branch main --status success --limit 20 --json createdAt \
+              --jq "[.[] | select(.createdAt | startswith(\"$today\"))] | length")
+            if [ "${done_today:-0}" -gt 0 ]; then
+              echo "A daily run already succeeded on $today; the second chance is not needed."
+              run=false
+            else
+              echo "No daily run has succeeded on $today; running now."
+            fi
+          fi
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+
   pipeline:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:

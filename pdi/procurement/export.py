@@ -54,6 +54,10 @@ PAID_FINDING = findings.observation(
     "Three reported figures side by side for the awards that began in each fiscal year. "
     "They are never added together."
 )
+RECONCILE_FINDING = findings.observation(
+    "Transactions matched one by one between the two answers on award, modification, date and "
+    "amount. Counting, not a model."
+)
 CHECK_FINDING = findings.observation(
     "The same filters asked two ways of the same source: the transaction download summed by "
     "month, and the monthly figure from USAspending's own search."
@@ -230,7 +234,12 @@ def main() -> None:
                        "worst_month_gap_pct": float(100 * check["gap_share"].max()),
                        "ours_total": float(check["obligations"].sum()),
                        "published_total": float(check["published"].sum()),
-                       "diagnosis": diagnosis})  # fmt: skip
+                       "reconciliation": diagnosis,
+                       "reconcile_tolerance_pct": 100 * config.RECONCILE_TOLERANCE,
+                       "all_missed_months_reconciled": bool(
+                           diagnosis and all(d.get("reconciled") for d in diagnosis)
+                           and len(diagnosis) == int((~check["within_limit"]).sum())),
+                       "reconcile_finding": RECONCILE_FINDING})  # fmt: skip
     within = int(check["within_limit"].sum())
     print(f"exported procurement tables to {last_month:%Y-%m}; {within} of {len(check)} months "
           "within the limit")  # fmt: skip
