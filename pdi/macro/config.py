@@ -250,6 +250,10 @@ FRED_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
 BIS_API = "https://stats.bis.org/api/v1/data"
 DOSM_API = "https://api.data.gov.my/opendosm"
 IMF_API = "https://api.imf.org/external/sdmx/2.1/data"
+# Trade for every country starts in 2006 except Singapore, whose earlier months are on another
+# basis (a 3.1x jump in January 2004 stopped the unit check on the first try). One start date
+# for every IMF series keeps them comparable, and still leaves 20 years of history.
+IMF_HISTORY_START = "2006-01"
 IMF_CSV_ACCEPT = "application/vnd.sdmx.data+csv;version=1.0.0"
 INDEED_URL = (
     "https://raw.githubusercontent.com/hiring-lab/job_postings_tracker/master/US/"

@@ -252,8 +252,18 @@ def opendosm() -> None:
 def indeed() -> None:
     resp = _get(macro.INDEED_URL)
     lines = resp.text.splitlines()
-    body = ("\n".join(lines[:1] + lines[-150:]) + "\n").encode()
-    _save("indeed_US.csv", body, url=resp.url, full=resp.content, note="header and last 150 rows")
+    header, rows = lines[0], lines[1:]
+    col = header.split(",").index("variable")
+    # The file interleaves several variables; keep the last 80 days of each.
+    by_var: dict[str, list[str]] = {}
+    for line in rows:
+        by_var.setdefault(line.split(",")[col].strip(), []).append(line)
+    kept = [line for v in by_var.values() for line in v[-80:]]
+    body = ("\n".join([header, *kept]) + "\n").encode()
+    _save(
+        "indeed_US.csv", body, url=resp.url, full=resp.content,
+        note=f"header and the last 80 rows of each variable {sorted(by_var)}",
+    )  # fmt: skip
 
 
 def imf() -> None:

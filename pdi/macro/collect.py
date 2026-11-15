@@ -258,7 +258,7 @@ def collect_imf(raw_dir: Path, today: date) -> tuple[pd.DataFrame, str | None]:
         path = fetch(
             f"{config.IMF_API}/IMF.STA,{flow}/{key}",
             raw_dir / "imf" / f"{today.isoformat()}_{flow}_{ind}.csv",
-            params={"startPeriod": config.HISTORY_START},
+            params={"startPeriod": config.IMF_HISTORY_START},
             headers={"Accept": config.IMF_CSV_ACCEPT},
         )
         retrieved = read_meta(path)["retrieved_at"]
