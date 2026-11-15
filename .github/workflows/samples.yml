@@ -24,6 +24,7 @@ jobs:
       - name: Capture samples
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
         run: uv run python -m pdi.samples
 
       - name: Run the parser tests on them

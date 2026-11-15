@@ -1,0 +1,81 @@
+---
+title: "Lead-time test"
+subtitle: "Do US-reported imports say something about an economy's exports before its own figure is out?"
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+lead, meta = site.load("trade", "lead_test")
+finding = meta.get("finding")
+ran = bool(meta.get("test_ran"))
+```
+
+The United States publishes its imports about five weeks after a month ends. The export
+figures of the Southeast Asian economies reach the international tables one to five months
+later. If US imports from an economy move with that economy's total exports, the US figure
+is an early reading. This page tests that claim, with rules
+[written before any trade figure was collected](../methodology.qmd#trade-and-supply-chain).
+
+## Verdict
+
+```{python}
+#| output: asis
+if not ran:
+    print(site.empty_state(meta, "Lead-time test"))
+else:
+    passed = lead[lead["passes"] == True]
+    if passed.empty:
+        print('::: {.verdict}\n**No signal found.** For none of the six economies did adding US '
+              'imports beat the baseline by more than twice the standard error of the gain. The '
+              'claim is dropped and nothing on this site uses US imports as an early reading.\n:::\n')
+    else:
+        print(f'::: {{.verdict}}\n**The claim holds for {", ".join(passed["name"])}** and is '
+              f'dropped for the others.\n:::\n')
+    print(site.finding_line(finding))
+```
+
+## The test, economy by economy
+
+The target is the year-on-year growth of the economy's total goods exports. The baseline is
+last month's growth. The model adds the year-on-year growth of US imports from the economy
+in the same month. Both are scored on the months after the fitting period; errors are in
+percentage points of growth.
+
+```{python}
+if ran:
+    cols = {"name": "Economy", "train_months": "Months fitted", "test_months": "Months scored",
+            "mae_baseline": "Baseline error", "mae_model": "Model error", "gain": "Gain",
+            "gain_se": "Standard error of gain", "verdict": "Verdict"}
+    t = lead[[c for c in cols if c in lead.columns]].rename(columns=cols).round(2)
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+## How the two growth rates line up
+
+The correlation between the economy's export growth and the growth of US imports from it,
+with the US figure shifted by up to three months. A negative shift pairs each month's exports
+with a later month of US imports; a positive shift with an earlier one. A peak at a positive
+shift would mean the US figure moves first.
+
+```{python}
+#| output: asis
+if ran:
+    shifts = [c for c in lead.columns if c.startswith("corr_shift_")]
+    t = lead[["name", *shifts]].rename(
+        columns={"name": "Economy", **{c: c.replace("corr_shift_", "") + " months" for c in shifts}}
+    ).round(2)
+    print(f'{site.finding_badge({"label": "observation"})} Correlations are arithmetic on the '
+          f'published figures; they are not the test.\n')
+    show(t, paging=False, showIndex=False, classes="display compact")
+print("\n## Sources and limits\n")
+print(site.source_note(meta))
+print("\nThis product uses the Census Bureau Data API but is not endorsed or certified by the "
+      "Census Bureau.")
+```

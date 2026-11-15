@@ -32,6 +32,12 @@ website:
             href: macro/series.qmd
           - text: "Forecast test"
             href: macro/model.qmd
+      - text: "Trade"
+        menu:
+          - text: "Who supplies the United States"
+            href: trade/index.qmd
+          - text: "Lead-time test"
+            href: trade/lead.qmd
       - text: "Energy Demand"
         href: energy/index.qmd
       - text: "Monthly brief"

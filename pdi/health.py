@@ -44,6 +44,7 @@ MIN_ROWS = {
     ("tech-value", "benchmarks"): 1,
     ("macro", "series"): 60,  # same floor as pdi.macro.config.MIN_SERIES_COLLECTED
     ("macro", "history"): 1,
+    ("trade", "partners"): 7,  # China and the six economies in pdi.trade.config.PARTNERS
     ("energy", "demand_latest"): 6,  # the six economies pdi.energy.config.REQUIRED names
 }
 

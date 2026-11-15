@@ -17,6 +17,7 @@ from pdi.energy import collect as energy_collect
 from pdi.energy import config as energy
 from pdi.macro import collect, config, store
 from pdi.tech_value import blender, retail, spec
+from pdi.trade import collect as trade_collect
 
 CAT = config.catalogue()
 
@@ -178,3 +179,23 @@ def test_ember_monthly(live):
     assert 250 < latest.loc["US", "demand_twh"] < 600
     assert 3 < latest.loc["SG", "demand_twh"] < 8
     assert not check.empty, "the slice carries generation, so the identity was really checked"
+
+
+# --- Trade and Supply Chain -------------------------------------------------------------------
+
+
+def test_census_imports(live):
+    chapters, names = trade_collect.parse_chapters(
+        json.loads((live / "census_VN_hs2.json").read_text()), "VN"
+    )
+    totals = trade_collect.parse_totals(
+        json.loads((live / "census_VN_total.json").read_text()), "VN"
+    )
+    assert chapters["chapter"].str.fullmatch(r"\d{2}").all() and chapters["chapter"].nunique() > 90
+    assert names["85"], "the short description comes with the chapter"
+    # Dollars, not thousands: the US buys more than ten billion a month from Vietnam.
+    assert totals["value"].between(5e9, 1e11).all()
+    check = trade_collect.check_totals(chapters, totals)
+    assert check["gap_share"].max() < 0.01, "chapters add up to the published total"
+    # The key never reaches the fixture or its metadata.
+    assert "key=REDACTED" in _meta(live, "census_VN_hs2.json")["url"]

@@ -40,6 +40,38 @@ days, or a key table empty. It closes the Issue when every check passes. GitHub 
 scheduled runs hours late on free accounts, so the 48-hour window is wide on purpose. The
 monthly brief lists the days with no successful run.
 
+## Trade and Supply Chain
+
+US general imports at customs value, by country of origin and two-digit Harmonized System
+chapter, monthly from 2013, from the Census Bureau's international trade API. Seven partners
+are kept: China and the six Southeast Asian economies, plus the total for all countries.
+
+**Share shift.** A partner's share of a chapter is its imports over twelve months divided by
+imports from all countries over the same twelve months. Twelve months removes the seasons. The
+shift is the latest share minus the share in calendar 2017, the last year before the first US
+Section 301 tariffs on Chinese goods (July 2018). A chapter a partner did not ship in a month
+counts as zero. The table of China against Southeast Asia lists chapters of at least
+\$5 billion a year. These are observations: a share that rose beside one that fell is not
+evidence the same goods moved.
+
+**Matching Census.** For every partner and month, the chapters are summed and compared with
+the all-commodity total, asked for in a separate call. If any differs by more than 1%, the run
+stops and nothing is stored. The check is published on the trade page.
+
+**Lead-time test.** The claim: US imports from an economy say something about that economy's
+total exports before its own figure is out. For each economy the target is the year-on-year
+growth of its goods exports (IMF). The baseline is the same growth one month earlier. The model
+is a straight line on that lagged growth and on the year-on-year growth of US imports from the
+economy in the same month. It is fitted on months to December 2022 and scored once on every
+later month. The claim is shown for an economy only if the model's average error beats the
+baseline's by more than twice the standard error of the gain; otherwise it is dropped. Both
+series are today's revised figures, so the test is kinder than real time.
+
+The base year, the size threshold, the 1% tolerance and every rule of the lead-time test were
+written in
+[`pdi/trade/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/trade/config.py)
+on 15 November 2026, before any trade figure was collected.
+
 ## Energy Demand
 
 One measure: monthly electricity demand, in terawatt-hours, from

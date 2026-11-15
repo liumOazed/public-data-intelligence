@@ -1,0 +1,144 @@
+---
+title: "Trade and Supply Chain: who supplies the United States"
+subtitle: "Each economy's share of US goods imports, by product chapter, and how it has moved since 2017"
+---
+
+```{python}
+import pandas as pd
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+partners, meta = site.load("trade", "partners")
+history, history_meta = site.load("trade", "share_history")
+china, china_meta = site.load("trade", "china_shift")
+chapters, chapters_meta = site.load("trade", "chapter_shifts")
+check, check_meta = site.load("trade", "totals_check")
+finding = meta.get("finding")
+```
+
+When a buyer changes supplier, it shows up first in the buyer's customs records. This page
+reads the United States' records: what share of each kind of product it buys from China and
+from six Southeast Asian economies, and how those shares have changed since 2017, the last
+year before the first US tariffs on Chinese goods. It shows where the shares moved. It does
+not show why.
+
+## Share of all US goods imports
+
+```{python}
+#| output: asis
+if partners.empty:
+    print(site.empty_state(meta, "Import shares"))
+else:
+    print(site.finding_line(finding))
+    month = pd.Timestamp(meta["latest_month"] + "-01").strftime("%B %Y")
+    print(f'Twelve months to {month}, against the calendar year {meta["base_year"]}.\n')
+    for _, r in partners.iterrows():
+        way = "up" if r["shift_since_base"] >= 0 else "down"
+        print(f'- {site.finding_badge(finding)} {r["name"]}: {r["share_pct"]:.1f}% of US goods '
+              f'imports, {way} {abs(r["shift_since_base"]):.1f} points from '
+              f'{r["share_base"]:.1f}% in {meta["base_year"]}.')
+```
+
+```{python}
+if not history.empty:
+    h = history.assign(period=pd.to_datetime(history["period"]))
+    fig = px.line(h, x="period", y="share_pct", color="name", log_y=True,
+                  labels={"share_pct": "Share of US goods imports, % (log scale)",
+                          "period": "", "name": ""})
+    fig.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+if not history.empty:
+    print(site.finding_line(finding))
+```
+
+## Where China's share fell, and who gained
+
+One row per product chapter the United States imports at least
+\$5 billion of a year. The first column is the change in China's share since 2017, in
+percentage points; the others are the change for each Southeast Asian economy. A gain beside a
+loss is a coincidence in timing until something else shows the goods are the same.
+
+```{python}
+if china.empty:
+    display(Markdown(site.empty_state(china_meta, "China and Southeast Asia")))
+else:
+    t = china.assign(world_12m=china["world_12m"] / 1e9)[
+        ["chapter", "name", "world_12m", "CN", "ID", "MY", "PH", "SG", "TH", "VN", "sea_total"]
+    ].rename(columns={"chapter": "Chapter", "name": "Product", "world_12m": "US imports, $bn",
+                      "CN": "China", "ID": "Indonesia", "MY": "Malaysia", "PH": "Philippines",
+                      "SG": "Singapore", "TH": "Thailand", "VN": "Vietnam",
+                      "sea_total": "Six together"}).round(1)
+    show(t, paging=True, pageLength=25, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+if not china.empty:
+    print(site.finding_line(finding))
+```
+
+## Every partner and chapter
+
+```{python}
+if not chapters.empty:
+    t = chapters.assign(usd_12m=chapters["usd_12m"] / 1e9)[
+        ["name", "chapter", "chapter_name", "usd_12m", "share_pct", "share_base",
+         "shift_since_base", "shift_on_year"]
+    ].rename(columns={"name": "Partner", "chapter": "Chapter", "chapter_name": "Product",
+                      "usd_12m": "Imports, $bn", "share_pct": "Share, %",
+                      "share_base": f'Share in {meta["base_year"]}, %',
+                      "shift_since_base": f'Change since {meta["base_year"]}, points',
+                      "shift_on_year": "Change on a year earlier, points"}).round(2)
+    show(t, paging=True, pageLength=25, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+if not chapters.empty:
+    print(site.finding_line(finding))
+```
+
+## Do these figures match what Census publishes?
+
+```{python}
+#| output: asis
+if check.empty:
+    print(site.empty_state(check_meta, "Totals check"))
+else:
+    ok = check_meta["criterion_met"]
+    print(f'::: {{.verdict}}\n**{"Yes." if ok else "No."}** Across '
+          f'{check_meta["partner_months"]:,} partner-months, the chapters on this page add up '
+          f'to the all-commodity total Census publishes to within '
+          f'{check_meta["worst_month_gap_pct"]:.4f}% at worst. The limit set in advance is '
+          f'{check_meta["tolerance_pct"]:.0f}%, and a run that misses it stores nothing.\n:::\n')
+    print(site.finding_line(check_meta.get("finding")))
+```
+
+```{python}
+if not check.empty:
+    last = check[check["year"] >= check["year"].max() - 1]
+    t = last.assign(chapters_sum=last["chapters_sum"] / 1e9,
+                    published_total=last["published_total"] / 1e9)[
+        ["name", "year", "months", "chapters_sum", "published_total", "gap_pct"]
+    ].rename(columns={"name": "Partner", "year": "Year", "months": "Months",
+                      "chapters_sum": "Sum of chapters, $bn",
+                      "published_total": "Published total, $bn", "gap_pct": "Gap, %"}).round(4)
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+print("\n## Sources and limits\n")
+print(site.source_note(meta))
+print("\nThis product uses the Census Bureau Data API but is not endorsed or certified by the "
+      "Census Bureau.")
+```
