@@ -1,0 +1,51 @@
+name: Seed energy (temporary)
+
+# Temporary: first live collection of electricity demand on this branch, so the module is
+# checked against the real file before it reaches main. Removed before the PR is final.
+
+on:
+  push:
+    branches: [claude/project-thread-qr1gop]
+    paths: [".github/workflows/seed-energy.yml", "pdi/energy/**", "pdi/samples.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra dev
+      - name: Collect and export
+        run: |
+          uv run python -m pdi.energy.collect --force
+          uv run python -m pdi.energy.export
+          uv run python - <<'PY'
+          import json, pandas as pd
+          d = json.load(open("site/data/v1/energy/demand_latest.json"))
+          print(pd.DataFrame(d["data"]).drop(columns=["sentence"]).to_string())
+          for r in d["data"]: print(r["sentence"])
+          raw = pd.read_csv(sorted(__import__("glob").glob("data/raw/energy/*.csv"))[0], dtype=str)
+          print(raw["Area type"].value_counts().to_dict())
+          print(raw[raw["ISO 3 code"].eq("USA") & raw["Electricity source"].isin(["Demand","Net imports","Total generation"])].tail(6).iloc[:, :8].to_string())
+          print(raw[raw["ISO 3 code"].eq("IDN")]["Electricity source"].value_counts().to_dict())
+          PY
+      - name: Capture the Ember slice
+        run: |
+          uv run python - <<'PY'
+          from pdi import samples
+          samples.ember()
+          PY
+          uv run pytest -q tests/test_live_samples.py tests/test_energy.py
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/store/energy site/data/v1/energy tests/fixtures/live
+          git diff --cached --quiet && exit 0
+          git commit -m "First electricity demand collection and Ember test slice $(date -u +%F)"
+          git pull --rebase origin claude/project-thread-qr1gop
+          git push origin HEAD:claude/project-thread-qr1gop

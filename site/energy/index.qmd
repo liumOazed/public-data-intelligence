@@ -1,0 +1,108 @@
+---
+title: "Energy Demand: electricity"
+subtitle: "Monthly electricity demand in the United States and five Southeast Asian economies, on one definition from one source"
+---
+
+```{python}
+import pandas as pd
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+latest, meta = site.load("energy", "demand_latest")
+history, history_meta = site.load("energy", "demand_history")
+finding = meta.get("finding")
+```
+
+Electricity demand is one of the few activity measures published monthly, in the same unit,
+for both regions. This page shows how fast demand is growing in each economy and whether the
+latest month was out of the ordinary. It does not explain the moves: weather, industry and
+new data centres all change demand, and nothing here separates them.
+
+## Latest month
+
+```{python}
+#| output: asis
+if latest.empty:
+    print(site.empty_state(meta, "Electricity demand"))
+else:
+    print(site.finding_line(finding))
+    for _, r in latest.assign(latest_month=pd.to_datetime(latest["latest_month"])).iterrows():
+        print(f'- {site.finding_badge(finding)} {r["sentence"]}')
+    flagged = int(latest["flagged"].sum())
+    print(f'\n{flagged} of {len(latest)} economies had an unusual latest month (a monthly move '
+          f'{meta["flag_z"]} spreads or more from what that calendar month usually brings, the '
+          f'[same rule as the Macro Monitor](../methodology.qmd#energy-demand)). '
+          f'The economies report with different delays, so the latest months differ.')
+    if meta.get("not_covered"):
+        print(f'\nNot covered: {", ".join(meta["not_covered"])} (no monthly demand at the source).')
+```
+
+```{python}
+if not latest.empty:
+    t = latest.assign(
+        latest_month=pd.to_datetime(latest["latest_month"]).dt.strftime("%Y-%m"),
+        first_month=pd.to_datetime(latest["first_month"]).dt.strftime("%Y-%m"),
+        Flag=latest["flagged"].map({True: "Unusual", False: ""}),
+    )[["name", "latest_month", "demand_twh", "gwh_per_day", "yoy_pct", "year_yoy_pct", "z",
+       "Flag", "first_month"]].rename(columns={
+        "name": "Economy", "latest_month": "Latest month", "demand_twh": "Demand, TWh",
+        "gwh_per_day": "GWh per day", "yoy_pct": "Month on a year earlier, %",
+        "year_yoy_pct": "Last 12 months on the 12 before, %", "z": "Spreads",
+        "first_month": "History starts"}).round(
+        {"Demand, TWh": 1, "GWh per day": 0, "Month on a year earlier, %": 1,
+         "Last 12 months on the 12 before, %": 1, "Spreads": 1})
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+## Demand since the base year
+
+Each line is demand per day as an index, so that an economy using 5 TWh a month and one using
+400 fit on one chart. The lines are a 12-month average, which removes the seasons.
+
+```{python}
+if history.empty:
+    display(Markdown(site.empty_state(history_meta, "Demand history")))
+else:
+    h = history.assign(period=pd.to_datetime(history["period"])).sort_values("period")
+    h["smooth"] = h.groupby("country")["index"].transform(
+        lambda s: s.rolling(12, min_periods=12).mean())
+    h = h[h["period"].dt.year >= meta["index_base_year"]].dropna(subset=["smooth"])
+    fig = px.line(h, x="period", y="smooth", color="name",
+                  labels={"smooth": f'Index, {meta["index_base_year"]} = 100', "period": "",
+                          "name": ""})
+    fig.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+if not history.empty:
+    print(site.finding_line(finding))
+```
+
+## Change on a year earlier, month by month
+
+```{python}
+if not history.empty:
+    h = history.assign(period=pd.to_datetime(history["period"])).dropna(subset=["yoy_pct"])
+    h = h[h["period"] >= h["period"].max() - pd.DateOffset(months=36)]
+    fig = px.line(h, x="period", y="yoy_pct", color="name",
+                  labels={"yoy_pct": "Demand per day on a year earlier, %", "period": "",
+                          "name": ""})
+    fig.add_hline(y=0, line_width=1, line_color="gray")
+    fig.update_layout(height=380, margin=dict(l=10, r=10, t=10, b=10))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+if not history.empty:
+    print(site.finding_line(finding))
+print("\n## Sources and limits\n")
+print(site.source_note(meta))
+```

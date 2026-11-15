@@ -280,6 +280,30 @@ def imf() -> None:
         _save(name, resp.content, url=resp.url, note="whole answer from 2025-01")
 
 
+def ember() -> None:
+    from pdi.energy import config as energy
+
+    resp = _get(energy.EMBER_URL, timeout=600)
+    text = resp.content.decode("utf-8-sig")
+    rows = (energy.DEMAND_ROW, energy.GENERATION_ROW, energy.NET_IMPORTS_ROW, "Coal")
+    codes = set(energy.ISO3.values())
+
+    def keep(r: dict) -> bool:
+        return (
+            r.get("ISO 3 code") in codes
+            and r.get("Electricity source") in rows
+            and r.get("Date", "") >= "2024-01"
+        )
+
+    _save(
+        "ember_monthly.csv",
+        _csv_slice(text, keep).encode(),
+        url=resp.url,
+        full=resp.content,
+        note=f"header and rows from 2024-01 for {sorted(codes)}, sources {list(rows)}",
+    )
+
+
 CAPTURES = {
     "spec": spec,
     "blender": blender_launches,
@@ -289,6 +313,7 @@ CAPTURES = {
     "opendosm": opendosm,
     "indeed": indeed,
     "imf": imf,
+    "ember": ember,
 }
 
 

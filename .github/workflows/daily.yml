@@ -70,10 +70,14 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: uv run python -m pdi.macro.collect
 
+      - name: Collect electricity demand (Ember; skipped when fetched in the last six days)
+        run: uv run python -m pdi.energy.collect
+
       - name: Model and export
         run: |
           uv run python -m pdi.tech_value.export
           uv run python -m pdi.macro.export
+          uv run python -m pdi.energy.export
 
       - name: Monthly brief (first run of a month writes last month's; otherwise does nothing)
         env:

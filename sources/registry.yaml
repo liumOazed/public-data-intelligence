@@ -251,3 +251,24 @@ sources:
       United States only; Indeed covers no Southeast Asian country. Postings on one job site,
       seasonally adjusted by Indeed, starting February 2020, so its ten-year history is short
       and its first flags come late. Daily values are averaged to complete months.
+
+  ember_monthly:
+    name: Ember Monthly Electricity Data
+    owner: Ember
+    url: https://ember-energy.org/data/monthly-electricity-data
+    endpoint: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_monthly_global.csv
+    licence: >-
+      Creative Commons Attribution 4.0 (CC BY 4.0), stated on the dataset page: "All content is
+      released under a Creative Commons Attribution Licence (CC-BY-4.0)." Reuse, including
+      derived figures, is allowed with credit to Ember; the site credits it under every table.
+    frequency: fetched at most once every six days; the publisher updates twice a month
+    typical_lag: one to six months, different for each country
+    status: green
+    publish: derived
+    module: energy
+    terms_checked: 2026-11-15
+    notes: >-
+      Ember compiles the file from national publishers and multi-country sources, so one
+      definition is applied to every country but each country arrives with its own delay.
+      Monthly demand exists for the United States, Malaysia, the Philippines, Singapore,
+      Thailand and Vietnam; not for Indonesia. Recent months are revised.
