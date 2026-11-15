@@ -1,6 +1,6 @@
 {
   "url": "https://api.data.gov.my/opendosm/?id=ipi&limit=100000",
-  "retrieved_at": "2026-11-15T07:12:23+00:00",
+  "retrieved_at": "2026-11-15T10:24:53+00:00",
   "full_response_bytes": 33646,
   "full_response_sha256": "21d0444a4f3cc2f50d7979051ee2af6f781de804fc6fed45b788943e9a97878f",
   "slice": "rows for ['2026-07-01', '2026-08-01', '2026-09-01']"
