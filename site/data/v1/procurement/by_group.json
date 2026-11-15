@@ -3,8 +3,8 @@
   "module": "procurement",
   "table": "by_group",
   "description": "Net obligations by fiscal year and kind of hardware.",
-  "generated_at": "2026-11-15T16:01:30+00:00",
-  "rows": 47,
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 42,
   "columns": [
    "fiscal_year",
    "group",
@@ -33,8 +33,7 @@
   "latest_month": "2026-10",
   "first_provisional_month": "2026-08",
   "provisional_fiscal_years": [
-   2026,
-   2027
+   2026
   ],
   "code_change": "2020-10",
   "first_fiscal_year": 2017,
@@ -294,36 +293,6 @@
    "fiscal_year": 2026,
    "group": "Storage",
    "obligations": 332361328.89,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "group": "Computers and servers",
-   "obligations": 3957390.87,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "group": "Data centre equipment",
-   "obligations": -9990712.71,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "group": "Desktops, laptops and printers",
-   "obligations": 21112307.36,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "group": "Other (codes retired in 2020)",
-   "obligations": -300.0,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "group": "Storage",
-   "obligations": 3663011.13,
    "provisional": true
   }
  ]

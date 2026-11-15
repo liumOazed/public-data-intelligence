@@ -16,6 +16,9 @@ import pytest
 from pdi.energy import collect as energy_collect
 from pdi.energy import config as energy
 from pdi.macro import collect, config, store
+from pdi.procurement import collect as proc_collect
+from pdi.procurement import config as proc
+from pdi.procurement import tables as proc_tables
 from pdi.tech_value import blender, retail, spec
 from pdi.trade import collect as trade_collect
 
@@ -199,3 +202,32 @@ def test_census_imports(live):
     assert check["gap_share"].max() < 0.01, "chapters add up to the published total"
     # The key never reaches the fixture or its metadata.
     assert "key=REDACTED" in _meta(live, "census_VN_hs2.json")["url"]
+
+
+# --- Federal Procurement ----------------------------------------------------------------------
+
+
+def test_usaspending_transactions(live):
+    raw = pd.read_csv(live / "usaspending_transactions.csv", dtype=str, keep_default_na=False)
+    assert list(raw.columns) == proc.COLUMNS, "the slice holds the configured columns only"
+    tx = proc_collect.parse(raw)
+    assert len(tx) > 20 and tx["action_date"].dt.to_period("M").nunique() == 1
+    assert tx["federal_action_obligation"].abs().sum() > 1e6, "dollars, not thousands"
+    # The three kinds of money arrive as three columns and at least one award has a ceiling
+    # above what is promised so far.
+    assert (tx["potential_total_value_of_award"] > tx["total_dollars_obligated"]).any()
+    assert tx["extent_competed"].str.upper().isin(proc.COMPETED + proc.NOT_COMPETED).mean() > 0.8
+    out, names, stats = proc_tables.with_suppliers(tx)
+    assert 0 < stats["suppliers"] <= stats["registrations"]
+    built = proc_collect.build(tx)
+    assert not built["competition"].empty and not built["monthly"].empty
+
+    published = proc_collect.parse_published(
+        json.loads((live / "usaspending_over_time.json").read_text())
+    )
+    month = tx["action_date"].dt.to_period("M").dt.to_timestamp().iloc[0]
+    theirs = published.loc[published["period"] == month, "published"]
+    assert len(theirs) == 1, "the fiscal month was mapped to the right calendar month"
+    # Same order of size. Whether the two agree within 1% is the module's exit criterion and
+    # is reported on the page, not asserted here.
+    assert 0.5 < tx["federal_action_obligation"].sum() / theirs.iloc[0] < 2

@@ -31,8 +31,9 @@ LIMITS = [
 SUPPLIER_LIMITS = [
     "A supplier is the parent company the source names, else the company on the contract; "
     "groups with the same name after cleaning are merged. Two companies that share a cleaned "
-    "name would be merged wrongly, and one company filed under two different parents is not "
-    "merged.",
+    "name would be merged wrongly. A company whose recorded parent changed over the years "
+    "(a takeover, or a correction) appears under each parent and is not merged, and the parent "
+    "can be an investment firm that owns the company on the contract.",
     "Most hardware is bought through resellers. The supplier here is the company that holds "
     "the contract, not the maker of the equipment.",
     "Only the largest suppliers in each fiscal year are named. The rest are counted without a "
@@ -100,8 +101,15 @@ def main() -> None:
     monthly = monthly[monthly["period"] <= last_month]
     monthly["fiscal_year"] = fiscal_year_of(monthly["period"])
     monthly["group"] = monthly["psc"].map(lambda c: config.PSC[c][0])
-    years = sorted(monthly["fiscal_year"].unique())
-    prov_years = [int(y) for y in years if year_is_provisional(int(y), first_prov)]
+    # Yearly tables hold only fiscal years that had ended when the data were retrieved. The
+    # year in progress appears in the monthly table alone.
+    when = retrieved.get(config.SOURCE)
+    as_of = pd.Timestamp(datetime.fromisoformat(when).date()) if when else last_month
+    years = [int(y) for y in sorted(monthly["fiscal_year"].unique())
+             if pd.Timestamp(int(y), 9, 30) < as_of]  # fmt: skip
+    prov_years = [y for y in years if year_is_provisional(y, first_prov)]
+    sy, comp = sy[sy["fiscal_year"].isin(years)], comp[comp["fiscal_year"].isin(years)]
+    cohorts = cohorts[cohorts["fiscal_year"].isin(years)]
     extra = {
         "latest_month": last_month.strftime("%Y-%m"),
         "first_provisional_month": first_prov.strftime("%Y-%m"),
@@ -120,13 +128,14 @@ def main() -> None:
                 description="Net obligations on federal contracts for computer hardware, by "
                 "month of the action, with the sum over twelve months.")  # fmt: skip
 
-    groups = monthly.groupby(["fiscal_year", "group"], as_index=False)["obligations"].sum()
+    yearly = monthly[monthly["fiscal_year"].isin(years)]
+    groups = yearly.groupby(["fiscal_year", "group"], as_index=False)["obligations"].sum()
     groups["provisional"] = groups["fiscal_year"].isin(prov_years)
     write_table(M, "by_group", groups, sources=SOURCES, retrieved_at=retrieved,
                 limitations=LIMITS, extra={**extra, "finding": ARITHMETIC},
                 description="Net obligations by fiscal year and kind of hardware.")  # fmt: skip
 
-    agencies = monthly.groupby(["fiscal_year", "agency"], as_index=False)["obligations"].sum()
+    agencies = yearly.groupby(["fiscal_year", "agency"], as_index=False)["obligations"].sum()
     agencies["share_pct"] = (
         100
         * agencies["obligations"]

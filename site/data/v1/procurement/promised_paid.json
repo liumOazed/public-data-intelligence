@@ -3,8 +3,8 @@
   "module": "procurement",
   "table": "promised_paid",
   "description": "For the awards that began in each fiscal year: money promised, the ceiling if every option is used, and money paid, with how many awards report a paid figure.",
-  "generated_at": "2026-11-15T16:01:30+00:00",
-  "rows": 11,
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 10,
   "columns": [
    "fiscal_year",
    "awards",
@@ -44,8 +44,7 @@
   "latest_month": "2026-10",
   "first_provisional_month": "2026-08",
   "provisional_fiscal_years": [
-   2026,
-   2027
+   2026
   ],
   "code_change": "2020-10",
   "first_fiscal_year": 2017,
@@ -193,20 +192,6 @@
    "awards_reporting_paid_pct": 16.85170840864102,
    "paid_share_of_promised_pct": 65.93812799837714,
    "promised_share_of_ceiling_pct": 55.52871293970848,
-   "payments_required": true,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "awards": 176,
-   "promised": 17041442.1,
-   "ceiling": 24109353.46,
-   "awards_reporting_paid": 0,
-   "promised_where_paid_reported": 0.0,
-   "paid": 0.0,
-   "awards_reporting_paid_pct": 0.0,
-   "paid_share_of_promised_pct": null,
-   "promised_share_of_ceiling_pct": 70.68394483607194,
    "payments_required": true,
    "provisional": true
   }

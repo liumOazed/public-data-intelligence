@@ -3,8 +3,8 @@
   "module": "procurement",
   "table": "top_suppliers",
   "description": "The 25 largest suppliers by net obligations in each fiscal year, after name cleaning.",
-  "generated_at": "2026-11-15T16:01:30+00:00",
-  "rows": 275,
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 250,
   "columns": [
    "fiscal_year",
    "rank",
@@ -30,15 +30,14 @@
    "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
    "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
    "Agencies correct old records; every figure can change on the next retrieval.",
-   "A supplier is the parent company the source names, else the company on the contract; groups with the same name after cleaning are merged. Two companies that share a cleaned name would be merged wrongly, and one company filed under two different parents is not merged.",
+   "A supplier is the parent company the source names, else the company on the contract; groups with the same name after cleaning are merged. Two companies that share a cleaned name would be merged wrongly. A company whose recorded parent changed over the years (a takeover, or a correction) appears under each parent and is not merged, and the parent can be an investment firm that owns the company on the contract.",
    "Most hardware is bought through resellers. The supplier here is the company that holds the contract, not the maker of the equipment.",
    "Only the largest suppliers in each fiscal year are named. The rest are counted without a name."
   ],
   "latest_month": "2026-10",
   "first_provisional_month": "2026-08",
   "provisional_fiscal_years": [
-   2026,
-   2027
+   2026
   ],
   "code_change": "2020-10",
   "first_fiscal_year": 2017,
@@ -58,181 +57,6 @@
   "named_per_year": 25
  },
  "data": [
-  {
-   "fiscal_year": 2027,
-   "rank": 1,
-   "name": "NEW TECH SOLUTIONS, INC.",
-   "obligations": 12555185.18,
-   "share_pct": 24.455699568151594
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 2,
-   "name": "THUNDERCAT TECHNOLOGY  LLC",
-   "obligations": 4484099.6899999995,
-   "share_pct": 8.734382908741907
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 3,
-   "name": "FCN INC",
-   "obligations": 4287427.51,
-   "share_pct": 8.351293716624278
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 4,
-   "name": "METGREEN SOLUTIONS INC",
-   "obligations": 3553452.4,
-   "share_pct": 6.92161549815765
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 5,
-   "name": "NCS TECHNOLOGIES INC",
-   "obligations": 2803675.47,
-   "share_pct": 5.461157601254609
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 6,
-   "name": "CTG FEDERAL, LLC",
-   "obligations": 1882820.0,
-   "share_pct": 3.6674632512992678
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 7,
-   "name": "FLYWHEEL DATA LLC",
-   "obligations": 1849373.23,
-   "share_pct": 3.6023137416012307
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 8,
-   "name": "COLOSSAL CONTRACTING LLC",
-   "obligations": 1703651.18,
-   "share_pct": 3.318468093435716
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 9,
-   "name": "AXON ENTERPRISE, INC.",
-   "obligations": 1184401.64,
-   "share_pct": 2.307044480873681
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 10,
-   "name": "ALPHASIX, LLC.",
-   "obligations": 970000.0,
-   "share_pct": 1.8894208441382023
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 11,
-   "name": "DELOITTE LLP",
-   "obligations": 906511.0599999999,
-   "share_pct": 1.7657534971193984
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 12,
-   "name": "ALVAREZ LLC",
-   "obligations": 853915.99,
-   "share_pct": 1.6633058460298027
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 13,
-   "name": "DECISION MODELING INC",
-   "obligations": 846000.0,
-   "share_pct": 1.6478866331349682
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 14,
-   "name": "BAHFED CORP",
-   "obligations": 814791.46,
-   "share_pct": 1.5870968743812353
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 15,
-   "name": "STERLING COMPUTERS CORPORATION",
-   "obligations": 752292.1,
-   "share_pct": 1.4653570872376298
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 16,
-   "name": "NTT DATA FEDHEALTH, INC.",
-   "obligations": 717244.0,
-   "share_pct": 1.3970884164258357
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 17,
-   "name": "AMAZON WEB SERVICES, INC.",
-   "obligations": 700000.0,
-   "share_pct": 1.3634995782440635
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 18,
-   "name": "ILLINOIS TOOL WORKS INC.",
-   "obligations": 638658.0,
-   "share_pct": 1.244014162345996
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 19,
-   "name": "EXECUTIVE INFORMATION SYSTEMS, L.L.C.",
-   "obligations": 592854.74,
-   "share_pct": 1.1547959827857055
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 20,
-   "name": "HO-CHUNK, INC.",
-   "obligations": 552674.11,
-   "share_pct": 1.076529879844876
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 21,
-   "name": "V3GATE, LLC",
-   "obligations": 543390.53,
-   "share_pct": 1.058446797824026
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 22,
-   "name": "AUCTORLUX, LLC",
-   "obligations": 511250.0,
-   "share_pct": 0.9958416562532535
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 23,
-   "name": "CLARIVATE PLC",
-   "obligations": 466253.04,
-   "share_pct": 0.9081940334214463
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 24,
-   "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
-   "obligations": 422549.32,
-   "share_pct": 0.8230654565818797
-  },
-  {
-   "fiscal_year": 2027,
-   "rank": 25,
-   "name": "BLUE TECH INC.",
-   "obligations": 380000.0,
-   "share_pct": 0.7401854853324916
-  },
   {
    "fiscal_year": 2026,
    "rank": 1,

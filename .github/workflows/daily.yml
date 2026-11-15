@@ -84,6 +84,9 @@ jobs:
           uv run python -m pdi.macro.export
           uv run python -m pdi.energy.export
           uv run python -m pdi.trade.export
+          # Federal contracts are collected by the weekly run; the daily run only rewrites
+          # the tables from what is stored.
+          uv run python -m pdi.procurement.export
 
       - name: Monthly brief (first run of a month writes last month's; otherwise does nothing)
         env:

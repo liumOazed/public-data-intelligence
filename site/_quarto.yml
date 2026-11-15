@@ -40,6 +40,14 @@ website:
             href: trade/lead.qmd
       - text: "Energy Demand"
         href: energy/index.qmd
+      - text: "Federal Procurement"
+        menu:
+          - text: "Computer hardware by month"
+            href: procurement/index.qmd
+          - text: "Suppliers and competition"
+            href: procurement/suppliers.qmd
+          - text: "Promised against paid"
+            href: procurement/paid.qmd
       - text: "Monthly brief"
         href: briefs/index.qmd
       - text: "Methodology"

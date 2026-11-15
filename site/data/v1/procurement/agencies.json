@@ -3,8 +3,8 @@
   "module": "procurement",
   "table": "agencies",
   "description": "Net obligations by fiscal year and awarding agency.",
-  "generated_at": "2026-11-15T16:01:30+00:00",
-  "rows": 639,
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 613,
   "columns": [
    "fiscal_year",
    "agency",
@@ -34,8 +34,7 @@
   "latest_month": "2026-10",
   "first_provisional_month": "2026-08",
   "provisional_fiscal_years": [
-   2026,
-   2027
+   2026
   ],
   "code_change": "2020-10",
   "first_fiscal_year": 2017,
@@ -45,188 +44,6 @@
   }
  },
  "data": [
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Health and Human Services",
-   "obligations": 12221863.84,
-   "share_pct": 65.21215271083796,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "National Aeronautics and Space Administration",
-   "obligations": 5429265.2,
-   "share_pct": 28.968909813189192,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of the Treasury",
-   "obligations": 5000599.61,
-   "share_pct": 26.681680444336937,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Justice",
-   "obligations": 4870201.93,
-   "share_pct": 25.9859180358679,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Veterans Affairs",
-   "obligations": 2739420.38,
-   "share_pct": 14.616714970680096,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "National Archives and Records Administration",
-   "obligations": 790843.77,
-   "share_pct": 4.2197021153898575,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Energy",
-   "obligations": 333333.37,
-   "share_pct": 1.7785656028105654,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Transportation",
-   "obligations": 250974.41,
-   "share_pct": 1.3391232111314746,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "District of Columbia Courts",
-   "obligations": 154012.21,
-   "share_pct": 0.8217623669626518,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of State",
-   "obligations": 148112.76,
-   "share_pct": 0.7902846938886934,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Commerce",
-   "obligations": 102060.0,
-   "share_pct": 0.5445611563668117,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Commodity Futures Trading Commission",
-   "obligations": 91305.31,
-   "share_pct": 0.4871773975703529,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of the Interior",
-   "obligations": 78835.79000000001,
-   "share_pct": 0.4206438268223705,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Environmental Protection Agency",
-   "obligations": 63341.6,
-   "share_pct": 0.3379715357840882,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "National Endowment for the Arts",
-   "obligations": 10888.6,
-   "share_pct": 0.05809826187748056,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "National Gallery of Art",
-   "obligations": 10807.0,
-   "share_pct": 0.05766286906580574,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Agency for International Development",
-   "obligations": 0.0,
-   "share_pct": 0.0,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Consumer Product Safety Commission",
-   "obligations": 0.0,
-   "share_pct": 0.0,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Federal Communications Commission",
-   "obligations": 0.0,
-   "share_pct": 0.0,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Railroad Retirement Board",
-   "obligations": 0.0,
-   "share_pct": 0.0,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Council of the Inspectors General on Integrity and Efficiency",
-   "obligations": -716.69,
-   "share_pct": -0.0038240401249904983,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Small Business Administration",
-   "obligations": -10429.58,
-   "share_pct": -0.055649070597885285,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "General Services Administration",
-   "obligations": -15134.960000000003,
-   "share_pct": -0.08075554888463102,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Agriculture",
-   "obligations": -532014.22,
-   "share_pct": -2.8386662634409894,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Social Security Administration",
-   "obligations": -3694058.51,
-   "share_pct": -19.710374033825804,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "agency": "Department of Homeland Security",
-   "obligations": -9301815.17,
-   "share_pct": -49.631660055707925,
-   "provisional": true
-  },
   {
    "fiscal_year": 2026,
    "agency": "Department of Defense",

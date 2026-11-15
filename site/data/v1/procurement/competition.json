@@ -3,8 +3,8 @@
   "module": "procurement",
   "table": "competition",
   "description": "Per fiscal year, of newly obligated dollars: the share on competed awards that drew one offer, and the share not competed.",
-  "generated_at": "2026-11-15T16:01:30+00:00",
-  "rows": 11,
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 10,
   "columns": [
    "fiscal_year",
    "new_dollars",
@@ -37,8 +37,7 @@
   "latest_month": "2026-10",
   "first_provisional_month": "2026-08",
   "provisional_fiscal_years": [
-   2026,
-   2027
+   2026
   ],
   "code_change": "2020-10",
   "first_fiscal_year": 2017,
@@ -126,14 +125,6 @@
    "single_bidder_share_pct": 25.663139115013355,
    "not_competed_share_pct": 13.388241008950041,
    "competed_with_offers_recorded_pct": 71.15184206332857,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "new_dollars": 52283147.22,
-   "single_bidder_share_pct": 22.660051092351758,
-   "not_competed_share_pct": 9.153578455906887,
-   "competed_with_offers_recorded_pct": 84.06633113544996,
    "provisional": true
   }
  ]

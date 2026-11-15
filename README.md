@@ -15,7 +15,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 | Harden | Heartbeat with a data-freshness check, parser tests on real response slices, monthly "what changed" brief, IMF series for Southeast Asia; energy demand chosen as the one public sector to cover | Built; exit criterion needs 30 days on schedule (see below) |
 | Sector | Energy Demand: monthly electricity demand for the US and five Southeast Asian economies | Built 15 November 2026; one source, observations only |
 | 3 | Trade and Supply Chain | Built 15 November 2026: share shift and lead-time test live; mirror gaps, Comtrade and commodity prices not built (see below) |
-| 4 | Federal Procurement | Not started |
+| 4 | Federal Procurement | First slice built (computer hardware); exit criterion not met, see below |
 
 Modules are built one at a time, in this order. The next one does not start until the current
 one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not into the build.
@@ -198,6 +198,42 @@ both hold:
   needs exports by destination; the IMF series in hand are totals to all countries. Backlog.
 - **UN Comtrade intra-regional flows.** Needs a Comtrade key and a reading of its terms. Backlog.
 - **Commodity price context.** Not started. Backlog.
+
+## Federal Procurement
+
+First slice, chosen on 15 November 2026: **computer hardware bought by every federal agency**
+(computers and servers, storage, data centre equipment, desktops, laptops and printers), from
+October 2016, from USAspending.gov.
+
+### Exit criterion
+
+Written before the module's figures were computed: **monthly totals match USAspending's own
+figure within 1%.** For every month, the transactions downloaded for the pages must add up to
+within 1% of the monthly figure USAspending's own search gives for the same filters. Every
+month has to pass.
+
+**Result on 15 November 2026: not met.** 95 of 121 months are within 1%; 26 are not, and the
+worst (January 2026) is 14.2% apart. Over the whole period the search figure is 0.8% higher
+than the download. For the six months furthest apart, the transactions behind the search
+figure were listed one by one: 1,017 of 17,066 rows were a second copy of a transaction already
+listed under the same internal id, and with each counted once five of the six months come
+within 1%. So the evidence points at double counting in USAspending's search, but the
+criterion as written is not met and the limit has not been moved. The pages show the download
+figures with this verdict beside them, and the source is marked amber.
+
+### What is built
+
+- **Collector** (weekly run). One transaction file per fiscal year; sixteen columns, none
+  about a person or an address. Only sums are stored; the transactions are not committed.
+- **Three kinds of money kept apart**: promised (obligation), ceiling and paid (outlay).
+- **Supplier name cleaning**: parent company, then identical cleaned names. Names are kept
+  only for the 25 largest suppliers of a fiscal year.
+- **Metrics**: value by month, kind of hardware and agency; concentration; new entrants;
+  single-bidder share; promised against paid by the year an award began. All observations.
+- **Pages**: computer hardware by month, suppliers and competition, promised against paid.
+
+Rules are in [`pdi/procurement/config.py`](pdi/procurement/config.py). What is left is in
+[BACKLOG.md](BACKLOG.md).
 
 ## Energy Demand
 

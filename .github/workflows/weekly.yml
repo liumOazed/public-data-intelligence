@@ -78,6 +78,9 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: uv run python -m pdi.macro.collect
 
+      - name: Collect federal hardware contracts (USAspending; skipped when fetched in the last six days)
+        run: uv run python -m pdi.procurement.collect
+
       - name: Train AutoGluon
         run: uv run python -m pdi.tech_value.automl
 
@@ -88,6 +91,9 @@ jobs:
         run: |
           uv run python -m pdi.tech_value.export
           uv run python -m pdi.macro.export
+          uv run python -m pdi.energy.export
+          uv run python -m pdi.trade.export
+          uv run python -m pdi.procurement.export
 
       - name: Show the result
         run: |

@@ -3,8 +3,8 @@
   "module": "procurement",
   "table": "concentration",
   "description": "Per fiscal year: suppliers with net obligations above zero, the share of the largest 4 and 10, the Herfindahl-Hirschman index, and suppliers with no action in the 4 years before.",
-  "generated_at": "2026-11-15T16:01:30+00:00",
-  "rows": 11,
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 10,
   "columns": [
    "fiscal_year",
    "suppliers",
@@ -35,15 +35,14 @@
    "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
    "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
    "Agencies correct old records; every figure can change on the next retrieval.",
-   "A supplier is the parent company the source names, else the company on the contract; groups with the same name after cleaning are merged. Two companies that share a cleaned name would be merged wrongly, and one company filed under two different parents is not merged.",
+   "A supplier is the parent company the source names, else the company on the contract; groups with the same name after cleaning are merged. Two companies that share a cleaned name would be merged wrongly. A company whose recorded parent changed over the years (a takeover, or a correction) appears under each parent and is not merged, and the parent can be an investment firm that owns the company on the contract.",
    "Most hardware is bought through resellers. The supplier here is the company that holds the contract, not the maker of the equipment.",
    "Only the largest suppliers in each fiscal year are named. The rest are counted without a name."
   ],
   "latest_month": "2026-10",
   "first_provisional_month": "2026-08",
   "provisional_fiscal_years": [
-   2026,
-   2027
+   2026
   ],
   "code_change": "2020-10",
   "first_fiscal_year": 2017,
@@ -181,18 +180,6 @@
    "entrants": 337.0,
    "entrant_share_of_suppliers_pct": 22.587131367292226,
    "entrant_share_of_dollars_pct": 4.39605746685165,
-   "provisional": true
-  },
-  {
-   "fiscal_year": 2027,
-   "suppliers": 121,
-   "obligations": 51338483.059999995,
-   "hhi": 897.4730141443929,
-   "top4_share_pct": 48.46299169167544,
-   "top10_share_pct": 68.70885970427815,
-   "entrants": 11.0,
-   "entrant_share_of_suppliers_pct": 9.090909090909092,
-   "entrant_share_of_dollars_pct": 2.4807595279189383,
    "provisional": true
   }
  ]

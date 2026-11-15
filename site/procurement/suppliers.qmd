@@ -40,9 +40,12 @@ if not c:
 else:
     print(f'The {c["transactions"]:,} transactions carry {c["names_as_written"]:,} different '
           f'supplier names under {c["registrations"]:,} registrations. Grouping each company '
-          f'under the parent the source names leaves {c["after_parent_grouping"]:,} groups, '
-          f'and merging groups whose names are the same once case, punctuation and legal '
-          f'endings are removed leaves **{c["suppliers"]:,} suppliers**. Only the '
+          f'under the parent the source names gives {c["after_parent_grouping"]:,} groups. '
+          f'That can be more than the registrations, because a company whose recorded parent '
+          f'changed over the years appears once under each parent. Merging groups whose names '
+          f'are the same once case, punctuation and legal endings are removed leaves '
+          f'**{c["suppliers"]:,} suppliers**. The name shown is the parent\'s, which can be an '
+          f'investment firm that owns the company on the contract. Only the '
           f'{meta["named_per_year"]} largest in each fiscal year are named anywhere on this '
           f'site.\n')
 ```
