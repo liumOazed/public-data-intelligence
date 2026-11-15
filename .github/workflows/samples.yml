@@ -7,10 +7,6 @@ name: Refresh test samples
 
 on:
   workflow_dispatch:
-  push:
-    # Temporary, while the first samples are captured on this branch.
-    branches: [claude/project-thread-qr1gop]
-    paths: ["pdi/samples.py", ".github/workflows/samples.yml"]
 
 permissions:
   contents: write
