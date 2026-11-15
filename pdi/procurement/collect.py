@@ -31,11 +31,12 @@ MONEY = ("federal_action_obligation", "total_dollars_obligated",
          "potential_total_value_of_award", "total_outlayed_amount_for_overall_award")  # fmt: skip
 
 
-def call(method: str, path: str, body: dict | None = None, retries: int = 4) -> dict:
+def call(method: str, path: str, body: dict | None = None, retries: int = 6) -> dict:
+    """One API call. The service drops connections now and then, so waits grow to a minute."""
     last = "no attempt made"
     for attempt in range(retries):
         if attempt:
-            time.sleep(2**attempt)
+            time.sleep(min(60, 2 ** (attempt + 1)))
         try:
             resp = requests.request(method, config.API + path, json=body, timeout=180,
                                     headers={"User-Agent": USER_AGENT})  # fmt: skip
@@ -270,7 +271,15 @@ def collect(today: date | None = None, raw_dir: Path | None = None) -> pd.DataFr
     month = tx["action_date"].dt.to_period("M").dt.to_timestamp()
     diagnosis = []
     for period in check.loc[~check["within_limit"], "period"]:
-        row = reconcile(period, tx[month == period], search_rows(period))
+        try:
+            listed = search_rows(period)
+        except CollectError as exc:
+            # The month stays unreconciled and the page says so; the stored sums are unaffected.
+            print(f"{period:%Y-%m}: search listing failed ({exc}); month left unreconciled")
+            diagnosis.append({"period": period.strftime("%Y-%m"), "reconciled": False,
+                              "error": str(exc)[:200]})  # fmt: skip
+            continue
+        row = reconcile(period, tx[month == period], listed)
         print(f"{row['period']}: {row['extra_copies']} extra copies in the search, "
               f"{row['search_rows_not_in_download']} search rows not in the download, "
               f"gap after copies {row['gap_after_copies_share']:.4%}")  # fmt: skip

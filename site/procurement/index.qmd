@@ -163,12 +163,14 @@ failed, and it [is recorded as a new test](../failures.qmd).
 ```{python}
 #| output: asis
 rec = check_meta.get("reconciliation") or []
-if rec and "extra_copies" in rec[0]:
-    copies = sum(d["extra_copies"] for d in rec)
-    copies_sum = sum(d["extra_copies_sum"] for d in rec)
-    missing = sum(d["search_rows_not_in_download"] for d in rec)
+if rec:
+    ok_rows = [d for d in rec if "extra_copies" in d]
+    copies = sum(d["extra_copies"] for d in ok_rows)
+    copies_sum = sum(d["extra_copies_sum"] for d in ok_rows)
+    missing = sum(d["search_rows_not_in_download"] for d in ok_rows)
+    unchecked = len(rec) - len(ok_rows)
     done = sum(d["reconciled"] for d in rec)
-    worst = max(d["gap_after_copies_share"] for d in rec)
+    worst = max([d["gap_after_copies_share"] for d in ok_rows] or [0])
     if check_meta.get("all_missed_months_reconciled"):
         print(f'::: {{.verdict}}\n**The download is complete; the search figure counts some '
               f'transactions twice.** In all {len(rec)} months outside the limit, every '
@@ -179,15 +181,15 @@ if rec and "extra_copies" in rec[0]:
               f'page are the download, with each transaction counted once.\n:::\n')
     else:
         print(f'::: {{.verdict}}\n**Not fully explained.** {done} of {len(rec)} months outside '
-              f'the limit reconcile row by row. {missing:,} transactions the search lists are '
-              f'not in the download. Until every month reconciles, treat the monthly figures '
-              f'as approximate.\n:::\n')
+              f'the limit reconcile row by row; {unchecked} could not be listed this time and '
+              f'{missing:,} transactions the search lists are not in the download. Until every '
+              f'month reconciles, treat the monthly figures as approximate.\n:::\n')
     print(site.finding_line(check_meta.get("reconcile_finding")))
 ```
 
 ```{python}
-rec = check_meta.get("reconciliation") or []
-if rec and "extra_copies" in rec[0]:
+rec = [d for d in check_meta.get("reconciliation") or [] if "extra_copies" in d]
+if rec:
     t = pd.DataFrame(rec)
     t = t.assign(download=t["download"] / 1e6, search=t["search"] / 1e6,
                  extra_copies_sum=t["extra_copies_sum"] / 1e6,
