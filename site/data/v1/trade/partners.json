@@ -1,0 +1,125 @@
+{
+ "meta": {
+  "module": "trade",
+  "table": "partners",
+  "description": "Each partner's share of all US goods imports over the latest twelve months, against 2017 and against a year earlier.",
+  "generated_at": "2026-11-15T11:18:18+00:00",
+  "rows": 7,
+  "columns": [
+   "partner",
+   "name",
+   "period",
+   "usd_12m",
+   "share_pct",
+   "share_base",
+   "share_year_ago",
+   "shift_since_base",
+   "shift_on_year"
+  ],
+  "sources": [
+   {
+    "id": "census_trade",
+    "name": "US Census Bureau, International Trade (monthly imports by Harmonized System)",
+    "url": "https://www.census.gov/foreign-trade/data/index.html",
+    "licence": "Census Bureau Data API Terms of Service (https://www.census.gov/data/developers/terms-of-service.html). Products must show the notice \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau\", must not misrepresent the data while naming the Bureau as its source, and must not use the data to identify a person or business. The trade pages carry the notice. The terms set no numeric request limit; this pipeline makes sixteen calls at most once every six days.",
+    "frequency": "fetched at most once every six days; Census publishes once a month",
+    "typical_lag": "about five weeks after the month ends",
+    "retrieved_at": "2026-11-15T11:17:30+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "US-reported imports only: general imports at customs value, by country of origin. Goods made in one country and finished in another are counted under the last one.",
+   "A rising share is not proof that production moved. Goods can be routed through a third country, and a share also rises when other suppliers' sales fall.",
+   "Shares are of the value in dollars, so a price change moves a share without any change in volume.",
+   "Chapters are the 97 two-digit groups of the Harmonized System; a shift inside a chapter (from one kind of machine to another) is invisible here.",
+   "Recent months are revised by Census for several months after first publication."
+  ],
+  "finding": {
+   "label": "observation",
+   "reason": "Arithmetic on published import values: each partner's share of US imports over twelve months, and how that share has changed. No model is fitted and no cause is claimed."
+  },
+  "latest_month": "2026-09",
+  "base_year": 2017,
+  "min_chapter_usd": 5000000000.0
+ },
+ "data": [
+  {
+   "partner": "VN",
+   "name": "Vietnam",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 258157977768.0,
+   "share_pct": 7.197161018782978,
+   "share_base": 1.986559314768978,
+   "share_year_ago": 5.145910122066599,
+   "shift_since_base": 5.2106017040140005,
+   "shift_on_year": 2.051250896716379
+  },
+  {
+   "partner": "TH",
+   "name": "Thailand",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 134896881908.0,
+   "share_pct": 3.7607769801176887,
+   "share_base": 1.329654121934221,
+   "share_year_ago": 2.314384427319556,
+   "shift_since_base": 2.4311228581834676,
+   "shift_on_year": 1.4463925527981325
+  },
+  {
+   "partner": "MY",
+   "name": "Malaysia",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 80619682621.0,
+   "share_pct": 2.247588248572187,
+   "share_base": 1.5972521651340064,
+   "share_year_ago": 1.7013847995523461,
+   "shift_since_base": 0.6503360834381808,
+   "shift_on_year": 0.5462034490198411
+  },
+  {
+   "partner": "PH",
+   "name": "Philippines",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 25264065175.0,
+   "share_pct": 0.7043344026226769,
+   "share_base": 0.4967837967629406,
+   "share_year_ago": 0.48385275763622737,
+   "shift_since_base": 0.20755060585973628,
+   "shift_on_year": 0.2204816449864495
+  },
+  {
+   "partner": "SG",
+   "name": "Singapore",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 34834559138.0,
+   "share_pct": 0.9711492679874129,
+   "share_base": 0.8278108549774372,
+   "share_year_ago": 1.148856512340212,
+   "shift_since_base": 0.14333841300997563,
+   "shift_on_year": -0.17770724435279905
+  },
+  {
+   "partner": "ID",
+   "name": "Indonesia",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 33629208000.0,
+   "share_pct": 0.9375454014737257,
+   "share_base": 0.8636181379097754,
+   "share_year_ago": 0.9756565830154778,
+   "shift_since_base": 0.0739272635639503,
+   "shift_on_year": -0.03811118154175208
+  },
+  {
+   "partner": "CN",
+   "name": "China",
+   "period": "2026-09-01T00:00:00",
+   "usd_12m": 280793082536.0,
+   "share_pct": 7.828202891286024,
+   "share_base": 21.592022998867645,
+   "share_year_ago": 10.474255972812506,
+   "shift_since_base": -13.763820107581621,
+   "shift_on_year": -2.6460530815264818
+  }
+ ]
+}
