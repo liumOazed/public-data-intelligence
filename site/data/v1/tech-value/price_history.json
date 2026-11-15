@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-15T16:30:45+00:00",
+  "generated_at": "2026-11-15T16:38:15+00:00",
   "rows": 70,
   "columns": [
    "date",
@@ -20,7 +20,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-15T16:29:37+00:00"
+    "retrieved_at": "2026-11-15T16:37:23+00:00"
    },
    {
     "id": "blender_opendata",

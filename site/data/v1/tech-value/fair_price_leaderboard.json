@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price_leaderboard",
   "description": "Leave-one-out error of each fair price model, per kind of part, with the naive baseline.",
-  "generated_at": "2026-11-15T16:30:45+00:00",
+  "generated_at": "2026-11-15T16:38:15+00:00",
   "rows": 8,
   "columns": [
    "kind",
@@ -22,7 +22,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-15T16:29:37+00:00"
+    "retrieved_at": "2026-11-15T16:37:23+00:00"
    },
    {
     "id": "blender_opendata",
@@ -92,7 +92,7 @@
    "kind": "gpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 10,
-   "mae_log": 0.4484945877484493,
+   "mae_log": 0.44849458774844975,
    "median_abs_pct_error": 41.59000550747218,
    "used": false,
    "is_baseline": false
@@ -101,8 +101,8 @@
    "kind": "gpu",
    "model": "Straight line with brand",
    "n_parts": 10,
-   "mae_log": 0.4192830508448779,
-   "median_abs_pct_error": 35.35559414489378,
+   "mae_log": 0.4192830508448787,
+   "median_abs_pct_error": 35.35559414489412,
    "used": false,
    "is_baseline": false
   },
@@ -128,7 +128,7 @@
    "kind": "cpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 13,
-   "mae_log": 0.2766002623479984,
+   "mae_log": 0.2766002623479985,
    "median_abs_pct_error": 26.332553087540045,
    "used": false,
    "is_baseline": false
@@ -137,7 +137,7 @@
    "kind": "cpu",
    "model": "Straight line with brand",
    "n_parts": 13,
-   "mae_log": 0.2703916300597038,
+   "mae_log": 0.2703916300597046,
    "median_abs_pct_error": 26.266588729677604,
    "used": false,
    "is_baseline": false
