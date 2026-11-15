@@ -53,4 +53,5 @@ jobs:
           git add tests/fixtures/live
           if git diff --cached --quiet; then echo "samples unchanged"; exit 0; fi
           git commit -m "Refresh test samples from live sources $(date -u +%F)"
+          git pull --rebase origin ${{ github.ref_name }}
           git push origin HEAD:${{ github.ref_name }}
