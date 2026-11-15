@@ -84,11 +84,10 @@ def build(demand: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def sentence(row) -> str:
-    direction = "up" if row["yoy_pct"] >= 0 else "down"
-    text = (
-        f"{row['name']}: {row['demand_twh']:.1f} TWh in {row['latest_month']:%B %Y}, "
-        f"{direction} {abs(row['yoy_pct']):.1f}% per day on a year earlier"
-    )
+    text = f"{row['name']}: {row['demand_twh']:.1f} TWh in {row['latest_month']:%B %Y}"
+    if pd.notna(row["yoy_pct"]):
+        direction = "up" if row["yoy_pct"] >= 0 else "down"
+        text += f", demand per day {direction} {abs(row['yoy_pct']):.1f}% on a year earlier"
     if pd.notna(row["z"]) and abs(row["z"]) >= config.FLAG_Z:
         text += (
             f"; the move from the month before was {abs(row['z']):.1f} spreads from what that "

@@ -3,7 +3,7 @@
   "module": "energy",
   "table": "demand_latest",
   "description": "Latest month of electricity demand for each economy, with its change on a year earlier and how unusual the latest monthly move was.",
-  "generated_at": "2026-11-15T10:46:53+00:00",
+  "generated_at": "2026-11-15T10:48:17+00:00",
   "rows": 6,
   "columns": [
    "country",
@@ -66,7 +66,7 @@
    "flagged": false,
    "first_month": "2019-01-01T00:00:00",
    "months": 93,
-   "sentence": "Vietnam: 30.3 TWh in September 2026, up 11.2% per day on a year earlier."
+   "sentence": "Vietnam: 30.3 TWh in September 2026, demand per day up 11.2% on a year earlier."
   },
   {
    "country": "MY",
@@ -82,7 +82,7 @@
    "flagged": false,
    "first_month": "2018-01-01T00:00:00",
    "months": 101,
-   "sentence": "Malaysia: 17.1 TWh in May 2026, up 3.5% per day on a year earlier."
+   "sentence": "Malaysia: 17.1 TWh in May 2026, demand per day up 3.5% on a year earlier."
   },
   {
    "country": "US",
@@ -98,7 +98,7 @@
    "flagged": false,
    "first_month": "2001-01-01T00:00:00",
    "months": 310,
-   "sentence": "United States: 355.4 TWh in October 2026, up 1.0% per day on a year earlier."
+   "sentence": "United States: 355.4 TWh in October 2026, demand per day up 1.0% on a year earlier."
   },
   {
    "country": "TH",
@@ -114,7 +114,7 @@
    "flagged": false,
    "first_month": "2019-01-01T00:00:00",
    "months": 91,
-   "sentence": "Thailand: 20.6 TWh in July 2026, up 4.4% per day on a year earlier."
+   "sentence": "Thailand: 20.6 TWh in July 2026, demand per day up 4.4% on a year earlier."
   },
   {
    "country": "SG",
@@ -130,7 +130,7 @@
    "flagged": false,
    "first_month": "2009-01-01T00:00:00",
    "months": 211,
-   "sentence": "Singapore: 5.3 TWh in July 2026, down 1.3% per day on a year earlier."
+   "sentence": "Singapore: 5.3 TWh in July 2026, demand per day down 1.3% on a year earlier."
   },
   {
    "country": "PH",
@@ -146,7 +146,7 @@
    "flagged": false,
    "first_month": "2017-01-01T00:00:00",
    "months": 117,
-   "sentence": "Philippines: 9.3 TWh in September 2026, down 4.5% per day on a year earlier."
+   "sentence": "Philippines: 9.3 TWh in September 2026, demand per day down 4.5% on a year earlier."
   }
  ]
 }

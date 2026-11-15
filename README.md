@@ -13,6 +13,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 | 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks, model and price crawler run on live data; prices come from one small retailer (see below) |
 | 2 | **Macro Monitor**: which series moved unusually against their own history and against neighbouring economies | Built and run once on live data; exit criterion needs one full monthly cycle |
 | Harden | Heartbeat with a data-freshness check, parser tests on real response slices, monthly "what changed" brief, IMF series for Southeast Asia; energy demand chosen as the one public sector to cover | Built; exit criterion needs 30 days on schedule (see below) |
+| Sector | Energy Demand: monthly electricity demand for the US and five Southeast Asian economies | Built 15 November 2026; one source, observations only |
 | 3 | Trade and Supply Chain | Not started |
 | 4 | Federal Procurement | Not started |
 
@@ -162,6 +163,22 @@ Written on 15 November 2026. The phase is done when both hold:
 - **Monthly brief** under `site/briefs/`, written by code from the stored tables.
 - **Parser tests on real slices**, and a workflow to refresh them.
 
+## Energy Demand
+
+Chosen on 15 November 2026 as the one public sector to cover. Monthly electricity demand
+from Ember's monthly electricity data (CC BY 4.0) for the United States, Malaysia, the
+Philippines, Singapore, Thailand and Vietnam. Indonesia has no monthly demand at the source.
+
+- The page shows demand per day, its change on a year earlier, an index with 2019 = 100, and
+  whether the latest monthly move was unusual by the Macro Monitor's rule (2.5 spreads, same
+  calendar month). Every figure is an observation; nothing is fitted or forecast.
+- The collector stops the run if a required country disappears, if a value is outside 0.5 to
+  1,000 TWh, or if demand stops matching generation plus net imports.
+- The 30 MB file is fetched at most once every six days; the publisher updates twice a month.
+- Not built: oil demand from JODI. Its terms of use reserve all rights and grant no reuse of
+  the data, so nothing is built on it until JODI says otherwise. A cross-check of the US
+  figures against the EIA is in the backlog (it needs an EIA key).
+
 ## First-time setup
 
 These are the steps only the repository owner can do.
@@ -265,6 +282,8 @@ uv run python -m pdi.macro.collect        # FRED, BIS, OpenDOSM, IMF, Indeed; no
 uv run python -m pdi.macro.automl         # needs --extra automl
 uv run python -m pdi.macro.export         # flags and writes site/data/v1/macro/
 
+uv run python -m pdi.energy.collect       # Ember electricity demand; no key needed
+uv run python -m pdi.energy.export
 uv run python -m pdi.health               # is every published table fresh?
 uv run python -m pdi.brief --month 2026-11 --force   # write one monthly brief
 uv run python -m pdi.samples              # refresh the live test slices (needs network)
