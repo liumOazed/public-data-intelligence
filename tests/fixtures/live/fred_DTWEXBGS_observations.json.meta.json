@@ -1,6 +1,6 @@
 {
   "url": "https://api.stlouisfed.org/fred/series/observations?series_id=DTWEXBGS&observation_start=2025-01-01&api_key=REDACTED&file_type=json&frequency=m&aggregation_method=avg",
-  "retrieved_at": "2026-11-15T10:24:47+00:00",
+  "retrieved_at": "2026-11-15T10:27:20+00:00",
   "full_response_bytes": 2545,
   "full_response_sha256": "4396a9ee5f5dae536d149ebeebaa7ac7c7caba951a50eca2bb9d806b3240f203",
   "slice": "from 2025-01"

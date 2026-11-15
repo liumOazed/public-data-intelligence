@@ -1,6 +1,6 @@
 {
   "url": "https://stats.bis.org/api/v1/data/WS_CBPOL/M.ID+MY+PH+SG+TH+VN/all?format=csv&detail=dataonly&startPeriod=2026-01",
-  "retrieved_at": "2026-11-15T10:24:50+00:00",
+  "retrieved_at": "2026-11-15T10:27:21+00:00",
   "full_response_bytes": 719,
   "full_response_sha256": "6aa1e5f9733edc62dbc9fdc0e3a4333a8812d35e85e251850441f0b24036a6fe",
   "slice": "whole answer from 2026-01"
