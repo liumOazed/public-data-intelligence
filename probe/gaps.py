@@ -7,7 +7,7 @@ from pdi.common.fetch import USER_AGENT
 check = pd.read_parquet(config.CHECK)
 bad = check[~check["within_limit"]].copy()
 print("failing months", len(bad))
-F = ["Award ID", "Mod", "Transaction Amount", "Action Date", "internal_id", "Awarding Agency", "Award Type", "Last Modified Date", "generated_internal_id"]
+F = ["Award ID", "Mod", "Transaction Amount", "Action Date", "internal_id", "Awarding Agency", "Award Type", "generated_internal_id"]
 
 def listed(period):
     end = (period + pd.offsets.MonthEnd(0)).date()
