@@ -1,0 +1,18 @@
+---
+title: "Monthly briefs"
+subtitle: "What changed each month, written by the pipeline from its own stored tables"
+listing:
+  contents: "20*.md"
+  sort: "date desc"
+  type: table
+  fields: [title, date, description]
+  date-format: "D MMMM YYYY"
+---
+
+The first daily run of each month writes a brief for the month before: which series gained a
+new reading or were revised, which new readings moved unusually, which earlier flags held or
+reversed, how listed prices moved, where each out-of-sample test stands, and on how many days
+the pipeline ran. Nobody edits a brief after it is written; the code that writes it is
+[`pdi/brief.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/brief.py).
+
+Briefs start with November 2026, the first month the pipeline ran.

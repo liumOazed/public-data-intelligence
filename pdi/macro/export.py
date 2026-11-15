@@ -17,7 +17,7 @@ from pdi.common.export import write_table
 from pdi.macro import config, flags, store
 
 M = config.MODULE
-SOURCES = ["fred", "bis", "opendosm", "indeed_postings"]
+SOURCES = ["fred", "bis", "opendosm", "imf", "indeed_postings"]
 LIMITS = [
     "Figures are the latest published values and are revised by their publishers. A flag can "
     "appear or disappear when a figure is revised.",
@@ -25,12 +25,16 @@ LIMITS = [
     "the move happened or what comes next, and it is a research lead, not advice.",
     "With a threshold of 2.5 spreads, roughly one or two readings in a hundred are flagged by "
     "chance alone, and more for series with fat tails. The backtest shows how often.",
-    "Southeast Asian series come from the BIS, which compiles them from national sources on "
-    "one definition. Vietnam has only its exchange rate there, and Singapore has no policy rate.",
+    "Southeast Asian series come from the BIS and the IMF, which compile them from national "
+    "sources on one definition per measure. The BIS has no consumer prices, policy rate or real "
+    "effective exchange rate for Vietnam (its consumer prices come from the IMF) and no policy "
+    "rate for Singapore. Trade and reserves are in US dollars, so a move can be a currency move.",
     "This product uses the FRED® API but is not endorsed or certified by the Federal Reserve "
     "Bank of St. Louis.",
-    "Source: BIS statistics, FRED (Federal Reserve Bank of St. Louis, from US federal "
-    "agencies), Department of Statistics Malaysia (OpenDOSM), Indeed Hiring Lab (CC BY 4.0). "
+    "Source: BIS statistics; FRED (Federal Reserve Bank of St. Louis, from US federal "
+    "agencies); Department of Statistics Malaysia (OpenDOSM); International Monetary Fund, "
+    "International Trade in Goods, International Liquidity and Consumer Price Index datasets "
+    "(https://data.imf.org); Indeed Hiring Lab (CC BY 4.0). "
     "Surprises, flags and forecasts are this site's calculations, not the publishers'.",
 ]
 FORECAST_LIMITS = [
@@ -169,8 +173,9 @@ def export_flags(obs: pd.DataFrame, retrieved: dict) -> None:
         M, "neighbours",
         recent[["period", "country", "indicator", "name", "own_z", "neighbours_median_z",
                 "n_neighbours", "gap", "z"]].round(3),
-        sources=["bis"], retrieved_at=retrieved, limitations=LIMITS,
-        description="For measures the BIS defines the same way in each country: each economy's "
+        sources=["bis", "imf"], retrieved_at=retrieved, limitations=LIMITS,
+        description="For measures the BIS or IMF defines the same way in each country: each "
+        "economy's "
         "surprise beside the median surprise of the other Southeast Asian economies.",
         extra=rule,
     )  # fmt: skip

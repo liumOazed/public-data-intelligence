@@ -205,6 +205,34 @@ sources:
       No key needed. Industrial production, trade, unemployment and producer prices. Trade is
       in ringgit and is not seasonally adjusted.
 
+  imf:
+    name: IMF data (International Trade in Goods, International Liquidity, Consumer Price Index)
+    owner: International Monetary Fund
+    url: https://data.imf.org/
+    endpoint: https://api.imf.org/external/sdmx/2.1/data
+    licence: >-
+      IMF Copyright and Usage, Special Terms for Statistical Data
+      (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create
+      derivative works, publish and distribute IMF data, with attribution in the form "Source:
+      International Monetary Fund, <dataset>, <link>", saying so when the data are materially
+      transformed, and without altering the data in a way that affects their accuracy.
+      Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms
+      also forbid bulk download by automated means without permission; this pipeline asks the
+      public SDMX API for 19 series a day, which is not a bulk download of the database, but
+      the IMF has not been asked to confirm that. The site is non-commercial and cites the
+      IMF under every table.
+    frequency: daily collection; series are monthly
+    typical_lag: one to five months (trade is slowest)
+    status: amber
+    publish: derived
+    module: macro
+    terms_checked: 2026-11-15
+    notes: >-
+      No key needed. Exports and imports of goods and official reserves excluding gold for all
+      six economies, and Vietnam's consumer prices, which the BIS does not carry. The IMF
+      compiles these from each country's authorities. The terms page could not be fetched from
+      GitHub's runners (HTTP 403); it was read through a web search tool on 15 November 2026.
+
   indeed_postings:
     name: Indeed Job Postings Index
     owner: Indeed Hiring Lab

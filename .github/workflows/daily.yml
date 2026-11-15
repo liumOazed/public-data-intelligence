@@ -15,6 +15,7 @@ on:
         default: false
 
 permissions:
+  actions: read # the monthly brief counts this workflow's own runs
   contents: write
   issues: write
   pages: write
@@ -63,7 +64,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 90
 
-      - name: Collect macro series (FRED, BIS, OpenDOSM, Indeed)
+      - name: Collect macro series (FRED, BIS, OpenDOSM, IMF, Indeed)
         env:
           # Optional. Without it the collector uses FRED's public CSV download.
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -74,6 +75,14 @@ jobs:
           uv run python -m pdi.tech_value.export
           uv run python -m pdi.macro.export
 
+      - name: Monthly brief (first run of a month writes last month's; otherwise does nothing)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run list --workflow daily.yml --branch main --limit 200 \
+            --json conclusion,createdAt,event > "$RUNNER_TEMP/runs.json" || echo "[]" > "$RUNNER_TEMP/runs.json"
+          uv run python -m pdi.brief --runs "$RUNNER_TEMP/runs.json"
+
       - name: Commit derived tables
         # A manual run on another branch is a dry run: it tests the pipeline against live
         # sources and publishes nothing.
@@ -81,7 +90,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/store site/data/v1
+          git add data/store site/data/v1 site/briefs
           if git diff --cached --quiet; then
             echo "nothing changed"
           else

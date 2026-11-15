@@ -178,10 +178,47 @@ DOSM_SERIES = [
 ]  # fmt: skip
 
 
+# --- Southeast Asia from the IMF ----------------------------------------------------------------
+# Trade and reserves on one definition for all six economies, compiled by the IMF from each
+# country's authorities, so these too can be set against the neighbours. Vietnam's consumer
+# prices come from here as well, because the BIS table has no Vietnam. Checked on GitHub's
+# runners on 15 November 2026: every series below answered, with the latest month between
+# June and October 2026. Industrial production was looked at and left out: the IMF's table
+# stops in 2025 or earlier for every one of the six.
+ISO3 = {"ID": "IDN", "MY": "MYS", "PH": "PHL", "SG": "SGP", "TH": "THA", "VN": "VNM"}
+IMF_INDICATORS = {
+    # indicator: (dataflow, key template, countries, name, units, transform, seasonal, up, down)
+    "exports_usd": ("ITG", "{c}.XG.FOB_USD.M", SEA, "Exports of goods, free on board",
+                    "US dollars", "log", "nsa", "rose", "fell"),
+    "imports_usd": ("ITG", "{c}.MG.CIF_USD.M", SEA, "Imports of goods, cost insurance freight",
+                    "US dollars", "log", "nsa", "rose", "fell"),
+    # Excluding gold, so a move in the gold price is not read as a move in reserves.
+    "reserves": ("IL", "{c}.RXF11_REVS.USD.M", SEA, "Official reserves excluding gold",
+                 "US dollars", "log", "sa", "rose", "fell"),
+    "cpi": ("CPI", "{c}.CPI._T.IX.M", ("VN",), "Consumer prices (CPI)", "index", "log", "nsa",
+            "rose", "fell"),
+}  # fmt: skip
+
+
+def imf_series() -> list[Series]:
+    out = []
+    for ind, (flow, _key, countries, name, units, tr, seas, up, down) in IMF_INDICATORS.items():
+        for c in countries:
+            out.append(Series(f"{c}.{ind}", c, ind, name, units, "imf", flow, tr, seas, up, down))
+    return out
+
+
+# Checked on the first live run: the BIS publishes no such series. Vietnam's consumer prices
+# come from the IMF instead (see IMF_INDICATORS).
+BIS_NOT_PUBLISHED = {"VN.cpi", "VN.policy_rate", "VN.reer", "SG.policy_rate"}
+
+
 def bis_series() -> list[Series]:
     out = []
     for ind, (flow, _key, name, units, tr, seas, up, down) in BIS_INDICATORS.items():
         for c in SEA:
+            if f"{c}.{ind}" in BIS_NOT_PUBLISHED:
+                continue
             out.append(Series(f"{c}.{ind}", c, ind, name, units, "bis", flow, tr, seas, up, down))
     return out
 
@@ -194,16 +231,17 @@ def dosm_series() -> list[Series]:
 
 
 def catalogue() -> dict[str, Series]:
-    rows = US_SERIES + INDEED_SERIES + bis_series() + dosm_series()
+    rows = US_SERIES + INDEED_SERIES + bis_series() + dosm_series() + imf_series()
     out = {s.id: s for s in rows}
     if len(out) != len(rows):
         raise ValueError("duplicate series id in the Macro Monitor catalogue")
     return out
 
 
-# Indicators compared across Southeast Asia. Only BIS measures qualify: the definition is the
-# same in every country.
-NEIGHBOUR_INDICATORS = tuple(BIS_INDICATORS)
+# Indicators compared across Southeast Asia: only those compiled on one definition for every
+# country, by the BIS or the IMF. Consumer prices mix the two (Vietnam's from the IMF, the
+# others from the BIS); both are the national all-items index.
+NEIGHBOUR_INDICATORS = tuple(BIS_INDICATORS) + ("exports_usd", "imports_usd", "reserves")
 
 # --- Collection --------------------------------------------------------------------------------
 FRED_KEY_ENV = "FRED_API_KEY"
@@ -211,13 +249,15 @@ FRED_API = "https://api.stlouisfed.org/fred"
 FRED_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
 BIS_API = "https://stats.bis.org/api/v1/data"
 DOSM_API = "https://api.data.gov.my/opendosm"
+IMF_API = "https://api.imf.org/external/sdmx/2.1/data"
+IMF_CSV_ACCEPT = "application/vnd.sdmx.data+csv;version=1.0.0"
 INDEED_URL = (
     "https://raw.githubusercontent.com/hiring-lab/job_postings_tracker/master/US/"
     "aggregate_job_postings_US.csv"
 )
 HISTORY_START = "1990-01"
 # Below this many series collected, assume a source changed format and stop the run.
-MIN_SERIES_COLLECTED = 40
+MIN_SERIES_COLLECTED = 60
 
 # --- Flags, written on 15 November 2026 before any flag was computed ---------------------------
 # A move is measured as the month's change (see Series.transform). Its expected value is the

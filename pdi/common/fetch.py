@@ -34,6 +34,7 @@ def fetch(
     dest: Path,
     *,
     params: dict | None = None,
+    headers: dict | None = None,
     retries: int = 4,
     timeout: int = 120,
     session: requests.Session | None = None,
@@ -46,7 +47,12 @@ def fetch(
         if attempt:
             time.sleep(2**attempt)
         try:
-            resp = http.get(url, params=params, timeout=timeout, headers={"User-Agent": USER_AGENT})
+            resp = http.get(
+                url,
+                params=params,
+                timeout=timeout,
+                headers={"User-Agent": USER_AGENT, **(headers or {})},
+            )
         except requests.RequestException as exc:
             last = type(exc).__name__
             continue

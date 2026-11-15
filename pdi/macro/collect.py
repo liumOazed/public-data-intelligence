@@ -9,6 +9,8 @@ Sources, all free and with reuse terms recorded in sources/registry.yaml:
 * BIS (Southeast Asia). Policy rates, consumer prices and exchange rates on one definition
   for every country, so countries can be compared.
 * OpenDOSM (Malaysia). Industrial output, trade, unemployment and producer prices.
+* IMF (Southeast Asia). Exports, imports and reserves for all six economies on one
+  definition, and Vietnam's consumer prices.
 * Indeed Hiring Lab (US). Daily job postings index, averaged to months.
 
 Run as `python -m pdi.macro.collect`.
@@ -220,6 +222,55 @@ def collect_dosm(raw_dir: Path, today: date) -> tuple[pd.DataFrame, str | None]:
     return pd.concat(frames, ignore_index=True), retrieved
 
 
+# --- IMF ---------------------------------------------------------------------------------------
+
+
+def parse_imf_csv(text: str, indicator: str) -> pd.DataFrame:
+    """SDMX-CSV from the IMF data API -> tidy rows for one indicator.
+
+    Periods come as "2026-M06". OBS_VALUE is in units (dollars, index points); the SCALE column
+    only says how the IMF displays the number, so it is not applied.
+    """
+    raw = pd.read_csv(io.StringIO(text), dtype=str)
+    need = {"COUNTRY", "TIME_PERIOD", "OBS_VALUE"}
+    if not need <= set(raw.columns):
+        raise CollectError(f"IMF {indicator} answer has columns {list(raw.columns)[:12]}")
+    back = {v: k for k, v in config.ISO3.items()}
+    raw = raw[raw["COUNTRY"].isin(back)]
+    df = pd.DataFrame(
+        {
+            "series_id": raw["COUNTRY"].map(back) + "." + indicator,
+            "period": _month(raw["TIME_PERIOD"].str.replace("-M", "-", regex=False)).values,
+            "value": pd.to_numeric(raw["OBS_VALUE"], errors="coerce").values,
+        }
+    ).dropna()
+    if df.empty:
+        raise CollectError(f"IMF {indicator} answer has no usable rows")
+    if df.duplicated(["series_id", "period"]).any():
+        raise CollectError(f"IMF {indicator} answer has more than one value per country and month")
+    return df
+
+
+def collect_imf(raw_dir: Path, today: date) -> tuple[pd.DataFrame, str | None]:
+    frames, retrieved = [], None
+    for ind, (flow, template, countries, *_rest) in config.IMF_INDICATORS.items():
+        key = template.replace("{c}", "+".join(config.ISO3[c] for c in countries))
+        path = fetch(
+            f"{config.IMF_API}/IMF.STA,{flow}/{key}",
+            raw_dir / "imf" / f"{today.isoformat()}_{flow}_{ind}.csv",
+            params={"startPeriod": config.HISTORY_START},
+            headers={"Accept": config.IMF_CSV_ACCEPT},
+        )
+        retrieved = read_meta(path)["retrieved_at"]
+        df = parse_imf_csv(path.read_text(), ind)
+        missing = sorted(set(countries) - {s.split(".")[0] for s in df["series_id"]})
+        if missing:
+            raise CollectError(f"IMF {flow} {ind}: no data for {missing}")
+        print(f"IMF {flow} {ind}: {df['series_id'].nunique()} countries")
+        frames.append(df)
+    return pd.concat(frames, ignore_index=True), retrieved
+
+
 # --- Indeed ------------------------------------------------------------------------------------
 
 
@@ -248,6 +299,7 @@ COLLECTORS = {
     "fred": collect_fred,
     "bis": collect_bis,
     "opendosm": collect_dosm,
+    "imf": collect_imf,
     "indeed_postings": collect_indeed,
 }
 
