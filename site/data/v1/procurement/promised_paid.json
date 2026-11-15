@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "promised_paid",
   "description": "For the awards that began in each fiscal year: money promised, the ceiling if every option is used, and money paid, with how many awards report a paid figure.",
-  "generated_at": "2026-11-15T16:03:31+00:00",
+  "generated_at": "2026-11-15T16:30:50+00:00",
   "rows": 10,
   "columns": [
    "fiscal_year",

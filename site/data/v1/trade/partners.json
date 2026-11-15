@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "partners",
   "description": "Each partner's share of all US goods imports over the latest twelve months, against 2017 and against a year earlier.",
-  "generated_at": "2026-11-15T11:18:18+00:00",
+  "generated_at": "2026-11-15T16:30:49+00:00",
   "rows": 7,
   "columns": [
    "partner",

@@ -3,8 +3,8 @@
   "module": "macro",
   "table": "series",
   "description": "One row per series: the latest value, its monthly move, the usual move and how many spreads apart they are.",
-  "generated_at": "2026-11-15T06:22:10+00:00",
-  "rows": 51,
+  "generated_at": "2026-11-15T16:30:48+00:00",
+  "rows": 70,
   "columns": [
    "series_id",
    "country",
@@ -31,7 +31,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-15T06:09:17+00:00"
+    "retrieved_at": "2026-11-15T16:30:21+00:00"
    },
    {
     "id": "bis",
@@ -40,7 +40,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-15T06:09:20+00:00"
+    "retrieved_at": "2026-11-15T16:30:24+00:00"
    },
    {
     "id": "opendosm",
@@ -49,7 +49,16 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-15T06:09:39+00:00"
+    "retrieved_at": "2026-11-15T16:30:34+00:00"
+   },
+   {
+    "id": "imf",
+    "name": "IMF data (International Trade in Goods, International Liquidity, Consumer Price Index)",
+    "url": "https://data.imf.org/",
+    "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
+    "frequency": "daily collection; series are monthly",
+    "typical_lag": "one to five months (trade is slowest)",
+    "retrieved_at": "2026-11-15T16:30:37+00:00"
    },
    {
     "id": "indeed_postings",
@@ -58,7 +67,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-15T06:09:40+00:00"
+    "retrieved_at": "2026-11-15T16:30:37+00:00"
    }
   ],
   "preliminary": false,
@@ -66,9 +75,9 @@
    "Figures are the latest published values and are revised by their publishers. A flag can appear or disappear when a figure is revised.",
    "A flag means a move was large against the series' own last ten years. It does not say why the move happened or what comes next, and it is a research lead, not advice.",
    "With a threshold of 2.5 spreads, roughly one or two readings in a hundred are flagged by chance alone, and more for series with fat tails. The backtest shows how often.",
-   "Southeast Asian series come from the BIS, which compiles them from national sources on one definition. Vietnam has only its exchange rate there, and Singapore has no policy rate.",
+   "Southeast Asian series come from the BIS and the IMF, which compile them from national sources on one definition per measure. The BIS has no consumer prices, policy rate or real effective exchange rate for Vietnam (its consumer prices come from the IMF) and no policy rate for Singapore. Trade and reserves are in US dollars, so a move can be a currency move.",
    "This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.",
-   "Source: BIS statistics, FRED (Federal Reserve Bank of St. Louis, from US federal agencies), Department of Statistics Malaysia (OpenDOSM), Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
+   "Source: BIS statistics; FRED (Federal Reserve Bank of St. Louis, from US federal agencies); Department of Statistics Malaysia (OpenDOSM); International Monetary Fund, International Trade in Goods, International Liquidity and Consumer Price Index datasets (https://data.imf.org); Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
   ],
   "flag_z": 2.5,
   "history_months": 120,
@@ -115,6 +124,24 @@
    "flagged": true,
    "seasonal_comparison": false,
    "months_of_history": 439
+  },
+  {
+   "series_id": "PH.reserves",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "IL",
+   "latest_month": "2026-09-01T00:00:00",
+   "value": 81672032841.9401,
+   "move": -4.857404863410508,
+   "move_unit": "percent",
+   "expected_move": -0.07976759213441653,
+   "z": -3.0759221928074165,
+   "flagged": true,
+   "seasonal_comparison": false,
+   "months_of_history": 189
   },
   {
    "series_id": "PH.cpi",
@@ -171,6 +198,42 @@
    "months_of_history": 435
   },
   {
+   "series_id": "MY.imports_usd",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 40114000000.0,
+   "move": 9.572907392997365,
+   "move_unit": "percent",
+   "expected_move": -4.122993259576191,
+   "z": 2.3423944812373416,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
+  },
+  {
+   "series_id": "ID.exports_usd",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 25459000000.0,
+   "move": 9.278773440293264,
+   "move_unit": "percent",
+   "expected_move": -5.095455754028677,
+   "z": 2.284992128794051,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
+  },
+  {
    "series_id": "MY.imports",
    "country": "Malaysia",
    "indicator": "imports",
@@ -205,6 +268,24 @@
    "flagged": false,
    "seasonal_comparison": false,
    "months_of_history": 393
+  },
+  {
+   "series_id": "PH.exports_usd",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 8772000000.0,
+   "move": 9.851869596466756,
+   "move_unit": "percent",
+   "expected_move": 0.05528143389277318,
+   "z": 1.8252167424508892,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
   },
   {
    "series_id": "US.pce_prices",
@@ -315,6 +396,24 @@
    "months_of_history": 310
   },
   {
+   "series_id": "TH.imports_usd",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 41191000000.0,
+   "move": 2.824093633336844,
+   "move_unit": "percent",
+   "expected_move": -3.6221730209424763,
+   "z": 1.1117033900591586,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
+  },
+  {
    "series_id": "US.job_openings",
    "country": "United States",
    "indicator": "job_openings",
@@ -403,6 +502,24 @@
    "flagged": false,
    "seasonal_comparison": false,
    "months_of_history": 441
+  },
+  {
+   "series_id": "ID.imports_usd",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 25909000000.0,
+   "move": 4.318238867151436,
+   "move_unit": "percent",
+   "expected_move": -5.009629288008988,
+   "z": 0.8997864634911326,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
   },
   {
    "series_id": "ID.fx_usd",
@@ -529,6 +646,42 @@
    "flagged": false,
    "seasonal_comparison": true,
    "months_of_history": 441
+  },
+  {
+   "series_id": "VN.cpi",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "units": "index",
+   "source": "imf",
+   "source_code": "CPI",
+   "latest_month": "2026-09-01T00:00:00",
+   "value": 108.66,
+   "move": 0.6185110878708322,
+   "move_unit": "percent",
+   "expected_move": 0.41125260017533805,
+   "z": 0.7570966336461943,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 189
+  },
+  {
+   "series_id": "MY.exports_usd",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 43777000000.0,
+   "move": -6.133250561604697,
+   "move_unit": "percent",
+   "expected_move": -0.19727735072905261,
+   "z": -0.7436389490596662,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
   },
   {
    "series_id": "US.housing_starts",
@@ -765,6 +918,60 @@
    "months_of_history": 442
   },
   {
+   "series_id": "PH.imports_usd",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 14395000000.0,
+   "move": -2.571717247914762,
+   "move_unit": "percent",
+   "expected_move": 0.19042167084464268,
+   "z": -0.43228709593267495,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
+  },
+  {
+   "series_id": "TH.reserves",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "IL",
+   "latest_month": "2026-10-01T00:00:00",
+   "value": 243640770318.4523,
+   "move": -0.46784417172958115,
+   "move_unit": "percent",
+   "expected_move": 0.3773749148416883,
+   "z": -0.4219061630902845,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 190
+  },
+  {
+   "series_id": "VN.reserves",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "IL",
+   "latest_month": "2026-08-01T00:00:00",
+   "value": 84614388002.1245,
+   "move": -0.18030076305670661,
+   "move_unit": "percent",
+   "expected_move": 0.6378569176192173,
+   "z": -0.40977718152283416,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 188
+  },
+  {
    "series_id": "US.money_supply",
    "country": "United States",
    "indicator": "money_supply",
@@ -783,6 +990,42 @@
    "months_of_history": 441
   },
   {
+   "series_id": "SG.exports_usd",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-07-01T00:00:00",
+   "value": 69957000000.0,
+   "move": 5.28767222630222,
+   "move_unit": "percent",
+   "expected_move": 2.9924595462158976,
+   "z": 0.3556420387099647,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 187
+  },
+  {
+   "series_id": "SG.reserves",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "IL",
+   "latest_month": "2026-09-01T00:00:00",
+   "value": 427196675870.2368,
+   "move": 0.012335781617878183,
+   "move_unit": "percent",
+   "expected_move": 0.5309982440607541,
+   "z": -0.3424250198186669,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 189
+  },
+  {
    "series_id": "US.hourly_earnings",
    "country": "United States",
    "indicator": "hourly_earnings",
@@ -799,6 +1042,24 @@
    "flagged": false,
    "seasonal_comparison": false,
    "months_of_history": 248
+  },
+  {
+   "series_id": "SG.imports_usd",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-07-01T00:00:00",
+   "value": 60184000000.0,
+   "move": 6.515016634924109,
+   "move_unit": "percent",
+   "expected_move": 4.915554136349165,
+   "z": 0.2881666124156245,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 187
   },
   {
    "series_id": "MY.fx_usd",
@@ -837,6 +1098,24 @@
    "months_of_history": 442
   },
   {
+   "series_id": "VN.exports_usd",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-07-01T00:00:00",
+   "value": 53095000000.0,
+   "move": 4.444234553258752,
+   "move_unit": "percent",
+   "expected_move": 3.088767569512818,
+   "z": 0.2404322345581763,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 187
+  },
+  {
    "series_id": "US.consumer_spending",
    "country": "United States",
    "indicator": "consumer_spending",
@@ -855,6 +1134,42 @@
    "months_of_history": 441
   },
   {
+   "series_id": "MY.reserves",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "IL",
+   "latest_month": "2026-10-01T00:00:00",
+   "value": 126404630757.1604,
+   "move": 0.46511411767191646,
+   "move_unit": "percent",
+   "expected_move": 0.2748193936429999,
+   "z": 0.21977085509317104,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 190
+  },
+  {
+   "series_id": "ID.reserves",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "IL",
+   "latest_month": "2026-09-01T00:00:00",
+   "value": 134587071354.5274,
+   "move": 0.40271426413696076,
+   "move_unit": "percent",
+   "expected_move": 0.03919375870644615,
+   "z": 0.17139496474117938,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 189
+  },
+  {
    "series_id": "ID.reer",
    "country": "Indonesia",
    "indicator": "reer",
@@ -871,6 +1186,24 @@
    "flagged": false,
    "seasonal_comparison": false,
    "months_of_history": 393
+  },
+  {
+   "series_id": "TH.exports_usd",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-06-01T00:00:00",
+   "value": 34656000000.0,
+   "move": 0.9363880042048578,
+   "move_unit": "percent",
+   "expected_move": 1.2885159414400604,
+   "z": -0.05852740811782041,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 186
   },
   {
    "series_id": "MY.cpi",
@@ -907,6 +1240,24 @@
    "flagged": false,
    "seasonal_comparison": false,
    "months_of_history": 204
+  },
+  {
+   "series_id": "VN.imports_usd",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "units": "US dollars",
+   "source": "imf",
+   "source_code": "ITG",
+   "latest_month": "2026-07-01T00:00:00",
+   "value": 56668000000.0,
+   "move": 5.879986009376736,
+   "move_unit": "percent",
+   "expected_move": 6.078128390963755,
+   "z": -0.030557870728913764,
+   "flagged": false,
+   "seasonal_comparison": true,
+   "months_of_history": 187
   },
   {
    "series_id": "SG.reer",

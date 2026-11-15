@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "chapter_shifts",
   "description": "Share of US imports by partner and product chapter, latest twelve months, with the change since 2017, in points.",
-  "generated_at": "2026-11-15T11:18:18+00:00",
+  "generated_at": "2026-11-15T16:30:49+00:00",
   "rows": 672,
   "columns": [
    "partner",

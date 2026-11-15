@@ -2,9 +2,9 @@
  "meta": {
   "module": "macro",
   "table": "neighbours",
-  "description": "For measures the BIS defines the same way in each country: each economy's surprise beside the median surprise of the other Southeast Asian economies.",
-  "generated_at": "2026-11-15T06:22:10+00:00",
-  "rows": 246,
+  "description": "For measures the BIS or IMF defines the same way in each country: each economy's surprise beside the median surprise of the other Southeast Asian economies.",
+  "generated_at": "2026-11-15T16:30:48+00:00",
+  "rows": 443,
   "columns": [
    "period",
    "country",
@@ -24,7 +24,16 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-15T06:09:20+00:00"
+    "retrieved_at": "2026-11-15T16:30:24+00:00"
+   },
+   {
+    "id": "imf",
+    "name": "IMF data (International Trade in Goods, International Liquidity, Consumer Price Index)",
+    "url": "https://data.imf.org/",
+    "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
+    "frequency": "daily collection; series are monthly",
+    "typical_lag": "one to five months (trade is slowest)",
+    "retrieved_at": "2026-11-15T16:30:37+00:00"
    }
   ],
   "preliminary": false,
@@ -32,9 +41,9 @@
    "Figures are the latest published values and are revised by their publishers. A flag can appear or disappear when a figure is revised.",
    "A flag means a move was large against the series' own last ten years. It does not say why the move happened or what comes next, and it is a research lead, not advice.",
    "With a threshold of 2.5 spreads, roughly one or two readings in a hundred are flagged by chance alone, and more for series with fat tails. The backtest shows how often.",
-   "Southeast Asian series come from the BIS, which compiles them from national sources on one definition. Vietnam has only its exchange rate there, and Singapore has no policy rate.",
+   "Southeast Asian series come from the BIS and the IMF, which compile them from national sources on one definition per measure. The BIS has no consumer prices, policy rate or real effective exchange rate for Vietnam (its consumer prices come from the IMF) and no policy rate for Singapore. Trade and reserves are in US dollars, so a move can be a currency move.",
    "This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.",
-   "Source: BIS statistics, FRED (Federal Reserve Bank of St. Louis, from US federal agencies), Department of Statistics Malaysia (OpenDOSM), Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
+   "Source: BIS statistics; FRED (Federal Reserve Bank of St. Louis, from US federal agencies); Department of Statistics Malaysia (OpenDOSM); International Monetary Fund, International Trade in Goods, International Liquidity and Consumer Price Index datasets (https://data.imf.org); Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
   ],
   "flag_z": 2.5,
   "history_months": 120,
@@ -52,10 +61,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.274,
-   "neighbours_median_z": -0.581,
-   "n_neighbours": 4,
-   "gap": 1.855,
-   "z": 1.383
+   "neighbours_median_z": -0.397,
+   "n_neighbours": 5,
+   "gap": 1.671,
+   "z": 1.204
   },
   {
    "period": "2025-11-01T00:00:00",
@@ -63,10 +72,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.684,
-   "neighbours_median_z": -0.589,
-   "n_neighbours": 4,
-   "gap": -0.095,
-   "z": 0.258
+   "neighbours_median_z": -0.377,
+   "n_neighbours": 5,
+   "gap": -0.307,
+   "z": 0.047
   },
   {
    "period": "2025-12-01T00:00:00",
@@ -74,10 +83,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.948,
-   "neighbours_median_z": 0.838,
-   "n_neighbours": 4,
-   "gap": 0.11,
-   "z": 0.374
+   "neighbours_median_z": 0.632,
+   "n_neighbours": 5,
+   "gap": 0.316,
+   "z": 0.393
   },
   {
    "period": "2026-01-01T00:00:00",
@@ -85,10 +94,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -3.205,
-   "neighbours_median_z": -0.886,
-   "n_neighbours": 4,
-   "gap": -2.319,
-   "z": -1.016
+   "neighbours_median_z": -1.279,
+   "n_neighbours": 5,
+   "gap": -1.926,
+   "z": -0.872
   },
   {
    "period": "2026-02-01T00:00:00",
@@ -96,10 +105,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 3.243,
-   "neighbours_median_z": 0.021,
-   "n_neighbours": 4,
-   "gap": 3.223,
-   "z": 2.15
+   "neighbours_median_z": 0.067,
+   "n_neighbours": 5,
+   "gap": 3.176,
+   "z": 2.003
   },
   {
    "period": "2026-03-01T00:00:00",
@@ -107,10 +116,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.191,
-   "neighbours_median_z": 1.941,
-   "n_neighbours": 4,
-   "gap": -0.75,
-   "z": -0.11
+   "neighbours_median_z": 2.337,
+   "n_neighbours": 5,
+   "gap": -1.146,
+   "z": -0.386
   },
   {
    "period": "2026-04-01T00:00:00",
@@ -118,10 +127,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.32,
-   "neighbours_median_z": 5.275,
-   "n_neighbours": 4,
-   "gap": -5.595,
-   "z": -2.902
+   "neighbours_median_z": 2.91,
+   "n_neighbours": 5,
+   "gap": -3.23,
+   "z": -1.512
   },
   {
    "period": "2026-05-01T00:00:00",
@@ -129,10 +138,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.312,
-   "neighbours_median_z": -0.592,
-   "n_neighbours": 4,
-   "gap": 0.904,
-   "z": 0.831
+   "neighbours_median_z": -0.365,
+   "n_neighbours": 5,
+   "gap": 0.676,
+   "z": 0.628
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -140,10 +149,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.059,
-   "neighbours_median_z": -0.996,
-   "n_neighbours": 4,
-   "gap": 0.937,
-   "z": 0.831
+   "neighbours_median_z": -1.292,
+   "n_neighbours": 5,
+   "gap": 1.234,
+   "z": 0.929
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -151,10 +160,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -2.178,
-   "neighbours_median_z": -0.871,
-   "n_neighbours": 4,
-   "gap": -1.307,
-   "z": -0.405
+   "neighbours_median_z": -0.984,
+   "n_neighbours": 5,
+   "gap": -1.194,
+   "z": -0.373
   },
   {
    "period": "2026-08-01T00:00:00",
@@ -162,10 +171,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.541,
-   "neighbours_median_z": 0.936,
-   "n_neighbours": 3,
-   "gap": 0.605,
-   "z": 0.67
+   "neighbours_median_z": 0.996,
+   "n_neighbours": 4,
+   "gap": 0.545,
+   "z": 0.561
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -173,10 +182,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.047,
-   "neighbours_median_z": 0.783,
-   "n_neighbours": 3,
-   "gap": 0.264,
-   "z": 0.469
+   "neighbours_median_z": 0.77,
+   "n_neighbours": 4,
+   "gap": 0.277,
+   "z": 0.412
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -184,10 +193,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.411,
-   "neighbours_median_z": 0.438,
-   "n_neighbours": 4,
-   "gap": -1.849,
-   "z": -1.402
+   "neighbours_median_z": -0.148,
+   "n_neighbours": 5,
+   "gap": -1.263,
+   "z": -1.009
   },
   {
    "period": "2025-11-01T00:00:00",
@@ -195,10 +204,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.448,
-   "neighbours_median_z": -0.531,
-   "n_neighbours": 4,
-   "gap": -0.917,
-   "z": -0.613
+   "neighbours_median_z": -0.377,
+   "n_neighbours": 5,
+   "gap": -1.071,
+   "z": -0.797
   },
   {
    "period": "2025-12-01T00:00:00",
@@ -206,10 +215,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.044,
-   "neighbours_median_z": 0.79,
-   "n_neighbours": 4,
-   "gap": 0.254,
-   "z": 0.326
+   "neighbours_median_z": 0.632,
+   "n_neighbours": 5,
+   "gap": 0.412,
+   "z": 0.362
   },
   {
    "period": "2026-01-01T00:00:00",
@@ -217,10 +226,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.264,
-   "neighbours_median_z": -1.557,
-   "n_neighbours": 4,
-   "gap": 1.293,
-   "z": 1.12
+   "neighbours_median_z": -1.509,
+   "n_neighbours": 5,
+   "gap": 1.245,
+   "z": 0.997
   },
   {
    "period": "2026-02-01T00:00:00",
@@ -228,10 +237,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.14,
-   "neighbours_median_z": 0.144,
-   "n_neighbours": 4,
-   "gap": -0.284,
-   "z": -0.144
+   "neighbours_median_z": 0.22,
+   "n_neighbours": 5,
+   "gap": -0.36,
+   "z": -0.284
   },
   {
    "period": "2026-03-01T00:00:00",
@@ -239,10 +248,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.545,
-   "neighbours_median_z": 1.764,
-   "n_neighbours": 4,
-   "gap": -0.219,
-   "z": -0.068
+   "neighbours_median_z": 2.337,
+   "n_neighbours": 5,
+   "gap": -0.792,
+   "z": -0.581
   },
   {
    "period": "2026-04-01T00:00:00",
@@ -250,10 +259,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.527,
-   "neighbours_median_z": 4.351,
-   "n_neighbours": 4,
-   "gap": -2.824,
-   "z": -2.179
+   "neighbours_median_z": 2.91,
+   "n_neighbours": 5,
+   "gap": -1.383,
+   "z": -1.05
   },
   {
    "period": "2026-05-01T00:00:00",
@@ -261,10 +270,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.365,
-   "neighbours_median_z": -0.254,
-   "n_neighbours": 4,
-   "gap": -0.111,
-   "z": 0.044
+   "neighbours_median_z": 0.312,
+   "n_neighbours": 5,
+   "gap": -0.676,
+   "z": -0.479
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -272,10 +281,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.7,
-   "neighbours_median_z": -0.675,
-   "n_neighbours": 4,
-   "gap": -0.024,
-   "z": 0.115
+   "neighbours_median_z": -1.292,
+   "n_neighbours": 5,
+   "gap": 0.593,
+   "z": 0.508
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -283,10 +292,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.757,
-   "neighbours_median_z": -1.581,
-   "n_neighbours": 4,
-   "gap": 0.823,
-   "z": 0.772
+   "neighbours_median_z": -1.558,
+   "n_neighbours": 5,
+   "gap": 0.801,
+   "z": 0.66
   },
   {
    "period": "2026-08-01T00:00:00",
@@ -294,10 +303,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.936,
-   "neighbours_median_z": 1.541,
-   "n_neighbours": 3,
-   "gap": -0.605,
-   "z": -0.384
+   "neighbours_median_z": 1.299,
+   "n_neighbours": 4,
+   "gap": -0.362,
+   "z": -0.254
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -305,10 +314,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.034,
-   "neighbours_median_z": 1.047,
-   "n_neighbours": 3,
-   "gap": -1.081,
-   "z": -0.789
+   "neighbours_median_z": 0.915,
+   "n_neighbours": 4,
+   "gap": -0.949,
+   "z": -0.697
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -316,10 +325,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.397,
-   "neighbours_median_z": 0.254,
-   "n_neighbours": 4,
-   "gap": -0.652,
-   "z": -0.534
+   "neighbours_median_z": -0.148,
+   "n_neighbours": 5,
+   "gap": -0.25,
+   "z": -0.388
   },
   {
    "period": "2025-11-01T00:00:00",
@@ -327,10 +336,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.801,
-   "neighbours_median_z": -0.531,
-   "n_neighbours": 4,
-   "gap": -0.271,
-   "z": -0.265
+   "neighbours_median_z": -0.377,
+   "n_neighbours": 5,
+   "gap": -0.424,
+   "z": -0.497
   },
   {
    "period": "2025-12-01T00:00:00",
@@ -338,10 +347,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.946,
-   "neighbours_median_z": 0.79,
-   "n_neighbours": 4,
-   "gap": 1.156,
-   "z": 0.694
+   "neighbours_median_z": 0.632,
+   "n_neighbours": 5,
+   "gap": 1.314,
+   "z": 0.861
   },
   {
    "period": "2026-01-01T00:00:00",
@@ -349,10 +358,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.512,
-   "neighbours_median_z": -1.557,
-   "n_neighbours": 4,
-   "gap": 2.069,
-   "z": 1.265
+   "neighbours_median_z": -1.509,
+   "n_neighbours": 5,
+   "gap": 2.021,
+   "z": 1.408
   },
   {
    "period": "2026-02-01T00:00:00",
@@ -360,10 +369,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.22,
-   "neighbours_median_z": 0.021,
-   "n_neighbours": 4,
-   "gap": 0.199,
-   "z": 0.026
+   "neighbours_median_z": 0.067,
+   "n_neighbours": 5,
+   "gap": 0.153,
+   "z": -0.081
   },
   {
    "period": "2026-03-01T00:00:00",
@@ -371,10 +380,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 5.021,
-   "neighbours_median_z": 1.368,
-   "n_neighbours": 4,
-   "gap": 3.652,
-   "z": 2.3
+   "neighbours_median_z": 1.545,
+   "n_neighbours": 5,
+   "gap": 3.476,
+   "z": 2.415
   },
   {
    "period": "2026-04-01T00:00:00",
@@ -382,10 +391,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 9.023,
-   "neighbours_median_z": 0.604,
-   "n_neighbours": 4,
-   "gap": 8.419,
-   "z": 5.446
+   "neighbours_median_z": 1.527,
+   "n_neighbours": 5,
+   "gap": 7.495,
+   "z": 5.285
   },
   {
    "period": "2026-05-01T00:00:00",
@@ -393,10 +402,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.851,
-   "neighbours_median_z": -0.026,
-   "n_neighbours": 4,
-   "gap": -1.825,
-   "z": -1.347
+   "neighbours_median_z": 0.312,
+   "n_neighbours": 5,
+   "gap": -2.163,
+   "z": -1.761
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -404,10 +413,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.292,
-   "neighbours_median_z": -0.379,
-   "n_neighbours": 4,
-   "gap": -0.913,
-   "z": -0.696
+   "neighbours_median_z": -0.7,
+   "n_neighbours": 5,
+   "gap": -0.593,
+   "z": -0.618
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -415,10 +424,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.984,
-   "neighbours_median_z": -1.468,
-   "n_neighbours": 4,
-   "gap": 0.484,
-   "z": 0.192
+   "neighbours_median_z": -1.558,
+   "n_neighbours": 5,
+   "gap": 0.574,
+   "z": 0.221
   },
   {
    "period": "2026-08-01T00:00:00",
@@ -426,10 +435,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.817,
-   "neighbours_median_z": 1.541,
-   "n_neighbours": 3,
-   "gap": -0.724,
-   "z": -0.574
+   "neighbours_median_z": 1.299,
+   "n_neighbours": 4,
+   "gap": -0.482,
+   "z": -0.546
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -437,10 +446,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 2.583,
-   "neighbours_median_z": 0.783,
-   "n_neighbours": 3,
-   "gap": 1.8,
-   "z": 1.026
+   "neighbours_median_z": 0.77,
+   "n_neighbours": 4,
+   "gap": 1.813,
+   "z": 1.128
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -448,10 +457,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.608,
-   "neighbours_median_z": -0.581,
-   "n_neighbours": 4,
-   "gap": 2.189,
-   "z": 1.078
+   "neighbours_median_z": -0.397,
+   "n_neighbours": 5,
+   "gap": 2.005,
+   "z": 1.124
   },
   {
    "period": "2025-11-01T00:00:00",
@@ -459,10 +468,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.377,
-   "neighbours_median_z": -0.743,
-   "n_neighbours": 4,
-   "gap": 0.366,
-   "z": -0.121
+   "neighbours_median_z": -0.684,
+   "n_neighbours": 5,
+   "gap": 0.307,
+   "z": -0.175
   },
   {
    "period": "2025-12-01T00:00:00",
@@ -470,10 +479,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.362,
-   "neighbours_median_z": 0.996,
-   "n_neighbours": 4,
-   "gap": -0.634,
-   "z": -0.778
+   "neighbours_median_z": 0.948,
+   "n_neighbours": 5,
+   "gap": -0.586,
+   "z": -0.846
   },
   {
    "period": "2026-01-01T00:00:00",
@@ -481,10 +490,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.605,
-   "neighbours_median_z": -0.886,
-   "n_neighbours": 4,
-   "gap": -0.719,
-   "z": -0.78
+   "neighbours_median_z": -1.279,
+   "n_neighbours": 5,
+   "gap": -0.327,
+   "z": -0.626
   },
   {
    "period": "2026-02-01T00:00:00",
@@ -492,10 +501,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.067,
-   "neighbours_median_z": 0.097,
-   "n_neighbours": 4,
-   "gap": -0.03,
-   "z": -0.31
+   "neighbours_median_z": 0.22,
+   "n_neighbours": 5,
+   "gap": -0.153,
+   "z": -0.491
   },
   {
    "period": "2026-03-01T00:00:00",
@@ -503,10 +512,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 2.337,
-   "neighbours_median_z": 1.368,
-   "n_neighbours": 4,
-   "gap": 0.969,
-   "z": 0.302
+   "neighbours_median_z": 1.545,
+   "n_neighbours": 5,
+   "gap": 0.792,
+   "z": 0.209
   },
   {
    "period": "2026-04-01T00:00:00",
@@ -514,10 +523,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.464,
-   "neighbours_median_z": 5.275,
-   "n_neighbours": 4,
-   "gap": -5.739,
-   "z": -3.809
+   "neighbours_median_z": 2.91,
+   "n_neighbours": 5,
+   "gap": -3.374,
+   "z": -2.841
   },
   {
    "period": "2026-05-01T00:00:00",
@@ -525,10 +534,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.74,
-   "neighbours_median_z": -0.592,
-   "n_neighbours": 4,
-   "gap": 1.332,
-   "z": 0.524
+   "neighbours_median_z": -0.365,
+   "n_neighbours": 5,
+   "gap": 1.104,
+   "z": 0.437
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -536,10 +545,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.179,
-   "neighbours_median_z": -0.996,
-   "n_neighbours": 4,
-   "gap": 1.175,
-   "z": 0.421
+   "neighbours_median_z": -1.292,
+   "n_neighbours": 5,
+   "gap": 1.471,
+   "z": 0.718
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -547,10 +556,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.518,
-   "neighbours_median_z": -1.581,
-   "n_neighbours": 4,
-   "gap": 2.099,
-   "z": 1.021
+   "neighbours_median_z": -1.558,
+   "n_neighbours": 5,
+   "gap": 2.076,
+   "z": 1.178
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -558,10 +567,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.765,
-   "neighbours_median_z": 0.438,
-   "n_neighbours": 4,
-   "gap": -1.203,
-   "z": -0.737
+   "neighbours_median_z": -0.148,
+   "n_neighbours": 5,
+   "gap": -0.617,
+   "z": -0.329
   },
   {
    "period": "2025-11-01T00:00:00",
@@ -569,10 +578,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.0,
-   "neighbours_median_z": -0.743,
-   "n_neighbours": 4,
-   "gap": 1.743,
-   "z": 1.383
+   "neighbours_median_z": -0.684,
+   "n_neighbours": 5,
+   "gap": 1.685,
+   "z": 1.6
   },
   {
    "period": "2025-12-01T00:00:00",
@@ -580,10 +589,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.632,
-   "neighbours_median_z": 0.996,
-   "n_neighbours": 4,
-   "gap": -0.364,
-   "z": -0.132
+   "neighbours_median_z": 0.948,
+   "n_neighbours": 5,
+   "gap": -0.316,
+   "z": -0.084
   },
   {
    "period": "2026-01-01T00:00:00",
@@ -591,10 +600,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.509,
-   "neighbours_median_z": -0.934,
-   "n_neighbours": 4,
-   "gap": -0.574,
-   "z": -0.279
+   "neighbours_median_z": -1.279,
+   "n_neighbours": 5,
+   "gap": -0.23,
+   "z": -0.013
   },
   {
    "period": "2026-02-01T00:00:00",
@@ -602,10 +611,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.026,
-   "neighbours_median_z": 0.144,
-   "n_neighbours": 4,
-   "gap": -0.17,
-   "z": 0.003
+   "neighbours_median_z": 0.22,
+   "n_neighbours": 5,
+   "gap": -0.246,
+   "z": -0.027
   },
   {
    "period": "2026-03-01T00:00:00",
@@ -613,10 +622,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.845,
-   "neighbours_median_z": 1.941,
-   "n_neighbours": 4,
-   "gap": -2.786,
-   "z": -1.822
+   "neighbours_median_z": 2.337,
+   "n_neighbours": 5,
+   "gap": -3.182,
+   "z": -2.501
   },
   {
    "period": "2026-04-01T00:00:00",
@@ -624,10 +633,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 12.187,
-   "neighbours_median_z": 0.604,
-   "n_neighbours": 4,
-   "gap": 11.583,
-   "z": 7.939
+   "neighbours_median_z": 1.527,
+   "n_neighbours": 5,
+   "gap": 10.66,
+   "z": 8.945
   },
   {
    "period": "2026-05-01T00:00:00",
@@ -635,10 +644,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.82,
-   "neighbours_median_z": -0.026,
-   "n_neighbours": 4,
-   "gap": -0.793,
-   "z": -0.407
+   "neighbours_median_z": 0.312,
+   "n_neighbours": 5,
+   "gap": -1.132,
+   "z": -0.724
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -646,10 +655,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -1.53,
-   "neighbours_median_z": -0.379,
-   "n_neighbours": 4,
-   "gap": -1.151,
-   "z": -0.643
+   "neighbours_median_z": -0.7,
+   "n_neighbours": 5,
+   "gap": -0.83,
+   "z": -0.471
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -657,10 +666,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -2.655,
-   "neighbours_median_z": -0.871,
-   "n_neighbours": 4,
-   "gap": -1.784,
-   "z": -1.065
+   "neighbours_median_z": -0.984,
+   "n_neighbours": 5,
+   "gap": -1.671,
+   "z": -1.128
   },
   {
    "period": "2026-08-01T00:00:00",
@@ -668,10 +677,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 2.027,
-   "neighbours_median_z": 0.936,
-   "n_neighbours": 3,
-   "gap": 1.091,
-   "z": 0.852
+   "neighbours_median_z": 0.996,
+   "n_neighbours": 4,
+   "gap": 1.031,
+   "z": 0.985
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -679,10 +688,142 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.783,
-   "neighbours_median_z": 1.047,
-   "n_neighbours": 3,
-   "gap": -0.264,
-   "z": -0.05
+   "neighbours_median_z": 0.902,
+   "n_neighbours": 4,
+   "gap": -0.119,
+   "z": 0.086
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": -0.148,
+   "neighbours_median_z": -0.397,
+   "n_neighbours": 5,
+   "gap": 0.25,
+   "z": 0.355
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 0.981,
+   "neighbours_median_z": -0.684,
+   "n_neighbours": 5,
+   "gap": 1.666,
+   "z": 1.643
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 0.314,
+   "neighbours_median_z": 0.948,
+   "n_neighbours": 5,
+   "gap": -0.634,
+   "z": -0.466
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": -1.279,
+   "neighbours_median_z": -1.509,
+   "n_neighbours": 5,
+   "gap": 0.23,
+   "z": 0.329
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 2.09,
+   "neighbours_median_z": 0.067,
+   "n_neighbours": 5,
+   "gap": 2.022,
+   "z": 1.97
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 5.496,
+   "neighbours_median_z": 1.545,
+   "n_neighbours": 5,
+   "gap": 3.951,
+   "z": 3.742
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 2.91,
+   "neighbours_median_z": 1.527,
+   "n_neighbours": 5,
+   "gap": 1.383,
+   "z": 1.379
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 0.486,
+   "neighbours_median_z": -0.365,
+   "n_neighbours": 5,
+   "gap": 0.85,
+   "z": 0.889
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": -2.843,
+   "neighbours_median_z": -0.7,
+   "n_neighbours": 5,
+   "gap": -2.144,
+   "z": -1.847
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": -1.558,
+   "neighbours_median_z": -0.984,
+   "n_neighbours": 5,
+   "gap": -0.574,
+   "z": -0.408
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 1.056,
+   "neighbours_median_z": 1.239,
+   "n_neighbours": 4,
+   "gap": -0.183,
+   "z": -0.032
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 0.757,
+   "neighbours_median_z": 0.915,
+   "n_neighbours": 4,
+   "gap": -0.158,
+   "z": -0.01
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -2751,6 +2892,2041 @@
    "n_neighbours": 4,
    "gap": -0.39,
    "z": -0.373
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -1.071,
+   "neighbours_median_z": 0.432,
+   "n_neighbours": 5,
+   "gap": -1.503,
+   "z": -1.232
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.881,
+   "neighbours_median_z": -0.657,
+   "n_neighbours": 5,
+   "gap": -0.224,
+   "z": -0.179
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 2.401,
+   "neighbours_median_z": 1.378,
+   "n_neighbours": 5,
+   "gap": 1.023,
+   "z": 0.835
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -1.606,
+   "neighbours_median_z": 0.449,
+   "n_neighbours": 5,
+   "gap": -2.055,
+   "z": -1.668
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.256,
+   "neighbours_median_z": -0.249,
+   "n_neighbours": 5,
+   "gap": 0.505,
+   "z": 0.422
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -1.458,
+   "neighbours_median_z": -0.087,
+   "n_neighbours": 5,
+   "gap": -1.371,
+   "z": -1.06
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 3.442,
+   "neighbours_median_z": 1.068,
+   "n_neighbours": 5,
+   "gap": 2.374,
+   "z": 1.899
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -2.856,
+   "neighbours_median_z": -0.312,
+   "n_neighbours": 5,
+   "gap": -2.545,
+   "z": -1.987
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 2.285,
+   "neighbours_median_z": 0.894,
+   "n_neighbours": 5,
+   "gap": 1.391,
+   "z": 1.116
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.432,
+   "neighbours_median_z": -0.97,
+   "n_neighbours": 5,
+   "gap": 1.402,
+   "z": 1.003
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.585,
+   "neighbours_median_z": -0.662,
+   "n_neighbours": 5,
+   "gap": 0.077,
+   "z": -0.119
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.378,
+   "neighbours_median_z": 1.515,
+   "n_neighbours": 5,
+   "gap": -0.136,
+   "z": -0.297
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.449,
+   "neighbours_median_z": 0.302,
+   "n_neighbours": 5,
+   "gap": 0.147,
+   "z": -0.054
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.249,
+   "neighbours_median_z": 0.256,
+   "n_neighbours": 5,
+   "gap": -0.505,
+   "z": -0.584
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.556,
+   "neighbours_median_z": -0.087,
+   "n_neighbours": 5,
+   "gap": -0.469,
+   "z": -0.554
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 3.167,
+   "neighbours_median_z": 1.068,
+   "n_neighbours": 5,
+   "gap": 2.099,
+   "z": 1.643
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.463,
+   "neighbours_median_z": -0.644,
+   "n_neighbours": 5,
+   "gap": 1.107,
+   "z": 0.802
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.744,
+   "neighbours_median_z": 1.198,
+   "n_neighbours": 5,
+   "gap": -1.941,
+   "z": -1.82
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.579,
+   "neighbours_median_z": -0.97,
+   "n_neighbours": 5,
+   "gap": 1.55,
+   "z": 1.662
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.182,
+   "neighbours_median_z": -0.662,
+   "n_neighbours": 5,
+   "gap": 0.48,
+   "z": 0.59
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.603,
+   "neighbours_median_z": 1.515,
+   "n_neighbours": 5,
+   "gap": -0.912,
+   "z": -0.752
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.02,
+   "neighbours_median_z": 0.449,
+   "n_neighbours": 5,
+   "gap": -0.469,
+   "z": -0.317
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.075,
+   "neighbours_median_z": -0.249,
+   "n_neighbours": 5,
+   "gap": 1.324,
+   "z": 1.443
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.709,
+   "neighbours_median_z": -0.087,
+   "n_neighbours": 5,
+   "gap": -0.622,
+   "z": -0.471
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.421,
+   "neighbours_median_z": 1.888,
+   "n_neighbours": 5,
+   "gap": -2.309,
+   "z": -2.145
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.089,
+   "neighbours_median_z": -0.644,
+   "n_neighbours": 5,
+   "gap": 0.733,
+   "z": 0.858
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.825,
+   "neighbours_median_z": 0.894,
+   "n_neighbours": 5,
+   "gap": 0.932,
+   "z": 1.054
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.03,
+   "neighbours_median_z": -0.97,
+   "n_neighbours": 5,
+   "gap": 2.001,
+   "z": 2.308
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -1.614,
+   "neighbours_median_z": -0.657,
+   "n_neighbours": 5,
+   "gap": -0.957,
+   "z": -1.139
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.506,
+   "neighbours_median_z": 1.515,
+   "n_neighbours": 5,
+   "gap": -1.009,
+   "z": -1.178
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 3.063,
+   "neighbours_median_z": 0.302,
+   "n_neighbours": 5,
+   "gap": 2.761,
+   "z": 3.161
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -2.597,
+   "neighbours_median_z": 0.256,
+   "n_neighbours": 5,
+   "gap": -2.854,
+   "z": -3.204
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 2.348,
+   "neighbours_median_z": -0.556,
+   "n_neighbours": 5,
+   "gap": 2.904,
+   "z": 3.232
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.888,
+   "neighbours_median_z": 1.068,
+   "n_neighbours": 5,
+   "gap": 0.82,
+   "z": 0.902
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -2.118,
+   "neighbours_median_z": -0.312,
+   "n_neighbours": 5,
+   "gap": -1.807,
+   "z": -2.034
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.894,
+   "neighbours_median_z": 1.198,
+   "n_neighbours": 5,
+   "gap": -0.304,
+   "z": -0.338
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.356,
+   "neighbours_median_z": null,
+   "n_neighbours": 1,
+   "gap": null,
+   "z": null
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.97,
+   "neighbours_median_z": 0.432,
+   "n_neighbours": 5,
+   "gap": -1.402,
+   "z": -1.192
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.657,
+   "neighbours_median_z": -0.662,
+   "n_neighbours": 5,
+   "gap": 0.006,
+   "z": -0.049
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.515,
+   "neighbours_median_z": 1.378,
+   "n_neighbours": 5,
+   "gap": 0.136,
+   "z": 0.055
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.89,
+   "neighbours_median_z": 0.302,
+   "n_neighbours": 5,
+   "gap": 1.587,
+   "z": 1.221
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -2.395,
+   "neighbours_median_z": 0.256,
+   "n_neighbours": 5,
+   "gap": -2.651,
+   "z": -2.192
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.355,
+   "neighbours_median_z": -0.556,
+   "n_neighbours": 5,
+   "gap": 1.911,
+   "z": 1.477
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.027,
+   "neighbours_median_z": 1.888,
+   "n_neighbours": 5,
+   "gap": -0.861,
+   "z": -0.758
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.644,
+   "neighbours_median_z": -0.312,
+   "n_neighbours": 5,
+   "gap": -0.333,
+   "z": -0.335
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.059,
+   "neighbours_median_z": 1.198,
+   "n_neighbours": 5,
+   "gap": -1.256,
+   "z": -1.06
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -1.052,
+   "neighbours_median_z": 0.432,
+   "n_neighbours": 5,
+   "gap": -1.484,
+   "z": -1.015
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.662,
+   "neighbours_median_z": -0.657,
+   "n_neighbours": 5,
+   "gap": -0.006,
+   "z": 0.155
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 2.061,
+   "neighbours_median_z": 1.378,
+   "n_neighbours": 5,
+   "gap": 0.682,
+   "z": 0.689
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.302,
+   "neighbours_median_z": 0.449,
+   "n_neighbours": 5,
+   "gap": -0.147,
+   "z": 0.03
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.707,
+   "neighbours_median_z": -0.249,
+   "n_neighbours": 5,
+   "gap": 0.955,
+   "z": 0.903
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.087,
+   "neighbours_median_z": -0.556,
+   "n_neighbours": 5,
+   "gap": 0.469,
+   "z": 0.508
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.068,
+   "neighbours_median_z": 1.888,
+   "n_neighbours": 5,
+   "gap": -0.82,
+   "z": -0.523
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": -0.312,
+   "neighbours_median_z": -0.644,
+   "n_neighbours": 5,
+   "gap": 0.333,
+   "z": 0.405
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 1.198,
+   "neighbours_median_z": 0.894,
+   "n_neighbours": 5,
+   "gap": 0.304,
+   "z": 0.367
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "exports_usd",
+   "name": "Exports of goods, free on board",
+   "own_z": 0.24,
+   "neighbours_median_z": null,
+   "n_neighbours": 1,
+   "gap": null,
+   "z": null
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.456,
+   "neighbours_median_z": 0.539,
+   "n_neighbours": 5,
+   "gap": -0.083,
+   "z": -0.092
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.414,
+   "neighbours_median_z": -0.773,
+   "n_neighbours": 5,
+   "gap": -0.641,
+   "z": -0.647
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.533,
+   "neighbours_median_z": 0.507,
+   "n_neighbours": 5,
+   "gap": 1.026,
+   "z": 1.041
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.49,
+   "neighbours_median_z": 0.421,
+   "n_neighbours": 5,
+   "gap": -0.91,
+   "z": -0.918
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.494,
+   "neighbours_median_z": -0.306,
+   "n_neighbours": 5,
+   "gap": 0.8,
+   "z": 0.795
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -2.05,
+   "neighbours_median_z": 0.787,
+   "n_neighbours": 5,
+   "gap": -2.837,
+   "z": -2.78
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 3.195,
+   "neighbours_median_z": 1.524,
+   "n_neighbours": 5,
+   "gap": 1.671,
+   "z": 1.581
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.234,
+   "neighbours_median_z": -0.332,
+   "n_neighbours": 5,
+   "gap": 0.098,
+   "z": 0.083
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.9,
+   "neighbours_median_z": 0.759,
+   "n_neighbours": 5,
+   "gap": 0.141,
+   "z": 0.123
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.539,
+   "neighbours_median_z": 0.456,
+   "n_neighbours": 5,
+   "gap": 0.083,
+   "z": 0.075
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.583,
+   "neighbours_median_z": -1.33,
+   "n_neighbours": 5,
+   "gap": 1.914,
+   "z": 1.918
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.507,
+   "neighbours_median_z": 1.533,
+   "n_neighbours": 5,
+   "gap": -1.026,
+   "z": -1.031
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.491,
+   "neighbours_median_z": 0.421,
+   "n_neighbours": 5,
+   "gap": -0.911,
+   "z": -0.925
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.015,
+   "neighbours_median_z": -0.306,
+   "n_neighbours": 5,
+   "gap": 1.321,
+   "z": 1.315
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.129,
+   "neighbours_median_z": 0.787,
+   "n_neighbours": 5,
+   "gap": -1.916,
+   "z": -1.868
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 3.876,
+   "neighbours_median_z": 1.524,
+   "n_neighbours": 5,
+   "gap": 2.352,
+   "z": 2.228
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.369,
+   "neighbours_median_z": -0.234,
+   "n_neighbours": 5,
+   "gap": -1.135,
+   "z": -1.11
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 2.342,
+   "neighbours_median_z": 0.759,
+   "n_neighbours": 5,
+   "gap": 1.583,
+   "z": 1.413
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.982,
+   "neighbours_median_z": 0.539,
+   "n_neighbours": 5,
+   "gap": -1.521,
+   "z": -1.283
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.587,
+   "neighbours_median_z": -1.33,
+   "n_neighbours": 5,
+   "gap": 0.743,
+   "z": 0.673
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.498,
+   "neighbours_median_z": 1.533,
+   "n_neighbours": 5,
+   "gap": -1.035,
+   "z": -0.846
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.411,
+   "neighbours_median_z": 0.421,
+   "n_neighbours": 5,
+   "gap": -0.831,
+   "z": -0.664
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 2.372,
+   "neighbours_median_z": -0.306,
+   "n_neighbours": 5,
+   "gap": 2.679,
+   "z": 2.329
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.056,
+   "neighbours_median_z": 0.787,
+   "n_neighbours": 5,
+   "gap": -0.843,
+   "z": -0.679
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.315,
+   "neighbours_median_z": 2.853,
+   "n_neighbours": 5,
+   "gap": -1.538,
+   "z": -1.268
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.332,
+   "neighbours_median_z": -0.234,
+   "n_neighbours": 5,
+   "gap": -0.098,
+   "z": -0.024
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.432,
+   "neighbours_median_z": 0.9,
+   "n_neighbours": 5,
+   "gap": -1.332,
+   "z": -1.112
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.051,
+   "neighbours_median_z": 0.456,
+   "n_neighbours": 5,
+   "gap": 0.596,
+   "z": 0.659
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.82,
+   "neighbours_median_z": -0.773,
+   "n_neighbours": 5,
+   "gap": -1.047,
+   "z": -1.367
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.944,
+   "neighbours_median_z": 0.507,
+   "n_neighbours": 5,
+   "gap": 1.437,
+   "z": 1.687
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.421,
+   "neighbours_median_z": -0.411,
+   "n_neighbours": 5,
+   "gap": 0.831,
+   "z": 0.939
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.036,
+   "neighbours_median_z": 0.494,
+   "n_neighbours": 5,
+   "gap": -1.53,
+   "z": -1.948
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 2.199,
+   "neighbours_median_z": -0.056,
+   "n_neighbours": 5,
+   "gap": 2.255,
+   "z": 2.677
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.524,
+   "neighbours_median_z": 2.853,
+   "n_neighbours": 5,
+   "gap": -1.329,
+   "z": -1.704
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.087,
+   "neighbours_median_z": -0.332,
+   "n_neighbours": 5,
+   "gap": 0.245,
+   "z": 0.199
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.623,
+   "neighbours_median_z": 0.9,
+   "n_neighbours": 5,
+   "gap": -1.523,
+   "z": -1.871
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.288,
+   "neighbours_median_z": null,
+   "n_neighbours": 1,
+   "gap": null,
+   "z": null
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.953,
+   "neighbours_median_z": 0.456,
+   "n_neighbours": 5,
+   "gap": 0.498,
+   "z": 0.501
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.33,
+   "neighbours_median_z": -0.773,
+   "n_neighbours": 5,
+   "gap": -0.557,
+   "z": -0.472
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.105,
+   "neighbours_median_z": 1.533,
+   "n_neighbours": 5,
+   "gap": -1.428,
+   "z": -1.278
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 2.303,
+   "neighbours_median_z": -0.411,
+   "n_neighbours": 5,
+   "gap": 2.714,
+   "z": 2.538
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.306,
+   "neighbours_median_z": 0.494,
+   "n_neighbours": 5,
+   "gap": -0.8,
+   "z": -0.692
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.787,
+   "neighbours_median_z": -0.056,
+   "n_neighbours": 5,
+   "gap": 0.843,
+   "z": 0.818
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 2.853,
+   "neighbours_median_z": 1.524,
+   "n_neighbours": 5,
+   "gap": 1.329,
+   "z": 1.255
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.495,
+   "neighbours_median_z": -0.234,
+   "n_neighbours": 5,
+   "gap": -1.262,
+   "z": -1.114
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.112,
+   "neighbours_median_z": 0.759,
+   "n_neighbours": 5,
+   "gap": 0.353,
+   "z": 0.361
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.491,
+   "neighbours_median_z": 0.539,
+   "n_neighbours": 5,
+   "gap": -1.03,
+   "z": -0.931
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.773,
+   "neighbours_median_z": -1.33,
+   "n_neighbours": 5,
+   "gap": 0.557,
+   "z": 0.532
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 2.132,
+   "neighbours_median_z": 0.507,
+   "n_neighbours": 5,
+   "gap": 1.625,
+   "z": 1.524
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.444,
+   "neighbours_median_z": -0.411,
+   "n_neighbours": 5,
+   "gap": 1.855,
+   "z": 1.722
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -1.27,
+   "neighbours_median_z": 0.494,
+   "n_neighbours": 5,
+   "gap": -1.764,
+   "z": -1.576
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.897,
+   "neighbours_median_z": -0.056,
+   "n_neighbours": 5,
+   "gap": 0.952,
+   "z": 0.857
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 1.407,
+   "neighbours_median_z": 2.853,
+   "n_neighbours": 5,
+   "gap": -1.445,
+   "z": -1.246
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.03,
+   "neighbours_median_z": -0.332,
+   "n_neighbours": 5,
+   "gap": 0.302,
+   "z": 0.277
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": 0.759,
+   "neighbours_median_z": 0.9,
+   "n_neighbours": 5,
+   "gap": -0.141,
+   "z": -0.11
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "name": "Imports of goods, cost insurance freight",
+   "own_z": -0.031,
+   "neighbours_median_z": null,
+   "n_neighbours": 1,
+   "gap": null,
+   "z": null
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.037,
+   "neighbours_median_z": -0.435,
+   "n_neighbours": 5,
+   "gap": 0.473,
+   "z": 0.584
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.182,
+   "neighbours_median_z": 0.071,
+   "n_neighbours": 5,
+   "gap": -0.253,
+   "z": -0.238
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.887,
+   "neighbours_median_z": 1.011,
+   "n_neighbours": 5,
+   "gap": 0.876,
+   "z": 1.073
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.503,
+   "neighbours_median_z": 0.461,
+   "n_neighbours": 5,
+   "gap": -1.964,
+   "z": -2.183
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.969,
+   "neighbours_median_z": -0.012,
+   "n_neighbours": 5,
+   "gap": -0.956,
+   "z": -1.023
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.738,
+   "neighbours_median_z": -2.038,
+   "n_neighbours": 5,
+   "gap": 1.3,
+   "z": 1.556
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.723,
+   "neighbours_median_z": 0.813,
+   "n_neighbours": 5,
+   "gap": -1.536,
+   "z": -1.657
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.386,
+   "neighbours_median_z": 0.018,
+   "n_neighbours": 5,
+   "gap": -0.404,
+   "z": -0.398
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.678,
+   "neighbours_median_z": 1.581,
+   "n_neighbours": 5,
+   "gap": -0.903,
+   "z": -0.956
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.14,
+   "neighbours_median_z": -1.026,
+   "n_neighbours": 5,
+   "gap": 0.886,
+   "z": 1.091
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.002,
+   "neighbours_median_z": -0.046,
+   "n_neighbours": 5,
+   "gap": 0.048,
+   "z": 0.151
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.171,
+   "neighbours_median_z": -0.915,
+   "n_neighbours": 4,
+   "gap": 1.087,
+   "z": 1.316
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.216,
+   "neighbours_median_z": -0.435,
+   "n_neighbours": 5,
+   "gap": 0.22,
+   "z": 0.507
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.071,
+   "neighbours_median_z": -0.045,
+   "n_neighbours": 5,
+   "gap": 0.116,
+   "z": 0.411
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.585,
+   "neighbours_median_z": 1.079,
+   "n_neighbours": 5,
+   "gap": -0.494,
+   "z": -0.247
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.615,
+   "neighbours_median_z": -0.269,
+   "n_neighbours": 5,
+   "gap": 0.883,
+   "z": 1.251
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.88,
+   "neighbours_median_z": -0.502,
+   "n_neighbours": 5,
+   "gap": 1.382,
+   "z": 1.714
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -2.338,
+   "neighbours_median_z": -0.948,
+   "n_neighbours": 5,
+   "gap": -1.39,
+   "z": -1.166
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 2.902,
+   "neighbours_median_z": -0.723,
+   "n_neighbours": 5,
+   "gap": 3.625,
+   "z": 3.755
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.522,
+   "neighbours_median_z": 0.006,
+   "n_neighbours": 5,
+   "gap": 0.516,
+   "z": 0.713
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.958,
+   "neighbours_median_z": 0.678,
+   "n_neighbours": 5,
+   "gap": 1.28,
+   "z": 1.457
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.74,
+   "neighbours_median_z": -1.026,
+   "n_neighbours": 5,
+   "gap": 0.286,
+   "z": 0.478
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.383,
+   "neighbours_median_z": 0.002,
+   "n_neighbours": 5,
+   "gap": -0.385,
+   "z": -0.175
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.666,
+   "neighbours_median_z": -0.754,
+   "n_neighbours": 4,
+   "gap": 0.088,
+   "z": 0.28
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.22,
+   "neighbours_median_z": null,
+   "n_neighbours": 1,
+   "gap": null,
+   "z": null
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.402,
+   "neighbours_median_z": -0.435,
+   "n_neighbours": 5,
+   "gap": 0.837,
+   "z": 1.04
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.166,
+   "neighbours_median_z": 0.071,
+   "n_neighbours": 5,
+   "gap": -0.236,
+   "z": 0.044
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.754,
+   "neighbours_median_z": 1.079,
+   "n_neighbours": 5,
+   "gap": -1.833,
+   "z": -1.436
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.269,
+   "neighbours_median_z": 0.461,
+   "n_neighbours": 5,
+   "gap": -0.73,
+   "z": -0.413
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.27,
+   "neighbours_median_z": -0.012,
+   "n_neighbours": 5,
+   "gap": -1.258,
+   "z": -0.894
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -2.724,
+   "neighbours_median_z": -0.948,
+   "n_neighbours": 5,
+   "gap": -1.776,
+   "z": -1.358
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.428,
+   "neighbours_median_z": 0.813,
+   "n_neighbours": 5,
+   "gap": -2.24,
+   "z": -1.752
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.006,
+   "neighbours_median_z": 0.018,
+   "n_neighbours": 5,
+   "gap": -0.012,
+   "z": 0.249
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 2.187,
+   "neighbours_median_z": 0.678,
+   "n_neighbours": 5,
+   "gap": 1.509,
+   "z": 1.546
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.244,
+   "neighbours_median_z": -0.74,
+   "n_neighbours": 5,
+   "gap": -0.504,
+   "z": -0.171
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.046,
+   "neighbours_median_z": 0.002,
+   "n_neighbours": 5,
+   "gap": -0.048,
+   "z": 0.218
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -3.076,
+   "neighbours_median_z": -0.504,
+   "n_neighbours": 4,
+   "gap": -2.572,
+   "z": -1.934
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.435,
+   "neighbours_median_z": -0.216,
+   "n_neighbours": 5,
+   "gap": -0.22,
+   "z": -0.414
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.032,
+   "neighbours_median_z": -0.045,
+   "n_neighbours": 5,
+   "gap": 1.077,
+   "z": 0.8
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.341,
+   "neighbours_median_z": 1.011,
+   "n_neighbours": 5,
+   "gap": 0.33,
+   "z": 0.093
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.89,
+   "neighbours_median_z": -0.269,
+   "n_neighbours": 5,
+   "gap": 1.159,
+   "z": 0.861
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.502,
+   "neighbours_median_z": -0.012,
+   "n_neighbours": 5,
+   "gap": -0.49,
+   "z": -0.708
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.26,
+   "neighbours_median_z": -2.038,
+   "n_neighbours": 5,
+   "gap": 2.298,
+   "z": 1.881
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.813,
+   "neighbours_median_z": -0.723,
+   "n_neighbours": 5,
+   "gap": 1.536,
+   "z": 1.102
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.018,
+   "neighbours_median_z": 0.006,
+   "n_neighbours": 5,
+   "gap": 0.012,
+   "z": -0.274
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.131,
+   "neighbours_median_z": 1.581,
+   "n_neighbours": 5,
+   "gap": -2.712,
+   "z": -2.685
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.095,
+   "neighbours_median_z": -1.026,
+   "n_neighbours": 5,
+   "gap": 0.931,
+   "z": 0.54
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.456,
+   "neighbours_median_z": -0.046,
+   "n_neighbours": 5,
+   "gap": 0.501,
+   "z": 0.16
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.342,
+   "neighbours_median_z": -0.915,
+   "n_neighbours": 4,
+   "gap": 0.573,
+   "z": 0.214
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.728,
+   "neighbours_median_z": -0.216,
+   "n_neighbours": 5,
+   "gap": -0.512,
+   "z": -1.141
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.045,
+   "neighbours_median_z": 0.071,
+   "n_neighbours": 5,
+   "gap": -0.116,
+   "z": -0.562
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.079,
+   "neighbours_median_z": 1.011,
+   "n_neighbours": 5,
+   "gap": 0.068,
+   "z": -0.295
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.461,
+   "neighbours_median_z": -0.269,
+   "n_neighbours": 5,
+   "gap": 0.73,
+   "z": 0.692
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.012,
+   "neighbours_median_z": -0.502,
+   "n_neighbours": 5,
+   "gap": 0.49,
+   "z": 0.325
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -2.038,
+   "neighbours_median_z": -0.948,
+   "n_neighbours": 5,
+   "gap": -1.09,
+   "z": -2.118
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.171,
+   "neighbours_median_z": -0.723,
+   "n_neighbours": 5,
+   "gap": 1.894,
+   "z": 2.56
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.019,
+   "neighbours_median_z": 0.006,
+   "n_neighbours": 5,
+   "gap": 0.012,
+   "z": -0.398
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.102,
+   "neighbours_median_z": 1.581,
+   "n_neighbours": 5,
+   "gap": -2.683,
+   "z": -4.636
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.026,
+   "neighbours_median_z": -0.74,
+   "n_neighbours": 5,
+   "gap": -0.286,
+   "z": -0.82
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.755,
+   "neighbours_median_z": -0.046,
+   "n_neighbours": 5,
+   "gap": 0.801,
+   "z": 0.872
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.165,
+   "neighbours_median_z": -0.504,
+   "n_neighbours": 4,
+   "gap": -0.661,
+   "z": -1.302
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.422,
+   "neighbours_median_z": null,
+   "n_neighbours": 1,
+   "gap": null,
+   "z": null
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -1.528,
+   "neighbours_median_z": -0.216,
+   "n_neighbours": 5,
+   "gap": -1.312,
+   "z": -1.326
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.365,
+   "neighbours_median_z": -0.045,
+   "n_neighbours": 5,
+   "gap": 0.41,
+   "z": 0.475
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.011,
+   "neighbours_median_z": 1.079,
+   "n_neighbours": 5,
+   "gap": -0.068,
+   "z": -0.032
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.963,
+   "neighbours_median_z": 0.461,
+   "n_neighbours": 5,
+   "gap": -1.424,
+   "z": -1.43
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 0.752,
+   "neighbours_median_z": -0.502,
+   "n_neighbours": 5,
+   "gap": 1.254,
+   "z": 1.359
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.948,
+   "neighbours_median_z": -2.038,
+   "n_neighbours": 5,
+   "gap": 1.09,
+   "z": 1.188
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.839,
+   "neighbours_median_z": 0.813,
+   "n_neighbours": 5,
+   "gap": -1.651,
+   "z": -1.665
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.004,
+   "neighbours_median_z": 0.018,
+   "n_neighbours": 5,
+   "gap": -0.022,
+   "z": 0.043
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": 1.581,
+   "neighbours_median_z": 0.678,
+   "n_neighbours": 5,
+   "gap": 0.903,
+   "z": 1.033
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -2.363,
+   "neighbours_median_z": -0.74,
+   "n_neighbours": 5,
+   "gap": -1.623,
+   "z": -1.656
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "reserves",
+   "name": "Official reserves excluding gold",
+   "own_z": -0.41,
+   "neighbours_median_z": 0.002,
+   "n_neighbours": 5,
+   "gap": -0.412,
+   "z": -0.375
   }
  ]
 }
