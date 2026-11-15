@@ -1,0 +1,62 @@
+[
+ {
+  "period": "2026-06",
+  "ours": 929108541.19,
+  "listed_rows": 2342,
+  "listed_sum": 987918942.85,
+  "repeated_rows": 149,
+  "repeated_sum": 55799167.33,
+  "listed_once_sum": 932119775.5200001,
+  "gap_after_removing_repeats_share": 0.003230522953254769
+ },
+ {
+  "period": "2026-01",
+  "ours": 334451154.35,
+  "listed_rows": 1251,
+  "listed_sum": 389803517.01,
+  "repeated_rows": 79,
+  "repeated_sum": 56916311.85,
+  "listed_once_sum": 332887205.16,
+  "gap_after_removing_repeats_share": 0.004698135481801698
+ },
+ {
+  "period": "2025-07",
+  "ours": 592355226.27,
+  "listed_rows": 2542,
+  "listed_sum": 640966140.7999998,
+  "repeated_rows": 139,
+  "repeated_sum": 43622500.68999999,
+  "listed_once_sum": 597343640.11,
+  "gap_after_removing_repeats_share": 0.00835099514758611
+ },
+ {
+  "period": "2025-01",
+  "ours": 387338241.42,
+  "listed_rows": 1485,
+  "listed_sum": 435238963.42,
+  "repeated_rows": 71,
+  "repeated_sum": 46805843.089999996,
+  "listed_once_sum": 388433120.33,
+  "gap_after_removing_repeats_share": 0.0028187063684728883
+ },
+ {
+  "period": "2024-09",
+  "ours": 1983997733.86,
+  "listed_rows": 6630,
+  "listed_sum": 2018473829.5400002,
+  "repeated_rows": 490,
+  "repeated_sum": 75711281.12,
+  "listed_once_sum": 1942762548.42,
+  "gap_after_removing_repeats_share": 0.021225025916592512
+ },
+ {
+  "period": "2022-02",
+  "ours": 303953904.07,
+  "listed_rows": 2816,
+  "listed_sum": 337987653.12,
+  "repeated_rows": 89,
+  "repeated_sum": 34055264.16000001,
+  "listed_once_sum": 303932388.96,
+  "gap_after_removing_repeats_share": 7.07891319962147e-05
+ }
+]

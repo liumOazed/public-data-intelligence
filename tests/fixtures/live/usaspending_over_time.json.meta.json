@@ -1,0 +1,7 @@
+{
+  "url": "https://api.usaspending.gov/api/v2/search/spending_over_time/",
+  "retrieved_at": "2026-11-15T16:01:50+00:00",
+  "full_response_bytes": 1175,
+  "full_response_sha256": "352f74d7743d4de4c867f1dd292f88cd1c2b7a7cf0540ff1dbe2402b8c62b070",
+  "slice": "7K20, 2026-06: whole answer"
+}

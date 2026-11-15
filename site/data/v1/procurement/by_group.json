@@ -1,0 +1,330 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "by_group",
+  "description": "Net obligations by fiscal year and kind of hardware.",
+  "generated_at": "2026-11-15T16:01:30+00:00",
+  "rows": 47,
+  "columns": [
+   "fiscal_year",
+   "group",
+   "obligations",
+   "provisional"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T15:56:47+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Contracts for computer hardware only, chosen by Product and Service Code. The buyer picks one code for a whole contract, so a contract that mixes hardware with software or services is counted in full or not at all.",
+   "The code list was rewritten on 1 October 2020. Figures before and after that month are not on the same footing, and the new codes cover hardware together with software sold under a perpetual licence.",
+   "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
+   "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
+   "Agencies correct old records; every figure can change on the next retrieval."
+  ],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026,
+   2027
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "finding": {
+   "label": "observation",
+   "reason": "Sums of the obligations agencies reported. No model is fitted and no cause is claimed."
+  }
+ },
+ "data": [
+  {
+   "fiscal_year": 2017,
+   "group": "Computers and servers",
+   "obligations": 1117269787.18,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2017,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 3899755172.28,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2017,
+   "group": "Storage",
+   "obligations": 903807794.7099999,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2018,
+   "group": "Computers and servers",
+   "obligations": 1195088223.98,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2018,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 3779560927.06,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2018,
+   "group": "Storage",
+   "obligations": 948514317.49,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2019,
+   "group": "Computers and servers",
+   "obligations": 1015581059.49,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2019,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 4357335709.39,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2019,
+   "group": "Storage",
+   "obligations": 931838118.35,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2020,
+   "group": "Computers and servers",
+   "obligations": 1275395705.1,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2020,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 4852882374.54,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2020,
+   "group": "Storage",
+   "obligations": 857110230.54,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "group": "Computers and servers",
+   "obligations": 2425883566.0,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "group": "Data centre equipment",
+   "obligations": 958336920.86,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "group": "Desktops, laptops and printers",
+   "obligations": 1631530178.85,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 1180453261.68,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "group": "Storage",
+   "obligations": 449513296.38,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "group": "Computers and servers",
+   "obligations": 2740997603.18,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "group": "Data centre equipment",
+   "obligations": 837539681.53,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "group": "Desktops, laptops and printers",
+   "obligations": 1860252496.98,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 854511817.29,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "group": "Storage",
+   "obligations": 508994582.42,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "group": "Computers and servers",
+   "obligations": 2714147979.83,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "group": "Data centre equipment",
+   "obligations": 850466062.72,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "group": "Desktops, laptops and printers",
+   "obligations": 2724913088.13,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 614374050.81,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "group": "Storage",
+   "obligations": 524863187.85,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "group": "Computers and servers",
+   "obligations": 2946157509.45,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "group": "Data centre equipment",
+   "obligations": 864272431.8100001,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "group": "Desktops, laptops and printers",
+   "obligations": 2340869369.55,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 263472016.48,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "group": "Storage",
+   "obligations": 452583315.15,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "group": "Computers and servers",
+   "obligations": 2367568622.23,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "group": "Data centre equipment",
+   "obligations": 1122354623.1200001,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "group": "Desktops, laptops and printers",
+   "obligations": 2174850122.23,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 43239240.73,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "group": "Storage",
+   "obligations": 310992561.43,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2026,
+   "group": "Computers and servers",
+   "obligations": 2158395426.27,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2026,
+   "group": "Data centre equipment",
+   "obligations": 1186577563.9,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2026,
+   "group": "Desktops, laptops and printers",
+   "obligations": 1790514328.05,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2026,
+   "group": "Other (codes retired in 2020)",
+   "obligations": 42747199.9,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2026,
+   "group": "Storage",
+   "obligations": 332361328.89,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2027,
+   "group": "Computers and servers",
+   "obligations": 3957390.87,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2027,
+   "group": "Data centre equipment",
+   "obligations": -9990712.71,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2027,
+   "group": "Desktops, laptops and printers",
+   "obligations": 21112307.36,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2027,
+   "group": "Other (codes retired in 2020)",
+   "obligations": -300.0,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2027,
+   "group": "Storage",
+   "obligations": 3663011.13,
+   "provisional": true
+  }
+ ]
+}

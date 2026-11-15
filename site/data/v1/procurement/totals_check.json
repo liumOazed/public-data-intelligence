@@ -1,0 +1,959 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "totals_check",
+  "description": "Monthly obligations summed from the downloaded transactions against the monthly figure USAspending's own search gives for the same filters.",
+  "generated_at": "2026-11-15T16:01:30+00:00",
+  "rows": 121,
+  "columns": [
+   "period",
+   "ours",
+   "published",
+   "gap_pct",
+   "within_limit"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T15:56:47+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026,
+   2027
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "finding": {
+   "label": "observation",
+   "reason": "The same filters asked two ways of the same source: the transaction download summed by month, and the monthly figure from USAspending's own search."
+  },
+  "criterion_met": false,
+  "tolerance_pct": 1.0,
+  "months": 121,
+  "months_within_limit": 95,
+  "worst_month_gap_pct": 14.200067532633359,
+  "ours_total": 64426614550.46001,
+  "published_total": 64954289282.01,
+  "diagnosis": [
+   {
+    "period": "2026-06",
+    "ours": 929108541.19,
+    "listed_rows": 2342,
+    "listed_sum": 987918942.85,
+    "repeated_rows": 149,
+    "repeated_sum": 55799167.33,
+    "listed_once_sum": 932119775.5200001,
+    "gap_after_removing_repeats_share": 0.003230522953254769
+   },
+   {
+    "period": "2026-01",
+    "ours": 334451154.35,
+    "listed_rows": 1251,
+    "listed_sum": 389803517.01,
+    "repeated_rows": 79,
+    "repeated_sum": 56916311.85,
+    "listed_once_sum": 332887205.16,
+    "gap_after_removing_repeats_share": 0.004698135481801698
+   },
+   {
+    "period": "2025-07",
+    "ours": 592355226.27,
+    "listed_rows": 2542,
+    "listed_sum": 640966140.7999998,
+    "repeated_rows": 139,
+    "repeated_sum": 43622500.68999999,
+    "listed_once_sum": 597343640.11,
+    "gap_after_removing_repeats_share": 0.00835099514758611
+   },
+   {
+    "period": "2025-01",
+    "ours": 387338241.42,
+    "listed_rows": 1485,
+    "listed_sum": 435238963.42,
+    "repeated_rows": 71,
+    "repeated_sum": 46805843.089999996,
+    "listed_once_sum": 388433120.33,
+    "gap_after_removing_repeats_share": 0.0028187063684728883
+   },
+   {
+    "period": "2024-09",
+    "ours": 1983997733.86,
+    "listed_rows": 6630,
+    "listed_sum": 2018473829.5400002,
+    "repeated_rows": 490,
+    "repeated_sum": 75711281.12,
+    "listed_once_sum": 1942762548.42,
+    "gap_after_removing_repeats_share": 0.021225025916592512
+   },
+   {
+    "period": "2022-02",
+    "ours": 303953904.07,
+    "listed_rows": 2816,
+    "listed_sum": 337987653.12,
+    "repeated_rows": 89,
+    "repeated_sum": 34055264.16000001,
+    "listed_once_sum": 303932388.96,
+    "gap_after_removing_repeats_share": 7.07891319962147e-05
+   }
+  ]
+ },
+ "data": [
+  {
+   "period": "2016-10-01T00:00:00",
+   "ours": 232301063.66,
+   "published": 232301063.66,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2016-11-01T00:00:00",
+   "ours": 247239968.66,
+   "published": 247046333.66,
+   "gap_pct": 0.07838003387109242,
+   "within_limit": true
+  },
+  {
+   "period": "2016-12-01T00:00:00",
+   "ours": 205015669.65,
+   "published": 205015669.65,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-01-01T00:00:00",
+   "ours": 184055841.08,
+   "published": 184055841.08,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-02-01T00:00:00",
+   "ours": 284380944.92,
+   "published": 284380944.92,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-03-01T00:00:00",
+   "ours": 446288753.57,
+   "published": 451545267.57,
+   "gap_pct": 1.1641167292679284,
+   "within_limit": false
+  },
+  {
+   "period": "2017-04-01T00:00:00",
+   "ours": 267987084.46,
+   "published": 267987084.46,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-05-01T00:00:00",
+   "ours": 329101595.34,
+   "published": 329101595.34,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-06-01T00:00:00",
+   "ours": 458645019.88,
+   "published": 458645019.88,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-07-01T00:00:00",
+   "ours": 498565836.88,
+   "published": 498565836.88,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-08-01T00:00:00",
+   "ours": 724061041.38,
+   "published": 724061041.38,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-09-01T00:00:00",
+   "ours": 2043189934.69,
+   "published": 2043189934.69,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2017-10-01T00:00:00",
+   "ours": 246819339.03,
+   "published": 247551801.03,
+   "gap_pct": 0.2958823151164371,
+   "within_limit": true
+  },
+  {
+   "period": "2017-11-01T00:00:00",
+   "ours": 195723115.41,
+   "published": 196389417.41,
+   "gap_pct": 0.33927591862496786,
+   "within_limit": true
+  },
+  {
+   "period": "2017-12-01T00:00:00",
+   "ours": 178606343.91,
+   "published": 178606343.91,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-01-01T00:00:00",
+   "ours": 183090537.48,
+   "published": 183090537.48,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-02-01T00:00:00",
+   "ours": 207579839.25,
+   "published": 207579839.25,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-03-01T00:00:00",
+   "ours": 360611109.68,
+   "published": 362305125.68,
+   "gap_pct": 0.4675661148377491,
+   "within_limit": true
+  },
+  {
+   "period": "2018-04-01T00:00:00",
+   "ours": 332078116.56,
+   "published": 332078116.56,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-05-01T00:00:00",
+   "ours": 501753427.26,
+   "published": 501753427.26,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-06-01T00:00:00",
+   "ours": 560281312.08,
+   "published": 560281312.08,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-07-01T00:00:00",
+   "ours": 506679529.52,
+   "published": 506679529.52,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-08-01T00:00:00",
+   "ours": 674424414.33,
+   "published": 674424414.33,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2018-09-01T00:00:00",
+   "ours": 1975516384.02,
+   "published": 1977851064.02,
+   "gap_pct": 0.1180412439779334,
+   "within_limit": true
+  },
+  {
+   "period": "2018-10-01T00:00:00",
+   "ours": 201010530.29999998,
+   "published": 200851393.15,
+   "gap_pct": 0.07923129011165446,
+   "within_limit": true
+  },
+  {
+   "period": "2018-11-01T00:00:00",
+   "ours": 101343724.88,
+   "published": 100692847.04,
+   "gap_pct": 0.6463992817100791,
+   "within_limit": true
+  },
+  {
+   "period": "2018-12-01T00:00:00",
+   "ours": 371364611.22,
+   "published": 371364611.22,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2019-01-01T00:00:00",
+   "ours": 181785090.65,
+   "published": 181785090.65,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2019-02-01T00:00:00",
+   "ours": 230405270.6,
+   "published": 231284484.23,
+   "gap_pct": 0.3801438012269187,
+   "within_limit": true
+  },
+  {
+   "period": "2019-03-01T00:00:00",
+   "ours": 575844332.0,
+   "published": 575890178.32,
+   "gap_pct": 0.00796094841099676,
+   "within_limit": true
+  },
+  {
+   "period": "2019-04-01T00:00:00",
+   "ours": 440849750.6,
+   "published": 440849750.6,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2019-05-01T00:00:00",
+   "ours": 447595773.75,
+   "published": 447628396.75,
+   "gap_pct": 0.007287964802246429,
+   "within_limit": true
+  },
+  {
+   "period": "2019-06-01T00:00:00",
+   "ours": 556617781.66,
+   "published": 575879543.96,
+   "gap_pct": 3.3447554270720845,
+   "within_limit": false
+  },
+  {
+   "period": "2019-07-01T00:00:00",
+   "ours": 497363367.87,
+   "published": 497045588.45,
+   "gap_pct": 0.06393365666738707,
+   "within_limit": true
+  },
+  {
+   "period": "2019-08-01T00:00:00",
+   "ours": 812588248.58,
+   "published": 812630265.5,
+   "gap_pct": 0.005170484263726587,
+   "within_limit": true
+  },
+  {
+   "period": "2019-09-01T00:00:00",
+   "ours": 1887986405.1200001,
+   "published": 1889002389.12,
+   "gap_pct": 0.05378415643365397,
+   "within_limit": true
+  },
+  {
+   "period": "2019-10-01T00:00:00",
+   "ours": 171902909.25,
+   "published": 171902909.25,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2019-11-01T00:00:00",
+   "ours": 101099531.64,
+   "published": 96232331.64,
+   "gap_pct": 5.0577596084940915,
+   "within_limit": false
+  },
+  {
+   "period": "2019-12-01T00:00:00",
+   "ours": 281791706.3,
+   "published": 281791706.3,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2020-01-01T00:00:00",
+   "ours": 215744950.37,
+   "published": 215604779.97,
+   "gap_pct": 0.06501265881930343,
+   "within_limit": true
+  },
+  {
+   "period": "2020-02-01T00:00:00",
+   "ours": 267524412.36,
+   "published": 267358454.68,
+   "gap_pct": 0.062073099651417815,
+   "within_limit": true
+  },
+  {
+   "period": "2020-03-01T00:00:00",
+   "ours": 713282318.93,
+   "published": 724931098.69,
+   "gap_pct": 1.6068809547624938,
+   "within_limit": false
+  },
+  {
+   "period": "2020-04-01T00:00:00",
+   "ours": 716272855.86,
+   "published": 716262055.86,
+   "gap_pct": 0.0015078280235063797,
+   "within_limit": true
+  },
+  {
+   "period": "2020-05-01T00:00:00",
+   "ours": 464371405.17,
+   "published": 464371405.17,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2020-06-01T00:00:00",
+   "ours": 482505474.06,
+   "published": 486309682.74,
+   "gap_pct": 0.7822605255494953,
+   "within_limit": true
+  },
+  {
+   "period": "2020-07-01T00:00:00",
+   "ours": 592019002.75,
+   "published": 591997923.43,
+   "gap_pct": 0.0035607084359215576,
+   "within_limit": true
+  },
+  {
+   "period": "2020-08-01T00:00:00",
+   "ours": 751737169.11,
+   "published": 751737169.11,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2020-09-01T00:00:00",
+   "ours": 2227136574.38,
+   "published": 2227327897.76,
+   "gap_pct": 0.008589816532739806,
+   "within_limit": true
+  },
+  {
+   "period": "2020-10-01T00:00:00",
+   "ours": 139352565.84,
+   "published": 139352565.84,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2020-11-01T00:00:00",
+   "ours": 190577900.36,
+   "published": 190577900.36,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2020-12-01T00:00:00",
+   "ours": 276006208.53000003,
+   "published": 276002113.2,
+   "gap_pct": 0.0014838038566303685,
+   "within_limit": true
+  },
+  {
+   "period": "2021-01-01T00:00:00",
+   "ours": 197628777.92,
+   "published": 197628777.92,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2021-02-01T00:00:00",
+   "ours": 331926029.55,
+   "published": 331926029.55,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2021-03-01T00:00:00",
+   "ours": 665334435.93,
+   "published": 669419950.04,
+   "gap_pct": 0.6103065959949194,
+   "within_limit": true
+  },
+  {
+   "period": "2021-04-01T00:00:00",
+   "ours": 460828091.83,
+   "published": 461309850.48,
+   "gap_pct": 0.10443276888597944,
+   "within_limit": true
+  },
+  {
+   "period": "2021-05-01T00:00:00",
+   "ours": 404923511.09999996,
+   "published": 404923511.1,
+   "gap_pct": 1.4719976277364306e-14,
+   "within_limit": true
+  },
+  {
+   "period": "2021-06-01T00:00:00",
+   "ours": 501505866.02,
+   "published": 501505866.02,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2021-07-01T00:00:00",
+   "ours": 557143180.5600001,
+   "published": 557527276.2,
+   "gap_pct": 0.06889270828467955,
+   "within_limit": true
+  },
+  {
+   "period": "2021-08-01T00:00:00",
+   "ours": 889140815.6,
+   "published": 889194996.57,
+   "gap_pct": 0.006093260781833845,
+   "within_limit": true
+  },
+  {
+   "period": "2021-09-01T00:00:00",
+   "ours": 2031349840.53,
+   "published": 2033391898.51,
+   "gap_pct": 0.10042618845370482,
+   "within_limit": true
+  },
+  {
+   "period": "2021-10-01T00:00:00",
+   "ours": 99635580.18,
+   "published": 99635580.18,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2021-11-01T00:00:00",
+   "ours": 146159302.54,
+   "published": 146159302.54,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2021-12-01T00:00:00",
+   "ours": 281321603.2,
+   "published": 281360755.6,
+   "gap_pct": 0.0139153734914251,
+   "within_limit": true
+  },
+  {
+   "period": "2022-01-01T00:00:00",
+   "ours": 178974056.05,
+   "published": 178974056.05,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2022-02-01T00:00:00",
+   "ours": 303953904.07,
+   "published": 337987653.12,
+   "gap_pct": 10.069524355647566,
+   "within_limit": false
+  },
+  {
+   "period": "2022-03-01T00:00:00",
+   "ours": 578508609.4,
+   "published": 580974155.41,
+   "gap_pct": 0.4243813579383797,
+   "within_limit": true
+  },
+  {
+   "period": "2022-04-01T00:00:00",
+   "ours": 415013025.45,
+   "published": 415064936.35,
+   "gap_pct": 0.012506693640886671,
+   "within_limit": true
+  },
+  {
+   "period": "2022-05-01T00:00:00",
+   "ours": 466359270.97,
+   "published": 474026338.97,
+   "gap_pct": 1.617435017779725,
+   "within_limit": false
+  },
+  {
+   "period": "2022-06-01T00:00:00",
+   "ours": 666731896.75,
+   "published": 673563568.43,
+   "gap_pct": 1.0142578963888733,
+   "within_limit": false
+  },
+  {
+   "period": "2022-07-01T00:00:00",
+   "ours": 539304979.21,
+   "published": 539370485.59,
+   "gap_pct": 0.012144969320733208,
+   "within_limit": true
+  },
+  {
+   "period": "2022-08-01T00:00:00",
+   "ours": 762888072.09,
+   "published": 763160914.57,
+   "gap_pct": 0.03575163177136123,
+   "within_limit": true
+  },
+  {
+   "period": "2022-09-01T00:00:00",
+   "ours": 2363445881.49,
+   "published": 2363855296.43,
+   "gap_pct": 0.017319797054344825,
+   "within_limit": true
+  },
+  {
+   "period": "2022-10-01T00:00:00",
+   "ours": 133529876.09,
+   "published": 133529876.09,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2022-11-01T00:00:00",
+   "ours": 192999707.71,
+   "published": 199377270.71,
+   "gap_pct": 3.198741249335462,
+   "within_limit": false
+  },
+  {
+   "period": "2022-12-01T00:00:00",
+   "ours": 320424793.58,
+   "published": 322424739.51,
+   "gap_pct": 0.6202830257502554,
+   "within_limit": true
+  },
+  {
+   "period": "2023-01-01T00:00:00",
+   "ours": 332516234.29,
+   "published": 338540766.66,
+   "gap_pct": 1.7795589079085725,
+   "within_limit": false
+  },
+  {
+   "period": "2023-02-01T00:00:00",
+   "ours": 339752759.66,
+   "published": 347505248.22,
+   "gap_pct": 2.2308982669211446,
+   "within_limit": false
+  },
+  {
+   "period": "2023-03-01T00:00:00",
+   "ours": 584798313.99,
+   "published": 592217130.06,
+   "gap_pct": 1.2527189257845854,
+   "within_limit": false
+  },
+  {
+   "period": "2023-04-01T00:00:00",
+   "ours": 336973816.08,
+   "published": 337457217.22,
+   "gap_pct": 0.1432481260831649,
+   "within_limit": true
+  },
+  {
+   "period": "2023-05-01T00:00:00",
+   "ours": 597557917.22,
+   "published": 619918017.17,
+   "gap_pct": 3.6069446815042516,
+   "within_limit": false
+  },
+  {
+   "period": "2023-06-01T00:00:00",
+   "ours": 609821582.29,
+   "published": 610315899.63,
+   "gap_pct": 0.08099368545038889,
+   "within_limit": true
+  },
+  {
+   "period": "2023-07-01T00:00:00",
+   "ours": 649555725.4399999,
+   "published": 650944646.6,
+   "gap_pct": 0.21337008718862174,
+   "within_limit": true
+  },
+  {
+   "period": "2023-08-01T00:00:00",
+   "ours": 1221861424.79,
+   "published": 1240790305.25,
+   "gap_pct": 1.5255503190110888,
+   "within_limit": false
+  },
+  {
+   "period": "2023-09-01T00:00:00",
+   "ours": 2108972218.2,
+   "published": 2111789181.03,
+   "gap_pct": 0.13339223703314854,
+   "within_limit": true
+  },
+  {
+   "period": "2023-10-01T00:00:00",
+   "ours": 219532417.72,
+   "published": 219567509.47,
+   "gap_pct": 0.01598221434706152,
+   "within_limit": true
+  },
+  {
+   "period": "2023-11-01T00:00:00",
+   "ours": 214005090.74,
+   "published": 215133078.53,
+   "gap_pct": 0.5243209448344762,
+   "within_limit": true
+  },
+  {
+   "period": "2023-12-01T00:00:00",
+   "ours": 326211499.51,
+   "published": 328520833.81,
+   "gap_pct": 0.702949116869591,
+   "within_limit": true
+  },
+  {
+   "period": "2024-01-01T00:00:00",
+   "ours": 322971717.14000005,
+   "published": 327568727.13,
+   "gap_pct": 1.4033726693865882,
+   "within_limit": false
+  },
+  {
+   "period": "2024-02-01T00:00:00",
+   "ours": 253102581.21,
+   "published": 253550821.64,
+   "gap_pct": 0.17678524056861636,
+   "within_limit": true
+  },
+  {
+   "period": "2024-03-01T00:00:00",
+   "ours": 457521263.98,
+   "published": 460328112.38,
+   "gap_pct": 0.609749507908161,
+   "within_limit": true
+  },
+  {
+   "period": "2024-04-01T00:00:00",
+   "ours": 420015841.43,
+   "published": 421489225.96,
+   "gap_pct": 0.3495663564457987,
+   "within_limit": true
+  },
+  {
+   "period": "2024-05-01T00:00:00",
+   "ours": 505426529.96,
+   "published": 509150707.54,
+   "gap_pct": 0.7314489648838332,
+   "within_limit": true
+  },
+  {
+   "period": "2024-06-01T00:00:00",
+   "ours": 642822389.99,
+   "published": 646269162.2,
+   "gap_pct": 0.5333338509092238,
+   "within_limit": true
+  },
+  {
+   "period": "2024-07-01T00:00:00",
+   "ours": 576708729.88,
+   "published": 578586055.21,
+   "gap_pct": 0.3244677802196011,
+   "within_limit": true
+  },
+  {
+   "period": "2024-08-01T00:00:00",
+   "ours": 945038847.02,
+   "published": 945496449.7,
+   "gap_pct": 0.04839813836902943,
+   "within_limit": true
+  },
+  {
+   "period": "2024-09-01T00:00:00",
+   "ours": 1983997733.86,
+   "published": 2018473829.54,
+   "gap_pct": 1.7080278760838328,
+   "within_limit": false
+  },
+  {
+   "period": "2024-10-01T00:00:00",
+   "ours": 117230115.99000001,
+   "published": 124658813.01,
+   "gap_pct": 5.959223291660954,
+   "within_limit": false
+  },
+  {
+   "period": "2024-11-01T00:00:00",
+   "ours": 214260670.04,
+   "published": 215656467.0,
+   "gap_pct": 0.6472316733260813,
+   "within_limit": true
+  },
+  {
+   "period": "2024-12-01T00:00:00",
+   "ours": 244435995.79,
+   "published": 248478841.99,
+   "gap_pct": 1.6270384100400475,
+   "within_limit": false
+  },
+  {
+   "period": "2025-01-01T00:00:00",
+   "ours": 387338241.42,
+   "published": 435238963.42,
+   "gap_pct": 11.005614392518535,
+   "within_limit": false
+  },
+  {
+   "period": "2025-02-01T00:00:00",
+   "ours": 250133259.0,
+   "published": 252597097.28,
+   "gap_pct": 0.975402451782284,
+   "within_limit": true
+  },
+  {
+   "period": "2025-03-01T00:00:00",
+   "ours": 422833973.55,
+   "published": 431792789.12,
+   "gap_pct": 2.0747950859156745,
+   "within_limit": false
+  },
+  {
+   "period": "2025-04-01T00:00:00",
+   "ours": 335451702.59000003,
+   "published": 337690707.87,
+   "gap_pct": 0.6630343174446826,
+   "within_limit": true
+  },
+  {
+   "period": "2025-05-01T00:00:00",
+   "ours": 546757083.79,
+   "published": 551249770.95,
+   "gap_pct": 0.8150002769629424,
+   "within_limit": true
+  },
+  {
+   "period": "2025-06-01T00:00:00",
+   "ours": 426512348.65000004,
+   "published": 430112049.18,
+   "gap_pct": 0.8369215735440866,
+   "within_limit": true
+  },
+  {
+   "period": "2025-07-01T00:00:00",
+   "ours": 592355226.27,
+   "published": 640966140.8,
+   "gap_pct": 7.584006616843741,
+   "within_limit": false
+  },
+  {
+   "period": "2025-08-01T00:00:00",
+   "ours": 698667052.35,
+   "published": 701004536.66,
+   "gap_pct": 0.33344781492243974,
+   "within_limit": true
+  },
+  {
+   "period": "2025-09-01T00:00:00",
+   "ours": 1783029500.3,
+   "published": 1792280167.04,
+   "gap_pct": 0.5161395472716601,
+   "within_limit": true
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "ours": 74944966.82,
+   "published": 76710851.12,
+   "gap_pct": 2.302000661207123,
+   "within_limit": false
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "ours": 105635111.71,
+   "published": 106377996.59,
+   "gap_pct": 0.6983444921069745,
+   "within_limit": true
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "ours": 425101794.28,
+   "published": 431594457.02,
+   "gap_pct": 1.504343402561155,
+   "within_limit": false
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "ours": 334451154.35,
+   "published": 389803517.01,
+   "gap_pct": 14.200067532633359,
+   "within_limit": false
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "ours": 195452134.1,
+   "published": 195905310.39,
+   "gap_pct": 0.23132414792525405,
+   "within_limit": true
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "ours": 333331662.44,
+   "published": 335195112.52,
+   "gap_pct": 0.5559299674719443,
+   "within_limit": true
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "ours": 416377457.12,
+   "published": 420166855.34,
+   "gap_pct": 0.9018793776423842,
+   "within_limit": true
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "ours": 471703761.75,
+   "published": 477009333.21,
+   "gap_pct": 1.1122573691161382,
+   "within_limit": false
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "ours": 929108541.19,
+   "published": 987918942.85,
+   "gap_pct": 5.952958194155145,
+   "within_limit": false
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "ours": 484440445.6,
+   "published": 502032941.76,
+   "gap_pct": 3.50425135416914,
+   "within_limit": false
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "ours": 254938047.21,
+   "published": 254938047.21,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "ours": 1485110770.44,
+   "published": 1485110770.44,
+   "gap_pct": 0.0,
+   "within_limit": true
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "ours": 18741696.65,
+   "published": 18741696.65,
+   "gap_pct": 0.0,
+   "within_limit": true
+  }
+ ]
+}

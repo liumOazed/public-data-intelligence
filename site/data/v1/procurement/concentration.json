@@ -1,0 +1,199 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "concentration",
+  "description": "Per fiscal year: suppliers with net obligations above zero, the share of the largest 4 and 10, the Herfindahl-Hirschman index, and suppliers with no action in the 4 years before.",
+  "generated_at": "2026-11-15T16:01:30+00:00",
+  "rows": 11,
+  "columns": [
+   "fiscal_year",
+   "suppliers",
+   "obligations",
+   "hhi",
+   "top4_share_pct",
+   "top10_share_pct",
+   "entrants",
+   "entrant_share_of_suppliers_pct",
+   "entrant_share_of_dollars_pct",
+   "provisional"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T15:56:47+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Contracts for computer hardware only, chosen by Product and Service Code. The buyer picks one code for a whole contract, so a contract that mixes hardware with software or services is counted in full or not at all.",
+   "The code list was rewritten on 1 October 2020. Figures before and after that month are not on the same footing, and the new codes cover hardware together with software sold under a perpetual licence.",
+   "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
+   "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
+   "Agencies correct old records; every figure can change on the next retrieval.",
+   "A supplier is the parent company the source names, else the company on the contract; groups with the same name after cleaning are merged. Two companies that share a cleaned name would be merged wrongly, and one company filed under two different parents is not merged.",
+   "Most hardware is bought through resellers. The supplier here is the company that holds the contract, not the maker of the equipment.",
+   "Only the largest suppliers in each fiscal year are named. The rest are counted without a name."
+  ],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026,
+   2027
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "finding": {
+   "label": "observation",
+   "reason": "Shares of net obligations by supplier after name cleaning. Arithmetic on reported figures; the rules were fixed before the figures were computed."
+  },
+  "cleaning": {
+   "transactions": 415312,
+   "names_as_written": 10227,
+   "registrations": 10536,
+   "after_parent_grouping": 10698,
+   "suppliers": 9975,
+   "transactions_without_registration": 0
+  },
+  "entrant_lookback_years": 4,
+  "named_per_year": 25
+ },
+ "data": [
+  {
+   "fiscal_year": 2017,
+   "suppliers": 3055,
+   "obligations": 5972236064.66,
+   "hhi": 184.37076180367782,
+   "top4_share_pct": 19.404606587431932,
+   "top10_share_pct": 34.740324551757595,
+   "entrants": null,
+   "entrant_share_of_suppliers_pct": null,
+   "entrant_share_of_dollars_pct": null,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2018,
+   "suppliers": 2841,
+   "obligations": 5932480521.31,
+   "hhi": 156.17802976654968,
+   "top4_share_pct": 17.17562017995466,
+   "top10_share_pct": 31.20760675824655,
+   "entrants": null,
+   "entrant_share_of_suppliers_pct": null,
+   "entrant_share_of_dollars_pct": null,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2019,
+   "suppliers": 2575,
+   "obligations": 6311666024.98,
+   "hhi": 146.63492035544286,
+   "top4_share_pct": 15.545851252690596,
+   "top10_share_pct": 30.17254583025937,
+   "entrants": null,
+   "entrant_share_of_suppliers_pct": null,
+   "entrant_share_of_dollars_pct": null,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2020,
+   "suppliers": 2429,
+   "obligations": 6996342033.57,
+   "hhi": 152.9492069164198,
+   "top4_share_pct": 15.335841875107848,
+   "top10_share_pct": 30.28740327906381,
+   "entrants": null,
+   "entrant_share_of_suppliers_pct": null,
+   "entrant_share_of_dollars_pct": null,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "suppliers": 2119,
+   "obligations": 6675093512.43,
+   "hhi": 150.242459217547,
+   "top4_share_pct": 14.516953915859645,
+   "top10_share_pct": 29.42725634662933,
+   "entrants": 608.0,
+   "entrant_share_of_suppliers_pct": 28.69277961302501,
+   "entrant_share_of_dollars_pct": 7.8293591371688,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "suppliers": 2035,
+   "obligations": 6816019562.740001,
+   "hhi": 165.15398212576588,
+   "top4_share_pct": 15.324138505701683,
+   "top10_share_pct": 32.69942556611495,
+   "entrants": 535.0,
+   "entrant_share_of_suppliers_pct": 26.289926289926292,
+   "entrant_share_of_dollars_pct": 2.3490739145654,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "suppliers": 2124,
+   "obligations": 7448305495.429999,
+   "hhi": 184.64295767806652,
+   "top4_share_pct": 18.496527496962784,
+   "top10_share_pct": 35.205754342768344,
+   "entrants": 583.0,
+   "entrant_share_of_suppliers_pct": 27.44821092278719,
+   "entrant_share_of_dollars_pct": 2.264676144036999,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "suppliers": 2092,
+   "obligations": 6885557477.57,
+   "hhi": 153.25627711136298,
+   "top4_share_pct": 15.401766919593896,
+   "top10_share_pct": 29.022872218986343,
+   "entrants": 671.0,
+   "entrant_share_of_suppliers_pct": 32.07456978967495,
+   "entrant_share_of_dollars_pct": 10.271770249597918,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "suppliers": 1875,
+   "obligations": 6052044026.68,
+   "hhi": 194.03073292222714,
+   "top4_share_pct": 19.474685477570123,
+   "top10_share_pct": 34.67057331803752,
+   "entrants": 527.0,
+   "entrant_share_of_suppliers_pct": 28.10666666666667,
+   "entrant_share_of_dollars_pct": 2.2693200421964117,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2026,
+   "suppliers": 1492,
+   "obligations": 5578555258.87,
+   "hhi": 200.86490870079592,
+   "top4_share_pct": 19.528470867754237,
+   "top10_share_pct": 36.350954091665045,
+   "entrants": 337.0,
+   "entrant_share_of_suppliers_pct": 22.587131367292226,
+   "entrant_share_of_dollars_pct": 4.39605746685165,
+   "provisional": true
+  },
+  {
+   "fiscal_year": 2027,
+   "suppliers": 121,
+   "obligations": 51338483.059999995,
+   "hhi": 897.4730141443929,
+   "top4_share_pct": 48.46299169167544,
+   "top10_share_pct": 68.70885970427815,
+   "entrants": 11.0,
+   "entrant_share_of_suppliers_pct": 9.090909090909092,
+   "entrant_share_of_dollars_pct": 2.4807595279189383,
+   "provisional": true
+  }
+ ]
+}
