@@ -12,7 +12,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 | 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Built; pipeline and failure Issue proven on GitHub, Pages deploy not yet run |
 | 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks, model and price crawler run on live data; prices come from one small retailer (see below) |
 | 2 | **Macro Monitor**: which series moved unusually against their own history and against neighbouring economies | Built and run once on live data; exit criterion needs one full monthly cycle |
-| Harden | Heartbeat with a data-freshness check, parser tests on real response slices, monthly "what changed" brief, IMF series for Southeast Asia, one public sector chosen | Built; exit criterion needs 30 days on schedule (see below) |
+| Harden | Heartbeat with a data-freshness check, parser tests on real response slices, monthly "what changed" brief, IMF series for Southeast Asia; energy demand chosen as the one public sector to cover | Built; exit criterion needs 30 days on schedule (see below) |
 | 3 | Trade and Supply Chain | Not started |
 | 4 | Federal Procurement | Not started |
 
