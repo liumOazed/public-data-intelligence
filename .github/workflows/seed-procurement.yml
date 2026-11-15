@@ -1,0 +1,50 @@
+name: Seed procurement (temporary)
+on:
+  push:
+    branches: [claude/project-thread-qr1gop]
+    paths: [".github/workflows/seed-procurement.yml"]
+permissions:
+  contents: write
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra dev
+      - run: uv run python -m pdi.procurement.collect --force
+      - run: uv run python -m pdi.procurement.export
+      - name: Samples
+        run: |
+          uv run python - <<'PY'
+          from pdi import samples
+          samples.usaspending()
+          PY
+      - name: Show
+        if: always()
+        run: |
+          uv run python - <<'PY'
+          import json, glob
+          import pandas as pd
+          pd.set_option("display.width", 250); pd.set_option("display.max_columns", 30); pd.set_option("display.max_rows", 400)
+          for f in sorted(glob.glob("site/data/v1/procurement/*.json")):
+              d = json.load(open(f)); m = d["meta"]
+              print("=====", f, m["rows"])
+              print({k: v for k, v in m.items() if k not in ("sources", "limitations", "columns", "description", "finding")})
+              df = pd.DataFrame(d["data"], columns=m["columns"])
+              print(df.to_string() if len(df) <= 130 else df.head(60).to_string())
+          print(open("data/store/procurement/suppliers.json").read()[:6000])
+          PY
+          ls -la data/store/procurement tests/fixtures/live | grep -i -E "procurement|usasp|parquet|json"
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/store/procurement site/data/v1/procurement tests/fixtures/live
+          if git diff --cached --quiet; then echo "nothing"; exit 0; fi
+          git commit -m "Seed procurement tables from a live run"
+          git stash -u || true
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin HEAD:${{ github.ref_name }}

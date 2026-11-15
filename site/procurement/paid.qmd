@@ -1,0 +1,77 @@
+---
+title: "Promised against paid"
+subtitle: "For the hardware contracts that began in each fiscal year: the money promised, the ceiling, and the money paid so far"
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+pp, meta = site.load("procurement", "promised_paid")
+finding = meta.get("finding")
+```
+
+A federal contract carries three different amounts of money, and they are easy to confuse.
+
+- **Promised** (obligation): what the agency has legally committed so far.
+- **Ceiling**: what the contract would be worth if every option were used. It is a limit, not
+  a plan.
+- **Paid** (outlay): what has actually left the Treasury.
+
+This page keeps them in three columns and never adds them together. Each row covers the
+contracts whose first action fell in that fiscal year.
+
+```{python}
+#| output: asis
+if pp.empty:
+    print(site.empty_state(meta, "Promised against paid"))
+else:
+    print(site.finding_line(finding))
+    req = pp[pp["payments_required"] & ~pp["provisional"]]
+    if not req.empty:
+        lo = req["awards_reporting_paid_pct"].min()
+        hi = req["awards_reporting_paid_pct"].max()
+        print(f'{site.finding_badge(finding)} Agencies have had to report payments per award '
+              f'since fiscal {meta["payments_required_from"]}. For the awards that began in '
+              f'the fiscal years since then, between {lo:.0f}% and {hi:.0f}% carry a paid '
+              f'figure at all. The paid share below is computed only over those awards, so it '
+              f'says how far along the reported payments are, not how much of all hardware '
+              f'has been paid for.\n')
+```
+
+```{python}
+if not pp.empty:
+    t = pp.assign(
+        fiscal_year=[f"{int(y)}*" if p else str(int(y))
+                     for y, p in zip(pp["fiscal_year"], pp["provisional"])],
+        promised=pp["promised"] / 1e9, ceiling=pp["ceiling"] / 1e9,
+        promised_where_paid_reported=pp["promised_where_paid_reported"] / 1e9,
+        paid=pp["paid"] / 1e9)[
+        ["fiscal_year", "awards", "promised", "ceiling", "promised_share_of_ceiling_pct",
+         "awards_reporting_paid_pct", "promised_where_paid_reported", "paid",
+         "paid_share_of_promised_pct"]
+    ].rename(columns={
+        "fiscal_year": "Began in fiscal year", "awards": "Awards",
+        "promised": "Promised, $bn", "ceiling": "Ceiling, $bn",
+        "promised_share_of_ceiling_pct": "Promised, % of ceiling",
+        "awards_reporting_paid_pct": "Awards with a paid figure, %",
+        "promised_where_paid_reported": "Promised on those awards, $bn",
+        "paid": "Paid on those awards, $bn",
+        "paid_share_of_promised_pct": "Paid, % of promised"}).round(2)
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+if not pp.empty:
+    print(f'Years before fiscal {meta["payments_required_from"]} are shown for completeness. '
+          f'Reporting payments per award was optional then, so their paid columns are not '
+          f'interpreted here. A year marked * is provisional.\n')
+    print("\n## Sources and limits\n")
+    print(site.source_note(meta))
+```

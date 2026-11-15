@@ -37,6 +37,10 @@ BY_TRANSACTION = "/api/v2/search/spending_by_transaction/"
 # The data change slowly and one refresh is ten large downloads, so the collector asks at most
 # once in this many days (it runs in the weekly workflow).
 REFETCH_AFTER_DAYS = 6
+# FPDS holds back Department of Defense records for 90 days, so the newest months are missing
+# most defence buying. Months and fiscal years that ended fewer than this many days before
+# retrieval are marked provisional on the pages.
+PROVISIONAL_DAYS = 90
 DOWNLOAD_WAIT_S = 1500
 DOWNLOAD_POLL_S = 15
 

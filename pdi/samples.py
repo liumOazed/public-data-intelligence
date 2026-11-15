@@ -23,12 +23,14 @@ import hashlib
 import io
 import json
 import os
+import re
 import time
 import zipfile
 from datetime import date
 from pathlib import Path
 from urllib.parse import quote_plus
 
+import pandas as pd
 import requests
 
 from pdi.common.fetch import USER_AGENT, redact, utc_now
@@ -322,6 +324,53 @@ def census() -> None:
     _save("census_VN_total.json", total.content, url=total.url, note="Vietnam, total, from 2026-01")
 
 
+def usaspending() -> None:
+    """One month of one product code: the transaction file, and the published monthly figure."""
+    from pdi.procurement import collect as proc
+    from pdi.procurement import config as pc
+
+    first = (pd.Timestamp(date.today()) - pd.DateOffset(months=5)).replace(day=1)
+    last = first + pd.offsets.MonthEnd(0)
+    filters = {**proc.filters(first.date(), last.date()), "psc_codes": [USASPENDING_SAMPLE_PSC]}
+    job = proc.call("POST", pc.DOWNLOAD, {"filters": filters, "columns": pc.COLUMNS,
+                                          "file_format": "csv"})  # fmt: skip
+    for _ in range(80):
+        status = proc.call("GET", f"{pc.DOWNLOAD_STATUS}?file_name={job['file_name']}")
+        if status.get("status") in ("finished", "failed"):
+            break
+        time.sleep(15)
+    if status.get("status") != "finished":
+        raise RuntimeError(f"USAspending download {status.get('status')}")
+    resp = _get(status["file_url"], timeout=600)
+    with zipfile.ZipFile(io.BytesIO(resp.content)) as z:
+        member = next(n for n in z.namelist() if "PrimeTransactions" in n)
+        text = z.read(member).decode("utf-8")
+    rows = list(csv.DictReader(io.StringIO(text)))
+    out = io.StringIO()
+    writer = csv.DictWriter(out, fieldnames=pc.COLUMNS, extrasaction="ignore")
+    writer.writeheader()
+    for row in rows:
+        # A sole trader can be registered under a person's name. Names without a company
+        # ending are blanked, so no individual's name is committed.
+        for col in ("recipient_name", "recipient_parent_name"):
+            if not _COMPANY.search(row.get(col, "")):
+                row[col] = ""
+        writer.writerow(row)
+    note = f"{USASPENDING_SAMPLE_PSC}, {first:%Y-%m}"
+    _save("usaspending_transactions.csv", out.getvalue().encode(), url=status["file_url"],
+          full=resp.content, note=f"{note}: configured columns only; names without a company "
+          "ending blanked")  # fmt: skip
+    answer = proc.call("POST", pc.OVER_TIME, {"group": "month", "filters": filters})
+    _save("usaspending_over_time.json", json.dumps(answer).encode(), url=pc.API + pc.OVER_TIME,
+          note=f"{note}: whole answer")  # fmt: skip
+
+
+USASPENDING_SAMPLE_PSC = "7K20"
+_COMPANY = re.compile(
+    r"(?i)\b(inc|llc|l\.l\.c|corp|corporation|company|co|ltd|limited|lp|l\.p|llp|plc|group|"
+    r"technolog\w*|systems|solutions|services|federal|government|international|enterprises)\b"
+)
+
 CAPTURES = {
     "spec": spec,
     "blender": blender_launches,
@@ -333,6 +382,7 @@ CAPTURES = {
     "imf": imf,
     "ember": ember,
     "census": census,
+    "usaspending": usaspending,
 }
 
 
