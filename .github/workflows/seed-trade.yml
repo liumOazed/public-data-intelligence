@@ -51,5 +51,6 @@ jobs:
           git add data/store/trade site/data/v1/trade tests/fixtures/live/census_*
           git diff --cached --quiet && exit 0
           git commit -m "First US imports collection and Census test slice $(date -u +%F)"
+          git stash -u
           git pull --rebase origin claude/project-thread-qr1gop
           git push origin HEAD:claude/project-thread-qr1gop
