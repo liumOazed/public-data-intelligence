@@ -58,6 +58,15 @@ def parse_launch(record: dict) -> tuple[tuple[str, str, str], float] | str:
     scenes: dict[str, float] = {}
     keys = set()
     for entry in data:
+        stats = entry.get("stats") if isinstance(entry, dict) else None
+        if (
+            isinstance(stats, dict)
+            and "samples_per_minute" not in stats
+            and ("total_render_time" in stats or "render_time_no_sync" in stats)
+        ):
+            # Blender 2.x launches in the newer file layout still report render time, not
+            # samples per minute. A different measurement, not a broken record.
+            return "old_schema"
         try:
             devices = entry["device_info"]["compute_devices"]
             if len(devices) != 1:

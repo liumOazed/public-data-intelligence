@@ -1,12 +1,21 @@
 name: Heartbeat
 
-# Never assume the cron ran. GitHub disables scheduled workflows after 60 days without repo
-# activity and can skip runs under load. This opens an Issue when the daily pipeline has had
-# no successful run for 48 hours.
+# Never assume the cron ran, and never assume a green run collected anything. GitHub disables
+# scheduled workflows after 60 days without repo activity and can start or skip runs hours late
+# under load (the first scheduled heartbeat started almost four hours after its slot). This
+# workflow runs twice a day and opens one Issue when any of these holds:
+#
+#   1. the daily pipeline has had no successful run on main for 48 hours;
+#   2. the weekly pipeline has had no successful run on main for 9 days;
+#   3. the published tables are stale or empty even though runs are green (pdi/health.py).
+#
+# When every check passes again it closes that Issue with a comment, so an open heartbeat Issue
+# always means "something is wrong now".
 
 on:
   schedule:
-    - cron: "5 21 * * *" # 21:05 UTC every day, about twelve hours after the daily run
+    - cron: "5 21 * * *" # about twelve hours after the daily run
+    - cron: "5 3 * * *" # a second look, in case one heartbeat slot is skipped
   workflow_dispatch:
 
 permissions:
@@ -14,27 +23,78 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: heartbeat
+  cancel-in-progress: false
+
+env:
+  ISSUE_TITLE: "Heartbeat: the pipeline has stopped or gone stale"
+
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Check the last successful daily run
+        with:
+          ref: main # the published tables, whatever branch the check was started from
+
+      - name: Check runs and data freshness
+        id: check
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          last=$(gh run list --workflow daily.yml --status success --limit 1 \
-            --json createdAt --jq '.[0].createdAt // empty')
-          if [ -z "$last" ]; then
-            age_h=9999
-          else
-            age_h=$(( ( $(date -u +%s) - $(date -u -d "$last" +%s) ) / 3600 ))
+          problems=""
+          age_hours() {
+            # Hours since the newest successful run of a workflow on main, 9999 if none.
+            local last
+            last=$(gh run list --workflow "$1" --branch main --status success --limit 1 \
+              --json createdAt --jq '.[0].createdAt // empty')
+            echo "last successful $1 run on main: ${last:-never}" >&2
+            if [ -z "$last" ]; then echo 9999; else
+              echo $(( ( $(date -u +%s) - $(date -u -d "$last" +%s) ) / 3600 ))
+            fi
+          }
+          daily=$(age_hours daily.yml)
+          weekly=$(age_hours weekly.yml)
+          if [ "$daily" -gt 48 ]; then
+            problems+="- The daily pipeline has not succeeded on main for ${daily} hours (limit 48)."$'\n'
           fi
-          echo "last successful daily run: ${last:-never} (${age_h}h ago)"
-          if [ "$age_h" -gt 48 ]; then
-            .github/scripts/open_issue.sh "Heartbeat: no successful daily run in 48 hours" \
-              "Last successful run of the daily pipeline: ${last:-never}. Checked $(date -u +%FT%TZ). If the schedule was disabled, re-enable it under Actions."
-            exit 1
+          if [ "$weekly" -gt 216 ]; then
+            problems+="- The weekly pipeline has not succeeded on main for ${weekly} hours (limit 216)."$'\n'
           fi
+          if ! fresh=$(python3 -m pdi.health); then
+            problems+="- Published tables are stale or empty although runs may be green:"$'\n'"${fresh}"$'\n'
+          fi
+          {
+            echo "### Heartbeat $(date -u +%FT%TZ)"
+            echo "Daily pipeline: last success ${daily}h ago. Weekly pipeline: ${weekly}h ago."
+            echo
+            echo "${problems:-All checks passed.}"
+          } >> "$GITHUB_STEP_SUMMARY"
+          printf '%s' "$problems" > problems.txt
+          if [ -n "$problems" ]; then echo "failed=1" >> "$GITHUB_OUTPUT"; fi
+          cat problems.txt
+
+      - name: Open or update the heartbeat Issue
+        if: steps.check.outputs.failed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          .github/scripts/open_issue.sh "$ISSUE_TITLE" \
+            "$(printf 'Checked %s.\n\n%s\nIf the schedule was disabled, re-enable it under Actions. Run log: %s' \
+              "$(date -u +%FT%TZ)" "$(cat problems.txt)" \
+              "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")"
+          exit 1
+
+      - name: Close the heartbeat Issue once everything is healthy again
+        if: steps.check.outputs.failed != '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          open=$(gh issue list --state open --search "in:title \"$ISSUE_TITLE\"" --json number,title \
+            --jq "map(select(.title == \"$ISSUE_TITLE\")) | .[].number")
+          for n in $open; do
+            gh issue close "$n" --comment "Every heartbeat check passed at $(date -u +%FT%TZ). Closing."
+          done

@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 import pytest
 
-FIXTURES = Path(__file__).parent / "fixtures"
+FIXTURES = Path(__file__).parent / "fixtures" / "synthetic"
+LIVE = Path(__file__).parent / "fixtures" / "live"
 
 
 @pytest.fixture
@@ -77,3 +78,9 @@ def spec_signal() -> pd.DataFrame:
 @pytest.fixture
 def spec_noise() -> pd.DataFrame:
     return synthetic_spec(signal=False)
+
+
+@pytest.fixture
+def live() -> Path:
+    """Slices of real responses, captured by `python -m pdi.samples`."""
+    return LIVE

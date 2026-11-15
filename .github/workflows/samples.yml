@@ -1,0 +1,53 @@
+name: Refresh test samples
+
+# Fetch small slices of real responses from every public source and commit them to
+# tests/fixtures/live/ on the branch this runs on, so the parser tests are pinned to what the
+# sources actually send. Run it by hand on a branch, then open a pull request: a changed
+# sample is a format change worth reading before it reaches main. Never runs on main.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra dev
+
+      - name: Capture samples
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: uv run python -m pdi.samples
+
+      - name: Run the parser tests on them
+        run: uv run pytest -q
+
+      - name: Check the IMF collector end to end (dry run, nothing committed)
+        run: |
+          uv run python - <<'PY'
+          from datetime import date
+          from pathlib import Path
+          from pdi.macro import collect, store
+          df, when = collect.collect_imf(Path("data/raw/macro"), date.today())
+          store.check_units(df)
+          print(df.groupby("series_id")["period"].agg(["min", "max", "count"]).to_string())
+          print("retrieved", when)
+          PY
+
+      - name: Commit the samples to this branch
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/fixtures/live
+          if git diff --cached --quiet; then echo "samples unchanged"; exit 0; fi
+          git commit -m "Refresh test samples from live sources $(date -u +%F)"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin HEAD:${{ github.ref_name }}
