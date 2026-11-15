@@ -72,6 +72,58 @@ written in
 [`pdi/trade/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/trade/config.py)
 on 15 November 2026, before any trade figure was collected.
 
+## Federal Procurement
+
+Federal contract transactions from USAspending.gov, which republishes the Federal Procurement
+Data System. The first slice is computer hardware bought by every agency, from October 2016.
+
+**The slice.** Contracts and orders (not grants, loans or umbrella agreements) whose Product
+and Service Code is a hardware code: computers and servers, storage, data centre equipment,
+and desktops, laptops and printers. Software, supplies, networks, radios and mobile devices
+are left out. The government rewrote its code list on 1 October 2020, so figures before and
+after that month are not on the same footing, and the newer codes cover hardware together with
+software sold under a perpetual licence. The full list of codes is in the config file.
+
+**Three kinds of money.** Promised (obligation), the ceiling (the value if every option is
+used) and paid (outlay) are kept in three columns from the download to the page and are never
+added together. Monthly value, concentration and competition use money promised. Paid is
+compared with promised only over the awards that report a paid figure, and the page shows how
+many do.
+
+**What is stored.** USAspending builds a file of transactions on request, one per fiscal year.
+The collector asks only for sixteen columns, none about a person or an address, and stores
+sums: by month, agency and code; by supplier and fiscal year; by how the award was competed;
+and by the year an award began. The transactions are not committed. A name is stored only for
+the 25 largest suppliers of a fiscal year; every other supplier is an id.
+
+**Supplier names.** A supplier is the parent company the source names, else the company on
+the contract. Groups whose names are identical after removing case, punctuation and legal
+endings (Inc, LLC, Corp and so on) are merged. The page reports how many names, registrations
+and groups there were at each step.
+
+**Metrics.** *Concentration*: each supplier's share of net obligations in a fiscal year, among
+suppliers above zero; the share of the largest 4 and 10; and the Herfindahl-Hirschman index.
+*New entrant*: a supplier above zero in a year with no action in the slice in the four fiscal
+years before. *Single-bidder share*: of dollars newly obligated on awards marked as competed
+and with a number of offers recorded, the share on awards that drew one offer. All are
+observations.
+
+**Matching USAspending.** For every month, the downloaded transactions are summed and compared
+with the monthly figure from USAspending's own search for the same filters. The criterion is
+that every month is within 1%. The figures are shown either way with the verdict beside them.
+When months miss, the collector lists the transactions behind the search figure for the six
+worst months and counts the ones that appear twice under the same internal id; that diagnosis
+is shown next to the verdict and does not change it.
+
+**Provisional months.** Department of Defense records are published 90 days late. Months and
+fiscal years that ended fewer than 90 days before retrieval are marked provisional and are
+left out of the headline sentences.
+
+Every code, threshold and rule was written in
+[`pdi/procurement/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/procurement/config.py)
+on 15 November 2026, before the module's figures were computed. The file says what had been
+seen at that point.
+
 ## Energy Demand
 
 One measure: monthly electricity demand, in terawatt-hours, from

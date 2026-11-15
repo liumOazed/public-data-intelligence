@@ -51,6 +51,17 @@ built, and are looked at again when the current module meets its exit criterion.
   series.
 - Add a trade section to the monthly brief.
 
-## Later modules, in order
+## Federal Procurement
 
-1. Federal Procurement
+- Ask USAspending about the transactions its search counts twice (the totals check on the
+  procurement page has the months and amounts).
+- A second slice: add networks and mobile devices as their own series from October 2020, or
+  software.
+- Maker against reseller: the contract holder is usually a reseller. The download has a
+  free-text description that sometimes names the maker; it needs a tested extractor.
+- Fair-opportunity field for orders under umbrella agreements, to replace the number of
+  offers where that describes the agreement and not the order.
+- Supplier cleaning by hand for the largest 50: companies filed under two parents.
+- Add a procurement section to the monthly brief.
+
+## Later modules, in order

@@ -1,0 +1,131 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "competition",
+  "description": "Per fiscal year, of newly obligated dollars: the share on competed awards that drew one offer, and the share not competed.",
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 10,
+  "columns": [
+   "fiscal_year",
+   "new_dollars",
+   "single_bidder_share_pct",
+   "not_competed_share_pct",
+   "competed_with_offers_recorded_pct",
+   "provisional"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T15:56:47+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Contracts for computer hardware only, chosen by Product and Service Code. The buyer picks one code for a whole contract, so a contract that mixes hardware with software or services is counted in full or not at all.",
+   "The code list was rewritten on 1 October 2020. Figures before and after that month are not on the same footing, and the new codes cover hardware together with software sold under a perpetual licence.",
+   "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
+   "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
+   "Agencies correct old records; every figure can change on the next retrieval.",
+   "The number of offers is what the contracting officer typed. For an order placed under an umbrella agreement it can describe the competition for the agreement, not for the order.",
+   "Only dollars on awards marked as competed and with a number of offers recorded are in the single-bidder share; the last column says how much of the year's new dollars that covers."
+  ],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "finding": {
+   "label": "observation",
+   "reason": "Shares of newly obligated dollars by what the contracting officer recorded about competition. Arithmetic on reported fields, not a judgement of any award."
+  }
+ },
+ "data": [
+  {
+   "fiscal_year": 2017,
+   "new_dollars": 6158849748.07,
+   "single_bidder_share_pct": 21.01990370334118,
+   "not_competed_share_pct": 9.772953269701345,
+   "competed_with_offers_recorded_pct": 87.82003810573438,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2018,
+   "new_dollars": 6064282431.130001,
+   "single_bidder_share_pct": 21.78758271935969,
+   "not_competed_share_pct": 9.374171349141333,
+   "competed_with_offers_recorded_pct": 76.97128674101388,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2019,
+   "new_dollars": 6482313026.07,
+   "single_bidder_share_pct": 23.44483649793775,
+   "not_competed_share_pct": 10.71431463964758,
+   "competed_with_offers_recorded_pct": 76.06666989297523,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2020,
+   "new_dollars": 7212745924.650001,
+   "single_bidder_share_pct": 23.033685643835977,
+   "not_competed_share_pct": 9.240050871642758,
+   "competed_with_offers_recorded_pct": 77.74514774637798,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2021,
+   "new_dollars": 6805029627.86,
+   "single_bidder_share_pct": 23.175271528900627,
+   "not_competed_share_pct": 12.966205559158995,
+   "competed_with_offers_recorded_pct": 74.6045403657785,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2022,
+   "new_dollars": 6944268641.559999,
+   "single_bidder_share_pct": 22.288360757490803,
+   "not_competed_share_pct": 9.326092507482732,
+   "competed_with_offers_recorded_pct": 78.42669570638246,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2023,
+   "new_dollars": 7582533323.15,
+   "single_bidder_share_pct": 27.832643806407187,
+   "not_competed_share_pct": 7.922057069449912,
+   "competed_with_offers_recorded_pct": 78.48105794420495,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2024,
+   "new_dollars": 7039328461.1,
+   "single_bidder_share_pct": 24.585328812452683,
+   "not_competed_share_pct": 11.306684466541094,
+   "competed_with_offers_recorded_pct": 72.03458815810988,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2025,
+   "new_dollars": 6163219544.06,
+   "single_bidder_share_pct": 27.62894151219196,
+   "not_competed_share_pct": 14.158231090128842,
+   "competed_with_offers_recorded_pct": 68.91174734434631,
+   "provisional": false
+  },
+  {
+   "fiscal_year": 2026,
+   "new_dollars": 5696938584.39,
+   "single_bidder_share_pct": 25.663139115013355,
+   "not_competed_share_pct": 13.388241008950041,
+   "competed_with_offers_recorded_pct": 71.15184206332857,
+   "provisional": true
+  }
+ ]
+}

@@ -1,0 +1,1811 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "top_suppliers",
+  "description": "The 25 largest suppliers by net obligations in each fiscal year, after name cleaning.",
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 250,
+  "columns": [
+   "fiscal_year",
+   "rank",
+   "name",
+   "obligations",
+   "share_pct"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T15:56:47+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Contracts for computer hardware only, chosen by Product and Service Code. The buyer picks one code for a whole contract, so a contract that mixes hardware with software or services is counted in full or not at all.",
+   "The code list was rewritten on 1 October 2020. Figures before and after that month are not on the same footing, and the new codes cover hardware together with software sold under a perpetual licence.",
+   "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
+   "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
+   "Agencies correct old records; every figure can change on the next retrieval.",
+   "A supplier is the parent company the source names, else the company on the contract; groups with the same name after cleaning are merged. Two companies that share a cleaned name would be merged wrongly. A company whose recorded parent changed over the years (a takeover, or a correction) appears under each parent and is not merged, and the parent can be an investment firm that owns the company on the contract.",
+   "Most hardware is bought through resellers. The supplier here is the company that holds the contract, not the maker of the equipment.",
+   "Only the largest suppliers in each fiscal year are named. The rest are counted without a name."
+  ],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "finding": {
+   "label": "observation",
+   "reason": "Shares of net obligations by supplier after name cleaning. Arithmetic on reported figures; the rules were fixed before the figures were computed."
+  },
+  "cleaning": {
+   "transactions": 415312,
+   "names_as_written": 10227,
+   "registrations": 10536,
+   "after_parent_grouping": 10698,
+   "suppliers": 9975,
+   "transactions_without_registration": 0
+  },
+  "entrant_lookback_years": 4,
+  "named_per_year": 25
+ },
+ "data": [
+  {
+   "fiscal_year": 2026,
+   "rank": 1,
+   "name": "FRANCISCO PARTNERS MANAGEMENT, L.P.",
+   "obligations": 376183075.67,
+   "share_pct": 6.743378136693409
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 2,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 246400280.27,
+   "share_pct": 4.416919235105169
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 3,
+   "name": "FCN INC",
+   "obligations": 242503605.94,
+   "share_pct": 4.347068276403914
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 4,
+   "name": "CARAHSOFT TECHNOLOGY CORP",
+   "obligations": 224319576.69,
+   "share_pct": 4.021105219551746
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 5,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 198161394.8,
+   "share_pct": 3.552199191446924
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 6,
+   "name": "IRON BOW TECHNOLOGIES, LLC",
+   "obligations": 166310926.91,
+   "share_pct": 2.981254450165439
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 7,
+   "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+   "obligations": 157048593.96,
+   "share_pct": 2.8152198315198187
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 8,
+   "name": "CDW GOVERNMENT LLC",
+   "obligations": 142074196.55,
+   "share_pct": 2.546791955212769
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 9,
+   "name": "V3GATE, LLC",
+   "obligations": 138601244.24,
+   "share_pct": 2.484536547695241
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 10,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 136255166.1,
+   "share_pct": 2.4424812478706186
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 11,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 110941979.65,
+   "share_pct": 1.9887224290482794
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 12,
+   "name": "DYNAMIC SYSTEMS INC",
+   "obligations": 109444630.75999999,
+   "share_pct": 1.9618812699933577
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 13,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 102719246.59,
+   "share_pct": 1.841323457837486
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 14,
+   "name": "BLUE TECH INC.",
+   "obligations": 99107938.14999999,
+   "share_pct": 1.7765879076382125
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 15,
+   "name": "FOUR LLC",
+   "obligations": 95380837.72,
+   "share_pct": 1.709776694751617
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 16,
+   "name": "IMPRES TECHNOLOGY SOLUTIONS, INC",
+   "obligations": 92701711.41,
+   "share_pct": 1.6617512439731177
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 17,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 90700978.0,
+   "share_pct": 1.62588652063245
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 18,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 88609907.49,
+   "share_pct": 1.5884024335711062
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 19,
+   "name": "MINBURN TECHNOLOGY GROUP, LLC",
+   "obligations": 79108131.26,
+   "share_pct": 1.4180756054036878
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 20,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 75884386.81,
+   "share_pct": 1.360287445200843
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 21,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 75689696.28,
+   "share_pct": 1.3567974639966516
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 22,
+   "name": "PARAGON MICRO INC",
+   "obligations": 69918106.31,
+   "share_pct": 1.2533371646508116
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 23,
+   "name": "SWISH DATA CORPORATION",
+   "obligations": 67740889.52,
+   "share_pct": 1.2143088376204718
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 24,
+   "name": "MYTHICS, LLC",
+   "obligations": 62277885.69,
+   "share_pct": 1.1163801880599296
+  },
+  {
+   "fiscal_year": 2026,
+   "rank": 25,
+   "name": "METGREEN SOLUTIONS INC",
+   "obligations": 60535427.7,
+   "share_pct": 1.0851452551939431
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 1,
+   "name": "FCN INC",
+   "obligations": 411293374.39,
+   "share_pct": 6.79594154597757
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 2,
+   "name": "FRANCISCO PARTNERS MANAGEMENT, L.P.",
+   "obligations": 363576264.69,
+   "share_pct": 6.007495369947743
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 3,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 211053733.78,
+   "share_pct": 3.4873132589516005
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 4,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 192693166.3,
+   "share_pct": 3.1839353026932065
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 5,
+   "name": "CARAHSOFT TECHNOLOGY CORP",
+   "obligations": 189421019.47,
+   "share_pct": 3.1298684978984137
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 6,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 167695110.74,
+   "share_pct": 2.7708838534671623
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 7,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 161906280.34,
+   "share_pct": 2.6752330225333427
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 8,
+   "name": "NANA REGIONAL CORPORATION INC",
+   "obligations": 136020374.45,
+   "share_pct": 2.24751131766993
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 9,
+   "name": "FREQUENTIS USA, INC",
+   "obligations": 133070786.82,
+   "share_pct": 2.1987742692116417
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 10,
+   "name": "CDW GOVERNMENT LLC",
+   "obligations": 131548250.53,
+   "share_pct": 2.1736168796869126
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 11,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 129141501.42,
+   "share_pct": 2.13384933835063
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 12,
+   "name": "HPI FEDERAL LLC",
+   "obligations": 117757306.69,
+   "share_pct": 1.9457443827387142
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 13,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 116915480.37,
+   "share_pct": 1.9318345976101052
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 14,
+   "name": "FOUR LLC",
+   "obligations": 112804173.24,
+   "share_pct": 1.863902059249915
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 15,
+   "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+   "obligations": 104185884.91,
+   "share_pct": 1.7214991241092106
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 16,
+   "name": "GENERAL DYNAMICS CORP",
+   "obligations": 98391286.57000001,
+   "share_pct": 1.6257529875237045
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 17,
+   "name": "DYNAMIC SYSTEMS INC",
+   "obligations": 95992545.68,
+   "share_pct": 1.586117768754222
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 18,
+   "name": "BLUE TECH INC.",
+   "obligations": 92233310.79,
+   "share_pct": 1.524002640816823
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 19,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 82052583.61,
+   "share_pct": 1.3557829924613418
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 20,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 79143951.99,
+   "share_pct": 1.307722674208905
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 21,
+   "name": "HEWLETT PACKARD ENTERPRISE CO",
+   "obligations": 73834047.91,
+   "share_pct": 1.2199853071872564
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 22,
+   "name": "IRON BOW TECHNOLOGIES, LLC",
+   "obligations": 65759670.94,
+   "share_pct": 1.0865696060719854
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 23,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 62384987.66,
+   "share_pct": 1.030808556332047
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 24,
+   "name": "V3GATE, LLC",
+   "obligations": 59305588.5,
+   "share_pct": 0.9799265874232835
+  },
+  {
+   "fiscal_year": 2025,
+   "rank": 25,
+   "name": "GREENBRIER GOVERNMENT SOLUTIONS INC",
+   "obligations": 56811769.43,
+   "share_pct": 0.9387203592629103
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 1,
+   "name": "FCN INC",
+   "obligations": 406010402.09,
+   "share_pct": 5.896550909822428
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 2,
+   "name": "FRANCISCO PARTNERS MANAGEMENT, L.P.",
+   "obligations": 271698297.69,
+   "share_pct": 3.9459157602716832
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 3,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 206682808.53,
+   "share_pct": 3.001685908559738
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 4,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 176106005.5,
+   "share_pct": 2.557614340940046
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 5,
+   "name": "GENERAL DYNAMICS CORP",
+   "obligations": 162302128.53,
+   "share_pct": 2.357138533208185
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 6,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 162206176.24,
+   "share_pct": 2.355745003485827
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 7,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 159861628.42000002,
+   "share_pct": 2.3216947783931245
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 8,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 153070632.14,
+   "share_pct": 2.2230681050682413
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 9,
+   "name": "FOUR LLC",
+   "obligations": 152319451.05,
+   "share_pct": 2.2121585876842538
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 10,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 148129018.09,
+   "share_pct": 2.1513002915528143
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 11,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 147427894.31,
+   "share_pct": 2.1411177641062866
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 12,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 140805867.59,
+   "share_pct": 2.0449450614373808
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 13,
+   "name": "CDW GOVERNMENT LLC",
+   "obligations": 137707866.32,
+   "share_pct": 1.9999523171303022
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 14,
+   "name": "CARAHSOFT TECHNOLOGY CORP",
+   "obligations": 132960046.72,
+   "share_pct": 1.9309990099294514
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 15,
+   "name": "MINBURN TECHNOLOGY GROUP, LLC",
+   "obligations": 122753768.7,
+   "share_pct": 1.7827716797060469
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 16,
+   "name": "AATD LLC",
+   "obligations": 110659301.92,
+   "share_pct": 1.6071218965272958
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 17,
+   "name": "BLUE TECH INC.",
+   "obligations": 104436472.12,
+   "share_pct": 1.516746791530044
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 18,
+   "name": "HPI FEDERAL LLC",
+   "obligations": 102582234.78,
+   "share_pct": 1.489817420218567
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 19,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 102325319.18,
+   "share_pct": 1.48608619582843
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 20,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 86470972.64,
+   "share_pct": 1.2558311062202723
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 21,
+   "name": "HP, INC.",
+   "obligations": 82878902.62,
+   "share_pct": 1.2036629262043284
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 22,
+   "name": "PARAGON MICRO INC",
+   "obligations": 77492104.12,
+   "share_pct": 1.1254296311146028
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 23,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 74728430.55,
+   "share_pct": 1.0852923789167557
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 24,
+   "name": "ROCKWELL COLLINS AUSTRALIA PTY LIMITED",
+   "obligations": 71804940.32,
+   "share_pct": 1.0428340850237279
+  },
+  {
+   "fiscal_year": 2024,
+   "rank": 25,
+   "name": "ADVANCED COMPUTER CONCEPTS, INC.",
+   "obligations": 71667069.49000001,
+   "share_pct": 1.040831765960252
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 1,
+   "name": "FCN INC",
+   "obligations": 410007245.32,
+   "share_pct": 5.50470500399809
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 2,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 401927431.88,
+   "share_pct": 5.396226458845002
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 3,
+   "name": "HP, INC.",
+   "obligations": 287841000.54,
+   "share_pct": 3.864516576510032
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 4,
+   "name": "CACI INTERNATIONAL INC",
+   "obligations": 277902196.28000003,
+   "share_pct": 3.7310794576096584
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 5,
+   "name": "MINBURN TECHNOLOGY GROUP, LLC",
+   "obligations": 249111386.15,
+   "share_pct": 3.344537711333744
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 6,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 231489039.14,
+   "share_pct": 3.107942327043822
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 7,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 227781563.37,
+   "share_pct": 3.0581662300204817
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 8,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 202031328.53,
+   "share_pct": 2.7124468599463167
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 9,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 174735087.69,
+   "share_pct": 2.345971010415871
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 10,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 159405856.52,
+   "share_pct": 2.1401627070453197
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 11,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 152069451.35,
+   "share_pct": 2.0416650665484126
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 12,
+   "name": "FOUR LLC",
+   "obligations": 147145356.83,
+   "share_pct": 1.9755548012938362
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 13,
+   "name": "HIG CAPITAL MANAGEMENT, INC.",
+   "obligations": 146001527.39,
+   "share_pct": 1.9601978930587771
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 14,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 135323352.21,
+   "share_pct": 1.816834074448602
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 15,
+   "name": "CDW CORPORATION",
+   "obligations": 122214268.77,
+   "share_pct": 1.6408331914552388
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 16,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 108956338.16,
+   "share_pct": 1.4628339053339248
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 17,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 98624614.62,
+   "share_pct": 1.324121502273401
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 18,
+   "name": "BOOZ ALLEN HAMILTON HOLDING CORPORATION",
+   "obligations": 95757830.2,
+   "share_pct": 1.2856324201357396
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 19,
+   "name": "DYNAMIC SYSTEMS INC",
+   "obligations": 93346231.99,
+   "share_pct": 1.2532546100220208
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 20,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 90434741.42999999,
+   "share_pct": 1.2141653089482882
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 21,
+   "name": "CARAHSOFT TECHNOLOGY CORP",
+   "obligations": 90013217.76,
+   "share_pct": 1.208505985894761
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 22,
+   "name": "GREENBRIER GOVERNMENT SOLUTIONS INC",
+   "obligations": 89120123.78,
+   "share_pct": 1.196515419979494
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 23,
+   "name": "V3GATE, LLC",
+   "obligations": 89120070.73,
+   "share_pct": 1.1965147077369573
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 24,
+   "name": "BLUE TECH INC.",
+   "obligations": 83025524.74,
+   "share_pct": 1.1146901102665745
+  },
+  {
+   "fiscal_year": 2023,
+   "rank": 25,
+   "name": "RTX CORPORATION",
+   "obligations": 82584794.68,
+   "share_pct": 1.1087729246695228
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 1,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 349424847.39,
+   "share_pct": 5.12652354022196
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 2,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 242813539.84,
+   "share_pct": 3.5623949961550636
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 3,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 231724500.79,
+   "share_pct": 3.3997041624811315
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 4,
+   "name": "FCN INC",
+   "obligations": 220533390.35,
+   "share_pct": 3.2355158068435306
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 5,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 218536132.02,
+   "share_pct": 3.206213391971982
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 6,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 212930293.44,
+   "share_pct": 3.123968343694179
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 7,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 210601559.5,
+   "share_pct": 3.089802744277034
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 8,
+   "name": "CDW CORPORATION",
+   "obligations": 192412848.49,
+   "share_pct": 2.8229503556860562
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 9,
+   "name": "CACI INTERNATIONAL INC",
+   "obligations": 189362655.84,
+   "share_pct": 2.778200005104993
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 10,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 160459475.83,
+   "share_pct": 2.354152219679021
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 11,
+   "name": "HP, INC.",
+   "obligations": 154873197.57,
+   "share_pct": 2.272194147103385
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 12,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 153411030.35999998,
+   "share_pct": 2.250742224958193
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 13,
+   "name": "HIG CAPITAL MANAGEMENT, INC.",
+   "obligations": 144357851.83,
+   "share_pct": 2.117920151214604
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 14,
+   "name": "AT&T INC.",
+   "obligations": 138038360.57,
+   "share_pct": 2.0252048765322117
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 15,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 128056347.17,
+   "share_pct": 1.8787555697466647
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 16,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 113980123.31,
+   "share_pct": 1.672238793636629
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 17,
+   "name": "BOOZ ALLEN HAMILTON HOLDING CORPORATION",
+   "obligations": 109637599.57000001,
+   "share_pct": 1.6085282408715142
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 18,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 93706343.26,
+   "share_pct": 1.3747956912014878
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 19,
+   "name": "BLUE TECH INC.",
+   "obligations": 85398427.15,
+   "share_pct": 1.252907600453986
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 20,
+   "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+   "obligations": 80996654.87,
+   "share_pct": 1.1883277934349095
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 21,
+   "name": "CARAHSOFT TECHNOLOGY CORP",
+   "obligations": 80607728.98,
+   "share_pct": 1.1826217374821641
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 22,
+   "name": "RED RIVER TECHNOLOGY LLC",
+   "obligations": 74163677.8,
+   "share_pct": 1.0880790044297737
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 23,
+   "name": "NANA REGIONAL CORPORATION INC",
+   "obligations": 69033494.51,
+   "share_pct": 1.0128124468329571
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 24,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 64500287.79,
+   "share_pct": 0.9463043231652825
+  },
+  {
+   "fiscal_year": 2022,
+   "rank": 25,
+   "name": "HEWLETT PACKARD ENTERPRISE CO",
+   "obligations": 62478565.17,
+   "share_pct": 0.9166429848813988
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 1,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 296413898.55,
+   "share_pct": 4.440595446311486
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 2,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 275491754.88,
+   "share_pct": 4.12715948273974
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 3,
+   "name": "GOLDSCHMITT-CRI LLC",
+   "obligations": 200829899.45,
+   "share_pct": 3.0086454830336886
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 4,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 196284696.16,
+   "share_pct": 2.940553503774729
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 5,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 189610542.35,
+   "share_pct": 2.840567581516535
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 6,
+   "name": "FCN INC",
+   "obligations": 181254415.28,
+   "share_pct": 2.7153839109890785
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 7,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 165404352.93,
+   "share_pct": 2.477933119917989
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 8,
+   "name": "CDW CORPORATION",
+   "obligations": 163940166.72,
+   "share_pct": 2.4559980532814922
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 9,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 151990791.93,
+   "share_pct": 2.276983710370063
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 10,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 143076361.03,
+   "share_pct": 2.143436054694528
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 11,
+   "name": "NANA REGIONAL CORPORATION INC",
+   "obligations": 140915580.59,
+   "share_pct": 2.1110652656415163
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 12,
+   "name": "ACACIA INVESTMENT HOLDINGS LLC",
+   "obligations": 130174149.77,
+   "share_pct": 1.9501472080892455
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 13,
+   "name": "HP, INC.",
+   "obligations": 127981550.86,
+   "share_pct": 1.9172997445156332
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 14,
+   "name": "RED RIVER TECHNOLOGY LLC",
+   "obligations": 123473476.36,
+   "share_pct": 1.8497639940185757
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 15,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 120765566.04,
+   "share_pct": 1.8091966174723524
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 16,
+   "name": "CACI INTERNATIONAL INC",
+   "obligations": 119749089.91,
+   "share_pct": 1.7939687239888054
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 17,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 116124123.21000001,
+   "share_pct": 1.7396628675502432
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 18,
+   "name": "MINBURN TECHNOLOGY GROUP, LLC",
+   "obligations": 110373261.25,
+   "share_pct": 1.6535088391566177
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 19,
+   "name": "HIG CAPITAL MANAGEMENT, INC.",
+   "obligations": 108314595.5,
+   "share_pct": 1.6226678367621725
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 20,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 99777247.16,
+   "share_pct": 1.4947692788752722
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 21,
+   "name": "BOOZ ALLEN HAMILTON HOLDING CORPORATION",
+   "obligations": 95930110.23,
+   "share_pct": 1.4371350761058868
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 22,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 92537230.05,
+   "share_pct": 1.3863061225686524
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 23,
+   "name": "RTX CORPORATION",
+   "obligations": 90536770.44,
+   "share_pct": 1.3563371100555714
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 24,
+   "name": "BLUE TECH INC.",
+   "obligations": 76862367.75,
+   "share_pct": 1.151480014577639
+  },
+  {
+   "fiscal_year": 2021,
+   "rank": 25,
+   "name": "MYTHICS, LLC",
+   "obligations": 73148703.34,
+   "share_pct": 1.0958453721103145
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 1,
+   "name": "CDW CORPORATION",
+   "obligations": 325583942.05,
+   "share_pct": 4.6536310044274005
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 2,
+   "name": "V3GATE, LLC",
+   "obligations": 310376398.33,
+   "share_pct": 4.436266792571679
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 3,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 229369478.47,
+   "share_pct": 3.278420028200943
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 4,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 207618132.46,
+   "share_pct": 2.967524049907826
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 5,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 181329353.93,
+   "share_pct": 2.5917737163212085
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 6,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 179503010.18,
+   "share_pct": 2.5656694501027077
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 7,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 174990666.45999998,
+   "share_pct": 2.501173693629556
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 8,
+   "name": "HP, INC.",
+   "obligations": 172252253.57,
+   "share_pct": 2.462033055895431
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 9,
+   "name": "COLOSSAL CONTRACTING LLC",
+   "obligations": 169715662.09,
+   "share_pct": 2.42577708859382
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 10,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 168271428.95,
+   "share_pct": 2.4051343994132415
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 11,
+   "name": "IRON BOW TECHNOLOGIES, LLC",
+   "obligations": 163591928.33,
+   "share_pct": 2.338249438707394
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 12,
+   "name": "FCN INC",
+   "obligations": 153103326.27,
+   "share_pct": 2.1883339255767704
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 13,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 150301983.83,
+   "share_pct": 2.148293824241551
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 14,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 115678840.17,
+   "share_pct": 1.6534188811088322
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 15,
+   "name": "ACACIA INVESTMENT HOLDINGS LLC",
+   "obligations": 110717778.85,
+   "share_pct": 1.5825095216722047
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 16,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 105597980.64999999,
+   "share_pct": 1.5093313068931948
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 17,
+   "name": "NANA REGIONAL CORPORATION INC",
+   "obligations": 105190793.53,
+   "share_pct": 1.503511306698147
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 18,
+   "name": "RED RIVER TECHNOLOGY LLC",
+   "obligations": 101536664.23,
+   "share_pct": 1.4512821663492805
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 19,
+   "name": "BLUE TECH INC.",
+   "obligations": 100865785.13,
+   "share_pct": 1.4416931683160086
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 20,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 91147031.65,
+   "share_pct": 1.302781242149917
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 21,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 76129661.15,
+   "share_pct": 1.088135211010454
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 22,
+   "name": "BOOZ ALLEN HAMILTON HOLDING CORPORATION",
+   "obligations": 74371005.91,
+   "share_pct": 1.062998429081246
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 23,
+   "name": "ADVANCED COMPUTER CONCEPTS, INC.",
+   "obligations": 67113388.01,
+   "share_pct": 0.9592639651974575
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 24,
+   "name": "BAE SYSTEMS PLC",
+   "obligations": 65828493.800000004,
+   "share_pct": 0.9408987365703434
+  },
+  {
+   "fiscal_year": 2020,
+   "rank": 25,
+   "name": "VAE, INC.",
+   "obligations": 65815506.839999996,
+   "share_pct": 0.9407131115689115
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 1,
+   "name": "CDW CORPORATION",
+   "obligations": 286573348.62,
+   "share_pct": 4.5403756707945915
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 2,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 238834360.67,
+   "share_pct": 3.7840145490073964
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 3,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 229795426.2,
+   "share_pct": 3.6408045877352673
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 4,
+   "name": "IRON BOW TECHNOLOGIES, LLC",
+   "obligations": 225999076.32,
+   "share_pct": 3.5806564451533403
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 5,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 183484384.97,
+   "share_pct": 2.907067393043526
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 6,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 162969898.94,
+   "share_pct": 2.5820424955155388
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 7,
+   "name": "BLUE TECH INC.",
+   "obligations": 153828392.83,
+   "share_pct": 2.4372074222746516
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 8,
+   "name": "RED RIVER TECHNOLOGY LLC",
+   "obligations": 152816067.39000002,
+   "share_pct": 2.4211684646366294
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 9,
+   "name": "FCN INC",
+   "obligations": 143591038.81,
+   "share_pct": 2.2750100883301254
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 10,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 126498329.29,
+   "share_pct": 2.004198713768301
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 11,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 118345822.5,
+   "share_pct": 1.875033026646479
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 12,
+   "name": "SIRIUS COMPUTER SOLUTIONS, LLC",
+   "obligations": 118114417.25,
+   "share_pct": 1.8713667165298766
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 13,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 116273971.92999999,
+   "share_pct": 1.8422072947113588
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 14,
+   "name": "ACACIA INVESTMENT HOLDINGS LLC",
+   "obligations": 108789257.42999999,
+   "share_pct": 1.723621893164804
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 15,
+   "name": "V3GATE, LLC",
+   "obligations": 102189453.31,
+   "share_pct": 1.6190567261569233
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 16,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 93897141.52,
+   "share_pct": 1.4876760137240872
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 17,
+   "name": "HP, INC.",
+   "obligations": 89730078.48,
+   "share_pct": 1.4216544114481142
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 18,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 82231504.93,
+   "share_pct": 1.3028494315850716
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 19,
+   "name": "FOUR POINTS TECHNOLOGY, L.L.C.",
+   "obligations": 81360722.1,
+   "share_pct": 1.289053029390252
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 20,
+   "name": "BOOZ ALLEN HAMILTON HOLDING CORPORATION",
+   "obligations": 79555926.64,
+   "share_pct": 1.260458432450917
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 21,
+   "name": "SERCO GROUP PLC",
+   "obligations": 71611625.97,
+   "share_pct": 1.1345914959153265
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 22,
+   "name": "CACI INTERNATIONAL INC",
+   "obligations": 71361049.28,
+   "share_pct": 1.130621439689153
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 23,
+   "name": "ADVANCED ELECTRONICS COMPANY LIMITED",
+   "obligations": 68590692.46,
+   "share_pct": 1.0867288001065827
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 24,
+   "name": "UNICOM GOVERNMENT  INC.",
+   "obligations": 63803420.25,
+   "share_pct": 1.0108808038556218
+  },
+  {
+   "fiscal_year": 2019,
+   "rank": 25,
+   "name": "PANAMERICA COMPUTERS, INC.",
+   "obligations": 63344497.77,
+   "share_pct": 1.0036097841568024
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 1,
+   "name": "IRON BOW TECHNOLOGIES, LLC",
+   "obligations": 323111473.4,
+   "share_pct": 5.446481825593101
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 2,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 267334067.79999998,
+   "share_pct": 4.506278054175015
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 3,
+   "name": "CDW CORPORATION",
+   "obligations": 220412059.71,
+   "share_pct": 3.7153440102881117
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 4,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 208082720.68,
+   "share_pct": 3.507516289898438
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 5,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 186790256.02,
+   "share_pct": 3.1486029385015715
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 6,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 144269454.38,
+   "share_pct": 2.4318571946721317
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 7,
+   "name": "RED RIVER TECHNOLOGY LLC",
+   "obligations": 138943529.55,
+   "share_pct": 2.342081512967509
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 8,
+   "name": "FCN INC",
+   "obligations": 123352998.66,
+   "share_pct": 2.0792819835969967
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 9,
+   "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+   "obligations": 121164748.43,
+   "share_pct": 2.0423960600420923
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 10,
+   "name": "BLUE TECH INC.",
+   "obligations": 117923883.47,
+   "share_pct": 1.9877668885115911
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 11,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 112923318.67999999,
+   "share_pct": 1.903475591270285
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 12,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 111579766.63,
+   "share_pct": 1.880828200433116
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 13,
+   "name": "PANAMERICA COMPUTERS, INC.",
+   "obligations": 105384838.78999999,
+   "share_pct": 1.7764042951586314
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 14,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 94523757.96,
+   "share_pct": 1.5933260567896048
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 15,
+   "name": "GENERAL DYNAMICS CORP",
+   "obligations": 91824944.77,
+   "share_pct": 1.5478339025329557
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 16,
+   "name": "HP, INC.",
+   "obligations": 91299135.0,
+   "share_pct": 1.5389706661833167
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 17,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 89415611.29,
+   "share_pct": 1.507221321145702
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 18,
+   "name": "INTELLIGENT WAVES LLC",
+   "obligations": 82104673.09,
+   "share_pct": 1.3839855486262902
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 19,
+   "name": "CSP ENTERPRISES, LLC",
+   "obligations": 68663575.03999999,
+   "share_pct": 1.1574176230896047
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 20,
+   "name": "UNICOM GOVERNMENT  INC.",
+   "obligations": 63497253.01,
+   "share_pct": 1.0703322629027132
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 21,
+   "name": "WESTWIND COMPUTER PRODUCTS, INC.",
+   "obligations": 63266380.07,
+   "share_pct": 1.066440586576585
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 22,
+   "name": "SIRIUS COMPUTER SOLUTIONS, LLC",
+   "obligations": 61947614.87,
+   "share_pct": 1.0442110116919665
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 23,
+   "name": "SERCO GROUP PLC",
+   "obligations": 61113470.47,
+   "share_pct": 1.0301503772405989
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 24,
+   "name": "BOOZ ALLEN HAMILTON HOLDING CORPORATION",
+   "obligations": 60253438.36,
+   "share_pct": 1.0156533703492876
+  },
+  {
+   "fiscal_year": 2018,
+   "rank": 25,
+   "name": "MCP COMPUTER PRODUCTS INC",
+   "obligations": 56185237.95,
+   "share_pct": 0.9470783384484384
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 1,
+   "name": "CDW CORPORATION",
+   "obligations": 404980569.27,
+   "share_pct": 6.781054279927489
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 2,
+   "name": "IRON BOW TECHNOLOGIES, LLC",
+   "obligations": 300562614.62,
+   "share_pct": 5.032664673095287
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 3,
+   "name": "HP, INC.",
+   "obligations": 240781607.15,
+   "share_pct": 4.031682682049302
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 4,
+   "name": "WORLD WIDE TECHNOLOGY HOLDING CO., INC.",
+   "obligations": 212564121.78,
+   "share_pct": 3.5592049523598543
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 5,
+   "name": "DELL TECHNOLOGIES INC.",
+   "obligations": 209755758.61,
+   "share_pct": 3.5121813059467772
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 6,
+   "name": "GOVERNMENT ACQUISITIONS LLC",
+   "obligations": 169779486.0,
+   "share_pct": 2.8428127113837647
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 7,
+   "name": "LEONARDO S.P.A.",
+   "obligations": 163583568.10999998,
+   "share_pct": 2.73906734996606
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 8,
+   "name": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+   "obligations": 144906825.61,
+   "share_pct": 2.4263412236409914
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 9,
+   "name": "RED RIVER TECHNOLOGY LLC",
+   "obligations": 116682717.17,
+   "share_pct": 1.9537525962923028
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 10,
+   "name": "ALL POINTS LOGISTICS, LLC",
+   "obligations": 111176923.53999999,
+   "share_pct": 1.861562777095773
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 11,
+   "name": "NEW TECH SOLUTIONS, INC.",
+   "obligations": 101064452.9,
+   "share_pct": 1.6922380797711085
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 12,
+   "name": "NCS TECHNOLOGIES INC",
+   "obligations": 98387230.4,
+   "share_pct": 1.6474102720452528
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 13,
+   "name": "BLUE TECH INC.",
+   "obligations": 96998215.77,
+   "share_pct": 1.624152406566369
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 14,
+   "name": "STERLING COMPUTERS CORPORATION",
+   "obligations": 96787147.55,
+   "share_pct": 1.6206182492136654
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 15,
+   "name": "FCN INC",
+   "obligations": 91114157.01,
+   "share_pct": 1.5256288603385462
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 16,
+   "name": "NORTHROP GRUMMAN CORPORATION",
+   "obligations": 83137736.88,
+   "share_pct": 1.3920705072587087
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 17,
+   "name": "TRANSOURCE SERVICES CORP.",
+   "obligations": 81859740.26,
+   "share_pct": 1.3706715436852093
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 18,
+   "name": "HEWLETT PACKARD ENTERPRISE CO",
+   "obligations": 72138009.27,
+   "share_pct": 1.2078894485914269
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 19,
+   "name": "COUNTERTRADE PRODUCTS, INC.",
+   "obligations": 71807413.15,
+   "share_pct": 1.2023538984822097
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 20,
+   "name": "THUNDERCAT TECHNOLOGY  LLC",
+   "obligations": 70009183.9,
+   "share_pct": 1.172244083154567
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 21,
+   "name": "CGI INC",
+   "obligations": 67616420.55,
+   "share_pct": 1.1321793013191854
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 22,
+   "name": "UNICOM SYSTEMS INC",
+   "obligations": 67386005.84,
+   "share_pct": 1.1283212034894052
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 23,
+   "name": "NANA REGIONAL CORPORATION INC",
+   "obligations": 66773640.89,
+   "share_pct": 1.1180676746039078
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 24,
+   "name": "PANAMERICA COMPUTERS, INC.",
+   "obligations": 64047744.25,
+   "share_pct": 1.0724248599112642
+  },
+  {
+   "fiscal_year": 2017,
+   "rank": 25,
+   "name": "GENERAL DYNAMICS CORP",
+   "obligations": 60475888.88999999,
+   "share_pct": 1.012617187854628
+  }
+ ]
+}

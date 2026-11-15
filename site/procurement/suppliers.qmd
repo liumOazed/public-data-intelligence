@@ -1,0 +1,180 @@
+---
+title: "Suppliers and competition"
+subtitle: "How concentrated federal computer hardware buying is, how many suppliers are new, and how often a competed award drew one offer"
+---
+
+```{python}
+import pandas as pd
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+conc, meta = site.load("procurement", "concentration")
+top, top_meta = site.load("procurement", "top_suppliers")
+comp, comp_meta = site.load("procurement", "competition")
+finding = meta.get("finding")
+
+
+def fy_label(year, provisional):
+    return f"{int(year)}*" if provisional else str(int(year))
+```
+
+Most federal hardware is bought through resellers, so the supplier on a contract is usually
+not the company that made the machine. The figures here describe who holds the contracts.
+Every rule on this page was
+[written before the figures were computed](../methodology.qmd#federal-procurement).
+A fiscal year marked * is provisional: defence records for its last months were still
+arriving when the data were retrieved.
+
+## Cleaning the supplier names
+
+```{python}
+#| output: asis
+c = meta.get("cleaning")
+if not c:
+    print(site.empty_state(meta, "Supplier names"))
+else:
+    print(f'The {c["transactions"]:,} transactions carry {c["names_as_written"]:,} different '
+          f'supplier names under {c["registrations"]:,} registrations. Grouping each company '
+          f'under the parent the source names gives {c["after_parent_grouping"]:,} groups. '
+          f'That can be more than the registrations, because a company whose recorded parent '
+          f'changed over the years appears once under each parent. Merging groups whose names '
+          f'are the same once case, punctuation and legal endings are removed leaves '
+          f'**{c["suppliers"]:,} suppliers**. The name shown is the parent\'s, which can be an '
+          f'investment firm that owns the company on the contract. Only the '
+          f'{meta["named_per_year"]} largest in each fiscal year are named anywhere on this '
+          f'site.\n')
+```
+
+## Concentration
+
+```{python}
+#| output: asis
+if conc.empty:
+    print(site.empty_state(meta, "Concentration"))
+else:
+    print(site.finding_line(finding))
+    firm = conc[~conc["provisional"]]
+    r = firm.iloc[-1] if not firm.empty else conc.iloc[-1]
+    print(f'{site.finding_badge(finding)} In fiscal {int(r["fiscal_year"])}, '
+          f'{int(r["suppliers"]):,} suppliers shared ${r["obligations"] / 1e9:.2f} billion. '
+          f'The largest four held {r["top4_share_pct"]:.1f}% and the largest ten '
+          f'{r["top10_share_pct"]:.1f}%. The Herfindahl-Hirschman index was '
+          f'{r["hhi"]:.0f} on a scale where 10,000 is a single supplier.\n')
+```
+
+```{python}
+if not conc.empty:
+    t = conc.assign(obligations=conc["obligations"] / 1e9,
+                    fiscal_year=[fy_label(y, p) for y, p in zip(conc["fiscal_year"],
+                                                                conc["provisional"])])[
+        ["fiscal_year", "suppliers", "obligations", "top4_share_pct", "top10_share_pct", "hhi",
+         "entrants", "entrant_share_of_suppliers_pct", "entrant_share_of_dollars_pct"]
+    ].rename(columns={"fiscal_year": "Fiscal year", "suppliers": "Suppliers",
+                      "obligations": "Net obligations, $bn",
+                      "top4_share_pct": "Largest 4, %", "top10_share_pct": "Largest 10, %",
+                      "hhi": "HHI", "entrants": "New entrants",
+                      "entrant_share_of_suppliers_pct": "New, % of suppliers",
+                      "entrant_share_of_dollars_pct": "New, % of dollars"}).round(1)
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+## New entrants
+
+```{python}
+#| output: asis
+if not conc.empty and conc["entrants"].notna().any():
+    print(site.finding_line(finding))
+    look = meta["entrant_lookback_years"]
+    judged = conc[conc["entrants"].notna()]
+    firm = judged[~judged["provisional"]]
+    r = firm.iloc[-1] if not firm.empty else judged.iloc[-1]
+    print(f'A new entrant is a supplier with net obligations above zero in a fiscal year and '
+          f'no action of any kind in this slice in the {look} fiscal years before it. '
+          f'{site.finding_badge(finding)} In fiscal {int(r["fiscal_year"])}, '
+          f'{int(r["entrants"]):,} suppliers were new by that rule: '
+          f'{r["entrant_share_of_suppliers_pct"]:.1f}% of suppliers and '
+          f'{r["entrant_share_of_dollars_pct"]:.1f}% of dollars. Years before '
+          f'{int(judged["fiscal_year"].min())} cannot be judged because the data start in '
+          f'fiscal {meta["first_fiscal_year"]}. A company that changed its name or its parent '
+          f'counts as new, and so does one that sold other things to the government before.\n')
+```
+
+## Largest suppliers
+
+```{python}
+if top.empty:
+    display(Markdown(site.empty_state(top_meta, "Largest suppliers")))
+else:
+    t = top.assign(obligations=top["obligations"] / 1e6)[
+        ["fiscal_year", "rank", "name", "obligations", "share_pct"]
+    ].rename(columns={"fiscal_year": "Fiscal year", "rank": "Rank", "name": "Supplier",
+                      "obligations": "Net obligations, $m",
+                      "share_pct": "Share of the year, %"}).round(1)
+    show(t, paging=True, pageLength=25, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+if not top.empty:
+    print(site.finding_line(top_meta.get("finding")))
+```
+
+## Single-bidder share
+
+```{python}
+#| output: asis
+if comp.empty:
+    print(site.empty_state(comp_meta, "Competition"))
+else:
+    f2 = comp_meta.get("finding")
+    print(site.finding_line(f2))
+    firm = comp[~comp["provisional"]]
+    r = firm.iloc[-1] if not firm.empty else comp.iloc[-1]
+    print(f'{site.finding_badge(f2)} In fiscal {int(r["fiscal_year"])}, '
+          f'{r["single_bidder_share_pct"]:.1f}% of the dollars newly obligated on competed '
+          f'awards went to awards that drew exactly one offer, and '
+          f'{r["not_competed_share_pct"]:.1f}% of all new dollars were not competed at all. '
+          f'The single-bidder share rests on the {r["competed_with_offers_recorded_pct"]:.1f}% '
+          f'of new dollars where the award was competed and a number of offers was recorded.\n')
+```
+
+```{python}
+if not comp.empty:
+    c = comp.assign(year=[fy_label(y, p) for y, p in zip(comp["fiscal_year"],
+                                                         comp["provisional"])])
+    long = c.melt(id_vars="year", value_vars=["single_bidder_share_pct",
+                                              "not_competed_share_pct"],
+                  var_name="Measure", value_name="pct")
+    long["Measure"] = long["Measure"].map({
+        "single_bidder_share_pct": "One offer, % of competed dollars",
+        "not_competed_share_pct": "Not competed, % of all new dollars"})
+    fig = px.line(long, x="year", y="pct", color="Measure", markers=True,
+                  labels={"pct": "%", "year": "Fiscal year", "Measure": ""})
+    fig.update_layout(height=380, margin=dict(l=10, r=10, t=10, b=10),
+                      legend=dict(orientation="h", y=-0.2))
+    fig.show()
+    t = c.assign(new_dollars=c["new_dollars"] / 1e9)[
+        ["year", "new_dollars", "single_bidder_share_pct", "not_competed_share_pct",
+         "competed_with_offers_recorded_pct"]
+    ].rename(columns={"year": "Fiscal year", "new_dollars": "New dollars, $bn",
+                      "single_bidder_share_pct": "One offer, % of competed dollars",
+                      "not_competed_share_pct": "Not competed, % of new dollars",
+                      "competed_with_offers_recorded_pct":
+                          "Competed with offers recorded, % of new dollars"}).round(1)
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+One offer on a competed award is not proof of a problem. The number is what the contracting
+officer typed, and for an order placed under a larger agreement it can describe the
+competition for the agreement.
+
+```{python}
+#| output: asis
+print("\n## Sources and limits\n")
+print(site.source_note(comp_meta if not comp.empty else meta))
+```

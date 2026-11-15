@@ -1,0 +1,203 @@
+---
+title: "Federal Procurement: computer hardware"
+subtitle: "What every US federal agency promised to spend on computers, servers, storage and data centre equipment, by month"
+---
+
+```{python}
+import pandas as pd
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+monthly, meta = site.load("procurement", "monthly")
+groups, groups_meta = site.load("procurement", "by_group")
+agencies, agencies_meta = site.load("procurement", "agencies")
+check, check_meta = site.load("procurement", "totals_check")
+finding = meta.get("finding")
+
+
+def fy_label(year, provisional):
+    return f"{int(year)}*" if provisional else str(int(year))
+```
+
+The US government publishes every contract it signs. This page adds up the contracts for
+computer hardware: what each agency promised to pay in each month, from October 2016. The
+figures are obligations, which is money promised when a contract or an order is signed. Money
+actually paid is a different figure and has [its own page](paid.qmd).
+[Who the suppliers are](suppliers.qmd) is a third.
+
+## Value by month
+
+```{python}
+#| output: asis
+if monthly.empty:
+    print(site.empty_state(meta, "Monthly value"))
+else:
+    print(site.finding_line(finding))
+    m = monthly.assign(period=pd.to_datetime(monthly["period"]))
+    firm = m[~m["provisional"]]
+    last = firm.iloc[-1]
+    year_ago = firm[firm["period"] == last["period"] - pd.DateOffset(years=1)]
+    line = (f'{site.finding_badge(finding)} In the twelve months to '
+            f'{last["period"]:%B %Y}, agencies obligated '
+            f'${last["obligations_12m"] / 1e9:.2f} billion for computer hardware')
+    if not year_ago.empty and pd.notna(year_ago.iloc[0]["obligations_12m"]):
+        before = year_ago.iloc[0]["obligations_12m"]
+        change = 100 * (last["obligations_12m"] / before - 1)
+        line += (f', {"up" if change >= 0 else "down"} {abs(change):.1f}% on the twelve months '
+                 f'before (${before / 1e9:.2f} billion)')
+    print(line + ". Later months are provisional and are left out of that figure.\n")
+```
+
+```{python}
+if not monthly.empty:
+    m = monthly.assign(period=pd.to_datetime(monthly["period"]),
+                       bn=monthly["obligations"] / 1e9)
+    m["Status"] = m["provisional"].map({True: "Provisional (defence records still arriving)",
+                                        False: "Reported"})
+    fig = px.bar(m, x="period", y="bn", color="Status",
+                 color_discrete_map={"Reported": "#2a6f97",
+                                     "Provisional (defence records still arriving)": "#b8c4cc"},
+                 labels={"bn": "Net obligations, $ billion", "period": ""})
+    fig.add_vline(x=pd.Timestamp(meta["code_change"] + "-01"), line_dash="dot",
+                  line_color="#666")
+    fig.add_annotation(x=pd.Timestamp(meta["code_change"] + "-01"), y=1, yref="paper",
+                       text="Product codes rewritten", showarrow=False, xanchor="left",
+                       font=dict(size=11, color="#666"))
+    fig.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10),
+                      legend=dict(orientation="h", y=-0.15, title=""))
+    fig.show()
+```
+
+The tall bar every September is the end of the fiscal year, when agencies commit what is left
+of their budgets. The dotted line is 1 October 2020, when the government replaced its list of
+product codes. Spending before and after the line is not on the same footing; see the limits
+at the foot of the page.
+
+## What kind of hardware
+
+```{python}
+if groups.empty:
+    display(Markdown(site.empty_state(groups_meta, "Kinds of hardware")))
+else:
+    g = groups.assign(bn=groups["obligations"] / 1e9,
+                      year=[fy_label(y, p) for y, p in zip(groups["fiscal_year"],
+                                                           groups["provisional"])])
+    fig = px.bar(g, x="year", y="bn", color="group",
+                 labels={"bn": "Net obligations, $ billion", "year": "Fiscal year", "group": ""})
+    fig.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10),
+                      legend=dict(orientation="h", y=-0.2))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+if not groups.empty:
+    print(site.finding_line(groups_meta.get("finding")))
+    print("A fiscal year runs from October to September. A year marked * is provisional.")
+```
+
+## Which agencies buy
+
+```{python}
+if agencies.empty:
+    display(Markdown(site.empty_state(agencies_meta, "Agencies")))
+else:
+    a = agencies[agencies["obligations"].abs() >= 1e6]
+    t = a.assign(obligations=a["obligations"] / 1e6,
+                 fiscal_year=[fy_label(y, p) for y, p in zip(a["fiscal_year"],
+                                                             a["provisional"])])[
+        ["fiscal_year", "agency", "obligations", "share_pct"]
+    ].rename(columns={"fiscal_year": "Fiscal year", "agency": "Agency",
+                      "obligations": "Net obligations, $m",
+                      "share_pct": "Share of the year, %"}).round(1)
+    show(t, paging=True, pageLength=15, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+if not agencies.empty:
+    print(site.finding_line(agencies_meta.get("finding")))
+    print("Agencies with less than $1 million in a year are left out of the table.")
+```
+
+## Do these figures match USAspending's own?
+
+The rule was written before the figures were computed: for every month, the transactions
+downloaded for this page must add up to within 1% of the monthly figure USAspending's own
+search gives for the same filters.
+
+```{python}
+#| output: asis
+if check.empty:
+    print(site.empty_state(check_meta, "Totals check"))
+else:
+    ok = check_meta["criterion_met"]
+    n, good = check_meta["months"], check_meta["months_within_limit"]
+    gap = 100 * (check_meta["published_total"] / check_meta["ours_total"] - 1)
+    if ok:
+        print(f'::: {{.verdict}}\n**Yes.** All {n} months are within '
+              f'{check_meta["tolerance_pct"]:.0f}% of USAspending\'s figure; the worst is '
+              f'{check_meta["worst_month_gap_pct"]:.2f}%.\n:::\n')
+    else:
+        print(f'::: {{.verdict}}\n**No. The criterion is not met.** {good} of {n} months are '
+              f'within {check_meta["tolerance_pct"]:.0f}% of USAspending\'s figure and '
+              f'{n - good} are not; the worst month is {check_meta["worst_month_gap_pct"]:.1f}% '
+              f'away. Over the whole period USAspending\'s search figure is '
+              f'{abs(gap):.1f}% {"higher" if gap > 0 else "lower"} than the sum of the '
+              f'transactions it lets anyone download. The limit has not been moved.\n:::\n')
+    print(site.finding_line(check_meta.get("finding")))
+```
+
+```{python}
+#| output: asis
+diag = [d for d in check_meta.get("diagnosis", []) if d.get("listed_rows")]
+if diag:
+    rows = sum(d["listed_rows"] for d in diag)
+    rep = sum(d["repeated_rows"] for d in diag)
+    closed = sum(1 for d in diag
+                 if d["gap_after_removing_repeats_share"] <= check_meta["tolerance_pct"] / 100)
+    print(f'**Why the months differ.** For the {len(diag)} months furthest apart, the '
+          f'transactions behind USAspending\'s search figure were listed one by one. Of '
+          f'{rows:,} rows listed, {rep:,} were a second copy of a transaction already in the '
+          f'list, with the same internal id. With each transaction counted once, '
+          f'{closed} of the {len(diag)} months come within the limit of the download.\n')
+    print(site.finding_line(check_meta.get("finding")))
+```
+
+```{python}
+diag = [d for d in check_meta.get("diagnosis", []) if d.get("listed_rows")]
+if diag:
+    t = pd.DataFrame(diag)
+    t = t.assign(ours=t["ours"] / 1e6, listed_sum=t["listed_sum"] / 1e6,
+                 repeated_sum=t["repeated_sum"] / 1e6, listed_once_sum=t["listed_once_sum"] / 1e6,
+                 gap=100 * t["gap_after_removing_repeats_share"])[
+        ["period", "ours", "listed_sum", "repeated_rows", "repeated_sum", "listed_once_sum", "gap"]
+    ].rename(columns={"period": "Month", "ours": "Download, $m",
+                      "listed_sum": "Search figure, $m", "repeated_rows": "Rows listed twice",
+                      "repeated_sum": "Value of the second copies, $m",
+                      "listed_once_sum": "Search, each counted once, $m",
+                      "gap": "Gap that remains, %"}).round(2)
+    show(t, paging=False, showIndex=False, classes="display compact")
+```
+
+```{python}
+if not check.empty:
+    c = check.assign(period=pd.to_datetime(check["period"]).dt.strftime("%Y-%m"),
+                     ours=check["ours"] / 1e6, published=check["published"] / 1e6)[
+        ["period", "ours", "published", "gap_pct", "within_limit"]
+    ].rename(columns={"period": "Month", "ours": "Download, $m",
+                      "published": "USAspending search, $m", "gap_pct": "Gap, %",
+                      "within_limit": "Within 1%"}).round(2)
+    show(c.iloc[::-1], paging=True, pageLength=12, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+print("\n## Sources and limits\n")
+print(site.source_note(meta))
+```

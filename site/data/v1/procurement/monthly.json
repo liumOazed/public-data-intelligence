@@ -1,0 +1,895 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "monthly",
+  "description": "Net obligations on federal contracts for computer hardware, by month of the action, with the sum over twelve months.",
+  "generated_at": "2026-11-15T16:03:31+00:00",
+  "rows": 121,
+  "columns": [
+   "period",
+   "obligations",
+   "actions",
+   "obligations_12m",
+   "provisional"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T15:56:47+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Contracts for computer hardware only, chosen by Product and Service Code. The buyer picks one code for a whole contract, so a contract that mixes hardware with software or services is counted in full or not at all.",
+   "The code list was rewritten on 1 October 2020. Figures before and after that month are not on the same footing, and the new codes cover hardware together with software sold under a perpetual licence.",
+   "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
+   "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
+   "Agencies correct old records; every figure can change on the next retrieval."
+  ],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "finding": {
+   "label": "observation",
+   "reason": "Sums of the obligations agencies reported. No model is fitted and no cause is claimed."
+  }
+ },
+ "data": [
+  {
+   "period": "2016-10-01T00:00:00",
+   "obligations": 232301063.66,
+   "actions": 3708,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2016-11-01T00:00:00",
+   "obligations": 247239968.66,
+   "actions": 2214,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2016-12-01T00:00:00",
+   "obligations": 205015669.65,
+   "actions": 2553,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-01-01T00:00:00",
+   "obligations": 184055841.08,
+   "actions": 2611,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-02-01T00:00:00",
+   "obligations": 284380944.92,
+   "actions": 2908,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-03-01T00:00:00",
+   "obligations": 446288753.57,
+   "actions": 3764,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-04-01T00:00:00",
+   "obligations": 267987084.46,
+   "actions": 3336,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-05-01T00:00:00",
+   "obligations": 329101595.34,
+   "actions": 12029,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-06-01T00:00:00",
+   "obligations": 458645019.88,
+   "actions": 3975,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-07-01T00:00:00",
+   "obligations": 498565836.88,
+   "actions": 3994,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-08-01T00:00:00",
+   "obligations": 724061041.38,
+   "actions": 7439,
+   "obligations_12m": null,
+   "provisional": false
+  },
+  {
+   "period": "2017-09-01T00:00:00",
+   "obligations": 2043189934.69,
+   "actions": 12924,
+   "obligations_12m": 5920832754.17,
+   "provisional": false
+  },
+  {
+   "period": "2017-10-01T00:00:00",
+   "obligations": 246819339.03,
+   "actions": 3543,
+   "obligations_12m": 5935351029.54,
+   "provisional": false
+  },
+  {
+   "period": "2017-11-01T00:00:00",
+   "obligations": 195723115.41,
+   "actions": 1981,
+   "obligations_12m": 5883834176.29,
+   "provisional": false
+  },
+  {
+   "period": "2017-12-01T00:00:00",
+   "obligations": 178606343.91,
+   "actions": 2055,
+   "obligations_12m": 5857424850.55,
+   "provisional": false
+  },
+  {
+   "period": "2018-01-01T00:00:00",
+   "obligations": 183090537.48,
+   "actions": 2375,
+   "obligations_12m": 5856459546.95,
+   "provisional": false
+  },
+  {
+   "period": "2018-02-01T00:00:00",
+   "obligations": 207579839.25,
+   "actions": 2424,
+   "obligations_12m": 5779658441.28,
+   "provisional": false
+  },
+  {
+   "period": "2018-03-01T00:00:00",
+   "obligations": 360611109.68,
+   "actions": 3274,
+   "obligations_12m": 5693980797.39,
+   "provisional": false
+  },
+  {
+   "period": "2018-04-01T00:00:00",
+   "obligations": 332078116.56,
+   "actions": 2938,
+   "obligations_12m": 5758071829.49,
+   "provisional": false
+  },
+  {
+   "period": "2018-05-01T00:00:00",
+   "obligations": 501753427.26,
+   "actions": 3221,
+   "obligations_12m": 5930723661.41,
+   "provisional": false
+  },
+  {
+   "period": "2018-06-01T00:00:00",
+   "obligations": 560281312.08,
+   "actions": 3324,
+   "obligations_12m": 6032359953.61,
+   "provisional": false
+  },
+  {
+   "period": "2018-07-01T00:00:00",
+   "obligations": 506679529.52,
+   "actions": 3865,
+   "obligations_12m": 6040473646.25,
+   "provisional": false
+  },
+  {
+   "period": "2018-08-01T00:00:00",
+   "obligations": 674424414.33,
+   "actions": 6293,
+   "obligations_12m": 5990837019.200001,
+   "provisional": false
+  },
+  {
+   "period": "2018-09-01T00:00:00",
+   "obligations": 1975516384.02,
+   "actions": 10913,
+   "obligations_12m": 5923163468.530001,
+   "provisional": false
+  },
+  {
+   "period": "2018-10-01T00:00:00",
+   "obligations": 201010530.29999998,
+   "actions": 3599,
+   "obligations_12m": 5877354659.8,
+   "provisional": false
+  },
+  {
+   "period": "2018-11-01T00:00:00",
+   "obligations": 101343724.88,
+   "actions": 2293,
+   "obligations_12m": 5782975269.27,
+   "provisional": false
+  },
+  {
+   "period": "2018-12-01T00:00:00",
+   "obligations": 371364611.22,
+   "actions": 2281,
+   "obligations_12m": 5975733536.58,
+   "provisional": false
+  },
+  {
+   "period": "2019-01-01T00:00:00",
+   "obligations": 181785090.65,
+   "actions": 2287,
+   "obligations_12m": 5974428089.75,
+   "provisional": false
+  },
+  {
+   "period": "2019-02-01T00:00:00",
+   "obligations": 230405270.6,
+   "actions": 2953,
+   "obligations_12m": 5997253521.1,
+   "provisional": false
+  },
+  {
+   "period": "2019-03-01T00:00:00",
+   "obligations": 575844332.0,
+   "actions": 3617,
+   "obligations_12m": 6212486743.42,
+   "provisional": false
+  },
+  {
+   "period": "2019-04-01T00:00:00",
+   "obligations": 440849750.6,
+   "actions": 3605,
+   "obligations_12m": 6321258377.460001,
+   "provisional": false
+  },
+  {
+   "period": "2019-05-01T00:00:00",
+   "obligations": 447595773.75,
+   "actions": 3745,
+   "obligations_12m": 6267100723.950001,
+   "provisional": false
+  },
+  {
+   "period": "2019-06-01T00:00:00",
+   "obligations": 556617781.66,
+   "actions": 3776,
+   "obligations_12m": 6263437193.530001,
+   "provisional": false
+  },
+  {
+   "period": "2019-07-01T00:00:00",
+   "obligations": 497363367.87,
+   "actions": 4431,
+   "obligations_12m": 6254121031.88,
+   "provisional": false
+  },
+  {
+   "period": "2019-08-01T00:00:00",
+   "obligations": 812588248.58,
+   "actions": 6058,
+   "obligations_12m": 6392284866.13,
+   "provisional": false
+  },
+  {
+   "period": "2019-09-01T00:00:00",
+   "obligations": 1887986405.1200001,
+   "actions": 10857,
+   "obligations_12m": 6304754887.2300005,
+   "provisional": false
+  },
+  {
+   "period": "2019-10-01T00:00:00",
+   "obligations": 171902909.25,
+   "actions": 3451,
+   "obligations_12m": 6275647266.18,
+   "provisional": false
+  },
+  {
+   "period": "2019-11-01T00:00:00",
+   "obligations": 101099531.64,
+   "actions": 2015,
+   "obligations_12m": 6275403072.940001,
+   "provisional": false
+  },
+  {
+   "period": "2019-12-01T00:00:00",
+   "obligations": 281791706.3,
+   "actions": 2588,
+   "obligations_12m": 6185830168.0199995,
+   "provisional": false
+  },
+  {
+   "period": "2020-01-01T00:00:00",
+   "obligations": 215744950.37,
+   "actions": 2975,
+   "obligations_12m": 6219790027.740001,
+   "provisional": false
+  },
+  {
+   "period": "2020-02-01T00:00:00",
+   "obligations": 267524412.36,
+   "actions": 2873,
+   "obligations_12m": 6256909169.5,
+   "provisional": false
+  },
+  {
+   "period": "2020-03-01T00:00:00",
+   "obligations": 713282318.93,
+   "actions": 3648,
+   "obligations_12m": 6394347156.43,
+   "provisional": false
+  },
+  {
+   "period": "2020-04-01T00:00:00",
+   "obligations": 716272855.86,
+   "actions": 3694,
+   "obligations_12m": 6669770261.69,
+   "provisional": false
+  },
+  {
+   "period": "2020-05-01T00:00:00",
+   "obligations": 464371405.17,
+   "actions": 3340,
+   "obligations_12m": 6686545893.110001,
+   "provisional": false
+  },
+  {
+   "period": "2020-06-01T00:00:00",
+   "obligations": 482505474.06,
+   "actions": 4110,
+   "obligations_12m": 6612433585.509999,
+   "provisional": false
+  },
+  {
+   "period": "2020-07-01T00:00:00",
+   "obligations": 592019002.75,
+   "actions": 4667,
+   "obligations_12m": 6707089220.389999,
+   "provisional": false
+  },
+  {
+   "period": "2020-08-01T00:00:00",
+   "obligations": 751737169.11,
+   "actions": 5698,
+   "obligations_12m": 6646238140.92,
+   "provisional": false
+  },
+  {
+   "period": "2020-09-01T00:00:00",
+   "obligations": 2227136574.38,
+   "actions": 11229,
+   "obligations_12m": 6985388310.18,
+   "provisional": false
+  },
+  {
+   "period": "2020-10-01T00:00:00",
+   "obligations": 139352565.84,
+   "actions": 2749,
+   "obligations_12m": 6952837966.77,
+   "provisional": false
+  },
+  {
+   "period": "2020-11-01T00:00:00",
+   "obligations": 190577900.36,
+   "actions": 2420,
+   "obligations_12m": 7042316335.49,
+   "provisional": false
+  },
+  {
+   "period": "2020-12-01T00:00:00",
+   "obligations": 276006208.53000003,
+   "actions": 2730,
+   "obligations_12m": 7036530837.720001,
+   "provisional": false
+  },
+  {
+   "period": "2021-01-01T00:00:00",
+   "obligations": 197628777.92,
+   "actions": 3023,
+   "obligations_12m": 7018414665.2699995,
+   "provisional": false
+  },
+  {
+   "period": "2021-02-01T00:00:00",
+   "obligations": 331926029.55,
+   "actions": 3197,
+   "obligations_12m": 7082816282.46,
+   "provisional": false
+  },
+  {
+   "period": "2021-03-01T00:00:00",
+   "obligations": 665334435.93,
+   "actions": 4057,
+   "obligations_12m": 7034868399.460001,
+   "provisional": false
+  },
+  {
+   "period": "2021-04-01T00:00:00",
+   "obligations": 460828091.83,
+   "actions": 3671,
+   "obligations_12m": 6779423635.43,
+   "provisional": false
+  },
+  {
+   "period": "2021-05-01T00:00:00",
+   "obligations": 404923511.09999996,
+   "actions": 3904,
+   "obligations_12m": 6719975741.360001,
+   "provisional": false
+  },
+  {
+   "period": "2021-06-01T00:00:00",
+   "obligations": 501505866.02,
+   "actions": 4066,
+   "obligations_12m": 6738976133.320001,
+   "provisional": false
+  },
+  {
+   "period": "2021-07-01T00:00:00",
+   "obligations": 557143180.5600001,
+   "actions": 4535,
+   "obligations_12m": 6704100311.130001,
+   "provisional": false
+  },
+  {
+   "period": "2021-08-01T00:00:00",
+   "obligations": 889140815.6,
+   "actions": 5940,
+   "obligations_12m": 6841503957.62,
+   "provisional": false
+  },
+  {
+   "period": "2021-09-01T00:00:00",
+   "obligations": 2031349840.53,
+   "actions": 9768,
+   "obligations_12m": 6645717223.77,
+   "provisional": false
+  },
+  {
+   "period": "2021-10-01T00:00:00",
+   "obligations": 99635580.18,
+   "actions": 2664,
+   "obligations_12m": 6606000238.11,
+   "provisional": false
+  },
+  {
+   "period": "2021-11-01T00:00:00",
+   "obligations": 146159302.54,
+   "actions": 2330,
+   "obligations_12m": 6561581640.29,
+   "provisional": false
+  },
+  {
+   "period": "2021-12-01T00:00:00",
+   "obligations": 281321603.2,
+   "actions": 2323,
+   "obligations_12m": 6566897034.96,
+   "provisional": false
+  },
+  {
+   "period": "2022-01-01T00:00:00",
+   "obligations": 178974056.05,
+   "actions": 3034,
+   "obligations_12m": 6548242313.09,
+   "provisional": false
+  },
+  {
+   "period": "2022-02-01T00:00:00",
+   "obligations": 303953904.07,
+   "actions": 2812,
+   "obligations_12m": 6520270187.610001,
+   "provisional": false
+  },
+  {
+   "period": "2022-03-01T00:00:00",
+   "obligations": 578508609.4,
+   "actions": 3711,
+   "obligations_12m": 6433444361.08,
+   "provisional": false
+  },
+  {
+   "period": "2022-04-01T00:00:00",
+   "obligations": 415013025.45,
+   "actions": 2493,
+   "obligations_12m": 6387629294.7,
+   "provisional": false
+  },
+  {
+   "period": "2022-05-01T00:00:00",
+   "obligations": 466359270.97,
+   "actions": 2766,
+   "obligations_12m": 6449065054.570001,
+   "provisional": false
+  },
+  {
+   "period": "2022-06-01T00:00:00",
+   "obligations": 666731896.75,
+   "actions": 3013,
+   "obligations_12m": 6614291085.3,
+   "provisional": false
+  },
+  {
+   "period": "2022-07-01T00:00:00",
+   "obligations": 539304979.21,
+   "actions": 3629,
+   "obligations_12m": 6596452883.95,
+   "provisional": false
+  },
+  {
+   "period": "2022-08-01T00:00:00",
+   "obligations": 762888072.09,
+   "actions": 4749,
+   "obligations_12m": 6470200140.440001,
+   "provisional": false
+  },
+  {
+   "period": "2022-09-01T00:00:00",
+   "obligations": 2363445881.49,
+   "actions": 7810,
+   "obligations_12m": 6802296181.4,
+   "provisional": false
+  },
+  {
+   "period": "2022-10-01T00:00:00",
+   "obligations": 133529876.09,
+   "actions": 1938,
+   "obligations_12m": 6836190477.309999,
+   "provisional": false
+  },
+  {
+   "period": "2022-11-01T00:00:00",
+   "obligations": 192999707.71,
+   "actions": 1532,
+   "obligations_12m": 6883030882.48,
+   "provisional": false
+  },
+  {
+   "period": "2022-12-01T00:00:00",
+   "obligations": 320424793.58,
+   "actions": 1737,
+   "obligations_12m": 6922134072.86,
+   "provisional": false
+  },
+  {
+   "period": "2023-01-01T00:00:00",
+   "obligations": 332516234.29,
+   "actions": 2083,
+   "obligations_12m": 7075676251.099999,
+   "provisional": false
+  },
+  {
+   "period": "2023-02-01T00:00:00",
+   "obligations": 339752759.66,
+   "actions": 2306,
+   "obligations_12m": 7111475106.69,
+   "provisional": false
+  },
+  {
+   "period": "2023-03-01T00:00:00",
+   "obligations": 584798313.99,
+   "actions": 3113,
+   "obligations_12m": 7117764811.28,
+   "provisional": false
+  },
+  {
+   "period": "2023-04-01T00:00:00",
+   "obligations": 336973816.08,
+   "actions": 2456,
+   "obligations_12m": 7039725601.91,
+   "provisional": false
+  },
+  {
+   "period": "2023-05-01T00:00:00",
+   "obligations": 597557917.22,
+   "actions": 2916,
+   "obligations_12m": 7170924248.16,
+   "provisional": false
+  },
+  {
+   "period": "2023-06-01T00:00:00",
+   "obligations": 609821582.29,
+   "actions": 2916,
+   "obligations_12m": 7114013933.7,
+   "provisional": false
+  },
+  {
+   "period": "2023-07-01T00:00:00",
+   "obligations": 649555725.4399999,
+   "actions": 3207,
+   "obligations_12m": 7224264679.929999,
+   "provisional": false
+  },
+  {
+   "period": "2023-08-01T00:00:00",
+   "obligations": 1221861424.79,
+   "actions": 5172,
+   "obligations_12m": 7683238032.629999,
+   "provisional": false
+  },
+  {
+   "period": "2023-09-01T00:00:00",
+   "obligations": 2108972218.2,
+   "actions": 7544,
+   "obligations_12m": 7428764369.339999,
+   "provisional": false
+  },
+  {
+   "period": "2023-10-01T00:00:00",
+   "obligations": 219532417.72,
+   "actions": 2044,
+   "obligations_12m": 7514766910.97,
+   "provisional": false
+  },
+  {
+   "period": "2023-11-01T00:00:00",
+   "obligations": 214005090.74,
+   "actions": 1526,
+   "obligations_12m": 7535772294.0,
+   "provisional": false
+  },
+  {
+   "period": "2023-12-01T00:00:00",
+   "obligations": 326211499.51,
+   "actions": 1659,
+   "obligations_12m": 7541558999.93,
+   "provisional": false
+  },
+  {
+   "period": "2024-01-01T00:00:00",
+   "obligations": 322971717.14000005,
+   "actions": 1900,
+   "obligations_12m": 7532014482.780001,
+   "provisional": false
+  },
+  {
+   "period": "2024-02-01T00:00:00",
+   "obligations": 253102581.21,
+   "actions": 1994,
+   "obligations_12m": 7445364304.33,
+   "provisional": false
+  },
+  {
+   "period": "2024-03-01T00:00:00",
+   "obligations": 457521263.98,
+   "actions": 2329,
+   "obligations_12m": 7318087254.32,
+   "provisional": false
+  },
+  {
+   "period": "2024-04-01T00:00:00",
+   "obligations": 420015841.43,
+   "actions": 2338,
+   "obligations_12m": 7401129279.67,
+   "provisional": false
+  },
+  {
+   "period": "2024-05-01T00:00:00",
+   "obligations": 505426529.96,
+   "actions": 2623,
+   "obligations_12m": 7308997892.41,
+   "provisional": false
+  },
+  {
+   "period": "2024-06-01T00:00:00",
+   "obligations": 642822389.99,
+   "actions": 2620,
+   "obligations_12m": 7341998700.11,
+   "provisional": false
+  },
+  {
+   "period": "2024-07-01T00:00:00",
+   "obligations": 576708729.88,
+   "actions": 3209,
+   "obligations_12m": 7269151704.55,
+   "provisional": false
+  },
+  {
+   "period": "2024-08-01T00:00:00",
+   "obligations": 945038847.02,
+   "actions": 4127,
+   "obligations_12m": 6992329126.78,
+   "provisional": false
+  },
+  {
+   "period": "2024-09-01T00:00:00",
+   "obligations": 1983997733.86,
+   "actions": 6599,
+   "obligations_12m": 6867354642.440001,
+   "provisional": false
+  },
+  {
+   "period": "2024-10-01T00:00:00",
+   "obligations": 117230115.99000001,
+   "actions": 1906,
+   "obligations_12m": 6765052340.71,
+   "provisional": false
+  },
+  {
+   "period": "2024-11-01T00:00:00",
+   "obligations": 214260670.04,
+   "actions": 1397,
+   "obligations_12m": 6765307920.01,
+   "provisional": false
+  },
+  {
+   "period": "2024-12-01T00:00:00",
+   "obligations": 244435995.79,
+   "actions": 1540,
+   "obligations_12m": 6683532416.29,
+   "provisional": false
+  },
+  {
+   "period": "2025-01-01T00:00:00",
+   "obligations": 387338241.42,
+   "actions": 1476,
+   "obligations_12m": 6747898940.57,
+   "provisional": false
+  },
+  {
+   "period": "2025-02-01T00:00:00",
+   "obligations": 250133259.0,
+   "actions": 1629,
+   "obligations_12m": 6744929618.36,
+   "provisional": false
+  },
+  {
+   "period": "2025-03-01T00:00:00",
+   "obligations": 422833973.55,
+   "actions": 1889,
+   "obligations_12m": 6710242327.93,
+   "provisional": false
+  },
+  {
+   "period": "2025-04-01T00:00:00",
+   "obligations": 335451702.59000003,
+   "actions": 2478,
+   "obligations_12m": 6625678189.089999,
+   "provisional": false
+  },
+  {
+   "period": "2025-05-01T00:00:00",
+   "obligations": 546757083.79,
+   "actions": 2061,
+   "obligations_12m": 6667008742.92,
+   "provisional": false
+  },
+  {
+   "period": "2025-06-01T00:00:00",
+   "obligations": 426512348.65000004,
+   "actions": 1991,
+   "obligations_12m": 6450698701.58,
+   "provisional": false
+  },
+  {
+   "period": "2025-07-01T00:00:00",
+   "obligations": 592355226.27,
+   "actions": 2525,
+   "obligations_12m": 6466345197.969999,
+   "provisional": false
+  },
+  {
+   "period": "2025-08-01T00:00:00",
+   "obligations": 698667052.35,
+   "actions": 2964,
+   "obligations_12m": 6219973403.3,
+   "provisional": false
+  },
+  {
+   "period": "2025-09-01T00:00:00",
+   "obligations": 1783029500.3,
+   "actions": 5550,
+   "obligations_12m": 6019005169.74,
+   "provisional": false
+  },
+  {
+   "period": "2025-10-01T00:00:00",
+   "obligations": 74944966.82,
+   "actions": 1056,
+   "obligations_12m": 5976720020.570001,
+   "provisional": false
+  },
+  {
+   "period": "2025-11-01T00:00:00",
+   "obligations": 105635111.71,
+   "actions": 792,
+   "obligations_12m": 5868094462.240001,
+   "provisional": false
+  },
+  {
+   "period": "2025-12-01T00:00:00",
+   "obligations": 425101794.28,
+   "actions": 1290,
+   "obligations_12m": 6048760260.7300005,
+   "provisional": false
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "obligations": 334451154.35,
+   "actions": 1241,
+   "obligations_12m": 5995873173.660001,
+   "provisional": false
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "obligations": 195452134.1,
+   "actions": 1138,
+   "obligations_12m": 5941192048.76,
+   "provisional": false
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "obligations": 333331662.44,
+   "actions": 1559,
+   "obligations_12m": 5851689737.650001,
+   "provisional": false
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "obligations": 416377457.12,
+   "actions": 1779,
+   "obligations_12m": 5932615492.18,
+   "provisional": false
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "obligations": 471703761.75,
+   "actions": 1829,
+   "obligations_12m": 5857562170.14,
+   "provisional": false
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "obligations": 929108541.19,
+   "actions": 2320,
+   "obligations_12m": 6360158362.68,
+   "provisional": false
+  },
+  {
+   "period": "2026-07-01T00:00:00",
+   "obligations": 484440445.6,
+   "actions": 2222,
+   "obligations_12m": 6252243582.01,
+   "provisional": false
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "obligations": 254938047.21,
+   "actions": 1324,
+   "obligations_12m": 5808514576.87,
+   "provisional": true
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "obligations": 1485110770.44,
+   "actions": 2054,
+   "obligations_12m": 5510595847.01,
+   "provisional": true
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "obligations": 18741696.65,
+   "actions": 369,
+   "obligations_12m": 5454392576.84,
+   "provisional": true
+  }
+ ]
+}
