@@ -218,11 +218,15 @@ month has to pass.
 
 **Result on 15 November 2026: not met.** 95 of 121 months are within 1%; 26 are not, and the
 worst (January 2026) is 14.2% apart. Over the whole period the search figure is 0.8% higher
-than the download. For the six months furthest apart, the transactions behind the search
-figure were listed one by one: 1,017 of 17,066 rows were a second copy of a transaction already
-listed under the same internal id, and with each counted once five of the six months come
-within 1%. So the evidence points at double counting in USAspending's search, but the
-criterion as written is not met and the limit has not been moved. The pages show the download
+than the download. The limit has not been moved.
+
+**Second check, added after the first failed: 25 of 26 missed months reconcile row by row.**
+The transactions behind the search figure were matched to the download one by one on award,
+modification, date and amount. In every month checked, every transaction the search lists is
+in the download; the search lists 288 transactions a second time, worth $442.6 million, and
+with those removed the two agree within 0.0004%. October 2024 could not be listed (dropped
+connection) and is retried weekly. So the gap is double counting in USAspending's search, but
+the original criterion stays recorded as not met. The pages show the download
 figures with this verdict beside them, and the source is marked amber.
 
 ### What is built

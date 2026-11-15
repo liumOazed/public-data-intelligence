@@ -179,6 +179,13 @@ if rec:
               f'together. With those second copies removed, the search and the download agree '
               f'to within {100 * worst:.3f}% in every one of these months. The figures on this '
               f'page are the download, with each transaction counted once.\n:::\n')
+    elif not missing:
+        print(f'::: {{.verdict}}\n**{done} of {len(rec)} months reconcile; {unchecked} could not '
+              f'be checked this time.** In every month that was checked, every transaction the '
+              f'search lists is also in the download. The search lists {copies:,} transactions a '
+              f'second time, worth ${copies_sum / 1e6:,.1f} million together, and with those '
+              f'removed the two agree to within {100 * worst:.3f}%. The unchecked months are '
+              f'tried again on the next weekly run.\n:::\n')
     else:
         print(f'::: {{.verdict}}\n**Not fully explained.** {done} of {len(rec)} months outside '
               f'the limit reconcile row by row; {unchecked} could not be listed this time and '

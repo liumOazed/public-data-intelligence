@@ -53,8 +53,8 @@ built, and are looked at again when the current module meets its exit criterion.
 
 ## Federal Procurement
 
-- Ask USAspending about the transactions its search counts twice (the totals check on the
-  procurement page has the months and amounts).
+- Report to USAspending that its search figure counts some transactions twice (288 second
+  copies worth $442.6 million in 25 months; the procurement page lists them by month).
 - A second slice: add networks and mobile devices as their own series from October 2020, or
   software.
 - Maker against reseller: the contract holder is usually a reseller. The download has a
