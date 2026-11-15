@@ -269,7 +269,7 @@ def indeed() -> None:
 def imf() -> None:
     for name, flow, key in (
         ("imf_ITG_exports.csv", "ITG", "THA+VNM+PHL.XG.FOB_USD.M"),
-        ("imf_IL_reserves.csv", "IL", "THA+VNM+PHL.TRGMV_REVS.USD.M"),
+        ("imf_IL_reserves.csv", "IL", "THA+VNM+PHL.RXF11_REVS.USD.M"),
         ("imf_CPI.csv", "CPI", "VNM+THA.CPI._T.IX.M"),
     ):
         resp = _get(

@@ -7,10 +7,9 @@ built, and are looked at again when the current module meets its exit criterion.
 
 - A second price source. 54 US stores were tested and only Central Computers allows a polite crawler and lists parts. The Best Buy API (needs a non-free email address) is the best remaining option.
 - Read Central Computers' terms of use and record the date in the registry.
-- Find out why about 14% of Blender Open Data launches are unreadable by the parser.
+- Confirm on the weekly run's skip counts that Blender 2.x launches (render time, not samples
+  per minute) explain the whole 14% once filed as `old_schema`.
 
-- Replace the hand-written test samples in `tests/fixtures/` with small slices of real
-  responses once each collector has run.
 - Add a consumer-CPU specification table (cores, clocks, cache, power) so the residual model
   can be fitted on desktop parts as well as SPEC's server-heavy results. The retailer API
   returns specifications and is the likely source.
@@ -21,12 +20,20 @@ built, and are looked at again when the current module meets its exit criterion.
 ## Macro Monitor
 
 - National sources for Indonesia (BPS WebAPI, needs a free key) and Singapore (SingStat Table
-  Builder, no key): exports, imports, industrial output, reserves, GDP. IMF series for
-  Thailand, Vietnam and the Philippines belong to the Harden phase.
+  Builder, no key): industrial output and GDP, which the IMF tables do not carry fresh.
+  Trade and reserves now come from the IMF for all six.
+- Ask the IMF (copyright@imf.org) to confirm that a daily call for 19 series through the public
+  API is not the "bulk download" its general terms forbid.
 - Show "release delayed" when a series misses its usual release date.
 - Rerun the backtest on first-seen values once `vintages.parquet` holds a year of history.
 - Read the OpenDOSM licence on open.dosm.gov.my itself (it was read on an archived copy).
 - Install CPU-only PyTorch in the training job; the default wheel carries GPU libraries.
+
+## Harden
+
+- Read JODI's terms of use before building on JODI-Oil (the download page says the data are
+  free but states no reuse terms).
+- Add a second public sector only after energy demand has run for a month.
 
 ## Later modules, in order
 
