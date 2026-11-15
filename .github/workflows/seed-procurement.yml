@@ -1,4 +1,4 @@
-name: Seed procurement (temporary)
+name: Seed procurement (temporary, run 3)
 on:
   push:
     branches: [claude/project-thread-qr1gop]
