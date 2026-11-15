@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "monthly",
   "description": "Net obligations on federal contracts for computer hardware, by month of the action, with the sum over twelve months.",
-  "generated_at": "2026-11-15T16:03:31+00:00",
+  "generated_at": "2026-11-15T21:15:14+00:00",
   "rows": 121,
   "columns": [
    "period",
@@ -20,7 +20,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T15:56:47+00:00"
+    "retrieved_at": "2026-11-15T21:05:51+00:00"
    }
   ],
   "preliminary": false,
