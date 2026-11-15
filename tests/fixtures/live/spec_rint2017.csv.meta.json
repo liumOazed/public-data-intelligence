@@ -1,0 +1,7 @@
+{
+  "url": "https://www.spec.org/cgi-bin/osgresults?conf=rint2017&op=dump&format=csvdump",
+  "retrieved_at": "2026-11-15T07:12:03+00:00",
+  "full_response_bytes": 15507328,
+  "full_response_sha256": "15095735c285f023ea751197b5230d6d40b7063f78a4b972185b8e10daf088bb",
+  "slice": "header and up to 3 rows per group ['amd', 'intel', 'intel double space', 'no score', 'other']"
+}

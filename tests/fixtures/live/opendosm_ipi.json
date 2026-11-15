@@ -1,0 +1,56 @@
+[
+ {
+  "date": "2026-07-01",
+  "index": 144.209,
+  "series": "abs",
+  "index_sa": 144.963
+ },
+ {
+  "date": "2026-08-01",
+  "index": 147.991,
+  "series": "abs",
+  "index_sa": 145.739
+ },
+ {
+  "date": "2026-09-01",
+  "index": 149.889,
+  "series": "abs",
+  "index_sa": 147.47
+ },
+ {
+  "date": "2026-07-01",
+  "index": 4.692,
+  "series": "growth_yoy",
+  "index_sa": 4.534
+ },
+ {
+  "date": "2026-08-01",
+  "index": 4.95,
+  "series": "growth_yoy",
+  "index_sa": 4.852
+ },
+ {
+  "date": "2026-09-01",
+  "index": 6.321,
+  "series": "growth_yoy",
+  "index_sa": 6.303
+ },
+ {
+  "date": "2026-07-01",
+  "index": -1.971,
+  "series": "growth_mom",
+  "index_sa": -0.104
+ },
+ {
+  "date": "2026-08-01",
+  "index": 2.622,
+  "series": "growth_mom",
+  "index_sa": 0.535
+ },
+ {
+  "date": "2026-09-01",
+  "index": 1.282,
+  "series": "growth_mom",
+  "index_sa": 1.188
+ }
+]

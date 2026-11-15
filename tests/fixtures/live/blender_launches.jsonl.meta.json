@@ -1,0 +1,7 @@
+{
+  "url": "https://opendata.blender.org/snapshots/opendata-latest.zip",
+  "retrieved_at": "2026-11-15T07:12:07+00:00",
+  "full_response_bytes": 102582637,
+  "full_response_sha256": "4209f27a776d4ffa2d289bcc6ab91c5886d856b78a21eda87699c89cbcd4e01f",
+  "slice": "up to 4 launches per outcome {'multi_device': 4, 'unreadable': 4, 'old_schema': 4, 'ok OPTIX': 4, 'ok CPU': 4, 'ok HIP': 4, 'ok CUDA': 4, 'ok METAL': 4} from opendata-2026-11-15-000001+0000.jsonl"
+}

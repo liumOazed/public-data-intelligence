@@ -1,0 +1,7 @@
+{
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL&cosd=2024-01-01",
+  "retrieved_at": "2026-11-15T07:12:15+00:00",
+  "full_response_bytes": 665,
+  "full_response_sha256": "1428c5a74f3fd6707326105b3a846dc201b7c82e933957e9485beb79ec23567a",
+  "slice": "whole answer from 2024-01"
+}

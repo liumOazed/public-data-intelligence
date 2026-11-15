@@ -1,0 +1,7 @@
+{
+  "url": "https://api.stlouisfed.org/fred/series/observations?series_id=UNRATE&observation_start=2025-01-01&api_key=REDACTED&file_type=json",
+  "retrieved_at": "2026-11-15T07:12:21+00:00",
+  "full_response_bytes": 2341,
+  "full_response_sha256": "c8a5f22144405305c84b55afbb431892ca504b1b73385e6f1441af4ea3c5b9d7",
+  "slice": "from 2025-01"
+}

@@ -1,0 +1,7 @@
+{
+  "url": "https://raw.githubusercontent.com/hiring-lab/job_postings_tracker/master/US/aggregate_job_postings_US.csv",
+  "retrieved_at": "2026-11-15T07:12:23+00:00",
+  "full_response_bytes": 204981,
+  "full_response_sha256": "1da20afe872d7bb93df00b7c297531c6b89f52578ba7ff3427ac89c532838ff9",
+  "slice": "header and last 150 rows"
+}

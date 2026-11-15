@@ -1,0 +1,7 @@
+{
+  "url": "https://api.imf.org/external/sdmx/2.1/data/IMF.STA,ITG/THA+VNM+PHL.XG.FOB_USD.M?startPeriod=2025-01",
+  "retrieved_at": "2026-11-15T07:12:24+00:00",
+  "full_response_bytes": 66787,
+  "full_response_sha256": "961b6edfb27b6a0c0f84f11693ff94bcd6fa1c3c5f3b84e9da93eea35c616009",
+  "slice": "whole answer from 2025-01"
+}

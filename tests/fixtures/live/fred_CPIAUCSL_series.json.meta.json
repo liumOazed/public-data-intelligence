@@ -1,0 +1,7 @@
+{
+  "url": "https://api.stlouisfed.org/fred/series?series_id=CPIAUCSL&api_key=REDACTED&file_type=json",
+  "retrieved_at": "2026-11-15T07:12:15+00:00",
+  "full_response_bytes": 3158,
+  "full_response_sha256": "53ff0c69b4bc0a7bf42bba492bf6014887ea24fc8a73d07c0ae57cbc5804d7a9",
+  "slice": "whole answer"
+}
