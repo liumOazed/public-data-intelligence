@@ -92,7 +92,9 @@ def test_unit_jump_is_rejected():
 def test_future_dates_are_rejected():
     obs = synthetic_obs(80)
     obs.loc[obs["series_id"] == "TH.cpi", "period"] += pd.DateOffset(years=200)
-    with pytest.raises(Exception):
+    import pandera.errors
+
+    with pytest.raises(pandera.errors.SchemaError):
         store.validate(obs)
 
 

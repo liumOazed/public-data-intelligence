@@ -176,9 +176,8 @@ def collect_bis(raw_dir: Path, today: date) -> tuple[pd.DataFrame, str | None]:
         )
         retrieved = read_meta(path)["retrieved_at"]
         df = parse_bis_csv(path.read_text(), ind)
-        print(
-            f"BIS {flow}: {df['series_id'].nunique()} countries ({sorted(df['series_id'].unique())})"
-        )
+        ids = sorted(df["series_id"].unique())
+        print(f"BIS {flow}: {len(ids)} countries ({ids})")
         frames.append(df)
     return pd.concat(frames, ignore_index=True), retrieved
 

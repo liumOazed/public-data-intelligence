@@ -59,7 +59,7 @@ def series_table(obs: pd.DataFrame, scores: pd.DataFrame, flagged: pd.DataFrame)
     cur = set()
     if not flagged.empty:
         own = flagged[flagged["kind"] == "own history"]
-        cur = set(zip(own["series_id"], own["period"]))
+        cur = set(zip(own["series_id"], own["period"], strict=True))
     rows = []
     for _, r in latest.iterrows():
         s = cat[r["series_id"]]
@@ -213,7 +213,7 @@ def export_forecasts(retrieved: dict) -> None:
                 "once after the pick.")  # fmt: skip
     write_table(M, "folds", pd.DataFrame(s["folds"]), extra=extra, **common,
                 description="Improvement over the baseline in each quarter of the validation "
-                "year. Its standard deviation is the noise level the holdout has to clear.")  # fmt: skip
+                "year. Its standard deviation is the noise the holdout has to clear.")  # fmt: skip
     fc = pd.DataFrame()
     if s["passed"] and config.AUTOML_FORECASTS.exists():
         cat = config.catalogue()
