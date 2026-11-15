@@ -136,3 +136,90 @@ sources:
       about 400 records a run. Collection is slow (over 20 minutes for four searches in the
       first test) and about a third of the first test's records were collector timeouts.
       Only bare parts sold by Best Buy itself count. Listing prices, not transaction prices.
+
+  fred:
+    name: FRED, Federal Reserve Economic Data
+    owner: Federal Reserve Bank of St. Louis (aggregator); BLS, BEA, Census Bureau, Federal Reserve Board (publishers)
+    url: https://fred.stlouisfed.org/
+    endpoint: https://api.stlouisfed.org/fred/series/observations
+    licence: >-
+      FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms
+      require the notice "This product uses the FRED® API but is not endorsed or certified by
+      the Federal Reserve Bank of St. Louis", which the site prints. Series owned by third
+      parties carry the word "Copyright" in their notes and need the owner's permission
+      beyond personal use, so the catalogue holds only series published by US federal
+      agencies (public domain) and the collector stops on any series whose notes say
+      Copyright. The terms do not address storing data.
+    frequency: weekly collection; most series are monthly
+    typical_lag: two to eight weeks after the month ends, depending on the series
+    status: green
+    publish: derived
+    module: macro
+    terms_checked: 2026-11-15
+    secret: FRED_API_KEY
+    notes: >-
+      Without the key the collector falls back to FRED's public CSV download for the same
+      series and cannot run the copyright check. Values are the latest revised figures;
+      first-seen values are kept in data/store/macro/vintages.parquet from the first run.
+
+  bis:
+    name: BIS statistics (policy rates, consumer prices, exchange rates, effective exchange rates)
+    owner: Bank for International Settlements, from national central banks and statistics offices
+    url: https://data.bis.org/
+    endpoint: https://stats.bis.org/api/v1/data
+    licence: >-
+      Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm).
+      Use is unrestricted provided the BIS is cited as the source, the use does not imply
+      endorsement, and inclusion in a commercial product brings no additional charge to
+      users. The statistics are not investment advice. The site cites the BIS under every
+      table.
+    frequency: weekly collection; series are monthly
+    typical_lag: one to three months
+    status: green
+    publish: derived
+    module: macro
+    terms_checked: 2026-11-15
+    notes: >-
+      Used for the six Southeast Asian economies because one definition per measure makes
+      countries comparable. Vietnam appears only in the exchange rate table and Singapore has
+      no policy rate. Malaysia's exchange rate is end of period; the others are monthly
+      averages. Rebased and revised without notice, so moves, not levels, are compared.
+
+  opendosm:
+    name: OpenDOSM (Department of Statistics Malaysia)
+    owner: Department of Statistics Malaysia
+    url: https://open.dosm.gov.my/
+    endpoint: https://api.data.gov.my/opendosm
+    licence: >-
+      DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing,
+      adapting and commercial use; the datasets must not be used in a way that suggests
+      official status or endorsement. The text was read on an archived copy of the FAQ
+      (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.
+    frequency: weekly collection; series are monthly
+    typical_lag: five to eight weeks
+    status: amber
+    publish: derived
+    module: macro
+    terms_checked: 2026-11-15
+    notes: >-
+      No key needed. Industrial production, trade, unemployment and producer prices. Trade is
+      in ringgit and is not seasonally adjusted.
+
+  indeed_postings:
+    name: Indeed Job Postings Index
+    owner: Indeed Hiring Lab
+    url: https://github.com/hiring-lab/job_postings_tracker
+    endpoint: https://raw.githubusercontent.com/hiring-lab/job_postings_tracker/master/US/aggregate_job_postings_US.csv
+    licence: >-
+      Creative Commons Attribution 4.0 International, stated in the repository README: free
+      for public use as long as Indeed Hiring Lab is cited as a source.
+    frequency: weekly collection; daily index refreshed weekly
+    typical_lag: about one week
+    status: green
+    publish: derived
+    module: macro
+    terms_checked: 2026-11-15
+    notes: >-
+      United States only; Indeed covers no Southeast Asian country. Postings on one job site,
+      seasonally adjusted by Indeed, starting February 2020, so its ten-year history is short
+      and its first flags come late. Daily values are averaged to complete months.

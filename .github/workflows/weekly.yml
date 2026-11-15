@@ -72,11 +72,22 @@ jobs:
           if-no-files-found: ignore
           retention-days: 90
 
+      - name: Collect macro series (FRED, BIS, OpenDOSM, Indeed)
+        env:
+          # Optional. Without it the collector uses FRED's public CSV download.
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: uv run python -m pdi.macro.collect
+
       - name: Train AutoGluon
         run: uv run python -m pdi.tech_value.automl
 
+      - name: Train AutoGluon TimeSeries on the macro series
+        run: uv run python -m pdi.macro.automl
+
       - name: Model and export
-        run: uv run python -m pdi.tech_value.export
+        run: |
+          uv run python -m pdi.tech_value.export
+          uv run python -m pdi.macro.export
 
       - name: Show the result
         run: |

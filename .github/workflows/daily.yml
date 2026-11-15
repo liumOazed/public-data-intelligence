@@ -1,6 +1,6 @@
 name: Daily pipeline
 
-# Collect today's prices, rebuild the exported tables, publish the site.
+# Collect today's prices and the macro series, rebuild the exported tables, publish the site.
 # If any step fails, the site is not rebuilt (it keeps showing the last good data) and an
 # Issue is opened.
 
@@ -27,7 +27,7 @@ concurrency:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
@@ -63,8 +63,16 @@ jobs:
           if-no-files-found: ignore
           retention-days: 90
 
+      - name: Collect macro series (FRED, BIS, OpenDOSM, Indeed)
+        env:
+          # Optional. Without it the collector uses FRED's public CSV download.
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: uv run python -m pdi.macro.collect
+
       - name: Model and export
-        run: uv run python -m pdi.tech_value.export
+        run: |
+          uv run python -m pdi.tech_value.export
+          uv run python -m pdi.macro.export
 
       - name: Commit derived tables
         # A manual run on another branch is a dry run: it tests the pipeline against live

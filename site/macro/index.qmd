@@ -1,0 +1,108 @@
+---
+title: "Macro Monitor: what moved unusually"
+subtitle: "The United States and six Southeast Asian economies, each series against its own ten-year history and against its neighbours"
+---
+
+```{python}
+import pandas as pd
+import plotly.express as px
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+
+flags, meta = site.load("macro", "flags_latest")
+series, series_meta = site.load("macro", "series")
+neigh, neigh_meta = site.load("macro", "neighbours")
+finding = meta.get("finding")
+```
+
+This page does not show what happened in every series. It lists the readings that do not fit:
+a monthly move far outside what that series usually does, or one economy moving while its
+neighbours did not. Each flag is a question to look into, not an answer.
+
+## Flags on the latest readings
+
+```{python}
+#| output: asis
+if not meta.get("columns"):
+    print(site.empty_state(meta, "Flags"))
+elif flags.empty:
+    print(f'::: {{.verdict}}\n**Nothing unusual.** None of the {meta["n_series"]} series moved '
+          f'by {meta["flag_z"]} spreads or more on its latest reading.\n:::')
+else:
+    print(f'**{len(flags)} of {meta["n_series"]} series are flagged on their latest reading.**\n')
+    print(site.finding_line(finding))
+    for kind, title in (("own history", "Against its own history"),
+                        ("neighbours", "Against its neighbours")):
+        part = flags[flags["kind"] == kind]
+        if part.empty:
+            continue
+        print(f"\n### {title}\n")
+        for _, r in part.iterrows():
+            print(f'- {site.finding_badge(finding)} {r["sentence"]}')
+```
+
+```{python}
+#| output: asis
+if meta.get("columns"):
+    print(f'\nA reading is flagged when its surprise is at least {meta["flag_z"]} times the '
+          f'series\' usual spread. The rule was fixed before any flag was computed; see '
+          f'[how flags are made](../methodology.qmd#macro-monitor) and the '
+          f'[24-month backtest](backtest.qmd) for how often flags turn out to be noise.')
+```
+
+## Every series, most unusual first
+
+"Spreads" is the latest monthly move minus the usual move, divided by the series' usual
+spread. Zero is an ordinary month.
+
+```{python}
+if series.empty:
+    display(Markdown(site.empty_state(series_meta, "Series")))
+else:
+    t = series.assign(
+        Flag=series["flagged"].map({True: "Flagged", False: ""}),
+        latest_month=pd.to_datetime(series["latest_month"]).dt.strftime("%Y-%m"),
+    )[["country", "name", "latest_month", "value", "units", "move", "move_unit",
+       "expected_move", "z", "Flag"]].rename(columns={
+        "country": "Economy", "name": "Series", "latest_month": "Latest month",
+        "value": "Value", "units": "Units", "move": "Monthly move", "move_unit": "Move in",
+        "expected_move": "Usual move", "z": "Spreads"}).round(
+        {"Value": 2, "Monthly move": 2, "Usual move": 2, "Spreads": 1})
+    show(t, paging=True, pageLength=25, showIndex=False, classes="display compact")
+```
+
+```{python}
+#| output: asis
+if not series.empty:
+    print(site.finding_line(finding))
+```
+
+## One economy against the region
+
+For the measures the BIS defines the same way in every country, the chart shows each
+economy's surprise in its latest month. A cell far from its row's other cells is an economy
+moving against the region.
+
+```{python}
+if neigh.empty:
+    display(Markdown(site.empty_state(neigh_meta, "Neighbour comparison")))
+else:
+    last = neigh.sort_values("period").groupby(["country", "indicator"]).tail(1)
+    wide = last.pivot(index="name", columns="country", values="own_z").round(1)
+    fig = px.imshow(wide, color_continuous_scale="RdBu_r", zmin=-4, zmax=4, text_auto=True,
+                    aspect="auto", labels={"color": "Spreads", "x": "", "y": ""})
+    fig.update_layout(height=320, margin=dict(l=10, r=10, t=10, b=10))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+if not neigh.empty:
+    print(site.finding_line(finding))
+print("\n## Sources and limits\n")
+print(site.source_note(meta))
+```
