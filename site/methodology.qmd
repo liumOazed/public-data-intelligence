@@ -40,6 +40,30 @@ days, or a key table empty. It closes the Issue when every check passes. GitHub 
 scheduled runs hours late on free accounts, so the 48-hour window is wide on purpose. The
 monthly brief lists the days with no successful run.
 
+## Energy Demand
+
+One measure: monthly electricity demand, in terawatt-hours, from
+[Ember's monthly electricity data](https://ember-energy.org/data/monthly-electricity-data)
+(CC BY 4.0). Ember applies one definition to every country: electricity generated plus net
+imports. It covers the United States, Malaysia, the Philippines, Singapore, Thailand and
+Vietnam; it has no monthly demand for Indonesia.
+
+1. **Per day.** Each month's demand is divided by the days in the month, so a 28-day February
+   does not read as a fall.
+2. **Change on a year earlier.** Demand per day against the same month a year before, and the
+   last twelve months against the twelve before.
+3. **Index.** Demand per day with the 2019 average as 100, the first full year all six
+   economies have, so that a small and a large grid fit on one chart.
+4. **Unusual month.** The Macro Monitor's rule, unchanged: the monthly move against the median
+   move of the same calendar month in up to ten earlier years, flagged at 2.5 spreads. It needs
+   five earlier years of that month.
+
+The collector stops the run when a covered country is missing, a value is outside 0.5 to 1,000
+TWh, or demand no longer equals generation plus net imports in the file. Everything on the page
+is an observation. Southeast Asian histories start between 2009 and 2019, so "unusual" there
+rests on five to seven earlier years. Oil demand was considered and left out: JODI's terms
+reserve all rights and grant no reuse.
+
 ## Monthly brief
 
 On the first daily run of each month, code writes a short brief of what changed in the month

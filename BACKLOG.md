@@ -31,12 +31,12 @@ built, and are looked at again when the current module meets its exit criterion.
 
 ## Harden
 
-- **Sector chosen (15 November 2026): energy demand only.** Monthly electricity demand from
-  Ember (CC BY 4.0; US, Malaysia, the Philippines, Singapore, Thailand and Vietnam from 2017-19;
-  no monthly figure for Indonesia), oil product demand from JODI-Oil for all seven, and the EIA
-  as a check on the US figures. Build it as its own module after the Harden PR merges.
-- Read JODI's terms of use before building on JODI-Oil (the download page says the data are
-  free but states no reuse terms).
+- Ask JODI whether derived figures from JODI-Oil may be published with credit. Its terms of
+  use (read 15 November 2026) reserve all rights and say nothing about the data. Oil demand
+  would add Indonesia to Energy Demand.
+- Cross-check Ember's US electricity demand against the EIA's own monthly figure (needs a free
+  EIA API key as a repo secret).
+- Add an Energy Demand section to the monthly brief.
 - Add a second public sector only after energy demand has run for a month.
 
 ## Later modules, in order

@@ -20,6 +20,7 @@ request, so the change is read before it reaches main.
 | `opendosm_ipi.json` | OpenDOSM industrial production, last three months |
 | `indeed_US.csv` | Indeed Job Postings Index, last 80 days of each variable |
 | `imf_*.csv` | IMF trade, reserves and consumer prices |
+| `ember_monthly.csv` | Ember monthly electricity data: demand, generation, net imports and coal for the seven economies from 2024 |
 
 Nothing here is published on the site. Raw responses beyond these slices are kept only as
 workflow artifacts.

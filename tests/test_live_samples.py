@@ -13,6 +13,8 @@ from collections import Counter
 import pandas as pd
 import pytest
 
+from pdi.energy import collect as energy_collect
+from pdi.energy import config as energy
 from pdi.macro import collect, config, store
 from pdi.tech_value import blender, retail, spec
 
@@ -160,3 +162,19 @@ def test_imf(live, name, indicator, countries):
     else:
         assert df["value"].between(50, 200).all()
     store.check_units(df[df["series_id"].isin(CAT)])
+
+
+# --- Energy Demand ----------------------------------------------------------------------------
+
+
+def test_ember_monthly(live):
+    demand, check = energy_collect.parse_ember(
+        (live / "ember_monthly.csv").read_text(encoding="utf-8-sig")
+    )
+    energy_collect.validate(demand, check)  # units, required countries, demand = supply
+    assert set(energy.REQUIRED) <= set(demand["country"])
+    latest = demand.sort_values("period").groupby("country").tail(1).set_index("country")
+    # Terawatt-hours a month: the United States uses hundreds, Singapore about five.
+    assert 250 < latest.loc["US", "demand_twh"] < 600
+    assert 3 < latest.loc["SG", "demand_twh"] < 8
+    assert not check.empty, "the slice carries generation, so the identity was really checked"

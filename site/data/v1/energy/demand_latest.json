@@ -1,0 +1,152 @@
+{
+ "meta": {
+  "module": "energy",
+  "table": "demand_latest",
+  "description": "Latest month of electricity demand for each economy, with its change on a year earlier and how unusual the latest monthly move was.",
+  "generated_at": "2026-11-15T10:48:17+00:00",
+  "rows": 6,
+  "columns": [
+   "country",
+   "name",
+   "latest_month",
+   "demand_twh",
+   "gwh_per_day",
+   "yoy_pct",
+   "year_yoy_pct",
+   "move",
+   "expected_move",
+   "z",
+   "flagged",
+   "first_month",
+   "months",
+   "sentence"
+  ],
+  "sources": [
+   {
+    "id": "ember_monthly",
+    "name": "Ember Monthly Electricity Data",
+    "url": "https://ember-energy.org/data/monthly-electricity-data",
+    "licence": "Creative Commons Attribution 4.0 (CC BY 4.0), stated on the dataset page: \"All content is released under a Creative Commons Attribution Licence (CC-BY-4.0).\" Reuse, including derived figures, is allowed with credit to Ember; the site credits it under every table.",
+    "frequency": "fetched at most once every six days; the publisher updates twice a month",
+    "typical_lag": "one to six months, different for each country",
+    "retrieved_at": "2026-11-15T10:46:52+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "One source for every country, so the definition is the same, but each country's figures reach the source from a different national publisher and with a different delay.",
+   "Indonesia is not covered: the source has no monthly demand for it.",
+   "Southeast Asian histories are short (they start between 2009 and 2019), so 'unusual' there is judged against five to seven earlier years of the same calendar month, not ten.",
+   "Recent months are revised by the source. Values are shown as last published; every value is also kept as first seen.",
+   "Demand here is electricity generated plus net imports. It includes losses on the grid and is not the same as electricity sold to customers."
+  ],
+  "finding": {
+   "label": "observation",
+   "reason": "Arithmetic on published monthly figures: demand per day, its change on a year earlier, and how far the latest monthly move is from what that calendar month usually brings. No model is fitted."
+  },
+  "flag_z": 2.5,
+  "index_base_year": 2019,
+  "n_countries": 6,
+  "not_covered": [
+   "Indonesia"
+  ]
+ },
+ "data": [
+  {
+   "country": "VN",
+   "name": "Vietnam",
+   "latest_month": "2026-09-01T00:00:00",
+   "demand_twh": 30.333,
+   "gwh_per_day": 1011.1,
+   "yoy_pct": 11.236202280978391,
+   "year_yoy_pct": 8.516146316845363,
+   "move": -3.9286236772299254,
+   "expected_move": -5.118788382882933,
+   "z": 0.23559365321007075,
+   "flagged": false,
+   "first_month": "2019-01-01T00:00:00",
+   "months": 93,
+   "sentence": "Vietnam: 30.3 TWh in September 2026, demand per day up 11.2% on a year earlier."
+  },
+  {
+   "country": "MY",
+   "name": "Malaysia",
+   "latest_month": "2026-05-01T00:00:00",
+   "demand_twh": 17.093,
+   "gwh_per_day": 551.3870967741935,
+   "yoy_pct": 3.5311932162325865,
+   "year_yoy_pct": 4.298928919182066,
+   "move": -1.7580852461897223,
+   "expected_move": 0.7818614947671332,
+   "z": -1.1935485604815845,
+   "flagged": false,
+   "first_month": "2018-01-01T00:00:00",
+   "months": 101,
+   "sentence": "Malaysia: 17.1 TWh in May 2026, demand per day up 3.5% on a year earlier."
+  },
+  {
+   "country": "US",
+   "name": "United States",
+   "latest_month": "2026-10-01T00:00:00",
+   "demand_twh": 355.444,
+   "gwh_per_day": 11465.935483870968,
+   "yoy_pct": 0.9809909912469328,
+   "year_yoy_pct": 3.2582317660326376,
+   "move": -16.500403691841292,
+   "expected_move": -11.97993334081362,
+   "z": -1.5522579226856739,
+   "flagged": false,
+   "first_month": "2001-01-01T00:00:00",
+   "months": 310,
+   "sentence": "United States: 355.4 TWh in October 2026, demand per day up 1.0% on a year earlier."
+  },
+  {
+   "country": "TH",
+   "name": "Thailand",
+   "latest_month": "2026-07-01T00:00:00",
+   "demand_twh": 20.61,
+   "gwh_per_day": 664.8387096774194,
+   "yoy_pct": 4.412584224124827,
+   "year_yoy_pct": 2.9073683464204025,
+   "move": -2.0732956489000642,
+   "expected_move": -3.1355673903767034,
+   "z": 0.4581625560235518,
+   "flagged": false,
+   "first_month": "2019-01-01T00:00:00",
+   "months": 91,
+   "sentence": "Thailand: 20.6 TWh in July 2026, demand per day up 4.4% on a year earlier."
+  },
+  {
+   "country": "SG",
+   "name": "Singapore",
+   "latest_month": "2026-07-01T00:00:00",
+   "demand_twh": 5.282,
+   "gwh_per_day": 170.38709677419354,
+   "yoy_pct": -1.3079222720478456,
+   "year_yoy_pct": 1.3230779498131229,
+   "move": -2.2896287024882334,
+   "expected_move": -0.2131194570291317,
+   "z": -1.2777461021850045,
+   "flagged": false,
+   "first_month": "2009-01-01T00:00:00",
+   "months": 211,
+   "sentence": "Singapore: 5.3 TWh in July 2026, demand per day down 1.3% on a year earlier."
+  },
+  {
+   "country": "PH",
+   "name": "Philippines",
+   "latest_month": "2026-09-01T00:00:00",
+   "demand_twh": 9.285,
+   "gwh_per_day": 309.5,
+   "yoy_pct": -4.534238124614431,
+   "year_yoy_pct": -4.613643497943054,
+   "move": 3.948965337407806,
+   "expected_move": 3.20571325960497,
+   "z": 0.32021483202487205,
+   "flagged": false,
+   "first_month": "2017-01-01T00:00:00",
+   "months": 117,
+   "sentence": "Philippines: 9.3 TWh in September 2026, demand per day down 4.5% on a year earlier."
+  }
+ ]
+}

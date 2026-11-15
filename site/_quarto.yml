@@ -32,6 +32,8 @@ website:
             href: macro/series.qmd
           - text: "Forecast test"
             href: macro/model.qmd
+      - text: "Energy Demand"
+        href: energy/index.qmd
       - text: "Monthly brief"
         href: briefs/index.qmd
       - text: "Methodology"
