@@ -1,0 +1,7 @@
+{
+  "url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_monthly_global.csv",
+  "retrieved_at": "2026-11-15T10:46:56+00:00",
+  "full_response_bytes": 29104746,
+  "full_response_sha256": "e9814d266356024ef4327fa19cc0fabc6a8bd8552d7be85b43405910cefefa38",
+  "slice": "header and rows from 2024-01 for ['IDN', 'MYS', 'PHL', 'SGP', 'THA', 'USA', 'VNM'], sources ['Demand', 'Total generation', 'Net imports', 'Coal']"
+}
