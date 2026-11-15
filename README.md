@@ -100,6 +100,18 @@ all of these hold on live data:
 Flags are observations: arithmetic on published values, no model. Changing any threshold
 after looking at the backtest breaks the test; record any change in the failures log.
 
+### First live run, 15 November 2026
+
+- 51 series collected from GitHub's runners with no key: 26 US, 20 from the BIS, 5 from
+  OpenDOSM. Four BIS series do not exist (Vietnam's policy rate, consumer prices and real
+  effective exchange rate, and Singapore's policy rate).
+- Backtest, 24 months to October 2026: 61 own-history flags in 1,177 readings (5.2%; a bell
+  curve would give 1.2%), 42 held, 10 reversed, 9 too early. 18 neighbour flags, 14 held.
+- Forecast test: **no signal found**. The picked model scored 0.638 on the holdout against
+  0.658 for the best rule of thumb, an improvement of 0.020 against a fold spread of 0.052.
+  No forecast is published.
+- Still open: criterion 1, one full monthly cycle on schedule.
+
 ### What the Macro Monitor does not cover yet
 
 - Southeast Asia comes from the BIS (policy rate, consumer prices, exchange rate, real
