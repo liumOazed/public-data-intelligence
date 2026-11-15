@@ -28,6 +28,26 @@ number can be rebuilt from its source. The files under
 [`data/v1/`](https://github.com/liumOazed/public-data-intelligence/tree/main/site/data/v1)
 are a contract: pages read only from them, by fixed paths and fixed column names.
 
+### Silent failures and the heartbeat
+
+A run that fails loudly opens an Issue. A **silent failure** is a day the site falls behind
+with nothing to say so: the schedule did not fire, or a run went green without collecting
+anything new. A heartbeat workflow looks twice a day, at 03:05 and 21:05 UTC, and opens one
+Issue when the daily run has not succeeded on the main branch in 48 hours, the weekly run in
+nine days, or any published file is out of date: a source retrieved longer ago than its
+allowance (two days for daily sources, nine for weekly ones), a file not regenerated within two
+days, or a key table empty. It closes the Issue when every check passes. GitHub starts
+scheduled runs hours late on free accounts, so the 48-hour window is wide on purpose. The
+monthly brief lists the days with no successful run.
+
+## Monthly brief
+
+On the first daily run of each month, code writes a short brief of what changed in the month
+before: new readings and revisions, flags and how earlier flags turned out, price moves of 5%
+or more, the latest verdicts of the out-of-sample tests, and the days the pipeline did not run.
+Nothing in it is written by hand, and each line carries its finding label. Briefs are under
+[Monthly brief](briefs/index.qmd).
+
 ## Rules the pipeline enforces
 
 1. **Baseline before model.** Every model page shows a naive comparison. A model that does
@@ -137,7 +157,32 @@ A residual is not a quality score. SPEC results for the same processor differ wi
 compiler and operating system, and vendors choose which configurations to submit. The tested
 configuration is shown beside each residual so that it can be checked first.
 
-### Reproducing a number
+### Reproduce one number by hand
+
+This is for someone who has not seen the code. It needs Python with pandas and nothing from
+this repository except one standalone script, and it rebuilds the US consumer prices row of the
+flag table.
+
+1. Download
+   [`scripts/reproduce_headline.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/scripts/reproduce_headline.py)
+   and run `pip install pandas`.
+2. Run `python reproduce_headline.py`. It downloads CPIAUCSL (consumer prices, all items,
+   seasonally adjusted) from FRED's public CSV. To work offline, save that CSV from the
+   [FRED page](https://fred.stlouisfed.org/series/CPIAUCSL) and pass its path.
+3. The script applies the four steps above to the latest month: the move, the median of the
+   previous 120 calendar months, the spread (1.4826 times the median absolute deviation) and
+   the number of spreads. A month FRED left blank stays a gap; October 2025 has none because of
+   the US government shutdown, so there is no October or November 2025 move.
+4. Compare its last line with the `US.cpi` row of
+   [`data/v1/macro/series.json`](https://github.com/liumOazed/public-data-intelligence/blob/main/site/data/v1/macro/series.json)
+   (columns `move`, `expected_move` and `z`) for the same day. For October 2026, collected on
+   15 November 2026, both give a move of 0.350, a usual move of 0.257 and 0.45 spreads.
+
+A test (`tests/test_reproduce.py`) checks on every change that the script and the pipeline
+agree. Whether a stranger can follow the steps without help is checked only by a stranger
+doing it; until one has, that part of the Harden phase stays open.
+
+### Rebuilding with the pipeline
 
 ```bash
 uv sync --extra site
@@ -153,16 +198,25 @@ match the model page for the same retrieval date.
 ### Series
 
 About 25 monthly US series come from FRED, and only those first published by a US federal
-agency. The six Southeast Asian economies are covered by the BIS tables of policy rates,
-consumer prices, exchange rates and real effective exchange rates, because the BIS puts each
+agency. The six Southeast Asian economies are covered by two international tables that put each
 measure on one definition for every country, which is what makes a comparison between
-neighbours fair. Malaysia has five more series from its statistics office. The full list is on
+neighbours fair:
+
+* the **BIS** tables of policy rates, consumer prices, exchange rates and real effective
+  exchange rates;
+* the **IMF** tables of goods exports and imports in US dollars and official reserves excluding
+  gold, for all six, and consumer prices for Vietnam, which the BIS does not publish. IMF series
+  start in January 2011, because Singapore's trade figures change basis in 2004 and again in
+  2010 and a single start date keeps the six comparable.
+
+Malaysia has five more series from its statistics office. The full list is on
 the [series page](macro/series.qmd) and in
 [`pdi/macro/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/macro/config.py).
 
-Coverage is uneven and the page says so: Vietnam has only its exchange rate in these tables,
-Singapore has no policy rate, and national sources for Indonesia, Singapore, Thailand, Vietnam
-and the Philippines are not wired in yet.
+Coverage is uneven and the page says so: Vietnam and Singapore have no policy rate in these
+tables, industrial production is not included because the IMF's table for these six ends in
+2025 or earlier, and national sources other than Malaysia's are not wired in. IMF data may be
+republished with attribution; commercial reuse needs the IMF's permission.
 
 ### How a flag is made
 
@@ -182,7 +236,7 @@ A reading is flagged at 2.5 spreads or more. Only data before the month being sc
 so a flag in the backtest is the flag the rule would have raised at the time, with one
 caveat: the values are today's revised figures, not the ones first published.
 
-**Against neighbours.** For each BIS measure, a country's spreads minus the median spreads of
+**Against neighbours.** For each BIS measure and each IMF trade and reserves measure, a country's spreads minus the median spreads of
 the other Southeast Asian economies in the same month, scored the same way against that gap's
 own ten years. It needs at least three other countries reporting that month.
 
@@ -203,7 +257,32 @@ Macro figures are revised. From its first run the pipeline keeps every value as 
 seen, with the date, in `data/store/macro/vintages.parquet`, and only ever appends to it.
 Once that has a year of history the backtest can be rerun on what was known at the time.
 
-### Reproducing a number
+### Reproduce one number by hand
+
+This is for someone who has not seen the code. It needs Python with pandas and nothing from
+this repository except one standalone script, and it rebuilds the US consumer prices row of the
+flag table.
+
+1. Download
+   [`scripts/reproduce_headline.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/scripts/reproduce_headline.py)
+   and run `pip install pandas`.
+2. Run `python reproduce_headline.py`. It downloads CPIAUCSL (consumer prices, all items,
+   seasonally adjusted) from FRED's public CSV. To work offline, save that CSV from the
+   [FRED page](https://fred.stlouisfed.org/series/CPIAUCSL) and pass its path.
+3. The script applies the four steps above to the latest month: the move, the median of the
+   previous 120 calendar months, the spread (1.4826 times the median absolute deviation) and
+   the number of spreads. A month FRED left blank stays a gap; October 2025 has none because of
+   the US government shutdown, so there is no October or November 2025 move.
+4. Compare its last line with the `US.cpi` row of
+   [`data/v1/macro/series.json`](https://github.com/liumOazed/public-data-intelligence/blob/main/site/data/v1/macro/series.json)
+   (columns `move`, `expected_move` and `z`) for the same day. For October 2026, collected on
+   15 November 2026, both give a move of 0.350, a usual move of 0.257 and 0.45 spreads.
+
+A test (`tests/test_reproduce.py`) checks on every change that the script and the pipeline
+agree. Whether a stranger can follow the steps without help is checked only by a stranger
+doing it; until one has, that part of the Harden phase stays open.
+
+### Rebuilding with the pipeline
 
 ```bash
 uv sync --extra site
