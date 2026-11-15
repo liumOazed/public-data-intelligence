@@ -22,6 +22,16 @@ website:
             href: tech-value/residuals.qmd
           - text: "Model and leaderboard"
             href: tech-value/model.qmd
+      - text: "Macro Monitor"
+        menu:
+          - text: "What moved unusually"
+            href: macro/index.qmd
+          - text: "24-month backtest"
+            href: macro/backtest.qmd
+          - text: "Series"
+            href: macro/series.qmd
+          - text: "Forecast test"
+            href: macro/model.qmd
       - text: "Methodology"
         href: methodology.qmd
       - text: "Sources"

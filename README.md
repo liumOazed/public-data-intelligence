@@ -11,7 +11,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 |---|---|---|
 | 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Built; pipeline and failure Issue proven on GitHub, Pages deploy not yet run |
 | 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks, model and price crawler run on live data; prices come from one small retailer (see below) |
-| 2 | Macro Monitor | Not started |
+| 2 | **Macro Monitor**: which series moved unusually against their own history and against neighbouring economies | Built and run once on live data; exit criterion needs one full monthly cycle |
 | 3 | Trade and Supply Chain | Not started |
 | 4 | Federal Procurement | Not started |
 
@@ -73,6 +73,56 @@ The split dates and thresholds live in [`pdi/tech_value/config.py`](pdi/tech_val
 Changing them after looking at holdout results breaks the test; record any change in the
 failures log.
 
+## Macro Monitor exit criterion
+
+Written on 15 November 2026, before any flag or forecast was computed. The module is done when
+all of these hold on live data:
+
+1. **Every series updates without manual work for one full monthly cycle**: each series in
+   [`pdi/macro/config.py`](pdi/macro/config.py) gains its next month from a scheduled run
+   that nobody started by hand.
+2. **Every flag the rule raised in the last 24 months is listed with whether it held.**
+   - Move: 100 x change in log level, or change in value for rates.
+   - Usual move: median over the previous ten years (same calendar month for seasonal series).
+   - Flag: surprise of 2.5 spreads or more, where the spread is 1.4826 x the median absolute
+     deviation of past surprises. Against neighbours: the same test on the gap between a
+     country's surprise and the median of at least three other Southeast Asian economies.
+   - Held or reversed: a flag reversed if the next three months gave back more than half of
+     the flagged surprise.
+3. **The forecast test has run and its result is published either way.** AutoGluon TimeSeries
+   is fitted before 2023-11, picked on 2023-11 to 2024-10 and scored once on the months from
+   2024-11. It must beat the best of four rules of thumb (last move, move twelve months ago,
+   average move, average move for that calendar month) by more than the spread of its
+   improvement across the four quarters of the validation year. Forecasts are published,
+   labelled as predictions, only on runs where it does. Otherwise the page says "no signal
+   found".
+
+Flags are observations: arithmetic on published values, no model. Changing any threshold
+after looking at the backtest breaks the test; record any change in the failures log.
+
+### First live run, 15 November 2026
+
+- 51 series collected from GitHub's runners with no key: 26 US, 20 from the BIS, 5 from
+  OpenDOSM. Four BIS series do not exist (Vietnam's policy rate, consumer prices and real
+  effective exchange rate, and Singapore's policy rate).
+- Backtest, 24 months to October 2026: 61 own-history flags in 1,177 readings (5.2%; a bell
+  curve would give 1.2%), 42 held, 10 reversed, 9 too early. 18 neighbour flags, 14 held.
+- Forecast test: **no signal found**. The picked model scored 0.638 on the holdout against
+  0.658 for the best rule of thumb, an improvement of 0.020 against a fold spread of 0.052.
+  No forecast is published.
+- Still open: criterion 1, one full monthly cycle on schedule.
+
+### What the Macro Monitor does not cover yet
+
+- Southeast Asia comes from the BIS (policy rate, consumer prices, exchange rate, real
+  effective exchange rate) plus five Malaysian series from OpenDOSM. Exports, imports,
+  industrial output, reserves and GDP for Indonesia, Singapore, Thailand, Vietnam and the
+  Philippines are not wired in. Vietnam has only its exchange rate; Singapore has no policy
+  rate.
+- The backtest uses today's revised figures. First-seen values are stored from the first run
+  (`data/store/macro/vintages.parquet`), so an honest real-time backtest is possible later.
+- "Release delayed" is not shown yet when a series misses its usual release date.
+
 ## First-time setup
 
 These are the steps only the repository owner can do.
@@ -82,6 +132,10 @@ These are the steps only the repository owner can do.
    address), add it as the `BESTBUY_API_KEY` Actions secret and read Best Buy's API terms on
    caching and display first. Without it the daily run skips the price collector with a
    warning.
+   For the Macro Monitor, add a free **`FRED_API_KEY`** secret (register at
+   https://fred.stlouisfed.org/docs/api/api_key.html). Without it the collector still works,
+   through FRED's public CSV download, but cannot check each series' notes for a copyright
+   mark. No Census key is needed until the Trade module.
 3. **Run the weekly workflow once by hand.** Actions, *Weekly benchmarks and model selection*,
    Run workflow. It collects SPEC and Blender data, trains AutoGluon, commits the derived
    tables and deploys the site. If it fails, it opens an Issue that says which step broke.
@@ -97,8 +151,8 @@ export, build and deploy.
 
 | Workflow | Schedule (UTC) | What it does |
 |---|---|---|
-| `daily.yml` | 09:17 every day | Price snapshot, rebuild exported tables, deploy |
-| `weekly.yml` | Monday 05:43 | Refresh SPEC and Blender tables, retrain AutoGluon, deploy |
+| `daily.yml` | 09:17 every day | Price snapshot, macro series and flags, rebuild exported tables, deploy |
+| `weekly.yml` | Monday 05:43 | Refresh SPEC and Blender tables, retrain AutoGluon (Tech Value and the macro forecast test), deploy |
 | `heartbeat.yml` | 21:05 every day | Opens an Issue if the daily run has not succeeded in 48 hours |
 | `site.yml` | called by the two above | Renders Quarto and publishes to Pages |
 | `ci.yml` | pull requests | Lint, tests, site render |
@@ -111,6 +165,8 @@ sources/registry.yaml     every source: URL, owner, licence, frequency, lag, sta
 pdi/common/               fetch (raw snapshot + checksum), registry, export envelope, paths
 pdi/tech_value/           one file per source (spec, blender, bestbuy), names, value, model,
                           automl, export
+pdi/macro/                config (the series catalogue and every threshold), collect, store,
+                          flags, automl, export
 pdi/site.py               the only way pages read data
 data/raw/                 untouched responses; git-ignored, kept as workflow artifacts
 data/store/               tidy derived tables, committed by the workflows
@@ -164,6 +220,10 @@ uv run python -m pdi.tech_value.blender   # collect + tidy Blender Open Data
 BESTBUY_API_KEY=... uv run python -m pdi.tech_value.bestbuy
 uv run python -m pdi.tech_value.automl    # needs --extra automl
 uv run python -m pdi.tech_value.export    # writes site/data/v1/tech-value/
+
+uv run python -m pdi.macro.collect        # FRED, BIS, OpenDOSM, Indeed; no key needed
+uv run python -m pdi.macro.automl         # needs --extra automl
+uv run python -m pdi.macro.export         # flags and writes site/data/v1/macro/
 
 QUARTO_PYTHON=.venv/bin/python quarto preview site
 ```

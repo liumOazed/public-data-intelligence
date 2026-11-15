@@ -18,7 +18,11 @@ dependencies = [
 
 [project.optional-dependencies]
 # Heavy; installed only by the scheduled training workflow.
-automl = ["autogluon.tabular[lightgbm,catboost,xgboost]>=1.2"]
+automl = [
+    "autogluon.tabular[lightgbm,catboost,xgboost]>=1.2",
+    # Macro Monitor forecasts. Pulls in PyTorch, which is why this extra is heavy.
+    "autogluon.timeseries>=1.2",
+]
 # What the Quarto build needs to execute the pages.
 site = ["jupyter>=1.0", "plotly>=5.20", "itables>=2.0", "tabulate>=0.9"]
 dev = ["pytest>=8", "ruff>=0.5"]

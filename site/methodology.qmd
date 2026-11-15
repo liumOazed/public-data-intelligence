@@ -147,3 +147,66 @@ uv run python -m pdi.tech_value.export    # fit the plain model and write data/v
 
 The holdout error of the plain regression in `site/data/v1/tech-value/holdout.json` should
 match the model page for the same retrieval date.
+
+## Macro Monitor
+
+### Series
+
+About 25 monthly US series come from FRED, and only those first published by a US federal
+agency. The six Southeast Asian economies are covered by the BIS tables of policy rates,
+consumer prices, exchange rates and real effective exchange rates, because the BIS puts each
+measure on one definition for every country, which is what makes a comparison between
+neighbours fair. Malaysia has five more series from its statistics office. The full list is on
+the [series page](macro/series.qmd) and in
+[`pdi/macro/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/macro/config.py).
+
+Coverage is uneven and the page says so: Vietnam has only its exchange rate in these tables,
+Singapore has no policy rate, and national sources for Indonesia, Singapore, Thailand, Vietnam
+and the Philippines are not wired in yet.
+
+### How a flag is made
+
+For every series and month:
+
+1. **Move.** For levels (prices, jobs, output, exchange rates), 100 times the change in the
+   log of the value, which is close to the percent change. For rates, the change in the rate.
+2. **Usual move.** The median move over the previous ten years. For series that are not
+   seasonally adjusted, the median move in the same calendar month over those years.
+3. **Surprise.** The move minus the usual move.
+4. **Spreads.** The surprise divided by the series' usual spread: 1.4826 times the median
+   absolute deviation of its surprises over the same ten years, a measure that large past
+   shocks do not inflate. For series that rarely move at all, such as policy rates, the
+   standard deviation is used.
+
+A reading is flagged at 2.5 spreads or more. Only data before the month being scored is used,
+so a flag in the backtest is the flag the rule would have raised at the time, with one
+caveat: the values are today's revised figures, not the ones first published.
+
+**Against neighbours.** For each BIS measure, a country's spreads minus the median spreads of
+the other Southeast Asian economies in the same month, scored the same way against that gap's
+own ten years. It needs at least three other countries reporting that month.
+
+The thresholds, the ten-year window and the rule for whether a flag held were written in the
+config file on 15 November 2026, before any flag was computed. Every flag is an observation:
+it is arithmetic on published values with no fitted model.
+
+### Forecast test
+
+A flag says a move was large. Whether next month's move can be forecast is a separate
+question, tested on the [forecast page](macro/model.qmd) with AutoGluon TimeSeries against
+four rules of thumb. Forecasts appear on the site, labelled as predictions, only on runs
+where the picked model beat the best rule of thumb on months it never saw.
+
+### Revisions
+
+Macro figures are revised. From its first run the pipeline keeps every value as it was first
+seen, with the date, in `data/store/macro/vintages.parquet`, and only ever appends to it.
+Once that has a year of history the backtest can be rerun on what was known at the time.
+
+### Reproducing a number
+
+```bash
+uv sync --extra site
+uv run python -m pdi.macro.collect     # needs no key; FRED_API_KEY is used when set
+uv run python -m pdi.macro.export      # computes flags and writes data/v1/macro/
+```

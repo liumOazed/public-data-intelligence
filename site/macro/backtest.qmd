@@ -1,0 +1,62 @@
+---
+title: "Macro Monitor: 24-month backtest"
+subtitle: "Every flag the rule raised in the last two years, and whether the move held"
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown
+from itables import init_notebook_mode, show
+
+from pdi import site
+
+init_notebook_mode(connected=False)
+bt, meta = site.load("macro", "flags_backtest")
+s = meta.get("summary") or {}
+```
+
+The rule that raises a flag, and the rule for whether a flag mattered, were both written
+before this backtest was run. A flag **held** if, over the following three months, the series
+did not give back more than half of the flagged surprise. It **reversed** if it did, which
+usually means a one-month blip or a figure that was later offset. Flags from the last three
+months are **too early** to judge.
+
+```{python}
+#| output: asis
+if not s:
+    print(site.empty_state(meta, "Backtest"))
+else:
+    rate = s["own_flag_rate"]
+    print(f'Since {s["window_start"]}, {s["readings_scored"]:,} monthly readings were scored and '
+          f'**{s["flags"]} flags** were raised. Flags against own history were '
+          f'{rate:.1%} of readings; a threshold of {meta["flag_z"]} spreads would flag about '
+          f'1.2% of readings from a bell curve, so anything above that is fat tails or real '
+          f'events.\n')
+    print("| Kind of flag | Raised | Held | Reversed | Too early |\n|---|---|---|---|---|")
+    for kind in ("own history", "neighbours"):
+        k = s[kind]
+        print(f'| Against {kind} | {k["flags"]} | {k["held"]} | {k["reversed"]} | {k["too early"]} |')
+    print(site.finding_line(meta.get("finding")))
+```
+
+## Every flag
+
+```{python}
+if bt.empty:
+    display(Markdown(site.empty_state(meta, "Flags")))
+else:
+    t = bt.assign(period=pd.to_datetime(bt["period"]).dt.strftime("%Y-%m"))[
+        ["period", "country", "kind", "z", "outcome", "sentence"]].rename(columns={
+        "period": "Month", "country": "Economy", "kind": "Against", "z": "Spreads",
+        "outcome": "Outcome", "sentence": "What happened"}).round({"Spreads": 1})
+    show(t, paging=True, pageLength=25, showIndex=False, classes="display compact",
+         order=[[0, "desc"]])
+```
+
+```{python}
+#| output: asis
+print(site.source_note(meta))
+```
+
+"Held" does not mean the flag was important, only that the move was not undone. Whether a
+flag mattered for anything else is not tested here.

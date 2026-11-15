@@ -1,0 +1,69 @@
+---
+title: "Macro Monitor: series"
+subtitle: "Ten years of each series, with its flagged months marked"
+---
+
+```{python}
+import pandas as pd
+import plotly.graph_objects as go
+from IPython.display import Markdown
+
+from pdi import site
+
+hist, meta = site.load("macro", "history")
+series, series_meta = site.load("macro", "series")
+```
+
+Pick a series from the menu. The line is the published value. Dots mark months where the
+monthly move was flagged as unusual against the ten years before it.
+
+```{python}
+if hist.empty or series.empty:
+    display(Markdown(site.empty_state(meta, "Series history")))
+else:
+    hist["period"] = pd.to_datetime(hist["period"])
+    info = series.sort_values(["country", "name"]).reset_index(drop=True)
+    flag_z = meta["flag_z"]
+    fig = go.Figure()
+    buttons = []
+    for i, r in info.iterrows():
+        h = hist[hist["series_id"] == r["series_id"]].sort_values("period")
+        f = h[h["z"].abs() >= flag_z]
+        fig.add_trace(go.Scatter(x=h["period"], y=h["value"], mode="lines", name="Value",
+                                 visible=(i == 0), line=dict(width=2),
+                                 hovertemplate="%{x|%b %Y}: %{y:,.2f}<extra></extra>"))
+        fig.add_trace(go.Scatter(x=f["period"], y=f["value"], mode="markers", name="Flagged month",
+                                 visible=(i == 0), marker=dict(size=9, symbol="circle-open", line=dict(width=2)),
+                                 customdata=f["z"],
+                                 hovertemplate="%{x|%b %Y}: %{customdata:+.1f} spreads<extra></extra>"))
+        vis = [False] * (2 * len(info))
+        vis[2 * i] = vis[2 * i + 1] = True
+        buttons.append(dict(label=f'{r["country"]}: {r["name"]}', method="update",
+                            args=[{"visible": vis}, {"yaxis.title.text": r["units"]}]))
+    fig.update_layout(
+        updatemenus=[dict(buttons=buttons, x=0, xanchor="left", y=1.18, yanchor="top")],
+        yaxis_title=info.loc[0, "units"], height=480, hovermode="x",
+        margin=dict(l=10, r=10, t=70, b=10), legend=dict(orientation="h", y=-0.12))
+    fig.show()
+```
+
+```{python}
+#| output: asis
+if not hist.empty:
+    print(site.finding_line(meta.get("finding")))
+print(site.source_note(meta))
+```
+
+## What is covered
+
+```{python}
+if not series.empty:
+    t = series.assign(Compared=series["seasonal_comparison"].map(
+        {True: "same calendar month", False: "all months"}))[
+        ["country", "name", "units", "source", "source_code", "months_of_history", "Compared"]
+    ].sort_values(["country", "name"]).rename(columns={
+        "country": "Economy", "name": "Series", "units": "Units", "source": "Source",
+        "source_code": "Source's code", "months_of_history": "Months collected",
+        "Compared": "Usual move taken from"})
+    display(Markdown(t.to_markdown(index=False)))
+```

@@ -24,4 +24,5 @@ jobs:
       - name: Render the site
         run: |
           uv run python -m pdi.tech_value.export
+          uv run python -m pdi.macro.export
           QUARTO_PYTHON="$PWD/.venv/bin/python" quarto render site

@@ -1,0 +1,133 @@
+{
+ "meta": {
+  "module": "macro",
+  "table": "flags_latest",
+  "description": "Flags on each series' latest published month: moves of 2.5 spreads or more against the series' own ten-year history, or against its neighbours.",
+  "generated_at": "2026-11-15T06:22:10+00:00",
+  "rows": 5,
+  "columns": [
+   "period",
+   "country",
+   "indicator",
+   "kind",
+   "z",
+   "outcome",
+   "sentence",
+   "series_id",
+   "label"
+  ],
+  "sources": [
+   {
+    "id": "fred",
+    "name": "FRED, Federal Reserve Economic Data",
+    "url": "https://fred.stlouisfed.org/",
+    "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
+    "frequency": "weekly collection; most series are monthly",
+    "typical_lag": "two to eight weeks after the month ends, depending on the series",
+    "retrieved_at": "2026-11-15T06:09:17+00:00"
+   },
+   {
+    "id": "bis",
+    "name": "BIS statistics (policy rates, consumer prices, exchange rates, effective exchange rates)",
+    "url": "https://data.bis.org/",
+    "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
+    "frequency": "weekly collection; series are monthly",
+    "typical_lag": "one to three months",
+    "retrieved_at": "2026-11-15T06:09:20+00:00"
+   },
+   {
+    "id": "opendosm",
+    "name": "OpenDOSM (Department of Statistics Malaysia)",
+    "url": "https://open.dosm.gov.my/",
+    "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
+    "frequency": "weekly collection; series are monthly",
+    "typical_lag": "five to eight weeks",
+    "retrieved_at": "2026-11-15T06:09:39+00:00"
+   },
+   {
+    "id": "indeed_postings",
+    "name": "Indeed Job Postings Index",
+    "url": "https://github.com/hiring-lab/job_postings_tracker",
+    "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
+    "frequency": "weekly collection; daily index refreshed weekly",
+    "typical_lag": "about one week",
+    "retrieved_at": "2026-11-15T06:09:40+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Figures are the latest published values and are revised by their publishers. A flag can appear or disappear when a figure is revised.",
+   "A flag means a move was large against the series' own last ten years. It does not say why the move happened or what comes next, and it is a research lead, not advice.",
+   "With a threshold of 2.5 spreads, roughly one or two readings in a hundred are flagged by chance alone, and more for series with fat tails. The backtest shows how often.",
+   "Southeast Asian series come from the BIS, which compiles them from national sources on one definition. Vietnam has only its exchange rate there, and Singapore has no policy rate.",
+   "This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.",
+   "Source: BIS statistics, FRED (Federal Reserve Bank of St. Louis, from US federal agencies), Department of Statistics Malaysia (OpenDOSM), Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
+  ],
+  "flag_z": 2.5,
+  "history_months": 120,
+  "follow_months": 3,
+  "reversal_share": 0.5,
+  "finding": {
+   "label": "observation",
+   "reason": "Measured moves compared with each series' own published history. No model is involved, so a flag says something unusual happened, not why, and not what comes next."
+  },
+  "n_series": 51
+ },
+ "data": [
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "United States",
+   "indicator": "policy_rate",
+   "kind": "own history",
+   "z": 8.768379873195528,
+   "outcome": "too early",
+   "sentence": "United States: federal funds effective rate rose 0.13 percentage points in October 2026, against a usual +0.00 percentage points for a month. That is 8.8 times its usual spread over the previous ten years.",
+   "series_id": "US.policy_rate",
+   "label": "observation"
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "fx_usd",
+   "kind": "own history",
+   "z": 5.478717248918629,
+   "outcome": "too early",
+   "sentence": "Vietnam: exchange rate, local currency per US dollar rose (local currency weaker) 1.13% in August 2026, against a usual +0.09% for a month. That is 5.5 times its usual spread over the previous ten years.",
+   "series_id": "VN.fx_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "fx_usd",
+   "kind": "neighbours",
+   "z": 3.523739170323044,
+   "outcome": "too early",
+   "sentence": "Vietnam: exchange rate, local currency per US dollar moved against its neighbours in August 2026. Its surprise was +5.5 spreads while the median of 5 other Southeast Asian economies was -0.9, so it rose more than the region by a gap 3.5 times that gap's usual spread.",
+   "series_id": "VN.fx_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "cpi",
+   "kind": "own history",
+   "z": 2.5826546059442888,
+   "outcome": "too early",
+   "sentence": "Philippines: consumer prices (CPI) rose 0.95% in September 2026, against a usual +0.16% for that calendar month. That is 2.6 times its usual spread over the previous ten years.",
+   "series_id": "PH.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "United States",
+   "indicator": "construction_spending",
+   "kind": "own history",
+   "z": -2.5558975541316524,
+   "outcome": "too early",
+   "sentence": "United States: construction spending fell 1.87% in September 2026, against a usual +0.45% for a month. That is 2.6 times its usual spread over the previous ten years.",
+   "series_id": "US.construction_spending",
+   "label": "observation"
+  }
+ ]
+}

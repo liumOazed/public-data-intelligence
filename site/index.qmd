@@ -13,7 +13,7 @@ no server behind these pages.
 | Order | Module | Question it answers | Status |
 |---|---|---|---|
 | 1 | [Tech Value](tech-value/index.qmd) | Which CPU or GPU gives the most performance per dollar at US retail today, and which ones beat what their specifications predict? | Live |
-| 2 | Macro Monitor | What moved this month in the US and the six Southeast Asian economies, and is the move unusual? | Not started |
+| 2 | [Macro Monitor](macro/index.qmd) | What moved this month in the US and the six Southeast Asian economies, and is the move unusual? | Built; waiting on its first full monthly cycle |
 | 3 | Trade and Supply Chain | How is US demand shifting across Southeast Asian suppliers, by product? | Not started |
 | 4 | Federal Procurement | Where is US federal contract money moving, and who is winning it? | Not started |
 

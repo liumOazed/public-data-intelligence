@@ -1,0 +1,101 @@
+---
+title: "Macro Monitor: forecast test"
+subtitle: "Can any model forecast next month's move better than a rule of thumb?"
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown
+
+from pdi import site
+
+board, meta = site.load("macro", "leaderboard")
+holdout, hold_meta = site.load("macro", "holdout")
+folds, fold_meta = site.load("macro", "folds")
+fc, fc_meta = site.load("macro", "forecasts")
+v = meta.get("verdict") or {}
+```
+
+## Result
+
+```{python}
+#| output: asis
+if not v:
+    print(site.empty_state(meta, "Forecast test"))
+else:
+    print(f'::: {{.verdict}}\n**{v["statement"]}**\n\n'
+          f'Holdout error ({v["holdout_n_forecasts"]:,} one-month-ahead forecasts from '
+          f'{v["holdout_start"][:7]} to {v["data_end"]}, scaled so 1.0 is the size of an '
+          f'ordinary monthly change): baseline `{v["baseline"]}` '
+          f'{v["holdout_scaled_mae_baseline"]:.3f}, picked model `{v["picked"]}` '
+          f'{v["holdout_scaled_mae_picked"]:.3f}. Improvement {v["holdout_improvement"]:.3f} '
+          f'against a fold-to-fold spread of {v["fold_spread"]:.3f}.\n\n'
+          f'Published model: **{v["published"]}**.\n'
+          f'{site.finding_line(v.get("finding"))}:::')
+```
+
+The test, written before any result was seen: AutoGluon fits a set of forecasting models on
+every series up to the start of the validation year, the best one on the validation year is
+picked, and the pick is scored once on the months after it. It must beat the best of four
+rules of thumb (repeat last month's move, repeat the move of twelve months ago, the average
+move, the average move for that calendar month) by more than the spread of its improvement
+across the four quarters of the validation year. If it does not, the page says "no signal
+found" and no forecast is published anywhere on the site.
+
+## Holdout
+
+Scored once, after the pick. The leaderboard below is not the result; this table is.
+
+```{python}
+if not holdout.empty:
+    display(Markdown(holdout.assign(published=holdout["published"].map({True: "Yes", False: ""}))
+        [["model", "kind", "n_forecasts", "scaled_mae", "published"]].rename(columns={
+        "model": "Model", "kind": "Kind", "n_forecasts": "Forecasts",
+        "scaled_mae": "Scaled error", "published": "Published"})
+        .to_markdown(index=False, floatfmt=".3f")))
+```
+
+## Leaderboard (validation year)
+
+Every model tried. The rules of thumb are always rows.
+
+```{python}
+if not board.empty:
+    display(Markdown(board[["rank", "model", "kind", "scaled_mae", "n_forecasts"]].rename(columns={
+        "rank": "Rank", "model": "Model", "kind": "Kind", "scaled_mae": "Scaled error",
+        "n_forecasts": "Forecasts"}).to_markdown(index=False, floatfmt=".3f")))
+```
+
+```{python}
+#| output: asis
+if v:
+    print(f'AutoGluon TimeSeries {v["autogluon_version"]} last trained on {v["trained_at"][:10]} '
+          f'with a {v["time_limit_s"]}-second limit, on CPU, over {v["n_series"]} series. '
+          f'It retrains weekly, not on every run.')
+```
+
+## Fold-to-fold spread
+
+```{python}
+if not folds.empty:
+    display(Markdown(folds.rename(columns={
+        "fold": "Fold", "months": "Months", "n_forecasts": "Forecasts",
+        "baseline_scaled_mae": "Baseline error", "picked_scaled_mae": "Picked model error",
+        "improvement": "Improvement"}).to_markdown(index=False, floatfmt=".3f")))
+```
+
+## Forecasts for next month
+
+```{python}
+#| output: asis
+if fc.empty:
+    print(site.empty_state(fc_meta, "Forecasts"))
+else:
+    print(site.finding_line(v.get("finding")))
+    t = fc.assign(target_month=pd.to_datetime(fc["target_month"]).dt.strftime("%Y-%m"))[
+        ["country", "name", "target_month", "forecast", "baseline_forecast"]].rename(columns={
+        "country": "Economy", "name": "Series", "target_month": "Month",
+        "forecast": "Forecast move", "baseline_forecast": "Baseline's forecast"})
+    print(t.to_markdown(index=False, floatfmt=".2f"))
+print(site.source_note(meta))
+```
