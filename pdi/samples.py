@@ -304,6 +304,24 @@ def ember() -> None:
     )
 
 
+def census() -> None:
+    from pdi.trade import config as trade
+
+    key = os.environ.get(trade.KEY_ENV, "").strip()
+    if not key:
+        print("Census: no key; trade samples not refreshed")
+        return
+    code = trade.PARTNERS["VN"][0]
+    common = {"time": "from 2026-01", "CTY_CODE": code, "key": key}
+    hs2 = _get(
+        trade.API,
+        params={"get": f"I_COMMODITY,I_COMMODITY_SDESC,{trade.VALUE}", "COMM_LVL": "HS2", **common},
+    )
+    _save("census_VN_hs2.json", hs2.content, url=hs2.url, note="Vietnam, chapters, from 2026-01")
+    total = _get(trade.API, params={"get": trade.VALUE, **common})
+    _save("census_VN_total.json", total.content, url=total.url, note="Vietnam, total, from 2026-01")
+
+
 CAPTURES = {
     "spec": spec,
     "blender": blender_launches,
@@ -314,6 +332,7 @@ CAPTURES = {
     "indeed": indeed,
     "imf": imf,
     "ember": ember,
+    "census": census,
 }
 
 

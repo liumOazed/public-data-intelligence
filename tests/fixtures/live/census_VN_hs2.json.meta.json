@@ -1,0 +1,7 @@
+{
+  "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=I_COMMODITY%2CI_COMMODITY_SDESC%2CGEN_VAL_MO&COMM_LVL=HS2&time=from+2026-01&CTY_CODE=5520&key=REDACTED",
+  "retrieved_at": "2026-11-15T11:18:17+00:00",
+  "full_response_bytes": 73105,
+  "full_response_sha256": "7d5d21833ce801c220b95c4a7218d346d600a9570be679833bbaf1e37f782920",
+  "slice": "Vietnam, chapters, from 2026-01"
+}

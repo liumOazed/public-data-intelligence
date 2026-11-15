@@ -14,7 +14,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 | 2 | **Macro Monitor**: which series moved unusually against their own history and against neighbouring economies | Built and run once on live data; exit criterion needs one full monthly cycle |
 | Harden | Heartbeat with a data-freshness check, parser tests on real response slices, monthly "what changed" brief, IMF series for Southeast Asia; energy demand chosen as the one public sector to cover | Built; exit criterion needs 30 days on schedule (see below) |
 | Sector | Energy Demand: monthly electricity demand for the US and five Southeast Asian economies | Built 15 November 2026; one source, observations only |
-| 3 | Trade and Supply Chain | Not started |
+| 3 | Trade and Supply Chain | Built 15 November 2026: share shift and lead-time test live; mirror gaps, Comtrade and commodity prices not built (see below) |
 | 4 | Federal Procurement | Not started |
 
 Modules are built one at a time, in this order. The next one does not start until the current
@@ -163,6 +163,42 @@ Written on 15 November 2026. The phase is done when both hold:
 - **Monthly brief** under `site/briefs/`, written by code from the stored tables.
 - **Parser tests on real slices**, and a workflow to refresh them.
 
+## Trade and Supply Chain
+
+### Exit criterion
+
+Written on 15 November 2026, before any trade figure was collected. The module is done when
+both hold:
+
+1. **The share-shift figures match Census published totals within 1%.** For every partner and
+   month, the product chapters the pages are built from add up to the all-commodity total
+   Census publishes for that partner, within 1%. The collector checks this on every run and
+   stores nothing when it fails; the result is on the trade page.
+2. **The lead-time claim is shown with a measured lead, or dropped.** The claim that
+   US-reported imports say something about an economy's own exports before its own figure is
+   out is tested once, out of sample, against a persistence baseline, with the rules in
+   [`pdi/trade/config.py`](pdi/trade/config.py). An economy that passes is shown as a
+   prediction; one that does not is listed as "no signal found" and nothing on the site uses
+   US imports as an early reading for it.
+
+### What is built
+
+- **Collector.** US general imports at customs value by two-digit HS chapter, monthly from
+  2013, for China, the six Southeast Asian economies and all countries together (Census
+  international trade API, sixteen calls at most once every six days).
+- **Share shift.** Each partner's share of US imports over twelve months, in total and by
+  chapter, against calendar 2017 and against a year earlier; and for each chapter of at least
+  $5 billion a year, China's change beside each Southeast Asian economy's. Observations only.
+- **Lead-time test.** Per economy, with the IMF export series the Macro Monitor already
+  collects.
+
+### What is not built, and why
+
+- **Mirror gaps** (US-reported imports against each economy's reported exports to the US). It
+  needs exports by destination; the IMF series in hand are totals to all countries. Backlog.
+- **UN Comtrade intra-regional flows.** Needs a Comtrade key and a reading of its terms. Backlog.
+- **Commodity price context.** Not started. Backlog.
+
 ## Energy Demand
 
 Chosen on 15 November 2026 as the one public sector to cover. Monthly electricity demand
@@ -191,7 +227,9 @@ These are the steps only the repository owner can do.
    For the Macro Monitor, add a free **`FRED_API_KEY`** secret (register at
    https://fred.stlouisfed.org/docs/api/api_key.html). Without it the collector still works,
    through FRED's public CSV download, but cannot check each series' notes for a copyright
-   mark. No Census key is needed until the Trade module.
+   mark. For Trade and Supply Chain, add a free **`CENSUS_API_KEY`** secret (request one at
+   https://api.census.gov/data/key_signup.html). Without it the collector is skipped and the
+   trade pages keep the last stored data.
 3. **Run the weekly workflow once by hand.** Actions, *Weekly benchmarks and model selection*,
    Run workflow. It collects SPEC and Blender data, trains AutoGluon, commits the derived
    tables and deploys the site. If it fails, it opens an Issue that says which step broke.
@@ -282,6 +320,8 @@ uv run python -m pdi.macro.collect        # FRED, BIS, OpenDOSM, IMF, Indeed; no
 uv run python -m pdi.macro.automl         # needs --extra automl
 uv run python -m pdi.macro.export         # flags and writes site/data/v1/macro/
 
+CENSUS_API_KEY=... uv run python -m pdi.trade.collect   # US imports by chapter
+uv run python -m pdi.trade.export        # shares, totals check, lead-time test
 uv run python -m pdi.energy.collect       # Ember electricity demand; no key needed
 uv run python -m pdi.energy.export
 uv run python -m pdi.health               # is every published table fresh?

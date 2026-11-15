@@ -272,3 +272,26 @@ sources:
       definition is applied to every country but each country arrives with its own delay.
       Monthly demand exists for the United States, Malaysia, the Philippines, Singapore,
       Thailand and Vietnam; not for Indonesia. Recent months are revised.
+
+  census_trade:
+    name: US Census Bureau, International Trade (monthly imports by Harmonized System)
+    owner: US Census Bureau
+    url: https://www.census.gov/foreign-trade/data/index.html
+    endpoint: https://api.census.gov/data/timeseries/intltrade/imports/hs
+    licence: >-
+      Census Bureau Data API Terms of Service
+      (https://www.census.gov/data/developers/terms-of-service.html). Products must show the
+      notice "This product uses the Census Bureau Data API but is not endorsed or certified by
+      the Census Bureau", must not misrepresent the data while naming the Bureau as its source,
+      and must not use the data to identify a person or business. The trade pages carry the
+      notice. The terms set no numeric request limit; this pipeline makes sixteen calls at most
+      once every six days.
+    frequency: fetched at most once every six days; Census publishes once a month
+    typical_lag: about five weeks after the month ends
+    status: green
+    publish: derived
+    module: trade
+    terms_checked: 2026-11-15
+    notes: >-
+      Needs a free API key (repo secret CENSUS_API_KEY). General imports at customs value by
+      country of origin and two-digit HS chapter, from 2013. Recent months are revised.

@@ -1,0 +1,1162 @@
+{
+ "meta": {
+  "module": "trade",
+  "table": "totals_check",
+  "description": "Sum of the product chapters against the all-commodity total Census publishes, by partner and year.",
+  "generated_at": "2026-11-15T11:18:18+00:00",
+  "rows": 112,
+  "columns": [
+   "partner",
+   "year",
+   "months",
+   "chapters_sum",
+   "published_total",
+   "worst_month_gap_pct",
+   "gap_pct",
+   "name"
+  ],
+  "sources": [
+   {
+    "id": "census_trade",
+    "name": "US Census Bureau, International Trade (monthly imports by Harmonized System)",
+    "url": "https://www.census.gov/foreign-trade/data/index.html",
+    "licence": "Census Bureau Data API Terms of Service (https://www.census.gov/data/developers/terms-of-service.html). Products must show the notice \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau\", must not misrepresent the data while naming the Bureau as its source, and must not use the data to identify a person or business. The trade pages carry the notice. The terms set no numeric request limit; this pipeline makes sixteen calls at most once every six days.",
+    "frequency": "fetched at most once every six days; Census publishes once a month",
+    "typical_lag": "about five weeks after the month ends",
+    "retrieved_at": "2026-11-15T11:17:30+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [],
+  "finding": {
+   "label": "observation",
+   "reason": "The chapters are summed and compared with the all-commodity total Census publishes for the same partner and month."
+  },
+  "tolerance_pct": 1.0,
+  "worst_month_gap_pct": 0.0,
+  "criterion_met": true,
+  "partner_months": 1320
+ },
+ "data": [
+  {
+   "partner": "CN",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 440430019592.0,
+   "published_total": 440430019592.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 468474894856.0,
+   "published_total": 468474894856.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 483201655364.0,
+   "published_total": 483201655364.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 462419991603.0,
+   "published_total": 462419991603.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 505165098057.0,
+   "published_total": 505165098057.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 538514158526.0,
+   "published_total": 538514158526.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 449110676707.0,
+   "published_total": 449110676707.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 432548018651.0,
+   "published_total": 432548018651.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 504246266398.0,
+   "published_total": 504246266398.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 536268689234.0,
+   "published_total": 536268689234.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 427234312263.0,
+   "published_total": 427234312263.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 440319387970.0,
+   "published_total": 440319387970.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 308651863680.0,
+   "published_total": 308651863680.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "CN",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 215008592978.0,
+   "published_total": 215008592978.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "China"
+  },
+  {
+   "partner": "ID",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 18871609478.0,
+   "published_total": 18871609478.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 19389820947.0,
+   "published_total": 19389820947.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 19605232082.0,
+   "published_total": 19605232082.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 19184011550.0,
+   "published_total": 19184011550.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 20205135079.0,
+   "published_total": 20205135079.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 20824534930.0,
+   "published_total": 20824534930.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 20104615181.0,
+   "published_total": 20104615181.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 20198162520.0,
+   "published_total": 20198162520.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 27048016266.0,
+   "published_total": 27048016266.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 34542067107.0,
+   "published_total": 34542067107.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 26774905189.0,
+   "published_total": 26774905189.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 27745831033.0,
+   "published_total": 27745831033.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 34637159015.0,
+   "published_total": 34637159015.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "ID",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 25012505848.0,
+   "published_total": 25012505848.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Indonesia"
+  },
+  {
+   "partner": "MY",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 27288735020.0,
+   "published_total": 27288735020.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 30563787818.0,
+   "published_total": 30563787818.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 33971867415.0,
+   "published_total": 33971867415.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 36607397631.0,
+   "published_total": 36607397631.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 37369173174.0,
+   "published_total": 37369173174.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 39342133743.0,
+   "published_total": 39342133743.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 40510981590.0,
+   "published_total": 40510981590.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 44098168701.0,
+   "published_total": 44098168701.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 56053606645.0,
+   "published_total": 56053606645.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 54066965239.0,
+   "published_total": 54066965239.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 46153065375.0,
+   "published_total": 46153065375.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 52163417235.0,
+   "published_total": 52163417235.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 59536770464.0,
+   "published_total": 59536770464.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "MY",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 65051615329.0,
+   "published_total": 65051615329.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Malaysia"
+  },
+  {
+   "partner": "PH",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 9268689135.0,
+   "published_total": 9268689135.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 10189879702.0,
+   "published_total": 10189879702.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 10231603389.0,
+   "published_total": 10231603389.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 10042425048.0,
+   "published_total": 10042425048.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 11622710638.0,
+   "published_total": 11622710638.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 12586944243.0,
+   "published_total": 12586944243.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 12661699193.0,
+   "published_total": 12661699193.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 11121894329.0,
+   "published_total": 11121894329.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 13992587027.0,
+   "published_total": 13992587027.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 16154456397.0,
+   "published_total": 16154456397.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 13255262734.0,
+   "published_total": 13255262734.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 14154563370.0,
+   "published_total": 14154563370.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 17762118681.0,
+   "published_total": 17762118681.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "PH",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 20258044391.0,
+   "published_total": 20258044391.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Philippines"
+  },
+  {
+   "partner": "SG",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 17842859828.0,
+   "published_total": 17842859828.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 16501526179.0,
+   "published_total": 16501526179.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 18272022889.0,
+   "published_total": 18272022889.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 17832105840.0,
+   "published_total": 17832105840.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 19367390992.0,
+   "published_total": 19367390992.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 26519764788.0,
+   "published_total": 26519764788.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 26395855542.0,
+   "published_total": 26395855542.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 30774979991.0,
+   "published_total": 30774979991.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 29616084813.0,
+   "published_total": 29616084813.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 31600172588.0,
+   "published_total": 31600172588.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 40820866064.0,
+   "published_total": 40820866064.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 43259183020.0,
+   "published_total": 43259183020.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 38228011254.0,
+   "published_total": 38228011254.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "SG",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 25937439436.0,
+   "published_total": 25937439436.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Singapore"
+  },
+  {
+   "partner": "TH",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 26169602629.0,
+   "published_total": 26169602629.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 27229294785.0,
+   "published_total": 27229294785.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 28622178370.0,
+   "published_total": 28622178370.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 29484052274.0,
+   "published_total": 29484052274.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 31108472556.0,
+   "published_total": 31108472556.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 31872659599.0,
+   "published_total": 31872659599.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 33442622059.0,
+   "published_total": 33442622059.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 37554949461.0,
+   "published_total": 37554949461.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 47366712910.0,
+   "published_total": 47366712910.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 58624238617.0,
+   "published_total": 58624238617.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 56206506411.0,
+   "published_total": 56206506411.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 62955277304.0,
+   "published_total": 62955277304.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 91255261590.0,
+   "published_total": 91255261590.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "TH",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 106470830893.0,
+   "published_total": 106470830893.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Thailand"
+  },
+  {
+   "partner": "VN",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 24651035884.0,
+   "published_total": 24651035884.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 30617650403.0,
+   "published_total": 30617650403.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 38014929069.0,
+   "published_total": 38014929069.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 42085454795.0,
+   "published_total": 42085454795.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 46477369494.0,
+   "published_total": 46477369494.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 49139466160.0,
+   "published_total": 49139466160.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 66437338565.0,
+   "published_total": 66437338565.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 79582349097.0,
+   "published_total": 79582349097.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 101938932627.0,
+   "published_total": 101938932627.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 127446808070.0,
+   "published_total": 127446808070.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 114382898715.0,
+   "published_total": 114382898715.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 136317602464.0,
+   "published_total": 136317602464.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 193879321149.0,
+   "published_total": 193879321149.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "VN",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 204825706401.0,
+   "published_total": 204825706401.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "Vietnam"
+  },
+  {
+   "partner": "WLD",
+   "year": 2013,
+   "months": 12,
+   "chapters_sum": 2267986733622.0,
+   "published_total": 2267986733622.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2014,
+   "months": 12,
+   "chapters_sum": 2356356072353.0,
+   "published_total": 2356356072353.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2015,
+   "months": 12,
+   "chapters_sum": 2248811351481.0,
+   "published_total": 2248811351481.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2016,
+   "months": 12,
+   "chapters_sum": 2186785900709.0,
+   "published_total": 2186785900709.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2017,
+   "months": 12,
+   "chapters_sum": 2339591330018.0,
+   "published_total": 2339591330018.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2018,
+   "months": 12,
+   "chapters_sum": 2536145273678.0,
+   "published_total": 2536145273678.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2019,
+   "months": 12,
+   "chapters_sum": 2491699567726.0,
+   "published_total": 2491699567726.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2020,
+   "months": 12,
+   "chapters_sum": 2331477180822.0,
+   "published_total": 2331477180822.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2021,
+   "months": 12,
+   "chapters_sum": 2828515499899.0,
+   "published_total": 2828515499899.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2022,
+   "months": 12,
+   "chapters_sum": 3239732934761.0,
+   "published_total": 3239732934761.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2023,
+   "months": 12,
+   "chapters_sum": 3076552305624.0,
+   "published_total": 3076552305624.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2024,
+   "months": 12,
+   "chapters_sum": 3263893254128.0,
+   "published_total": 3263893254128.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2025,
+   "months": 12,
+   "chapters_sum": 3414510592814.0,
+   "published_total": 3414510592814.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  },
+  {
+   "partner": "WLD",
+   "year": 2026,
+   "months": 9,
+   "chapters_sum": 2768947019240.0,
+   "published_total": 2768947019240.0,
+   "worst_month_gap_pct": 0.0,
+   "gap_pct": 0.0,
+   "name": "All countries"
+  }
+ ]
+}

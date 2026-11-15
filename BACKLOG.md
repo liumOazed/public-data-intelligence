@@ -39,7 +39,18 @@ built, and are looked at again when the current module meets its exit criterion.
 - Add an Energy Demand section to the monthly brief.
 - Add a second public sector only after energy demand has run for a month.
 
+## Trade and Supply Chain
+
+- Mirror gaps: find each economy's exports to the US by month (IMF trade by partner, or
+  national sources), then compare with US-reported imports from it.
+- UN Comtrade for flows between the six economies: get a key, read the terms first.
+- Commodity price context (World Bank monthly prices; EIA needs a key).
+- Four-digit HS headings for the chapters where the shift is largest (85, 84, 94, 61, 62, 64):
+  a shift inside a chapter is invisible at two digits.
+- Rerun the lead-time test on first-published values once a year of vintages exists for both
+  series.
+- Add a trade section to the monthly brief.
+
 ## Later modules, in order
 
-1. Trade and Supply Chain
-2. Federal Procurement
+1. Federal Procurement
