@@ -321,3 +321,44 @@ sources:
       figure from USAspending's own search does not match the sum of the transactions it lets
       anyone download; see the Federal Procurement page and the failures log. Department of
       Defense records are held back 90 days. Payments per award were optional before fiscal 2022.
+
+  wikimedia_pageviews:
+    name: Wikimedia Pageviews API (English Wikipedia, monthly views by people)
+    owner: Wikimedia Foundation
+    url: https://wikitech.wikimedia.org/wiki/Analytics/AQS/Pageviews
+    endpoint: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/
+    licence: >-
+      Not yet read for this pipeline. The pageview counts are generally described as released
+      into the public domain, and the API asks callers to send a User-Agent that identifies
+      them; this pipeline sends one with the repository's address. To be confirmed before any
+      use beyond the Demand Radar experiment.
+    frequency: fetched once for the Demand Radar experiment
+    typical_lag: a day after the month ends
+    status: amber
+    publish: derived
+    module: radar
+    terms_checked: unconfirmed
+    notes: >-
+      Monthly views by people (agent "user") from July 2015, the first month the API separates
+      people from bots. Used only summed over a fixed list of articles per category.
+
+  census_marts:
+    name: US Census Bureau, Monthly Retail Trade Survey (MARTS)
+    owner: US Census Bureau
+    url: https://www.census.gov/retail/index.html
+    endpoint: https://api.census.gov/data/timeseries/eits/marts
+    licence: >-
+      Census Bureau Data API Terms of Service
+      (https://www.census.gov/data/developers/terms-of-service.html), the same terms as the
+      trade data: show the notice "This product uses the Census Bureau Data API but is not
+      endorsed or certified by the Census Bureau", do not misrepresent the data, and do not
+      use it to identify a person or business.
+    frequency: fetched once for the Demand Radar experiment
+    typical_lag: advance estimate about two weeks after the month ends
+    status: green
+    publish: derived
+    module: radar
+    terms_checked: 2026-11-15
+    notes: >-
+      Sales in millions of dollars by kind of business, not seasonally adjusted. Uses the same
+      CENSUS_API_KEY secret as the trade collector. Recent months are revised.
