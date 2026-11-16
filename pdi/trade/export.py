@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import json
 
+import numpy as np
 import pandas as pd
 
 from pdi.common import findings
 from pdi.common.export import write_table
 from pdi.macro import config as macro
+from pdi.macro import flags
 from pdi.trade import collect, config, lead, shares
 
 M = config.MODULE
@@ -37,11 +39,62 @@ CHECK_FINDING = findings.observation(
 )
 
 
+UNUSUAL_RULE = (
+    "the change in US imports from a partner from the month before, in its latest month, is 2.5 "
+    "spreads or more from what that calendar month brought in up to ten earlier years (the "
+    "Macro Monitor's rule)."
+)
+UNUSUAL_FINDING = findings.observation(
+    "Arithmetic on the all-commodity import totals Census publishes: the latest monthly change "
+    "against the same calendar month in earlier years. No model; it says the month was unusual, "
+    "not why."
+)
+
+
+def unusual_items(totals: pd.DataFrame) -> tuple[list[dict], pd.DataFrame]:
+    """Score each partner's monthly change in imports; list the latest month when flagged."""
+    names = partner_names()
+    items, scored = [], []
+    for partner, g in totals.groupby("partner"):
+        s = g.set_index("period")["value"].sort_index().astype(float)
+        s = s.reindex(pd.date_range(s.index.min(), s.index.max(), freq="MS"))
+        s = s.where(s > 0)
+        df = flags.surprises(100 * np.log(s).diff(), "nsa").dropna(subset=["move"])
+        if df.empty:
+            continue
+        last = df.iloc[-1]
+        period = df.index[-1]
+        scored.append({"partner": partner, "period": period, "z": last["z"]})
+        if pd.isna(last["z"]) or abs(last["z"]) < macro.FLAG_Z:
+            continue
+        direction = "rose" if last["move"] > 0 else "fell"
+        sentence = (
+            f"US imports from {names.get(partner, partner)} {direction} "
+            f"{abs(100 * np.expm1(last['move'] / 100)):.1f}% from the month before in "
+            f"{period:%B %Y}, {abs(last['z']):.1f} spreads from what {period:%B} usually brings."
+        )
+        items.append(findings.item(
+            module=M, subject=partner, period=period, sentence=sentence,
+            rule="same calendar month", measure=last["z"], threshold=macro.FLAG_Z,
+            finding=UNUSUAL_FINDING, page="trade/index.qmd", table="trade/findings.json",
+        ))  # fmt: skip
+    return items, pd.DataFrame(scored)
+
+
 def _empty(reason: str, retrieved: dict) -> None:
     for table in TABLES:
         write_table(M, table, pd.DataFrame(), description=reason, retrieved_at=retrieved,
                     sources=LEAD_SOURCES if table == "lead_test" else SOURCES,
                     extra={"status": reason})  # fmt: skip
+    findings.write_items(
+        M,
+        [],
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        extra={"status": reason},
+    )
 
 
 def partner_names() -> dict[str, str]:
@@ -75,6 +128,18 @@ def main() -> None:
     chapter_names = json.loads(config.CHAPTERS.read_text()) if config.CHAPTERS.exists() else {}
     names = partner_names()
     latest = imports["period"].max()
+
+    items, scored = unusual_items(totals)
+    findings.write_items(
+        M,
+        items,
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        limitations=LIMITS,
+        extra={"partners_scored": int(len(scored))},
+    )
 
     rolled = shares.with_shares(shares.twelve_month(imports))
     shift = shares.shifts(rolled)

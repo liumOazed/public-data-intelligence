@@ -95,6 +95,9 @@ jobs:
           uv run python -m pdi.trade.export
           uv run python -m pdi.procurement.export
 
+      - name: What's unusual this week (stops the run on a prediction without a passed test)
+        run: uv run python -m pdi.unusual
+
       - name: Show the result
         run: |
           uv run python - <<'PY'

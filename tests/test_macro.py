@@ -158,6 +158,7 @@ def test_export_writes_every_table(tmp_path, monkeypatch):
     export.export_forecasts({})
     got = {p.stem for p in (tmp_path / "macro").glob("*.json")}
     assert got == {
+        "findings",
         "flags_latest",
         "flags_backtest",
         "series",

@@ -53,6 +53,35 @@ def _empty(reason: str, retrieved: dict) -> None:
                   "leaderboard", "holdout", "folds", "forecasts"):  # fmt: skip
         write_table(M, table, pd.DataFrame(), sources=SOURCES, description=reason,
                     retrieved_at=retrieved, extra=note)  # fmt: skip
+    findings.write_items(
+        M,
+        [],
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        extra=note,
+    )
+
+
+UNUSUAL_RULE = (
+    "a series' latest month is flagged: its move is 2.5 spreads or more from its own ten-year "
+    "history, or from its Southeast Asian neighbours."
+)
+
+
+def unusual_items(current: pd.DataFrame) -> list[dict]:
+    """The shared-format items: every flag on a series' own latest month."""
+    out = []
+    for _, r in current.iterrows():
+        rule = "own history" if r["kind"] == "own history" else "neighbours"
+        out.append(findings.item(
+            module=M, subject=r["series_id"], period=r["period"], sentence=r["sentence"],
+            rule=rule, measure=r["z"], threshold=config.FLAG_Z,
+            finding={**flags.FLAG_FINDING, "label": r["label"]},
+            page="macro/index.qmd", table="macro/flags_latest.json",
+        ))  # fmt: skip
+    return out
 
 
 def series_table(obs: pd.DataFrame, scores: pd.DataFrame, flagged: pd.DataFrame) -> pd.DataFrame:
@@ -136,17 +165,21 @@ def export_flags(obs: pd.DataFrame, retrieved: dict) -> None:
         "more against the series' own ten-year history, or against its neighbours.",
         extra={**rule, "n_series": int(scores["series_id"].nunique())}, **common,
     )  # fmt: skip
+    findings.write_items(M, unusual_items(current), rule=UNUSUAL_RULE, write=write_table, **common)
 
     end = scores.dropna(subset=["move"])["period"].max()
     start = end - pd.DateOffset(months=config.BACKTEST_MONTHS - 1)
     bt = flagged[flagged["period"] >= start]
     bt = bt.assign(country=bt["country"].map(config.COUNTRIES))
     write_table(
-        M, "flags_backtest", bt[cols],
+        M,
+        "flags_backtest",
+        bt[cols],
         description=f"Every flag the rule raised in the last {config.BACKTEST_MONTHS} months, "
         "with whether the move held over the next three months or was given back.",
-        extra={**rule, "summary": backtest_summary(bt, scores, start)}, **common,
-    )  # fmt: skip
+        extra={**rule, "summary": backtest_summary(bt, scores, start)},
+        **common,
+    )
 
     write_table(
         M, "series", series_table(obs, scores, flagged),

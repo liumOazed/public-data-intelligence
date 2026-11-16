@@ -1,0 +1,71 @@
+---
+title: "What's unusual this week"
+subtitle: "Everything a module's own fixed rule flagged, in one list, each item with its label and its evidence"
+---
+
+```{python}
+from datetime import datetime
+
+import pandas as pd
+
+from pdi import site
+
+items, meta = site.load("unusual", "week")
+
+
+def _badge(r) -> str:
+    return site.finding_badge({"label": r["label"], "reason": r["label_reason"]}, to_root=".")
+
+
+def _line(r) -> str:
+    period = str(r["period"])[:7] if r["rule"] != "price move" else str(r["period"])[:10]
+    seen = datetime.fromisoformat(r["first_seen"]).strftime("%-d %b %Y")
+    return (f'- {_badge(r)} **{r["module_name"]}.** {r["sentence"]} '
+            f'(Refers to {period}; first seen {seen}. Evidence: [page]({r["page"]}), '
+            f'[data](data/v1/{r["table"]}).)')
+```
+
+Each module flags the moves its own rule calls unusual. This page puts them in one list. Every
+rule was fixed before the page was first built, and each is listed at the bottom. A flag says
+that something unusual happened. It does not say why, or what comes next.
+
+```{python}
+#| output: asis
+if items.empty and meta.get("status"):
+    print(site.empty_state(meta, "This week's list"))
+else:
+    built = datetime.fromisoformat(meta["built_at"]).strftime("%-d %B %Y, %H:%M UTC")
+    new = items[items["new"]] if len(items) else items
+    standing = items[~items["new"]] if len(items) else items
+    print(f'Built {built}. {len(items)} items are flagged now; {len(new)} of them were first '
+          f'seen in the last {meta["window_days"]} days. Items labelled prediction: '
+          f'{meta["predictions"]}.\n')
+    print("## New this week\n")
+    if meta.get("first_build"):
+        print("This is the first build, so nothing can be called new yet: there is no earlier "
+              "build to compare with. Everything flagged now is listed below as standing.\n")
+    elif new.empty:
+        print(f'Nothing new was flagged in the last {meta["window_days"]} days.\n')
+    for _, r in new.iterrows():
+        print(_line(r))
+    print("\n## Still standing\n")
+    if standing.empty:
+        print("Nothing else is flagged.\n")
+    for _, r in standing.iterrows():
+        print(_line(r))
+```
+
+## The rules
+
+```{python}
+#| output: asis
+for m in meta.get("modules", []):
+    rule = m.get("rule") or "not exported yet"
+    status = f' ({m["status"]})' if m.get("status") else ""
+    print(f'- **{m["name"]}**, {m["items"]} flagged now{status}: an item is listed when {rule}')
+```
+
+An item counts as "new this week" when a build first saw it in the seven days before this one.
+The label beside each item is its module's. No item can be labelled a prediction unless its
+module's out-of-sample test passed. Each build checks this in code and stops if the check
+fails. How the labels are decided is on the [methodology page](methodology.qmd#finding-labels).

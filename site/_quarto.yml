@@ -12,6 +12,8 @@ website:
   repo-actions: [source]
   navbar:
     left:
+      - text: "This week"
+        href: unusual.qmd
       - text: "Tech Value"
         menu:
           - text: "Value ranking"
