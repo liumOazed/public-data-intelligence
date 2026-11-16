@@ -1,5 +1,5 @@
 {
- "trained_at": "2026-11-16T13:05:33+00:00",
+ "trained_at": "2026-11-16T14:48:26+00:00",
  "autogluon_version": "1.6.3",
  "python_version": "3.12.16",
  "time_limit_s": 1200,
@@ -22,11 +22,11 @@
  "picked": "WeightedEnsemble",
  "baseline": "SeasonalAverage",
  "published": "WeightedEnsemble",
- "holdout_scaled_mae_picked": 0.6045463973083199,
+ "holdout_scaled_mae_picked": 0.6048463713642586,
  "holdout_scaled_mae_baseline": 0.631475775049234,
  "holdout_n_forecasts": 1582,
- "holdout_improvement": 0.026929377740914084,
- "fold_spread": 0.01893088538982595,
+ "holdout_improvement": 0.02662940368497546,
+ "fold_spread": 0.018617573795581932,
  "passed": true,
  "folds": [
   {
@@ -34,32 +34,32 @@
    "months": "Nov 2023 to Jan 2024",
    "n_forecasts": 210,
    "baseline_scaled_mae": 0.5901364238947466,
-   "picked_scaled_mae": 0.5686460781493338,
-   "improvement": 0.021490345745412864
+   "picked_scaled_mae": 0.5691971172599803,
+   "improvement": 0.020939306634766286
   },
   {
    "fold": 2,
    "months": "Feb 2024 to Apr 2024",
    "n_forecasts": 210,
    "baseline_scaled_mae": 0.5738285662799754,
-   "picked_scaled_mae": 0.540372746994302,
-   "improvement": 0.033455819285673316
+   "picked_scaled_mae": 0.5404620671582451,
+   "improvement": 0.033366499121730286
   },
   {
    "fold": 3,
    "months": "May 2024 to Jul 2024",
    "n_forecasts": 210,
    "baseline_scaled_mae": 0.49856171541924604,
-   "picked_scaled_mae": 0.5006707451685061,
-   "improvement": -0.0021090297492600274
+   "picked_scaled_mae": 0.5000880773713339,
+   "improvement": -0.001526361952087829
   },
   {
    "fold": 4,
    "months": "Aug 2024 to Oct 2024",
    "n_forecasts": 210,
    "baseline_scaled_mae": 0.6984174865159538,
-   "picked_scaled_mae": 0.6571366177633939,
-   "improvement": 0.041280868752559874
+   "picked_scaled_mae": 0.6573213992451041,
+   "improvement": 0.04109608727084968
   }
  ]
 }

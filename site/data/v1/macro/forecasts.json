@@ -3,7 +3,7 @@
   "module": "macro",
   "table": "forecasts",
   "description": "Next month's forecast move for each series. Published only when the model passed the out-of-sample test.",
-  "generated_at": "2026-11-16T13:05:44+00:00",
+  "generated_at": "2026-11-16T14:48:32+00:00",
   "rows": 70,
   "columns": [
    "series_id",
@@ -22,7 +22,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-16T12:40:44+00:00"
+    "retrieved_at": "2026-11-16T14:35:54+00:00"
    },
    {
     "id": "bis",
@@ -31,7 +31,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-16T12:40:49+00:00"
+    "retrieved_at": "2026-11-16T14:35:57+00:00"
    },
    {
     "id": "opendosm",
@@ -40,7 +40,7 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-16T12:40:58+00:00"
+    "retrieved_at": "2026-11-16T14:36:09+00:00"
    },
    {
     "id": "imf",
@@ -49,7 +49,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-16T12:41:00+00:00"
+    "retrieved_at": "2026-11-16T14:36:12+00:00"
    },
    {
     "id": "indeed_postings",
@@ -58,7 +58,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-16T12:41:00+00:00"
+    "retrieved_at": "2026-11-16T14:36:12+00:00"
    }
   ],
   "preliminary": false,
@@ -68,7 +68,7 @@
    "Scored on latest published values, not on the values first published, so the test is kinder than real time. First-published values are being stored from the first run on."
   ],
   "verdict": {
-   "trained_at": "2026-11-16T13:05:33+00:00",
+   "trained_at": "2026-11-16T14:48:26+00:00",
    "autogluon_version": "1.6.3",
    "python_version": "3.12.16",
    "time_limit_s": 1200,
@@ -91,11 +91,11 @@
    "picked": "WeightedEnsemble",
    "baseline": "SeasonalAverage",
    "published": "WeightedEnsemble",
-   "holdout_scaled_mae_picked": 0.6045463973083199,
+   "holdout_scaled_mae_picked": 0.6048463713642586,
    "holdout_scaled_mae_baseline": 0.631475775049234,
    "holdout_n_forecasts": 1582,
-   "holdout_improvement": 0.026929377740914084,
-   "fold_spread": 0.01893088538982595,
+   "holdout_improvement": 0.02662940368497546,
+   "fold_spread": 0.018617573795581932,
    "passed": true,
    "finding": {
     "label": "prediction",
@@ -108,7 +108,7 @@
   {
    "series_id": "ID.cpi",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.17457851673093583,
+   "forecast": 0.17685010668159626,
    "baseline_forecast": 0.19746996420861862,
    "country": "Indonesia",
    "name": "Consumer prices (CPI)",
@@ -117,7 +117,7 @@
   {
    "series_id": "ID.exports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 2.4376823705220483,
+   "forecast": 2.446942780238849,
    "baseline_forecast": 4.123380013828637,
    "country": "Indonesia",
    "name": "Exports of goods, free on board",
@@ -126,7 +126,7 @@
   {
    "series_id": "ID.fx_usd",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.41453452638372623,
+   "forecast": 0.41154963229373803,
    "baseline_forecast": 0.2309527995417504,
    "country": "Indonesia",
    "name": "Exchange rate, local currency per US dollar",
@@ -135,7 +135,7 @@
   {
    "series_id": "ID.imports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 2.4609906876150123,
+   "forecast": 2.4379561117171997,
    "baseline_forecast": 6.226326621277067,
    "country": "Indonesia",
    "name": "Imports of goods, cost insurance freight",
@@ -144,7 +144,7 @@
   {
    "series_id": "ID.policy_rate",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.006808943867992147,
+   "forecast": 0.006761382376745522,
    "baseline_forecast": 0.0,
    "country": "Indonesia",
    "name": "Central bank policy rate",
@@ -153,7 +153,7 @@
   {
    "series_id": "ID.reer",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.017280423370930845,
+   "forecast": -0.009989894143092135,
    "baseline_forecast": -0.5055140157255611,
    "country": "Indonesia",
    "name": "Real effective exchange rate, broad basket",
@@ -162,7 +162,7 @@
   {
    "series_id": "ID.reserves",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.016977989267101423,
+   "forecast": 0.018041043832878703,
    "baseline_forecast": -0.4281389113828027,
    "country": "Indonesia",
    "name": "Official reserves excluding gold",
@@ -171,7 +171,7 @@
   {
    "series_id": "MY.cpi",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.1314007144716946,
+   "forecast": 0.13064084846424293,
    "baseline_forecast": 0.1649535019415893,
    "country": "Malaysia",
    "name": "Consumer prices (CPI)",
@@ -180,7 +180,7 @@
   {
    "series_id": "MY.exports",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 2.1958707108466493,
+   "forecast": 2.2141556469472556,
    "baseline_forecast": 3.595325262407023,
    "country": "Malaysia",
    "name": "Exports of goods",
@@ -189,7 +189,7 @@
   {
    "series_id": "MY.exports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 4.346924524931013,
+   "forecast": 4.349808623155338,
    "baseline_forecast": 2.1772536573667622,
    "country": "Malaysia",
    "name": "Exports of goods, free on board",
@@ -198,7 +198,7 @@
   {
    "series_id": "MY.fx_usd",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": -0.01399173429305447,
+   "forecast": -0.01736716742905548,
    "baseline_forecast": -0.0011971200768789991,
    "country": "Malaysia",
    "name": "Exchange rate, local currency per US dollar",
@@ -207,7 +207,7 @@
   {
    "series_id": "MY.imports",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 2.8906592376123945,
+   "forecast": 2.895818156892198,
    "baseline_forecast": 4.300395625224063,
    "country": "Malaysia",
    "name": "Imports of goods",
@@ -216,7 +216,7 @@
   {
    "series_id": "MY.imports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 4.44700895426759,
+   "forecast": 4.4458408931049,
    "baseline_forecast": 5.704995926333112,
    "country": "Malaysia",
    "name": "Imports of goods, cost insurance freight",
@@ -225,7 +225,7 @@
   {
    "series_id": "MY.industrial_output",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.15391309196078454,
+   "forecast": 0.1549376596750383,
    "baseline_forecast": 0.1902950146086546,
    "country": "Malaysia",
    "name": "Industrial production",
@@ -234,7 +234,7 @@
   {
    "series_id": "MY.policy_rate",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": -0.0023509914454757884,
+   "forecast": -0.0024304614402508957,
    "baseline_forecast": 0.0,
    "country": "Malaysia",
    "name": "Central bank policy rate",
@@ -243,7 +243,7 @@
   {
    "series_id": "MY.ppi",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.8641997116472042,
+   "forecast": 0.860441821733558,
    "baseline_forecast": 0.0,
    "country": "Malaysia",
    "name": "Producer prices",
@@ -252,7 +252,7 @@
   {
    "series_id": "MY.reer",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.0026688936718712777,
+   "forecast": 0.002643757345484476,
    "baseline_forecast": 0.3497126968685649,
    "country": "Malaysia",
    "name": "Real effective exchange rate, broad basket",
@@ -261,7 +261,7 @@
   {
    "series_id": "MY.reserves",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.34464545590769496,
+   "forecast": 0.3446818152694787,
    "baseline_forecast": 0.4012181281446203,
    "country": "Malaysia",
    "name": "Official reserves excluding gold",
@@ -270,7 +270,7 @@
   {
    "series_id": "MY.unemployment",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.0060114707392167534,
+   "forecast": 0.00589437483715613,
    "baseline_forecast": 0.0,
    "country": "Malaysia",
    "name": "Unemployment rate",
@@ -279,7 +279,7 @@
   {
    "series_id": "PH.cpi",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.408615348547309,
+   "forecast": 0.4065590850142857,
    "baseline_forecast": 0.16321848767768543,
    "country": "Philippines",
    "name": "Consumer prices (CPI)",
@@ -288,7 +288,7 @@
   {
    "series_id": "PH.exports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 1.215157481380048,
+   "forecast": 1.214424010660197,
    "baseline_forecast": 1.6495995930938534,
    "country": "Philippines",
    "name": "Exports of goods, free on board",
@@ -297,7 +297,7 @@
   {
    "series_id": "PH.fx_usd",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.3537915179128872,
+   "forecast": 0.3513826348142087,
    "baseline_forecast": 0.15496395339602564,
    "country": "Philippines",
    "name": "Exchange rate, local currency per US dollar",
@@ -306,7 +306,7 @@
   {
    "series_id": "PH.imports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 3.3167609948950956,
+   "forecast": 3.2984124597411864,
    "baseline_forecast": 5.330092478640225,
    "country": "Philippines",
    "name": "Imports of goods, cost insurance freight",
@@ -315,7 +315,7 @@
   {
    "series_id": "PH.policy_rate",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.058455060109605717,
+   "forecast": 0.057731470288290336,
    "baseline_forecast": 0.0,
    "country": "Philippines",
    "name": "Central bank policy rate",
@@ -324,7 +324,7 @@
   {
    "series_id": "PH.reer",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.16830910528591417,
+   "forecast": -0.1667849802469143,
    "baseline_forecast": 0.13110370866260546,
    "country": "Philippines",
    "name": "Real effective exchange rate, broad basket",
@@ -333,7 +333,7 @@
   {
    "series_id": "PH.reserves",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.36624148501362624,
+   "forecast": -0.365238783830624,
    "baseline_forecast": 0.32372900938710814,
    "country": "Philippines",
    "name": "Official reserves excluding gold",
@@ -342,7 +342,7 @@
   {
    "series_id": "SG.cpi",
    "target_month": "2026-08-01T00:00:00",
-   "forecast": 0.4952560472749269,
+   "forecast": 0.4960833465501443,
    "baseline_forecast": 0.5021217258648125,
    "country": "Singapore",
    "name": "Consumer prices (CPI)",
@@ -351,7 +351,7 @@
   {
    "series_id": "SG.exports_usd",
    "target_month": "2026-08-01T00:00:00",
-   "forecast": -3.511831634730565,
+   "forecast": -3.5394452929794653,
    "baseline_forecast": -0.9153094258834926,
    "country": "Singapore",
    "name": "Exports of goods, free on board",
@@ -360,7 +360,7 @@
   {
    "series_id": "SG.fx_usd",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": -0.009783518196781832,
+   "forecast": -0.010488031790630525,
    "baseline_forecast": -0.27166282562138266,
    "country": "Singapore",
    "name": "Exchange rate, local currency per US dollar",
@@ -369,7 +369,7 @@
   {
    "series_id": "SG.imports_usd",
    "target_month": "2026-08-01T00:00:00",
-   "forecast": -2.3621404496643628,
+   "forecast": -2.5779444799561935,
    "baseline_forecast": -2.34205694137799,
    "country": "Singapore",
    "name": "Imports of goods, cost insurance freight",
@@ -378,7 +378,7 @@
   {
    "series_id": "SG.reer",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.21995741364365856,
+   "forecast": -0.21923912626334247,
    "baseline_forecast": -0.20163433816722254,
    "country": "Singapore",
    "name": "Real effective exchange rate, broad basket",
@@ -387,7 +387,7 @@
   {
    "series_id": "SG.reserves",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.35727473404600724,
+   "forecast": 0.35385622119536836,
    "baseline_forecast": 0.21794579867524533,
    "country": "Singapore",
    "name": "Official reserves excluding gold",
@@ -396,7 +396,7 @@
   {
    "series_id": "TH.cpi",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.09374935537138092,
+   "forecast": 0.09104944259729825,
    "baseline_forecast": 0.12403933257201238,
    "country": "Thailand",
    "name": "Consumer prices (CPI)",
@@ -405,7 +405,7 @@
   {
    "series_id": "TH.exports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": -2.4720418761001435,
+   "forecast": -2.463116249703885,
    "baseline_forecast": -2.0864986024669463,
    "country": "Thailand",
    "name": "Exports of goods, free on board",
@@ -414,7 +414,7 @@
   {
    "series_id": "TH.fx_usd",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.10708408143922471,
+   "forecast": 0.10285562293921606,
    "baseline_forecast": -0.31453146788025244,
    "country": "Thailand",
    "name": "Exchange rate, local currency per US dollar",
@@ -423,7 +423,7 @@
   {
    "series_id": "TH.imports_usd",
    "target_month": "2026-07-01T00:00:00",
-   "forecast": 2.178731924960482,
+   "forecast": 2.1642968008537085,
    "baseline_forecast": 2.4506614011080785,
    "country": "Thailand",
    "name": "Imports of goods, cost insurance freight",
@@ -432,7 +432,7 @@
   {
    "series_id": "TH.policy_rate",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": -0.003871080701088112,
+   "forecast": -0.003916574689501437,
    "baseline_forecast": 0.0,
    "country": "Thailand",
    "name": "Central bank policy rate",
@@ -441,7 +441,7 @@
   {
    "series_id": "TH.reer",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.3352509462482755,
+   "forecast": -0.33452541850463,
    "baseline_forecast": -0.06732239885178792,
    "country": "Thailand",
    "name": "Real effective exchange rate, broad basket",
@@ -450,7 +450,7 @@
   {
    "series_id": "TH.reserves",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.23725004140706332,
+   "forecast": 0.24072692546214186,
    "baseline_forecast": -0.1777877206382783,
    "country": "Thailand",
    "name": "Official reserves excluding gold",
@@ -459,7 +459,7 @@
   {
    "series_id": "US.building_permits",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.12836594512602958,
+   "forecast": -0.13185661149128164,
    "baseline_forecast": -0.20571657832824108,
    "country": "United States",
    "name": "Building permits",
@@ -468,7 +468,7 @@
   {
    "series_id": "US.capacity_use",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.015345333865015,
+   "forecast": 0.013046635538843807,
    "baseline_forecast": -0.12439999999999429,
    "country": "United States",
    "name": "Capacity utilisation, total industry",
@@ -477,7 +477,7 @@
   {
    "series_id": "US.construction_spending",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.05209643012872544,
+   "forecast": -0.05210343086139178,
    "baseline_forecast": 0.33016292828706995,
    "country": "United States",
    "name": "Construction spending",
@@ -486,7 +486,7 @@
   {
    "series_id": "US.consumer_spending",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.3940033695378268,
+   "forecast": 0.393541312600434,
    "baseline_forecast": 0.3932509736225498,
    "country": "United States",
    "name": "Personal consumption expenditures",
@@ -495,7 +495,7 @@
   {
    "series_id": "US.core_cpi",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.23496346322245448,
+   "forecast": 0.23441448591816288,
    "baseline_forecast": 0.20140605161520497,
    "country": "United States",
    "name": "Core consumer prices (CPI less food and energy)",
@@ -504,7 +504,7 @@
   {
    "series_id": "US.core_pce_prices",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.2317348513933576,
+   "forecast": 0.23082110092876476,
    "baseline_forecast": 0.17891877551594604,
    "country": "United States",
    "name": "Core PCE price index",
@@ -513,7 +513,7 @@
   {
    "series_id": "US.cpi",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.2676055883938217,
+   "forecast": 0.2671602116646136,
    "baseline_forecast": 0.17236430581650808,
    "country": "United States",
    "name": "Consumer prices (CPI, all items)",
@@ -522,7 +522,7 @@
   {
    "series_id": "US.dollar_broad",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.38516127846299425,
+   "forecast": 0.3825928687758898,
    "baseline_forecast": 0.6310274259034188,
    "country": "United States",
    "name": "Broad trade-weighted dollar index",
@@ -531,7 +531,7 @@
   {
    "series_id": "US.durable_orders",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.09171642045609434,
+   "forecast": -0.10270626172492113,
    "baseline_forecast": 0.4786559290847592,
    "country": "United States",
    "name": "New orders for durable goods",
@@ -540,7 +540,7 @@
   {
    "series_id": "US.hourly_earnings",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.2931309415223803,
+   "forecast": 0.2927150659185491,
    "baseline_forecast": 0.2865478510682973,
    "country": "United States",
    "name": "Average hourly earnings, private",
@@ -549,7 +549,7 @@
   {
    "series_id": "US.housing_starts",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.380910872377307,
+   "forecast": 0.3637679100594653,
    "baseline_forecast": 0.7479201485693032,
    "country": "United States",
    "name": "Housing starts",
@@ -558,7 +558,7 @@
   {
    "series_id": "US.industrial_output",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.07498720920457722,
+   "forecast": 0.07217282241834669,
    "baseline_forecast": -0.05865770509978496,
    "country": "United States",
    "name": "Industrial production",
@@ -567,7 +567,7 @@
   {
    "series_id": "US.job_openings",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.05079549047597875,
+   "forecast": 0.05198746231316979,
    "baseline_forecast": 1.382800160729225,
    "country": "United States",
    "name": "Job openings (JOLTS)",
@@ -576,7 +576,7 @@
   {
    "series_id": "US.job_postings",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.29917948635824565,
+   "forecast": 0.2981275072289992,
    "baseline_forecast": -0.06152282999316583,
    "country": "United States",
    "name": "Indeed job postings index",
@@ -585,7 +585,7 @@
   {
    "series_id": "US.money_supply",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.47963784921870783,
+   "forecast": 0.4785454829436179,
    "baseline_forecast": 0.42915747698142326,
    "country": "United States",
    "name": "M2 money stock",
@@ -594,7 +594,7 @@
   {
    "series_id": "US.participation",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": -0.004348008680529356,
+   "forecast": -0.0037873972447544507,
    "baseline_forecast": 0.0,
    "country": "United States",
    "name": "Labour force participation rate",
@@ -603,7 +603,7 @@
   {
    "series_id": "US.payrolls",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.05946826702224349,
+   "forecast": 0.059498855426884115,
    "baseline_forecast": 0.10100626792288736,
    "country": "United States",
    "name": "Nonfarm payroll employment",
@@ -612,7 +612,7 @@
   {
    "series_id": "US.pce_prices",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.2909657704437999,
+   "forecast": 0.28992612090671943,
    "baseline_forecast": 0.16622694276002825,
    "country": "United States",
    "name": "PCE price index",
@@ -621,7 +621,7 @@
   {
    "series_id": "US.policy_rate",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.05091303529794617,
+   "forecast": 0.049585022402977685,
    "baseline_forecast": 0.0,
    "country": "United States",
    "name": "Federal funds effective rate",
@@ -630,7 +630,7 @@
   {
    "series_id": "US.ppi",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.4302288785878964,
+   "forecast": 0.42717769971616193,
    "baseline_forecast": 0.14235474904835677,
    "country": "United States",
    "name": "Producer prices, final demand",
@@ -639,7 +639,7 @@
   {
    "series_id": "US.quits_rate",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": -0.006395919169923755,
+   "forecast": -0.006271688826794799,
    "baseline_forecast": 0.0,
    "country": "United States",
    "name": "Quits rate (JOLTS)",
@@ -648,7 +648,7 @@
   {
    "series_id": "US.real_income",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.23762323263352672,
+   "forecast": 0.2347027399400222,
    "baseline_forecast": 0.20143042108138332,
    "country": "United States",
    "name": "Real disposable personal income",
@@ -657,7 +657,7 @@
   {
    "series_id": "US.retail_sales",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.2850407692069967,
+   "forecast": 0.28348980045813477,
    "baseline_forecast": 0.29907220228428955,
    "country": "United States",
    "name": "Retail and food services sales",
@@ -666,7 +666,7 @@
   {
    "series_id": "US.unemployment",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.009525647772095408,
+   "forecast": 0.009561921174607219,
    "baseline_forecast": 0.0,
    "country": "United States",
    "name": "Unemployment rate",
@@ -675,7 +675,7 @@
   {
    "series_id": "US.yield_10y",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.03410251862667868,
+   "forecast": 0.03382952361218414,
    "baseline_forecast": 0.020000000000000018,
    "country": "United States",
    "name": "10-year Treasury yield",
@@ -684,7 +684,7 @@
   {
    "series_id": "US.yield_2y",
    "target_month": "2026-11-01T00:00:00",
-   "forecast": 0.0750208884913218,
+   "forecast": 0.07448895215941007,
    "baseline_forecast": 0.039999999999999813,
    "country": "United States",
    "name": "2-year Treasury yield",
@@ -693,7 +693,7 @@
   {
    "series_id": "VN.cpi",
    "target_month": "2026-10-01T00:00:00",
-   "forecast": 0.3197067627437292,
+   "forecast": 0.319439765352882,
    "baseline_forecast": 0.33105141959319795,
    "country": "Vietnam",
    "name": "Consumer prices (CPI)",
@@ -702,7 +702,7 @@
   {
    "series_id": "VN.exports_usd",
    "target_month": "2026-08-01T00:00:00",
-   "forecast": 5.221946662616283,
+   "forecast": 5.196298655562833,
    "baseline_forecast": 4.20443402079087,
    "country": "Vietnam",
    "name": "Exports of goods, free on board",
@@ -711,7 +711,7 @@
   {
    "series_id": "VN.fx_usd",
    "target_month": "2026-09-01T00:00:00",
-   "forecast": 0.2089666486586912,
+   "forecast": 0.20965860892478072,
    "baseline_forecast": 0.05037466261050838,
    "country": "Vietnam",
    "name": "Exchange rate, local currency per US dollar",
@@ -720,7 +720,7 @@
   {
    "series_id": "VN.imports_usd",
    "target_month": "2026-08-01T00:00:00",
-   "forecast": 1.1108193357905276,
+   "forecast": 1.0923456987337625,
    "baseline_forecast": 1.3112894728788405,
    "country": "Vietnam",
    "name": "Imports of goods, cost insurance freight",
@@ -729,7 +729,7 @@
   {
    "series_id": "VN.reserves",
    "target_month": "2026-09-01T00:00:00",
-   "forecast": -0.04647205035054497,
+   "forecast": -0.037718504530730224,
    "baseline_forecast": 0.22766371410014585,
    "country": "Vietnam",
    "name": "Official reserves excluding gold",
