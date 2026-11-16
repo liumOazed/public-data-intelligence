@@ -32,3 +32,156 @@ table.dataTable { font-size: 0.9rem; }
 .finding-observation { color: var(--bs-secondary-color); }
 .finding-explanation { color: #9a6700; }
 .finding-prediction { color: #1a7f37; }
+
+/* Value ranking dashboard (tech-value/index.qmd). Series colours are the first three slots
+   of a palette checked for colour-blind separation; the dark values are stepped for the dark
+   surface. Text always uses the theme's own ink, never a series colour. */
+body {
+  --vd-s1: #2a78d6;
+  --vd-s2: #eb6834;
+  --vd-s3: #1baf7a;
+  --vd-ink: var(--bs-body-color);
+  --vd-muted: #6c757d;
+  --vd-grid: rgba(0, 0, 0, 0.1);
+  --vd-surface: var(--bs-body-bg);
+  --vd-quad: rgba(42, 120, 214, 0.06);
+}
+body.quarto-dark {
+  --vd-s1: #3987e5;
+  --vd-s2: #d95926;
+  --vd-s3: #199e70;
+  --vd-quad: rgba(57, 135, 229, 0.09);
+  --vd-muted: #adb5bd;
+  --vd-grid: rgba(255, 255, 255, 0.12);
+}
+.vd-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.5rem;
+}
+.vd-card {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.9rem;
+}
+.vd-card-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bs-secondary-color);
+  margin-bottom: 0.25rem;
+}
+.vd-big { font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
+.vd-big span { font-size: 0.85rem; font-weight: 400; color: var(--bs-secondary-color); }
+.vd-small { font-size: 0.82rem; color: var(--bs-secondary-color); margin-top: 0.2rem; }
+.vd-warn { color: #9a6700; }
+body.quarto-dark .vd-warn { color: #d4a72c; }
+.vd-filters, .vd-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.88rem;
+}
+.vd-filters {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  margin: 0.5rem 0 0.75rem;
+}
+.vd-toolbar { margin: 0.25rem 0 0.5rem; }
+.vd-field { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; }
+.vd-label { color: var(--bs-secondary-color); font-size: 0.8rem; }
+.vd-filters input[type="number"] { width: 5.5rem; }
+.vd-filters input, .vd-toolbar input, .vd-selected select, .vd-toolbar select {
+  font-size: 0.88rem;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.3rem;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  max-width: 100%;
+}
+.vd-check { display: inline-flex; align-items: center; gap: 0.3rem; margin: 0 0.4rem 0 0; cursor: pointer; }
+.vd-swatch { width: 0.7rem; height: 0.7rem; border-radius: 50%; display: inline-block; }
+.vd-s1 { background: var(--vd-s1); }
+.vd-s2 { background: var(--vd-s2); }
+.vd-s3 { background: var(--vd-s3); }
+.vd-seg { display: inline-flex; border: 1px solid var(--bs-border-color); border-radius: 0.35rem; overflow: hidden; }
+.vd-seg button {
+  border: 0;
+  background: transparent;
+  color: var(--bs-body-color);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.85rem;
+}
+.vd-seg button + button { border-left: 1px solid var(--bs-border-color); }
+.vd-seg button[aria-pressed="true"] { background: var(--bs-body-color); color: var(--bs-body-bg); }
+.vd-link { border: 0; background: none; color: var(--bs-link-color); padding: 0; font-size: 0.85rem; }
+.vd-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+.vd-details { flex: 1 1 420px; font-size: 0.9rem; }
+.vd-detail-head { margin-bottom: 0.35rem; }
+.vd-dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+.vd-dl dt { font-weight: 400; font-size: 0.75rem; color: var(--bs-secondary-color); }
+.vd-dl dd { margin: 0; }
+.vd-muted { color: var(--bs-secondary-color); }
+.vd-note { font-size: 0.92rem; margin: 0.5rem 0; }
+.vd-n { font-size: 0.8rem; color: var(--bs-secondary-color); margin: 0.25rem 0 1rem; }
+.vd-chart { width: 100%; min-height: 120px; }
+.vd-state {
+  border: 1px dashed var(--bs-border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--bs-secondary-color);
+  font-size: 0.9rem;
+}
+.vd-error { border-style: solid; }
+.vd-table-wrap { overflow-x: auto; }
+.vd-table { font-size: 0.88rem; }
+.vd-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.vd-h4 { font-size: 0.95rem; font-weight: 600; margin: 1rem 0 0.4rem; }
+.vd-insight { border-bottom: 1px solid var(--bs-border-color); padding: 0.4rem 0; font-size: 0.92rem; }
+.vd-insight summary { cursor: pointer; }
+.vd-insight p { margin: 0.35rem 0 0.1rem 1rem; color: var(--bs-secondary-color); font-size: 0.85rem; }
+.vd-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bs-secondary-color);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.25rem;
+  padding: 0 0.35rem;
+  margin-right: 0.45rem;
+}
+.vd-funnels { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem 2rem; }
+.vd-funnel-row { display: grid; grid-template-columns: 14rem 1fr 3rem; align-items: center; gap: 0.5rem; font-size: 0.85rem; margin: 0.2rem 0; }
+.vd-funnel-bar { height: 0.7rem; background: var(--bs-tertiary-bg, rgba(127, 127, 127, 0.12)); border-radius: 0.2rem; overflow: hidden; }
+.vd-funnel-bar span { display: block; height: 100%; background: var(--vd-s1); border-radius: 0 4px 4px 0; }
+.vd-funnel-n { text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 576px) {
+  .vd-filters { position: static; }
+  .vd-funnel-row { grid-template-columns: 9rem 1fr 2.5rem; }
+}
+.vd-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-size: 0.8rem; color: var(--bs-secondary-color); margin-top: 0.25rem; }
+.vd-legend > span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.vd-hollow { background: transparent; border: 2px solid var(--bs-secondary-color); }
+.vd-dash { width: 1.4rem; border-top: 2px dashed var(--bs-secondary-color); display: inline-block; }
+.vd-insight summary > * { display: inline; }

@@ -4,11 +4,11 @@ subtitle: "US retail prices against open benchmark scores, for desktop CPUs and 
 ---
 
 ```{python}
-import plotly.express as px
 from IPython.display import Markdown
 from itables import init_notebook_mode, show
 
 from pdi import site
+from pdi.tech_value import dashboard
 
 # Bundle the table script into the page instead of loading it from a CDN.
 init_notebook_mode(connected=False)
@@ -58,6 +58,235 @@ def ranking(kind: str, label: str):
                 classes="display compact", allow_html=True)
 ```
 
+
+```{python}
+#| output: asis
+import json
+from pathlib import Path
+
+import plotly.offline
+
+
+def html(fragment: str) -> None:
+    print("\n```{=html}\n" + fragment + "\n```\n")
+
+
+js = Path("value-dashboard.js").read_text()
+data = json.dumps(dashboard.payload(bench, value, history)).replace("</", "<\\/")
+plotly_src = f"https://cdn.plot.ly/plotly-{plotly.offline.get_plotlyjs_version()}.min.js"
+```
+
+The charts below rank every model that has both a fresh price and a Blender benchmark score.
+They share one set of filters and one selected model: pick a model in the list, or click any
+dot or bar, and every chart follows it. Graphics cards and CPUs are never compared with each other.
+
+## Market overview
+
+```{python}
+#| output: asis
+html(dashboard.overview_html(bench, value, history))
+```
+
+```{python}
+#| output: asis
+html(f"""
+<div id="vd-root" class="vd-root">
+<script type="application/json" id="vd-data">{data}</script>
+<div class="vd-filters" role="group" aria-label="Filters shared by every chart">
+  <div class="vd-seg" role="group" aria-label="Kind of part">
+    <button type="button" data-vd-kind="gpu" aria-pressed="true">Graphics cards</button>
+    <button type="button" data-vd-kind="cpu" aria-pressed="false">Desktop CPUs</button>
+  </div>
+  <div class="vd-field"><span class="vd-label">Maker</span><span id="vd-makers"></span></div>
+  <label class="vd-field"><span class="vd-label">Price, USD</span>
+    <input id="vd-pmin" type="number" min="0" placeholder="min" inputmode="decimal">
+    <input id="vd-pmax" type="number" min="0" placeholder="max" inputmode="decimal"></label>
+  <label class="vd-field"><span class="vd-label">Score</span>
+    <input id="vd-smin" type="number" min="0" placeholder="min" inputmode="decimal">
+    <input id="vd-smax" type="number" min="0" placeholder="max" inputmode="decimal"></label>
+  <label class="vd-field"><span class="vd-label">Search</span>
+    <input id="vd-search" type="search" placeholder="e.g. 5070"></label>
+  <label class="vd-check"><input id="vd-hidelow" type="checkbox"> Hide single-listing prices</label>
+  <button type="button" id="vd-reset" class="vd-link">Reset filters</button>
+  <span id="vd-count" class="vd-muted"></span>
+</div>
+<div class="vd-selected">
+  <label class="vd-field"><span class="vd-label">Selected model</span><select id="vd-select"></select></label>
+  <div id="vd-details" class="vd-details"></div>
+</div>
+</div>
+""")
+```
+
+## Performance vs price
+
+*How much performance am I getting for the money?* Each dot is one model: its lowest new
+listing against its Blender score. Up and to the left is better. Prices are on a log scale by
+default, so a step to the right is the same percentage increase anywhere on the axis. The dotted lines are the
+median price and median score of the models in view, so the top-left corner (tinted) holds the
+cheap, fast models and the bottom-right the expensive, slow ones. The fastest model is rarely
+the best value: compare the two labelled dots. Hollow dots have a price from a single listing.
+With the frontier switched on, faded dots are dominated (see the efficiency frontier below).
+Graphics card scores come from each maker's own Blender backend (OptiX for NVIDIA, HIP for AMD,
+oneAPI for Intel), which favours NVIDIA cards; the backend is shown when you hover a dot.
+
+```{python}
+#| output: asis
+html("""
+<div class="vd-toolbar">
+  <label class="vd-check"><input id="vd-medians" type="checkbox" checked> Median lines and quadrants</label>
+  <label class="vd-check"><input id="vd-frontier" type="checkbox" checked> Efficiency frontier</label>
+  <label class="vd-check"><input id="vd-logx" type="checkbox" checked> Log price scale</label>
+</div>
+<div id="vd-scatter" class="vd-chart" role="img" aria-label="Scatter of benchmark score against price"><div class="vd-state">Loading chart…</div></div>
+<div id="vd-scatter-legend" class="vd-legend"></div>
+<p id="vd-scatter-n" class="vd-n"></p>
+""")
+```
+
+## Performance per dollar leaderboard
+
+*Which model gives the most performance for every dollar?* Blender score divided by the lowest
+new listing, in benchmark points per US dollar. This is a ratio, not a percentage: 8.0 means
+eight points of score for each dollar of price. The price is the same lowest listing the
+tables below use.
+
+```{python}
+#| output: asis
+html("""
+<div class="vd-toolbar">
+  <div class="vd-seg" role="group" aria-label="How many to show">
+    <button type="button" data-vd-top="10">Top 10</button><button type="button" data-vd-top="20">Top 20</button><button type="button" data-vd-top="all">All</button>
+  </div>
+  <div class="vd-seg" role="group" aria-label="Sort order">
+    <button type="button" data-vd-order="desc">Best first</button><button type="button" data-vd-order="asc">Worst first</button>
+  </div>
+</div>
+<div id="vd-bars" class="vd-chart" role="img" aria-label="Bar chart of score per dollar"><div class="vd-state">Loading chart…</div></div>
+<p id="vd-bars-n" class="vd-n"></p>
+""")
+```
+
+## Price premium vs performance gain
+
+*Is the more expensive model worth it?* Every other model in view, placed by how much more (or
+less) it costs and how much faster (or slower) it is than the baseline, which is the selected
+model (the diamond at 0, 0). On the dashed line, price and performance rise in proportion.
+Above it, the extra performance outpaces the extra cost; below it, you pay more than you gain.
+
+```{python}
+#| output: asis
+html("""
+<div class="vd-toolbar">
+  <label class="vd-field"><span class="vd-label">Compare the selected model with</span><select id="vd-compare"></select></label>
+</div>
+<p id="vd-premium-summary" class="vd-note"></p>
+<div id="vd-premium" class="vd-chart" role="img" aria-label="Scatter of price difference against score difference from the baseline"><div class="vd-state">Loading chart…</div></div>
+""")
+```
+
+## Value by budget
+
+*What gives the best value within my budget?* Type a budget to see the best picks at or under
+it. The brackets below can be changed: type the bracket edges in dollars, separated by commas.
+Each bracket shows how many ranked models it holds; with this few models, many brackets hold
+one or two.
+
+```{python}
+#| output: asis
+html("""
+<div class="vd-toolbar">
+  <label class="vd-field"><span class="vd-label">Budget, USD</span><input id="vd-budget" type="number" min="0" step="10"></label>
+  <label class="vd-field"><span class="vd-label">Bracket edges, USD</span><input id="vd-edges" type="text" size="24"></label>
+</div>
+<div id="vd-budget-out"></div>
+""")
+```
+
+## Performance distribution
+
+*Where does the selected model sit against the rest?* Benchmark scores of the ranked models in
+view, with the 25th, 50th, 75th and 90th percentiles. The comparison set is only the models
+this site can price, so "faster than 90%" means 90% of this set, not of all hardware.
+Percentiles are not drawn for fewer than ten models.
+
+```{python}
+#| output: asis
+html("""
+<p id="vd-dist-n" class="vd-n"></p>
+<div id="vd-dist" class="vd-chart" role="img" aria-label="Distribution of benchmark scores"><div class="vd-state">Loading chart…</div></div>
+<p id="vd-dist-summary" class="vd-note"></p>
+""")
+```
+
+## Efficiency frontier
+
+*Which models are dominated by a better alternative?* A model is dominated when another model in
+view costs no more and scores at least as high, and is strictly better on one of the two. The
+frontier is the set no model dominates; it is the dashed line on the performance vs price chart.
+It is worked out separately for graphics cards and CPUs, and again whenever the filters change.
+
+```{python}
+#| output: asis
+html('<div id="vd-frontier-out"></div>')
+```
+
+A comparison by hardware generation is not shown: the data has no structured generation field,
+and guessing generations from model names is not reliable enough to publish.
+
+## Price history
+
+*Are prices rising, falling or flat?* The lowest new, online-available listing per model on each
+day the collector ran. Daily prices cannot be backfilled, so the history only goes back to the day
+the collector was switched on. No trend is stated until the history spans
+`{python} dashboard.MIN_HISTORY_DAYS` days.
+
+```{python}
+#| output: asis
+print(site.finding_line(hist_meta.get("finding")))
+html("""
+<p id="vd-hist-meta" class="vd-n"></p>
+<div id="vd-hist" class="vd-chart" role="img" aria-label="Lowest listed price by day"><div class="vd-state">Loading chart…</div></div>
+<p id="vd-hist-summary" class="vd-note"></p>
+""")
+```
+
+```{python}
+#| output: asis
+print(site.source_note(hist_meta))
+```
+
+## Market insights
+
+Sentences worked out from the tables on this page, for all ranked models (the filters above do
+not change them). Open one to see the numbers behind it. An insight is left out, not softened,
+when its sample is too small.
+
+```{python}
+#| output: asis
+html(dashboard.insights_html(bench, value, history))
+```
+
+## Data coverage and freshness
+
+How many models make it from a benchmark score to a ranked price. The price collectors look up
+the `{python} dashboard.config.CRAWLER_MODELS_PER_KIND` most-benchmarked models of each kind every
+day; a model is ranked only when a listing is recognised as that model and its price is no more
+than `{python} dashboard.config.PRICE_MAX_AGE_DAYS` days old.
+
+```{python}
+#| output: asis
+html(dashboard.coverage_html(bench, value, history))
+html(f"""
+<script>window.__vdDefine = window.define; window.define = undefined;</script>
+<script src="{plotly_src}" charset="utf-8"></script>
+<script>window.define = window.__vdDefine;</script>
+<script>{js}</script>
+""")
+```
+
+## Ranking tables
+
 **Score per dollar** is the median [Blender benchmark](https://opendata.blender.org/) score of
 a part divided by its cheapest new listing among the US retailers collected. It measures rendering throughput
 per dollar and nothing else: not gaming frame rates, not power draw, not noise. Treat a high
@@ -78,13 +307,13 @@ dollar as unreliable. Type "Normal" in the search box to hide those rows.
 print(site.finding_line(meta.get("finding")))
 ```
 
-## Graphics cards
+### Graphics cards
 
 ```{python}
 ranking("gpu", "Graphics cards")
 ```
 
-## Desktop CPUs
+### Desktop CPUs
 
 ```{python}
 ranking("cpu", "Desktop CPUs")
@@ -97,36 +326,7 @@ if version:
 print(site.source_note(meta))
 ```
 
-## Price history
-
-Lowest new, online-available listing per model, one point per day collected. Daily prices
-cannot be backfilled, so this chart only goes back to the day the collector was switched on.
-
-```{python}
-#| output: asis
-print(site.finding_line(hist_meta.get("finding")))
-```
-
-```{python}
-if history.empty:
-    display(Markdown(site.empty_state(hist_meta, "Price history")))
-else:
-    ranked = value.dropna(subset=["score_per_dollar"]).head(12)["model_key"]
-    shown = history[history["model_key"].isin(ranked)] if len(ranked) else history
-    fig = px.line(
-        shown, x="date", y="price_usd", color="model_key", markers=True,
-        labels={"date": "Date collected", "price_usd": "Lowest listing (USD)", "model_key": "Model"},
-    )
-    fig.update_layout(hovermode="x unified", legend_title_text="", margin=dict(t=20))
-    fig.show()
-```
-
-```{python}
-#| output: asis
-print(site.source_note(hist_meta))
-```
-
-## Coverage
+## Listing coverage
 
 How much of what is on sale could be matched. A listing has to be recognised as a specific
 model, and that model needs enough benchmark runs on the Blender version in use. Unmatched
