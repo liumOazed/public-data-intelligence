@@ -17,26 +17,22 @@ for var in ("category_code", "data_type_code"):
         print(var, json.dumps(d.get("values", d), indent=0)[:4000])
     except Exception as e:
         print(var, "error", e)
-for q in ({"get": "cell_value,category_code,data_type_code,seasonally_adj", "time": "2015-01"},
+for q in ({"get": "cell_value,category_code,data_type_code,seasonally_adj", "time": "2026-08"},
           {"get": "cell_value,category_code,data_type_code,seasonally_adj", "time": "2015-01", "for": "us:*"}):
     if key:
         q["key"] = key
     try:
         rows = get("https://api.census.gov/data/timeseries/eits/marts?" + urllib.parse.urlencode(q))
         cats = sorted({(r[1], r[2], r[3]) for r in rows[1:]})
-        print("query", sorted(k for k in q if k != "key"), "ok; categories in 2015-01:", cats)
+        print("query", sorted(k for k in q if k != "key"), "ok; categories in 2026-08:", cats)
         break
     except urllib.error.HTTPError as e:
         print("query", sorted(k for k in q if k != "key"), "failed", e.code, e.read()[:300])
-ARTICLES = ["Laptop", "Television", "Smartphone", "Video_game_console", "Headphones",
-            "Refrigerator", "Washing_machine", "Furniture", "Couch", "Mattress", "Bed",
-            "Table_(furniture)", "Clothing", "Jeans", "Dress", "Sneakers", "Coat_(clothing)",
-            "Bicycle", "Golf", "Camping", "Fishing_tackle", "Guitar", "Book", "Board_game",
-            "Jigsaw_puzzle", "Treadmill"]
+ARTICLES = ["Fishing_tackle", "Guitar", "Book", "Board_game", "Jigsaw_puzzle", "Treadmill"]
 for a in ARTICLES:
     url = ("https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/"
            f"all-access/user/{a}/monthly/2015070100/2026103100")
-    time.sleep(2)
+    time.sleep(6)
     try:
         n = len(get(url)["items"])
         print(a, "months:", n)
