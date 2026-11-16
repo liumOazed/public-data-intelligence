@@ -128,8 +128,15 @@ def main() -> None:
         for table in ("demand_latest", "demand_history"):
             write_table(M, table, pd.DataFrame(), sources=SOURCES, description=reason,
                         retrieved_at=retrieved, extra={"status": reason})  # fmt: skip
-        findings.write_items(M, [], rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
-                             extra={"status": reason})  # fmt: skip
+        findings.write_items(
+            M,
+            [],
+            rule=UNUSUAL_RULE,
+            write=write_table,
+            sources=SOURCES,
+            retrieved_at=retrieved,
+            extra={"status": reason},
+        )
         print(reason)
         return
     latest, history = build(pd.read_parquet(config.DEMAND))
@@ -152,8 +159,14 @@ def main() -> None:
         f"per day, change on a year earlier, and an index with {config.INDEX_BASE_YEAR} = 100.",
         extra=extra,
     )  # fmt: skip
-    findings.write_items(M, unusual_items(latest), rule=UNUSUAL_RULE, sources=SOURCES,
-                         retrieved_at=retrieved)  # fmt: skip
+    findings.write_items(
+        M,
+        unusual_items(latest),
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+    )
     print(f"exported demand for {len(latest)} economies, {len(history):,} months")
 
 

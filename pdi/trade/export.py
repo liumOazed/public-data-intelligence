@@ -86,8 +86,15 @@ def _empty(reason: str, retrieved: dict) -> None:
         write_table(M, table, pd.DataFrame(), description=reason, retrieved_at=retrieved,
                     sources=LEAD_SOURCES if table == "lead_test" else SOURCES,
                     extra={"status": reason})  # fmt: skip
-    findings.write_items(M, [], rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
-                         extra={"status": reason})  # fmt: skip
+    findings.write_items(
+        M,
+        [],
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        extra={"status": reason},
+    )
 
 
 def partner_names() -> dict[str, str]:
@@ -123,9 +130,16 @@ def main() -> None:
     latest = imports["period"].max()
 
     items, scored = unusual_items(totals)
-    findings.write_items(M, items, rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
-                         limitations=LIMITS,
-                         extra={"partners_scored": int(len(scored))})  # fmt: skip
+    findings.write_items(
+        M,
+        items,
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        limitations=LIMITS,
+        extra={"partners_scored": int(len(scored))},
+    )
 
     rolled = shares.with_shares(shares.twelve_month(imports))
     shift = shares.shifts(rolled)

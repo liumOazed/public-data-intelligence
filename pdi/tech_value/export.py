@@ -252,9 +252,15 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
     )
     history = value.price_history(prices)
     findings.write_items(
-        M, unusual_items(history), rule=UNUSUAL_RULE, sources=common["sources"],
-        retrieved_at=got, limitations=PRICE_LIMITS, extra=extra,
-    )  # fmt: skip
+        M,
+        unusual_items(history),
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=common["sources"],
+        retrieved_at=got,
+        limitations=PRICE_LIMITS,
+        extra=extra,
+    )
     write_table(
         M,
         "price_history",

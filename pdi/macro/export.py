@@ -53,8 +53,15 @@ def _empty(reason: str, retrieved: dict) -> None:
                   "leaderboard", "holdout", "folds", "forecasts"):  # fmt: skip
         write_table(M, table, pd.DataFrame(), sources=SOURCES, description=reason,
                     retrieved_at=retrieved, extra=note)  # fmt: skip
-    findings.write_items(M, [], rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
-                         extra=note)  # fmt: skip
+    findings.write_items(
+        M,
+        [],
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        extra=note,
+    )
 
 
 UNUSUAL_RULE = (
@@ -158,18 +165,21 @@ def export_flags(obs: pd.DataFrame, retrieved: dict) -> None:
         "more against the series' own ten-year history, or against its neighbours.",
         extra={**rule, "n_series": int(scores["series_id"].nunique())}, **common,
     )  # fmt: skip
-    findings.write_items(M, unusual_items(current), rule=UNUSUAL_RULE, **common)
+    findings.write_items(M, unusual_items(current), rule=UNUSUAL_RULE, write=write_table, **common)
 
     end = scores.dropna(subset=["move"])["period"].max()
     start = end - pd.DateOffset(months=config.BACKTEST_MONTHS - 1)
     bt = flagged[flagged["period"] >= start]
     bt = bt.assign(country=bt["country"].map(config.COUNTRIES))
     write_table(
-        M, "flags_backtest", bt[cols],
+        M,
+        "flags_backtest",
+        bt[cols],
         description=f"Every flag the rule raised in the last {config.BACKTEST_MONTHS} months, "
         "with whether the move held over the next three months or was given back.",
-        extra={**rule, "summary": backtest_summary(bt, scores, start)}, **common,
-    )  # fmt: skip
+        extra={**rule, "summary": backtest_summary(bt, scores, start)},
+        **common,
+    )
 
     write_table(
         M, "series", series_table(obs, scores, flagged),

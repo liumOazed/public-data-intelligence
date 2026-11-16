@@ -106,8 +106,15 @@ def _empty(reason: str, retrieved: dict) -> None:
     for table in TABLES:
         write_table(M, table, pd.DataFrame(), description=reason, retrieved_at=retrieved,
                     sources=SOURCES, extra={"status": reason})  # fmt: skip
-    findings.write_items(M, [], rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
-                         extra={"status": reason})  # fmt: skip
+    findings.write_items(
+        M,
+        [],
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        extra={"status": reason},
+    )
 
 
 def provisional_from(retrieved_at: str | None) -> pd.Timestamp:
@@ -171,8 +178,16 @@ def main() -> None:
                 limitations=LIMITS, extra={**extra, "finding": ARITHMETIC},
                 description="Net obligations on federal contracts for computer hardware, by "
                 "month of the action, with the sum over twelve months.")  # fmt: skip
-    findings.write_items(M, unusual_items(by_month), rule=UNUSUAL_RULE, sources=SOURCES,
-                         retrieved_at=retrieved, limitations=LIMITS, extra=extra)  # fmt: skip
+    findings.write_items(
+        M,
+        unusual_items(by_month),
+        rule=UNUSUAL_RULE,
+        write=write_table,
+        sources=SOURCES,
+        retrieved_at=retrieved,
+        limitations=LIMITS,
+        extra=extra,
+    )
 
     yearly = monthly[monthly["fiscal_year"].isin(years)]
     groups = yearly.groupby(["fiscal_year", "group"], as_index=False)["obligations"].sum()

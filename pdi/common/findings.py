@@ -98,12 +98,17 @@ def item(
     }
 
 
-def write_items(module: str, items: list[dict], *, rule: str, **table_kwargs):
-    """Write one module's findings.json in the shared format."""
+def write_items(module: str, items: list[dict], *, rule: str, write=None, **table_kwargs):
+    """Write one module's findings.json in the shared format.
+
+    `write` is the module's own write_table, passed so that tests that redirect a module's
+    writes also redirect this one.
+    """
     import pandas as pd
 
     from pdi.common.export import write_table
 
+    write_table = write or write_table
     df = pd.DataFrame(items, columns=ITEM_COLUMNS)
     extra = {**(table_kwargs.pop("extra", None) or {}), "rule_text": rule}
     return write_table(
