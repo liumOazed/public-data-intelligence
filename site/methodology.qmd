@@ -152,6 +152,27 @@ is an observation. Southeast Asian histories start between 2009 and 2019, so "un
 rests on five to seven earlier years. Oil demand was considered and left out: JODI's terms
 reserve all rights and grant no reuse.
 
+## What's unusual this week
+
+Each module exports the items its own fixed rule marks as unusual, in one shared format
+(`site/data/v1/<module>/findings.json`): what moved, the date it refers to, a sentence, the rule
+and the number it tested, the finding label, and links to the page and data file behind it.
+Every daily and weekly run then builds [one list](unusual.qmd) from those files and nothing
+else. The rules were fixed on 16 November 2026, before the list was first built:
+
+- **Macro Monitor:** its own flags on each series' latest month (above).
+- **Energy Demand, Trade, Federal Procurement:** the Macro Monitor's rule applied to the latest
+  month's change from the month before: electricity demand per day, all-commodity US imports
+  from each partner, and net obligations in the latest month that is not provisional. Each
+  change is compared with the same calendar month in up to ten earlier years and flagged at
+  2.5 spreads.
+- **Tech Value:** a model's lowest listed price moved 5% or more within seven days.
+
+A build records when it first saw each item, so the page can separate what is new in the last
+seven days from what has been standing. Items present at the first build are shown as
+standing. If any item is labelled a prediction without a passed out-of-sample test from its
+module, the build stops, the run fails and a failure Issue opens.
+
 ## Monthly brief
 
 On the first daily run of each month, code writes a short brief of what changed in the month

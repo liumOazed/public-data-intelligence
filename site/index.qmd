@@ -16,6 +16,7 @@ no server behind these pages.
 | 2 | [Macro Monitor](macro/index.qmd) | What moved this month in the US and the six Southeast Asian economies, and is the move unusual? | Built; waiting on its first full monthly cycle |
 | 3 | [Trade and Supply Chain](trade/index.qmd) | How is US demand shifting across Southeast Asian suppliers, by product? | Built; lead-time claim tested and dropped |
 | 4 | [Federal Procurement](procurement/index.qmd) | Where is US federal contract money moving, and who is winning it? | First slice built: computer hardware. Its totals check against USAspending is not met |
+| 5 | [What's unusual this week](unusual.qmd) | Across every module, what moved unusually, and is it new? | Built 16 November 2026; exit criterion needs four scheduled Mondays |
 
 Modules are built one at a time, in this order. The next one does not start until the current
 one meets its exit criterion, which is written in the

@@ -96,6 +96,31 @@ def sentence(row) -> str:
     return text + "."
 
 
+UNUSUAL_RULE = (
+    "an economy's latest month is flagged: the move in demand per day from the month before is "
+    "2.5 spreads or more from what that calendar month brought in up to ten earlier years."
+)
+
+
+def unusual_items(latest: pd.DataFrame) -> list[dict]:
+    rows = latest[latest["flagged"].fillna(False).astype(bool)]
+    return [
+        findings.item(
+            module=M,
+            subject=r["country"],
+            period=r["latest_month"],
+            sentence=r["sentence"],
+            rule="same calendar month",
+            measure=r["z"],
+            threshold=config.FLAG_Z,
+            finding=FINDING,
+            page="energy/index.qmd",
+            table="energy/demand_latest.json",
+        )  # fmt: skip
+        for _, r in rows.iterrows()
+    ]
+
+
 def main() -> None:
     retrieved = json.loads(config.RETRIEVED.read_text()) if config.RETRIEVED.exists() else {}
     if not config.DEMAND.exists():
@@ -103,6 +128,8 @@ def main() -> None:
         for table in ("demand_latest", "demand_history"):
             write_table(M, table, pd.DataFrame(), sources=SOURCES, description=reason,
                         retrieved_at=retrieved, extra={"status": reason})  # fmt: skip
+        findings.write_items(M, [], rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
+                             extra={"status": reason})  # fmt: skip
         print(reason)
         return
     latest, history = build(pd.read_parquet(config.DEMAND))
@@ -125,6 +152,8 @@ def main() -> None:
         f"per day, change on a year earlier, and an index with {config.INDEX_BASE_YEAR} = 100.",
         extra=extra,
     )  # fmt: skip
+    findings.write_items(M, unusual_items(latest), rule=UNUSUAL_RULE, sources=SOURCES,
+                         retrieved_at=retrieved)  # fmt: skip
     print(f"exported demand for {len(latest)} economies, {len(history):,} months")
 
 

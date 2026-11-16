@@ -8,6 +8,7 @@ rather than a failed build, so the site can say "not collected yet" truthfully.
 from __future__ import annotations
 
 import json
+from datetime import timedelta
 
 import pandas as pd
 
@@ -159,6 +160,46 @@ def export_model(spec: pd.DataFrame) -> None:
     )
 
 
+UNUSUAL_RULE = (
+    "a model's lowest listed price on the latest collection day is 5% or more above or below "
+    "its price seven days earlier, or its earliest price within those seven days."
+)
+PRICE_MOVE_SHARE = 0.05
+PRICE_WINDOW_DAYS = 7
+PRICE_FINDING = findings.observation("Listed prices as collected, compared across days.")
+
+
+def unusual_items(history: pd.DataFrame) -> list[dict]:
+    if history.empty:
+        return []
+    h = history.assign(date=pd.to_datetime(history["date"]))
+    latest = pd.Timestamp(h["date"].max())
+    start = latest - timedelta(days=PRICE_WINDOW_DAYS)
+    items = []
+    for (kind, part), g in h.groupby(["kind", "model_key"]):
+        now = g[g["date"] == latest]
+        before = g[(g["date"] >= start) & (g["date"] < latest)].sort_values("date")
+        if now.empty or before.empty:
+            continue
+        p1, p0 = float(now["price_usd"].iloc[0]), float(before["price_usd"].iloc[0])
+        d0 = before["date"].iloc[0]
+        change = p1 / p0 - 1
+        if abs(change) < PRICE_MOVE_SHARE:
+            continue
+        direction = "rose" if change > 0 else "fell"
+        sentence = (
+            f"{part} ({kind.upper()}): the lowest listed price {direction} "
+            f"{abs(100 * change):.1f}% to ${p1:,.2f} on {latest:%-d %b %Y}, "
+            f"from ${p0:,.2f} on {d0:%-d %b}."
+        )
+        items.append(findings.item(
+            module=M, subject=part, period=latest, sentence=sentence, rule="price move",
+            measure=change, threshold=PRICE_MOVE_SHARE, finding=PRICE_FINDING,
+            page="tech-value/index.qmd", table="tech-value/price_history.json",
+        ))  # fmt: skip
+    return items
+
+
 def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
     bench, version = value.benchmark_by_model(blender)
     table = value.value_table(prices, bench)
@@ -209,10 +250,15 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         limitations=FAIR_LIMITS,
         **{**common, "extra": fair_extra},
     )
+    history = value.price_history(prices)
+    findings.write_items(
+        M, unusual_items(history), rule=UNUSUAL_RULE, sources=common["sources"],
+        retrieved_at=got, limitations=PRICE_LIMITS, extra=extra,
+    )  # fmt: skip
     write_table(
         M,
         "price_history",
-        value.price_history(prices),
+        history,
         description="Daily lowest new, online-available listing price per model.",
         limitations=PRICE_LIMITS,
         **{

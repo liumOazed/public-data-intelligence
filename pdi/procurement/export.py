@@ -5,10 +5,13 @@ from __future__ import annotations
 import json
 from datetime import datetime, timedelta
 
+import numpy as np
 import pandas as pd
 
 from pdi.common import findings
 from pdi.common.export import write_table
+from pdi.macro import config as macro
+from pdi.macro import flags
 from pdi.procurement import config, tables
 
 M = config.MODULE
@@ -64,10 +67,47 @@ CHECK_FINDING = findings.observation(
 )
 
 
+UNUSUAL_RULE = (
+    "the change in net obligations from the month before, in the latest month that is not "
+    "provisional, is 2.5 spreads or more from what that calendar month brought in up to ten "
+    "earlier years (the Macro Monitor's rule)."
+)
+UNUSUAL_FINDING = findings.observation(
+    "Arithmetic on summed transactions: the latest settled month's change against the same "
+    "calendar month in earlier years. No model; it says the month was unusual, not why."
+)
+
+
+def unusual_items(by_month: pd.DataFrame) -> list[dict]:
+    settled = by_month[~by_month["provisional"]]
+    if settled.empty:
+        return []
+    s = settled.set_index("period")["obligations"].sort_index().astype(float)
+    s = s.reindex(pd.date_range(s.index.min(), s.index.max(), freq="MS"))
+    df = flags.surprises(100 * np.log(s.where(s > 0)).diff(), "nsa")
+    period, last = df.index[-1], df.iloc[-1]
+    if pd.isna(last["z"]) or abs(last["z"]) < macro.FLAG_Z:
+        return []
+    direction = "rose" if last["move"] > 0 else "fell"
+    sentence = (
+        f"Federal obligations for computer hardware {direction} "
+        f"{abs(100 * np.expm1(last['move'] / 100)):.1f}% from the month before in "
+        f"{period:%B %Y}, to ${s.iloc[-1] / 1e6:,.0f} million, {abs(last['z']):.1f} spreads "
+        f"from what {period:%B} usually brings."
+    )
+    return [findings.item(
+        module=M, subject="computer hardware", period=period, sentence=sentence,
+        rule="same calendar month", measure=last["z"], threshold=macro.FLAG_Z,
+        finding=UNUSUAL_FINDING, page="procurement/index.qmd", table="procurement/monthly.json",
+    )]  # fmt: skip
+
+
 def _empty(reason: str, retrieved: dict) -> None:
     for table in TABLES:
         write_table(M, table, pd.DataFrame(), description=reason, retrieved_at=retrieved,
                     sources=SOURCES, extra={"status": reason})  # fmt: skip
+    findings.write_items(M, [], rule=UNUSUAL_RULE, sources=SOURCES, retrieved_at=retrieved,
+                         extra={"status": reason})  # fmt: skip
 
 
 def provisional_from(retrieved_at: str | None) -> pd.Timestamp:
@@ -131,6 +171,8 @@ def main() -> None:
                 limitations=LIMITS, extra={**extra, "finding": ARITHMETIC},
                 description="Net obligations on federal contracts for computer hardware, by "
                 "month of the action, with the sum over twelve months.")  # fmt: skip
+    findings.write_items(M, unusual_items(by_month), rule=UNUSUAL_RULE, sources=SOURCES,
+                         retrieved_at=retrieved, limitations=LIMITS, extra=extra)  # fmt: skip
 
     yearly = monthly[monthly["fiscal_year"].isin(years)]
     groups = yearly.groupby(["fiscal_year", "group"], as_index=False)["obligations"].sum()

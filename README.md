@@ -16,6 +16,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 | Sector | Energy Demand: monthly electricity demand for the US and five Southeast Asian economies | Built 15 November 2026; one source, observations only |
 | 3 | Trade and Supply Chain | Built 15 November 2026: share shift and lead-time test live; mirror gaps, Comtrade and commodity prices not built (see below) |
 | 4 | Federal Procurement | First slice built (computer hardware); exit criterion not met, see below |
+| 5 | What's unusual this week: one list of every module's flags | Built 16 November 2026; exit criterion needs four scheduled Mondays |
 
 Modules are built one at a time, in this order. The next one does not start until the current
 one meets its exit criterion. New ideas go in [`BACKLOG.md`](BACKLOG.md), not into the build.
@@ -291,6 +292,21 @@ row.
 "New this week" means the item was first seen by a build in the seven days before this one.
 Items present at the very first build are shown as standing, not new, since nothing can be
 called new without an earlier build to compare with.
+
+### What is built
+
+- **Shared format.** `pdi.common.findings.item` and `write_items`: each module's export writes
+  `site/data/v1/<module>/findings.json` with the same columns. `findings.item` refuses a
+  prediction without a passed test.
+- **Builder** (`python -m pdi.unusual`, every daily and weekly run). Reads the five files,
+  stops the run on an untested prediction or an unknown label, records first-seen times in
+  `data/store/unusual/seen.json`, and writes `site/data/v1/unusual/week.json`.
+- **Page** `site/unusual.qmd`, first in the navigation: new this week, still standing, and the
+  rules.
+- **Trial build on the stored data of 16 November 2026** (an observation, not the first
+  scheduled build): 8 items. Six Macro Monitor flags, US imports from Vietnam in September
+  (2.5 spreads), and federal hardware obligations in July (down 47.9%, 2.9 spreads). No energy
+  or price item. No item is a prediction. The first scheduled build on main sets the baseline.
 
 ## First-time setup
 

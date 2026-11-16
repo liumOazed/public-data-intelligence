@@ -118,6 +118,9 @@ jobs:
           # the tables from what is stored.
           uv run python -m pdi.procurement.export
 
+      - name: What's unusual this week (stops the run on a prediction without a passed test)
+        run: uv run python -m pdi.unusual
+
       - name: Monthly brief (first run of a month writes last month's; otherwise does nothing)
         env:
           GH_TOKEN: ${{ github.token }}
