@@ -74,6 +74,10 @@ def check(site_data: Path = SITE_DATA, now: datetime | None = None) -> list[str]
         except (ValueError, KeyError, TypeError) as exc:
             problems.append(f"{module}/{table}: unreadable ({type(exc).__name__})")
             continue
+        if meta.get("one_off"):
+            # A one-off experiment's table (the Demand Radar) is not refreshed by design.
+            seen.add((module, table))
+            continue
         generated = _parse(meta.get("generated_at"))
         if generated is None or now - generated > timedelta(hours=FILE_MAX_AGE_H):
             problems.append(

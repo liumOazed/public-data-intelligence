@@ -41,7 +41,7 @@ listings ever need to be served rather than summarised.
 **Decision: no-go until the Harden exit is met.** Revisit on 15 December 2026. Even then, US
 Housing goes ahead only if no failure Issue has opened in the 30 days before.
 
-## Demand Radar: run the two-week experiment, designed now
+## Demand Radar: no-go, after the experiment
 
 **Rule.** Treat the radar as research, not product: a two-week experiment, then a written
 go or no-go.
@@ -52,22 +52,56 @@ Marketplace and forum data are ruled out by their terms. Two inputs are free and
 Wikimedia pageviews (daily since July 2015, open licence, no key) and Census monthly retail
 sales by kind of business (the Census key is already set up).
 
-**The test, fixed before any data is pulled.**
+**The test, fixed before any data is pulled.** The details were settled on 16 November 2026,
+after checking only which categories and articles exist, and before any figure was fetched.
+They are in [`pdi/radar/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/radar/config.py).
 
-- Question: does attention to a product category lead US spending on it? Attention is the
-  monthly change in English Wikipedia pageviews of a fixed list of category articles. Spending
-  is the monthly change in Census retail sales for the matching kind of business.
-- Pairs: electronics and appliance stores; furniture stores; clothing stores; sporting goods,
-  hobby, musical instrument and book stores. That is four tests.
+- Question: does attention to a product category lead US spending on it?
+- Attention: monthly pageviews by people (not bots) on English Wikipedia, summed over a fixed
+  list of articles for each category. The change is measured on the same month a year earlier.
+- Spending: Census monthly retail sales (MARTS, not seasonally adjusted) for the matching kind
+  of business, also as the change on the same month a year earlier. Comparing with a year
+  earlier removes the seasons from both series in the same way.
+- Pairs, four tests:
+
+  | Census kind of business | Articles |
+  |---|---|
+  | 443 Electronics and appliance stores | Laptop, Television, Smartphone, Video game console, Headphones, Refrigerator, Washing machine |
+  | 442 Furniture and home furnishings stores | Furniture, Couch, Mattress, Bed, Table (furniture) |
+  | 448 Clothing and clothing accessories stores | Clothing, Jeans, Dress, Sneakers, Coat (clothing) |
+  | 451 Sporting goods, hobby, musical instrument and book stores | Bicycle, Golf, Camping, Fishing tackle, Guitar, Book, Board game, Jigsaw puzzle, Treadmill |
+
 - Baseline: persistence, meaning last month's change in sales.
-- Pass: adding last month's change in pageviews beats the baseline on months the model never
-  saw, by more than twice the standard error of the gain. This is the same bar as the Trade
-  lead-time test. Train on July 2015 to December 2021, score once on 2022 onwards.
+- Model: the baseline plus last month's change in pageviews, one straight line.
+- Pass: the model beats the baseline on months it never saw, by more than twice the standard
+  error of the gain in absolute error. This is the same bar as the Trade lead-time test. Fit
+  on months up to December 2021, score once on January 2022 onwards.
 - Every result is logged, and a pass is a prediction for that pair only. Four tests at this bar
   can produce a false pass by chance, so a single pass is reported with that caveat.
 
-**Decision: go for the experiment.** Two weeks from 16 November, written up by 30 November
-2026. Whether the radar becomes a module is decided then, on that result.
+**Result, run once on 16 November 2026: no signal found in any of the four pairs.** Fitted
+on August 2016 to December 2021 (65 months), scored on January 2022 to September 2026 (57
+months). Errors are in percentage points of the change on a year earlier.
+
+| Kind of business | Baseline error | With pageviews | Gain | Twice its standard error | Verdict |
+|---|---|---|---|---|---|
+| Electronics and appliance stores | 4.10 | 4.44 | -0.35 | 0.95 | no signal found |
+| Furniture and home furnishings stores | 3.51 | 3.60 | -0.09 | 0.69 | no signal found |
+| Clothing and clothing accessories stores | 3.16 | 8.22 | -5.06 | 1.21 | no signal found |
+| Sporting goods, hobby, musical instrument and book stores | 3.16 | 3.12 | 0.04 | 0.49 | no signal found |
+
+In three of the four pairs, adding pageviews made the forecast worse. Clothing was much worse.
+Its fit includes 2020 and 2021, when store closures and the rebound moved sales far more than
+any attention measure, and the line it learned did not hold afterwards. The fourth pair gained
+0.04 points against a bar of 0.49. On the same month, pageviews and sales moved in opposite
+directions in three pairs (correlations from -0.43 to -0.07), and together only for clothing
+(0.16). These are observations, not a model. The test was not changed after the result, and
+all four are in the [failures log](failures.qmd).
+
+**Decision: no-go.** The Demand Radar does not become a module. The only free, automatic
+attention measure the plan allows does not lead US retail sales in these categories. The
+inputs that might (search interest, marketplace listings) are manual, need a key, or are ruled
+out by their terms. Revisit only if one of those becomes available on terms that allow it.
 
 ## Lead-lag studies: a plan for May 2027
 

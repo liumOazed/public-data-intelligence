@@ -1,0 +1,130 @@
+{
+ "meta": {
+  "module": "radar",
+  "table": "lead_test",
+  "description": "Demand Radar experiment: does last month's change in Wikipedia pageviews improve a forecast of this month's change in US retail sales, by kind of business?",
+  "generated_at": "2026-11-16T06:40:51+00:00",
+  "rows": 4,
+  "columns": [
+   "category",
+   "name",
+   "articles",
+   "train_months",
+   "test_months",
+   "train_start",
+   "test_start",
+   "test_end",
+   "mae_baseline",
+   "mae_model",
+   "gain",
+   "gain_se",
+   "coef_views_lag",
+   "corr_same_month",
+   "passes",
+   "verdict"
+  ],
+  "sources": [
+   {
+    "id": "wikimedia_pageviews",
+    "name": "Wikimedia Pageviews API (English Wikipedia, monthly views by people)",
+    "url": "https://wikitech.wikimedia.org/wiki/Analytics/AQS/Pageviews",
+    "licence": "Not yet read for this pipeline. The pageview counts are generally described as released into the public domain, and the API asks callers to send a User-Agent that identifies them; this pipeline sends one with the repository's address. To be confirmed before any use beyond the Demand Radar experiment.",
+    "frequency": "fetched once for the Demand Radar experiment",
+    "typical_lag": "a day after the month ends",
+    "retrieved_at": "2026-11-16T06:40:50+00:00"
+   },
+   {
+    "id": "census_marts",
+    "name": "US Census Bureau, Monthly Retail Trade Survey (MARTS)",
+    "url": "https://www.census.gov/retail/index.html",
+    "licence": "Census Bureau Data API Terms of Service (https://www.census.gov/data/developers/terms-of-service.html), the same terms as the trade data: show the notice \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau\", do not misrepresent the data, and do not use it to identify a person or business.",
+    "frequency": "fetched once for the Demand Radar experiment",
+    "typical_lag": "advance estimate about two weeks after the month ends",
+    "retrieved_at": "2026-11-16T06:40:50+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [],
+  "finding": {
+   "label": "observation",
+   "reason": "No signal found: in none of the four pairs did pageviews beat the persistence baseline by more than twice the standard error of the gain."
+  },
+  "one_off": true,
+  "train_end": "2021-12",
+  "se_multiple": 2.0
+ },
+ "data": [
+  {
+   "category": "443",
+   "name": "Electronics and appliance stores",
+   "articles": 7,
+   "train_months": 65,
+   "test_months": 57,
+   "train_start": "2016-08",
+   "test_start": "2022-01",
+   "test_end": "2026-09",
+   "mae_baseline": 4.095553979145596,
+   "mae_model": 4.442661498344346,
+   "gain": -0.34710751919874944,
+   "gain_se": 0.4772421068251707,
+   "coef_views_lag": -0.25061658506706364,
+   "corr_same_month": -0.28672368401847775,
+   "passes": false,
+   "verdict": "no signal found"
+  },
+  {
+   "category": "442",
+   "name": "Furniture and home furnishings stores",
+   "articles": 5,
+   "train_months": 65,
+   "test_months": 57,
+   "train_start": "2016-08",
+   "test_start": "2022-01",
+   "test_end": "2026-09",
+   "mae_baseline": 3.5093186137045307,
+   "mae_model": 3.5968021089194018,
+   "gain": -0.08748349521487159,
+   "gain_se": 0.3463559175881633,
+   "coef_views_lag": 0.07252845547024699,
+   "corr_same_month": -0.06665956907496517,
+   "passes": false,
+   "verdict": "no signal found"
+  },
+  {
+   "category": "448",
+   "name": "Clothing and clothing accessories stores",
+   "articles": 5,
+   "train_months": 65,
+   "test_months": 57,
+   "train_start": "2016-08",
+   "test_start": "2022-01",
+   "test_end": "2026-09",
+   "mae_baseline": 3.1595887430777996,
+   "mae_model": 8.217112691990765,
+   "gain": -5.0575239489129675,
+   "gain_se": 0.6056247749804948,
+   "coef_views_lag": 0.3025133904089068,
+   "corr_same_month": 0.16180408940231666,
+   "passes": false,
+   "verdict": "no signal found"
+  },
+  {
+   "category": "451",
+   "name": "Sporting goods, hobby, musical instrument and book stores",
+   "articles": 9,
+   "train_months": 65,
+   "test_months": 57,
+   "train_start": "2016-08",
+   "test_start": "2022-01",
+   "test_end": "2026-09",
+   "mae_baseline": 3.160696337309313,
+   "mae_model": 3.1196295296027454,
+   "gain": 0.041066807706568335,
+   "gain_se": 0.24605305331570496,
+   "coef_views_lag": 0.04893817757794587,
+   "corr_same_month": -0.4296848662582331,
+   "passes": false,
+   "verdict": "no signal found"
+  }
+ ]
+}

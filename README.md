@@ -326,14 +326,17 @@ site's [Decisions page](site/decisions.qmd). Decided on 16 November 2026:
   any published table. Revisit when a trigger fires, or in May 2027.
 - **US Housing: no-go for now.** Modules 1 to 4 are built but not yet stable by their own tests.
   Revisit on 15 December 2026, when the Harden exit can first be met.
-- **Demand Radar: go for the two-week experiment.** Four pre-registered tests check whether
-  Wikipedia pageviews of product categories lead Census retail sales, with Trade's lead-time bar.
-  Written up by 30 November 2026.
+- **Demand Radar: no-go, after the experiment.** Four tests, fixed before any figure was
+  fetched, checked whether last month's change in Wikipedia pageviews of product articles
+  improves a forecast of US retail sales by kind of business (Census MARTS) over last month's
+  change in sales. Run once on 16 November 2026: no signal found in any pair. Pageviews made
+  three of the four forecasts worse. The code is in `pdi/radar/` and the result in
+  `data/store/radar/lead_test.json`.
 - **Lead-lag studies: six tests fixed now, run once from 15 May 2027** on our own
   first-published values.
 
-Exit criterion (from the plan): a written decision on each, with the evidence. Met for the
-backend, US Housing and the lead-lag plan; the Demand Radar decision waits on its experiment.
+Exit criterion (from the plan): a written decision on each, with the evidence. **Met on 16
+November 2026.**
 
 ## First-time setup
 
