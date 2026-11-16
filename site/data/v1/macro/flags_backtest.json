@@ -3,8 +3,8 @@
   "module": "macro",
   "table": "flags_backtest",
   "description": "Every flag the rule raised in the last 24 months, with whether the move held over the next three months or was given back.",
-  "generated_at": "2026-11-15T06:22:10+00:00",
-  "rows": 79,
+  "generated_at": "2026-11-15T16:38:19+00:00",
+  "rows": 122,
   "columns": [
    "period",
    "country",
@@ -24,7 +24,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-15T06:09:17+00:00"
+    "retrieved_at": "2026-11-15T16:37:57+00:00"
    },
    {
     "id": "bis",
@@ -33,7 +33,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-15T06:09:20+00:00"
+    "retrieved_at": "2026-11-15T16:37:59+00:00"
    },
    {
     "id": "opendosm",
@@ -42,7 +42,16 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-15T06:09:39+00:00"
+    "retrieved_at": "2026-11-15T16:38:04+00:00"
+   },
+   {
+    "id": "imf",
+    "name": "IMF data (International Trade in Goods, International Liquidity, Consumer Price Index)",
+    "url": "https://data.imf.org/",
+    "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
+    "frequency": "daily collection; series are monthly",
+    "typical_lag": "one to five months (trade is slowest)",
+    "retrieved_at": "2026-11-15T16:38:06+00:00"
    },
    {
     "id": "indeed_postings",
@@ -51,7 +60,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-15T06:09:40+00:00"
+    "retrieved_at": "2026-11-15T16:38:07+00:00"
    }
   ],
   "preliminary": false,
@@ -59,9 +68,9 @@
    "Figures are the latest published values and are revised by their publishers. A flag can appear or disappear when a figure is revised.",
    "A flag means a move was large against the series' own last ten years. It does not say why the move happened or what comes next, and it is a research lead, not advice.",
    "With a threshold of 2.5 spreads, roughly one or two readings in a hundred are flagged by chance alone, and more for series with fat tails. The backtest shows how often.",
-   "Southeast Asian series come from the BIS, which compiles them from national sources on one definition. Vietnam has only its exchange rate there, and Singapore has no policy rate.",
+   "Southeast Asian series come from the BIS and the IMF, which compile them from national sources on one definition per measure. The BIS has no consumer prices, policy rate or real effective exchange rate for Vietnam (its consumer prices come from the IMF) and no policy rate for Singapore. Trade and reserves are in US dollars, so a move can be a currency move.",
    "This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.",
-   "Source: BIS statistics, FRED (Federal Reserve Bank of St. Louis, from US federal agencies), Department of Statistics Malaysia (OpenDOSM), Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
+   "Source: BIS statistics; FRED (Federal Reserve Bank of St. Louis, from US federal agencies); Department of Statistics Malaysia (OpenDOSM); International Monetary Fund, International Trade in Goods, International Liquidity and Consumer Price Index datasets (https://data.imf.org); Indeed Hiring Lab (CC BY 4.0). Surprises, flags and forecasts are this site's calculations, not the publishers'."
   ],
   "flag_z": 2.5,
   "history_months": 120,
@@ -73,21 +82,21 @@
   },
   "summary": {
    "window_start": "2024-11",
-   "readings_scored": 1177,
-   "flags": 79,
+   "readings_scored": 1583,
+   "flags": 122,
    "own history": {
-    "flags": 61,
-    "held": 42,
-    "reversed": 10,
-    "too early": 9
+    "flags": 83,
+    "held": 54,
+    "reversed": 13,
+    "too early": 16
    },
    "neighbours": {
-    "flags": 18,
-    "held": 14,
-    "reversed": 3,
+    "flags": 39,
+    "held": 28,
+    "reversed": 10,
     "too early": 1
    },
-   "own_flag_rate": 0.051826677994902294
+   "own_flag_rate": 0.05243209096651927
   }
  },
  "data": [
@@ -111,6 +120,17 @@
    "outcome": "too early",
    "sentence": "Philippines: consumer prices (CPI) rose 0.95% in September 2026, against a usual +0.16% for that calendar month. That is 2.6 times its usual spread over the previous ten years.",
    "series_id": "PH.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "kind": "own history",
+   "z": -3.0759221928074165,
+   "outcome": "too early",
+   "sentence": "Philippines: official reserves excluding gold fell 4.86% in September 2026, against a usual -0.08% for a month. That is 3.1 times its usual spread over the previous ten years.",
+   "series_id": "PH.reserves",
    "label": "observation"
   },
   {
@@ -203,6 +223,28 @@
   },
   {
    "period": "2026-06-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reserves",
+   "kind": "neighbours",
+   "z": -2.685116228064054,
+   "outcome": "held",
+   "sentence": "Singapore: official reserves excluding gold moved against its neighbours in June 2026. Its surprise was -1.1 spreads while the median of 5 other Southeast Asian economies was +1.6, so it rose less than the region by a gap 2.7 times that gap's usual spread.",
+   "series_id": "SG.reserves",
+   "label": "observation"
+  },
+  {
+   "period": "2026-06-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "kind": "neighbours",
+   "z": -4.635513415456186,
+   "outcome": "held",
+   "sentence": "Thailand: official reserves excluding gold moved against its neighbours in June 2026. Its surprise was -1.1 spreads while the median of 5 other Southeast Asian economies was +1.6, so it rose less than the region by a gap 4.6 times that gap's usual spread.",
+   "series_id": "TH.reserves",
+   "label": "observation"
+  },
+  {
+   "period": "2026-06-01T00:00:00",
    "country": "Malaysia",
    "indicator": "imports",
    "kind": "own history",
@@ -246,6 +288,28 @@
    "label": "observation"
   },
   {
+   "period": "2026-06-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "kind": "own history",
+   "z": -2.8432264093856854,
+   "outcome": "held",
+   "sentence": "Vietnam: consumer prices (CPI) fell 0.38% in June 2026, against a usual +0.37% for that calendar month. That is 2.8 times its usual spread over the previous ten years.",
+   "series_id": "VN.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-05-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": -2.8563527865145257,
+   "outcome": "too early",
+   "sentence": "Indonesia: exports of goods, free on board fell 8.66% in May 2026, against a usual +9.30% for that calendar month. That is 2.9 times its usual spread over the previous ten years.",
+   "series_id": "ID.exports_usd",
+   "label": "observation"
+  },
+  {
    "period": "2026-05-01T00:00:00",
    "country": "Indonesia",
    "indicator": "policy_rate",
@@ -280,13 +344,13 @@
   },
   {
    "period": "2026-04-01T00:00:00",
-   "country": "Indonesia",
-   "indicator": "cpi",
+   "country": "Malaysia",
+   "indicator": "reserves",
    "kind": "neighbours",
-   "z": -2.901968720735177,
+   "z": 3.7551326798785154,
    "outcome": "held",
-   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was -0.3 spreads while the median of 4 other Southeast Asian economies was +5.3, so it rose less than the region by a gap 2.9 times that gap's usual spread.",
-   "series_id": "ID.cpi",
+   "sentence": "Malaysia: official reserves excluding gold moved against its neighbours in April 2026. Its surprise was +2.9 spreads while the median of 5 other Southeast Asian economies was -0.7, so it rose more than the region by a gap 3.8 times that gap's usual spread.",
+   "series_id": "MY.reserves",
    "label": "observation"
   },
   {
@@ -294,9 +358,9 @@
    "country": "Philippines",
    "indicator": "cpi",
    "kind": "neighbours",
-   "z": 5.4457482063604274,
+   "z": 5.28455049066503,
    "outcome": "held",
-   "sentence": "Philippines: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was +9.0 spreads while the median of 4 other Southeast Asian economies was +0.6, so it rose more than the region by a gap 5.4 times that gap's usual spread.",
+   "sentence": "Philippines: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was +9.0 spreads while the median of 5 other Southeast Asian economies was +1.5, so it rose more than the region by a gap 5.3 times that gap's usual spread.",
    "series_id": "PH.cpi",
    "label": "observation"
   },
@@ -305,9 +369,9 @@
    "country": "Singapore",
    "indicator": "cpi",
    "kind": "neighbours",
-   "z": -3.809263694997557,
+   "z": -2.8411864255289885,
    "outcome": "reversed",
-   "sentence": "Singapore: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was -0.5 spreads while the median of 4 other Southeast Asian economies was +5.3, so it rose less than the region by a gap 3.8 times that gap's usual spread.",
+   "sentence": "Singapore: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was -0.5 spreads while the median of 5 other Southeast Asian economies was +2.9, so it rose less than the region by a gap 2.8 times that gap's usual spread.",
    "series_id": "SG.cpi",
    "label": "observation"
   },
@@ -316,9 +380,9 @@
    "country": "Thailand",
    "indicator": "cpi",
    "kind": "neighbours",
-   "z": 7.939211341084038,
+   "z": 8.945454376357958,
    "outcome": "held",
-   "sentence": "Thailand: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was +12.2 spreads while the median of 4 other Southeast Asian economies was +0.6, so it rose more than the region by a gap 7.9 times that gap's usual spread.",
+   "sentence": "Thailand: consumer prices (CPI) moved against its neighbours in April 2026. Its surprise was +12.2 spreads while the median of 5 other Southeast Asian economies was +1.5, so it rose more than the region by a gap 8.9 times that gap's usual spread.",
    "series_id": "TH.cpi",
    "label": "observation"
   },
@@ -335,6 +399,39 @@
   },
   {
    "period": "2026-04-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "kind": "neighbours",
+   "z": 2.5600796764733587,
+   "outcome": "reversed",
+   "sentence": "Thailand: official reserves excluding gold moved against its neighbours in April 2026. Its surprise was +1.2 spreads while the median of 5 other Southeast Asian economies was -0.7, so it rose more than the region by a gap 2.6 times that gap's usual spread.",
+   "series_id": "TH.reserves",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": 3.4419018226281963,
+   "outcome": "too early",
+   "sentence": "Indonesia: exports of goods, free on board rose 11.62% in April 2026, against a usual -10.03% for that calendar month. That is 3.4 times its usual spread over the previous ten years.",
+   "series_id": "ID.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "kind": "own history",
+   "z": 3.1945819643140836,
+   "outcome": "too early",
+   "sentence": "Indonesia: imports of goods, cost insurance freight rose 27.22% in April 2026, against a usual -5.13% for that calendar month. That is 3.2 times its usual spread over the previous ten years.",
+   "series_id": "ID.imports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
    "country": "Malaysia",
    "indicator": "exports",
    "kind": "own history",
@@ -347,12 +444,34 @@
   {
    "period": "2026-04-01T00:00:00",
    "country": "Malaysia",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": 3.167373587351859,
+   "outcome": "too early",
+   "sentence": "Malaysia: exports of goods, free on board rose 20.23% in April 2026, against a usual -4.35% for that calendar month. That is 3.2 times its usual spread over the previous ten years.",
+   "series_id": "MY.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Malaysia",
    "indicator": "imports",
    "kind": "own history",
    "z": 3.8985269401224096,
    "outcome": "held",
    "sentence": "Malaysia: imports of goods rose 21.46% in April 2026, against a usual -0.08% for that calendar month. That is 3.9 times its usual spread over the previous ten years.",
    "series_id": "MY.imports",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "imports_usd",
+   "kind": "own history",
+   "z": 3.875684510622531,
+   "outcome": "too early",
+   "sentence": "Malaysia: imports of goods, cost insurance freight rose 20.85% in April 2026, against a usual -0.94% for that calendar month. That is 3.9 times its usual spread over the previous ten years.",
+   "series_id": "MY.imports_usd",
    "label": "observation"
   },
   {
@@ -379,6 +498,17 @@
   },
   {
    "period": "2026-04-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reserves",
+   "kind": "own history",
+   "z": 2.901526844315827,
+   "outcome": "held",
+   "sentence": "Malaysia: official reserves excluding gold rose 2.63% in April 2026, against a usual +0.25% for a month. That is 2.9 times its usual spread over the previous ten years.",
+   "series_id": "MY.reserves",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
    "country": "Philippines",
    "indicator": "cpi",
    "kind": "own history",
@@ -397,6 +527,17 @@
    "outcome": "held",
    "sentence": "Thailand: consumer prices (CPI) rose 3.32% in April 2026, against a usual +0.39% for that calendar month. That is 12.2 times its usual spread over the previous ten years.",
    "series_id": "TH.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-04-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "kind": "own history",
+   "z": 2.8526153616444736,
+   "outcome": "too early",
+   "sentence": "Thailand: imports of goods, cost insurance freight rose 7.76% in April 2026, against a usual -7.12% for that calendar month. That is 2.9 times its usual spread over the previous ten years.",
+   "series_id": "TH.imports_usd",
    "label": "observation"
   },
   {
@@ -422,6 +563,72 @@
    "label": "observation"
   },
   {
+   "period": "2026-04-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "kind": "own history",
+   "z": 2.9099606282562642,
+   "outcome": "reversed",
+   "sentence": "Vietnam: consumer prices (CPI) rose 0.84% in April 2026, against a usual +0.07% for that calendar month. That is 2.9 times its usual spread over the previous ten years.",
+   "series_id": "VN.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "imports_usd",
+   "kind": "neighbours",
+   "z": -2.779636067907578,
+   "outcome": "reversed",
+   "sentence": "Indonesia: imports of goods, cost insurance freight moved against its neighbours in March 2026. Its surprise was -2.0 spreads while the median of 5 other Southeast Asian economies was +0.8, so it rose less than the region by a gap 2.8 times that gap's usual spread.",
+   "series_id": "ID.imports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": 3.2317715591324183,
+   "outcome": "held",
+   "sentence": "Singapore: exports of goods, free on board moved against its neighbours in March 2026. Its surprise was +2.3 spreads while the median of 5 other Southeast Asian economies was -0.6, so it rose more than the region by a gap 3.2 times that gap's usual spread.",
+   "series_id": "SG.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "kind": "neighbours",
+   "z": 2.677246541679735,
+   "outcome": "reversed",
+   "sentence": "Singapore: imports of goods, cost insurance freight moved against its neighbours in March 2026. Its surprise was +2.2 spreads while the median of 5 other Southeast Asian economies was -0.1, so it rose more than the region by a gap 2.7 times that gap's usual spread.",
+   "series_id": "SG.imports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "cpi",
+   "kind": "neighbours",
+   "z": -2.500580488764579,
+   "outcome": "reversed",
+   "sentence": "Thailand: consumer prices (CPI) moved against its neighbours in March 2026. Its surprise was -0.8 spreads while the median of 5 other Southeast Asian economies was +2.3, so it rose less than the region by a gap 2.5 times that gap's usual spread.",
+   "series_id": "TH.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "kind": "neighbours",
+   "z": 3.7423303444704303,
+   "outcome": "held",
+   "sentence": "Vietnam: consumer prices (CPI) moved against its neighbours in March 2026. Its surprise was +5.5 spreads while the median of 5 other Southeast Asian economies was +1.5, so it rose more than the region by a gap 3.7 times that gap's usual spread.",
+   "series_id": "VN.cpi",
+   "label": "observation"
+  },
+  {
    "period": "2026-03-01T00:00:00",
    "country": "Malaysia",
    "indicator": "ppi",
@@ -441,6 +648,17 @@
    "outcome": "held",
    "sentence": "Philippines: consumer prices (CPI) rose 1.36% in March 2026, against a usual +0.00% for that calendar month. That is 5.0 times its usual spread over the previous ten years.",
    "series_id": "PH.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-03-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "kind": "own history",
+   "z": -2.7240732365994393,
+   "outcome": "held",
+   "sentence": "Philippines: official reserves excluding gold fell 4.24% in March 2026, against a usual +0.06% for a month. That is 2.7 times its usual spread over the previous ten years.",
+   "series_id": "PH.reserves",
    "label": "observation"
   },
   {
@@ -477,6 +695,28 @@
    "label": "observation"
   },
   {
+   "period": "2026-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "kind": "own history",
+   "z": 5.495964220198884,
+   "outcome": "held",
+   "sentence": "Vietnam: consumer prices (CPI) rose 1.23% in March 2026, against a usual -0.22% for that calendar month. That is 5.5 times its usual spread over the previous ten years.",
+   "series_id": "VN.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": -3.203789443806032,
+   "outcome": "reversed",
+   "sentence": "Singapore: exports of goods, free on board moved against its neighbours in February 2026. Its surprise was -2.6 spreads while the median of 5 other Southeast Asian economies was +0.3, so it rose less than the region by a gap 3.2 times that gap's usual spread.",
+   "series_id": "SG.exports_usd",
+   "label": "observation"
+  },
+  {
    "period": "2026-02-01T00:00:00",
    "country": "Indonesia",
    "indicator": "cpi",
@@ -485,6 +725,17 @@
    "outcome": "held",
    "sentence": "Indonesia: consumer prices (CPI) rose 0.68% in February 2026, against a usual +0.11% for that calendar month. That is 3.2 times its usual spread over the previous ten years.",
    "series_id": "ID.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-02-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": -2.5974792665745228,
+   "outcome": "reversed",
+   "sentence": "Singapore: exports of goods, free on board fell 24.73% in February 2026, against a usual -9.14% for that calendar month. That is 2.6 times its usual spread over the previous ten years.",
+   "series_id": "SG.exports_usd",
    "label": "observation"
   },
   {
@@ -500,6 +751,28 @@
   },
   {
    "period": "2026-01-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": 3.1605776702854755,
+   "outcome": "held",
+   "sentence": "Singapore: exports of goods, free on board moved against its neighbours in January 2026. Its surprise was +3.1 spreads while the median of 5 other Southeast Asian economies was +0.3, so it rose more than the region by a gap 3.2 times that gap's usual spread.",
+   "series_id": "SG.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "imports_usd",
+   "kind": "neighbours",
+   "z": 2.5383080803949247,
+   "outcome": "held",
+   "sentence": "Thailand: imports of goods, cost insurance freight moved against its neighbours in January 2026. Its surprise was +2.3 spreads while the median of 5 other Southeast Asian economies was -0.4, so it rose more than the region by a gap 2.5 times that gap's usual spread.",
+   "series_id": "TH.imports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2026-01-01T00:00:00",
    "country": "Indonesia",
    "indicator": "cpi",
    "kind": "own history",
@@ -507,6 +780,17 @@
    "outcome": "reversed",
    "sentence": "Indonesia: consumer prices (CPI) fell 0.15% in January 2026, against a usual +0.41% for that calendar month. That is 3.2 times its usual spread over the previous ten years.",
    "series_id": "ID.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2026-01-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": 3.063007324873951,
+   "outcome": "held",
+   "sentence": "Singapore: exports of goods, free on board rose 16.23% in January 2026, against a usual -2.16% for that calendar month. That is 3.1 times its usual spread over the previous ten years.",
+   "series_id": "SG.exports_usd",
    "label": "observation"
   },
   {
@@ -632,6 +916,17 @@
   },
   {
    "period": "2025-07-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "imports_usd",
+   "kind": "neighbours",
+   "z": 2.783407646581609,
+   "outcome": "held",
+   "sentence": "Singapore: imports of goods, cost insurance freight moved against its neighbours in July 2025. Its surprise was +2.5 spreads while the median of 5 other Southeast Asian economies was +0.2, so it rose more than the region by a gap 2.8 times that gap's usual spread.",
+   "series_id": "SG.imports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2025-07-01T00:00:00",
    "country": "Malaysia",
    "indicator": "policy_rate",
    "kind": "own history",
@@ -661,6 +956,17 @@
    "outcome": "held",
    "sentence": "United States: new orders for durable goods fell 9.86% in June 2025, against a usual +0.56% for a month. That is 3.6 times its usual spread over the previous ten years.",
    "series_id": "US.durable_orders",
+   "label": "observation"
+  },
+  {
+   "period": "2025-05-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": -3.951689134528261,
+   "outcome": "held",
+   "sentence": "Singapore: exports of goods, free on board moved against its neighbours in May 2025. Its surprise was -2.5 spreads while the median of 5 other Southeast Asian economies was +0.7, so it rose less than the region by a gap 4.0 times that gap's usual spread.",
+   "series_id": "SG.exports_usd",
    "label": "observation"
   },
   {
@@ -701,10 +1007,32 @@
    "country": "Indonesia",
    "indicator": "cpi",
    "kind": "neighbours",
-   "z": 4.013362413003721,
+   "z": 3.3450444618565682,
    "outcome": "held",
-   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in April 2025. Its surprise was +5.2 spreads while the median of 4 other Southeast Asian economies was -1.3, so it rose more than the region by a gap 4.0 times that gap's usual spread.",
+   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in April 2025. Its surprise was +5.2 spreads while the median of 5 other Southeast Asian economies was -0.3, so it rose more than the region by a gap 3.3 times that gap's usual spread.",
    "series_id": "ID.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2025-04-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "kind": "neighbours",
+   "z": -2.8929251197295023,
+   "outcome": "held",
+   "sentence": "Indonesia: official reserves excluding gold moved against its neighbours in April 2025. Its surprise was -1.6 spreads while the median of 5 other Southeast Asian economies was +0.9, so it rose less than the region by a gap 2.9 times that gap's usual spread.",
+   "series_id": "ID.reserves",
+   "label": "observation"
+  },
+  {
+   "period": "2025-04-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": 3.8017397856719786,
+   "outcome": "reversed",
+   "sentence": "Singapore: exports of goods, free on board moved against its neighbours in April 2025. Its surprise was +3.6 spreads while the median of 5 other Southeast Asian economies was +0.5, so it rose more than the region by a gap 3.8 times that gap's usual spread.",
+   "series_id": "SG.exports_usd",
    "label": "observation"
   },
   {
@@ -716,6 +1044,17 @@
    "outcome": "held",
    "sentence": "Thailand: central bank policy rate moved against its neighbours in April 2025. Its surprise was -2.6 spreads while the median of 3 other Southeast Asian economies was +0.0, so it rose less than the region by a gap 2.7 times that gap's usual spread.",
    "series_id": "TH.policy_rate",
+   "label": "observation"
+  },
+  {
+   "period": "2025-04-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reserves",
+   "kind": "neighbours",
+   "z": 3.3342777399930354,
+   "outcome": "held",
+   "sentence": "Thailand: official reserves excluding gold moved against its neighbours in April 2025. Its surprise was +2.0 spreads while the median of 5 other Southeast Asian economies was -0.6, so it rose more than the region by a gap 3.3 times that gap's usual spread.",
+   "series_id": "TH.reserves",
    "label": "observation"
   },
   {
@@ -738,6 +1077,17 @@
    "outcome": "reversed",
    "sentence": "Malaysia: imports of goods rose 12.99% in April 2025, against a usual -3.43% for that calendar month. That is 2.7 times its usual spread over the previous ten years.",
    "series_id": "MY.imports",
+   "label": "observation"
+  },
+  {
+   "period": "2025-04-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": 3.5551540338042322,
+   "outcome": "held",
+   "sentence": "Singapore: exports of goods, free on board rose 16.51% in April 2025, against a usual -4.35% for that calendar month. That is 3.6 times its usual spread over the previous ten years.",
+   "series_id": "SG.exports_usd",
    "label": "observation"
   },
   {
@@ -767,9 +1117,9 @@
    "country": "Indonesia",
    "indicator": "cpi",
    "kind": "neighbours",
-   "z": 5.4515137329333845,
+   "z": 5.185816152710501,
    "outcome": "held",
-   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in March 2025. Its surprise was +8.1 spreads while the median of 4 other Southeast Asian economies was -0.7, so it rose more than the region by a gap 5.5 times that gap's usual spread.",
+   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in March 2025. Its surprise was +8.1 spreads while the median of 5 other Southeast Asian economies was -0.6, so it rose more than the region by a gap 5.2 times that gap's usual spread.",
    "series_id": "ID.cpi",
    "label": "observation"
   },
@@ -798,12 +1148,34 @@
   {
    "period": "2025-03-01T00:00:00",
    "country": "Vietnam",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": -2.708483745590411,
+   "outcome": "held",
+   "sentence": "Vietnam: exports of goods, free on board rose 21.34% in March 2025, against a usual +36.06% for that calendar month. That is 2.7 times its usual spread over the previous ten years.",
+   "series_id": "VN.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2025-03-01T00:00:00",
+   "country": "Vietnam",
    "indicator": "fx_usd",
    "kind": "own history",
    "z": 5.065514867339163,
    "outcome": "held",
    "sentence": "Vietnam: exchange rate, local currency per US dollar rose (local currency weaker) 0.98% in March 2025, against a usual +0.07% for a month. That is 5.1 times its usual spread over the previous ten years.",
    "series_id": "VN.fx_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2025-03-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "kind": "own history",
+   "z": -2.838995908132179,
+   "outcome": "held",
+   "sentence": "Vietnam: imports of goods, cost insurance freight rose 12.14% in March 2025, against a usual +29.38% for that calendar month. That is 2.8 times its usual spread over the previous ten years.",
+   "series_id": "VN.imports_usd",
    "label": "observation"
   },
   {
@@ -820,12 +1192,34 @@
   {
    "period": "2025-02-01T00:00:00",
    "country": "Vietnam",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": 4.186223619914072,
+   "outcome": "held",
+   "sentence": "Vietnam: exports of goods, free on board moved against its neighbours in February 2025. Its surprise was +5.4 spreads while the median of 5 other Southeast Asian economies was +0.2, so it rose more than the region by a gap 4.2 times that gap's usual spread.",
+   "series_id": "VN.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2025-02-01T00:00:00",
+   "country": "Vietnam",
    "indicator": "fx_usd",
    "kind": "neighbours",
    "z": 3.0429849526867097,
    "outcome": "held",
    "sentence": "Vietnam: exchange rate, local currency per US dollar moved against its neighbours in February 2025. Its surprise was +4.5 spreads while the median of 5 other Southeast Asian economies was -0.6, so it rose more than the region by a gap 3.0 times that gap's usual spread.",
    "series_id": "VN.fx_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2025-02-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "kind": "neighbours",
+   "z": 4.833485397081634,
+   "outcome": "reversed",
+   "sentence": "Vietnam: imports of goods, cost insurance freight moved against its neighbours in February 2025. Its surprise was +5.2 spreads while the median of 5 other Southeast Asian economies was -0.2, so it rose more than the region by a gap 4.8 times that gap's usual spread.",
+   "series_id": "VN.imports_usd",
    "label": "observation"
   },
   {
@@ -837,6 +1231,17 @@
    "outcome": "reversed",
    "sentence": "Indonesia: consumer prices (CPI) fell 0.48% in February 2025, against a usual +0.11% for that calendar month. That is 3.3 times its usual spread over the previous ten years.",
    "series_id": "ID.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2025-02-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "kind": "own history",
+   "z": 2.5887205398235666,
+   "outcome": "reversed",
+   "sentence": "Philippines: official reserves excluding gold rose 4.10% in February 2025, against a usual +0.24% for a month. That is 2.6 times its usual spread over the previous ten years.",
+   "series_id": "PH.reserves",
    "label": "observation"
   },
   {
@@ -864,6 +1269,17 @@
   {
    "period": "2025-02-01T00:00:00",
    "country": "Vietnam",
+   "indicator": "exports_usd",
+   "kind": "own history",
+   "z": 5.422361029826693,
+   "outcome": "held",
+   "sentence": "Vietnam: exports of goods, free on board fell 6.47% in February 2025, against a usual -32.28% for that calendar month. That is 5.4 times its usual spread over the previous ten years.",
+   "series_id": "VN.exports_usd",
+   "label": "observation"
+  },
+  {
+   "period": "2025-02-01T00:00:00",
+   "country": "Vietnam",
    "indicator": "fx_usd",
    "kind": "own history",
    "z": 4.4684342012097655,
@@ -873,14 +1289,36 @@
    "label": "observation"
   },
   {
+   "period": "2025-02-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "imports_usd",
+   "kind": "own history",
+   "z": 5.174064463149887,
+   "outcome": "held",
+   "sentence": "Vietnam: imports of goods, cost insurance freight rose 8.29% in February 2025, against a usual -23.13% for that calendar month. That is 5.2 times its usual spread over the previous ten years.",
+   "series_id": "VN.imports_usd",
+   "label": "observation"
+  },
+  {
    "period": "2025-01-01T00:00:00",
    "country": "Indonesia",
    "indicator": "cpi",
    "kind": "neighbours",
-   "z": -3.4074189954209007,
+   "z": -3.382358311264481,
    "outcome": "reversed",
-   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in January 2025. Its surprise was -6.5 spreads while the median of 4 other Southeast Asian economies was -0.2, so it rose less than the region by a gap 3.4 times that gap's usual spread.",
+   "sentence": "Indonesia: consumer prices (CPI) moved against its neighbours in January 2025. Its surprise was -6.5 spreads while the median of 5 other Southeast Asian economies was -0.2, so it rose less than the region by a gap 3.4 times that gap's usual spread.",
    "series_id": "ID.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2025-01-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "exports_usd",
+   "kind": "neighbours",
+   "z": 2.5585935644823543,
+   "outcome": "held",
+   "sentence": "Philippines: exports of goods, free on board moved against its neighbours in January 2025. Its surprise was +2.2 spreads while the median of 5 other Southeast Asian economies was -0.4, so it rose more than the region by a gap 2.6 times that gap's usual spread.",
+   "series_id": "PH.exports_usd",
    "label": "observation"
   },
   {
@@ -896,6 +1334,17 @@
   },
   {
    "period": "2025-01-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "kind": "neighbours",
+   "z": 2.816148583119889,
+   "outcome": "held",
+   "sentence": "Vietnam: consumer prices (CPI) moved against its neighbours in January 2025. Its surprise was +2.8 spreads while the median of 5 other Southeast Asian economies was -0.3, so it rose more than the region by a gap 2.8 times that gap's usual spread.",
+   "series_id": "VN.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2025-01-01T00:00:00",
    "country": "Indonesia",
    "indicator": "cpi",
    "kind": "own history",
@@ -903,6 +1352,17 @@
    "outcome": "reversed",
    "sentence": "Indonesia: consumer prices (CPI) fell 0.76% in January 2025, against a usual +0.41% for that calendar month. That is 6.5 times its usual spread over the previous ten years.",
    "series_id": "ID.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2025-01-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reserves",
+   "kind": "own history",
+   "z": -2.9183550819707254,
+   "outcome": "held",
+   "sentence": "Philippines: official reserves excluding gold fell 4.00% in January 2025, against a usual +0.29% for a month. That is 2.9 times its usual spread over the previous ten years.",
+   "series_id": "PH.reserves",
    "label": "observation"
   },
   {
@@ -925,6 +1385,28 @@
    "outcome": "held",
    "sentence": "United States: federal funds effective rate fell 0.15 percentage points in January 2025, against a usual +0.01 percentage points for a month. That is 7.2 times its usual spread over the previous ten years.",
    "series_id": "US.policy_rate",
+   "label": "observation"
+  },
+  {
+   "period": "2025-01-01T00:00:00",
+   "country": "Vietnam",
+   "indicator": "cpi",
+   "kind": "own history",
+   "z": 2.7513628849539336,
+   "outcome": "held",
+   "sentence": "Vietnam: consumer prices (CPI) rose 0.98% in January 2025, against a usual +0.25% for that calendar month. That is 2.8 times its usual spread over the previous ten years.",
+   "series_id": "VN.cpi",
+   "label": "observation"
+  },
+  {
+   "period": "2024-12-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reserves",
+   "kind": "neighbours",
+   "z": 3.362210606919365,
+   "outcome": "held",
+   "sentence": "Indonesia: official reserves excluding gold moved against its neighbours in December 2024. Its surprise was +1.6 spreads while the median of 5 other Southeast Asian economies was -1.2, so it rose more than the region by a gap 3.4 times that gap's usual spread.",
+   "series_id": "ID.reserves",
    "label": "observation"
   },
   {
