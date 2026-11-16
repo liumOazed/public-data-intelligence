@@ -1,5 +1,5 @@
 {
- "trained_at": "2026-11-15T06:22:07+00:00",
+ "trained_at": "2026-11-16T13:05:33+00:00",
  "autogluon_version": "1.6.3",
  "python_version": "3.12.16",
  "time_limit_s": 1200,
@@ -15,51 +15,51 @@
   "RecursiveTabular",
   "DirectTabular"
  ],
- "n_series": 51,
+ "n_series": 70,
  "valid_start": "2023-11-01",
  "holdout_start": "2024-11-01",
  "data_end": "2026-10",
  "picked": "WeightedEnsemble",
- "baseline": "Average",
- "published": "Average",
- "holdout_scaled_mae_picked": 0.637847302211344,
- "holdout_scaled_mae_baseline": 0.6583395448887511,
- "holdout_n_forecasts": 1176,
- "holdout_improvement": 0.020492242677407124,
- "fold_spread": 0.052007373789683266,
- "passed": false,
+ "baseline": "SeasonalAverage",
+ "published": "WeightedEnsemble",
+ "holdout_scaled_mae_picked": 0.6045463973083199,
+ "holdout_scaled_mae_baseline": 0.631475775049234,
+ "holdout_n_forecasts": 1582,
+ "holdout_improvement": 0.026929377740914084,
+ "fold_spread": 0.01893088538982595,
+ "passed": true,
  "folds": [
   {
    "fold": 1,
    "months": "Nov 2023 to Jan 2024",
-   "n_forecasts": 153,
-   "baseline_scaled_mae": 0.5711419637309613,
-   "picked_scaled_mae": 0.5956608791281574,
-   "improvement": -0.024518915397196084
+   "n_forecasts": 210,
+   "baseline_scaled_mae": 0.5901364238947466,
+   "picked_scaled_mae": 0.5686460781493338,
+   "improvement": 0.021490345745412864
   },
   {
    "fold": 2,
    "months": "Feb 2024 to Apr 2024",
-   "n_forecasts": 153,
-   "baseline_scaled_mae": 0.6034097290327324,
-   "picked_scaled_mae": 0.5742791038280066,
-   "improvement": 0.029130625204725757
+   "n_forecasts": 210,
+   "baseline_scaled_mae": 0.5738285662799754,
+   "picked_scaled_mae": 0.540372746994302,
+   "improvement": 0.033455819285673316
   },
   {
    "fold": 3,
    "months": "May 2024 to Jul 2024",
-   "n_forecasts": 153,
-   "baseline_scaled_mae": 0.44908136380921154,
-   "picked_scaled_mae": 0.49631467147455094,
-   "improvement": -0.0472333076653394
+   "n_forecasts": 210,
+   "baseline_scaled_mae": 0.49856171541924604,
+   "picked_scaled_mae": 0.5006707451685061,
+   "improvement": -0.0021090297492600274
   },
   {
    "fold": 4,
    "months": "Aug 2024 to Oct 2024",
-   "n_forecasts": 153,
-   "baseline_scaled_mae": 0.779402305677103,
-   "picked_scaled_mae": 0.7116413938460222,
-   "improvement": 0.0677609118310808
+   "n_forecasts": 210,
+   "baseline_scaled_mae": 0.6984174865159538,
+   "picked_scaled_mae": 0.6571366177633939,
+   "improvement": 0.041280868752559874
   }
  ]
 }

@@ -1,0 +1,62 @@
+{
+ "meta": {
+  "module": "trade",
+  "table": "findings",
+  "description": "Items this module's fixed rule marks as unusual. Rule: the change in US imports from a partner from the month before, in its latest month, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
+  "generated_at": "2026-11-16T13:05:46+00:00",
+  "rows": 1,
+  "columns": [
+   "key",
+   "module",
+   "subject",
+   "period",
+   "sentence",
+   "rule",
+   "measure",
+   "threshold",
+   "label",
+   "label_reason",
+   "test_passed",
+   "page",
+   "table"
+  ],
+  "sources": [
+   {
+    "id": "census_trade",
+    "name": "US Census Bureau, International Trade (monthly imports by Harmonized System)",
+    "url": "https://www.census.gov/foreign-trade/data/index.html",
+    "licence": "Census Bureau Data API Terms of Service (https://www.census.gov/data/developers/terms-of-service.html). Products must show the notice \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau\", must not misrepresent the data while naming the Bureau as its source, and must not use the data to identify a person or business. The trade pages carry the notice. The terms set no numeric request limit; this pipeline makes sixteen calls at most once every six days.",
+    "frequency": "fetched at most once every six days; Census publishes once a month",
+    "typical_lag": "about five weeks after the month ends",
+    "retrieved_at": "2026-11-15T11:17:30+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "US-reported imports only: general imports at customs value, by country of origin. Goods made in one country and finished in another are counted under the last one.",
+   "A rising share is not proof that production moved. Goods can be routed through a third country, and a share also rises when other suppliers' sales fall.",
+   "Shares are of the value in dollars, so a price change moves a share without any change in volume.",
+   "Chapters are the 97 two-digit groups of the Harmonized System; a shift inside a chapter (from one kind of machine to another) is invisible here.",
+   "Recent months are revised by Census for several months after first publication."
+  ],
+  "partners_scored": 8,
+  "rule_text": "the change in US imports from a partner from the month before, in its latest month, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule)."
+ },
+ "data": [
+  {
+   "key": "trade|VN|same calendar month|2026-09-01",
+   "module": "trade",
+   "subject": "VN",
+   "period": "2026-09-01",
+   "sentence": "US imports from Vietnam rose 8.5% from the month before in September 2026, 2.5 spreads from what September usually brings.",
+   "rule": "same calendar month",
+   "measure": 2.5189310505524083,
+   "threshold": 2.5,
+   "label": "observation",
+   "label_reason": "Arithmetic on the all-commodity import totals Census publishes: the latest monthly change against the same calendar month in earlier years. No model; it says the month was unusual, not why.",
+   "test_passed": null,
+   "page": "trade/index.qmd",
+   "table": "trade/findings.json"
+  }
+ ]
+}

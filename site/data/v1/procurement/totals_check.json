@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "totals_check",
   "description": "Monthly obligations summed from the downloaded transactions against the monthly figure USAspending's own search gives for the same filters.",
-  "generated_at": "2026-11-15T21:15:14+00:00",
+  "generated_at": "2026-11-16T13:05:47+00:00",
   "rows": 121,
   "columns": [
    "period",

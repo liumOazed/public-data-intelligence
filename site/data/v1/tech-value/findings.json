@@ -1,0 +1,180 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "findings",
+  "description": "Items this module's fixed rule marks as unusual. Rule: a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days.",
+  "generated_at": "2026-11-16T13:05:40+00:00",
+  "rows": 7,
+  "columns": [
+   "key",
+   "module",
+   "subject",
+   "period",
+   "sentence",
+   "rule",
+   "measure",
+   "threshold",
+   "label",
+   "label_reason",
+   "test_passed",
+   "page",
+   "table"
+  ],
+  "sources": [
+   {
+    "id": "amazon_brightdata",
+    "name": "Amazon US listings via Bright Data",
+    "url": "https://brightdata.com/products/web-scraper",
+    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
+    "frequency": "weekly collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-16T12:10:32+00:00"
+   },
+   {
+    "id": "bestbuy_brightdata",
+    "name": "Best Buy listings via Bright Data",
+    "url": "https://brightdata.com/products/web-scraper",
+    "licence": "Best Buy's website terms have not been read for this project yet, so reuse rights are unconfirmed. Until they are, the rows are handled like Amazon's: never committed or published, kept in a private Actions cache, and only derived tables reach the site. Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data and makes the customer solely responsible for lawful use.",
+    "frequency": "weekly collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-16T12:40:10+00:00"
+   },
+   {
+    "id": "centralcomputer",
+    "name": "Central Computers online store",
+    "url": "https://www.centralcomputer.com/",
+    "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
+    "frequency": "daily collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-16T12:07:32+00:00"
+   },
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T12:02:54+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Prices are listing prices at the retailers named, not transaction prices. Coverage is limited to retailers that allow automated collection, so this is not the whole market.",
+   "The price shown is the cheapest new listing available online on the collection date.",
+   "Amazon prices count only listings sold by Amazon.com or the part's own brand, and Best Buy prices only listings sold by Best Buy itself. Marketplace sellers are left out because their listings cannot be confirmed as new.",
+   "A price backed by a single listing is marked low confidence: it is often one marketplace seller's asking price for a discontinued part.",
+   "Score per dollar measures rendering throughput per dollar. It is a research lead, not buying advice."
+  ],
+  "blender_version": "4.5",
+  "status": null,
+  "rule_text": "a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days."
+ },
+ "data": [
+  {
+   "key": "tech-value|amd ryzen 5 7600x|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd ryzen 5 7600x",
+   "period": "2026-11-16",
+   "sentence": "amd ryzen 5 7600x (CPU): the lowest listed price fell 44.3% to $167.00 on 16 Nov 2026, from $299.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.4433147771592386,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd ryzen 7 5700x|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd ryzen 7 5700x",
+   "period": "2026-11-16",
+   "sentence": "amd ryzen 7 5700x (CPU): the lowest listed price fell 35.5% to $188.98 on 16 Nov 2026, from $292.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.35499505102563234,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd ryzen 7 5800xt|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd ryzen 7 5800xt",
+   "period": "2026-11-16",
+   "sentence": "amd ryzen 7 5800xt (CPU): the lowest listed price fell 12.4% to $219.00 on 16 Nov 2026, from $249.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.123964958598344,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd ryzen 7 9700x|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd ryzen 7 9700x",
+   "period": "2026-11-16",
+   "sentence": "amd ryzen 7 9700x (CPU): the lowest listed price fell 18.5% to $269.00 on 16 Nov 2026, from $329.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.1848237825388649,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd ryzen 9 7950x|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd ryzen 9 7950x",
+   "period": "2026-11-16",
+   "sentence": "amd ryzen 9 7950x (CPU): the lowest listed price fell 21.8% to $589.99 on 16 Nov 2026, from $753.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.21750951604132684,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd threadripper 7970x|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd threadripper 7970x",
+   "period": "2026-11-16",
+   "sentence": "amd threadripper 7970x (CPU): the lowest listed price fell 16.7% to $1,915.99 on 16 Nov 2026, from $2,299.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.16695724764020703,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd rx 9070 xt|price move|2026-11-16",
+   "module": "tech-value",
+   "subject": "amd rx 9070 xt",
+   "period": "2026-11-16",
+   "sentence": "amd rx 9070 xt (GPU): the lowest listed price fell 12.2% to $789.99 on 16 Nov 2026, from $899.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.12222358026200286,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  }
+ ]
+}

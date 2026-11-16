@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-15T16:38:15+00:00",
+  "generated_at": "2026-11-16T13:05:40+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -15,13 +15,31 @@
   ],
   "sources": [
    {
+    "id": "amazon_brightdata",
+    "name": "Amazon US listings via Bright Data",
+    "url": "https://brightdata.com/products/web-scraper",
+    "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
+    "frequency": "weekly collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-16T12:10:32+00:00"
+   },
+   {
+    "id": "bestbuy_brightdata",
+    "name": "Best Buy listings via Bright Data",
+    "url": "https://brightdata.com/products/web-scraper",
+    "licence": "Best Buy's website terms have not been read for this project yet, so reuse rights are unconfirmed. Until they are, the rows are handled like Amazon's: never committed or published, kept in a private Actions cache, and only derived tables reach the site. Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data and makes the customer solely responsible for lawful use.",
+    "frequency": "weekly collection",
+    "typical_lag": "same day",
+    "retrieved_at": "2026-11-16T12:40:10+00:00"
+   },
+   {
     "id": "centralcomputer",
     "name": "Central Computers online store",
     "url": "https://www.centralcomputer.com/",
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-15T16:37:23+00:00"
+    "retrieved_at": "2026-11-16T12:07:32+00:00"
    },
    {
     "id": "blender_opendata",
@@ -30,7 +48,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-14T18:44:44+00:00"
+    "retrieved_at": "2026-11-16T12:02:54+00:00"
    }
   ],
   "preliminary": false,
@@ -47,18 +65,18 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 36,
-   "listings_recognised": 36,
-   "models_priced": 23,
-   "models_with_score": 23,
+   "listings": 58,
+   "listings_recognised": 58,
+   "models_priced": 27,
+   "models_with_score": 27,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 90,
-   "listings_recognised": 90,
-   "models_priced": 12,
-   "models_with_score": 12,
+   "listings": 129,
+   "listings_recognised": 129,
+   "models_priced": 14,
+   "models_with_score": 14,
    "share_with_score": 1.0
   }
  ]

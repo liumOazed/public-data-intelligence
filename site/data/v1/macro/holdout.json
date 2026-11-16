@@ -3,7 +3,7 @@
   "module": "macro",
   "table": "holdout",
   "description": "The pick and the naive baselines on the holdout months, scored once after the pick.",
-  "generated_at": "2026-11-15T16:38:19+00:00",
+  "generated_at": "2026-11-16T13:05:44+00:00",
   "rows": 5,
   "columns": [
    "model",
@@ -21,7 +21,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-15T16:37:57+00:00"
+    "retrieved_at": "2026-11-16T12:40:44+00:00"
    },
    {
     "id": "bis",
@@ -30,7 +30,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-15T16:37:59+00:00"
+    "retrieved_at": "2026-11-16T12:40:49+00:00"
    },
    {
     "id": "opendosm",
@@ -39,7 +39,7 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-15T16:38:04+00:00"
+    "retrieved_at": "2026-11-16T12:40:58+00:00"
    },
    {
     "id": "imf",
@@ -48,7 +48,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-15T16:38:06+00:00"
+    "retrieved_at": "2026-11-16T12:41:00+00:00"
    },
    {
     "id": "indeed_postings",
@@ -57,7 +57,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-15T16:38:07+00:00"
+    "retrieved_at": "2026-11-16T12:41:00+00:00"
    }
   ],
   "preliminary": false,
@@ -67,7 +67,7 @@
    "Scored on latest published values, not on the values first published, so the test is kinder than real time. First-published values are being stored from the first run on."
   ],
   "verdict": {
-   "trained_at": "2026-11-15T06:22:07+00:00",
+   "trained_at": "2026-11-16T13:05:33+00:00",
    "autogluon_version": "1.6.3",
    "python_version": "3.12.16",
    "time_limit_s": 1200,
@@ -83,63 +83,63 @@
     "RecursiveTabular",
     "DirectTabular"
    ],
-   "n_series": 51,
+   "n_series": 70,
    "valid_start": "2023-11-01",
    "holdout_start": "2024-11-01",
    "data_end": "2026-10",
    "picked": "WeightedEnsemble",
-   "baseline": "Average",
-   "published": "Average",
-   "holdout_scaled_mae_picked": 0.637847302211344,
-   "holdout_scaled_mae_baseline": 0.6583395448887511,
-   "holdout_n_forecasts": 1176,
-   "holdout_improvement": 0.020492242677407124,
-   "fold_spread": 0.052007373789683266,
-   "passed": false,
+   "baseline": "SeasonalAverage",
+   "published": "WeightedEnsemble",
+   "holdout_scaled_mae_picked": 0.6045463973083199,
+   "holdout_scaled_mae_baseline": 0.631475775049234,
+   "holdout_n_forecasts": 1582,
+   "holdout_improvement": 0.026929377740914084,
+   "fold_spread": 0.01893088538982595,
+   "passed": true,
    "finding": {
-    "label": "explanation",
-    "reason": "No model beat the naive baseline on the holdout months by more than the fold-to-fold spread, so nothing on these pages is a forecast. No signal found."
+    "label": "prediction",
+    "reason": "The picked model (WeightedEnsemble) forecast next month's moves on 1,582 holdout readings it never saw better than the naive baseline, by more than the fold-to-fold spread."
    },
-   "statement": "No signal found: the naive baseline is published."
+   "statement": "WeightedEnsemble beats the naive baseline out of sample."
   }
  },
  "data": [
   {
    "model": "WeightedEnsemble",
-   "scaled_mae": 0.637847302211344,
-   "n_forecasts": 1176,
+   "scaled_mae": 0.6045463973083199,
+   "n_forecasts": 1582,
    "period": "holdout",
    "kind": "automl",
-   "published": false
-  },
-  {
-   "model": "Average",
-   "scaled_mae": 0.6583395448887511,
-   "n_forecasts": 1176,
-   "period": "holdout",
-   "kind": "naive baseline",
    "published": true
   },
   {
    "model": "SeasonalAverage",
-   "scaled_mae": 0.6585561701187419,
-   "n_forecasts": 1176,
+   "scaled_mae": 0.631475775049234,
+   "n_forecasts": 1582,
+   "period": "holdout",
+   "kind": "naive baseline",
+   "published": false
+  },
+  {
+   "model": "Average",
+   "scaled_mae": 0.6463605082443182,
+   "n_forecasts": 1582,
    "period": "holdout",
    "kind": "naive baseline",
    "published": false
   },
   {
    "model": "SeasonalNaive",
-   "scaled_mae": 0.8655259792943332,
-   "n_forecasts": 1176,
+   "scaled_mae": 0.8219367558795775,
+   "n_forecasts": 1582,
    "period": "holdout",
    "kind": "naive baseline",
    "published": false
   },
   {
    "model": "Naive",
-   "scaled_mae": 0.8770402913666555,
-   "n_forecasts": 1176,
+   "scaled_mae": 0.8934873477223013,
+   "n_forecasts": 1582,
    "period": "holdout",
    "kind": "naive baseline",
    "published": false

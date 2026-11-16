@@ -1,0 +1,62 @@
+{
+ "macro|PH.cpi|own history|2026-09-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "macro|PH.reserves|own history|2026-09-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "macro|US.construction_spending|own history|2026-09-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "macro|US.policy_rate|own history|2026-10-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "macro|VN.fx_usd|neighbours|2026-08-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "macro|VN.fx_usd|own history|2026-08-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "procurement|computer hardware|same calendar month|2026-07-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd rx 9070 xt|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd ryzen 5 7600x|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd ryzen 7 5700x|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd ryzen 7 5800xt|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd ryzen 7 9700x|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd ryzen 9 7950x|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd threadripper 7970x|price move|2026-11-16": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "trade|VN|same calendar month|2026-09-01": {
+  "baseline": true,
+  "first_seen": "2026-11-16T13:05:47+00:00"
+ }
+}

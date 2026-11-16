@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "benchmarks",
   "description": "Blender benchmark median per recognised model, whether or not it has a price.",
-  "generated_at": "2026-11-15T16:38:15+00:00",
+  "generated_at": "2026-11-16T13:05:40+00:00",
   "rows": 322,
   "columns": [
    "kind",
@@ -24,7 +24,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-14T18:44:44+00:00"
+    "retrieved_at": "2026-11-16T12:02:54+00:00"
    }
   ],
   "preliminary": false,
@@ -955,10 +955,10 @@
    "device_name": "AMD Ryzen 9 5900XT 16-Core Processor",
    "device_type": "CPU",
    "blender_version": "4.5",
-   "n_runs": 76,
-   "median_score": 363.35101693641275,
-   "p25_score": 336.2651132281183,
-   "p75_score": 399.9486754207938
+   "n_runs": 77,
+   "median_score": 363.53518782496855,
+   "p25_score": 336.7147743908736,
+   "p75_score": 402.06454714180427
   },
   {
    "kind": "cpu",
@@ -1897,6 +1897,17 @@
   },
   {
    "kind": "cpu",
+   "model_key": "amd ryzen 5 3600x",
+   "device_name": "AMD Ryzen 5 3600X 6-Core Processor",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 23,
+   "median_score": 137.76350209244742,
+   "p25_score": 131.51562344064774,
+   "p75_score": 142.57900502956403
+  },
+  {
+   "kind": "cpu",
    "model_key": "intel core i5-13500",
    "device_name": "13th Gen Intel Core i5-13500",
    "device_type": "CPU",
@@ -1916,17 +1927,6 @@
    "median_score": 254.7610004334266,
    "p25_score": 247.16016738415004,
    "p75_score": 290.3696783299506
-  },
-  {
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 3600x",
-   "device_name": "AMD Ryzen 5 3600X 6-Core Processor",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 22,
-   "median_score": 137.91753421204496,
-   "p25_score": 132.6824624652719,
-   "p75_score": 142.86319448588108
   },
   {
    "kind": "cpu",

@@ -1,0 +1,68 @@
+{
+ "meta": {
+  "module": "procurement",
+  "table": "findings",
+  "description": "Items this module's fixed rule marks as unusual. Rule: the change in net obligations from the month before, in the latest month that is not provisional, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
+  "generated_at": "2026-11-16T13:05:47+00:00",
+  "rows": 1,
+  "columns": [
+   "key",
+   "module",
+   "subject",
+   "period",
+   "sentence",
+   "rule",
+   "measure",
+   "threshold",
+   "label",
+   "label_reason",
+   "test_passed",
+   "page",
+   "table"
+  ],
+  "sources": [
+   {
+    "id": "usaspending",
+    "name": "USAspending.gov (federal contract transactions)",
+    "url": "https://www.usaspending.gov/",
+    "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
+    "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
+    "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
+    "retrieved_at": "2026-11-15T21:05:51+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Contracts for computer hardware only, chosen by Product and Service Code. The buyer picks one code for a whole contract, so a contract that mixes hardware with software or services is counted in full or not at all.",
+   "The code list was rewritten on 1 October 2020. Figures before and after that month are not on the same footing, and the new codes cover hardware together with software sold under a perpetual licence.",
+   "Department of Defense records are published 90 days late, so the newest three months miss most defence buying. They are marked provisional.",
+   "Obligations are money promised, not money paid. An action can be negative when money is taken back, so a month's total is a net figure.",
+   "Agencies correct old records; every figure can change on the next retrieval."
+  ],
+  "latest_month": "2026-10",
+  "first_provisional_month": "2026-08",
+  "provisional_fiscal_years": [
+   2026
+  ],
+  "code_change": "2020-10",
+  "first_fiscal_year": 2017,
+  "rule_text": "the change in net obligations from the month before, in the latest month that is not provisional, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule)."
+ },
+ "data": [
+  {
+   "key": "procurement|computer hardware|same calendar month|2026-07-01",
+   "module": "procurement",
+   "subject": "computer hardware",
+   "period": "2026-07-01",
+   "sentence": "Federal obligations for computer hardware fell 47.9% from the month before in July 2026, to $484 million, 2.9 spreads from what July usually brings.",
+   "rule": "same calendar month",
+   "measure": -2.942719408081896,
+   "threshold": 2.5,
+   "label": "observation",
+   "label_reason": "Arithmetic on summed transactions: the latest settled month's change against the same calendar month in earlier years. No model; it says the month was unusual, not why.",
+   "test_passed": null,
+   "page": "procurement/index.qmd",
+   "table": "procurement/monthly.json"
+  }
+ ]
+}

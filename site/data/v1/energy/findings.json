@@ -1,0 +1,39 @@
+{
+ "meta": {
+  "module": "energy",
+  "table": "findings",
+  "description": "Items this module's fixed rule marks as unusual. Rule: an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years.",
+  "generated_at": "2026-11-16T13:05:45+00:00",
+  "rows": 0,
+  "columns": [
+   "key",
+   "module",
+   "subject",
+   "period",
+   "sentence",
+   "rule",
+   "measure",
+   "threshold",
+   "label",
+   "label_reason",
+   "test_passed",
+   "page",
+   "table"
+  ],
+  "sources": [
+   {
+    "id": "ember_monthly",
+    "name": "Ember Monthly Electricity Data",
+    "url": "https://ember-energy.org/data/monthly-electricity-data",
+    "licence": "Creative Commons Attribution 4.0 (CC BY 4.0), stated on the dataset page: \"All content is released under a Creative Commons Attribution Licence (CC-BY-4.0).\" Reuse, including derived figures, is allowed with credit to Ember; the site credits it under every table.",
+    "frequency": "fetched at most once every six days; the publisher updates twice a month",
+    "typical_lag": "one to six months, different for each country",
+    "retrieved_at": "2026-11-15T10:46:52+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [],
+  "rule_text": "an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years."
+ },
+ "data": []
+}
