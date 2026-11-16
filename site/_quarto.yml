@@ -52,6 +52,8 @@ website:
             href: procurement/paid.qmd
       - text: "Monthly brief"
         href: briefs/index.qmd
+      - text: "Decisions"
+        href: decisions.qmd
       - text: "Methodology"
         href: methodology.qmd
       - text: "Sources"

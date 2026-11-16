@@ -316,6 +316,25 @@ called new without an earlier build to compare with.
   (2.5 spreads), and federal hardware obligations in July (down 47.9%, 2.9 spreads). No energy
   or price item. No item is a prediction. The first scheduled build on main sets the baseline.
 
+## Decide
+
+The plan's last phase: a written decision on each open question, with the evidence, on the
+site's [Decisions page](site/decisions.qmd). Decided on 16 November 2026:
+
+- **Backend: stay static.** None of the five triggers has fired. Published data is 3.1 MB
+  against a 500 MB trigger, and Bright Data, the one paid provider, stays private and unused in
+  any published table. Revisit when a trigger fires, or in May 2027.
+- **US Housing: no-go for now.** Modules 1 to 4 are built but not yet stable by their own tests.
+  Revisit on 15 December 2026, when the Harden exit can first be met.
+- **Demand Radar: go for the two-week experiment.** Four pre-registered tests check whether
+  Wikipedia pageviews of product categories lead Census retail sales, with Trade's lead-time bar.
+  Written up by 30 November 2026.
+- **Lead-lag studies: six tests fixed now, run once from 15 May 2027** on our own
+  first-published values.
+
+Exit criterion (from the plan): a written decision on each, with the evidence. Met for the
+backend, US Housing and the lead-lag plan; the Demand Radar decision waits on its experiment.
+
 ## First-time setup
 
 These are the steps only the repository owner can do.
