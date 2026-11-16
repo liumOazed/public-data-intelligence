@@ -1,6 +1,6 @@
 """Names only: which Census MARTS categories exist, and whether candidate articles have
 monthly pageviews since July 2015. Prints no figures."""
-import json, os, urllib.request, urllib.parse
+import json, os, urllib.error, urllib.request, urllib.parse
 
 UA = {"User-Agent": "public-data-intelligence research pipeline (github.com/liumOazed/public-data-intelligence)"}
 
@@ -17,12 +17,17 @@ for var in ("category_code", "data_type_code"):
         print(var, json.dumps(d.get("values", d), indent=0)[:4000])
     except Exception as e:
         print(var, "error", e)
-q = {"get": "category_code,data_type_code,seasonally_adj", "time": "from 2015-01 to 2015-02", "for": "us:*"}
-if key: q["key"] = key
-rows = get("https://api.census.gov/data/timeseries/eits/marts?" + urllib.parse.urlencode(q))
-cats = sorted({(r[0], r[1], r[2]) for r in rows[1:]})
-print("category, data type, seasonally adjusted present in 2015:", cats)
-
+for q in ({"get": "category_code,data_type_code,seasonally_adj", "time": "2015-01"},
+          {"get": "category_code,data_type_code,seasonally_adj", "time": "2015-01", "for": "us:*"}):
+    if key:
+        q["key"] = key
+    try:
+        rows = get("https://api.census.gov/data/timeseries/eits/marts?" + urllib.parse.urlencode(q))
+        cats = sorted({(r[0], r[1], r[2]) for r in rows[1:]})
+        print("query", sorted(k for k in q if k != "key"), "ok; categories in 2015-01:", cats)
+        break
+    except urllib.error.HTTPError as e:
+        print("query", sorted(k for k in q if k != "key"), "failed", e.code, e.read()[:300])
 ARTICLES = ["Laptop", "Television", "Smartphone", "Video_game_console", "Headphones",
             "Refrigerator", "Washing_machine", "Furniture", "Couch", "Mattress", "Bed",
             "Table_(furniture)", "Clothing", "Jeans", "Dress", "Sneakers", "Coat_(clothing)",
