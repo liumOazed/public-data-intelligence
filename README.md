@@ -259,6 +259,39 @@ Philippines, Singapore, Thailand and Vietnam. Indonesia has no monthly demand at
   the data, so nothing is built on it until JODI says otherwise. A cross-check of the US
   figures against the EIA is in the backlog (it needs an EIA key).
 
+## What's unusual this week
+
+One page that lists, across every module, what moved unusually, each item with its finding
+label, the date it refers to, and a link to the page and data file behind it. Written on 16
+November 2026, before the page was first built.
+
+### Exit criterion
+
+Written before the page was first built: **the page builds on schedule, and no untested finding
+is labelled a prediction.** Both parts must hold:
+
+1. The page is rebuilt by the scheduled runs on main, with no run started by hand, on four
+   Mondays in a row (the first possible four are 23 November to 14 December 2026).
+2. At every build, an item labelled prediction must carry a passed out-of-sample test from its
+   module; the build stops otherwise. Checked in code at every build, and by a test.
+
+### Fixed rules, one per module
+
+Set before any item was computed. A rule changed later is a new rule with its own failures-log
+row.
+
+| Module | An item is listed when |
+|---|---|
+| Macro Monitor | a series' latest month carries a flag under the module's own rule: 2.5 spreads against its own ten-year history, or against its neighbours |
+| Energy Demand | an economy's latest month is flagged under the same rule (the move against the same calendar month in up to ten earlier years, 2.5 spreads) |
+| Trade | the month-on-month change in US imports from a partner, in its latest month, is 2.5 spreads from what that calendar month usually brings, by the same rule |
+| Federal Procurement | the month-on-month change in obligations, in the latest month that is not provisional, is 2.5 spreads from what that calendar month usually brings, by the same rule |
+| Tech Value | a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier (or its earliest price within those seven days) |
+
+"New this week" means the item was first seen by a build in the seven days before this one.
+Items present at the very first build are shown as standing, not new, since nothing can be
+called new without an earlier build to compare with.
+
 ## First-time setup
 
 These are the steps only the repository owner can do.
