@@ -1,0 +1,92 @@
+---
+title: "Decisions"
+subtitle: "The Decide phase: what was decided, against which rule, on what evidence"
+---
+
+Each decision below is checked against a rule that was written in the build plan before this
+phase started. The evidence is what the repository and its runs showed on 16 November 2026.
+A decision is revisited on the date it gives, or sooner if the evidence changes.
+
+## Backend: stay static
+
+**Rule.** Stay on static files until one of five triggers fires. Each trigger is a need that
+precomputed files cannot meet.
+
+| Trigger | Evidence on 16 November 2026 | Fired? |
+|---|---|---|
+| Users want their own watchlists or alerts | There are no accounts and no requests for them. | No |
+| Published data passes about 500 MB, or pages need queries too heavy for a browser | Every published table together is 3.1 MB (`site/data/v1/`), and the largest single table is 1.3 MB. | No |
+| A source needs refreshing more often than hourly | The fastest source is collected daily; the rest weekly or monthly. | No |
+| Licensed or paid data is added | Bright Data, a paid provider, is set up on its free allowance, and its raw rows are never committed or published. None of today's published tables use it: the price tables list only Central Computers and Blender Open Data as sources. | No, but watched |
+| The site starts charging or selling | Nothing is sold. | No |
+
+**Decision: stay static.** Revisit the day any trigger fires, and at the latest at the
+six-month review in May 2027. The Bright Data line fires if a paid plan is bought, or if its
+listings ever need to be served rather than summarised.
+
+## US Housing: no-go for now
+
+**Rule.** Build US Housing only if modules 1 to 4 are stable.
+
+**Evidence.** They are built, but not yet stable by their own tests:
+
+- Harden: the 30 days with no silent failure started on 15 November, so it cannot finish
+  before 15 December.
+- Macro Monitor: the full monthly cycle on schedule is still open.
+- Federal Procurement: the 1% totals criterion as written is not met (95 of 121 months). The
+  row-by-row check explains 25 of the 26 missed months, and one is still to be checked.
+- GitHub started the scheduled daily run hours late on both days so far (about six and seven
+  hours). On 15 November a run was started by hand before the late one arrived.
+
+**Decision: no-go until the Harden exit is met.** Revisit on 15 December 2026. Even then, US
+Housing goes ahead only if no failure Issue has opened in the 30 days before.
+
+## Demand Radar: run the two-week experiment, designed now
+
+**Rule.** Treat the radar as research, not product: a two-week experiment, then a written
+go or no-go.
+
+**What is possible.** Three of the four inputs the plan names need something the pipeline does
+not have. Google Trends has no API, so it needs a manual export. YouTube metrics need a key.
+Marketplace and forum data are ruled out by their terms. Two inputs are free and automatic:
+Wikimedia pageviews (daily since July 2015, open licence, no key) and Census monthly retail
+sales by kind of business (the Census key is already set up).
+
+**The test, fixed before any data is pulled.**
+
+- Question: does attention to a product category lead US spending on it? Attention is the
+  monthly change in English Wikipedia pageviews of a fixed list of category articles. Spending
+  is the monthly change in Census retail sales for the matching kind of business.
+- Pairs: electronics and appliance stores; furniture stores; clothing stores; sporting goods,
+  hobby, musical instrument and book stores. That is four tests.
+- Baseline: persistence, meaning last month's change in sales.
+- Pass: adding last month's change in pageviews beats the baseline on months the model never
+  saw, by more than twice the standard error of the gain. This is the same bar as the Trade
+  lead-time test. Train on July 2015 to December 2021, score once on 2022 onwards.
+- Every result is logged, and a pass is a prediction for that pair only. Four tests at this bar
+  can produce a false pass by chance, so a single pass is reported with that caveat.
+
+**Decision: go for the experiment.** Two weeks from 16 November, written up by 30 November
+2026. Whether the radar becomes a module is decided then, on that result.
+
+## Lead-lag studies: a plan for May 2027
+
+**Rule.** Plan lead-lag studies only for series with six months or more of our own history.
+A lead found in the past is not proof of cause.
+
+**Evidence.** The pipeline began keeping its own first-published values on 15 November 2026:
+23,325 macro values, plus the energy figures. Six months of that history arrive on 15 May
+2027. The Trade lead-time test of 15 November used latest values and found no signal.
+
+**Plan, fixed now.** Six tests, run once from 15 May 2027 on first-published values only:
+
+1. US imports from Vietnam, Thailand and Malaysia leading each economy's own reported exports
+   (IMF). This repeats the Trade test in real time. Three tests.
+2. Indeed's US job postings index leading the monthly change in US nonfarm payrolls. One test.
+3. Electricity demand per day leading industrial production in the United States and
+   Malaysia. Two tests.
+
+Each test uses the Trade lead-time rule: a persistence baseline, a gain of more than twice its
+standard error out of sample, and the result published either way. A pass is labelled a
+prediction for that pair only and never described as a cause. All six go in the failures log,
+passes and failures alike.
