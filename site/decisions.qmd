@@ -52,17 +52,30 @@ Marketplace and forum data are ruled out by their terms. Two inputs are free and
 Wikimedia pageviews (daily since July 2015, open licence, no key) and Census monthly retail
 sales by kind of business (the Census key is already set up).
 
-**The test, fixed before any data is pulled.**
+**The test, fixed before any data is pulled.** The details were settled on 16 November 2026,
+after checking only which categories and articles exist, and before any figure was fetched.
+They are in [`pdi/radar/config.py`](https://github.com/liumOazed/public-data-intelligence/blob/main/pdi/radar/config.py).
 
-- Question: does attention to a product category lead US spending on it? Attention is the
-  monthly change in English Wikipedia pageviews of a fixed list of category articles. Spending
-  is the monthly change in Census retail sales for the matching kind of business.
-- Pairs: electronics and appliance stores; furniture stores; clothing stores; sporting goods,
-  hobby, musical instrument and book stores. That is four tests.
+- Question: does attention to a product category lead US spending on it?
+- Attention: monthly pageviews by people (not bots) on English Wikipedia, summed over a fixed
+  list of articles for each category. The change is measured on the same month a year earlier.
+- Spending: Census monthly retail sales (MARTS, not seasonally adjusted) for the matching kind
+  of business, also as the change on the same month a year earlier. Comparing with a year
+  earlier removes the seasons from both series in the same way.
+- Pairs, four tests:
+
+  | Census kind of business | Articles |
+  |---|---|
+  | 443 Electronics and appliance stores | Laptop, Television, Smartphone, Video game console, Headphones, Refrigerator, Washing machine |
+  | 442 Furniture and home furnishings stores | Furniture, Couch, Mattress, Bed, Table (furniture) |
+  | 448 Clothing and clothing accessories stores | Clothing, Jeans, Dress, Sneakers, Coat (clothing) |
+  | 451 Sporting goods, hobby, musical instrument and book stores | Bicycle, Golf, Camping, Fishing tackle, Guitar, Book, Board game, Jigsaw puzzle, Treadmill |
+
 - Baseline: persistence, meaning last month's change in sales.
-- Pass: adding last month's change in pageviews beats the baseline on months the model never
-  saw, by more than twice the standard error of the gain. This is the same bar as the Trade
-  lead-time test. Train on July 2015 to December 2021, score once on 2022 onwards.
+- Model: the baseline plus last month's change in pageviews, one straight line.
+- Pass: the model beats the baseline on months it never saw, by more than twice the standard
+  error of the gain in absolute error. This is the same bar as the Trade lead-time test. Fit
+  on months up to December 2021, score once on January 2022 onwards.
 - Every result is logged, and a pass is a prediction for that pair only. Four tests at this bar
   can produce a false pass by chance, so a single pass is reported with that caveat.
 
