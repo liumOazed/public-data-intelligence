@@ -38,7 +38,9 @@ nine days, or any published file is out of date: a source retrieved longer ago t
 allowance (two days for daily sources, nine for weekly ones), a file not regenerated within two
 days, or a key table empty. It closes the Issue when every check passes. GitHub starts
 scheduled runs hours late on free accounts, so the 48-hour window is wide on purpose. The
-monthly brief lists the days with no successful run.
+monthly brief lists the days with no successful run. GitHub can also drop a scheduled start altogether, so
+the daily workflow has a second slot at 19:47 UTC that does nothing if a run already succeeded
+that day.
 
 ## Trade and Supply Chain
 
@@ -111,9 +113,11 @@ observations.
 **Matching USAspending.** For every month, the downloaded transactions are summed and compared
 with the monthly figure from USAspending's own search for the same filters. The criterion is
 that every month is within 1%. The figures are shown either way with the verdict beside them.
-When months miss, the collector lists the transactions behind the search figure for the six
-worst months and counts the ones that appear twice under the same internal id; that diagnosis
-is shown next to the verdict and does not change it.
+When months miss, a second check, added after the first failed, lists the transactions behind
+the search figure for every missed month and matches them to the download one by one on award,
+modification, date and amount. A month reconciles when no listed transaction is missing from
+the download and, with exact second copies removed, the two agree within 0.1%. The result is
+shown next to the verdict and does not change it.
 
 **Provisional months.** Department of Defense records are published 90 days late. Months and
 fiscal years that ended fewer than 90 days before retrieval are marked provisional and are

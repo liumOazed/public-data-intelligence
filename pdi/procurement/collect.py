@@ -17,6 +17,7 @@ import io
 import json
 import time
 import zipfile
+from collections import Counter
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -30,11 +31,12 @@ MONEY = ("federal_action_obligation", "total_dollars_obligated",
          "potential_total_value_of_award", "total_outlayed_amount_for_overall_award")  # fmt: skip
 
 
-def call(method: str, path: str, body: dict | None = None, retries: int = 4) -> dict:
+def call(method: str, path: str, body: dict | None = None, retries: int = 6) -> dict:
+    """One API call. The service drops connections now and then, so waits grow to a minute."""
     last = "no attempt made"
     for attempt in range(retries):
         if attempt:
-            time.sleep(2**attempt)
+            time.sleep(min(60, 2 ** (attempt + 1)))
         try:
             resp = requests.request(method, config.API + path, json=body, timeout=180,
                                     headers={"User-Agent": USER_AGENT})  # fmt: skip
@@ -159,35 +161,60 @@ def check_totals(monthly: pd.DataFrame, published: pd.DataFrame, today: date) ->
     return both.reset_index(drop=True)
 
 
-def diagnose(period: pd.Timestamp, ours: float) -> dict:
-    """List the transactions behind the published figure for one month and count repeats."""
+SEARCH_FIELDS = ["Award ID", "Mod", "Transaction Amount", "Action Date"]
+
+
+def search_rows(period: pd.Timestamp) -> pd.DataFrame:
+    """Every transaction USAspending's search counts in one month, page by page."""
     end = (period + pd.offsets.MonthEnd(0)).date()
-    body = {"filters": filters(period.date(), end), "limit": 100, "sort": "Transaction Amount",
-            "order": "desc", "fields": ["Award ID", "Mod", "Transaction Amount", "Action Date",
-                                        "internal_id"]}  # fmt: skip
+    body = {"filters": filters(period.date(), end), "limit": 100, "fields": SEARCH_FIELDS,
+            "sort": "Transaction Amount", "order": "desc"}  # fmt: skip
     rows, page = [], 1
     while True:
         answer = call("POST", config.BY_TRANSACTION, {**body, "page": page})
         rows += answer.get("results", [])
-        if not answer.get("page_metadata", {}).get("hasNext") or page >= 400:
+        if not answer.get("page_metadata", {}).get("hasNext"):
             break
         page += 1
-    if not rows:
-        return {"period": period.strftime("%Y-%m"), "ours": float(ours), "listed_rows": 0}
-    df = pd.DataFrame(rows)
-    repeat = df[df.duplicated("internal_id", keep="first")]
-    once = df.drop_duplicates("internal_id")
+        if page > 2000:
+            raise CollectError(f"{period:%Y-%m}: search listing did not end after 2,000 pages")
+    return pd.DataFrame(rows, columns=SEARCH_FIELDS)
+
+
+def _keys(award: pd.Series, mod: pd.Series, date: pd.Series, amount: pd.Series) -> Counter:
+    return Counter(zip(award.astype(str), mod.astype(str), date.astype(str),
+                       amount.astype(float).round(2), strict=True))  # fmt: skip
+
+
+def reconcile(period: pd.Timestamp, month_tx: pd.DataFrame, listed: pd.DataFrame) -> dict:
+    """Match the search's transactions for one month with the download's, row by row."""
+    piid = month_tx["contract_award_unique_key"].str.split("_").str[2]
+    ours = _keys(piid, month_tx["modification_number"],
+                 month_tx["action_date"].dt.strftime("%Y-%m-%d"),
+                 month_tx["federal_action_obligation"])  # fmt: skip
+    theirs = _keys(listed["Award ID"], listed["Mod"], listed["Action Date"],
+                   listed["Transaction Amount"])  # fmt: skip
+    extra = theirs - ours
+    copies = {k: v for k, v in extra.items() if k in ours}
+    missing = {k: v for k, v in extra.items() if k not in ours}
+    download_only = ours - theirs
+    ours_sum = float(month_tx["federal_action_obligation"].sum())
+    listed_sum = float(listed["Transaction Amount"].astype(float).sum())
+    copies_sum = float(sum(k[3] * v for k, v in copies.items()))
+    gap = abs(listed_sum - copies_sum - ours_sum) / max(abs(ours_sum), 1.0)
     return {
         "period": period.strftime("%Y-%m"),
-        "ours": float(ours),
-        "listed_rows": int(len(df)),
-        "listed_sum": float(df["Transaction Amount"].sum()),
-        "repeated_rows": int(len(repeat)),
-        "repeated_sum": float(repeat["Transaction Amount"].sum()),
-        "listed_once_sum": float(once["Transaction Amount"].sum()),
-        "gap_after_removing_repeats_share": float(
-            abs(ours - once["Transaction Amount"].sum()) / abs(once["Transaction Amount"].sum())
-        ),
+        "download": ours_sum,
+        "download_rows": int(len(month_tx)),
+        "search": listed_sum,
+        "search_rows": int(len(listed)),
+        "extra_copies": int(sum(copies.values())),
+        "extra_copies_sum": copies_sum,
+        "search_rows_not_in_download": int(sum(missing.values())),
+        "download_rows_not_in_search": int(sum(download_only.values())),
+        "download_rows_not_in_search_sum": float(sum(k[3] * v for k, v in download_only.items())),
+        "gap_after_copies_share": float(gap),
+        "reconciled": bool(not missing and gap <= config.RECONCILE_TOLERANCE),
     }
 
 
@@ -241,11 +268,22 @@ def collect(today: date | None = None, raw_dir: Path | None = None) -> pd.DataFr
                     "sha256": hashlib.sha256(body).hexdigest(), "bytes": len(body)}, indent=2)
     )  # fmt: skip
     check = check_totals(built["monthly"], parse_published(answer), today)
-    missed = check[~check["within_limit"]]
-    worst = missed.assign(gap=(missed["obligations"] - missed["published"]).abs()).nlargest(
-        config.DIAGNOSE_MONTHS, "gap"
-    )
-    diagnosis = [diagnose(r["period"], r["obligations"]) for _, r in worst.iterrows()]
+    month = tx["action_date"].dt.to_period("M").dt.to_timestamp()
+    diagnosis = []
+    for period in check.loc[~check["within_limit"], "period"]:
+        try:
+            listed = search_rows(period)
+        except CollectError as exc:
+            # The month stays unreconciled and the page says so; the stored sums are unaffected.
+            print(f"{period:%Y-%m}: search listing failed ({exc}); month left unreconciled")
+            diagnosis.append({"period": period.strftime("%Y-%m"), "reconciled": False,
+                              "error": str(exc)[:200]})  # fmt: skip
+            continue
+        row = reconcile(period, tx[month == period], listed)
+        print(f"{row['period']}: {row['extra_copies']} extra copies in the search, "
+              f"{row['search_rows_not_in_download']} search rows not in the download, "
+              f"gap after copies {row['gap_after_copies_share']:.4%}")  # fmt: skip
+        diagnosis.append(row)
 
     config.STORE_DIR.mkdir(parents=True, exist_ok=True)
     built["monthly"].to_parquet(config.MONTHLY, index=False)

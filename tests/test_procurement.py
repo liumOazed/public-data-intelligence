@@ -182,3 +182,37 @@ def test_check_flags_a_month_outside_the_limit_and_leaves_out_the_current_month(
     assert check["period"].dt.month.tolist() == [8, 9]
     assert check["within_limit"].tolist() == [True, False]
     assert check["gap_share"].iloc[1] == pytest.approx(23 / 123)
+
+
+def _month_tx():
+    tx = _tx([
+        {"contract_award_unique_key": "CONT_AWD_W1_9700_-NONE-_-NONE-", "modification_number": "0",
+         "action_date": "2026-01-05", "federal_action_obligation": 1000.0},
+        {"contract_award_unique_key": "CONT_AWD_W2_9700_X1_9700", "modification_number": "P00001",
+         "action_date": "2026-01-06", "federal_action_obligation": -50.0},
+    ])  # fmt: skip
+    return tx
+
+
+def test_reconcile_finds_second_copies_in_the_search():
+    listed = pd.DataFrame({
+        "Award ID": ["W1", "W1", "W2"], "Mod": ["0", "0", "P00001"],
+        "Action Date": ["2026-01-05", "2026-01-05", "2026-01-06"],
+        "Transaction Amount": [1000.0, 1000.0, -50.0],
+    })  # fmt: skip
+    row = collect.reconcile(pd.Timestamp("2026-01-01"), _month_tx(), listed)
+    assert row["search"] == 1950 and row["download"] == 950
+    assert row["extra_copies"] == 1 and row["extra_copies_sum"] == 1000
+    assert row["search_rows_not_in_download"] == 0
+    assert row["gap_after_copies_share"] == 0 and row["reconciled"]
+
+
+def test_reconcile_fails_when_the_search_has_a_transaction_the_download_lacks():
+    listed = pd.DataFrame({
+        "Award ID": ["W1", "W2", "W3"], "Mod": ["0", "P00001", "0"],
+        "Action Date": ["2026-01-05", "2026-01-06", "2026-01-07"],
+        "Transaction Amount": [1000.0, -50.0, 0.5],
+    })  # fmt: skip
+    row = collect.reconcile(pd.Timestamp("2026-01-01"), _month_tx(), listed)
+    assert row["search_rows_not_in_download"] == 1
+    assert not row["reconciled"], "a missing row fails even when the money is tiny"

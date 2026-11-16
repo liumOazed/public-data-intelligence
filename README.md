@@ -153,6 +153,10 @@ Written on 15 November 2026. The phase is done when both hold:
   counts as a failure even when every workflow is green. GitHub starts scheduled runs late on
   free accounts (the run due 09:17 UTC on 14 November started at about 15:52 UTC), so the
   48-hour window leaves room for delays of several hours without false alarms.
+- **Second daily slot.** On 15 November the 09:17 start had still not appeared by 16:20 UTC
+  and the day was started by hand (the late scheduled run then arrived at 16:26). The daily
+  workflow now has a second schedule at 19:47 UTC that runs the pipeline only if no daily run
+  has succeeded on main that day, so one dropped start does not cost a day.
 - **IMF series.** Exports and imports of goods and official reserves excluding gold for all six
   Southeast Asian economies, and Vietnam's consumer prices (19 series, from 2011, because Singapore's trade figures change basis in 2004 and again in 2010). Trade and
   reserves join the neighbour comparison, since the IMF compiles them on one definition.
@@ -214,11 +218,15 @@ month has to pass.
 
 **Result on 15 November 2026: not met.** 95 of 121 months are within 1%; 26 are not, and the
 worst (January 2026) is 14.2% apart. Over the whole period the search figure is 0.8% higher
-than the download. For the six months furthest apart, the transactions behind the search
-figure were listed one by one: 1,017 of 17,066 rows were a second copy of a transaction already
-listed under the same internal id, and with each counted once five of the six months come
-within 1%. So the evidence points at double counting in USAspending's search, but the
-criterion as written is not met and the limit has not been moved. The pages show the download
+than the download. The limit has not been moved.
+
+**Second check, added after the first failed: 25 of 26 missed months reconcile row by row.**
+The transactions behind the search figure were matched to the download one by one on award,
+modification, date and amount. In every month checked, every transaction the search lists is
+in the download; the search lists 288 transactions a second time, worth $442.6 million, and
+with those removed the two agree within 0.0004%. October 2024 could not be listed (dropped
+connection) and is retried weekly. So the gap is double counting in USAspending's search, but
+the original criterion stays recorded as not met. The pages show the download
 figures with this verdict beside them, and the source is marked amber.
 
 ### What is built
@@ -281,8 +289,8 @@ export, build and deploy.
 
 | Workflow | Schedule (UTC) | What it does |
 |---|---|---|
-| `daily.yml` | 09:17 every day | Price snapshot, macro series and flags, rebuild exported tables, write last month's brief on the first run of a month, deploy |
-| `weekly.yml` | Monday 05:43 | Refresh SPEC and Blender tables, retrain AutoGluon (Tech Value and the macro forecast test), deploy |
+| `daily.yml` | 09:17 every day, and 19:47 if no run has succeeded that day | Price snapshot, macro series and flags, rebuild exported tables, write last month's brief on the first run of a month, deploy |
+| `weekly.yml` | Monday 05:43 | Refresh SPEC and Blender tables, federal hardware contracts (USAspending), retrain AutoGluon (Tech Value and the macro forecast test), deploy |
 | `heartbeat.yml` | 03:05 and 21:05 every day | Opens one Issue if the daily run has not succeeded on main in 48 hours, the weekly run in 9 days, or any published table is stale or empty (`pdi/health.py`); closes it when all checks pass again |
 | `samples.yml` | by hand, on a branch | Refreshes the real response slices the parser tests use and commits them to that branch |
 | `site.yml` | called by the two above | Renders Quarto and publishes to Pages |
