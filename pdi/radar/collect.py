@@ -34,6 +34,8 @@ def parse_pageviews(payload: dict, article: str) -> pd.DataFrame:
 def parse_sales(payload: list, category: str) -> pd.DataFrame:
     head, rows = payload[0], payload[1:]
     df = pd.DataFrame(rows, columns=head)
+    # A column used as a predicate comes back a second time; keep the first copy.
+    df = df.loc[:, ~df.columns.duplicated()]
     df = df[(df["category_code"] == category) & (df["data_type_code"] == config.SALES_DATA_TYPE)]
     df = df[df["seasonally_adj"] == config.SALES_ADJUSTED]
     out = pd.DataFrame(

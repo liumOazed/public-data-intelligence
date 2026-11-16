@@ -26,11 +26,18 @@ def test_parse_pageviews_and_sales():
         "2015-08-01"
     )
     payload = [
-        ["cell_value", "category_code", "data_type_code", "seasonally_adj", "time"],
-        ["100", "443", "SM", "no", "2015-01"],
-        ["90", "443", "SM", "yes", "2015-01"],
-        ["5", "443", "E_SM", "no", "2015-01"],
-        ["110", "443", "SM", "no", "2015-02"],
+        [
+            "cell_value",
+            "category_code",
+            "data_type_code",
+            "seasonally_adj",
+            "time",
+            "category_code",
+        ],
+        ["100", "443", "SM", "no", "2015-01", "443"],
+        ["90", "443", "SM", "yes", "2015-01", "443"],
+        ["5", "443", "E_SM", "no", "2015-01", "443"],
+        ["110", "443", "SM", "no", "2015-02", "443"],
     ]
     sales = collect.parse_sales(payload, "443")
     assert list(sales["sales_musd"]) == [100.0, 110.0]

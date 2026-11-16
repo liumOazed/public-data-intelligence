@@ -1,4 +1,4 @@
-name: Demand Radar experiment (temporary, runs once)
+name: Demand Radar experiment (temporary, runs once, attempt 2)
 on:
   push:
     branches: [claude/project-thread-qr1gop]
