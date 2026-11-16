@@ -9,7 +9,7 @@ GitHub Actions. There is no server, no database and no Streamlit.
 
 | Order | Module | Status |
 |---|---|---|
-| 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Built; pipeline and failure Issue proven on GitHub, Pages deploy not yet run |
+| 0 | Skeleton: Quarto site, Pages deploy, scheduled Actions, source registry, failure Issues, heartbeat | Exit criterion met 16 November 2026: a scheduled run updated the live site unattended (15 November), and a deliberate fire drill opened an Issue and left the site intact |
 | 1 | **Tech Value**: which processors beat their specifications, and CPU and GPU performance per dollar | Benchmarks, model and price crawler run on live data; prices come from one small retailer (see below) |
 | 2 | **Macro Monitor**: which series moved unusually against their own history and against neighbouring economies | Built and run once on live data; exit criterion needs one full monthly cycle |
 | Harden | Heartbeat with a data-freshness check, parser tests on real response slices, monthly "what changed" brief, IMF series for Southeast Asia; energy demand chosen as the one public sector to cover | Built; exit criterion needs 30 days on schedule (see below) |
@@ -77,6 +77,14 @@ Written before any result was seen. The module is done when all of these hold on
 2. The ranking page shows the price date beside every price.
 3. The daily price collector has run on schedule with nobody touching it, and a deliberately
    broken collector has opened an Issue and left the site intact.
+
+**Result for 3 on 16 November 2026: met.** The scheduled daily run of 15 November (started by
+GitHub at 16:26 UTC, seven hours late) collected prices, committed the day's data as the bot
+and deployed the site. A run started by hand a minute earlier did the same; the scheduled run
+needed nothing from it. On 16 November the daily run was started on main with `fire_drill`
+on: the crawler failed on purpose, every later step and the site job were skipped, nothing was
+committed, the last Pages deploy stayed the one from 15 November, and Issue #24 opened 22
+seconds after the start. The Issue was then closed with a note.
 
 The split dates and thresholds live in [`pdi/tech_value/config.py`](pdi/tech_value/config.py).
 Changing them after looking at holdout results breaks the test; record any change in the
