@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "value",
   "description": "Latest US retail price per model joined to its Blender benchmark score.",
-  "generated_at": "2026-11-16T14:48:28+00:00",
-  "rows": 39,
+  "generated_at": "2026-11-16T19:46:44+00:00",
+  "rows": 40,
   "columns": [
    "kind",
    "model_key",
@@ -54,7 +54,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-16T14:03:15+00:00"
+    "retrieved_at": "2026-11-16T19:45:53+00:00"
    },
    {
     "id": "blender_opendata",
@@ -497,6 +497,29 @@
    "backend": "CPU",
    "blender_version": "4.5",
    "score_per_dollar": 1.284710709034313
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-14700kf",
+   "price_usd": 352.99,
+   "median_price_usd": 352.99,
+   "retailer": "centralcomputer",
+   "n_retailers": 1,
+   "price_date": null,
+   "collected_date": "2026-11-16",
+   "regular_price_usd": null,
+   "n_listings": 1,
+   "confidence": "low",
+   "n_ignored_low": 0,
+   "listing_name": "Intel Core i7-14700KF 14th Gen Processor 20 Cores 28 Threads (8 + 12) 3.4GHz Base Clock 5.6GHz Turbo 125W TDPOEM Tray CM8071504820722",
+   "listing_url": "https://www.centralcomputer.com/intel-core-i7-14700kf-14th-gen-processor-20-cores-28-threads-8-12-3-4ghz-base-clock-5-6ghz-turbo-125w-tdp-cpuint147kfs.html",
+   "score": 444.3198445553608,
+   "p25_score": 424.5919696517061,
+   "p75_score": 466.77394086361465,
+   "n_runs": 121,
+   "backend": "CPU",
+   "blender_version": "4.5",
+   "score_per_dollar": 1.2587321016327964
   },
   {
    "kind": "cpu",

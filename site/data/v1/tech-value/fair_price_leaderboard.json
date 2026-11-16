@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price_leaderboard",
   "description": "Leave-one-out error of each fair price model, per kind of part, with the naive baseline.",
-  "generated_at": "2026-11-16T14:48:30+00:00",
+  "generated_at": "2026-11-16T19:46:48+00:00",
   "rows": 8,
   "columns": [
    "kind",
@@ -40,7 +40,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-16T14:03:15+00:00"
+    "retrieved_at": "2026-11-16T19:45:53+00:00"
    },
    {
     "id": "blender_opendata",
@@ -110,7 +110,7 @@
    "kind": "gpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 11,
-   "mae_log": 0.36084624208649674,
+   "mae_log": 0.3608462420864973,
    "median_abs_pct_error": 31.90461798358032,
    "used": false,
    "is_baseline": false
@@ -120,7 +120,7 @@
    "model": "Straight line with brand",
    "n_parts": 11,
    "mae_log": 0.34437851297619493,
-   "median_abs_pct_error": 34.32143110951656,
+   "median_abs_pct_error": 34.321431109516794,
    "used": false,
    "is_baseline": false
   },
@@ -146,8 +146,8 @@
    "kind": "cpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 17,
-   "mae_log": 0.21129194334654594,
-   "median_abs_pct_error": 18.166756159844947,
+   "mae_log": 0.21129194334654577,
+   "median_abs_pct_error": 18.166756159845054,
    "used": false,
    "is_baseline": false
   },
@@ -155,7 +155,7 @@
    "kind": "cpu",
    "model": "Straight line with brand",
    "n_parts": 17,
-   "mae_log": 0.21640004969588295,
+   "mae_log": 0.21640004969588253,
    "median_abs_pct_error": 21.24561235179025,
    "used": false,
    "is_baseline": false

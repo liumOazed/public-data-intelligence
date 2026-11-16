@@ -3,7 +3,7 @@
   "module": "unusual",
   "table": "week",
   "description": "Every module's items flagged by its own fixed rule, with when each was first seen by a build and whether that was in the last seven days.",
-  "generated_at": "2026-11-16T14:48:34+00:00",
+  "generated_at": "2026-11-16T19:46:55+00:00",
   "rows": 18,
   "columns": [
    "key",
@@ -32,13 +32,13 @@
   },
   "window_days": 7,
   "first_build": false,
-  "built_at": "2026-11-16T14:48:34+00:00",
+  "built_at": "2026-11-16T19:46:55+00:00",
   "modules": [
    {
     "module": "macro",
     "name": "Macro Monitor",
     "items": 6,
-    "generated_at": "2026-11-16T14:48:32+00:00",
+    "generated_at": "2026-11-16T19:46:52+00:00",
     "rule": "a series' latest month is flagged: its move is 2.5 spreads or more from its own ten-year history, or from its Southeast Asian neighbours.",
     "status": null
    },
@@ -46,7 +46,7 @@
     "module": "energy",
     "name": "Energy Demand",
     "items": 0,
-    "generated_at": "2026-11-16T14:48:32+00:00",
+    "generated_at": "2026-11-16T19:46:53+00:00",
     "rule": "an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years.",
     "status": null
    },
@@ -54,7 +54,7 @@
     "module": "trade",
     "name": "Trade",
     "items": 1,
-    "generated_at": "2026-11-16T14:48:33+00:00",
+    "generated_at": "2026-11-16T19:46:54+00:00",
     "rule": "the change in US imports from a partner from the month before, in its latest month, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
     "status": null
    },
@@ -62,7 +62,7 @@
     "module": "procurement",
     "name": "Federal Procurement",
     "items": 1,
-    "generated_at": "2026-11-16T14:48:33+00:00",
+    "generated_at": "2026-11-16T19:46:55+00:00",
     "rule": "the change in net obligations from the month before, in the latest month that is not provisional, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
     "status": null
    },
@@ -70,7 +70,7 @@
     "module": "tech-value",
     "name": "Tech Value",
     "items": 10,
-    "generated_at": "2026-11-16T14:48:30+00:00",
+    "generated_at": "2026-11-16T19:46:48+00:00",
     "rule": "a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days.",
     "status": null
    }

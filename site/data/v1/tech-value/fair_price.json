@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "fair_price",
   "description": "Per part: the price its Blender score would predict, and how far the lowest listing is from it. Predictions for parts with two or more listings come from a fit that left that part out.",
-  "generated_at": "2026-11-16T14:48:30+00:00",
-  "rows": 39,
+  "generated_at": "2026-11-16T19:46:48+00:00",
+  "rows": 40,
   "columns": [
    "kind",
    "model_key",
@@ -45,7 +45,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-16T14:03:15+00:00"
+    "retrieved_at": "2026-11-16T19:45:53+00:00"
    },
    {
     "id": "blender_opendata",
@@ -155,8 +155,8 @@
    "kind": "cpu",
    "model_key": "amd ryzen 5 9600x",
    "price_usd": 200.0,
-   "fair_price_usd": 238.37401033475444,
-   "gap_pct": -16.098235827330708,
+   "fair_price_usd": 238.37401033475447,
+   "gap_pct": -16.09823582733072,
    "reading": "below fair price",
    "confidence": "two or more listings",
    "score": 262.65099457901806,
@@ -192,6 +192,20 @@
    "n_retailers": 1,
    "retailer": "centralcomputer",
    "listing_url": "https://www.centralcomputer.com/amd-ryzen-9-9900x-desktop-processor-without-cooleramd-ryzen-9-9900x-desktop-processor-without-cooler.html"
+  },
+  {
+   "kind": "cpu",
+   "model_key": "intel core i7-14700kf",
+   "price_usd": 352.99,
+   "fair_price_usd": 391.65939156735885,
+   "gap_pct": -9.873219537162136,
+   "reading": "near fair price",
+   "confidence": "single listing",
+   "score": 444.3198445553608,
+   "n_listings": 1,
+   "n_retailers": 1,
+   "retailer": "centralcomputer",
+   "listing_url": "https://www.centralcomputer.com/intel-core-i7-14700kf-14th-gen-processor-20-cores-28-threads-8-12-3-4ghz-base-clock-5-6ghz-turbo-125w-tdp-cpuint147kfs.html"
   },
   {
    "kind": "cpu",
@@ -267,8 +281,8 @@
    "kind": "cpu",
    "model_key": "amd ryzen 7 5700x",
    "price_usd": 188.98,
-   "fair_price_usd": 191.79659499069783,
-   "gap_pct": -1.4685323223983415,
+   "fair_price_usd": 191.79659499069786,
+   "gap_pct": -1.4685323223983526,
    "reading": "near fair price",
    "confidence": "two or more listings",
    "score": 214.38925258002163,
@@ -547,8 +561,8 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 2060",
    "price_usd": 279.99,
-   "fair_price_usd": 324.85576026540764,
-   "gap_pct": -13.810978826034127,
+   "fair_price_usd": 324.8557602654077,
+   "gap_pct": -13.810978826034138,
    "reading": "near fair price",
    "confidence": "single listing",
    "score": 1562.4203459528703,

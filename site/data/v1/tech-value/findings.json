@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days.",
-  "generated_at": "2026-11-16T14:48:30+00:00",
+  "generated_at": "2026-11-16T19:46:48+00:00",
   "rows": 10,
   "columns": [
    "key",
@@ -46,7 +46,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-16T14:03:15+00:00"
+    "retrieved_at": "2026-11-16T19:45:53+00:00"
    },
    {
     "id": "blender_opendata",
