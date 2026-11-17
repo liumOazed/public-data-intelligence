@@ -3,8 +3,8 @@
   "module": "unusual",
   "table": "week",
   "description": "Every module's items flagged by its own fixed rule, with when each was first seen by a build and whether that was in the last seven days.",
-  "generated_at": "2026-11-17T18:46:56+00:00",
-  "rows": 35,
+  "generated_at": "2026-11-17T19:20:28+00:00",
+  "rows": 36,
   "columns": [
    "key",
    "module",
@@ -32,13 +32,13 @@
   },
   "window_days": 7,
   "first_build": false,
-  "built_at": "2026-11-17T18:46:56+00:00",
+  "built_at": "2026-11-17T19:20:28+00:00",
   "modules": [
    {
     "module": "macro",
     "name": "Macro Monitor",
     "items": 6,
-    "generated_at": "2026-11-17T18:46:54+00:00",
+    "generated_at": "2026-11-17T19:20:26+00:00",
     "rule": "a series' latest month is flagged: its move is 2.5 spreads or more from its own ten-year history, or from its Southeast Asian neighbours.",
     "status": null
    },
@@ -46,7 +46,7 @@
     "module": "energy",
     "name": "Energy Demand",
     "items": 0,
-    "generated_at": "2026-11-17T18:46:55+00:00",
+    "generated_at": "2026-11-17T19:20:27+00:00",
     "rule": "an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years.",
     "status": null
    },
@@ -54,7 +54,7 @@
     "module": "trade",
     "name": "Trade",
     "items": 1,
-    "generated_at": "2026-11-17T18:46:55+00:00",
+    "generated_at": "2026-11-17T19:20:27+00:00",
     "rule": "the change in US imports from a partner from the month before, in its latest month, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
     "status": null
    },
@@ -62,20 +62,20 @@
     "module": "procurement",
     "name": "Federal Procurement",
     "items": 1,
-    "generated_at": "2026-11-17T18:46:56+00:00",
+    "generated_at": "2026-11-17T19:20:28+00:00",
     "rule": "the change in net obligations from the month before, in the latest month that is not provisional, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
     "status": null
    },
    {
     "module": "tech-value",
     "name": "Tech Value",
-    "items": 27,
-    "generated_at": "2026-11-17T18:46:51+00:00",
+    "items": 28,
+    "generated_at": "2026-11-17T19:20:24+00:00",
     "rule": "a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days.",
     "status": null
    }
   ],
-  "new_items": 27,
+  "new_items": 28,
   "predictions": 0
  },
  "data": [
@@ -156,9 +156,9 @@
    "module": "tech-value",
    "subject": "amd ryzen 7 5800xt",
    "period": "2026-11-17",
-   "sentence": "amd ryzen 7 5800xt (CPU): the lowest listed price fell 12.4% to $219.00 on 17 Nov 2026, from $249.99 on 14 Nov.",
+   "sentence": "amd ryzen 7 5800xt (CPU): the lowest listed price fell 32.0% to $169.99 on 17 Nov 2026, from $249.99 on 14 Nov.",
    "rule": "price move",
-   "measure": -0.123964958598344,
+   "measure": -0.3200128005120205,
    "threshold": 0.05,
    "label": "observation",
    "label_reason": "Listed prices as collected, compared across days.",
@@ -368,6 +368,24 @@
    "new": true
   },
   {
+   "key": "tech-value|intel core i7-14700kf|price move|2026-11-17",
+   "module": "tech-value",
+   "subject": "intel core i7-14700kf",
+   "period": "2026-11-17",
+   "sentence": "intel core i7-14700kf (CPU): the lowest listed price fell 16.1% to $295.99 on 17 Nov 2026, from $352.99 on 14 Nov.",
+   "rule": "price move",
+   "measure": -0.1614776622567211,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json",
+   "module_name": "Tech Value",
+   "first_seen": "2026-11-17T19:20:28+00:00",
+   "new": true
+  },
+  {
    "key": "tech-value|intel core i9-14900k|price move|2026-11-17",
    "module": "tech-value",
    "subject": "intel core i9-14900k",
@@ -534,9 +552,9 @@
    "module": "tech-value",
    "subject": "nvidia rtx 5070 ti",
    "period": "2026-11-17",
-   "sentence": "nvidia rtx 5070 ti (GPU): the lowest listed price rose 16.6% to $1,399.00 on 17 Nov 2026, from $1,199.99 on 14 Nov.",
+   "sentence": "nvidia rtx 5070 ti (GPU): the lowest listed price fell 16.0% to $1,007.98 on 17 Nov 2026, from $1,199.99 on 14 Nov.",
    "rule": "price move",
-   "measure": 0.16584304869207234,
+   "measure": -0.16000966674722283,
    "threshold": 0.05,
    "label": "observation",
    "label_reason": "Listed prices as collected, compared across days.",

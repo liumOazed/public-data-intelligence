@@ -3,7 +3,7 @@
   "module": "energy",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years.",
-  "generated_at": "2026-11-17T18:46:55+00:00",
+  "generated_at": "2026-11-17T19:20:27+00:00",
   "rows": 0,
   "columns": [
    "key",

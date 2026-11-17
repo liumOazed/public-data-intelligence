@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "top_suppliers",
   "description": "The 25 largest suppliers by net obligations in each fiscal year, after name cleaning.",
-  "generated_at": "2026-11-17T18:46:56+00:00",
+  "generated_at": "2026-11-17T19:20:28+00:00",
   "rows": 250,
   "columns": [
    "fiscal_year",
