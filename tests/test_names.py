@@ -109,3 +109,58 @@ def test_workstation_gpus_are_distinct_from_consumer_and_quadro():
     assert model_key("NVIDIA RTX PRO 6000 Blackwell Server Edition") is None
     assert model_key("ONEXGPU 2 Egpu Dock with AMD Radeon RX 7800M, 12GB") is None
     assert model_key("AMD Radeon RX 7600S") is None
+    assert model_key("XFX Speedster SWFT210 Radeon RX 7700XT Gaming Graphics Card") == (
+        "gpu",
+        "amd rx 7700 xt",
+    )
+
+
+def test_dynamic_generation_window_shifts_when_new_gen_launches():
+    from pdi.tech_value.names import active_keys, newest_keys
+
+    # Simulate a future benchmark snapshot where RTX 60-series, RX 10000, Ryzen 10000,
+    # Core Ultra 300, and Arc C-series have appeared.
+    future_models = [
+        ("gpu", "nvidia rtx 6080"),
+        ("gpu", "nvidia rtx 5080"),
+        ("gpu", "nvidia rtx 4060"),
+        ("gpu", "nvidia rtx 3060"),
+        ("gpu", "amd rx 10070 xt"),
+        ("gpu", "amd rx 9070 xt"),
+        ("gpu", "amd rx 7700 xt"),
+        ("gpu", "amd rx 6700 xt"),
+        ("gpu", "intel arc c770"),
+        ("gpu", "intel arc b580"),
+        ("gpu", "intel arc a770"),
+        ("cpu", "amd ryzen 7 10800x3d"),
+        ("cpu", "amd ryzen 7 9800x3d"),
+        ("cpu", "amd ryzen 7 8700g"),
+        ("cpu", "amd ryzen 7 7800x3d"),
+        ("cpu", "amd ryzen 7 5800x3d"),
+        ("cpu", "intel core ultra 9 385k"),
+        ("cpu", "intel core ultra 9 285k"),
+        ("cpu", "intel core i9-14900k"),
+        ("cpu", "intel core i9-13900k"),
+        ("cpu", "intel core i9-12900k"),
+    ]
+    active = active_keys(future_models)
+    newest = newest_keys(future_models)
+
+    # Newest generations are automatically discovered.
+    assert ("gpu", "nvidia rtx 6080") in newest
+    assert ("gpu", "amd rx 10070 xt") in newest
+    assert ("gpu", "intel arc c770") in newest
+    assert ("cpu", "amd ryzen 7 10800x3d") in newest
+    assert ("cpu", "intel core ultra 9 385k") in newest
+
+    # And the oldest generations in each product line automatically age out.
+    assert ("gpu", "nvidia rtx 4060") in active
+    assert ("gpu", "nvidia rtx 3060") not in active
+    assert ("gpu", "amd rx 7700 xt") in active
+    assert ("gpu", "amd rx 6700 xt") not in active
+    assert ("gpu", "intel arc b580") in active
+    assert ("gpu", "intel arc a770") not in active
+    assert ("cpu", "amd ryzen 7 7800x3d") in active
+    assert ("cpu", "amd ryzen 7 5800x3d") not in active
+    assert ("cpu", "intel core i9-13900k") in active
+    assert ("cpu", "intel core i9-12900k") not in active

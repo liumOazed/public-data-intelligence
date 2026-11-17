@@ -18,6 +18,7 @@ import requests
 
 from pdi.common.fetch import CollectError, utc_now
 from pdi.tech_value import config, retail
+from pdi.tech_value.names import active_keys
 
 SOURCE = "ebay_browse"
 
@@ -139,13 +140,24 @@ def parse_items(records: list[dict], wanted: set[tuple[str, str]], day: str) -> 
     return rows
 
 
+def ebay_query(key: str) -> str:
+    """Search term for eBay Browse API, keeping Ti/SUPER/XT/XTX/GRE distinct."""
+    return retail.search_term(key).removesuffix(" blackwell")
+
+
 def search_pairs(wanted: list[tuple[str, str]]) -> list[tuple[str, str]]:
-    """Deduplicated (kind, base_query) pairs preserving priority order."""
-    return list(dict.fromkeys((kind, retail.base_query(key)) for kind, key in wanted))
+    """Deduplicated (kind, query) pairs for `wanted` plus any remaining active GPUs."""
+    pairs = [(kind, ebay_query(key)) for kind, key in wanted]
+    try:
+        extra_gpus = sorted(key for kind, key in active_keys(retail.all_targets()) if kind == "gpu")
+        pairs.extend(("gpu", ebay_query(key)) for key in extra_gpus)
+    except retail.NoTargets:
+        pass
+    return list(dict.fromkeys(pairs))
 
 
 def collect(today: date | None = None, pause_s: float = 0.25) -> pd.DataFrame:
-    """Query eBay Browse API for active target families and write today's tidy price file."""
+    """Query eBay Browse API for active target models and write today's tidy price file."""
     client_id = os.environ.get(config.EBAY_CLIENT_ID_ENV, "").strip()
     client_secret = os.environ.get(config.EBAY_CLIENT_SECRET_ENV, "").strip()
     if not client_id or not client_secret:
@@ -169,6 +181,8 @@ def collect(today: date | None = None, pause_s: float = 0.25) -> pd.DataFrame:
     all_records: list[dict] = []
     for kind, query in search_pairs(wanted):
         time.sleep(pause_s)
+        min_p = int(config.MIN_PART_PRICE[kind])
+        max_p = int(config.MAX_PART_PRICE)
         try:
             resp = session.get(
                 config.EBAY_BROWSE_URL,
@@ -177,7 +191,7 @@ def collect(today: date | None = None, pause_s: float = 0.25) -> pd.DataFrame:
                     "category_ids": config.EBAY_CATEGORIES[kind],
                     "filter": (
                         "conditionIds:{1000},buyingOptions:{FIXED_PRICE},"
-                        "itemLocationCountry:US,priceCurrency:USD"
+                        f"itemLocationCountry:US,price:[{min_p}..{max_p}],priceCurrency:USD"
                     ),
                     "limit": str(config.EBAY_RESULTS_PER_QUERY),
                 },
