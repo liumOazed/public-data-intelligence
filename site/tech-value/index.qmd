@@ -45,10 +45,13 @@ def ranking(kind: str, label: str):
     if part.empty:
         return Markdown(site.empty_state(meta, label))
     names = {m["id"]: m["name"] for m in meta.get("sources", [])}
-    part = part.assign(Retailer=[
-        f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
-        for key, url in zip(part["retailer"], part["listing_url"])
-    ])
+    part = part.assign(
+        model_key=part["model_key"].map(dashboard.display_name),
+        Retailer=[
+            f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
+            for key, url in zip(part["retailer"], part["listing_url"])
+        ],
+    )
     if "confidence" in part.columns:
         part = part.assign(Confidence=part["confidence"].map(CONFIDENCE))
     table = part[list(COLUMNS)].rename(columns=COLUMNS).round(
@@ -351,9 +354,11 @@ All recognised models with enough benchmark runs, whether or not a price has bee
 if bench.empty:
     display(Markdown(site.empty_state(bench_meta, "Benchmark scores")))
 else:
+    bench_view = bench[["kind", "model_key", "median_score", "p25_score", "p75_score", "n_runs", "device_type"]].copy()
+    bench_view["kind"] = bench_view["kind"].astype(str).str.upper()
+    bench_view["model_key"] = bench_view["model_key"].map(dashboard.display_name)
     show(
-        bench[["kind", "model_key", "median_score", "p25_score", "p75_score", "n_runs", "device_type"]]
-        .rename(columns={
+        bench_view.rename(columns={
             "kind": "Kind", "model_key": "Model", "median_score": "Median score",
             "p25_score": "25th pct", "p75_score": "75th pct", "n_runs": "Runs",
             "device_type": "Backend",

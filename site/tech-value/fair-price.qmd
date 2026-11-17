@@ -44,28 +44,51 @@ and still be priced sensibly. Graphics cards also run on different Blender backe
 favours NVIDIA, so AMD and Intel cards look expensive here for that reason alone.
 
 ```{python}
+from pdi.tech_value import dashboard
+
+READING_COLORS = {
+    "below fair price": "#1baf7a",
+    "near fair price": "#2a78d6",
+    "above fair price": "#eb6834",
+}
+
+
 def section(kind: str):
-    part = parts[parts["kind"] == kind] if len(parts) else parts
+    part = parts[parts["kind"] == kind].copy() if len(parts) else parts
     if part.empty:
         return Markdown(site.empty_state(meta, KINDS[kind]))
+    part["display_model"] = part["model_key"].map(dashboard.display_name)
     fig = px.scatter(
         part, x="score", y="price_usd", color="reading", symbol="confidence",
-        hover_name="model_key", log_x=True, log_y=True,
-        hover_data={"fair_price_usd": ":.0f", "gap_pct": ":.0f", "n_listings": True},
+        hover_name="display_model", log_x=True, log_y=True,
+        color_discrete_map=READING_COLORS,
+        hover_data={"fair_price_usd": ":.0f", "gap_pct": ":+.0f", "n_listings": True, "display_model": False},
         category_orders={"reading": ["below fair price", "near fair price", "above fair price"]},
-        labels={"score": "Blender score (log scale)", "price_usd": "Lowest listing, USD (log scale)",
-                "reading": "Reading", "confidence": "Listings"},
+        labels={"score": "Blender benchmark score (log scale)", "price_usd": "Lowest new listing, USD (log scale)",
+                "reading": "Reading", "confidence": "Confidence", "fair_price_usd": "Fair price (USD)", "gap_pct": "Gap (%)"},
     )
+    fig.update_traces(marker=dict(size=11, line=dict(width=1, color="rgba(255,255,255,0.6)")))
     line = part.sort_values("score")
     fig.add_scatter(x=line["score"], y=line["fair_price_usd"], mode="lines",
-                    line=dict(dash="dot", width=1), name="Fair price", hoverinfo="skip")
-    fig.update_layout(margin=dict(t=20))
+                    line=dict(dash="dash", width=2, color="#6c757d"), name="Fair price curve", hoverinfo="skip")
+    fig.update_layout(
+        height=440,
+        margin=dict(t=24, r=20, b=52, l=64),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        yaxis=dict(tickprefix="$", separatethousands=True),
+        xaxis=dict(separatethousands=True),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+    )
     fig.show()
     names = {m["id"]: m["name"] for m in meta.get("sources", [])}
-    table = part.assign(Cheapest=[
-        f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
-        for key, url in zip(part["retailer"], part["listing_url"])
-    ])[["model_key", "gap_pct", "price_usd", "fair_price_usd", "reading", "confidence",
+    table = part.assign(
+        model_key=part["display_model"],
+        Cheapest=[
+            f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
+            for key, url in zip(part["retailer"], part["listing_url"])
+        ],
+    )[["model_key", "gap_pct", "price_usd", "fair_price_usd", "reading", "confidence",
         "n_listings", "Cheapest"]].rename(columns={
         "model_key": "Model", "gap_pct": "Gap (%)", "price_usd": "Lowest price (USD)",
         "fair_price_usd": "Fair price (USD)", "reading": "Reading",

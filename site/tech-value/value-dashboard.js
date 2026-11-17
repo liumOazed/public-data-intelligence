@@ -92,7 +92,7 @@
   }
 
   const MAKERS = { nvidia: "NVIDIA", amd: "AMD", intel: "Intel" };
-  const UPPER = new Set(["rtx", "rx", "gtx", "xt", "xtx", "gre"]);
+  const UPPER = new Set(["rtx", "rx", "gtx", "xt", "xtx", "gre", "ai"]);
   function displayName(key) {
     return String(key)
       .split(" ")
@@ -127,7 +127,7 @@
     String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   const KSHORT = { gpu: "GPU", cpu: "CPU" };
   const MAKER_SLOT = { NVIDIA: 1, AMD: 2, Intel: 3 };
-  const LOG_TICKS = [50, 100, 200, 300, 500, 1000, 2000, 3000, 5000, 10000];
+  const LOG_TICKS = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000, 5000, 10000];
 
   function boot() {
     const dataEl = $("vd-data");
@@ -163,7 +163,9 @@
     for (const k of ["gpu", "cpu"]) {
       const part = models.filter((m) => m.kind === k);
       S.makers[k] = new Set(part.map((m) => m.maker));
-      const best = part.reduce((b, m) => (!b || m.score_per_dollar > b.score_per_dollar ? m : b), null);
+      const normal = part.filter((m) => m.confidence !== "low");
+      const pool = normal.length ? normal : part;
+      const best = pool.reduce((b, m) => (!b || m.score_per_dollar > b.score_per_dollar ? m : b), null);
       S.selected[k] = best ? best.model_key : null;
       S.edges[k] = (D.brackets[k] || []).join(", ");
       S.budget[k] = best ? Math.round(quantile(part.map((m) => m.price_usd), 0.5)) : null;
@@ -179,6 +181,7 @@
         surface: v("--vd-surface"),
         accent: v("--vd-accent"),
         quad: v("--vd-quad"),
+        quadPoor: v("--vd-quad-poor") || "rgba(217, 89, 38, 0.05)",
         maker: (m) => v("--vd-s" + (MAKER_SLOT[m] || 1)),
       };
     }
@@ -211,8 +214,8 @@
           paper_bgcolor: "rgba(0,0,0,0)",
           plot_bgcolor: "rgba(0,0,0,0)",
           font: { color: c.ink, size: 13, family: "inherit" },
-          margin: { t: 16, r: 16, b: 56, l: 72 },
-          hoverlabel: { bgcolor: c.surface, bordercolor: c.grid, font: { color: c.ink } },
+          margin: { t: 22, r: 20, b: 56, l: 72 },
+          hoverlabel: { bgcolor: c.surface, bordercolor: c.grid, font: { color: c.ink, size: 12.5 } },
           showlegend: false,
           dragmode: false,
         },
@@ -226,7 +229,7 @@
           gridcolor: c.grid,
           zerolinecolor: c.grid,
           linecolor: c.grid,
-          tickfont: { color: c.muted },
+          tickfont: { color: c.muted, size: 11.5 },
           automargin: true,
         },
         extra
@@ -247,14 +250,17 @@
     }
 
     function hoverText(m) {
+      const medLine = m.median_price_usd ? "Median listing: " + fmtUsd2(m.median_price_usd) + "<br>" : "";
+      const stores = m.n_retailers ? " across " + m.n_retailers + " store" + (m.n_retailers === 1 ? "" : "s") : "";
       return (
         "<b>" + esc(m.name) + "</b><br>" +
-        "Maker: " + esc(m.maker) + "<br>" +
-        "Lowest new listing: " + fmtUsd2(m.price_usd) + "<br>" +
-        "Blender score: " + fmtInt(m.score) + " (" + esc(m.backend || "") + ")<br>" +
-        "Score per $: " + m.score_per_dollar.toFixed(2) + " points per USD<br>" +
+        "Maker: " + esc(m.maker) + (m.backend ? " · " + esc(m.backend) : "") + "<br>" +
+        "Lowest new listing: <b>" + fmtUsd2(m.price_usd) + "</b><br>" +
+        medLine +
+        "Blender score: <b>" + fmtInt(m.score) + "</b> pts<br>" +
+        "Score per $: <b>" + m.score_per_dollar.toFixed(2) + "</b> pts/USD<br>" +
         "Benchmark runs: " + fmtInt(m.n_runs) + "<br>" +
-        "Price confidence: " + (m.confidence === "low" ? "low, single listing" : "normal") + "<br>" +
+        "Listings: " + (m.n_listings || 1) + stores + " (" + (m.confidence === "low" ? "single listing" : "multi-listing") + ")<br>" +
         "Collected: " + esc(m.collected_date || "")
       );
     }
@@ -278,7 +284,7 @@
       const sel = $("vd-select");
       const sorted = rows.slice().sort((a, b) => a.name.localeCompare(b.name));
       sel.innerHTML = sorted
-        .map((m) => '<option value="' + esc(m.model_key) + '"' + (m.model_key === S.selected[S.kind] ? " selected" : "") + ">" + esc(m.name) + "</option>")
+        .map((m) => '<option value="' + esc(m.model_key) + '"' + (m.model_key === S.selected[S.kind] ? " selected" : "") + ">" + esc(m.name) + " (" + fmtUsd(m.price_usd) + " · " + m.score_per_dollar.toFixed(1) + " pts/$)</option>")
         .join("");
       if (!rows.length) sel.innerHTML = "<option>No models match the filters</option>";
       const cmp = $("vd-compare");
@@ -294,7 +300,7 @@
         S.compare[S.kind] = (up || others[0] || {}).model_key || null;
       }
       cmp.innerHTML = others
-        .map((m) => '<option value="' + esc(m.model_key) + '"' + (m.model_key === S.compare[S.kind] ? " selected" : "") + ">" + esc(m.name) + "</option>")
+        .map((m) => '<option value="' + esc(m.model_key) + '"' + (m.model_key === S.compare[S.kind] ? " selected" : "") + ">" + esc(m.name) + " (" + fmtUsd(m.price_usd) + ")</option>")
         .join("");
       document.querySelectorAll("[data-vd-top]").forEach((b) => b.setAttribute("aria-pressed", String(String(S.top) === b.dataset.vdTop)));
       document.querySelectorAll("[data-vd-order]").forEach((b) => b.setAttribute("aria-pressed", String(S.order === b.dataset.vdOrder)));
@@ -320,28 +326,46 @@
       const pct = n >= gate ? shareBelow(rows.map((r) => r.score), m.score) : null;
       const dom = bestDominator(rows, m.model_key);
       const onF = frontier(rows)[rows.indexOf(m)];
-      const link = m.listing_url ? '<a href="' + esc(m.listing_url) + '" rel="noopener">listing</a>' : "";
+      const link = m.listing_url ? '<a class="vd-pill-link" href="' + esc(m.listing_url) + '" target="_blank" rel="noopener">View listing ↗</a>' : "";
+      const slot = MAKER_SLOT[m.maker] || 1;
+      const badgeFrontier = onF
+        ? '<span class="vd-badge vd-badge-ok">★ Efficiency Frontier</span>'
+        : '<span class="vd-badge vd-badge-dom">Dominated</span>';
+      const badgeConf = m.confidence === "low"
+        ? '<span class="vd-badge vd-badge-warn">Single listing</span>'
+        : '<span class="vd-badge">' + (m.n_listings || 2) + " listings" + (m.n_retailers ? " · " + m.n_retailers + " stores" : "") + "</span>";
+      const medSub = m.median_price_usd ? '<span class="vd-muted">Median: ' + fmtUsd2(m.median_price_usd) + "</span>" : "";
+      const pctBar = pct !== null
+        ? '<div class="vd-mini-bar"><span style="width:' + Math.round(100 * pct) + '%"></span></div>'
+        : "";
       el.innerHTML =
-        '<div class="vd-detail-head"><strong>' + esc(m.name) + "</strong> <span class=\"vd-muted\">" + esc(m.maker) + " · " + esc(m.backend || "") + "</span></div>" +
+        '<div class="vd-detail-head">' +
+          '<div class="vd-detail-title-row">' +
+            '<span class="vd-swatch vd-s' + slot + '"></span>' +
+            "<strong>" + esc(m.name) + "</strong>" +
+            '<span class="vd-badge">' + esc(m.maker) + (m.backend ? " · " + esc(m.backend) : "") + "</span>" +
+            badgeFrontier + badgeConf +
+          "</div>" +
+          link +
+        "</div>" +
         '<dl class="vd-dl">' +
-        "<div><dt>Lowest new listing</dt><dd>" + fmtUsd2(m.price_usd) + " " + link + "</dd></div>" +
-        "<div><dt>Blender score</dt><dd>" + fmtInt(m.score) + ' <span class="vd-muted">(middle half of runs ' + fmtInt(m.p25_score) + "–" + fmtInt(m.p75_score) + ")</span></dd></div>" +
-        "<div><dt>Score per $</dt><dd>" + m.score_per_dollar.toFixed(2) + ' <span class="vd-muted">points per USD, rank ' + rk + " of " + n + "</span></dd></div>" +
-        "<div><dt>Benchmark runs</dt><dd>" + fmtInt(m.n_runs) + "</dd></div>" +
-        "<div><dt>Price confidence</dt><dd>" + (m.confidence === "low" ? "Low: single listing" : "Normal: " + m.n_listings + " listings") + "</dd></div>" +
-        "<div><dt>Score position</dt><dd>" +
+        "<div><dt>Lowest new listing</dt><dd><strong>" + fmtUsd2(m.price_usd) + "</strong> " + medSub + "</dd></div>" +
+        "<div><dt>Score per dollar</dt><dd><strong>" + m.score_per_dollar.toFixed(2) + ' pts/$</strong> <span class="vd-muted">Rank #' + rk + " of " + n + "</span></dd></div>" +
+        "<div><dt>Blender score</dt><dd><strong>" + fmtInt(m.score) + '</strong> <span class="vd-muted">IQR ' + fmtInt(m.p25_score) + "–" + fmtInt(m.p75_score) + "</span></dd></div>" +
+        "<div><dt>Benchmark sample</dt><dd><strong>" + fmtInt(m.n_runs) + '</strong> <span class="vd-muted">runs · collected ' + esc(m.collected_date || "") + "</span></dd></div>" +
+        "<div><dt>Performance percentile</dt><dd>" +
         (pct === null
-          ? '<span class="vd-muted">Not shown: needs ' + gate + " models in view, " + n + " are.</span>"
-          : "Faster than " + Math.round(100 * pct) + "% of the other " + (n - 1) + " " + KSHORT[S.kind] + "s in view") +
+          ? '<span class="vd-muted">Needs ' + gate + " models in view (" + n + " shown)</span>"
+          : "<strong>Faster than " + Math.round(100 * pct) + "%</strong> <span class=\"vd-muted\">of " + (n - 1) + " peers</span>" + pctBar) +
         "</dd></div>" +
-        "</dl>" +
-        '<p class="vd-note">' +
+        "<div><dt>Frontier status</dt><dd>" +
         (dom
-          ? "Dominated: <strong>" + esc(displayName(dom.model_key)) + "</strong> offers " + dom.more_score_pct.toFixed(0) + "% more performance at " + dom.lower_price_pct.toFixed(0) + "% lower cost."
+          ? 'Beat by <strong>' + esc(displayName(dom.model_key)) + "</strong> (+" + dom.more_score_pct.toFixed(0) + "% score, −" + dom.lower_price_pct.toFixed(0) + "% price)"
           : onF
-          ? "On the efficiency frontier: no " + KSHORT[S.kind] + " in view is both cheaper and at least as fast."
+          ? '<span class="vd-ok-text">Undominated — no peer is both cheaper and faster</span>'
           : "") +
-        "</p>";
+        "</dd></div>" +
+        "</dl>";
     }
 
     // ------------------------------------------------------------ 1. performance vs price
@@ -365,11 +389,14 @@
           text: part.map(hoverText),
           hovertemplate: "%{text}<extra></extra>",
           marker: {
-            size: part.map((m) => (sel && m === sel ? 16 : 11)),
+            size: part.map((m) => (sel && m === sel ? 17 : onF[rows.indexOf(m)] ? 12 : 10)),
             color: c.maker(mk),
             symbol: part.map((m) => (m.confidence === "low" ? "circle-open" : "circle")),
-            opacity: part.map((m) => (S.showFrontier && !onF[rows.indexOf(m)] ? 0.4 : 1)),
-            line: { width: part.map((m) => (sel && m === sel ? 3 : m.confidence === "low" ? 2 : 1.5)), color: part.map((m) => (sel && m === sel ? c.ink : m.confidence === "low" ? c.maker(mk) : c.surface)) },
+            opacity: part.map((m) => (S.showFrontier && !onF[rows.indexOf(m)] && (!sel || m !== sel) ? 0.38 : 0.95)),
+            line: {
+              width: part.map((m) => (sel && m === sel ? 3.2 : m.confidence === "low" ? 2.2 : 1.5)),
+              color: part.map((m) => (sel && m === sel ? c.ink : m.confidence === "low" ? c.maker(mk) : c.surface)),
+            },
           },
         };
       });
@@ -379,22 +406,25 @@
       const ys = rows.map((m) => m.score);
       const medX = median(xs);
       const medY = median(ys);
+      const minX = Math.min(...xs);
+      const maxX = Math.max(...xs);
+      const maxY = Math.max(...ys);
       if (S.medians && rows.length >= 2) {
-        // Quadrant tint: only the "excellent value" (cheap, fast) and "poor value" corners.
+        // Quadrant tint: "excellent value" (top-left) and "poor value" (bottom-right).
         shapes.push(
-          { type: "rect", xref: "x", yref: "y", x0: S.logPrice ? Math.min(...xs) / 1.5 : 0, x1: medX, y0: medY, y1: Math.max(...ys) * 1.08, fillcolor: c.quad, line: { width: 0 }, layer: "below" },
-          { type: "line", xref: "x", yref: "paper", x0: medX, x1: medX, y0: 0, y1: 1, line: { color: c.muted, width: 1, dash: "dot" } },
-          { type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: medY, y1: medY, line: { color: c.muted, width: 1, dash: "dot" } }
+          { type: "rect", xref: "x", yref: "y", x0: S.logPrice ? minX / 1.35 : 0, x1: medX, y0: medY, y1: maxY * 1.12, fillcolor: c.quad, line: { width: 0 }, layer: "below" },
+          { type: "rect", xref: "x", yref: "y", x0: medX, x1: maxX * 1.35, y0: 0, y1: medY, fillcolor: c.quadPoor, line: { width: 0 }, layer: "below" },
+          { type: "line", xref: "x", yref: "paper", x0: medX, x1: medX, y0: 0, y1: 1, line: { color: c.muted, width: 1.2, dash: "dot" } },
+          { type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: medY, y1: medY, line: { color: c.muted, width: 1.2, dash: "dot" } }
         );
         const q = (x, y, t, xa, ya) => annotations.push({ xref: "paper", yref: "paper", x, y, text: t, showarrow: false, xanchor: xa, yanchor: ya, font: { size: 11, color: c.muted } });
-        // On a narrow screen the corner labels collide; the explanation above the chart covers them.
         if (el.clientWidth >= 560) {
-          q(0.01, 0.99, "Excellent value: fast, cheap", "left", "top");
-          q(0.99, 0.99, "Premium: fast, expensive", "right", "top");
-          q(0.01, 0.01, "Budget: slower, cheap", "left", "bottom");
-          q(0.99, 0.01, "Poor value: slower, expensive", "right", "bottom");
+          q(0.015, 0.985, "<b>↗ Excellent value</b> · faster & cheaper than median", "left", "top");
+          q(0.985, 0.985, "<b>Premium</b> · faster & pricier", "right", "top");
+          q(0.015, 0.015, "<b>Budget</b> · slower & cheaper", "left", "bottom");
+          q(0.985, 0.015, "<b>Poor value</b> · slower & pricier", "right", "bottom");
         }
-        annotations.push({ xref: "x", yref: "paper", x: S.logPrice ? Math.log10(medX) : medX, y: 1, text: "median " + fmtUsd(medX), showarrow: false, yanchor: "bottom", font: { size: 10, color: c.muted } });
+        annotations.push({ xref: "x", yref: "paper", x: S.logPrice ? Math.log10(medX) : medX, y: 1.01, text: "Median price " + fmtUsd(medX), showarrow: false, yanchor: "bottom", font: { size: 10.5, color: c.muted } });
       }
       if (S.showFrontier) {
         const eff = rows.filter((m, i) => onF[i]).sort((a, b) => a.price_usd - b.price_usd);
@@ -404,34 +434,53 @@
           name: "Efficiency frontier",
           x: eff.map((m) => m.price_usd),
           y: eff.map((m) => m.score),
-          line: { shape: "hv", color: c.muted, width: 1.5, dash: "dash" },
+          line: { shape: "hv", color: c.ink, width: 2, dash: "dash" },
+          opacity: 0.55,
           hoverinfo: "skip",
         });
       }
-      const label = (m, t) =>
-        // Annotations on a log axis take log10 positions; shapes and traces take data values.
-        annotations.push({ x: S.logPrice ? Math.log10(m.price_usd) : m.price_usd, y: m.score, text: t, showarrow: true, arrowhead: 0, arrowcolor: c.muted, ax: m === top ? -16 : 30, ay: m === top ? 24 : -28, xanchor: m === top ? "right" : "auto", font: { size: 11, color: c.ink }, bgcolor: c.surface });
-      label(best, "Best value: " + best.name);
-      if (top !== best) label(top, "Highest score: " + top.name);
+      const label = (m, t, ax, ay) =>
+        annotations.push({
+          x: S.logPrice ? Math.log10(m.price_usd) : m.price_usd,
+          y: m.score,
+          text: "<b>" + esc(t) + "</b>",
+          showarrow: true,
+          arrowhead: 2,
+          arrowsize: 0.8,
+          arrowwidth: 1.2,
+          arrowcolor: c.muted,
+          ax,
+          ay,
+          font: { size: 11, color: c.ink },
+          bgcolor: c.surface,
+          bordercolor: c.grid,
+          borderpad: 3,
+          borderwidth: 1,
+        });
+      label(best, "Best value: " + best.name + " (" + fmtUsd(best.price_usd) + ")", 28, -28);
+      if (top !== best) label(top, "Top score: " + top.name + " (" + fmtUsd(top.price_usd) + ")", -32, 26);
+      if (sel && sel !== best && sel !== top) {
+        label(sel, "Selected: " + sel.name + " (" + fmtUsd(sel.price_usd) + ")", 0, -32);
+      }
       Plotly.react(
         el,
         traces,
         layout(c, {
-          height: 460,
+          height: 500,
           shapes,
           annotations,
           xaxis: axis(c, "Lowest new listing price (USD" + (S.logPrice ? ", log scale)" : ")"), S.logPrice
-            ? { type: "log", tickprefix: "$", separatethousands: true, tickvals: LOG_TICKS, ticktext: LOG_TICKS.map((v) => "$" + v.toLocaleString("en-US")), range: [Math.log10(Math.min(...xs) / 1.25), Math.log10(Math.max(...xs) * 1.25)] }
+            ? { type: "log", tickprefix: "$", separatethousands: true, tickvals: LOG_TICKS, ticktext: LOG_TICKS.map((v) => "$" + v.toLocaleString("en-US")), range: [Math.log10(minX / 1.25), Math.log10(maxX * 1.28)] }
             : { tickprefix: "$", separatethousands: true, rangemode: "tozero" }),
-          yaxis: axis(c, "Blender benchmark score (points)", { separatethousands: true, rangemode: "tozero" }),
+          yaxis: axis(c, "Blender benchmark score (points)", { separatethousands: true, range: [0, maxY * 1.12] }),
         }),
         CONFIG
       );
       bindClick(el);
       $("vd-scatter-legend").innerHTML =
         makers.map((mk) => '<span><span class="vd-swatch vd-s' + (MAKER_SLOT[mk] || 1) + '"></span>' + esc(mk) + "</span>").join("") +
-        '<span><span class="vd-swatch vd-hollow"></span>Price from a single listing</span>' +
-        (S.showFrontier ? '<span><span class="vd-dash"></span>Efficiency frontier; faded dots are dominated</span>' : "");
+        '<span><span class="vd-swatch vd-hollow"></span>Single-listing price</span>' +
+        (S.showFrontier ? '<span><span class="vd-dash"></span>Efficiency frontier (faded dots are dominated)</span>' : "");
       $("vd-scatter-n").textContent = "n = " + rows.length + " ranked " + KSHORT[S.kind] + "s" + (S.medians ? ". Medians: " + fmtUsd(medX) + " and " + fmtInt(medY) + " points." : ".");
     }
 
@@ -454,10 +503,12 @@
       const el = ready("vd-bars");
       let sorted = rows.slice().sort((a, b) => b.score_per_dollar - a.score_per_dollar);
       const bestKey = sorted[0].model_key;
+      const medSpd = median(rows.map((m) => m.score_per_dollar));
       if (S.order === "asc") sorted.reverse();
       if (S.top !== "all") sorted = sorted.slice(0, S.top);
       const sel = selectedModel(rows);
       const shown = sorted.slice().reverse(); // Plotly draws the first category at the bottom
+      const maxX = Math.max(...shown.map((m) => m.score_per_dollar), medSpd || 1);
       Plotly.react(
         el,
         [
@@ -467,7 +518,7 @@
             x: shown.map((m) => m.score_per_dollar),
             y: shown.map((m) => m.name),
             customdata: shown.map((m) => m.model_key),
-            text: shown.map((m) => m.score_per_dollar.toFixed(2)),
+            text: shown.map((m) => m.score_per_dollar.toFixed(2) + "  ·  " + fmtUsd(m.price_usd)),
             textposition: "outside",
             cliponaxis: false,
             textfont: { color: c.ink, size: 11 },
@@ -475,22 +526,28 @@
             hovertemplate: "%{hovertext}<extra></extra>",
             marker: {
               color: shown.map((m) => c.maker(m.maker)),
-              opacity: shown.map((m) => (m.confidence === "low" ? 0.45 : 1)),
-              line: { width: shown.map((m) => (m.model_key === bestKey || m === sel ? 2 : 0)), color: c.ink },
+              opacity: shown.map((m) => (m.confidence === "low" ? 0.45 : 0.92)),
+              line: { width: shown.map((m) => (m.model_key === bestKey || m === sel ? 2.2 : 0)), color: c.ink },
             },
           },
         ],
         layout(c, {
-          height: Math.max(220, 26 * shown.length + 80),
-          margin: { t: 8, r: 48, b: 48, l: 8 },
-          bargap: 0.3,
-          xaxis: axis(c, "Score per dollar (Blender points per USD)", { rangemode: "tozero" }),
-          yaxis: axis(c, "", { automargin: true, gridcolor: "rgba(0,0,0,0)", tickfont: { color: c.ink } }),
+          height: Math.max(250, 27 * shown.length + 84),
+          margin: { t: 24, r: 112, b: 48, l: 8 },
+          bargap: 0.28,
+          shapes: medSpd
+            ? [{ type: "line", xref: "x", yref: "paper", x0: medSpd, x1: medSpd, y0: 0, y1: 1, line: { color: c.muted, width: 1.2, dash: "dot" } }]
+            : [],
+          annotations: medSpd
+            ? [{ xref: "x", yref: "paper", x: medSpd, y: 1.01, yanchor: "bottom", showarrow: false, text: "Median " + medSpd.toFixed(2) + " pts/$", font: { size: 10.5, color: c.muted } }]
+            : [],
+          xaxis: axis(c, "Score per dollar (Blender points per USD)", { range: [0, maxX * 1.22] }),
+          yaxis: axis(c, "", { automargin: true, gridcolor: "rgba(0,0,0,0)", tickfont: { color: c.ink, size: 11.5 } }),
         }),
         CONFIG
       );
       bindClick(el);
-      $("vd-bars-n").textContent = "Showing " + shown.length + " of " + rows.length + ". Outlined: the best value" + (sel ? " and the selected model" : "") + ". Faded: price from a single listing.";
+      $("vd-bars-n").textContent = "Showing " + shown.length + " of " + rows.length + ". Bar labels show score per $ and lowest price. Outlined: best value" + (sel ? " and selected model" : "") + ". Faded: single-listing price.";
     }
 
     // ------------------------------------------------------------ 3. price premium vs performance gain
@@ -512,8 +569,33 @@
       // The 1:1 line across the part of the chart where both axes overlap.
       const lo = Math.max(xr[0], yr[0]);
       const hi = Math.min(xr[1], yr[1]);
+      const annotations = [
+        { xref: "paper", yref: "paper", x: 0.02, y: 0.98, xanchor: "left", yanchor: "top", showarrow: false, text: "<b>↖ Better value than baseline</b> · performance rises faster than price", font: { size: 11, color: c.muted } },
+        { xref: "paper", yref: "paper", x: 0.98, y: 0.02, xanchor: "right", yanchor: "bottom", showarrow: false, text: "<b>↘ Worse value than baseline</b> · price rises faster than performance", font: { size: 11, color: c.muted } },
+      ];
+      if (cmp) {
+        const cp = pts.find((p) => p.m === cmp);
+        if (cp) {
+          annotations.push({
+            x: cp.price_pct,
+            y: cp.score_pct,
+            text: "<b>" + esc(cmp.name) + "</b> (" + fmtPct(cp.price_pct) + " price, " + fmtPct(cp.score_pct) + " score)",
+            showarrow: true,
+            arrowhead: 2,
+            arrowsize: 0.8,
+            arrowcolor: c.muted,
+            ax: 0,
+            ay: -28,
+            font: { size: 11, color: c.ink },
+            bgcolor: c.surface,
+            bordercolor: c.grid,
+            borderpad: 3,
+            borderwidth: 1,
+          });
+        }
+      }
       const traces = [
-        { type: "scatter", mode: "lines", x: [lo, hi], y: [lo, hi], line: { color: c.muted, width: 1, dash: "dash" }, hoverinfo: "skip" },
+        { type: "scatter", mode: "lines", x: [lo, hi], y: [lo, hi], line: { color: c.muted, width: 1.5, dash: "dash" }, hoverinfo: "skip" },
         {
           type: "scatter",
           mode: "markers",
@@ -526,7 +608,7 @@
           ),
           hovertemplate: "%{text}<extra></extra>",
           marker: {
-            size: pts.map((p) => (p.m === cmp ? 15 : 10)),
+            size: pts.map((p) => (p.m === cmp ? 16 : 10.5)),
             color: pts.map((p) => c.maker(p.m.maker)),
             line: { width: pts.map((p) => (p.m === cmp ? 3 : 1.5)), color: pts.map((p) => (p.m === cmp ? c.ink : c.surface)) },
           },
@@ -537,11 +619,8 @@
         el,
         traces,
         layout(c, {
-          height: 420,
-          annotations: [
-            { xref: "paper", yref: "paper", x: 0.02, y: 0.98, xanchor: "left", yanchor: "top", showarrow: false, text: "Above the line: performance rises faster than price", font: { size: 11, color: c.muted } },
-            { xref: "paper", yref: "paper", x: 0.98, y: 0.02, xanchor: "right", yanchor: "bottom", showarrow: false, text: "Below the line: price rises faster than performance", font: { size: 11, color: c.muted } },
-          ],
+          height: 430,
+          annotations,
           xaxis: axis(c, "Price difference from baseline (%)", { ticksuffix: "%", range: xr, zeroline: true, zerolinecolor: c.muted }),
           yaxis: axis(c, "Benchmark score difference from baseline (%)", { ticksuffix: "%", range: yr, zeroline: true, zerolinecolor: c.muted }),
         }),
@@ -565,14 +644,14 @@
       const u = upgrade(base, cmp);
       const verdict =
         u.value_pct > 0.5
-          ? "improves score per dollar by " + u.value_pct.toFixed(0) + "%"
+          ? "improves score per dollar by <strong>+" + u.value_pct.toFixed(0) + "%</strong>"
           : u.value_pct < -0.5
-          ? "reduces score per dollar by " + Math.abs(u.value_pct).toFixed(0) + "%"
+          ? "reduces score per dollar by <strong>−" + Math.abs(u.value_pct).toFixed(0) + "%</strong>"
           : "leaves score per dollar about the same";
       s.innerHTML =
-        "Moving from <strong>" + esc(base.name) + "</strong> (" + fmtUsd(base.price_usd) + ", " + fmtInt(base.score) + " points) to <strong>" + esc(cmp.name) + "</strong> (" + fmtUsd(cmp.price_usd) + ", " + fmtInt(cmp.score) + " points) " +
-        (u.price_diff_usd >= 0 ? "costs " + fmtUsd(u.price_diff_usd) + " (" + fmtPct(u.price_pct) + ") more" : "saves " + fmtUsd(-u.price_diff_usd) + " (" + fmtPct(u.price_pct) + ")") +
-        " and " + (u.score_diff >= 0 ? "adds " : "loses ") + fmtInt(Math.abs(u.score_diff)) + " points (" + fmtPct(u.score_pct) + "). It " + verdict + ".";
+        "Moving from <strong>" + esc(base.name) + "</strong> (" + fmtUsd(base.price_usd) + ", " + fmtInt(base.score) + " pts) to <strong>" + esc(cmp.name) + "</strong> (" + fmtUsd(cmp.price_usd) + ", " + fmtInt(cmp.score) + " pts) " +
+        (u.price_diff_usd >= 0 ? "costs <strong>" + fmtUsd(u.price_diff_usd) + " (" + fmtPct(u.price_pct) + ")</strong> more" : "saves <strong>" + fmtUsd(-u.price_diff_usd) + " (" + fmtPct(u.price_pct) + ")</strong>") +
+        " and " + (u.score_diff >= 0 ? "adds " : "loses ") + "<strong>" + fmtInt(Math.abs(u.score_diff)) + " pts (" + fmtPct(u.score_pct) + ")</strong>. It " + verdict + ".";
     }
 
     // ------------------------------------------------------------ 4. value by budget
@@ -588,14 +667,29 @@
       if (budget > 0) {
         const within = rows.filter((m) => m.price_usd <= budget).sort((a, b) => b.score_per_dollar - a.score_per_dollar);
         const fastest = within.slice().sort((a, b) => b.score - a.score)[0];
-        picks = within.length
-          ? '<p class="vd-note">' + within.length + " of " + rows.length + " " + KSHORT[S.kind] + "s in view cost " + fmtUsd(budget) + " or less. Best score per dollar: <strong>" + esc(within[0].name) + "</strong> (" + fmtUsd(within[0].price_usd) + ", " + within[0].score_per_dollar.toFixed(2) + " points per $)" +
-            (within[1] ? ", then " + esc(within[1].name) + " (" + within[1].score_per_dollar.toFixed(2) + ")" : "") +
-            ". Fastest within budget: <strong>" + esc(fastest.name) + "</strong> (" + fmtInt(fastest.score) + " points, " + fmtUsd(fastest.price_usd) + ")." +
-            (fastest !== within[0] ? " The cheapest-per-point pick and the fastest pick differ, so the extra spend buys speed at a lower rate." : "") + "</p>"
-          : '<p class="vd-note">No ' + KSHORT[S.kind] + " in view costs " + fmtUsd(budget) + " or less.</p>";
+        if (within.length) {
+          const bv = within[0];
+          const runnerUp = within[1] ? " · Runner-up: " + esc(within[1].name) + " (" + within[1].score_per_dollar.toFixed(2) + " pts/$)" : "";
+          picks =
+            '<div class="vd-cards vd-budget-cards">' +
+              '<div class="vd-card vd-card-ok">' +
+                '<div class="vd-card-title">Best Value ≤ ' + fmtUsd(budget) + " (" + within.length + " of " + rows.length + " " + KSHORT[S.kind] + "s)</div>" +
+                '<div class="vd-big">' + esc(bv.name) + " <span>" + fmtUsd2(bv.price_usd) + "</span></div>" +
+                '<div class="vd-small"><strong>' + bv.score_per_dollar.toFixed(2) + " pts/$</strong> · " + fmtInt(bv.score) + " pts" + runnerUp + "</div>" +
+              "</div>" +
+              '<div class="vd-card vd-card-gpu">' +
+                '<div class="vd-card-title">Fastest Performance ≤ ' + fmtUsd(budget) + "</div>" +
+                '<div class="vd-big">' + esc(fastest.name) + " <span>" + fmtUsd2(fastest.price_usd) + "</span></div>" +
+                '<div class="vd-small"><strong>' + fmtInt(fastest.score) + " pts</strong> · " + fastest.score_per_dollar.toFixed(2) + " pts/$" +
+                (fastest !== bv ? " · Extra spend buys peak speed at a lower pts/$ rate" : " · Also the #1 value pick in budget") + "</div>" +
+              "</div>" +
+            "</div>";
+        } else {
+          picks = '<p class="vd-note">No ' + KSHORT[S.kind] + " in view costs " + fmtUsd(budget) + " or less.</p>";
+        }
       }
       const br = brackets(rows, edges);
+      const maxRatio = Math.max(...br.map((b) => b.best_value_ratio || 0), 1);
       const label = (b) => (b.low === 0 ? "Under " + fmtUsd(b.high) : b.high === Infinity ? fmtUsd(b.low) + " and up" : fmtUsd(b.low) + " to " + fmtUsd(b.high));
       el.innerHTML =
         picks +
@@ -603,7 +697,7 @@
         br
           .map((b) =>
             b.n
-              ? "<tr><td>" + label(b) + '</td><td class="num">' + b.n + "</td><td>" + esc(displayName(b.best_value)) + ' <span class="vd-muted">' + b.best_value_ratio.toFixed(2) + "</span></td><td>" + esc(displayName(b.top_score_model)) + ' <span class="vd-muted">' + fmtInt(b.top_score) + '</span></td><td class="num">' + fmtInt(b.median_score) + '</td><td class="num">' + fmtUsd(b.median_price) + "</td></tr>"
+              ? "<tr><td><strong>" + label(b) + '</strong></td><td class="num">' + b.n + "</td><td><div>" + esc(displayName(b.best_value)) + ' <span class="vd-badge">' + b.best_value_ratio.toFixed(2) + ' pts/$</span></div><div class="vd-mini-bar"><span style="width:' + Math.round((100 * b.best_value_ratio) / maxRatio) + '%"></span></div></td><td>' + esc(displayName(b.top_score_model)) + ' <span class="vd-muted">(' + fmtInt(b.top_score) + ' pts)</span></td><td class="num">' + fmtInt(b.median_score) + '</td><td class="num">' + fmtUsd(b.median_price) + "</td></tr>"
               : "<tr><td>" + label(b) + '</td><td class="num">0</td><td colspan="4" class="vd-muted">No ranked model in this bracket</td></tr>'
           )
           .join("") +
@@ -619,16 +713,40 @@
       const el = ready("vd-dist");
       const sel = selectedModel(rows);
       const scores = rows.map((m) => m.score);
+      const q25 = quantile(scores, 0.25);
+      const q75 = quantile(scores, 0.75);
       const qs = [
         [0.25, "25th"],
         [0.5, "median"],
         [0.75, "75th"],
         [0.9, "90th"],
       ].map(([q, t]) => [quantile(scores, q), t]);
-      const shapes = qs.map(([v]) => ({ type: "line", xref: "x", yref: "paper", x0: v, x1: v, y0: 0, y1: 1, line: { color: c.muted, width: 1, dash: "dot" } }));
-      const annotations = qs.map(([v, t], i) => ({ x: v, y: 1, xref: "x", yref: "paper", yanchor: "bottom", showarrow: false, text: t + "<br>" + fmtInt(v), font: { size: 10, color: c.muted }, xshift: i % 2 ? 0 : 0 }));
+      const shapes = [
+        { type: "rect", xref: "x", yref: "paper", x0: q25, x1: q75, y0: 0.08, y1: 0.92, fillcolor: c.quad, line: { width: 0 }, layer: "below" },
+        ...qs.map(([v]) => ({ type: "line", xref: "x", yref: "paper", x0: v, x1: v, y0: 0, y1: 1, line: { color: c.muted, width: 1.2, dash: "dot" } })),
+      ];
+      const annotations = qs.map(([v, t]) => ({ x: v, y: 1, xref: "x", yref: "paper", yanchor: "bottom", showarrow: false, text: t + "<br>" + fmtInt(v), font: { size: 10, color: c.muted } }));
       // Deterministic jitter so dots with close scores do not sit on top of each other.
       const jitter = rows.map((m, i) => ((i * 37) % 11) / 11 - 0.5);
+      if (sel) {
+        const selIdx = rows.indexOf(sel);
+        annotations.push({
+          x: sel.score,
+          y: jitter[selIdx],
+          text: "<b>" + esc(sel.name) + "</b>",
+          showarrow: true,
+          arrowhead: 2,
+          arrowsize: 0.8,
+          arrowcolor: c.ink,
+          ax: 0,
+          ay: -28,
+          font: { size: 11, color: c.ink },
+          bgcolor: c.surface,
+          bordercolor: c.grid,
+          borderpad: 3,
+          borderwidth: 1,
+        });
+      }
       Plotly.react(
         el,
         [
@@ -638,19 +756,19 @@
             x: scores,
             y: jitter,
             customdata: rows.map((m) => m.model_key),
-            text: rows.map((m) => "<b>" + esc(m.name) + "</b><br>Score: " + fmtInt(m.score) + "<br>Faster than " + Math.round(100 * shareBelow(scores, m.score)) + "% of the other " + (n - 1) + " in view"),
+            text: rows.map((m) => "<b>" + esc(m.name) + "</b><br>Score: " + fmtInt(m.score) + " pts<br>Price: " + fmtUsd2(m.price_usd) + "<br>Faster than " + Math.round(100 * shareBelow(scores, m.score)) + "% of the other " + (n - 1) + " in view"),
             hovertemplate: "%{text}<extra></extra>",
             marker: {
-              size: rows.map((m) => (m === sel ? 16 : 10)),
+              size: rows.map((m) => (m === sel ? 16 : 10.5)),
               color: rows.map((m) => c.maker(m.maker)),
-              opacity: rows.map((m) => (sel && m !== sel ? 0.55 : 1)),
-              line: { width: rows.map((m) => (m === sel ? 3 : 1)), color: rows.map((m) => (m === sel ? c.ink : c.surface)) },
+              opacity: rows.map((m) => (sel && m !== sel ? 0.55 : 0.95)),
+              line: { width: rows.map((m) => (m === sel ? 3 : 1.2)), color: rows.map((m) => (m === sel ? c.ink : c.surface)) },
             },
           },
         ],
         layout(c, {
-          height: 220,
-          margin: { t: 40, r: 16, b: 48, l: 16 },
+          height: 240,
+          margin: { t: 42, r: 16, b: 48, l: 16 },
           shapes,
           annotations,
           xaxis: axis(c, "Blender benchmark score (points)", { separatethousands: true }),
@@ -680,12 +798,16 @@
         .filter((m, i) => !onF[i])
         .map((m) => Object.assign({ m }, bestDominator(rows, m.model_key)))
         .sort((a, b) => a.m.price_usd - b.m.price_usd);
+      const pills = eff
+        .map((m) => '<span class="vd-badge vd-badge-ok">' + esc(m.name) + " · " + fmtUsd(m.price_usd) + "</span>")
+        .join(" ");
       el.innerHTML =
-        '<p class="vd-note"><strong>' + eff.length + " of " + rows.length + "</strong> " + KSHORT[S.kind] + "s in view are on the frontier: " + eff.map((m) => esc(m.name)).join(", ") + ".</p>" +
+        '<p class="vd-note"><strong>' + eff.length + " of " + rows.length + "</strong> " + KSHORT[S.kind] + "s in view are on the efficiency frontier:</p>" +
+        '<div class="vd-pill-row">' + pills + "</div>" +
         (dom.length
           ? '<div class="vd-table-wrap"><table class="table table-sm vd-table"><thead><tr><th>Dominated model</th><th class="num">Price</th><th class="num">Score</th><th>Better alternative</th><th class="num">More performance</th><th class="num">Lower cost</th></tr></thead><tbody>' +
             dom
-              .map((d) => "<tr><td>" + esc(d.m.name) + (d.m.confidence === "low" ? ' <span class="vd-muted">(single listing)</span>' : "") + '</td><td class="num">' + fmtUsd(d.m.price_usd) + '</td><td class="num">' + fmtInt(d.m.score) + "</td><td>" + esc(displayName(d.model_key)) + '</td><td class="num">' + d.more_score_pct.toFixed(0) + '%</td><td class="num">' + d.lower_price_pct.toFixed(0) + "%</td></tr>")
+              .map((d) => "<tr><td>" + esc(d.m.name) + (d.m.confidence === "low" ? ' <span class="vd-muted">(single listing)</span>' : "") + '</td><td class="num">' + fmtUsd(d.m.price_usd) + '</td><td class="num">' + fmtInt(d.m.score) + "</td><td><strong>" + esc(displayName(d.model_key)) + '</strong></td><td class="num">+' + d.more_score_pct.toFixed(0) + '%</td><td class="num">−' + d.lower_price_pct.toFixed(0) + "%</td></tr>")
               .join("") +
             "</tbody></table></div>"
           : '<p class="vd-note">No model in view is dominated.</p>');
@@ -709,7 +831,22 @@
       const sel = selectedModel(rows);
       const byKey = {};
       hist.forEach((h) => (byKey[h.model_key] = byKey[h.model_key] || []).push(h));
-      const traces = Object.keys(byKey).map((k) => {
+      // Keep the chart readable: show the efficiency frontier models + the selected model (or top 12 by value).
+      const onF = frontier(rows);
+      const focusKeys = new Set(rows.filter((m, i) => onF[i]).map((m) => m.model_key));
+      rows
+        .slice()
+        .sort((a, b) => b.score_per_dollar - a.score_per_dollar)
+        .slice(0, 10)
+        .forEach((m) => focusKeys.add(m.model_key));
+      if (sel) focusKeys.add(sel.model_key);
+      const shownKeys = Object.keys(byKey).filter((k) => rows.length <= 16 || focusKeys.has(k));
+      const allPrices = shownKeys.flatMap((k) => byKey[k].map((p) => p.price_usd));
+      const minP = Math.min(...allPrices);
+      const maxP = Math.max(...allPrices);
+      const useLogY = maxP / Math.max(minP, 1) > 3.5;
+
+      const traces = shownKeys.map((k) => {
         const m = models.find((x) => x.model_key === k && x.kind === S.kind);
         const pts = byKey[k].sort((a, b) => a.date.localeCompare(b.date));
         const isSel = sel && sel.model_key === k;
@@ -722,18 +859,46 @@
           customdata: pts.map(() => k),
           text: pts.map((p) => "<b>" + esc(m.name) + "</b><br>" + p.date + ": " + fmtUsd2(p.price_usd) + "<br>" + p.n_listings + " listing" + (p.n_listings === 1 ? "" : "s")),
           hovertemplate: "%{text}<extra></extra>",
-          line: { color: c.maker(m.maker), width: isSel ? 3 : 1.25 },
-          marker: { size: isSel ? 9 : 6, color: c.maker(m.maker) },
-          opacity: sel && !isSel ? 0.35 : 1,
+          line: { color: c.maker(m.maker), width: isSel ? 3.2 : 1.5 },
+          marker: { size: isSel ? 10 : 6.5, color: c.maker(m.maker), line: { width: isSel ? 2 : 0, color: c.ink } },
+          opacity: sel && !isSel ? 0.38 : 1,
         };
       });
+      const annotations = [];
+      if (sel && byKey[sel.model_key]) {
+        const pts = byKey[sel.model_key].slice().sort((a, b) => a.date.localeCompare(b.date));
+        const lastPt = pts[pts.length - 1];
+        annotations.push({
+          x: lastPt.date,
+          y: useLogY ? Math.log10(lastPt.price_usd) : lastPt.price_usd,
+          text: "<b>" + esc(sel.name) + " · " + fmtUsd(lastPt.price_usd) + "</b>",
+          showarrow: true,
+          arrowhead: 2,
+          arrowsize: 0.8,
+          arrowcolor: c.ink,
+          ax: -24,
+          ay: -24,
+          font: { size: 11, color: c.ink },
+          bgcolor: c.surface,
+          bordercolor: c.grid,
+          borderpad: 3,
+          borderwidth: 1,
+        });
+      }
       Plotly.react(
         el,
         traces,
         layout(c, {
           height: 360,
+          annotations,
           xaxis: axis(c, "Collection date", { type: "date", tickformat: "%-d %b", dtick: 86400000 }),
-          yaxis: axis(c, "Lowest new listing (USD)", { tickprefix: "$", separatethousands: true, rangemode: "tozero" }),
+          yaxis: axis(
+            c,
+            "Lowest new listing (USD" + (useLogY ? ", log scale)" : ")"),
+            useLogY
+              ? { type: "log", tickprefix: "$", separatethousands: true, tickvals: LOG_TICKS, ticktext: LOG_TICKS.map((v) => "$" + v.toLocaleString("en-US")) }
+              : { tickprefix: "$", separatethousands: true, rangemode: "tozero" }
+          ),
         }),
         CONFIG
       );
