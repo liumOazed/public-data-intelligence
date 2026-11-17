@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 
 from pdi.common.fetch import CollectError, utc_now
 from pdi.tech_value import config, value
-from pdi.tech_value.names import model_key, retail_active
+from pdi.tech_value.names import active_keys, model_key, newest_keys
 
 TIDY_SCHEMA = pa.DataFrameSchema(
     {
@@ -203,16 +203,41 @@ def all_targets() -> set[tuple[str, str]]:
     return set(zip(bench["kind"], bench["model_key"], strict=False))
 
 
+def recent_market_models() -> set[tuple[str, str]]:
+    """(kind, model_key) seen in stock in the recent price window, if any price files exist."""
+    prices = value.load_prices()
+    if prices.empty:
+        return set()
+    latest = pd.to_datetime(prices["date"]).max()
+    cutoff = (latest - pd.Timedelta(days=config.PRICE_MAX_AGE_DAYS)).strftime("%Y-%m-%d")
+    active_rows = prices[(prices["date"] >= cutoff) & prices["online_availability"].astype(bool)]
+    return set(zip(active_rows["category"], active_rows["model_key"], strict=False))
+
+
 def targets() -> list[tuple[str, str]]:
-    """(kind, model_key) for the most-benchmarked retail-active models."""
+    """(kind, model_key) dynamically chosen from latest benchmark generations and retail stock."""
     if not config.BLENDER_TABLE.exists():
         raise NoTargets("no benchmark table yet; the weekly pipeline has to run first")
     bench, _ = value.benchmark_by_model(pd.read_parquet(config.BLENDER_TABLE))
+    all_pairs = list(zip(bench["kind"], bench["model_key"], strict=False))
+    active = active_keys(all_pairs)
+    newest = newest_keys(all_pairs)
+    in_market = recent_market_models()
+
     out = []
     for kind in ("cpu", "gpu"):
-        part = bench[bench["kind"] == kind].sort_values("n_runs", ascending=False)
-        active = part[part["model_key"].map(lambda k, kd=kind: retail_active(kd, k))]
-        chosen = active if len(active) else part
+        part = bench[bench["kind"] == kind].copy()
+        eligible = part[part["model_key"].map(lambda k, kd=kind: (kd, k) in active)].copy()
+        chosen = eligible if len(eligible) else part.copy()
+        # Boost models in the #1 newest generation (3x) and models confirmed in recent retail
+        # stock (2x) so newly launched chips enter the top-N immediately and dead SKUs sink.
+        chosen["priority_score"] = [
+            runs
+            * (3 if (kind, k) in newest else 1)
+            * (2 if (not in_market or (kind, k) in in_market) else 1)
+            for k, runs in zip(chosen["model_key"], chosen["n_runs"], strict=False)
+        ]
+        chosen = chosen.sort_values(["priority_score", "n_runs"], ascending=[False, False])
         out += [(kind, k) for k in chosen["model_key"].head(config.CRAWLER_MODELS_PER_KIND)]
     return out
 
