@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-17T16:55:00+00:00",
+  "generated_at": "2026-11-17T18:05:52+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -21,7 +21,7 @@
     "licence": "Amazon's Conditions of Use exclude \"any collection and use of any product listings, descriptions, or prices\" and \"any use of data mining, robots, or similar data gathering and extraction tools\". Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data, bars republishing it to offer a competing product, and makes the customer solely responsible for lawful use. The owner chose (14 November 2026) to keep using these prices but never commit or publish the raw rows: they stay in a private Actions cache, and only derived tables reach the site.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T16:54:07+00:00"
+    "retrieved_at": "2026-11-16T14:05:01+00:00"
    },
    {
     "id": "bestbuy_brightdata",
@@ -30,7 +30,7 @@
     "licence": "Best Buy's website terms have not been read for this project yet, so reuse rights are unconfirmed. Until they are, the rows are handled like Amazon's: never committed or published, kept in a private Actions cache, and only derived tables reach the site. Bright Data's Master Service Agreement (https://brightdata.com/license) grants no rights in the collected data and makes the customer solely responsible for lawful use.",
     "frequency": "weekly collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T16:54:07+00:00"
+    "retrieved_at": "2026-11-16T14:35:35+00:00"
    },
    {
     "id": "centralcomputer",
@@ -39,7 +39,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T02:42:08+00:00"
+    "retrieved_at": "2026-11-17T18:05:05+00:00"
    },
    {
     "id": "blender_opendata",
@@ -65,18 +65,18 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 72,
-   "listings_recognised": 72,
-   "models_priced": 36,
-   "models_with_score": 36,
+   "listings": 86,
+   "listings_recognised": 86,
+   "models_priced": 53,
+   "models_with_score": 53,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 143,
-   "listings_recognised": 143,
-   "models_priced": 18,
-   "models_with_score": 18,
+   "listings": 105,
+   "listings_recognised": 105,
+   "models_priced": 25,
+   "models_with_score": 25,
    "share_with_score": 1.0
   }
  ]

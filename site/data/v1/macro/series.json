@@ -3,7 +3,7 @@
   "module": "macro",
   "table": "series",
   "description": "One row per series: the latest value, its monthly move, the usual move and how many spreads apart they are.",
-  "generated_at": "2026-11-17T02:43:08+00:00",
+  "generated_at": "2026-11-17T18:05:56+00:00",
   "rows": 70,
   "columns": [
    "series_id",
@@ -31,7 +31,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-17T02:42:33+00:00"
+    "retrieved_at": "2026-11-17T18:05:29+00:00"
    },
    {
     "id": "bis",
@@ -40,7 +40,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-17T02:42:45+00:00"
+    "retrieved_at": "2026-11-17T18:05:31+00:00"
    },
    {
     "id": "opendosm",
@@ -49,7 +49,7 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-17T02:42:53+00:00"
+    "retrieved_at": "2026-11-17T18:05:40+00:00"
    },
    {
     "id": "imf",
@@ -58,7 +58,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-17T02:42:58+00:00"
+    "retrieved_at": "2026-11-17T18:05:41+00:00"
    },
    {
     "id": "indeed_postings",
@@ -67,7 +67,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-17T02:42:58+00:00"
+    "retrieved_at": "2026-11-17T18:05:41+00:00"
    }
   ],
   "preliminary": false,
@@ -450,24 +450,6 @@
    "months_of_history": 441
   },
   {
-   "series_id": "US.industrial_output",
-   "country": "United States",
-   "indicator": "industrial_output",
-   "name": "Industrial production",
-   "units": "index 2017=100",
-   "source": "fred",
-   "source_code": "INDPRO",
-   "latest_month": "2026-09-01T00:00:00",
-   "value": 103.9506,
-   "move": 0.6603729292979921,
-   "move_unit": "percent",
-   "expected_move": 0.08293400044001586,
-   "z": 1.0371851892314907,
-   "flagged": false,
-   "seasonal_comparison": false,
-   "months_of_history": 441
-  },
-  {
    "series_id": "MY.reer",
    "country": "Malaysia",
    "indicator": "reer",
@@ -493,15 +475,33 @@
    "units": "percent",
    "source": "fred",
    "source_code": "TCU",
-   "latest_month": "2026-09-01T00:00:00",
-   "value": 76.8504,
-   "move": 0.43199999999998795,
+   "latest_month": "2026-10-01T00:00:00",
+   "value": 76.3633,
+   "move": -0.40960000000001173,
    "move_unit": "change in value",
-   "expected_move": 0.011649999999995941,
-   "z": 0.923525051289878,
+   "expected_move": 0.01850000000000307,
+   "z": -0.9126090206445606,
    "flagged": false,
    "seasonal_comparison": false,
-   "months_of_history": 441
+   "months_of_history": 442
+  },
+  {
+   "series_id": "US.industrial_output",
+   "country": "United States",
+   "indicator": "industrial_output",
+   "name": "Industrial production",
+   "units": "index 2017=100",
+   "source": "fred",
+   "source_code": "INDPRO",
+   "latest_month": "2026-10-01T00:00:00",
+   "value": 103.3954,
+   "move": -0.4346632900458225,
+   "move_unit": "percent",
+   "expected_move": 0.09486285469830769,
+   "z": -0.9121885311451762,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 442
   },
   {
    "series_id": "ID.imports_usd",
@@ -864,24 +864,6 @@
    "months_of_history": 439
   },
   {
-   "series_id": "US.retail_sales",
-   "country": "United States",
-   "indicator": "retail_sales",
-   "name": "Retail and food services sales",
-   "units": "millions of dollars",
-   "source": "fred",
-   "source_code": "RSAFS",
-   "latest_month": "2026-09-01T00:00:00",
-   "value": 745021.0,
-   "move": 0.7678855902378601,
-   "move_unit": "percent",
-   "expected_move": 0.34368051242577025,
-   "z": 0.5009498845986616,
-   "flagged": false,
-   "seasonal_comparison": false,
-   "months_of_history": 417
-  },
-  {
    "series_id": "US.cpi",
    "country": "United States",
    "indicator": "cpi",
@@ -1170,6 +1152,24 @@
    "months_of_history": 189
   },
   {
+   "series_id": "US.retail_sales",
+   "country": "United States",
+   "indicator": "retail_sales",
+   "name": "Retail and food services sales",
+   "units": "millions of dollars",
+   "source": "fred",
+   "source_code": "RSAFS",
+   "latest_month": "2026-10-01T00:00:00",
+   "value": 748220.0,
+   "move": 0.2117929128642615,
+   "move_unit": "percent",
+   "expected_move": 0.34368051242577025,
+   "z": -0.1557479653970548,
+   "flagged": false,
+   "seasonal_comparison": false,
+   "months_of_history": 418
+  },
+  {
    "series_id": "ID.reer",
    "country": "Indonesia",
    "indicator": "reer",
@@ -1296,22 +1296,22 @@
    "months_of_history": 441
   },
   {
-   "series_id": "ID.policy_rate",
-   "country": "Indonesia",
+   "series_id": "MY.policy_rate",
+   "country": "Malaysia",
    "indicator": "policy_rate",
    "name": "Central bank policy rate",
    "units": "percent",
    "source": "bis",
    "source_code": "WS_CBPOL",
    "latest_month": "2026-10-01T00:00:00",
-   "value": 5.75,
+   "value": 2.75,
    "move": 0.0,
    "move_unit": "change in value",
    "expected_move": 0.0,
    "z": 0.0,
    "flagged": false,
    "seasonal_comparison": false,
-   "months_of_history": 256
+   "months_of_history": 372
   },
   {
    "series_id": "TH.policy_rate",
@@ -1332,22 +1332,22 @@
    "months_of_history": 318
   },
   {
-   "series_id": "MY.policy_rate",
-   "country": "Malaysia",
+   "series_id": "ID.policy_rate",
+   "country": "Indonesia",
    "indicator": "policy_rate",
    "name": "Central bank policy rate",
    "units": "percent",
    "source": "bis",
    "source_code": "WS_CBPOL",
    "latest_month": "2026-10-01T00:00:00",
-   "value": 2.75,
+   "value": 5.75,
    "move": 0.0,
    "move_unit": "change in value",
    "expected_move": 0.0,
    "z": 0.0,
    "flagged": false,
    "seasonal_comparison": false,
-   "months_of_history": 372
+   "months_of_history": 256
   }
  ]
 }

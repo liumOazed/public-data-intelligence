@@ -115,6 +115,14 @@
   "baseline": false,
   "first_seen": "2026-11-17T16:55:01+00:00"
  },
+ "tech-value|nvidia rtx 5070 ti|price move|2026-11-17": {
+  "baseline": false,
+  "first_seen": "2026-11-17T18:05:59+00:00"
+ },
+ "tech-value|nvidia rtx 5080|price move|2026-11-17": {
+  "baseline": false,
+  "first_seen": "2026-11-17T18:05:59+00:00"
+ },
  "trade|VN|same calendar month|2026-09-01": {
   "baseline": true,
   "first_seen": "2026-11-16T13:05:47+00:00"
