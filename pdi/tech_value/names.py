@@ -12,7 +12,7 @@ import re
 
 _NOISE = re.compile(r"\((?:r|tm|c)\)|[®™©]", re.I)
 _SPACES = re.compile(r"\s+")
-_MOBILE = re.compile(r"\b(laptop|mobile|max-?q|notebook)\b", re.I)
+_MOBILE = re.compile(r"\b(laptop|mobile|max-?q|notebook|server\s+edition|dc-\d+q)\b", re.I)
 
 _RYZEN_TR = re.compile(r"\bthreadripper\s+(pro\s+)?(\d{4}(?:wx|x))\b")
 _RYZEN = re.compile(r"\bryzen\s+([3579])\s+(?:pro\s+)?(\d{4}[a-z]?(?:3d)?[a-z]?)\b")
@@ -22,9 +22,14 @@ _CORE_I = re.compile(r"\b(i[3579])[-\s](\d{4,5}[a-z]{0,2})\b")
 # Laptop chips: Core i ... H/HX/HK/HS/HQ/U/P/Y, Core Ultra ... V, and Ryzen ... H/HS/HX/U.
 _MOBILE_CPU = re.compile(r"\d(?:h[xkqs]?|u|p|y|v)$")
 
-_GEFORCE = re.compile(r"\b(rtx|gtx)\s*(\d{3,4})(\s*ti)?(\s*super)?\b")
+_RTX_PRO = re.compile(r"\brtx\s+pro\s+(\d{4})(?:\s+blackwell)?\b")
+_RTX_ADA = re.compile(r"\brtx\s+(\d{4})\s+(?:sff\s+)?ada\b")
+_RTX_AMP = re.compile(r"\brtx\s+(a\d{3,4})\b")
+_GEFORCE = re.compile(r"\b(?<!quadro\s)(rtx|gtx)\s*(\d{3,4})(\s*ti)?(\s*super)?\b")
+_RADEON_PRO = re.compile(r"\bradeon\s+ai\s+pro\s+(r\d{4})\b")
 _RADEON = re.compile(r"\brx\s*(\d{4})(?:\s*(xtx|xt|gre)\b)?")
-_ARC = re.compile(r"\barc\s+(?:pro\s+)?([ab]\d{3})\b")
+_ARC_PRO = re.compile(r"\barc\s+pro\s+([ab]\d{2,3})\b")
+_ARC = re.compile(r"\barc\s+(a310|a380|a580|a750|a770|b570|b580)\b")
 
 # Generations still sold new at US retail. Older parts remain eligible to be matched whenever a
 # store lists them, but are not actively queried one by one.
@@ -35,8 +40,10 @@ _ACTIVE_CPU = re.compile(
 _ACTIVE_GPU = re.compile(
     r"^(?:nvidia rtx (?:50[56789]0|40[6789]0)(?:\s+ti)?(?:\s+super)?$|"
     r"nvidia rtx 30[56]0$|"
+    r"nvidia rtx (?:pro \d{4} blackwell|\d{4} ada|a\d{3,4})$|"
     r"amd rx (?:90\d{2}|7\d{3}|6[67]00)(?:\s+(?:xtx|xt|gre))?$|"
-    r"intel arc (?:a380|a580|a750|a770|b570|b580)$)"
+    r"amd radeon ai pro r\d{4}$|"
+    r"intel arc (?:pro [ab]\d{2,3}|a380|a580|a750|a770|b570|b580)$)"
 )
 
 
@@ -89,13 +96,23 @@ def _cpu_key(text: str) -> str | None:
 
 
 def _gpu_key(text: str) -> str | None:
-    if m := _GEFORCE.search(text):
+    if m := _RTX_PRO.search(text):
+        return f"nvidia rtx pro {m.group(1)} blackwell"
+    if m := _RTX_ADA.search(text):
+        return f"nvidia rtx {m.group(1)} ada"
+    if m := _RTX_AMP.search(text):
+        return f"nvidia rtx {m.group(1)}"
+    if "quadro" not in text and (m := _GEFORCE.search(text)) and not m.group(2).endswith("000"):
         ti = " ti" if m.group(3) else ""
         sup = " super" if m.group(4) else ""
         return f"nvidia {m.group(1)} {m.group(2)}{ti}{sup}"
+    if m := _RADEON_PRO.search(text):
+        return f"amd radeon ai pro {m.group(1)}"
     if m := _RADEON.search(text):
         suffix = f" {m.group(2)}" if m.group(2) else ""
         return f"amd rx {m.group(1)}{suffix}"
+    if m := _ARC_PRO.search(text):
+        return f"intel arc pro {m.group(1)}"
     if m := _ARC.search(text):
         return f"intel arc {m.group(1)}"
     return None

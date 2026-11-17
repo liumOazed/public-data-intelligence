@@ -240,18 +240,7 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
     return rows
 
 
-def base_query(key: str) -> str:
-    """Collapse closely related SKU variants into one search query to conserve API quota.
-
-    A search for "rtx 5070" returns both RTX 5070 and RTX 5070 Ti; a search for "core i7-14700k"
-    returns 14700K, 14700KF and 14700F.
-    """
-    term = retail.search_term(key)
-    term = re.sub(r"\s+(?:ti|super|xtx|xt|gre)(?:\s+(?:ti|super))?$", "", term)
-    term = re.sub(r"^((?:ryzen|threadripper)\s+(?:\d\s+)?\d{4})[a-z0-9]*$", r"\1", term)
-    term = re.sub(r"^(core\s+i[3579]-\d{4,5}k)f$", r"\1", term)
-    term = re.sub(r"^(core\s+ultra\s+[3579]\s+\d{3}k)f$", r"\1", term)
-    return term
+base_query = retail.base_query
 
 
 def search_queries(wanted: list[tuple[str, str]]) -> list[str]:

@@ -58,9 +58,10 @@ _ACCESSORY = re.compile(
 
 
 # A whole computer names its processor too. "Gaming Desktop Processor" is Intel's box wording for
-# a bare CPU, not a desktop PC.
+# a bare CPU, not a desktop PC; "Workstation Edition" / "Workstation Graphics" is a workstation GPU.
 _SYSTEM = re.compile(
-    r"\b(mini\s?pc|workstation|desktop\s+(?:computer|pc)|"
+    r"\b(mini\s?pc|(?<!for\s)workstation(?!\s+(?:edition|graphics|gpu|video))|"
+    r"desktop\s+(?:computer|pc)|"
     r"(?<!for\s)(?<!for\scomputer\s)gaming\s+(?:pc\b|desktop(?!\s+processor))|barebones?|"
     r"all-in-one|nuc|tower|motherboard|combo|bundle|windows\s+1[01]|ssd|hdd|nvme|"
     r"\d+\s?gb\s+(?:ram|ddr[345]|memory))\b",
@@ -82,7 +83,7 @@ class Listing:
 
 
 def parse_magento_search(html: str, base_url: str) -> list[Listing]:
-    """Search-results page of a Magento 2 storefront (Central Computers).
+    """Search-results or category page of a Magento 2 storefront (Central Computers).
 
     Each result is an element with class "product-item" holding a "product-item-link" anchor
     and a price element carrying data-price-type="finalPrice" and data-price-amount.
@@ -112,11 +113,28 @@ def parse_magento_search(html: str, base_url: str) -> list[Listing]:
     return out
 
 
+def parse_magento_next_page(html: str, base_url: str) -> str | None:
+    """Next-page link on a Magento 2 category or search listing page, if any."""
+    soup = BeautifulSoup(html, "html.parser")
+    nxt = soup.select_one("li.pages-item-next a.action.next[href], a.action.next[href]")
+    if not nxt:
+        return None
+    href = (nxt.get("href") or "").strip()
+    if not href or href.startswith("#"):
+        return None
+    return urljoin(base_url, href)
+
+
+MAX_CATEGORY_PAGES = 5
+
+
 @dataclass(frozen=True)
 class Retailer:
     key: str  # also the id in sources/registry.yaml
     search_url: str  # "{q}" is replaced by the URL-encoded query
     parse: Callable[[str, str], list[Listing]]
+    category_urls: tuple[str, ...] = ()
+    next_page: Callable[[str, str], str | None] | None = None
 
 
 RETAILERS = (
@@ -124,6 +142,13 @@ RETAILERS = (
         key="centralcomputer",
         search_url="https://www.centralcomputer.com/catalogsearch/result/?q={q}",
         parse=parse_magento_search,
+        category_urls=(
+            "https://www.centralcomputer.com/all-products/hardware/video-cards.html?product_list_limit=96",
+            "https://www.centralcomputer.com/all-products/ai-components/ai-gpus.html?product_list_limit=96",
+            "https://www.centralcomputer.com/all-products/hardware/cpus.html?product_list_limit=96",
+            "https://www.centralcomputer.com/all-products/ai-components/cpus.html?product_list_limit=96",
+        ),
+        next_page=parse_magento_next_page,
     ),
 )
 
@@ -131,6 +156,21 @@ RETAILERS = (
 def search_term(key: str) -> str:
     """ "amd ryzen 7 9800x3d" -> "ryzen 7 9800x3d"; "nvidia rtx 4070 ti" -> "rtx 4070 ti"."""
     return key.split(" ", 1)[1]
+
+
+def base_query(key: str) -> str:
+    """Collapse closely related SKU variants into one search query.
+
+    A search for "rtx 5070" returns both RTX 5070 and RTX 5070 Ti; a search for "core i7-14700k"
+    returns 14700K, 14700KF and 14700F.
+    """
+    term = search_term(key)
+    term = re.sub(r"\s+blackwell$", "", term)
+    term = re.sub(r"\s+(?:ti|super|xtx|xt|gre)(?:\s+(?:ti|super))?$", "", term)
+    term = re.sub(r"^((?:ryzen|threadripper)\s+(?:\d\s+)?\d{4})[a-z0-9]*$", r"\1", term)
+    term = re.sub(r"^(core\s+i[3579]-\d{4,5}k)f$", r"\1", term)
+    term = re.sub(r"^(core\s+ultra\s+[3579]\s+\d{3}k)f$", r"\1", term)
+    return term
 
 
 def keep(listing: Listing, kind: str, key: str) -> bool:
@@ -197,8 +237,42 @@ class Robots:
         return bool(parser and parser.can_fetch(config.CRAWLER_USER_AGENT, url))
 
 
+def _ingest_listings(
+    listings: list[Listing],
+    acceptable: set[tuple[str, str]],
+    day: str,
+    source: str,
+    seen: set[str],
+    found_models: set[tuple[str, str]],
+    rows: list[dict],
+) -> None:
+    for x in listings:
+        matched = match_wanted(x, acceptable)
+        if not matched or x.sku in seen:
+            continue
+        m_kind, m_key = matched
+        seen.add(x.sku)
+        found_models.add((m_kind, m_key))
+        rows.append(
+            {
+                "date": day,
+                "source": source,
+                "sku": x.sku,
+                "name": x.name,
+                "category": m_kind,
+                "sale_price": x.price,
+                "regular_price": None,
+                "price_update_date": None,
+                "online_availability": x.in_stock,
+                "url": x.url,
+                "model_key": m_key,
+                "retrieved_at": utc_now().isoformat(),
+            }
+        )
+
+
 def collect(today: date | None = None) -> pd.DataFrame:
-    """Crawl every retailer for every target model and write today's tidy price file."""
+    """Crawl every retailer's category pages and fallback searches to write today's price file."""
     day = (today or date.today()).isoformat()
     session = requests.Session()
     session.headers.update({"User-Agent": config.CRAWLER_USER_AGENT, "Accept": "text/html"})
@@ -210,9 +284,59 @@ def collect(today: date | None = None) -> pd.DataFrame:
     for retailer in RETAILERS:
         raw_dir = config.RAW_DIR / "retail" / retailer.key / day
         raw_dir.mkdir(parents=True, exist_ok=True)
-        seen, found_models, fetched = set(), set(), 0
-        for _, key in wanted:
-            url = retailer.search_url.format(q=quote_plus(search_term(key)))
+        seen, found_models, fetched, blocked = set(), set(), 0, False
+        visited_urls: set[str] = set()
+
+        # 1. Crawl full category listing pages first (with pagination) to capture all in-stock SKUs
+        #    in a few requests instead of querying every model one by one.
+        for cat_idx, start_url in enumerate(retailer.category_urls, start=1):
+            url: str | None = start_url
+            page_no = 1
+            while url and url not in visited_urls and page_no <= MAX_CATEGORY_PAGES:
+                visited_urls.add(url)
+                if not robots.allowed(url):
+                    problems.append(f"{retailer.key}: robots.txt does not allow {url}")
+                    break
+                time.sleep(config.CRAWLER_PAUSE_S)
+                try:
+                    resp = session.get(url, timeout=60)
+                except requests.RequestException as exc:
+                    problems.append(f"{retailer.key}: {type(exc).__name__} for category {cat_idx}")
+                    break
+                if resp.status_code != 200:
+                    problems.append(
+                        f"{retailer.key}: HTTP {resp.status_code} for category {cat_idx}"
+                    )
+                    if resp.status_code in (403, 429):
+                        blocked = True
+                    break
+                fetched += 1
+                (raw_dir / f"category_{cat_idx}_p{page_no}.html").write_bytes(resp.content)
+                _ingest_listings(
+                    retailer.parse(resp.text, url),
+                    acceptable,
+                    day,
+                    retailer.key,
+                    seen,
+                    found_models,
+                    rows,
+                )
+                url = retailer.next_page(resp.text, url) if retailer.next_page else None
+                page_no += 1
+            if blocked:
+                break
+
+        # 2. Fallback keyword search only for target models not found on category pages,
+        #    deduplicated by base_query so variant families share a single search request.
+        queried_terms: set[str] = set()
+        for kind, key in wanted:
+            if blocked or (kind, key) in found_models:
+                continue
+            q_term = base_query(key)
+            if q_term in queried_terms:
+                continue
+            queried_terms.add(q_term)
+            url = retailer.search_url.format(q=quote_plus(q_term))
             if not robots.allowed(url):
                 problems.append(f"{retailer.key}: robots.txt does not allow {url}")
                 break
@@ -229,35 +353,21 @@ def collect(today: date | None = None) -> pd.DataFrame:
                 continue
             fetched += 1
             # Raw page kept untouched for this run's artifact; never committed or published.
-            (raw_dir / f"{key.replace(' ', '_')}.html").write_bytes(resp.content)
-            listings = retailer.parse(resp.text, url)
-            for x in listings:
-                matched = match_wanted(x, acceptable)
-                if not matched or x.sku in seen:
-                    continue
-                m_kind, m_key = matched
-                seen.add(x.sku)
-                found_models.add((m_kind, m_key))
-                rows.append(
-                    {
-                        "date": day,
-                        "source": retailer.key,
-                        "sku": x.sku,
-                        "name": x.name,
-                        "category": m_kind,
-                        "sale_price": x.price,
-                        "regular_price": None,
-                        "price_update_date": None,
-                        "online_availability": x.in_stock,
-                        "url": x.url,
-                        "model_key": m_key,
-                        "retrieved_at": utc_now().isoformat(),
-                    }
-                )
+            (raw_dir / f"{q_term.replace(' ', '_')}.html").write_bytes(resp.content)
+            _ingest_listings(
+                retailer.parse(resp.text, url),
+                acceptable,
+                day,
+                retailer.key,
+                seen,
+                found_models,
+                rows,
+            )
+
         n_found = len(found_models)
         print(
             f"{retailer.key}: {fetched} pages fetched, {n_found} models "
-            f"found ({len(wanted)} queried), {len(seen)} listings kept"
+            f"found ({len(wanted)} targets), {len(seen)} listings kept"
         )
         if fetched and n_found < config.CRAWLER_MIN_MODELS_FOUND:
             problems.append(

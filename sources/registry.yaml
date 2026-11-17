@@ -65,6 +65,28 @@ sources:
       Not collecting. Best Buy issues API keys to company email addresses only, so there is no
       key yet. Listing prices at one US retailer, not transaction prices. Daily prices cannot be backfilled, so this collector should run from day one.
 
+  ebay_browse:
+    name: eBay US Buy It Now listings (Browse API)
+    owner: eBay Inc.
+    url: https://developer.ebay.com/api-docs/buy/browse/overview.html
+    endpoint: https://api.ebay.com/buy/browse/v1/item_summary/search
+    licence: >-
+      eBay API License Agreement (https://developer.ebay.com/join/api-license-agreement).
+      Public display of derived lowest-price comparisons with a link back to the listing is
+      permitted; raw listing feeds are not redistributed in bulk.
+    frequency: daily collection
+    typical_lag: same day
+    status: amber
+    publish: derived
+    module: tech-value
+    terms_checked: 2026-11-17
+    secret: EBAY_CLIENT_ID
+    notes: >-
+      Official REST API (5,000 free calls/day). Filtered strictly to Brand New (conditionId
+      1000), fixed-price (Buy It Now), US-located listings from established sellers (>= 98%
+      positive feedback and >= 100 feedback score), including shipping in the compared price.
+
+
   centralcomputer:
     name: Central Computers online store
     owner: Central Computers
