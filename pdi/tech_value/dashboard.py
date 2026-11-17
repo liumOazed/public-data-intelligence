@@ -159,6 +159,13 @@ def brackets(df: pd.DataFrame, edges: list[float]) -> pd.DataFrame:
 def funnel(bench: pd.DataFrame, value: pd.DataFrame) -> pd.DataFrame:
     """Benchmark universe -> price-checked -> priced -> ranked, per kind."""
     checked = price_checked(bench)
+    checked_pairs = (
+        set(zip(checked["kind"], checked["model_key"], strict=False)) if len(checked) else set()
+    )
+    priced_pairs = (
+        set(zip(value["kind"], value["model_key"], strict=False)) if len(value) else set()
+    )
+    looked_up = checked_pairs | priced_pairs
     rk = ranked(value)
     rows = []
     for kind in KINDS:
@@ -166,7 +173,7 @@ def funnel(bench: pd.DataFrame, value: pd.DataFrame) -> pd.DataFrame:
             {
                 "kind": kind,
                 "benchmarked": int((bench["kind"] == kind).sum()) if len(bench) else 0,
-                "price_checked": int((checked["kind"] == kind).sum()) if len(checked) else 0,
+                "price_checked": sum(1 for kd, _ in looked_up if kd == kind),
                 "priced": int((value["kind"] == kind).sum()) if len(value) else 0,
                 "ranked": int((rk["kind"] == kind).sum()) if len(rk) else 0,
             }
@@ -181,14 +188,22 @@ def freshness(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -
     PRICE_MAX_AGE_DAYS). Stale means a price was seen before but none recently enough.
     """
     checked = price_checked(bench)
-    if checked.empty:
+    if checked.empty and value.empty:
         return pd.DataFrame(columns=["kind", "model_key", "status", "last_seen"])
     in_value = set(zip(value["kind"], value["model_key"], strict=False)) if len(value) else set()
+    checked_list = (
+        list(zip(checked["kind"], checked["model_key"], strict=False)) if len(checked) else []
+    )
+    seen_set = set(checked_list)
+    for pair in sorted(in_value):
+        if pair not in seen_set:
+            checked_list.append(pair)
+            seen_set.add(pair)
     last_seen = (
         history.groupby(["kind", "model_key"])["date"].max().to_dict() if len(history) else {}
     )
     rows = []
-    for kind, key in zip(checked["kind"], checked["model_key"], strict=False):
+    for kind, key in checked_list:
         seen = last_seen.get((kind, key))
         if (kind, key) in in_value:
             status = "fresh"
@@ -248,7 +263,7 @@ def _usd(x: float) -> str:
     return f"${x:,.0f}"
 
 
-UPPER_WORDS = {"rtx", "rx", "gtx", "xt", "xtx", "gre"}
+UPPER_WORDS = {"rtx", "rx", "gtx", "xt", "xtx", "gre", "ai"}
 
 
 def display_name(key: str) -> str:
@@ -283,13 +298,16 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
     for kind, label in KIND_SHORT.items():
         f = fun.loc[kind]
         if f["price_checked"]:
+            prefix = "Only " if f["ranked"] * 2 < f["price_checked"] else ""
             out.append({
                 "kind": kind, "topic": "Coverage",
-                "text": f"Only {f['ranked']} of the {f['price_checked']} {label}s the collectors "
-                        f"look up have a matching price, out of {f['benchmarked']} {label}s "
-                        "with a benchmark score.",
-                "detail": f"Benchmarked: {f['benchmarked']}. Price-checked (most-benchmarked "
-                          f"{config.CRAWLER_MODELS_PER_KIND}): {f['price_checked']}. Priced: "
+                "text": (
+                    f"{prefix}{f['ranked']} of the {f['price_checked']} {label}s the "
+                    f"collectors look up have a matching price, out of {f['benchmarked']} "
+                    f"{label}s with a benchmark score."
+                ),
+                "detail": f"Benchmarked: {f['benchmarked']}. Price-checked: "
+                          f"{f['price_checked']}. Priced: "
                           f"{f['priced']}. Ranked: {f['ranked']}.",
             })  # fmt: skip
         part = rk[rk["kind"] == kind]
@@ -399,6 +417,7 @@ def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> 
                 "score_per_dollar",
                 "confidence",
                 "n_listings",
+                "n_retailers",
                 "collected_date",
                 "retailer",
                 "listing_url",
@@ -425,8 +444,9 @@ def _h(s) -> str:
             .replace('"', "&quot;"))  # fmt: skip
 
 
-def _card(title: str, body: str) -> str:
-    return f'<div class="vd-card"><div class="vd-card-title">{_h(title)}</div>{body}</div>'
+def _card(title: str, body: str, cls: str = "") -> str:
+    extra = f" {cls}" if cls else ""
+    return f'<div class="vd-card{extra}"><div class="vd-card-title">{_h(title)}</div>{body}</div>'
 
 
 def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
@@ -436,42 +456,49 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
     cards = []
     for kind, label in KIND_SHORT.items():
         f = fun.loc[kind]
+        pct = 100 * f["ranked"] / max(int(f["price_checked"]), 1)
         cards.append(_card(f"{label} coverage", (
-            f'<div class="vd-big">{f["ranked"]} <span>ranked</span></div>'
-            f'<div class="vd-small">{f["benchmarked"]} with a benchmark score · '
-            f'{f["price_checked"]} price-checked · {f["priced"]} with a matching price</div>'
-        )))  # fmt: skip
+            f'<div class="vd-big">{f["ranked"]} <span>ranked ({pct:.0f}% of checked)</span></div>'
+            f'<div class="vd-mini-bar"><span style="width:{min(pct, 100):.1f}%"></span></div>'
+            f'<div class="vd-small">{f["benchmarked"]} benchmarked · '
+            f'{f["price_checked"]} price-checked · {f["priced"]} priced</div>'
+        ), cls=f"vd-card-{kind}"))  # fmt: skip
     for kind, label in KIND_SHORT.items():
         part = rk[rk["kind"] == kind]
         if part.empty:
             none = '<div class="vd-small">No ranked models yet.</div>'
-            cards.append(_card(f"Best {label} value", none))
+            cards.append(_card(f"Best {label} value", none, cls=f"vd-card-{kind}"))
             continue
         b = part.loc[part["score_per_dollar"].idxmax()]
         body = (
             f'<div class="vd-big">{_h(display_name(b["model_key"]))}</div>'
-            f'<div class="vd-small">{b["score_per_dollar"]:.2f} points per $ · '
-            f"${b['price_usd']:,.2f} · {b['score']:,.0f} points</div>"
+            f'<div class="vd-small"><strong>{b["score_per_dollar"]:.2f} pts/$</strong> · '
+            f"${b['price_usd']:,.2f} · {b['score']:,.0f} pts</div>"
         )
         if b.get("confidence") == "low":
             normal = part[part["confidence"] != "low"]
             alt = ""
             if len(normal):
                 n = normal.loc[normal["score_per_dollar"].idxmax()]
-                alt = (f' Best with 2 or more listings: {_h(display_name(n["model_key"]))}, '
-                       f'{n["score_per_dollar"]:.2f} points per $.')  # fmt: skip
-            body += f'<div class="vd-small vd-warn">Price from a single listing.{alt}</div>'
-        cards.append(_card(f"Best {label} value", body))
+                n_name = _h(display_name(n["model_key"]))
+                alt = (
+                    f" Best with 2+ listings: <strong>{n_name}</strong> "
+                    f"({n['score_per_dollar']:.2f} pts/$, ${n['price_usd']:,.0f})."
+                )
+            body += f'<div class="vd-small vd-warn">Single listing.{alt}</div>'
+        cards.append(_card(f"Best {label} value", body, cls=f"vd-card-{kind}"))
     fr = freshness(bench, value, history)
     counts = fr["status"].value_counts().to_dict() if len(fr) else {}
     last = max(history["date"].astype(str).str[:10]) if len(history) else "never"
+    fresh_pct = min(100 * counts.get("fresh", 0) / max(len(fr), 1), 100)
     cards.append(_card("Price freshness", (
         f'<div class="vd-big">{_h(last)}</div>'
-        f'<div class="vd-small">Last collection. Of {len(fr)} price-checked models: '
-        f'{counts.get("fresh", 0)} fresh, {counts.get("stale", 0)} stale, '
-        f'{counts.get("never priced", 0)} never matched. Fresh means collected within '
-        f'{config.PRICE_MAX_AGE_DAYS} days.</div>'
-    )))  # fmt: skip
+        f'<div class="vd-mini-bar vd-mini-bar-ok">'
+        f'<span style="width:{fresh_pct:.1f}%"></span></div>'
+        f'<div class="vd-small">Of {len(fr)} price-checked models: '
+        f'<strong>{counts.get("fresh", 0)} fresh</strong>, {counts.get("stale", 0)} stale, '
+        f'{counts.get("never priced", 0)} unmatched (≤{config.PRICE_MAX_AGE_DAYS}d window).</div>'
+    ), cls="vd-card-fresh"))  # fmt: skip
     return '<div class="vd-cards">' + "".join(cards) + "</div>"
 
 
