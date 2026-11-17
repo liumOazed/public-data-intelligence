@@ -60,11 +60,45 @@ def test_only_amazon_or_the_brand_itself_counts_as_new():
     records = [
         {**base, "asin": "M1", "final_price": 120.0, "seller_name": "Hcir Equipment"},
         {**base, "asin": "M2", "final_price": 130.0},  # no seller named at all
+        {**base, "asin": "DE", "final_price": 150.0, "seller_name": "Amazon Germany"},
         {**base, "asin": "A1", "final_price": 189.0, "buybox_seller": "Amazon.com"},
         {**base, "asin": "B1", "final_price": 185.0, "seller_name": "AMD Official", "brand": "AMD"},
+        {**base, "asin": "MC", "final_price": 179.99, "seller_name": "Micro Center"},
     ]
     rows = brightdata.parse(records, {("cpu", "amd ryzen 7 5700x")}, "2026-11-14")
-    assert [r["sku"] for r in rows] == ["A1", "B1"]
+    assert [r["sku"] for r in rows] == ["A1", "B1", "MC"]
+
+
+def test_aib_partner_counts_as_new_on_amazon():
+    records = [
+        {
+            "asin": "G1",
+            "title": "XFX Speedster SWFT210 Radeon RX 7600 Gaming Graphics Card with 8GB",
+            "currency": "USD",
+            "final_price": 249.99,
+            "seller_name": "XFX Official",
+            "brand": "XFX",
+        }
+    ]
+    rows = brightdata.parse(records, {("gpu", "amd rx 7600")}, "2026-11-14")
+    assert [r["sku"] for r in rows] == ["G1"]
+
+
+def test_search_queries_deduplicates_variant_families():
+    wanted = [
+        ("gpu", "nvidia rtx 4070"),
+        ("gpu", "nvidia rtx 4070 super"),
+        ("gpu", "nvidia rtx 4070 ti"),
+        ("gpu", "nvidia rtx 4070 ti super"),
+        ("cpu", "intel core i7-14700k"),
+        ("cpu", "intel core i7-14700kf"),
+        ("cpu", "amd ryzen 7 9700x"),
+    ]
+    assert brightdata.search_queries(wanted) == [
+        "rtx 4070",
+        "core i7-14700k",
+        "ryzen 7 9700",
+    ]
 
 
 def test_bestbuy_keeps_new_parts_sold_by_best_buy_itself(fixtures):

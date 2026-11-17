@@ -32,9 +32,10 @@ PRICE_LIMITS = [
     "Prices are listing prices at the retailers named, not transaction prices. Coverage is "
     "limited to retailers that allow automated collection, so this is not the whole market.",
     "The price shown is the cheapest new listing available online on the collection date.",
-    "Amazon prices count only listings sold by Amazon.com or the part's own brand, and "
-    "Best Buy prices only listings sold by Best Buy itself. "
-    "Marketplace sellers are left out because their listings cannot be confirmed as new.",
+    "Amazon prices count only listings sold by Amazon.com, Micro Center, or the part's "
+    "own brand or board partner, and Best Buy prices only listings sold by Best Buy or "
+    "Newegg Official. Other marketplace sellers are left out because their listings cannot "
+    "be confirmed as new.",
     "A price backed by a single listing is marked low confidence: it is often one "
     "marketplace seller's asking price for a discontinued part.",
     "Score per dollar measures rendering throughput per dollar. It is a research lead, "

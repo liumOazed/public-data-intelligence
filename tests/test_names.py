@@ -1,6 +1,6 @@
 import pytest
 
-from pdi.tech_value.names import model_key
+from pdi.tech_value.names import model_key, retail_active
 
 
 @pytest.mark.parametrize(
@@ -65,6 +65,26 @@ def test_ti_and_super_are_distinct_models():
 
 def test_laptop_chips_are_not_desktop_parts():
     assert model_key("13th Gen Intel(R) Core(TM) i9-13900HX") is None
+    assert model_key("Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz") is None
+    assert model_key("Intel(R) Core(TM) Ultra 7 258V") is None
     assert model_key("AMD Ryzen 7 7840HS w/ Radeon 780M Graphics") is None
     assert model_key("AMD Ryzen 7 5800X3D") == ("cpu", "amd ryzen 7 5800x3d")
     assert model_key("Intel Core i5-12400F") == ("cpu", "intel core i5-12400f")
+
+
+def test_retail_active_filters_discontinued_generations():
+    assert retail_active("gpu", "nvidia rtx 5070 ti")
+    assert retail_active("gpu", "nvidia rtx 4070 super")
+    assert retail_active("gpu", "amd rx 9070 xt")
+    assert retail_active("gpu", "amd rx 7800 xt")
+    assert retail_active("gpu", "intel arc b580")
+    assert not retail_active("gpu", "nvidia gtx 1080")
+    assert not retail_active("gpu", "nvidia rtx 2080 ti")
+    assert not retail_active("gpu", "amd rx 6800 xt")
+    assert retail_active("cpu", "amd ryzen 7 9800x3d")
+    assert retail_active("cpu", "amd ryzen 5 5600x")
+    assert retail_active("cpu", "intel core i7-14700k")
+    assert retail_active("cpu", "intel core ultra 9 285k")
+    assert not retail_active("cpu", "amd ryzen 5 3600")
+    assert not retail_active("cpu", "intel core i7-8700k")
+    assert not retail_active("cpu", "amd threadripper pro 7995wx")

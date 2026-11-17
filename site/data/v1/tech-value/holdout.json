@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "holdout",
   "description": "Error on the newest generation, scored once after the pick was made on validation.",
-  "generated_at": "2026-11-17T02:43:02+00:00",
+  "generated_at": "2026-11-17T16:54:56+00:00",
   "rows": 3,
   "columns": [
    "model",

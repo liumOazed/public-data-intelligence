@@ -63,3 +63,42 @@ def test_whole_computers_are_not_parts():
     assert not retail.keep(mini, "cpu", "intel core i9-13900hx")
     assert not retail.keep(tower, "cpu", "intel core ultra 7 265k")
     assert retail.keep(part, "cpu", "intel core ultra 7 265k")
+
+
+def test_gaming_desktop_processor_and_gpu_metal_backplate_are_kept():
+    intel_box = retail.Listing(
+        sku="i7",
+        name="Intel Core i7-14700K Gaming Desktop Processor 20 cores (8 P-cores + 12 E-cores)",
+        price=328.95,
+        in_stock=True,
+        url="https://www.example.invalid/i7",
+    )
+    gpu_backplate = retail.Listing(
+        sku="rx",
+        name="ASRock Radeon RX 9060 XT Challenger 8GB GDDR6 PCI Express 5.0 x16 Graphics Card | Metal Backplate",
+        price=349.99,
+        in_stock=True,
+        url="https://www.example.invalid/rx",
+    )
+    waterblock = retail.Listing(
+        sku="wb",
+        name="Alphacool Core Geforce RTX 5090 Reference with Backplate",
+        price=219.99,
+        in_stock=True,
+        url="https://www.example.invalid/wb",
+    )
+    assert retail.keep(intel_box, "cpu", "intel core i7-14700k")
+    assert retail.keep(gpu_backplate, "gpu", "amd rx 9060 xt")
+    assert not retail.keep(waterblock, "gpu", "nvidia rtx 5090")
+
+
+def test_match_wanted_harvests_any_benchmarked_model_on_page(fixtures):
+    items = _listings(fixtures)
+    acceptable = {("gpu", "nvidia rtx 4070 ti super"), ("gpu", "nvidia rtx 4070")}
+    matched = [(x.sku, retail.match_wanted(x, acceptable)) for x in items]
+    assert matched == [
+        ("111", ("gpu", "nvidia rtx 4070 ti super")),
+        ("222", ("gpu", "nvidia rtx 4070")),
+        ("333", None),
+        ("444", None),
+    ]

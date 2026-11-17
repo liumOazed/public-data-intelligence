@@ -28,7 +28,7 @@ from bs4 import BeautifulSoup
 
 from pdi.common.fetch import CollectError, utc_now
 from pdi.tech_value import config, value
-from pdi.tech_value.names import model_key
+from pdi.tech_value.names import model_key, retail_active
 
 TIDY_SCHEMA = pa.DataFrameSchema(
     {
@@ -49,15 +49,19 @@ TIDY_SCHEMA = pa.DataFrameSchema(
 
 # Listings that name a part but are not the part.
 _ACCESSORY = re.compile(
-    r"\b(water\s?block|backplate|bracket|riser|cable|adapter|cooler for|heatsink for|"
-    r"compatible with|for use with|support bracket|refurbished|renewed|open box|used)\b",
+    r"\b(water\s?block|riser|cooler for|heatsink for|"
+    r"compatible with|for use with|support bracket|gpu bracket|vertical bracket|"
+    r"replacement\s+backplate|with\s+backplate|power\s+cable|extension\s+cable|adapter\s+cable|"
+    r"refurbished|renewed|open[\s-]?box|pre[\s-]?owned|\bused\b)\b",
     re.I,
 )
 
 
-# A whole computer names its processor too. These words never appear on a bare CPU or graphics card.
+# A whole computer names its processor too. "Gaming Desktop Processor" is Intel's box wording for
+# a bare CPU, not a desktop PC.
 _SYSTEM = re.compile(
-    r"\b(mini\s?pc|workstation|desktop\s+(?:computer|pc)|gaming\s+(?:pc|desktop)|barebones?|"
+    r"\b(mini\s?pc|workstation|desktop\s+(?:computer|pc)|"
+    r"(?<!for\s)(?<!for\scomputer\s)gaming\s+(?:pc\b|desktop(?!\s+processor))|barebones?|"
     r"all-in-one|nuc|tower|motherboard|combo|bundle|windows\s+1[01]|ssd|hdd|nvme|"
     r"\d+\s?gb\s+(?:ram|ddr[345]|memory))\b",
     re.I,
@@ -138,15 +142,34 @@ def keep(listing: Listing, kind: str, key: str) -> bool:
     return model_key(listing.name) == (kind, key)
 
 
+def match_wanted(listing: Listing, wanted: set[tuple[str, str]]) -> tuple[str, str] | None:
+    """Return (kind, model_key) when a listing is a bare part in `wanted`."""
+    found = model_key(listing.name)
+    if found not in wanted:
+        return None
+    kind, key = found
+    return found if keep(listing, kind, key) else None
+
+
+def all_targets() -> set[tuple[str, str]]:
+    """Every (kind, model_key) with a valid benchmark score."""
+    if not config.BLENDER_TABLE.exists():
+        raise NoTargets("no benchmark table yet; the weekly pipeline has to run first")
+    bench, _ = value.benchmark_by_model(pd.read_parquet(config.BLENDER_TABLE))
+    return set(zip(bench["kind"], bench["model_key"], strict=False))
+
+
 def targets() -> list[tuple[str, str]]:
-    """(kind, model_key) for the most-benchmarked models: only what can be scored is priced."""
+    """(kind, model_key) for the most-benchmarked retail-active models."""
     if not config.BLENDER_TABLE.exists():
         raise NoTargets("no benchmark table yet; the weekly pipeline has to run first")
     bench, _ = value.benchmark_by_model(pd.read_parquet(config.BLENDER_TABLE))
     out = []
     for kind in ("cpu", "gpu"):
         part = bench[bench["kind"] == kind].sort_values("n_runs", ascending=False)
-        out += [(kind, k) for k in part["model_key"].head(config.CRAWLER_MODELS_PER_KIND)]
+        active = part[part["model_key"].map(lambda k, kd=kind: retail_active(kd, k))]
+        chosen = active if len(active) else part
+        out += [(kind, k) for k in chosen["model_key"].head(config.CRAWLER_MODELS_PER_KIND)]
     return out
 
 
@@ -181,13 +204,14 @@ def collect(today: date | None = None) -> pd.DataFrame:
     session.headers.update({"User-Agent": config.CRAWLER_USER_AGENT, "Accept": "text/html"})
     robots = Robots(session)
     wanted = targets()
+    acceptable = all_targets() | set(wanted)
     rows, problems = [], []
 
     for retailer in RETAILERS:
         raw_dir = config.RAW_DIR / "retail" / retailer.key / day
         raw_dir.mkdir(parents=True, exist_ok=True)
-        seen, found_models, fetched = set(), 0, 0
-        for kind, key in wanted:
+        seen, found_models, fetched = set(), set(), 0
+        for _, key in wanted:
             url = retailer.search_url.format(q=quote_plus(search_term(key)))
             if not robots.allowed(url):
                 problems.append(f"{retailer.key}: robots.txt does not allow {url}")
@@ -207,35 +231,37 @@ def collect(today: date | None = None) -> pd.DataFrame:
             # Raw page kept untouched for this run's artifact; never committed or published.
             (raw_dir / f"{key.replace(' ', '_')}.html").write_bytes(resp.content)
             listings = retailer.parse(resp.text, url)
-            kept = [x for x in listings if keep(x, kind, key)]
-            found_models += bool(kept)
-            for x in kept:
-                if x.sku in seen:
+            for x in listings:
+                matched = match_wanted(x, acceptable)
+                if not matched or x.sku in seen:
                     continue
+                m_kind, m_key = matched
                 seen.add(x.sku)
+                found_models.add((m_kind, m_key))
                 rows.append(
                     {
                         "date": day,
                         "source": retailer.key,
                         "sku": x.sku,
                         "name": x.name,
-                        "category": kind,
+                        "category": m_kind,
                         "sale_price": x.price,
                         "regular_price": None,
                         "price_update_date": None,
                         "online_availability": x.in_stock,
                         "url": x.url,
-                        "model_key": key,
+                        "model_key": m_key,
                         "retrieved_at": utc_now().isoformat(),
                     }
                 )
+        n_found = len(found_models)
         print(
-            f"{retailer.key}: {fetched} pages fetched, {found_models} of {len(wanted)} models "
-            f"found, {len(seen)} listings kept"
+            f"{retailer.key}: {fetched} pages fetched, {n_found} models "
+            f"found ({len(wanted)} queried), {len(seen)} listings kept"
         )
-        if fetched and found_models < config.CRAWLER_MIN_MODELS_FOUND:
+        if fetched and n_found < config.CRAWLER_MIN_MODELS_FOUND:
             problems.append(
-                f"{retailer.key}: only {found_models} models found in {fetched} pages; "
+                f"{retailer.key}: only {n_found} models found in {fetched} pages; "
                 "the page format has probably changed"
             )
 
