@@ -103,7 +103,9 @@ def test_workstation_gpus_are_distinct_from_consumer_and_quadro():
     assert model_key("NVIDIA RTX A4000") == ("gpu", "nvidia rtx a4000")
     assert model_key("Intel(R) Arc(TM) Pro B50 Graphics") == ("gpu", "intel arc pro b50")
     assert model_key("AMD Radeon AI PRO R9700") == ("gpu", "amd radeon ai pro r9700")
-    # Legacy Quadro and integrated laptop Arc chips do not collide with desktop GPUs.
+    # Legacy Quadro, mobile Radeon M/S, and integrated laptop Arc chips do not collide with desktop GPUs.
     assert model_key("Quadro RTX 4000") is None
     assert model_key("Intel(R) Arc(TM) B390 GPU") is None
     assert model_key("NVIDIA RTX PRO 6000 Blackwell Server Edition") is None
+    assert model_key("ONEXGPU 2 Egpu Dock with AMD Radeon RX 7800M, 12GB") is None
+    assert model_key("AMD Radeon RX 7600S") is None

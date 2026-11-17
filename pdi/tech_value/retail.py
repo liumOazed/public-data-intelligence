@@ -52,7 +52,9 @@ _ACCESSORY = re.compile(
     r"\b(water\s?block|riser|cooler for|heatsink for|"
     r"compatible with|for use with|support bracket|gpu bracket|vertical bracket|"
     r"replacement\s+backplate|with\s+backplate|power\s+cable|extension\s+cable|adapter\s+cable|"
-    r"refurbished|renewed|open[\s-]?box|pre[\s-]?owned|\bused\b)\b",
+    r"no\s+(?:cpu|gpu|processor|graphics\s+card|video\s+card)|"
+    r"box\s+only|empty\s+box|fan\s+only|cooler\s+only|heatsink\s+only|"
+    r"refurbished|renewed|open(?:ed)?[\s-]?box|pre[\s-]?owned|\bused\b)\b",
     re.I,
 )
 
@@ -63,8 +65,10 @@ _SYSTEM = re.compile(
     r"\b(mini\s?pc|(?<!for\s)workstation(?!\s+(?:edition|graphics|gpu|video))|"
     r"desktop\s+(?:computer|pc)|"
     r"(?<!for\s)(?<!for\scomputer\s)gaming\s+(?:pc\b|desktop(?!\s+processor))|barebones?|"
+    r"egpu|external\s+gpu|"
     r"all-in-one|nuc|tower|motherboard|combo|bundle|windows\s+1[01]|ssd|hdd|nvme|"
-    r"\d+\s?gb\s+(?:ram|ddr[345]|memory))\b",
+    r"\d+\s?gb\s+(?:ram|ddr[345]|memory))\b|"
+    r"\+\s*(?:amd|ryzen|intel|core|nvidia|geforce|radeon|rtx|rx)\b",
     re.I,
 )
 
@@ -177,7 +181,7 @@ def keep(listing: Listing, kind: str, key: str) -> bool:
     """A listing counts only if its name is recognised as exactly the model searched for."""
     if _ACCESSORY.search(listing.name) or _SYSTEM.search(listing.name):
         return False
-    if listing.price < config.MIN_PART_PRICE[kind]:
+    if not (config.MIN_PART_PRICE[kind] <= listing.price <= config.MAX_PART_PRICE):
         return False
     return model_key(listing.name) == (kind, key)
 

@@ -70,6 +70,17 @@ def test_parse_items_keeps_only_new_us_fixed_price_parts_with_trusted_sellers():
             "price": {"value": "1799.99", "currency": "USD"},
             "seller": {"username": "newegg", "feedbackPercentage": "99.1", "feedbackScore": 450000},
         },
+        # Placeholder/server-lot price above TIDY_SCHEMA's 20,000 upper bound -> dropped.
+        {
+            "itemId": "v1|1006|0",
+            "title": "ASUS Dual NVIDIA GeForce RTX 5070 OC Edition 12GB GDDR7 Graphics Card",
+            "conditionId": "1000",
+            "condition": "New",
+            "buyingOptions": ["FIXED_PRICE"],
+            "itemLocation": {"country": "US"},
+            "price": {"value": "20500.00", "currency": "USD"},
+            "seller": {"username": "newegg", "feedbackPercentage": "99.1", "feedbackScore": 450000},
+        },
     ]
     rows = ebay.parse_items(records, wanted, "2026-11-17")
     assert len(rows) == 1
