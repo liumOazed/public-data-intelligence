@@ -39,6 +39,17 @@ BESTBUY_FIELDS = (
 # Below this share of recognisable product names, assume the category id is wrong and stop.
 BESTBUY_MIN_RECOGNISED = 0.2
 
+EBAY_TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token"
+EBAY_BROWSE_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search"
+EBAY_CLIENT_ID_ENV = "EBAY_CLIENT_ID"
+EBAY_CLIENT_SECRET_ENV = "EBAY_CLIENT_SECRET"
+# eBay US leaf categories: 164 = CPUs/Processors, 27386 = Computer Graphics Cards.
+EBAY_CATEGORIES = {"cpu": "164", "gpu": "27386"}
+EBAY_RESULTS_PER_QUERY = 10
+EBAY_MIN_FEEDBACK_PCT = 98.0
+EBAY_MIN_FEEDBACK_SCORE = 100
+
+
 # --- Retail crawler -----------------------------------------------------------------------------
 # Retailers are crawled only where robots.txt allows the page and the site answers a plainly
 # identified client. Nothing here tries to get past a bot wall.

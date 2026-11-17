@@ -102,3 +102,23 @@ def test_match_wanted_harvests_any_benchmarked_model_on_page(fixtures):
         ("333", None),
         ("444", None),
     ]
+
+
+def test_workstation_edition_gpu_is_kept_and_next_page_is_parsed():
+    pro_gpu = retail.Listing(
+        sku="p6000",
+        name="PNY NVIDIA RTX PRO 6000 Blackwell Workstation Edition 96GB GDDR7 Graphics Card",
+        price=8499.99,
+        in_stock=True,
+        url="https://www.example.invalid/p6000",
+    )
+    assert retail.keep(pro_gpu, "gpu", "nvidia rtx pro 6000 blackwell")
+    html = '<div class="pages"><li class="item pages-item-next"><a class="action next" href="/video-cards.html?p=2">Next</a></li></div>'
+    assert (
+        retail.parse_magento_next_page(html, "https://www.centralcomputer.com/video-cards.html")
+        == "https://www.centralcomputer.com/video-cards.html?p=2"
+    )
+    assert (
+        retail.parse_magento_next_page("<div>No next</div>", "https://www.centralcomputer.com")
+        is None
+    )

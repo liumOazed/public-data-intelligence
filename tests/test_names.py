@@ -88,3 +88,22 @@ def test_retail_active_filters_discontinued_generations():
     assert not retail_active("cpu", "amd ryzen 5 3600")
     assert not retail_active("cpu", "intel core i7-8700k")
     assert not retail_active("cpu", "amd threadripper pro 7995wx")
+    assert retail_active("gpu", "nvidia rtx pro 6000 blackwell")
+    assert retail_active("gpu", "nvidia rtx 4000 ada")
+    assert retail_active("gpu", "nvidia rtx a4000")
+    assert retail_active("gpu", "intel arc pro b50")
+
+
+def test_workstation_gpus_are_distinct_from_consumer_and_quadro():
+    assert model_key("NVIDIA RTX PRO 6000 Blackwell Workstation Edition") == (
+        "gpu",
+        "nvidia rtx pro 6000 blackwell",
+    )
+    assert model_key("NVIDIA RTX 4000 SFF Ada Generation") == ("gpu", "nvidia rtx 4000 ada")
+    assert model_key("NVIDIA RTX A4000") == ("gpu", "nvidia rtx a4000")
+    assert model_key("Intel(R) Arc(TM) Pro B50 Graphics") == ("gpu", "intel arc pro b50")
+    assert model_key("AMD Radeon AI PRO R9700") == ("gpu", "amd radeon ai pro r9700")
+    # Legacy Quadro and integrated laptop Arc chips do not collide with desktop GPUs.
+    assert model_key("Quadro RTX 4000") is None
+    assert model_key("Intel(R) Arc(TM) B390 GPU") is None
+    assert model_key("NVIDIA RTX PRO 6000 Blackwell Server Edition") is None
