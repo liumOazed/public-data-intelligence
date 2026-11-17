@@ -115,7 +115,7 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
                    arg_min(url, sale_price) AS listing_url,
                    arg_min(price_update_date, sale_price) AS price_date,
                    arg_min(regular_price, sale_price) AS regular_price_usd,
-                   max(date) AS collected_date
+                   arg_min(date, sale_price) AS collected_date
             FROM trusted GROUP BY ALL
         )
         SELECT c.kind, c.model_key, c.price_usd, c.median_price_usd, c.retailer, c.n_retailers,
@@ -140,19 +140,45 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
 
 
 def price_history(prices: pd.DataFrame) -> pd.DataFrame:
-    """Daily lowest new, online-available price per model."""
+    """Daily lowest new, online-available price per model across active sources."""
     if prices.empty:
         return pd.DataFrame()
+    if "source" not in prices.columns:
+        prices = prices.assign(source="bestbuy_products")
     con = duckdb.connect()
     con.register("prices", prices)
     return con.execute(
         """
-        SELECT date, category AS kind, model_key,
-               min(sale_price) AS price_usd, count(*) AS n_listings
-        FROM prices
-        WHERE model_key IS NOT NULL AND online_availability
-        GROUP BY ALL ORDER BY model_key, date
-        """
+        WITH days AS (
+            SELECT DISTINCT date FROM prices WHERE model_key IS NOT NULL AND online_availability
+        ),
+        source_as_of AS (
+            SELECT d.date AS as_of_date, p.source, max(p.date) AS source_date
+            FROM days d
+            JOIN prices p
+              ON p.date <= d.date
+             AND CAST(p.date AS DATE) >= CAST(d.date AS DATE) - ?
+            WHERE p.model_key IS NOT NULL AND p.online_availability
+            GROUP BY d.date, p.source
+        ),
+        active AS (
+            SELECT s.as_of_date AS date, p.category, p.model_key, p.sale_price
+            FROM source_as_of s
+            JOIN prices p
+              ON p.source = s.source AND p.date = s.source_date
+            WHERE p.model_key IS NOT NULL AND p.online_availability
+        ),
+        typical AS (
+            SELECT date, category, model_key, median(sale_price) AS median_price
+            FROM active GROUP BY ALL
+        )
+        SELECT a.date, a.category AS kind, a.model_key,
+               min(a.sale_price) AS price_usd, count(*) AS n_listings
+        FROM active a JOIN typical t USING (date, category, model_key)
+        WHERE a.sale_price >= ? * t.median_price
+        GROUP BY ALL ORDER BY a.model_key, a.date
+        """,
+        [config.PRICE_MAX_AGE_DAYS, config.MIN_SHARE_OF_MEDIAN_PRICE],
     ).df()
 
 
@@ -160,7 +186,12 @@ def coverage(prices: pd.DataFrame, table: pd.DataFrame) -> pd.DataFrame:
     """How much of what is on sale could be matched: listings -> models -> benchmark scores."""
     if prices.empty:
         return pd.DataFrame()
-    latest = prices[prices["date"] == prices["date"].max()]
+    df = prices if "source" in prices.columns else prices.assign(source="bestbuy_products")
+    cutoff = (
+        pd.to_datetime(df["date"]).max() - pd.Timedelta(days=config.PRICE_MAX_AGE_DAYS)
+    ).strftime("%Y-%m-%d")
+    latest_dates = df.groupby("source")["date"].transform("max")
+    latest = df[(df["date"] == latest_dates) & (df["date"] >= cutoff)]
     rows = []
     for kind, part in latest.groupby("category"):
         t = table[table["kind"] == kind] if not table.empty else table

@@ -64,23 +64,50 @@ def looks_used(record: dict) -> bool:
     return any(_USED_SELLER.search(str(s)) for s in sellers if s)
 
 
-def sold_new(record: dict) -> bool:
-    """True only when the seller is Amazon itself or the part's own brand.
+_TRUSTED_AMAZON_SELLERS = ("amazon.com", "amazon", "micro center")
+_AIB_PARTNERS = frozenset(
+    {
+        "amd",
+        "intel",
+        "nvidia",
+        "asus",
+        "msi",
+        "gigabyte",
+        "pny",
+        "xfx",
+        "sapphire",
+        "powercolor",
+        "asrock",
+        "zotac",
+        "sparkle",
+        "maxsun",
+    }
+)
+_TRUSTED_BESTBUY_SELLERS = ("best buy", "newegg official")
 
-    Marketplace sellers can offer a used part under a new-looking listing, and nothing in the
+
+def sold_new(record: dict) -> bool:
+    """True only when the seller is Amazon, Micro Center, or the part's own brand/AIB partner.
+
+    Marketplace resellers can offer a used part under a new-looking listing, and nothing in the
     data tells those apart, so they are all left out. That costs coverage and buys certainty.
     """
     seller = str(record.get("buybox_seller") or record.get("seller_name") or "").strip().lower()
     if not seller:
         return False
-    if seller in ("amazon.com", "amazon"):
+    if seller in _TRUSTED_AMAZON_SELLERS:
         return True
     brand = str(record.get("brand") or "").strip().lower()
-    return bool(brand) and seller.split()[0] == brand.split()[0]
+    if not brand:
+        return False
+    s_first, b_first = seller.split()[0], brand.split()[0]
+    if s_first == b_first and seller not in ("amazon germany", "amazon japan", "amazon uk"):
+        return True
+    return s_first in _AIB_PARTNERS and b_first in _AIB_PARTNERS
 
 
 def parse(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[dict]:
-    """Keep new, in-stock, US-dollar listings recognised as exactly one wanted part."""
+    """Keep new, in-stock, US-dollar listings recognised as a wanted part."""
     rows, seen = [], set()
     for r in records:
         if not isinstance(r, dict) or r.get("error") or r.get("warning"):
@@ -121,7 +148,7 @@ def parse(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[d
                 "online_availability": listing.in_stock,
                 "url": listing.url,
                 "model_key": key,
-                "seller": r.get("seller_name"),
+                "seller": r.get("seller_name") or r.get("buybox_seller"),
                 "retrieved_at": utc_now().isoformat(),
             }
         )
@@ -141,12 +168,12 @@ def _seller_name(record: dict) -> str:
 
 
 def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -> list[dict]:
-    """Keep new, in-stock parts sold by Best Buy itself and recognised as a wanted model.
+    """Keep new, in-stock parts sold by Best Buy (or Newegg Official) and recognised as wanted.
 
     Best Buy's search is loose: a search for one card returns other cards and whole PCs. A
-    record counts only if Best Buy files it as a bare processor or graphics card, Best Buy is
-    the seller (not a marketplace seller), nothing in the title marks it refurbished, open-box
-    or pre-owned, and its name parses to exactly a model that was asked for.
+    record counts only if Best Buy files it as a bare processor or graphics card, the seller is
+    Best Buy itself or Newegg Official (not an unverified marketplace reseller), nothing in the
+    title marks it refurbished, open-box or pre-owned, and its name parses to a wanted model.
     """
     rows, seen, dropped = [], set(), []
     for r in records:
@@ -159,12 +186,13 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
             crumbs = ">".join(str(c.get("name")) for c in crumbs if isinstance(c, dict))
         category = str(r.get("product_category") or crumbs or "").lower()
         found = model_key(name) if name else None
+        seller = _seller_name(r)
         if not name or price is None:
             reason = "no title or price"
         elif str(r.get("currency") or "USD").upper() not in ("USD", "$"):
             reason = "not US dollars"
-        elif _seller_name(r).lower() != "best buy":
-            reason = f"seller is {_seller_name(r) or 'unnamed'}"
+        elif seller.lower() not in _TRUSTED_BESTBUY_SELLERS:
+            reason = f"seller is {seller or 'unnamed'}"
         elif _USED_SELLER.search(name):
             reason = "not new"
         elif not category.endswith(_BESTBUY_PART_CATEGORIES):
@@ -202,7 +230,7 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
                 "online_availability": listing.in_stock,
                 "url": listing.url,
                 "model_key": key,
-                "seller": "Best Buy",
+                "seller": seller or "Best Buy",
                 "retrieved_at": utc_now().isoformat(),
             }
         )
@@ -210,6 +238,25 @@ def parse_bestbuy(records: list[dict], wanted: set[tuple[str, str]], day: str) -
     for reason, name in dropped:
         print(f"{BESTBUY_SOURCE} dropped: {reason} | {name}")
     return rows
+
+
+def base_query(key: str) -> str:
+    """Collapse closely related SKU variants into one search query to conserve API quota.
+
+    A search for "rtx 5070" returns both RTX 5070 and RTX 5070 Ti; a search for "core i7-14700k"
+    returns 14700K, 14700KF and 14700F.
+    """
+    term = retail.search_term(key)
+    term = re.sub(r"\s+(?:ti|super|xtx|xt|gre)(?:\s+(?:ti|super))?$", "", term)
+    term = re.sub(r"^((?:ryzen|threadripper)\s+(?:\d\s+)?\d{4})[a-z0-9]*$", r"\1", term)
+    term = re.sub(r"^(core\s+i[3579]-\d{4,5}k)f$", r"\1", term)
+    term = re.sub(r"^(core\s+ultra\s+[3579]\s+\d{3}k)f$", r"\1", term)
+    return term
+
+
+def search_queries(wanted: list[tuple[str, str]]) -> list[str]:
+    """Deduplicated search terms for `wanted`, preserving priority order."""
+    return list(dict.fromkeys(base_query(k) for _, k in wanted))
 
 
 def start_job(keywords: list[str], key: str, dataset: str, by: str) -> str:
@@ -295,7 +342,7 @@ def _key() -> str:
 
 def start(store: str, wanted: list[tuple[str, str]]) -> str:
     _, dataset, by, _, _ = STORES[store]
-    return start_job([retail.search_term(k) for _, k in wanted], _key(), dataset, by)
+    return start_job(search_queries(wanted), _key(), dataset, by)
 
 
 def finish(store: str, snapshot: str, wanted: list[tuple[str, str]], day: str) -> pd.DataFrame:
@@ -307,12 +354,16 @@ def finish(store: str, snapshot: str, wanted: list[tuple[str, str]], day: str) -
     # Raw records kept untouched for this run's artifact; never committed or published.
     (raw_dir / f"{store}.json").write_text(json.dumps(records))
 
-    rows = parser(records, set(wanted), day)
+    try:
+        acceptable = retail.all_targets() | set(wanted)
+    except retail.NoTargets:
+        acceptable = set(wanted)
+    rows = parser(records, acceptable, day)
     errors = sum(1 for r in records if isinstance(r, dict) and r.get("error"))
     models = len({r["model_key"] for r in rows})
     print(
         f"{source}: {len(records)} records delivered ({errors} errors), {len(rows)} listings "
-        f"kept, {models} of {len(wanted)} models found"
+        f"kept, {models} models found ({len(wanted)} targeted)"
     )
     if not rows:
         sample = json.dumps(records[:2])[:1500]

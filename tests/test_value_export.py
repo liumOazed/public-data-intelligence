@@ -181,10 +181,17 @@ def test_a_weekly_source_still_counts_between_its_runs():
             row.assign(sale_price=300.0, source="store_gone", date=stale),
         ]
     )
+    all_prices = pd.concat([prices, extra])
     bench, _ = value.benchmark_by_model(_blender())
-    top = value.value_table(pd.concat([prices, extra]), bench).iloc[0]
+    top = value.value_table(all_prices, bench).iloc[0]
     assert top["price_usd"] == 440.0 and top["retailer"] == "store_weekly"
+    assert str(top["collected_date"])[:10] == earlier
     assert top["n_retailers"] == 2
+    hist = value.price_history(all_prices)
+    latest_amd = hist[
+        (hist["model_key"] == "amd ryzen 9 7950x") & (hist["date"] == prices["date"].max())
+    ].iloc[0]
+    assert latest_amd["price_usd"] == 440.0
 
 
 def test_single_listing_is_marked_low_confidence():

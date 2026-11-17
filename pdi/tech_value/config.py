@@ -72,11 +72,12 @@ AUTOML_PRESET = "medium_quality"
 MIN_SHARE_OF_MEDIAN_PRICE = 0.5
 
 # Bright Data Web Scraper API (Amazon US and Best Buy search by keyword). Every delivered
-# record is billed against a free monthly allowance of 5,000, so results per model are capped.
+# record is billed against a free monthly allowance of 5,000, so results per query are capped
+# and variant SKUs share one base search query.
 BRIGHTDATA_API = "https://api.brightdata.com/datasets/v3"
 BRIGHTDATA_KEY_ENV = "BRIGHTDATA_API_KEY"
 BRIGHTDATA_AMAZON_DATASET = "gd_l7q7dkf244hwjntr0"
-BRIGHTDATA_RESULTS_PER_MODEL = 5
+BRIGHTDATA_RESULTS_PER_MODEL = 4
 BRIGHTDATA_WAIT_S = 20 * 60
 BRIGHTDATA_BESTBUY_DATASET = "gd_ltre1jqe1jfr7cccf"
 # Best Buy pages are slow to collect: four searches took over 20 minutes in the first test.

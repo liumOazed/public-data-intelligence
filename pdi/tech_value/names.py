@@ -19,12 +19,33 @@ _RYZEN = re.compile(r"\bryzen\s+([3579])\s+(?:pro\s+)?(\d{4}[a-z]?(?:3d)?[a-z]?)
 _CORE_ULTRA = re.compile(r"\bcore\s+ultra\s+([3579])\s+(?:processor\s+)?(\d{3}[a-z]{0,2})\b")
 _CORE_I = re.compile(r"\b(i[3579])[-\s](\d{4,5}[a-z]{0,2})\b")
 
-# Laptop chips: Core i ... H/HX/HK/HS/U/P/Y and Ryzen ... H/HS/HX/U. They are not sold as parts.
-_MOBILE_CPU = re.compile(r"\d(?:h[xks]?|u|p|y)$")
+# Laptop chips: Core i ... H/HX/HK/HS/HQ/U/P/Y, Core Ultra ... V, and Ryzen ... H/HS/HX/U.
+_MOBILE_CPU = re.compile(r"\d(?:h[xkqs]?|u|p|y|v)$")
 
 _GEFORCE = re.compile(r"\b(rtx|gtx)\s*(\d{3,4})(\s*ti)?(\s*super)?\b")
 _RADEON = re.compile(r"\brx\s*(\d{4})(?:\s*(xtx|xt|gre)\b)?")
 _ARC = re.compile(r"\barc\s+(?:pro\s+)?([ab]\d{3})\b")
+
+# Generations still sold new at US retail. Older parts remain eligible to be matched whenever a
+# store lists them, but are not actively queried one by one.
+_ACTIVE_CPU = re.compile(
+    r"^(?:amd ryzen [3579] [5789]\d{3}|amd threadripper [79]\d{3}|"
+    r"intel core i[3579]-1[234]\d{3}|intel core ultra [3579] 2\d{2})"
+)
+_ACTIVE_GPU = re.compile(
+    r"^(?:nvidia rtx (?:50[56789]0|40[6789]0)(?:\s+ti)?(?:\s+super)?$|"
+    r"nvidia rtx 30[56]0$|"
+    r"amd rx (?:90\d{2}|7\d{3}|6[67]00)(?:\s+(?:xtx|xt|gre))?$|"
+    r"intel arc (?:a380|a580|a750|a770|b570|b580)$)"
+)
+
+
+def retail_active(kind: str, key: str) -> bool:
+    """True when a desktop CPU or discrete GPU belongs to a generation still sold new."""
+    if kind == "gpu" and key == "amd rx 7650 gre":
+        return False
+    pat = _ACTIVE_CPU if kind == "cpu" else _ACTIVE_GPU if kind == "gpu" else None
+    return bool(pat and pat.search(key))
 
 
 def normalise(name: str) -> str:

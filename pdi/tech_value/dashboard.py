@@ -17,7 +17,7 @@ from datetime import date, timedelta
 import numpy as np
 import pandas as pd
 
-from pdi.tech_value import config
+from pdi.tech_value import config, names
 
 KINDS = {"gpu": "Graphics cards", "cpu": "Desktop CPUs"}
 KIND_SHORT = {"gpu": "GPU", "cpu": "CPU"}
@@ -53,12 +53,14 @@ def price_checked(bench: pd.DataFrame) -> pd.DataFrame:
     """The models the price collectors look up: the most-benchmarked of each kind."""
     if bench.empty:
         return bench
-    parts = [
-        bench[bench["kind"] == kind]
-        .sort_values("n_runs", ascending=False)
-        .head(config.CRAWLER_MODELS_PER_KIND)
-        for kind in KINDS
-    ]
+    parts = []
+    for kind in KINDS:
+        part = bench[bench["kind"] == kind]
+        active = part[part["model_key"].map(lambda k, kd=kind: names.retail_active(kd, str(k)))]
+        pool = active if not active.empty else part
+        parts.append(
+            pool.sort_values("n_runs", ascending=False).head(config.CRAWLER_MODELS_PER_KIND)
+        )
     return pd.concat(parts, ignore_index=True)
 
 
