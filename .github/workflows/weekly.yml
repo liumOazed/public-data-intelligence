@@ -47,6 +47,12 @@ jobs:
       - name: Collect retail prices (crawler)
         run: uv run python -m pdi.tech_value.retail
 
+      - name: Collect retail prices (eBay Browse API, skipped without a key)
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+        run: uv run python -m pdi.tech_value.ebay
+
       - name: Collect Amazon and Best Buy prices (Bright Data, skipped without a key)
         env:
           BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}

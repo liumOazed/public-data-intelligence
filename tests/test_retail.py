@@ -122,3 +122,46 @@ def test_workstation_edition_gpu_is_kept_and_next_page_is_parsed():
         retail.parse_magento_next_page("<div>No next</div>", "https://www.centralcomputer.com")
         is None
     )
+
+
+def test_ebay_edge_cases_and_upper_price_bound():
+    over_max = retail.Listing(
+        sku="over",
+        name="NVIDIA RTX PRO 6000 Blackwell Workstation Edition 96GB",
+        price=20500.0,
+        in_stock=True,
+        url="https://www.example.invalid/over",
+    )
+    no_cpu_fan = retail.Listing(
+        sku="fan",
+        name="AMD Ryzen 9 3900X Fan New Opened Box No CPU",
+        price=79.71,
+        in_stock=True,
+        url="https://www.example.invalid/fan",
+    )
+    plus_bundle = retail.Listing(
+        sku="bundle",
+        name="AMD RX 7900 XTX 24GB + Ryzen 7800X3D Avatar Frontiers of Pandora Limited Ed",
+        price=2000.0,
+        in_stock=True,
+        url="https://www.example.invalid/bundle",
+    )
+    egpu_dock = retail.Listing(
+        sku="egpu",
+        name="ONEXGPU 2 Egpu Dock with AMD Radeon RX 7800M, 12GB GDDR6",
+        price=799.0,
+        in_stock=True,
+        url="https://www.example.invalid/egpu",
+    )
+    tray_cpu = retail.Listing(
+        sku="tray",
+        name="AMD Ryzen 7 9700X 3.8 GHz 8-Core AM5 Processor Without Cooler - New Tray",
+        price=249.0,
+        in_stock=True,
+        url="https://www.example.invalid/tray",
+    )
+    assert not retail.keep(over_max, "gpu", "nvidia rtx pro 6000 blackwell")
+    assert not retail.keep(no_cpu_fan, "cpu", "amd ryzen 9 3900x")
+    assert not retail.keep(plus_bundle, "gpu", "amd rx 7900 xtx")
+    assert not retail.keep(egpu_dock, "gpu", "amd rx 7800")
+    assert retail.keep(tray_cpu, "cpu", "amd ryzen 7 9700x")

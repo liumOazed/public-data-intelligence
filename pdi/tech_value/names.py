@@ -27,7 +27,7 @@ _RTX_ADA = re.compile(r"\brtx\s+(\d{4})\s+(?:sff\s+)?ada\b")
 _RTX_AMP = re.compile(r"\brtx\s+(a\d{3,4})\b")
 _GEFORCE = re.compile(r"\b(?<!quadro\s)(rtx|gtx)\s*(\d{3,4})(\s*ti)?(\s*super)?\b")
 _RADEON_PRO = re.compile(r"\bradeon\s+ai\s+pro\s+(r\d{4})\b")
-_RADEON = re.compile(r"\brx\s*(\d{4})(?:\s*(xtx|xt|gre)\b)?")
+_RADEON = re.compile(r"\brx\s*(\d{4})\b(?:\s*(xtx|xt|gre)\b)?")
 _ARC_PRO = re.compile(r"\barc\s+pro\s+([ab]\d{2,3})\b")
 _ARC = re.compile(r"\barc\s+(a310|a380|a580|a750|a770|b570|b580)\b")
 

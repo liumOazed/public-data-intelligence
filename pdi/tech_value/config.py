@@ -57,8 +57,10 @@ CRAWLER_USER_AGENT = "pdi-research-bot/0.1 (+https://github.com/liumOazed/public
 CRAWLER_PAUSE_S = 2.0
 # How many benchmarked models of each kind to look up per day, most-benchmarked first.
 CRAWLER_MODELS_PER_KIND = 40
-# Below these a "CPU" or "GPU" listing is an accessory, not the part.
+# Below these a "CPU" or "GPU" listing is an accessory, not the part; above MAX_PART_PRICE is a
+# server/lot/placeholder listing outside TIDY_SCHEMA's range.
 MIN_PART_PRICE = {"cpu": 40.0, "gpu": 80.0}
+MAX_PART_PRICE = 20000.0
 # If fewer than this many searched models come back with any listing at all, treat the
 # retailer's page format as changed and stop.
 CRAWLER_MIN_MODELS_FOUND = 3
