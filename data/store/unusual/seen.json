@@ -31,9 +31,17 @@
   "baseline": false,
   "first_seen": "2026-11-16T14:48:34+00:00"
  },
+ "tech-value|amd rx 9060 xt|price move|2026-11-17": {
+  "baseline": false,
+  "first_seen": "2026-11-17T02:43:10+00:00"
+ },
  "tech-value|amd rx 9070 xt|price move|2026-11-16": {
   "baseline": true,
   "first_seen": "2026-11-16T13:05:47+00:00"
+ },
+ "tech-value|amd rx 9070 xt|price move|2026-11-17": {
+  "baseline": false,
+  "first_seen": "2026-11-17T02:43:10+00:00"
  },
  "tech-value|amd ryzen 5 7600x|price move|2026-11-16": {
   "baseline": true,

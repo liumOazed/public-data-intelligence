@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-16T19:46:48+00:00",
+  "generated_at": "2026-11-17T02:43:05+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -39,7 +39,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-16T19:45:53+00:00"
+    "retrieved_at": "2026-11-17T02:42:08+00:00"
    },
    {
     "id": "blender_opendata",
@@ -65,16 +65,16 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 61,
-   "listings_recognised": 61,
+   "listings": 36,
+   "listings_recognised": 36,
    "models_priced": 27,
    "models_with_score": 27,
    "share_with_score": 1.0
   },
   {
    "kind": "gpu",
-   "listings": 129,
-   "listings_recognised": 129,
+   "listings": 90,
+   "listings_recognised": 90,
    "models_priced": 13,
    "models_with_score": 13,
    "share_with_score": 1.0
