@@ -412,8 +412,7 @@
       if (S.medians && rows.length >= 2) {
         // Quadrant tint: "excellent value" (top-left) and "poor value" (bottom-right).
         shapes.push(
-          { type: "rect", xref: "x", yref: "y", x0: S.logPrice ? minX / 1.35 : 0, x1: medX, y0: medY, y1: maxY * 1.12, fillcolor: c.quad, line: { width: 0 }, layer: "below" },
-          { type: "rect", xref: "x", yref: "y", x0: medX, x1: maxX * 1.35, y0: 0, y1: medY, fillcolor: c.quadPoor, line: { width: 0 }, layer: "below" },
+          { type: "rect", xref: "x", yref: "y", x0: S.logPrice ? minX / 1.35 : 0, x1: medX, y0: medY, y1: maxY * 1.12, fillcolor: "rgba(64, 180, 112, 0.17)", line: { width: 0 }, layer: "below" },
           { type: "line", xref: "x", yref: "paper", x0: medX, x1: medX, y0: 0, y1: 1, line: { color: c.muted, width: 1.2, dash: "dot" } },
           { type: "line", xref: "paper", yref: "y", x0: 0, x1: 1, y0: medY, y1: medY, line: { color: c.muted, width: 1.2, dash: "dot" } }
         );
@@ -657,6 +656,8 @@
     // ------------------------------------------------------------ 4. value by budget
     function renderBudget(rows) {
       const el = $("vd-budget-out");
+      const table = $("vd-budget-table");
+      table.replaceChildren();
       const budget = Number(S.budget[S.kind]);
       const edges = S.edges[S.kind].split(/[,\s]+/).map(Number).filter((x) => x > 0 && isFinite(x));
       if (!rows.length) {
@@ -691,8 +692,8 @@
       const br = brackets(rows, edges);
       const maxRatio = Math.max(...br.map((b) => b.best_value_ratio || 0), 1);
       const label = (b) => (b.low === 0 ? "Under " + fmtUsd(b.high) : b.high === Infinity ? fmtUsd(b.low) + " and up" : fmtUsd(b.low) + " to " + fmtUsd(b.high));
-      el.innerHTML =
-        picks +
+      el.innerHTML = picks;
+      table.innerHTML =
         '<div class="vd-table-wrap"><table class="table table-sm vd-table"><thead><tr><th>Price bracket</th><th class="num">Models</th><th>Best score per $</th><th>Highest score</th><th class="num">Median score</th><th class="num">Median price</th></tr></thead><tbody>' +
         br
           .map((b) =>
@@ -788,6 +789,8 @@
     // ------------------------------------------------------------ 6. frontier list
     function renderFrontier(rows) {
       const el = $("vd-frontier-out");
+      const table = $("vd-frontier-table");
+      table.replaceChildren();
       if (!rows.length) {
         el.innerHTML = '<div class="vd-state">No models match the filters.</div>';
         return;
@@ -802,7 +805,8 @@
         .map((m) => '<span class="vd-badge vd-badge-ok">' + esc(m.name) + " · " + fmtUsd(m.price_usd) + "</span>")
         .join(" ");
       el.innerHTML =
-        '<p class="vd-note"><strong>' + eff.length + " of " + rows.length + "</strong> " + KSHORT[S.kind] + "s in view are on the efficiency frontier:</p>" +
+        '<p class="vd-note"><strong>' + eff.length + " of " + rows.length + "</strong> " + KSHORT[S.kind] + "s in view are on the efficiency frontier.</p>";
+      table.innerHTML =
         '<div class="vd-pill-row">' + pills + "</div>" +
         (dom.length
           ? '<div class="vd-table-wrap"><table class="table table-sm vd-table"><thead><tr><th>Dominated model</th><th class="num">Price</th><th class="num">Score</th><th>Better alternative</th><th class="num">More performance</th><th class="num">Lower cost</th></tr></thead><tbody>' +

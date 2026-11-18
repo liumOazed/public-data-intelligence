@@ -1,7 +1,20 @@
 ---
-title: "Tech Value: performance per dollar"
+title: "Tech Value: Performance per dollar"
 subtitle: "US retail prices against open benchmark scores, for desktop CPUs and graphics cards"
 ---
+
+<style>
+#title-block-header h1, main h2, .vd-overview .vd-big, .navbar-brand {font-family: Georgia, serif; letter-spacing: -.025em}
+#title-block-header h1 {font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.06}
+body:not(.quarto-dark) {background-color: #fcfbf8}
+body:not(.quarto-dark) :is(#title-block-header, main h2, .navbar-brand) {color: #14284a}
+.vd-cards.vd-overview {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap: .75rem}
+.vd-overview .vd-leader {border-inline-start:4px solid #426bd4; padding:1rem}
+.vd-overview .vd-card-fresh {grid-column:1/-1}
+.tv-disclosure {border-top:1px solid var(--bs-border-color, #bac3d1); padding:.8rem 0}
+.tv-disclosure summary {cursor:pointer; font-weight:600}
+@media(max-width: 540px){.vd-cards.vd-overview {grid-template-columns:1fr}}
+</style>
 
 ```{python}
 from IPython.display import Markdown
@@ -79,9 +92,7 @@ data = json.dumps(dashboard.payload(bench, value, history)).replace("</", "<\\/"
 plotly_src = f"https://cdn.plot.ly/plotly-{plotly.offline.get_plotlyjs_version()}.min.js"
 ```
 
-The charts below rank every model that has both a fresh price and a Blender benchmark score.
-They share one set of filters and one selected model: pick a model in the list, or click any
-dot or bar, and every chart follows it. Graphics cards and CPUs are never compared with each other.
+Choose a GPU or CPU to explore its US price and Blender score. Select a dot, bar, or model to follow it across the charts.
 
 ## Market overview
 
@@ -123,15 +134,7 @@ html(f"""
 
 ## Performance vs price
 
-*How much performance am I getting for the money?* Each dot is one model: its lowest new
-listing against its Blender score. Up and to the left is better. Prices are on a log scale by
-default, so a step to the right is the same percentage increase anywhere on the axis. The dotted lines are the
-median price and median score of the models in view, so the top-left corner (tinted) holds the
-cheap, fast models and the bottom-right the expensive, slow ones. The fastest model is rarely
-the best value: compare the two labelled dots. Hollow dots have a price from a single listing.
-With the frontier switched on, faded dots are dominated (see the efficiency frontier below).
-Graphics card scores come from each maker's own Blender backend (OptiX for NVIDIA, HIP for AMD,
-oneAPI for Intel), which favours NVIDIA cards; the backend is shown when you hover a dot.
+Each dot pairs the lowest new price with its Blender score. Left is cheaper and up is faster. The green corner beats both medians.
 
 ```{python}
 #| output: asis
@@ -142,6 +145,7 @@ html("""
   <label class="vd-check"><input id="vd-logx" type="checkbox" checked> Log price scale</label>
 </div>
 <div id="vd-scatter" class="vd-chart" role="img" aria-label="Scatter of benchmark score against price"><div class="vd-state">Loading chart…</div></div>
+<p class="vd-muted">GPU scores use maker-specific Blender backends. Hover over a dot to see its backend.</p>
 <div id="vd-scatter-legend" class="vd-legend"></div>
 <p id="vd-scatter-n" class="vd-n"></p>
 """)
@@ -149,10 +153,7 @@ html("""
 
 ## Performance per dollar leaderboard
 
-*Which model gives the most performance for every dollar?* Blender score divided by the lowest
-new listing, in benchmark points per US dollar. This is a ratio, not a percentage: 8.0 means
-eight points of score for each dollar of price. The price is the same lowest listing the
-tables below use.
+Longer bars buy more Blender rendering performance per dollar. A score of 8 means eight benchmark points for each dollar of the lowest new price.
 
 ```{python}
 #| output: asis
@@ -172,10 +173,7 @@ html("""
 
 ## Price premium vs performance gain
 
-*Is the more expensive model worth it?* Every other model in view, placed by how much more (or
-less) it costs and how much faster (or slower) it is than the baseline, which is the selected
-model (the diamond at 0, 0). On the dashed line, price and performance rise in proportion.
-Above it, the extra performance outpaces the extra cost; below it, you pay more than you gain.
+The diamond is your selected model. Above the dashed line, performance improves more than price in percentage terms. Below it, performance per dollar falls.
 
 ```{python}
 #| output: asis
@@ -190,17 +188,14 @@ html("""
 
 ## Value by budget
 
-*What gives the best value within my budget?* Type a budget to see the best picks at or under
-it. The brackets below can be changed: type the bracket edges in dollars, separated by commas.
-Each bracket shows how many ranked models it holds; with this few models, many brackets hold
-one or two.
+Enter your spending limit to see the best value and the fastest model you can afford.
 
 ```{python}
 #| output: asis
 html("""
 <div class="vd-toolbar">
   <label class="vd-field"><span class="vd-label">Budget, USD</span><input id="vd-budget" type="number" min="0" step="10"></label>
-  <label class="vd-field"><span class="vd-label">Bracket edges, USD</span><input id="vd-edges" type="text" size="24"></label>
+
 </div>
 <div id="vd-budget-out"></div>
 """)
@@ -208,10 +203,7 @@ html("""
 
 ## Performance distribution
 
-*Where does the selected model sit against the rest?* Benchmark scores of the ranked models in
-view, with the 25th, 50th, 75th and 90th percentiles. The comparison set is only the models
-this site can price, so "faster than 90%" means 90% of this set, not of all hardware.
-Percentiles are not drawn for fewer than ten models.
+See where your model ranks among the parts in view. The guides mark the 25th, 50th, 75th and 90th percentiles when at least ten models qualify.
 
 ```{python}
 #| output: asis
@@ -224,10 +216,7 @@ html("""
 
 ## Efficiency frontier
 
-*Which models are dominated by a better alternative?* A model is dominated when another model in
-view costs no more and scores at least as high, and is strictly better on one of the two. The
-frontier is the set no model dominates; it is the dashed line on the performance vs price chart.
-It is worked out separately for graphics cards and CPUs, and again whenever the filters change.
+Follow the dashed line from left to right. Each frontier model sets a new high score as your budget rises.
 
 ```{python}
 #| output: asis
@@ -239,10 +228,7 @@ and guessing generations from model names is not reliable enough to publish.
 
 ## Price history
 
-*Are prices rising, falling or flat?* The lowest new, online-available listing per model on each
-day the collector ran. Daily prices cannot be backfilled, so the history only goes back to the day
-the collector was switched on. No trend is stated until the history spans
-`{python} dashboard.MIN_HISTORY_DAYS` days.
+Each point is the lowest new listing observed that day. Trend reporting starts after the history spans `{python} dashboard.MIN_HISTORY_DAYS` days.
 
 ```{python}
 #| output: asis
@@ -288,7 +274,23 @@ html(f"""
 """)
 ```
 
-## Ranking tables
+## Detailed tables
+
+<details class="tv-disclosure"><summary>Budget brackets</summary>
+
+  <label class="vd-field"><span class="vd-label">Bracket edges, USD</span><input id="vd-edges" type="text" size="24"></label>
+<div id="vd-budget-table"></div>
+
+</details>
+
+<details class="tv-disclosure"><summary>Efficiency frontier models and alternatives</summary>
+
+<div id="vd-frontier-table"></div>
+
+</details>
+
+<details class="tv-disclosure"><summary>GPU and CPU ranking tables</summary>
+
 
 **Score per dollar** is the median [Blender benchmark](https://opendata.blender.org/) score of
 a part divided by its cheapest new listing among the US retailers collected. It measures rendering throughput
@@ -329,7 +331,10 @@ if version:
 print(site.source_note(meta))
 ```
 
-## Listing coverage
+</details>
+
+<details class="tv-disclosure"><summary>Listing coverage</summary>
+
 
 How much of what is on sale could be matched. A listing has to be recognised as a specific
 model, and that model needs enough benchmark runs on the Blender version in use. Unmatched
@@ -346,7 +351,10 @@ else:
     }).to_markdown(index=False, floatfmt=".0%")))
 ```
 
-## Benchmark scores without prices
+</details>
+
+<details class="tv-disclosure"><summary>Benchmark scores without prices</summary>
+
 
 All recognised models with enough benchmark runs, whether or not a price has been collected.
 
@@ -372,3 +380,5 @@ else:
 #| output: asis
 print(site.source_note(bench_meta))
 ```
+
+</details>
