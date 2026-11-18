@@ -301,6 +301,8 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
             prefix = "Only " if f["ranked"] * 2 < f["price_checked"] else ""
             out.append({
                 "kind": kind, "topic": "Coverage",
+            "headline": f"{f['ranked']} of {f['price_checked']} {label}s ranked",
+                "progress": (int(f["ranked"]), int(f["price_checked"])),
                 "text": (
                     f"{prefix}{f['ranked']} of the {f['price_checked']} {label}s the "
                     f"collectors look up have a matching price, out of {f['benchmarked']} "
@@ -319,6 +321,9 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
         lead = 100 * (best["score_per_dollar"] / med - 1)
         out.append({
             "kind": kind, "topic": "Value",
+            "headline": _name(best["model_key"]),
+            "caption": f"{best['score_per_dollar']:.2f} pts/$ · {_usd(best['price_usd'])}"
+                       + (" · Single listing" if best.get("confidence") == "low" else ""),
             "text": f"{_name(best['model_key'])} gives {lead:.0f}% "
                     f"more benchmark score per dollar than the median ranked {label} (n = {n})."
                     + (" Its price rests on a single listing." if best.get("confidence") == "low"
@@ -343,6 +348,8 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
             names = ", ".join(_name(k) for k in dominated["model_key"])
             out.append({
                 "kind": kind, "topic": "Dominated",
+            "headline": f"{len(dominated)} of {n}",
+                "caption": "Another model costs no more and is at least as fast, with an advantage on price or speed.",
                 "text": f"{len(dominated)} of {n} ranked {label}s are dominated: another {label} "
                         "costs no more and scores at least as high.",
                 "detail": f"Dominated: {names}.",
@@ -350,6 +357,8 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
         lo, hi = quantile(part["price_usd"], 0.25), quantile(part["price_usd"], 0.75)
         out.append({
             "kind": kind, "topic": "Market",
+            "headline": f"{_usd(lo)} – {_usd(hi)}",
+            "caption": f"Middle half of ranked {label} prices (25th–75th percentile).",
             "text": f"The middle half of ranked {label}s cost between {_usd(lo)} and {_usd(hi)}.",
             "detail": f"25th and 75th percentile of the lowest listing across {n} ranked {label}s.",
         })  # fmt: skip
@@ -361,6 +370,8 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
                 u = upgrade(part, best["model_key"], nxt["model_key"])
                 out.append({
                     "kind": kind, "topic": "Upgrade",
+            "headline": f"{_name(best['model_key'])} → {_name(nxt['model_key'])}",
+                    "caption": f"Price {u['price_pct']:+.0f}% · Blender speed {u['score_pct']:+.0f}%",
                     "text": f"Moving from {_name(best['model_key'])} to {_name(nxt['model_key'])} "
                             f"costs {u['price_pct']:.0f}% more "
                             f"for {u['score_pct']:.0f}% more score.",
@@ -508,26 +519,37 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
 
 def insights_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
     items = insights(bench, value, history)
-    if not items:
-        return '<div class="vd-state">No insight clears its minimum sample yet.</div>'
+    labels = {"Coverage": "Coverage", "Value": "Value", "Dominated": "Better alternatives",
+              "Market": "Market price range", "Upgrade": "Upgrade", "Prices": "Price trend"}
     out = []
-    for kind, label in KINDS.items():
-        part = [i for i in items if i["kind"] == kind]
-        if not part:
-            continue
-        out.append(f'<h4 class="vd-h4">{_h(label)}</h4>')
-        for i in part:
-            out.append(
-                f'<details class="vd-insight"><summary><span class="vd-tag">{_h(i["topic"])}</span>'
-                f"{_h(i['text'])}</summary><p>{_h(i['detail'])}</p></details>"
-            )
-    hs = history_summary(history)
-    if not hs["trend_ok"]:
-        out.append(
-            f'<p class="vd-note vd-muted">Price-trend insights start once price history spans '
-            f"{MIN_HISTORY_DAYS} days. It spans {hs['span_days']} today.</p>"
-        )
+    for kind in KINDS:
+        hidden = " hidden" if kind == "cpu" else ""
+        out.append(f'<div class="mi-grid" id="mi-{kind}" data-insight-kind="{kind}"{hidden}>')
+        for topic, title in labels.items():
+            group = [item for item in items if item["kind"] == kind and item["topic"] == topic]
+            if not group:
+                continue
+            first = group[0]
+            out.append(f'<article class="mi-card mi-{topic.lower()}"><h3>{title}</h3>')
+            out.append(f'<strong class="mi-metric">{_h(first.get("headline", first["text"]))}</strong>')
+            if first.get("caption"):
+                out.append(f'<p>{_h(first["caption"])}</p>')
+            if topic == "Coverage":
+                count, total = first["progress"]
+                out.append(f'<progress aria-label="Share of checked models ranked" value="{count}" max="{total}"></progress>')
+            if topic == "Market":
+                out.append('<div class="mi-range" aria-hidden="true"></div>')
+            for extra in group[1:]:
+                out.append(f'<p>{_h(extra["text"])}</p>')
+            out.append('<details><summary>See figures</summary>')
+            for item in group:
+                out.append(f'<p>{_h(item["detail"])}</p>')
+            out.append("</details></article>")
+        if not any(item["kind"] == kind for item in items):
+            out.append('<p>Insufficient data for market insights.</p>')
+        out.append("</div>")
     return "".join(out)
+
 
 
 def coverage_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
