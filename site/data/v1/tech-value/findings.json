@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days.",
-  "generated_at": "2026-11-18T01:57:01+00:00",
-  "rows": 31,
+  "generated_at": "2026-11-18T18:15:14+00:00",
+  "rows": 30,
   "columns": [
    "key",
    "module",
@@ -46,7 +46,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-18T01:54:33+00:00"
+    "retrieved_at": "2026-11-18T18:13:00+00:00"
    },
    {
     "id": "ebay_browse",
@@ -55,7 +55,7 @@
     "licence": "eBay API License Agreement (https://developer.ebay.com/join/api-license-agreement). Public display of derived lowest-price comparisons with a link back to the listing is permitted; raw listing feeds are not redistributed in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-18T01:55:56+00:00"
+    "retrieved_at": "2026-11-18T18:14:29+00:00"
    },
    {
     "id": "blender_opendata",
@@ -80,21 +80,6 @@
   "rule_text": "a model's lowest listed price on the latest collection day is 5% or more above or below its price seven days earlier, or its earliest price within those seven days."
  },
  "data": [
-  {
-   "key": "tech-value|amd ryzen 5 5500|price move|2026-11-18",
-   "module": "tech-value",
-   "subject": "amd ryzen 5 5500",
-   "period": "2026-11-18",
-   "sentence": "amd ryzen 5 5500 (CPU): the lowest listed price fell 15.0% to $85.00 on 18 Nov 2026, from $99.99 on 14 Nov.",
-   "rule": "price move",
-   "measure": -0.14991499149914989,
-   "threshold": 0.05,
-   "label": "observation",
-   "label_reason": "Listed prices as collected, compared across days.",
-   "test_passed": null,
-   "page": "tech-value/index.qmd",
-   "table": "tech-value/price_history.json"
-  },
   {
    "key": "tech-value|amd ryzen 5 7600x|price move|2026-11-18",
    "module": "tech-value",
@@ -205,9 +190,9 @@
    "module": "tech-value",
    "subject": "amd ryzen 7 9800x3d",
    "period": "2026-11-18",
-   "sentence": "amd ryzen 7 9800x3d (CPU): the lowest listed price fell 11.9% to $379.00 on 18 Nov 2026, from $429.99 on 14 Nov.",
+   "sentence": "amd ryzen 7 9800x3d (CPU): the lowest listed price fell 11.6% to $380.00 on 18 Nov 2026, from $429.99 on 14 Nov.",
    "rule": "price move",
-   "measure": -0.11858415311984005,
+   "measure": -0.1162585176399451,
    "threshold": 0.05,
    "label": "observation",
    "label_reason": "Listed prices as collected, compared across days.",
@@ -265,9 +250,9 @@
    "module": "tech-value",
    "subject": "amd ryzen 9 9950x3d",
    "period": "2026-11-18",
-   "sentence": "amd ryzen 9 9950x3d (CPU): the lowest listed price fell 20.6% to $499.99 on 18 Nov 2026, from $629.99 on 14 Nov.",
+   "sentence": "amd ryzen 9 9950x3d (CPU): the lowest listed price fell 8.1% to $579.00 on 18 Nov 2026, from $629.99 on 14 Nov.",
    "rule": "price move",
-   "measure": -0.2063524817854252,
+   "measure": -0.08093779266337564,
    "threshold": 0.05,
    "label": "observation",
    "label_reason": "Listed prices as collected, compared across days.",
@@ -283,6 +268,21 @@
    "sentence": "amd threadripper 7970x (CPU): the lowest listed price fell 16.7% to $1,915.99 on 18 Nov 2026, from $2,299.99 on 14 Nov.",
    "rule": "price move",
    "measure": -0.16695724764020703,
+   "threshold": 0.05,
+   "label": "observation",
+   "label_reason": "Listed prices as collected, compared across days.",
+   "test_passed": null,
+   "page": "tech-value/index.qmd",
+   "table": "tech-value/price_history.json"
+  },
+  {
+   "key": "tech-value|amd threadripper 7980x|price move|2026-11-18",
+   "module": "tech-value",
+   "subject": "amd threadripper 7980x",
+   "period": "2026-11-18",
+   "sentence": "amd threadripper 7980x (CPU): the lowest listed price fell 16.0% to $2,099.90 on 18 Nov 2026, from $2,499.91 on 17 Nov.",
+   "rule": "price move",
+   "measure": -0.1600097603513726,
    "threshold": 0.05,
    "label": "observation",
    "label_reason": "Listed prices as collected, compared across days.",
@@ -493,21 +493,6 @@
    "sentence": "nvidia rtx 5060 (GPU): the lowest listed price fell 8.2% to $449.99 on 18 Nov 2026, from $489.99 on 14 Nov.",
    "rule": "price move",
    "measure": -0.0816343190677361,
-   "threshold": 0.05,
-   "label": "observation",
-   "label_reason": "Listed prices as collected, compared across days.",
-   "test_passed": null,
-   "page": "tech-value/index.qmd",
-   "table": "tech-value/price_history.json"
-  },
-  {
-   "key": "tech-value|nvidia rtx 5070|price move|2026-11-18",
-   "module": "tech-value",
-   "subject": "nvidia rtx 5070",
-   "period": "2026-11-18",
-   "sentence": "nvidia rtx 5070 (GPU): the lowest listed price fell 11.1% to $799.99 on 18 Nov 2026, from $899.99 on 14 Nov.",
-   "rule": "price move",
-   "measure": -0.11111234569272987,
    "threshold": 0.05,
    "label": "observation",
    "label_reason": "Listed prices as collected, compared across days.",

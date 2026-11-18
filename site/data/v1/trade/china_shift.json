@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "china_shift",
   "description": "For each large product chapter: the change in China's share of US imports since 2017, beside the change for each Southeast Asian economy, in percentage points.",
-  "generated_at": "2026-11-18T01:57:05+00:00",
+  "generated_at": "2026-11-18T18:15:18+00:00",
   "rows": 53,
   "columns": [
    "chapter",
