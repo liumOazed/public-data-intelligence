@@ -4,8 +4,12 @@ subtitle: "US retail prices against open benchmark scores, for desktop CPUs and 
 ---
 
 <style>
-#title-block-header h1, main h2, .vd-overview .vd-big, .navbar-brand {font-family: Georgia, serif; letter-spacing: -.025em}
-#title-block-header h1 {font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.06}
+body {font-family: "Century Gothic", CenturyGothic, "AppleGothic", "Avenir Next", sans-serif}
+#title-block-header h1, main h2, main h3, .vd-overview .vd-big, .navbar-brand {font-family: inherit}
+#title-block-header h1 {font-size: clamp(22px, 2.5vw, 28px); font-weight: 500; line-height: 1.2}
+.vd-comparison {display:grid; grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); gap:1rem}
+.vd-comparison h3 {font-size:1rem; margin:.5rem 0}
+@media(max-width:760px){.vd-comparison {grid-template-columns:minmax(0,1fr)}}
 body:not(.quarto-dark) {background-color: #fcfbf8}
 body:not(.quarto-dark) :is(#title-block-header, main h2, .navbar-brand) {color: #14284a}
 .vd-cards.vd-overview {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap: .75rem}
@@ -181,8 +185,11 @@ html("""
 <div class="vd-toolbar">
   <label class="vd-field"><span class="vd-label">Compare the selected model with</span><select id="vd-compare"></select></label>
 </div>
+<div class="vd-comparison">
+  <div><h3>Close-up</h3><div id="vd-premium" class="vd-chart" role="img" aria-label="Scatter of price difference against score difference from the baseline"><div class="vd-state">Loading chart…</div></div></div>
+  <div><h3>Full range</h3><div id="vd-premium-full" class="vd-chart" role="img" aria-label="All models compared with the baseline"></div></div>
+</div>
 <p id="vd-premium-summary" class="vd-note"></p>
-<div id="vd-premium" class="vd-chart" role="img" aria-label="Scatter of price difference against score difference from the baseline"><div class="vd-state">Loading chart…</div></div>
 """)
 ```
 
