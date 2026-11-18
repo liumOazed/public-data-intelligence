@@ -133,6 +133,16 @@
     const dataEl = $("vd-data");
     if (!dataEl) return;
     const D = JSON.parse(dataEl.textContent);
+    let changeChartKind;
+    const switches = document.querySelectorAll("[data-vd-kind]");
+    switches.forEach((button) => button.addEventListener("click", () => {
+      const kind = button.dataset.vdKind;
+      switches.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      document.querySelectorAll("[data-insight-kind]").forEach((panel) => {
+        panel.hidden = panel.dataset.insightKind !== kind;
+      });
+      if (changeChartKind) changeChartKind(kind);
+    }));
     if (typeof Plotly === "undefined") {
       document.querySelectorAll(".vd-chart").forEach((el) => {
         el.innerHTML =
@@ -942,13 +952,11 @@
       renderHistory(rows, c);
     }
 
+    changeChartKind = (kind) => {
+      S.kind = kind;
+      render();
+    };
     const num = (v) => (v === "" || v === null || isNaN(Number(v)) ? null : Number(v));
-    document.querySelectorAll("[data-vd-kind]").forEach((b) =>
-      b.addEventListener("click", () => {
-        S.kind = b.dataset.vdKind;
-        render();
-      })
-    );
     $("vd-makers").addEventListener("change", (e) => {
       const mk = e.target.dataset.vdMaker;
       if (!mk) return;
