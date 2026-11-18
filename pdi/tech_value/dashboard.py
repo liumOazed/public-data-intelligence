@@ -21,7 +21,7 @@ from pdi.tech_value import config, names
 
 KINDS = {"gpu": "Graphics cards", "cpu": "Desktop CPUs"}
 KIND_SHORT = {"gpu": "GPU", "cpu": "CPU"}
-MAKERS = {"nvidia": "NVIDIA", "amd": "AMD", "intel": "Intel", "apple": "Apple"}
+MAKERS = {"nvidia": "NVIDIA", "amd": "AMD", "intel": "Intel"}
 
 # Sample-size gates, fixed before looking at what they let through.
 MIN_FOR_PERCENTILES = 10  # fewer ranked models than this: no percentiles
@@ -414,13 +414,6 @@ def _records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
 def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> dict:
     """Everything the page's charts need, as plain JSON-friendly values."""
     rk = ranked(value)
-    bm = bench.copy()
-    if len(bm):
-        bm["maker"] = bm["model_key"].map(maker)
-        if "median_score" in bm.columns and "score" not in bm.columns:
-            bm["score"] = bm["median_score"]
-        if "device_type" in bm.columns and "backend" not in bm.columns:
-            bm["backend"] = bm["device_type"]
     hist = history.copy()
     if len(hist):
         hist["date"] = hist["date"].astype(str).str[:10]
@@ -444,19 +437,6 @@ def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> 
                 "collected_date",
                 "retailer",
                 "listing_url",
-                "backend",
-            ],
-        ),  # fmt: skip
-        "benchmarks": _records(
-            bm,
-            [
-                "kind",
-                "model_key",
-                "maker",
-                "score",
-                "p25_score",
-                "p75_score",
-                "n_runs",
                 "backend",
             ],
         ),  # fmt: skip

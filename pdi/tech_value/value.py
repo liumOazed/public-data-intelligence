@@ -6,7 +6,7 @@ import duckdb
 import pandas as pd
 
 from pdi.tech_value import config
-from pdi.tech_value.names import benchmark_key
+from pdi.tech_value.names import model_key
 
 # CPU renders are compared with CPU renders. For GPUs each backend (OptiX, CUDA, HIP, oneAPI)
 # is a separate measurement; the table shows the backend with the most runs for that card.
@@ -34,7 +34,7 @@ def benchmark_by_model(blender: pd.DataFrame) -> tuple[pd.DataFrame, str | None]
     if blender.empty:
         return pd.DataFrame(), None
     df = blender.copy()
-    keys = df["device_name"].map(benchmark_key)
+    keys = df["device_name"].map(model_key)
     df["kind"] = [k[0] if k else None for k in keys]
     df["model_key"] = [k[1] if k else None for k in keys]
     df = df[df["model_key"].notna()]

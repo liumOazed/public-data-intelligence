@@ -191,9 +191,6 @@ Longer bars buy more Blender rendering performance per dollar. A score of 8 mean
 #| output: asis
 html("""
 <div class="vd-toolbar">
-  <div class="vd-seg" role="group" aria-label="Leaderboard metric">
-    <button type="button" data-vd-metric="spd" aria-pressed="true">Score per $</button><button type="button" data-vd-metric="score" aria-pressed="false">Raw score (incl. Apple M-series)</button>
-  </div>
   <div class="vd-seg" role="group" aria-label="How many to show">
     <button type="button" data-vd-top="10">Top 10</button><button type="button" data-vd-top="20">Top 20</button><button type="button" data-vd-top="all">All</button>
   </div>
