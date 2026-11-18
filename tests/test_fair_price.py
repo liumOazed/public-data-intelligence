@@ -91,5 +91,3 @@ def test_structural_regime_model_separates_workstation_premium():
     assert (result.parts["ceiling_p80_usd"] >= result.parts["fair_price_usd"]).all()
     assert "ensemble_price_usd" in result.parts.columns
     assert "model_disagreement_pct" in result.parts.columns
-
-
