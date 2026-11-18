@@ -453,21 +453,22 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
     """Market overview cards: coverage per kind, best value per kind, price freshness."""
     fun = funnel(bench, value).set_index("kind")
     rk = ranked(value)
-    cards = []
+    coverage_cards = []
     for kind, label in KIND_SHORT.items():
         f = fun.loc[kind]
         pct = 100 * f["ranked"] / max(int(f["price_checked"]), 1)
-        cards.append(_card(f"{label} coverage", (
+        coverage_cards.append(_card(f"{label} coverage", (
             f'<div class="vd-big">{f["ranked"]} <span>ranked ({pct:.0f}% of checked)</span></div>'
             f'<div class="vd-mini-bar"><span style="width:{min(pct, 100):.1f}%"></span></div>'
             f'<div class="vd-small">{f["benchmarked"]} benchmarked · '
             f'{f["price_checked"]} price-checked · {f["priced"]} priced</div>'
         ), cls=f"vd-card-{kind}"))  # fmt: skip
+    cards = []
     for kind, label in KIND_SHORT.items():
         part = rk[rk["kind"] == kind]
         if part.empty:
             none = '<div class="vd-small">No ranked models yet.</div>'
-            cards.append(_card(f"Best {label} value", none, cls=f"vd-card-{kind}"))
+            cards.append(_card(f"Best {label} value", none, cls=f"vd-leader vd-card-{kind}"))
             continue
         b = part.loc[part["score_per_dollar"].idxmax()]
         body = (
@@ -475,6 +476,8 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
             f'<div class="vd-small"><strong>{b["score_per_dollar"]:.2f} pts/$</strong> · '
             f"${b['price_usd']:,.2f} · {b['score']:,.0f} pts</div>"
         )
+        if pd.notna(b.get("n_listings")) and b.get("confidence") != "low":
+            body += f'<div class="vd-small">{int(b["n_listings"])} listings</div>'
         if b.get("confidence") == "low":
             normal = part[part["confidence"] != "low"]
             alt = ""
@@ -486,7 +489,8 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
                     f"({n['score_per_dollar']:.2f} pts/$, ${n['price_usd']:,.0f})."
                 )
             body += f'<div class="vd-small vd-warn">Single listing.{alt}</div>'
-        cards.append(_card(f"Best {label} value", body, cls=f"vd-card-{kind}"))
+        cards.append(_card(f"Best {label} value", body, cls=f"vd-leader vd-card-{kind}"))
+    cards.extend(coverage_cards)
     fr = freshness(bench, value, history)
     counts = fr["status"].value_counts().to_dict() if len(fr) else {}
     last = max(history["date"].astype(str).str[:10]) if len(history) else "never"
@@ -499,7 +503,7 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
         f'<strong>{counts.get("fresh", 0)} fresh</strong>, {counts.get("stale", 0)} stale, '
         f'{counts.get("never priced", 0)} unmatched (≤{config.PRICE_MAX_AGE_DAYS}d window).</div>'
     ), cls="vd-card-fresh"))  # fmt: skip
-    return '<div class="vd-cards">' + "".join(cards) + "</div>"
+    return '<div class="vd-cards vd-overview">' + "".join(cards) + "</div>"
 
 
 def insights_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
