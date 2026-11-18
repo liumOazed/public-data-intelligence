@@ -21,7 +21,7 @@ from pdi.tech_value import config, names
 
 KINDS = {"gpu": "Graphics cards", "cpu": "Desktop CPUs"}
 KIND_SHORT = {"gpu": "GPU", "cpu": "CPU"}
-MAKERS = {"nvidia": "NVIDIA", "amd": "AMD", "intel": "Intel"}
+MAKERS = {"nvidia": "NVIDIA", "amd": "AMD", "intel": "Intel", "apple": "Apple"}
 
 # Sample-size gates, fixed before looking at what they let through.
 MIN_FOR_PERCENTILES = 10  # fewer ranked models than this: no percentiles
@@ -348,8 +348,11 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
             names = ", ".join(_name(k) for k in dominated["model_key"])
             out.append({
                 "kind": kind, "topic": "Dominated",
-            "headline": f"{len(dominated)} of {n}",
-                "caption": "Another model costs no more and is at least as fast, with an advantage on price or speed.",
+                "headline": f"{len(dominated)} of {n}",
+                "caption": (
+                    "Another model costs no more and is at least as fast, "
+                    "with an advantage on price or speed."
+                ),
                 "text": f"{len(dominated)} of {n} ranked {label}s are dominated: another {label} "
                         "costs no more and scores at least as high.",
                 "detail": f"Dominated: {names}.",
@@ -370,8 +373,10 @@ def insights(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) ->
                 u = upgrade(part, best["model_key"], nxt["model_key"])
                 out.append({
                     "kind": kind, "topic": "Upgrade",
-            "headline": f"{_name(best['model_key'])} → {_name(nxt['model_key'])}",
-                    "caption": f"Price {u['price_pct']:+.0f}% · Blender speed {u['score_pct']:+.0f}%",
+                    "headline": f"{_name(best['model_key'])} → {_name(nxt['model_key'])}",
+                    "caption": (
+                        f"Price {u['price_pct']:+.0f}% · Blender speed {u['score_pct']:+.0f}%"
+                    ),
                     "text": f"Moving from {_name(best['model_key'])} to {_name(nxt['model_key'])} "
                             f"costs {u['price_pct']:.0f}% more "
                             f"for {u['score_pct']:.0f}% more score.",
@@ -409,6 +414,13 @@ def _records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
 def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> dict:
     """Everything the page's charts need, as plain JSON-friendly values."""
     rk = ranked(value)
+    bm = bench.copy()
+    if len(bm):
+        bm["maker"] = bm["model_key"].map(maker)
+        if "median_score" in bm.columns and "score" not in bm.columns:
+            bm["score"] = bm["median_score"]
+        if "device_type" in bm.columns and "backend" not in bm.columns:
+            bm["backend"] = bm["device_type"]
     hist = history.copy()
     if len(hist):
         hist["date"] = hist["date"].astype(str).str[:10]
@@ -432,6 +444,19 @@ def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> 
                 "collected_date",
                 "retailer",
                 "listing_url",
+                "backend",
+            ],
+        ),  # fmt: skip
+        "benchmarks": _records(
+            bm,
+            [
+                "kind",
+                "model_key",
+                "maker",
+                "score",
+                "p25_score",
+                "p75_score",
+                "n_runs",
                 "backend",
             ],
         ),  # fmt: skip
@@ -519,8 +544,14 @@ def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
 
 def insights_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
     items = insights(bench, value, history)
-    labels = {"Coverage": "Coverage", "Value": "Value", "Dominated": "Better alternatives",
-              "Market": "Market price range", "Upgrade": "Upgrade", "Prices": "Price trend"}
+    labels = {
+        "Coverage": "Coverage",
+        "Value": "Value",
+        "Dominated": "Better alternatives",
+        "Market": "Market price range",
+        "Upgrade": "Upgrade",
+        "Prices": "Price trend",
+    }
     out = []
     for kind in KINDS:
         hidden = " hidden" if kind == "cpu" else ""
@@ -530,26 +561,29 @@ def insights_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFram
             if not group:
                 continue
             first = group[0]
+            headline = _h(first.get("headline", first["text"]))
             out.append(f'<article class="mi-card mi-{topic.lower()}"><h3>{title}</h3>')
-            out.append(f'<strong class="mi-metric">{_h(first.get("headline", first["text"]))}</strong>')
+            out.append(f'<strong class="mi-metric">{headline}</strong>')
             if first.get("caption"):
-                out.append(f'<p>{_h(first["caption"])}</p>')
+                out.append(f"<p>{_h(first['caption'])}</p>")
             if topic == "Coverage":
                 count, total = first["progress"]
-                out.append(f'<progress aria-label="Share of checked models ranked" value="{count}" max="{total}"></progress>')
+                out.append(
+                    f'<progress aria-label="Share of checked models ranked" '
+                    f'value="{count}" max="{total}"></progress>'
+                )
             if topic == "Market":
                 out.append('<div class="mi-range" aria-hidden="true"></div>')
             for extra in group[1:]:
-                out.append(f'<p>{_h(extra["text"])}</p>')
-            out.append('<details><summary>See figures</summary>')
+                out.append(f"<p>{_h(extra['text'])}</p>")
+            out.append("<details><summary>See figures</summary>")
             for item in group:
-                out.append(f'<p>{_h(item["detail"])}</p>')
+                out.append(f"<p>{_h(item['detail'])}</p>")
             out.append("</details></article>")
         if not any(item["kind"] == kind for item in items):
-            out.append('<p>Insufficient data for market insights.</p>')
+            out.append("<p>Insufficient data for market insights.</p>")
         out.append("</div>")
     return "".join(out)
-
 
 
 def coverage_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:

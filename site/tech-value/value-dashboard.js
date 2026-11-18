@@ -91,7 +91,7 @@
     return out;
   }
 
-  const MAKERS = { nvidia: "NVIDIA", amd: "AMD", intel: "Intel" };
+  const MAKERS = { nvidia: "NVIDIA", amd: "AMD", intel: "Intel", apple: "Apple" };
   const UPPER = new Set(["rtx", "rx", "gtx", "xt", "xtx", "gre", "ai"]);
   function displayName(key) {
     return String(key)
@@ -126,7 +126,7 @@
   const esc = (s) =>
     String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   const KSHORT = { gpu: "GPU", cpu: "CPU" };
-  const MAKER_SLOT = { NVIDIA: 1, AMD: 2, Intel: 3 };
+  const MAKER_SLOT = { NVIDIA: 1, AMD: 2, Intel: 3, Apple: 4 };
   const LOG_TICKS = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000, 5000, 10000];
 
   function boot() {
@@ -151,6 +151,7 @@
       return;
     }
     const models = D.models.map((m) => Object.assign({}, m, { name: displayName(m.model_key) }));
+    const benchmarks = (D.benchmarks || []).map((m) => Object.assign({}, m, { name: displayName(m.model_key) }));
     const S = {
       kind: "gpu",
       makers: {},
@@ -165,6 +166,7 @@
       logPrice: true,
       selected: {},
       compare: {},
+      barMetric: "spd",
       top: 10,
       order: "desc",
       budget: {},
@@ -210,6 +212,18 @@
           (S.scoreMin === null || m.score >= S.scoreMin) &&
           (S.scoreMax === null || m.score <= S.scoreMax) &&
           (!S.hideLow || m.confidence !== "low") &&
+          (!q || m.model_key.includes(q) || m.name.toLowerCase().includes(q))
+      );
+    }
+
+    function appleInView() {
+      const q = S.search.trim().toLowerCase();
+      return benchmarks.filter(
+        (m) =>
+          m.kind === S.kind &&
+          m.maker === "Apple" &&
+          (S.scoreMin === null || m.score >= S.scoreMin) &&
+          (S.scoreMax === null || m.score <= S.scoreMax) &&
           (!q || m.model_key.includes(q) || m.name.toLowerCase().includes(q))
       );
     }
@@ -260,6 +274,16 @@
     }
 
     function hoverText(m) {
+      if (!m.price_usd) {
+        const iqr = m.p25_score && m.p75_score ? " (25th–75th: " + fmtInt(m.p25_score) + "–" + fmtInt(m.p75_score) + ")" : "";
+        return (
+          "<b>" + esc(m.name) + "</b><br>" +
+          "Maker: " + esc(m.maker) + (m.backend ? " · " + esc(m.backend) : "") + "<br>" +
+          "Blender score: <b>" + fmtInt(m.score) + "</b> pts" + iqr + "<br>" +
+          "Benchmark runs: " + fmtInt(m.n_runs || 0) + "<br>" +
+          "Sold as part of a complete Mac system (not priced as a standalone chip)"
+        );
+      }
       const medLine = m.median_price_usd ? "Median listing: " + fmtUsd2(m.median_price_usd) + "<br>" : "";
       const stores = m.n_retailers ? " across " + m.n_retailers + " store" + (m.n_retailers === 1 ? "" : "s") : "";
       return (
@@ -312,6 +336,7 @@
       cmp.innerHTML = others
         .map((m) => '<option value="' + esc(m.model_key) + '"' + (m.model_key === S.compare[S.kind] ? " selected" : "") + ">" + esc(m.name) + " (" + fmtUsd(m.price_usd) + ")</option>")
         .join("");
+      document.querySelectorAll("[data-vd-metric]").forEach((b) => b.setAttribute("aria-pressed", String(S.barMetric === b.dataset.vdMetric)));
       document.querySelectorAll("[data-vd-top]").forEach((b) => b.setAttribute("aria-pressed", String(String(S.top) === b.dataset.vdTop)));
       document.querySelectorAll("[data-vd-order]").forEach((b) => b.setAttribute("aria-pressed", String(S.order === b.dataset.vdOrder)));
       $("vd-medians").checked = S.medians;
@@ -510,26 +535,33 @@
 
     // ------------------------------------------------------------ 2. leaderboard
     function renderBars(rows, c) {
-      if (!rows.length) return emptyState("vd-bars", "No models match the filters.");
+      const byScore = S.barMetric === "score";
+      const pool = byScore ? rows.concat(appleInView()) : rows;
+      if (!pool.length) return emptyState("vd-bars", "No models match the filters.");
       const el = ready("vd-bars");
-      let sorted = rows.slice().sort((a, b) => b.score_per_dollar - a.score_per_dollar);
+      const val = (m) => (byScore ? m.score : m.score_per_dollar);
+      let sorted = pool.slice().sort((a, b) => val(b) - val(a));
       const bestKey = sorted[0].model_key;
-      const medSpd = median(rows.map((m) => m.score_per_dollar));
+      const medVal = median(pool.map(val));
       if (S.order === "asc") sorted.reverse();
       if (S.top !== "all") sorted = sorted.slice(0, S.top);
       const sel = selectedModel(rows);
       const shown = sorted.slice().reverse(); // Plotly draws the first category at the bottom
-      const maxX = Math.max(...shown.map((m) => m.score_per_dollar), medSpd || 1);
+      const maxX = Math.max(...shown.map(val), medVal || 1);
       Plotly.react(
         el,
         [
           {
             type: "bar",
             orientation: "h",
-            x: shown.map((m) => m.score_per_dollar),
+            x: shown.map(val),
             y: shown.map((m) => m.name),
             customdata: shown.map((m) => m.model_key),
-            text: shown.map((m) => m.score_per_dollar.toFixed(2) + "  ·  " + fmtUsd(m.price_usd)),
+            text: shown.map((m) =>
+              byScore
+                ? fmtInt(m.score) + " pts  ·  " + (m.price_usd ? fmtUsd(m.price_usd) : "Apple Silicon")
+                : m.score_per_dollar.toFixed(2) + "  ·  " + fmtUsd(m.price_usd)
+            ),
             textposition: "outside",
             cliponaxis: false,
             textfont: { color: c.ink, size: 11 },
@@ -544,21 +576,23 @@
         ],
         layout(c, {
           height: Math.max(250, 27 * shown.length + 84),
-          margin: { t: 24, r: 112, b: 48, l: 8 },
+          margin: { t: 24, r: 128, b: 48, l: 8 },
           bargap: 0.28,
-          shapes: medSpd
-            ? [{ type: "line", xref: "x", yref: "paper", x0: medSpd, x1: medSpd, y0: 0, y1: 1, line: { color: c.muted, width: 1.2, dash: "dot" } }]
+          shapes: medVal
+            ? [{ type: "line", xref: "x", yref: "paper", x0: medVal, x1: medVal, y0: 0, y1: 1, line: { color: c.muted, width: 1.2, dash: "dot" } }]
             : [],
-          annotations: medSpd
-            ? [{ xref: "x", yref: "paper", x: medSpd, y: 1.01, yanchor: "bottom", showarrow: false, text: "Median " + medSpd.toFixed(2) + " pts/$", font: { size: 10.5, color: c.muted } }]
+          annotations: medVal
+            ? [{ xref: "x", yref: "paper", x: medVal, y: 1.01, yanchor: "bottom", showarrow: false, text: "Median " + (byScore ? fmtInt(medVal) + " pts" : medVal.toFixed(2) + " pts/$"), font: { size: 10.5, color: c.muted } }]
             : [],
-          xaxis: axis(c, "Score per dollar (Blender points per USD)", { range: [0, maxX * 1.22] }),
+          xaxis: axis(c, byScore ? "Blender benchmark score (points)" : "Score per dollar (Blender points per USD)", { range: [0, maxX * 1.24] }),
           yaxis: axis(c, "", { automargin: true, gridcolor: "rgba(0,0,0,0)", tickfont: { color: c.ink, size: 11.5 } }),
         }),
         CONFIG
       );
       bindClick(el);
-      $("vd-bars-n").textContent = "Showing " + shown.length + " of " + rows.length + ". Bar labels show score per $ and lowest price. Outlined: best value" + (sel ? " and selected model" : "") + ". Faded: single-listing price.";
+      $("vd-bars-n").textContent = byScore
+        ? "Showing " + shown.length + " of " + pool.length + " models (including Apple Silicon M-series in purple). Bar labels show raw Blender score and lowest part price (or Apple Silicon)."
+        : "Showing " + shown.length + " of " + rows.length + ". Bar labels show score per $ and lowest price. Outlined: best value" + (sel ? " and selected model" : "") + ". Faded: single-listing price.";
     }
 
     // ------------------------------------------------------------ 3. price premium vs performance gain
@@ -722,7 +756,9 @@
     function renderDist(rows, c) {
       const gate = D.gates.percentiles;
       const n = rows.length;
-      $("vd-dist-n").textContent = "Universe: ranked " + KSHORT[S.kind] + "s in view (models with a fresh price and a benchmark score). n = " + n + ".";
+      const apple = appleInView();
+      const appleNote = apple.length ? " + " + apple.length + " Apple Silicon M-series models (purple diamonds)" : "";
+      $("vd-dist-n").textContent = "Universe: ranked " + KSHORT[S.kind] + "s in view (n = " + n + ")" + appleNote + ".";
       if (n < gate) return emptyState("vd-dist", "Percentiles need at least " + gate + " models in view; " + n + " are. Widen the filters to see the distribution.");
       const el = ready("vd-dist");
       const sel = selectedModel(rows);
@@ -761,25 +797,47 @@
           borderwidth: 1,
         });
       }
+      const traces = [
+        {
+          type: "scatter",
+          mode: "markers",
+          x: scores,
+          y: jitter,
+          customdata: rows.map((m) => m.model_key),
+          text: rows.map((m) => "<b>" + esc(m.name) + "</b><br>Score: " + fmtInt(m.score) + " pts<br>Price: " + fmtUsd2(m.price_usd) + "<br>Faster than " + Math.round(100 * shareBelow(scores, m.score)) + "% of the other " + (n - 1) + " in view"),
+          hovertemplate: "%{text}<extra></extra>",
+          marker: {
+            size: rows.map((m) => (m === sel ? 16 : 10.5)),
+            color: rows.map((m) => c.maker(m.maker)),
+            opacity: rows.map((m) => (sel && m !== sel ? 0.55 : 0.95)),
+            line: { width: rows.map((m) => (m === sel ? 3 : 1.2)), color: rows.map((m) => (m === sel ? c.ink : c.surface)) },
+          },
+        },
+      ];
+      if (apple.length) {
+        const appleJitter = apple.map((m, i) => ((i * 29 + 5) % 11) / 11 - 0.5);
+        traces.push({
+          type: "scatter",
+          mode: "markers",
+          x: apple.map((m) => m.score),
+          y: appleJitter,
+          text: apple.map(
+            (m) =>
+              "<b>" + esc(m.name) + "</b> (Apple Silicon · " + esc(m.backend || "") + ")<br>Score: <b>" + fmtInt(m.score) + "</b> pts (" + fmtInt(m.n_runs || 0) + " runs)<br>Faster than " + Math.round(100 * (scores.filter((v) => v < m.score).length / n)) + "% of the " + n + " ranked desktop " + KSHORT[S.kind] + "s in view"
+          ),
+          hovertemplate: "%{text}<extra></extra>",
+          marker: {
+            symbol: "diamond",
+            size: 11.5,
+            color: c.maker("Apple"),
+            opacity: 0.92,
+            line: { width: 1.3, color: c.surface },
+          },
+        });
+      }
       Plotly.react(
         el,
-        [
-          {
-            type: "scatter",
-            mode: "markers",
-            x: scores,
-            y: jitter,
-            customdata: rows.map((m) => m.model_key),
-            text: rows.map((m) => "<b>" + esc(m.name) + "</b><br>Score: " + fmtInt(m.score) + " pts<br>Price: " + fmtUsd2(m.price_usd) + "<br>Faster than " + Math.round(100 * shareBelow(scores, m.score)) + "% of the other " + (n - 1) + " in view"),
-            hovertemplate: "%{text}<extra></extra>",
-            marker: {
-              size: rows.map((m) => (m === sel ? 16 : 10.5)),
-              color: rows.map((m) => c.maker(m.maker)),
-              opacity: rows.map((m) => (sel && m !== sel ? 0.55 : 0.95)),
-              line: { width: rows.map((m) => (m === sel ? 3 : 1.2)), color: rows.map((m) => (m === sel ? c.ink : c.surface)) },
-            },
-          },
-        ],
+        traces,
         layout(c, {
           height: 240,
           margin: { t: 42, r: 16, b: 48, l: 16 },
@@ -1007,6 +1065,12 @@
       S.showFrontier = e.target.checked;
       render();
     });
+    document.querySelectorAll("[data-vd-metric]").forEach((b) =>
+      b.addEventListener("click", () => {
+        S.barMetric = b.dataset.vdMetric;
+        render();
+      })
+    );
     document.querySelectorAll("[data-vd-top]").forEach((b) =>
       b.addEventListener("click", () => {
         S.top = b.dataset.vdTop === "all" ? "all" : Number(b.dataset.vdTop);

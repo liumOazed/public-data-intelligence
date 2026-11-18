@@ -213,6 +213,27 @@ def model_key(name: str | None) -> tuple[str, str] | None:
     return None
 
 
+_APPLE_GPU = re.compile(
+    r"^apple\s+(m\d+(?:\s+(?:pro|max|ultra))?)\s+\(gpu(?:\s*-\s*(\d+)\s*cores?)?\)$"
+)
+_APPLE_CPU = re.compile(r"^apple\s+(m\d+(?:\s+(?:pro|max|ultra))?)$")
+
+
+def benchmark_key(name: str | None) -> tuple[str, str] | None:
+    """Return (kind, key) for benchmark tables, including Apple Silicon M-series chips."""
+    if key := model_key(name):
+        return key
+    if not name:
+        return None
+    text = normalise(name)
+    if m := _APPLE_GPU.match(text):
+        cores = f" {m.group(2)}c" if m.group(2) else ""
+        return ("gpu", f"apple {m.group(1)}{cores}")
+    if m := _APPLE_CPU.match(text):
+        return ("cpu", f"apple {m.group(1)}")
+    return None
+
+
 def _cpu_key(text: str) -> str | None:
     if m := _RYZEN_TR.search(text):
         return f"amd threadripper {'pro ' if m.group(1) else ''}{m.group(2)}"
