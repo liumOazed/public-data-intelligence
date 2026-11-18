@@ -103,6 +103,20 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
             FROM latest l JOIN typical t USING (category, model_key)
             WHERE l.sale_price >= ? * t.median_price
         ),
+        by_source AS (
+            SELECT category AS kind, model_key, source,
+                   min(sale_price) AS source_floor_usd
+            FROM trusted GROUP BY ALL
+        ),
+        source_summary AS (
+            SELECT kind, model_key,
+                   median(source_floor_usd) AS source_median_price_usd,
+                   min(CASE WHEN source != 'ebay_browse' THEN source_floor_usd END)
+                       AS retail_floor_usd,
+                   min(CASE WHEN source = 'ebay_browse' THEN source_floor_usd END)
+                       AS marketplace_floor_usd
+            FROM by_source GROUP BY ALL
+        ),
         cheapest AS (
             SELECT category AS kind, model_key,
                    count(*) AS n_listings,
@@ -118,7 +132,9 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
                    arg_min(date, sale_price) AS collected_date
             FROM trusted GROUP BY ALL
         )
-        SELECT c.kind, c.model_key, c.price_usd, c.median_price_usd, c.retailer, c.n_retailers,
+        SELECT c.kind, c.model_key, c.price_usd, c.median_price_usd,
+               s.source_median_price_usd, s.retail_floor_usd, s.marketplace_floor_usd,
+               c.retailer, c.n_retailers,
                c.price_date, c.collected_date,
                c.regular_price_usd, c.n_listings,
                -- One listing is often a marketplace seller's asking price for a part that is
@@ -128,7 +144,9 @@ def value_table(prices: pd.DataFrame, bench: pd.DataFrame) -> pd.DataFrame:
                b.median_score AS score, b.p25_score, b.p75_score, b.n_runs,
                b.device_type AS backend, b.blender_version,
                b.median_score / c.price_usd AS score_per_dollar
-        FROM cheapest c LEFT JOIN bench b USING (kind, model_key)
+        FROM cheapest c
+        LEFT JOIN source_summary s USING (kind, model_key)
+        LEFT JOIN bench b USING (kind, model_key)
         ORDER BY score_per_dollar DESC NULLS LAST, c.price_usd
         """,
         [

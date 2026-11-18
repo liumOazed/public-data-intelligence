@@ -226,7 +226,8 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         limitations=PRICE_LIMITS + BLENDER_LIMITS,
         **{**common, "extra": {**extra, "finding": observed}},
     )
-    fair = fair_price.evaluate(table)
+    history = value.price_history(prices)
+    fair = fair_price.evaluate(table, history=history)
     fair_extra = {
         **extra,
         "verdicts": fair.verdicts,
@@ -251,7 +252,6 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         limitations=FAIR_LIMITS,
         **{**common, "extra": fair_extra},
     )
-    history = value.price_history(prices)
     findings.write_items(
         M,
         unusual_items(history),

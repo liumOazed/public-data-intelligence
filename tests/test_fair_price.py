@@ -91,3 +91,36 @@ def test_structural_regime_model_separates_workstation_premium():
     assert (result.parts["ceiling_p80_usd"] >= result.parts["fair_price_usd"]).all()
     assert "ensemble_price_usd" in result.parts.columns
     assert "model_disagreement_pct" in result.parts.columns
+    assert 0.0 <= verdict["p20_p80_loo_coverage_pct"] <= 100.0
+
+
+def test_market_signals_frontier_distance_and_spread():
+    table = _table(n=16, slope=1.0, noise=0.01)
+    # Part 0: score=100, price=400; Part 1: score=110, price=430; Part 2: score=105, price=450
+    table.loc[0, ["model_key", "score", "price_usd"]] = ["amd ryzen 5 9600x", 100.0, 400.0]
+    table.loc[1, ["model_key", "score", "price_usd"]] = ["amd ryzen 7 9700x", 110.0, 430.0]
+    table.loc[2, ["model_key", "score", "price_usd"]] = ["amd ryzen 7 7700x", 105.0, 450.0]
+    table["median_price_usd"] = table["price_usd"] * 1.25
+    table["source_median_price_usd"] = table["price_usd"] * 1.10
+    table["retail_floor_usd"] = table["price_usd"]
+    table["marketplace_floor_usd"] = table["price_usd"] * 1.15
+
+    history = pd.DataFrame(
+        {
+            "date": ["2026-11-11", "2026-11-18"],
+            "kind": ["cpu", "cpu"],
+            "model_key": ["amd ryzen 7 7700x", "amd ryzen 7 7700x"],
+            "price_usd": [500.0, 450.0],
+        }
+    )
+    res = fair_price.evaluate(table, history=history)
+    parts = res.parts.set_index("model_key")
+    c = parts.loc["amd ryzen 7 7700x"]
+    # Dominated by amd ryzen 7 9700x (score 110 >= 105, price 430 < 450) -> $20 drop (4.444%)
+    assert np.isclose(c["drop_to_frontier_usd"], 20.0)
+    assert np.isclose(c["drop_to_frontier_pct"], 20.0 / 450.0 * 100.0)
+    assert c["blocking_rival"] == "amd ryzen 7 9700x"
+    assert np.isclose(c["price_change_7d_pct"], -10.0)
+    assert c["gen_stage"] == "Previous gen (-1)"
+    assert c["channel_signal"] == "Retail undercuts marketplace"
+    assert np.isclose(c["listing_spread_pct"], 20.0)
