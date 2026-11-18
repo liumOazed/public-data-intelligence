@@ -164,3 +164,17 @@ def test_dynamic_generation_window_shifts_when_new_gen_launches():
     assert ("cpu", "amd ryzen 7 5800x3d") not in active
     assert ("cpu", "intel core i9-13900k") in active
     assert ("cpu", "intel core i9-12900k") not in active
+
+
+def test_apple_silicon_recognised_for_benchmarks_only():
+    from pdi.tech_value.names import benchmark_key
+
+    assert benchmark_key("Apple M4 Max") == ("cpu", "apple m4 max")
+    assert benchmark_key("Apple M3 Ultra") == ("cpu", "apple m3 ultra")
+    assert benchmark_key("Apple M4") == ("cpu", "apple m4")
+    assert benchmark_key("Apple M4 Max (GPU - 40 cores)") == ("gpu", "apple m4 max 40c")
+    assert benchmark_key("Apple M3 Ultra (GPU - 80 cores)") == ("gpu", "apple m3 ultra 80c")
+    # Retail part matcher continues to reject Apple Silicon so whole Macs are not priced as bare chips.
+    assert model_key("Apple M4 Max") is None
+    assert not retail_active("cpu", "apple m4 max")
+    assert not retail_active("gpu", "apple m4 max 40c")

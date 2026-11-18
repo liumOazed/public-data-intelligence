@@ -40,6 +40,7 @@ body {
   --vd-s1: #2a78d6;
   --vd-s2: #eb6834;
   --vd-s3: #1baf7a;
+  --vd-s4: #8b5cf6;
   --vd-ink: var(--bs-body-color);
   --vd-muted: #6c757d;
   --vd-grid: rgba(0, 0, 0, 0.09);
@@ -52,6 +53,7 @@ body.quarto-dark {
   --vd-s1: #4794f0;
   --vd-s2: #f07443;
   --vd-s3: #28c28b;
+  --vd-s4: #a78bfa;
   --vd-quad: rgba(40, 194, 139, 0.1);
   --vd-quad-poor: rgba(240, 116, 67, 0.07);
   --vd-muted: #adb5bd;
@@ -144,6 +146,7 @@ body.quarto-dark .vd-ok-text { color: #2fd197; }
 .vd-s1 { background: var(--vd-s1); }
 .vd-s2 { background: var(--vd-s2); }
 .vd-s3 { background: var(--vd-s3); }
+.vd-s4 { background: var(--vd-s4); }
 .vd-seg { display: inline-flex; border: 1px solid var(--bs-border-color); border-radius: 0.4rem; overflow: hidden; }
 .vd-seg button {
   border: 0;
