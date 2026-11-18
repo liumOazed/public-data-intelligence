@@ -6,7 +6,7 @@ subtitle: "US retail prices against open benchmark scores, for desktop CPUs and 
 <style>
 body {font-family: "Century Gothic", CenturyGothic, "AppleGothic", "Avenir Next", sans-serif}
 #title-block-header h1, main h2, main h3, .vd-overview .vd-big, .navbar-brand {font-family: inherit}
-#title-block-header h1 {font-size: clamp(22px, 2.5vw, 28px); font-weight: 500; line-height: 1.2}
+#title-block-header h1 {font-size: clamp(22px, 2.5vw, 28px); font-weight: 650; line-height: 1.2}
 .vd-comparison {display:grid; grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); gap:1rem}
 .vd-comparison h3 {font-size:1rem; margin:.5rem 0}
 @media(max-width:760px){.vd-comparison {grid-template-columns:minmax(0,1fr)}}
@@ -18,6 +18,26 @@ body:not(.quarto-dark) :is(#title-block-header, main h2, .navbar-brand) {color: 
 .tv-disclosure {border-top:1px solid var(--bs-border-color, #bac3d1); padding:.8rem 0}
 .tv-disclosure summary {cursor:pointer; font-weight:600}
 @media(max-width: 540px){.vd-cards.vd-overview {grid-template-columns:1fr}}
+#title-block-header .subtitle {font-size:1rem; line-height:1.45}
+#market-insights {position:relative; padding:clamp(1rem,3vw,1.6rem); border:1px solid var(--bs-border-color,#bcc4ce); border-radius:16px}
+#market-insights > h2 {margin:0 0 1rem; padding-right:8rem; border:0}
+.mi-switch {position:absolute; top:1.25rem; right:1.25rem}
+.mi-switch button {padding:.35rem .8rem; font:inherit; font-weight:600; cursor:pointer}
+.mi-switch button[aria-pressed=true] {background:#1951e7; color:white}
+.mi-grid {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem}
+.mi-grid[hidden] {display:none}
+.mi-card {grid-column:1/-1; min-width:0; border:1px solid var(--bs-border-color,#c5ccd5); border-radius:12px; padding:1rem}
+.mi-card h3 {font-size:.95rem; margin:0 0 .4rem}
+.mi-metric {font-size:clamp(1.1rem,2.3vw,1.6rem); line-height:1.2}
+.mi-card p {margin:.4rem 0}
+.mi-card summary {cursor:pointer; font-size:.82rem; margin-top:.55rem}
+.mi-coverage progress {display:block; width:100%; height:.65rem; margin-top:.55rem; accent-color:#1951e7}
+.mi-value {background:linear-gradient(112deg,#081c37,#102f58); color:white; padding:1.4rem}
+.mi-value h3 {color:#83edbd; text-transform:uppercase; letter-spacing:.09em}
+.mi-value .mi-metric {font-size:clamp(1.65rem,3.5vw,2.6rem)}
+.mi-dominated,.mi-market {grid-column:auto}
+.mi-range {height:.45rem; margin:.85rem 0; border-radius:1rem; background:linear-gradient(to right,#abb4bf 25%,#45bc91 25% 75%,#abb4bf 75%)}
+@media(max-width:580px){.mi-grid{grid-template-columns:1fr}.mi-switch{position:static;margin-bottom:.7rem}#market-insights > h2{padding-right:0}}
 </style>
 
 ```{python}
@@ -96,6 +116,18 @@ data = json.dumps(dashboard.payload(bench, value, history)).replace("</", "<\\/"
 plotly_src = f"https://cdn.plot.ly/plotly-{plotly.offline.get_plotlyjs_version()}.min.js"
 ```
 
+## Market insights
+
+```{python}
+#| output: asis
+html("""
+<div class="mi-switch vd-seg" role="group" aria-label="Select market and chart type">
+  <button type="button" data-vd-kind="gpu" aria-controls="mi-gpu" aria-pressed="true">GPU</button>
+  <button type="button" data-vd-kind="cpu" aria-controls="mi-cpu" aria-pressed="false">CPU</button>
+</div>
+""" + dashboard.insights_html(bench, value, history))
+```
+
 Choose a GPU or CPU to explore its US price and Blender score. Select a dot, bar, or model to follow it across the charts.
 
 ## Market overview
@@ -111,10 +143,6 @@ html(f"""
 <div id="vd-root" class="vd-root">
 <script type="application/json" id="vd-data">{data}</script>
 <div class="vd-filters" role="group" aria-label="Filters shared by every chart">
-  <div class="vd-seg" role="group" aria-label="Kind of part">
-    <button type="button" data-vd-kind="gpu" aria-pressed="true">Graphics cards</button>
-    <button type="button" data-vd-kind="cpu" aria-pressed="false">Desktop CPUs</button>
-  </div>
   <div class="vd-field"><span class="vd-label">Maker</span><span id="vd-makers"></span></div>
   <label class="vd-field"><span class="vd-label">Price, USD</span>
     <input id="vd-pmin" type="number" min="0" placeholder="min" inputmode="decimal">
@@ -250,17 +278,6 @@ html("""
 ```{python}
 #| output: asis
 print(site.source_note(hist_meta))
-```
-
-## Market insights
-
-Sentences worked out from the tables on this page, for all ranked models (the filters above do
-not change them). Open one to see the numbers behind it. An insight is left out, not softened,
-when its sample is too small.
-
-```{python}
-#| output: asis
-html(dashboard.insights_html(bench, value, history))
 ```
 
 ## Data coverage and freshness
