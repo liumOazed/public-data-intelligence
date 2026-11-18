@@ -213,7 +213,7 @@
         {
           paper_bgcolor: "rgba(0,0,0,0)",
           plot_bgcolor: "rgba(0,0,0,0)",
-          font: { color: c.ink, size: 13, family: "inherit" },
+          font: { color: c.ink, size: 13, family: getComputedStyle(document.body).fontFamily },
           margin: { t: 22, r: 20, b: 56, l: 72 },
           hoverlabel: { bgcolor: c.surface, bordercolor: c.grid, font: { color: c.ink, size: 12.5 } },
           showlegend: false,
@@ -226,7 +226,7 @@
       return Object.assign(
         {
           title: { text: title, font: { color: c.muted, size: 12 } },
-          gridcolor: c.grid,
+          showgrid: false,
           zerolinecolor: c.grid,
           linecolor: c.grid,
           tickfont: { color: c.muted, size: 11.5 },
@@ -370,7 +370,11 @@
 
     // ------------------------------------------------------------ 1. performance vs price
     function renderScatter(rows, c) {
-      if (!rows.length) return emptyState("vd-scatter", "No models match the filters.");
+      if (!rows.length) {
+        $("vd-scatter-n").textContent = "";
+        $("vd-scatter-legend").replaceChildren();
+        return emptyState("vd-scatter", "No models match the filters.");
+      }
       const el = ready("vd-scatter");
       const onF = frontier(rows);
       const best = rows.reduce((b, m) => (m.score_per_dollar > b.score_per_dollar ? m : b));
@@ -456,10 +460,8 @@
           borderpad: 3,
           borderwidth: 1,
         });
-      label(best, "Best value: " + best.name + " (" + fmtUsd(best.price_usd) + ")", 28, -28);
-      if (top !== best) label(top, "Top score: " + top.name + " (" + fmtUsd(top.price_usd) + ")", -32, 26);
-      if (sel && sel !== best && sel !== top) {
-        label(sel, "Selected: " + sel.name + " (" + fmtUsd(sel.price_usd) + ")", 0, -32);
+      if (sel) {
+        label(sel, "Selected", 0, -32);
       }
       Plotly.react(
         el,
@@ -480,7 +482,7 @@
         makers.map((mk) => '<span><span class="vd-swatch vd-s' + (MAKER_SLOT[mk] || 1) + '"></span>' + esc(mk) + "</span>").join("") +
         '<span><span class="vd-swatch vd-hollow"></span>Single-listing price</span>' +
         (S.showFrontier ? '<span><span class="vd-dash"></span>Efficiency frontier (faded dots are dominated)</span>' : "");
-      $("vd-scatter-n").textContent = "n = " + rows.length + " ranked " + KSHORT[S.kind] + "s" + (S.medians ? ". Medians: " + fmtUsd(medX) + " and " + fmtInt(medY) + " points." : ".");
+      $("vd-scatter-n").textContent = "Best value: " + best.name + " (" + fmtUsd(best.price_usd) + ") · Highest score: " + top.name + " (" + fmtInt(top.score) + " pts) · n = " + rows.length + " ranked " + KSHORT[S.kind] + "s" + (S.medians ? ". Medians: " + fmtUsd(medX) + " and " + fmtInt(medY) + " points." : ".");
     }
 
     function bindClick(el) {
@@ -554,6 +556,7 @@
       const base = selectedModel(rows);
       if (!base || rows.length < 2) {
         $("vd-premium-summary").innerHTML = "";
+        emptyState("vd-premium-full", "Full range needs at least two models.");
         return emptyState("vd-premium", base ? "Only one model is in view; there is nothing to compare it with." : "Pick a baseline model above.");
       }
       const el = ready("vd-premium");
@@ -568,10 +571,7 @@
       // The 1:1 line across the part of the chart where both axes overlap.
       const lo = Math.max(xr[0], yr[0]);
       const hi = Math.min(xr[1], yr[1]);
-      const annotations = [
-        { xref: "paper", yref: "paper", x: 0.02, y: 0.98, xanchor: "left", yanchor: "top", showarrow: false, text: "<b>↖ Better value than baseline</b> · performance rises faster than price", font: { size: 11, color: c.muted } },
-        { xref: "paper", yref: "paper", x: 0.98, y: 0.02, xanchor: "right", yanchor: "bottom", showarrow: false, text: "<b>↘ Worse value than baseline</b> · price rises faster than performance", font: { size: 11, color: c.muted } },
-      ];
+      const annotations = [];
       if (cmp) {
         const cp = pts.find((p) => p.m === cmp);
         if (cp) {
@@ -614,27 +614,30 @@
         },
         { type: "scatter", mode: "markers+text", x: [0], y: [0], text: ["Baseline: " + base.name], textposition: "top right", textfont: { color: c.ink, size: 11 }, marker: { size: 14, symbol: "diamond", color: c.ink }, hovertemplate: "Baseline: " + esc(base.name) + "<extra></extra>" },
       ];
-      Plotly.react(
-        el,
-        traces,
-        layout(c, {
-          height: 430,
-          annotations,
-          xaxis: axis(c, "Price difference from baseline (%)", { ticksuffix: "%", range: xr, zeroline: true, zerolinecolor: c.muted }),
-          yaxis: axis(c, "Benchmark score difference from baseline (%)", { ticksuffix: "%", range: yr, zeroline: true, zerolinecolor: c.muted }),
-        }),
-        CONFIG
-      );
-      if (!el.dataset.vdCmpBound) {
-        el.dataset.vdCmpBound = "1";
-        el.on("plotly_click", (ev) => {
-          const p = ev.points && ev.points[0];
-          if (p && p.customdata) {
-            S.compare[S.kind] = p.customdata;
+      function drawComparison(target, xRange, yRange, closeUp) {
+        const low = Math.max(xRange[0], yRange[0]);
+        const high = Math.min(xRange[1], yRange[1]);
+        const equality = Object.assign({}, traces[0], { x: [low, high], y: [low, high] });
+        const baseline = Object.assign({}, traces[2], { mode: "markers" });
+        const view = layout(c, {
+          height: 360,
+          margin: { t: 22, r: 16, b: 50, l: 55 },
+          annotations: closeUp ? annotations.filter((p) => p.x >= xRange[0] && p.x <= xRange[1] && p.y >= yRange[0] && p.y <= yRange[1]) : [],
+          xaxis: axis(c, "Price change (%)", { ticksuffix: "%", range: xRange, zeroline: true, zerolinecolor: c.muted }),
+          yaxis: axis(c, "Blender score change (%)", { ticksuffix: "%", range: yRange, zeroline: true, zerolinecolor: c.muted }),
+        });
+        Plotly.react(target, [equality, traces[1], baseline], view, CONFIG);
+        target.removeAllListeners("plotly_click");
+        target.on("plotly_click", (event) => {
+          const point = event.points && event.points[0];
+          if (point && point.customdata) {
+            S.compare[S.kind] = point.customdata;
             render();
           }
         });
       }
+      drawComparison(el, [-50, 100], [-50, 100], true);
+      drawComparison(ready("vd-premium-full"), xr, yr, false);
       const s = $("vd-premium-summary");
       if (!cmp) {
         s.innerHTML = "";
