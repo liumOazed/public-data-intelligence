@@ -57,15 +57,11 @@ def prepare(table: pd.DataFrame) -> pd.DataFrame:
     df["log_price"] = np.log(df["price_usd"].astype(float))
     df["log_score"] = np.log(df["score"].astype(float))
     df["vendor"] = df["model_key"].str.split().str[0]
-    lines = [
-        names.product_line(k, m)
-        for k, m in zip(df["kind"], df["model_key"], strict=True)
-    ]
+    lines = [names.product_line(k, m) for k, m in zip(df["kind"], df["model_key"], strict=True)]
     df["line"] = [item[0] if item else "other" for item in lines]
     df["gen"] = [item[1] if item else 0 for item in lines]
     df["is_workstation"] = (
-        df["line"].isin(_WS_LINES)
-        | df["model_key"].str.contains(_WS_RE, case=False, na=False)
+        df["line"].isin(_WS_LINES) | df["model_key"].str.contains(_WS_RE, case=False, na=False)
     ).astype(float)
     df["is_x3d"] = df["model_key"].str.endswith("3d", na=False).astype(float)
     gen_step = np.where(df["line"] == "nvidia_geforce", df["gen"] / 10.0, df["gen"].astype(float))
@@ -289,9 +285,7 @@ def evaluate(table: pd.DataFrame) -> Result:
     df = prepare(table)
     boards, parts, verdicts = [], [], {}
     central_candidates = [
-        name
-        for name, (_, role, _) in MODEL_SPECS.items()
-        if name not in {FLOOR_NAME, CEILING_NAME}
+        name for name, (_, role, _) in MODEL_SPECS.items() if name not in {FLOOR_NAME, CEILING_NAME}
     ]
     for kind in ("gpu", "cpu"):
         part = df[df["kind"] == kind] if len(df) else df
@@ -338,8 +332,7 @@ def evaluate(table: pd.DataFrame) -> Result:
             g = err[BASELINE] - err[name]
             g_se = float(g.std(ddof=1) / np.sqrt(len(g))) if name != BASELINE else 0.0
             row_beats = (
-                name not in {BASELINE, FLOOR_NAME, CEILING_NAME}
-                and float(g.mean()) > 2 * g_se
+                name not in {BASELINE, FLOOR_NAME, CEILING_NAME} and float(g.mean()) > 2 * g_se
             )
             q_val = 0.2 if name == FLOOR_NAME else (0.8 if name == CEILING_NAME else 0.5)
             pinball = float(_pinball_loss(y, oof[name], q_val).mean())
@@ -443,9 +436,7 @@ def evaluate(table: pd.DataFrame) -> Result:
         ceiling_p80_usd = np.maximum(ceiling_p80_usd, fair * 1.05)
 
         top5 = sorted(non_base, key=lambda n: err[n].mean())[:5]
-        top5_log_matrix = np.column_stack(
-            [np.log(_part_preds(m).to_numpy()) for m in top5]
-        )
+        top5_log_matrix = np.column_stack([np.log(_part_preds(m).to_numpy()) for m in top5])
         disagreement_pct = np.expm1(np.std(top5_log_matrix, axis=1, ddof=1)) * 100
 
         out = part.assign(
