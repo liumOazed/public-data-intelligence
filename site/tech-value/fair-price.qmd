@@ -58,21 +58,92 @@ def section(kind: str):
     if part.empty:
         return Markdown(site.empty_state(meta, KINDS[kind]))
     part["display_model"] = part["model_key"].map(dashboard.display_name)
+    if "regime" not in part.columns:
+        part["regime"] = "Consumer / Mainstream"
+    for col in ("ensemble_price_usd", "floor_p20_usd", "ceiling_p80_usd", "huber_price_usd"):
+        if col not in part.columns:
+            part[col] = part["fair_price_usd"]
+    if "model_disagreement_pct" not in part.columns:
+        part["model_disagreement_pct"] = 0.0
+    if "price_zone" not in part.columns:
+        part["price_zone"] = "Inside P20-P80 normal band"
+
     fig = px.scatter(
         part, x="score", y="price_usd", color="reading", symbol="confidence",
         hover_name="display_model", log_x=True, log_y=True,
         color_discrete_map=READING_COLORS,
-        hover_data={"fair_price_usd": ":.0f", "gap_pct": ":+.0f", "n_listings": True, "display_model": False},
+        hover_data={
+            "regime": True,
+            "fair_price_usd": ":.0f",
+            "ensemble_price_usd": ":.0f",
+            "floor_p20_usd": ":.0f",
+            "ceiling_p80_usd": ":.0f",
+            "gap_pct": ":+.0f",
+            "model_disagreement_pct": ":.1f",
+            "n_listings": True,
+            "display_model": False,
+        },
         category_orders={"reading": ["below fair price", "near fair price", "above fair price"]},
-        labels={"score": "Blender benchmark score (log scale)", "price_usd": "Lowest new listing, USD (log scale)",
-                "reading": "Reading", "confidence": "Confidence", "fair_price_usd": "Fair price (USD)", "gap_pct": "Gap (%)"},
+        labels={
+            "score": "Blender benchmark score (log scale)",
+            "price_usd": "Lowest new listing, USD (log scale)",
+            "reading": "Reading",
+            "confidence": "Confidence",
+            "regime": "Regime",
+            "fair_price_usd": "Winner P50 Fair (USD)",
+            "ensemble_price_usd": "Top-3 Ensemble (USD)",
+            "floor_p20_usd": "P20 Discount Floor (USD)",
+            "ceiling_p80_usd": "P80 Scarcity Ceiling (USD)",
+            "gap_pct": "Gap (%)",
+            "model_disagreement_pct": "Model Spread (%)",
+        },
     )
     fig.update_traces(marker=dict(size=11, line=dict(width=1, color="rgba(255,255,255,0.6)")))
-    line = part.sort_values("score")
-    fig.add_scatter(x=line["score"], y=line["fair_price_usd"], mode="lines",
-                    line=dict(dash="dash", width=2, color="#6c757d"), name="Fair price curve", hoverinfo="skip")
+    regime_styles = {
+        "Consumer / Mainstream": ("dash", "#6c757d"),
+        "Workstation / Pro": ("dot", "#8b5cf6"),
+        "3D V-Cache (X3D)": ("dashdot", "#f59e0b"),
+    }
+    for regime_name, grp in part.groupby("regime", sort=False):
+        if len(grp) < 2:
+            continue
+        line = grp.sort_values("score")
+        dash, color = regime_styles.get(regime_name, ("dash", "#6c757d"))
+        fig.add_scatter(
+            x=line["score"],
+            y=line["fair_price_usd"],
+            mode="lines",
+            line=dict(dash=dash, width=2.2, color=color),
+            name=f"P50 Winner ({regime_name})",
+            hoverinfo="skip",
+        )
+        if regime_name == "Consumer / Mainstream":
+            fig.add_scatter(
+                x=line["score"],
+                y=line["ensemble_price_usd"],
+                mode="lines",
+                line=dict(dash="solid", width=1.6, color="#0ea5e9"),
+                name="Top-3 Ensemble (Consumer)",
+                hoverinfo="skip",
+            )
+            fig.add_scatter(
+                x=line["score"],
+                y=line["floor_p20_usd"],
+                mode="lines",
+                line=dict(dash="dot", width=1.4, color="#1baf7a"),
+                name="P20 Discount Floor (Consumer)",
+                hoverinfo="skip",
+            )
+            fig.add_scatter(
+                x=line["score"],
+                y=line["ceiling_p80_usd"],
+                mode="lines",
+                line=dict(dash="dot", width=1.4, color="#eb6834"),
+                name="P80 Scarcity Ceiling (Consumer)",
+                hoverinfo="skip",
+            )
     fig.update_layout(
-        height=440,
+        height=460,
         margin=dict(t=24, r=20, b=52, l=64),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
@@ -88,13 +159,49 @@ def section(kind: str):
             f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
             for key, url in zip(part["retailer"], part["listing_url"])
         ],
-    )[["model_key", "gap_pct", "price_usd", "fair_price_usd", "reading", "confidence",
-        "n_listings", "Cheapest"]].rename(columns={
-        "model_key": "Model", "gap_pct": "Gap (%)", "price_usd": "Lowest price (USD)",
-        "fair_price_usd": "Fair price (USD)", "reading": "Reading",
-        "confidence": "Confidence", "n_listings": "Listings", "Cheapest": "Cheapest at",
-    }).round({"Gap (%)": 0, "Fair price (USD)": 0})
-    return show(table, paging=True, pageLength=25, order=[[1, "asc"]], showIndex=False,
+    )[
+        [
+            "model_key",
+            "regime",
+            "gap_pct",
+            "price_usd",
+            "fair_price_usd",
+            "ensemble_price_usd",
+            "floor_p20_usd",
+            "ceiling_p80_usd",
+            "model_disagreement_pct",
+            "price_zone",
+            "confidence",
+            "n_listings",
+            "Cheapest",
+        ]
+    ].rename(
+        columns={
+            "model_key": "Model",
+            "regime": "Regime",
+            "gap_pct": "Gap (%)",
+            "price_usd": "Lowest (USD)",
+            "fair_price_usd": "P50 Fair (USD)",
+            "ensemble_price_usd": "Top-3 Ensemble (USD)",
+            "floor_p20_usd": "P20 Floor (USD)",
+            "ceiling_p80_usd": "P80 Ceiling (USD)",
+            "model_disagreement_pct": "Model Spread (%)",
+            "price_zone": "Band Signal",
+            "confidence": "Confidence",
+            "n_listings": "Listings",
+            "Cheapest": "Cheapest at",
+        }
+    ).round(
+        {
+            "Gap (%)": 0,
+            "P50 Fair (USD)": 0,
+            "Top-3 Ensemble (USD)": 0,
+            "P20 Floor (USD)": 0,
+            "P80 Ceiling (USD)": 0,
+            "Model Spread (%)": 1,
+        }
+    )
+    return show(table, paging=True, pageLength=25, order=[[2, "asc"]], showIndex=False,
                 classes="display compact", allow_html=True)
 ```
 
@@ -113,19 +220,63 @@ section("cpu")
 A part with a **single listing** is shown but was not used to fit the fair price. One listing
 is often a marketplace seller's asking price for a part that is no longer made.
 
-## Leaderboard
+## Multi-Regression Tournament Leaderboard
 
-Error is measured by leaving each part out in turn and predicting its price from the others.
+Every candidate across linear (`OLS`, `Ridge`, `Lasso`, `ElasticNet`, `Bayesian Ridge`), robust
+(`Huber`, `Theil-Sen`), quantile (`L1 Quantile P20 / P50 / P80`), tree/boosting (`Gradient
+Boosted Trees L1 & Huber`, `Extra Trees`, `Random Forest`), local instance (`KNN`), and the
+**`Weighted Ensemble (Top-3 LOO)`** is scored by leaving each part out in turn. Different winners
+answer different questions:
+
+* **Central fair price (`P50`):** Which regression predicts typical out-of-sample price best?
+* **Consensus blend (`Top-3 LOO Ensemble`):** What do the top 3 distinct regression families agree on, and how much do the top 5 models disagree (`Model Spread %`)?
+* **Discount floor (`P20`) & Scarcity ceiling (`P80`):** Evaluated via proper quantile pinball loss to mark when a part drops into a genuine buy zone (`<= P20`) or enters EOL / FOMO scarcity pricing (`>= P80`).
 
 ```{python}
 if board.empty:
     display(Markdown(site.empty_state(board_meta, "Fair price leaderboard")))
 else:
-    table = board.assign(kind=board["kind"].map(KINDS)).rename(columns={
-        "kind": "Parts", "model": "Model", "n_parts": "Parts fitted",
-        "mae_log": "Mean error (log)", "median_abs_pct_error": "Typical error (%)",
-        "used": "Used", "is_baseline": "Baseline",
-    }).round({"Mean error (log)": 3, "Typical error (%)": 1})
+    cols = [
+        c
+        for c in [
+            "kind",
+            "rank",
+            "model",
+            "family",
+            "question",
+            "n_parts",
+            "mae_log",
+            "pinball_loss",
+            "median_abs_pct_error",
+            "gain_vs_baseline",
+            "beats_baseline",
+            "used",
+        ]
+        if c in board.columns
+    ]
+    table = board[cols].assign(kind=board["kind"].map(KINDS)).rename(
+        columns={
+            "kind": "Parts",
+            "rank": "Rank",
+            "model": "Model",
+            "family": "Family",
+            "question": "Question Answered",
+            "n_parts": "N",
+            "mae_log": "MAE (log)",
+            "pinball_loss": "Pinball Loss",
+            "median_abs_pct_error": "Typical Error (%)",
+            "gain_vs_baseline": "Gain vs. Baseline",
+            "beats_baseline": "Beats Baseline (>2 SE)",
+            "used": "Primary Pick",
+        }
+    ).round(
+        {
+            "MAE (log)": 3,
+            "Pinball Loss": 3,
+            "Typical Error (%)": 1,
+            "Gain vs. Baseline": 3,
+        }
+    )
     show(table, paging=False, showIndex=False, classes="display compact")
 ```
 

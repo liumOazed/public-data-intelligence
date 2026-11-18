@@ -29,7 +29,7 @@ def test_baseline_is_kept_when_price_is_proportional_to_score():
     assert verdict["finding"]["label"] == "observation"
     board = result.leaderboard
     assert board["is_baseline"].sum() == 1 and board["used"].sum() == 1
-    assert set(board["model"]) == set(fair_price.MODELS)
+    assert set(board["model"]) == set(fair_price.MODELS) | {fair_price.ENSEMBLE_NAME}
 
 
 def test_a_line_replaces_the_baseline_when_price_rises_slower_than_score():
@@ -58,3 +58,38 @@ def test_too_few_parts_gives_no_fair_price():
     assert result.parts.empty and result.leaderboard.empty
     assert "fewer than" in result.verdicts["cpu"]["statement"]
     assert fair_price.evaluate(pd.DataFrame()).parts.empty
+
+
+def test_structural_regime_model_separates_workstation_premium():
+    rng = np.random.default_rng(7)
+    n = 24
+    score = np.exp(rng.uniform(6, 9, n))
+    is_ws = np.array([i % 3 == 0 for i in range(n)])
+    models = [
+        f"nvidia rtx a{4000 + i * 100}" if ws else f"nvidia rtx 40{60 + (i % 4) * 10}"
+        for i, ws in enumerate(is_ws)
+    ]
+    price = np.exp(0.3 + 0.9 * np.log(score) + 0.95 * is_ws + rng.normal(0, 0.04, n))
+    table = pd.DataFrame(
+        {
+            "kind": "gpu",
+            "model_key": models,
+            "price_usd": price,
+            "score": score,
+            "n_listings": 3,
+            "n_retailers": 2,
+            "retailer": "store_a",
+            "listing_url": None,
+        }
+    )
+    result = fair_price.evaluate(table)
+    verdict = result.verdicts["gpu"]
+    assert verdict["beats_baseline"]
+    assert verdict["n_models_beating_baseline"] >= 3
+    assert set(result.parts["regime"]) == {"Consumer / Mainstream", "Workstation / Pro"}
+    assert (result.parts["floor_p20_usd"] <= result.parts["fair_price_usd"]).all()
+    assert (result.parts["ceiling_p80_usd"] >= result.parts["fair_price_usd"]).all()
+    assert "ensemble_price_usd" in result.parts.columns
+    assert "model_disagreement_pct" in result.parts.columns
+
+
