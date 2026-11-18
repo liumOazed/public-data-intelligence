@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "fair_price_leaderboard",
   "description": "Leave-one-out error of each fair price model, per kind of part, with the naive baseline.",
-  "generated_at": "2026-11-17T19:20:24+00:00",
+  "generated_at": "2026-11-18T01:57:01+00:00",
   "rows": 8,
   "columns": [
    "kind",
@@ -40,7 +40,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T19:18:12+00:00"
+    "retrieved_at": "2026-11-18T01:54:33+00:00"
    },
    {
     "id": "ebay_browse",
@@ -49,7 +49,7 @@
     "licence": "eBay API License Agreement (https://developer.ebay.com/join/api-license-agreement). Public display of derived lowest-price comparisons with a link back to the listing is permitted; raw listing feeds are not redistributed in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T19:19:39+00:00"
+    "retrieved_at": "2026-11-18T01:55:56+00:00"
    },
    {
     "id": "blender_opendata",
@@ -74,33 +74,33 @@
     "used": "Naive baseline (same price per point)",
     "best_challenger": null,
     "n_parts": 48,
-    "mae_log_baseline": 0.5311529416309747,
-    "mae_log_best": 0.5311529416309747,
+    "mae_log_baseline": 0.5321486045978707,
+    "mae_log_best": 0.5321486045978707,
     "gain": 0.0,
     "gain_standard_error": 0.0,
     "beats_baseline": false,
-    "typical_error_pct": 60.415797570952215,
+    "typical_error_pct": 61.72421566662181,
     "finding": {
      "label": "observation",
      "reason": "The fair price is the same price per point of score for every part, so the gap is score per dollar restated. No model beat that baseline out of sample."
     },
-    "statement": "No model clearly beats the same-price-per-point baseline on 48 parts, so the baseline sets the fair price. It is typically off by 60%, so read the gaps as rough."
+    "statement": "No model clearly beats the same-price-per-point baseline on 48 parts, so the baseline sets the fair price. It is typically off by 62%, so read the gaps as rough."
    },
    "cpu": {
     "used": "Naive baseline (same price per point)",
     "best_challenger": null,
-    "n_parts": 44,
-    "mae_log_baseline": 0.25904980666113914,
-    "mae_log_best": 0.25904980666113914,
+    "n_parts": 43,
+    "mae_log_baseline": 0.25360921206631454,
+    "mae_log_best": 0.25360921206631454,
     "gain": 0.0,
     "gain_standard_error": 0.0,
     "beats_baseline": false,
-    "typical_error_pct": 22.131517628147762,
+    "typical_error_pct": 19.46118654710808,
     "finding": {
      "label": "observation",
      "reason": "The fair price is the same price per point of score for every part, so the gap is score per dollar restated. No model beat that baseline out of sample."
     },
-    "statement": "No model clearly beats the same-price-per-point baseline on 44 parts, so the baseline sets the fair price. It is typically off by 22%, so read the gaps as rough."
+    "statement": "No model clearly beats the same-price-per-point baseline on 43 parts, so the baseline sets the fair price. It is typically off by 19%, so read the gaps as rough."
    }
   },
   "gap_pct_threshold": 15.0
@@ -110,8 +110,8 @@
    "kind": "gpu",
    "model": "Naive baseline (same price per point)",
    "n_parts": 48,
-   "mae_log": 0.5311529416309747,
-   "median_abs_pct_error": 60.415797570952215,
+   "mae_log": 0.5321486045978707,
+   "median_abs_pct_error": 61.72421566662181,
    "used": true,
    "is_baseline": true
   },
@@ -119,8 +119,8 @@
    "kind": "gpu",
    "model": "Straight line (log price on log score)",
    "n_parts": 48,
-   "mae_log": 0.5650172298303865,
-   "median_abs_pct_error": 68.88610892492086,
+   "mae_log": 0.5657218727558555,
+   "median_abs_pct_error": 69.70393344300551,
    "used": false,
    "is_baseline": false
   },
@@ -128,8 +128,8 @@
    "kind": "gpu",
    "model": "Straight line with brand",
    "n_parts": 48,
-   "mae_log": 0.574082272412846,
-   "median_abs_pct_error": 82.30740904476181,
+   "mae_log": 0.5747053002252026,
+   "median_abs_pct_error": 78.99594360117588,
    "used": false,
    "is_baseline": false
   },
@@ -137,44 +137,44 @@
    "kind": "gpu",
    "model": "Random forest",
    "n_parts": 48,
-   "mae_log": 0.6393129818430123,
-   "median_abs_pct_error": 81.10146122525833,
+   "mae_log": 0.63924018714397,
+   "median_abs_pct_error": 73.25494182617027,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "cpu",
    "model": "Naive baseline (same price per point)",
-   "n_parts": 44,
-   "mae_log": 0.25904980666113914,
-   "median_abs_pct_error": 22.131517628147762,
+   "n_parts": 43,
+   "mae_log": 0.25360921206631454,
+   "median_abs_pct_error": 19.46118654710808,
    "used": true,
    "is_baseline": true
   },
   {
    "kind": "cpu",
    "model": "Straight line (log price on log score)",
-   "n_parts": 44,
-   "mae_log": 0.28539212362886307,
-   "median_abs_pct_error": 26.563289684942347,
+   "n_parts": 43,
+   "mae_log": 0.278474515417728,
+   "median_abs_pct_error": 24.557072198510358,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "cpu",
    "model": "Straight line with brand",
-   "n_parts": 44,
-   "mae_log": 0.2865298899003397,
-   "median_abs_pct_error": 28.785407550945042,
+   "n_parts": 43,
+   "mae_log": 0.28669826562249506,
+   "median_abs_pct_error": 26.54076646850878,
    "used": false,
    "is_baseline": false
   },
   {
    "kind": "cpu",
    "model": "Random forest",
-   "n_parts": 44,
-   "mae_log": 0.2766371438422909,
-   "median_abs_pct_error": 25.916961895873158,
+   "n_parts": 43,
+   "mae_log": 0.26976804681081473,
+   "median_abs_pct_error": 28.282332939664673,
    "used": false,
    "is_baseline": false
   }

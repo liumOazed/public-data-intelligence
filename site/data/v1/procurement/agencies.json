@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "agencies",
   "description": "Net obligations by fiscal year and awarding agency.",
-  "generated_at": "2026-11-17T19:20:28+00:00",
+  "generated_at": "2026-11-18T01:57:06+00:00",
   "rows": 613,
   "columns": [
    "fiscal_year",

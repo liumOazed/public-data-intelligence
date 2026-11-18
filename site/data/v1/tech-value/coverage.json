@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage",
   "description": "How many retail listings were recognised as a model, and how many of those models have a benchmark score.",
-  "generated_at": "2026-11-17T19:20:24+00:00",
+  "generated_at": "2026-11-18T01:57:01+00:00",
   "rows": 2,
   "columns": [
    "kind",
@@ -39,7 +39,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T19:18:12+00:00"
+    "retrieved_at": "2026-11-18T01:54:33+00:00"
    },
    {
     "id": "ebay_browse",
@@ -48,7 +48,7 @@
     "licence": "eBay API License Agreement (https://developer.ebay.com/join/api-license-agreement). Public display of derived lowest-price comparisons with a link back to the listing is permitted; raw listing feeds are not redistributed in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-17T19:19:39+00:00"
+    "retrieved_at": "2026-11-18T01:55:56+00:00"
    },
    {
     "id": "blender_opendata",
@@ -74,8 +74,8 @@
  "data": [
   {
    "kind": "cpu",
-   "listings": 317,
-   "listings_recognised": 317,
+   "listings": 322,
+   "listings_recognised": 322,
    "models_priced": 74,
    "models_with_score": 74,
    "share_with_score": 1.0
@@ -84,8 +84,8 @@
    "kind": "gpu",
    "listings": 363,
    "listings_recognised": 363,
-   "models_priced": 60,
-   "models_with_score": 60,
+   "models_priced": 58,
+   "models_with_score": 58,
    "share_with_score": 1.0
   }
  ]

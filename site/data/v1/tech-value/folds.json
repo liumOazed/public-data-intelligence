@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "folds",
   "description": "Expanding-window folds before the holdout. The spread of the improvement column is the noise level the holdout result has to clear.",
-  "generated_at": "2026-11-17T19:20:15+00:00",
+  "generated_at": "2026-11-18T01:56:52+00:00",
   "rows": 4,
   "columns": [
    "fold",

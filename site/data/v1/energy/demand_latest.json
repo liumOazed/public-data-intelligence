@@ -3,7 +3,7 @@
   "module": "energy",
   "table": "demand_latest",
   "description": "Latest month of electricity demand for each economy, with its change on a year earlier and how unusual the latest monthly move was.",
-  "generated_at": "2026-11-17T19:20:27+00:00",
+  "generated_at": "2026-11-18T01:57:05+00:00",
   "rows": 6,
   "columns": [
    "country",

@@ -3,7 +3,7 @@
   "module": "macro",
   "table": "history",
   "description": "Ten years of monthly values, moves and surprises for every series.",
-  "generated_at": "2026-11-17T19:20:26+00:00",
+  "generated_at": "2026-11-18T01:57:04+00:00",
   "rows": 8345,
   "columns": [
    "series_id",
@@ -21,7 +21,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-17T19:19:54+00:00"
+    "retrieved_at": "2026-11-18T01:56:09+00:00"
    },
    {
     "id": "bis",
@@ -30,7 +30,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-17T19:19:59+00:00"
+    "retrieved_at": "2026-11-18T01:56:14+00:00"
    },
    {
     "id": "opendosm",
@@ -39,7 +39,7 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-17T19:20:07+00:00"
+    "retrieved_at": "2026-11-18T01:56:44+00:00"
    },
    {
     "id": "imf",
@@ -48,7 +48,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-17T19:20:11+00:00"
+    "retrieved_at": "2026-11-18T01:56:47+00:00"
    },
    {
     "id": "indeed_postings",
@@ -57,7 +57,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-17T19:20:12+00:00"
+    "retrieved_at": "2026-11-18T01:56:48+00:00"
    }
   ],
   "preliminary": false,
@@ -49882,7 +49882,7 @@
   {
    "series_id": "US.job_postings",
    "period": "2020-02-01T00:00:00",
-   "value": 100.0486,
+   "value": 100.049,
    "move": null,
    "expected": null,
    "z": null
@@ -49891,7 +49891,7 @@
    "series_id": "US.job_postings",
    "period": "2020-03-01T00:00:00",
    "value": 94.519,
-   "move": -5.6855,
+   "move": -5.6859,
    "expected": null,
    "z": null
   },
@@ -49906,8 +49906,8 @@
   {
    "series_id": "US.job_postings",
    "period": "2020-05-01T00:00:00",
-   "value": 62.8987,
-   "move": -8.0885,
+   "value": 62.8984,
+   "move": -8.089,
    "expected": null,
    "z": null
   },
@@ -49915,22 +49915,22 @@
    "series_id": "US.job_postings",
    "period": "2020-06-01T00:00:00",
    "value": 70.0517,
-   "move": 10.7707,
+   "move": 10.7713,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2020-07-01T00:00:00",
-   "value": 78.2584,
-   "move": 11.0783,
+   "value": 78.2581,
+   "move": 11.0779,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2020-08-01T00:00:00",
-   "value": 82.9558,
+   "value": 82.9555,
    "move": 5.8292,
    "expected": null,
    "z": null
@@ -49939,7 +49939,7 @@
    "series_id": "US.job_postings",
    "period": "2020-09-01T00:00:00",
    "value": 86.307,
-   "move": 3.9603,
+   "move": 3.9607,
    "expected": null,
    "z": null
   },
@@ -49962,15 +49962,15 @@
   {
    "series_id": "US.job_postings",
    "period": "2020-12-01T00:00:00",
-   "value": 94.8387,
-   "move": 1.3806,
+   "value": 94.8384,
+   "move": 1.3803,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2021-01-01T00:00:00",
-   "value": 97.6823,
+   "value": 97.6819,
    "move": 2.9542,
    "expected": null,
    "z": null
@@ -49979,7 +49979,7 @@
    "series_id": "US.job_postings",
    "period": "2021-02-01T00:00:00",
    "value": 103.2179,
-   "move": 5.5122,
+   "move": 5.5125,
    "expected": null,
    "z": null
   },
@@ -50026,15 +50026,15 @@
   {
    "series_id": "US.job_postings",
    "period": "2021-08-01T00:00:00",
-   "value": 139.1294,
-   "move": 1.2811,
+   "value": 139.129,
+   "move": 1.2808,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2021-09-01T00:00:00",
-   "value": 143.1233,
+   "value": 143.123,
    "move": 2.8303,
    "expected": null,
    "z": null
@@ -50042,7 +50042,7 @@
   {
    "series_id": "US.job_postings",
    "period": "2021-10-01T00:00:00",
-   "value": 146.9829,
+   "value": 146.9826,
    "move": 2.661,
    "expected": null,
    "z": null
@@ -50050,8 +50050,8 @@
   {
    "series_id": "US.job_postings",
    "period": "2021-11-01T00:00:00",
-   "value": 152.915,
-   "move": 3.9566,
+   "value": 152.9143,
+   "move": 3.9564,
    "expected": null,
    "z": null
   },
@@ -50059,7 +50059,7 @@
    "series_id": "US.job_postings",
    "period": "2021-12-01T00:00:00",
    "value": 157.1723,
-   "move": 2.746,
+   "move": 2.7465,
    "expected": null,
    "z": null
   },
@@ -50082,16 +50082,16 @@
   {
    "series_id": "US.job_postings",
    "period": "2022-03-01T00:00:00",
-   "value": 160.3758,
-   "move": 0.739,
+   "value": 160.3752,
+   "move": 0.7386,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-04-01T00:00:00",
-   "value": 159.8163,
-   "move": -0.3495,
+   "value": 159.8153,
+   "move": -0.3497,
    "expected": null,
    "z": null
   },
@@ -50099,31 +50099,31 @@
    "series_id": "US.job_postings",
    "period": "2022-05-01T00:00:00",
    "value": 160.4181,
-   "move": 0.3758,
+   "move": 0.3764,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-06-01T00:00:00",
-   "value": 158.609,
-   "move": -1.1341,
+   "value": 158.6087,
+   "move": -1.1343,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-07-01T00:00:00",
-   "value": 155.6687,
-   "move": -1.8712,
+   "value": 155.6681,
+   "move": -1.8714,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-08-01T00:00:00",
-   "value": 153.4477,
-   "move": -1.437,
+   "value": 153.4474,
+   "move": -1.4368,
    "expected": null,
    "z": null
   },
@@ -50131,30 +50131,30 @@
    "series_id": "US.job_postings",
    "period": "2022-09-01T00:00:00",
    "value": 150.5963,
-   "move": -1.8757,
+   "move": -1.8755,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-10-01T00:00:00",
-   "value": 148.5158,
-   "move": -1.3912,
+   "value": 148.5155,
+   "move": -1.3914,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-11-01T00:00:00",
-   "value": 147.735,
-   "move": -0.5271,
+   "value": 147.7343,
+   "move": -0.5274,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2022-12-01T00:00:00",
-   "value": 144.4206,
+   "value": 144.42,
    "move": -2.269,
    "expected": null,
    "z": null
@@ -50162,23 +50162,23 @@
   {
    "series_id": "US.job_postings",
    "period": "2023-01-01T00:00:00",
-   "value": 140.5823,
-   "move": -2.6937,
+   "value": 140.5819,
+   "move": -2.6935,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2023-02-01T00:00:00",
-   "value": 136.5736,
-   "move": -2.8929,
+   "value": 136.5732,
+   "move": -2.893,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2023-03-01T00:00:00",
-   "value": 134.9523,
+   "value": 134.9519,
    "move": -1.1942,
    "expected": null,
    "z": null
@@ -50187,7 +50187,7 @@
    "series_id": "US.job_postings",
    "period": "2023-04-01T00:00:00",
    "value": 136.025,
-   "move": 0.7918,
+   "move": 0.792,
    "expected": null,
    "z": null
   },
@@ -50202,8 +50202,8 @@
   {
    "series_id": "US.job_postings",
    "period": "2023-06-01T00:00:00",
-   "value": 131.8057,
-   "move": -2.1638,
+   "value": 131.8047,
+   "move": -2.1645,
    "expected": null,
    "z": null
   },
@@ -50211,7 +50211,7 @@
    "series_id": "US.job_postings",
    "period": "2023-07-01T00:00:00",
    "value": 129.4255,
-   "move": -1.8223,
+   "move": -1.8216,
    "expected": null,
    "z": null
   },
@@ -50226,15 +50226,15 @@
   {
    "series_id": "US.job_postings",
    "period": "2023-09-01T00:00:00",
-   "value": 127.0387,
-   "move": -1.147,
+   "value": 127.039,
+   "move": -1.1467,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2023-10-01T00:00:00",
-   "value": 124.9361,
+   "value": 124.9365,
    "move": -1.6689,
    "expected": null,
    "z": null
@@ -50243,15 +50243,15 @@
    "series_id": "US.job_postings",
    "period": "2023-11-01T00:00:00",
    "value": 123.2553,
-   "move": -1.3545,
+   "move": -1.3547,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2023-12-01T00:00:00",
-   "value": 121.2774,
-   "move": -1.6177,
+   "value": 121.2777,
+   "move": -1.6175,
    "expected": null,
    "z": null
   },
@@ -50259,7 +50259,7 @@
    "series_id": "US.job_postings",
    "period": "2024-01-01T00:00:00",
    "value": 119.3777,
-   "move": -1.5788,
+   "move": -1.5791,
    "expected": null,
    "z": null
   },
@@ -50306,8 +50306,8 @@
   {
    "series_id": "US.job_postings",
    "period": "2024-07-01T00:00:00",
-   "value": 113.6603,
-   "move": -0.4912,
+   "value": 113.6606,
+   "move": -0.4909,
    "expected": null,
    "z": null
   },
@@ -50315,7 +50315,7 @@
    "series_id": "US.job_postings",
    "period": "2024-08-01T00:00:00",
    "value": 113.3555,
-   "move": -0.2686,
+   "move": -0.2688,
    "expected": null,
    "z": null
   },
@@ -50346,8 +50346,8 @@
   {
    "series_id": "US.job_postings",
    "period": "2024-12-01T00:00:00",
-   "value": 110.2694,
-   "move": 0.7053,
+   "value": 110.269,
+   "move": 0.705,
    "expected": null,
    "z": null
   },
@@ -50355,175 +50355,175 @@
    "series_id": "US.job_postings",
    "period": "2025-01-01T00:00:00",
    "value": 110.1532,
-   "move": -0.1054,
+   "move": -0.1051,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-02-01T00:00:00",
-   "value": 109.3036,
-   "move": -0.7743,
+   "value": 109.3032,
+   "move": -0.7747,
    "expected": null,
    "z": null
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-03-01T00:00:00",
-   "value": 107.7619,
-   "move": -1.4205,
-   "expected": -0.4605,
-   "z": -0.4582
+   "value": 107.7613,
+   "move": -1.4207,
+   "expected": -0.4604,
+   "z": -0.4584
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-04-01T00:00:00",
    "value": 106.7603,
-   "move": -0.9338,
-   "expected": -0.4912,
-   "z": -0.2163
+   "move": -0.9332,
+   "expected": -0.4909,
+   "z": -0.2161
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-05-01T00:00:00",
    "value": 105.8865,
    "move": -0.8219,
-   "expected": -0.4991,
-   "z": -0.1615
+   "expected": -0.499,
+   "z": -0.1616
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-06-01T00:00:00",
-   "value": 105.3023,
-   "move": -0.5532,
+   "value": 105.302,
+   "move": -0.5535,
    "expected": -0.5071,
-   "z": -0.0236
+   "z": -0.0238
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-07-01T00:00:00",
-   "value": 104.3052,
+   "value": 104.3048,
    "move": -0.9515,
-   "expected": -0.5171,
-   "z": -0.2242
+   "expected": -0.5172,
+   "z": -0.2241
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-08-01T00:00:00",
    "value": 104.7655,
-   "move": 0.4404,
-   "expected": -0.5271,
-   "z": 0.5038
+   "move": 0.4407,
+   "expected": -0.5274,
+   "z": 0.5045
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-09-01T00:00:00",
    "value": 102.797,
    "move": -1.8968,
-   "expected": -0.5171,
-   "z": -0.7267
+   "expected": -0.5172,
+   "z": -0.7269
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-10-01T00:00:00",
    "value": 100.9532,
    "move": -1.8099,
-   "expected": -0.5271,
-   "z": -0.668
+   "expected": -0.5274,
+   "z": -0.6684
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-11-01T00:00:00",
-   "value": 101.3417,
-   "move": 0.384,
-   "expected": -0.5401,
-   "z": 0.4867
+   "value": 101.341,
+   "move": 0.3834,
+   "expected": -0.5404,
+   "z": 0.4868
   },
   {
    "series_id": "US.job_postings",
    "period": "2025-12-01T00:00:00",
-   "value": 102.9048,
-   "move": 1.5307,
-   "expected": -0.5271,
-   "z": 1.082
+   "value": 102.9045,
+   "move": 1.531,
+   "expected": -0.5274,
+   "z": 1.0825
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-01-01T00:00:00",
-   "value": 103.2677,
-   "move": 0.352,
-   "expected": -0.5171,
-   "z": 0.4513
+   "value": 103.2671,
+   "move": 0.3517,
+   "expected": -0.5172,
+   "z": 0.4514
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-02-01T00:00:00",
-   "value": 104.5743,
-   "move": 1.2573,
+   "value": 104.5739,
+   "move": 1.2575,
    "expected": -0.5071,
    "z": 0.9162
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-03-01T00:00:00",
-   "value": 103.8626,
+   "value": 103.8623,
    "move": -0.6829,
-   "expected": -0.4991,
+   "expected": -0.499,
    "z": -0.0953
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-04-01T00:00:00",
    "value": 102.6783,
-   "move": -1.1468,
+   "move": -1.1464,
    "expected": -0.5071,
-   "z": -0.3322
+   "z": -0.332
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-05-01T00:00:00",
    "value": 101.9413,
    "move": -0.7204,
-   "expected": -0.5171,
+   "expected": -0.5172,
    "z": -0.1076
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-06-01T00:00:00",
-   "value": 100.7683,
-   "move": -1.1573,
-   "expected": -0.5271,
-   "z": -0.3357
+   "value": 100.768,
+   "move": -1.1576,
+   "expected": -0.5274,
+   "z": -0.3358
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-07-01T00:00:00",
    "value": 101.5919,
-   "move": 0.814,
-   "expected": -0.5401,
-   "z": 0.7263
+   "move": 0.8143,
+   "expected": -0.5404,
+   "z": 0.7267
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-08-01T00:00:00",
    "value": 101.8819,
    "move": 0.285,
-   "expected": -0.5271,
-   "z": 0.4327
+   "expected": -0.5274,
+   "z": 0.4328
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-09-01T00:00:00",
-   "value": 103.2377,
-   "move": 1.3219,
-   "expected": -0.5171,
-   "z": 1.0009
+   "value": 103.2373,
+   "move": 1.3216,
+   "expected": -0.5172,
+   "z": 1.001
   },
   {
    "series_id": "US.job_postings",
    "period": "2026-10-01T00:00:00",
-   "value": 103.8487,
-   "move": 0.5901,
+   "value": 103.8481,
+   "move": 0.5898,
    "expected": -0.5071,
    "z": 0.5939
   },
