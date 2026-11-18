@@ -49,6 +49,33 @@ _WS_LINES = {"nvidia_ws", "amd_ws", "intel_arc_pro", "amd_threadripper"}
 _WS_RE = r"\b(?:threadripper|pro|xeon|epyc)\b"
 
 
+def _ordinal_gen_lag(df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
+    """Return (model_gen_lag, ordinal_gen_rank) for each row in df.
+
+    `ordinal_gen_rank` is the exact position (0 = current generation, 1 = previous generation,
+    2+ = legacy generations) within each product line's active generation list.
+    """
+    pairs = list(zip(df["kind"], df["model_key"], strict=True))
+    line_gens = names.active_generations(pairs)
+    ordinal = np.zeros(len(df), dtype=float)
+    for idx, (line, gen) in enumerate(zip(df["line"], df["gen"], strict=True)):
+        if gen <= 0 or line not in line_gens:
+            continue
+        gens = [g for g in line_gens[line] if not (line == "amd_ryzen" and g == 8)]
+        eff_gen = 7 if (line == "amd_ryzen" and gen == 8) else gen
+        rank = float(len(gens))
+        for pos, g in enumerate(gens):
+            if eff_gen >= g:
+                rank = float(pos)
+                break
+        ordinal[idx] = rank
+    gen_step = np.where(df["line"] == "nvidia_geforce", df["gen"] / 10.0, df["gen"].astype(float))
+    temp = df.assign(_gs=gen_step)
+    max_gen = temp.groupby("line")["_gs"].transform("max").to_numpy()
+    model_lag = np.where(gen_step > 0, (max_gen - gen_step).clip(min=0.0), 0.0)
+    return model_lag, ordinal
+
+
 def prepare(table: pd.DataFrame) -> pd.DataFrame:
     """Priced, scored parts with the columns the models use."""
     if table.empty:
@@ -64,10 +91,14 @@ def prepare(table: pd.DataFrame) -> pd.DataFrame:
         df["line"].isin(_WS_LINES) | df["model_key"].str.contains(_WS_RE, case=False, na=False)
     ).astype(float)
     df["is_x3d"] = df["model_key"].str.endswith("3d", na=False).astype(float)
-    gen_step = np.where(df["line"] == "nvidia_geforce", df["gen"] / 10.0, df["gen"].astype(float))
-    df["gen_step"] = gen_step
-    max_gen = df.groupby("line")["gen_step"].transform("max")
-    df["gen_lag"] = np.where(df["gen_step"] > 0, (max_gen - df["gen_step"]).clip(lower=0), 0.0)
+    model_lag, ordinal_rank = _ordinal_gen_lag(df)
+    df["gen_lag"] = model_lag
+    df["gen_rank"] = ordinal_rank.astype(int)
+    df["gen_stage"] = np.select(
+        [df["gen_rank"] == 0, df["gen_rank"] == 1],
+        ["Current gen (0)", "Previous gen (-1)"],
+        default="Legacy gen (-2+)",
+    )
     df["regime"] = np.select(
         [df["is_workstation"] > 0, df["is_x3d"] > 0],
         ["Workstation / Pro", "3D V-Cache (X3D)"],
@@ -169,8 +200,8 @@ def fit_forest(train: pd.DataFrame):
 
 
 ENSEMBLE_NAME = "Weighted Ensemble (Top-3 LOO)"
-FLOOR_NAME = "L1 Quantile P20 (Discount Floor)"
-CEILING_NAME = "L1 Quantile P80 (Scarcity Ceiling)"
+FLOOR_NAME = "L1 Quantile P20 (Low Listed Band)"
+CEILING_NAME = "L1 Quantile P80 (High Listed Band)"
 
 MODEL_SPECS: dict[str, tuple[str, str, Fit]] = {
     BASELINE: ("Baseline", "Central fair price (P50)", fit_baseline),
@@ -247,13 +278,13 @@ MODEL_SPECS: dict[str, tuple[str, str, Fit]] = {
         _make_structural_fit(lambda: KNeighborsRegressor(n_neighbors=5, weights="distance")),
     ),
     FLOOR_NAME: (
-        "Quantile (L1)",
-        "Discount floor (P20 buy zone)",
+        "Quantile (Pinball τ=0.20)",
+        "Conditional 20th percentile (low listed band)",
         fit_structural_quantile_p20,
     ),
     CEILING_NAME: (
-        "Quantile (L1)",
-        "Scarcity ceiling (P80 FOMO/EOL)",
+        "Quantile (Pinball τ=0.80)",
+        "Conditional 80th percentile (high listed band)",
         fit_structural_quantile_p80,
     ),
 }
@@ -274,6 +305,152 @@ def leave_one_out(train: pd.DataFrame, fit: Fit) -> np.ndarray:
     return out
 
 
+def _add_market_signals(
+    out: pd.DataFrame,
+    history: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Attach Step 2 market signals (B: Seller Spread, D: Frontier & Momentum, C: Lifecycle)."""
+    df = out.copy()
+    p = df["price_usd"].astype(float).to_numpy()
+    s = df["score"].astype(float).to_numpy()
+    n_list = df["n_listings"].astype(int).to_numpy()
+    n_ret = df["n_retailers"].astype(int).to_numpy()
+
+    med_list = (
+        df["median_price_usd"].astype(float).to_numpy()
+        if "median_price_usd" in df.columns
+        else p.copy()
+    )
+    src_med = (
+        df["source_median_price_usd"].astype(float).to_numpy()
+        if "source_median_price_usd" in df.columns
+        else med_list.copy()
+    )
+    ret_floor = (
+        df["retail_floor_usd"].astype(float).to_numpy()
+        if "retail_floor_usd" in df.columns
+        else np.full(len(df), np.nan)
+    )
+    mkt_floor = (
+        df["marketplace_floor_usd"].astype(float).to_numpy()
+        if "marketplace_floor_usd" in df.columns
+        else np.full(len(df), np.nan)
+    )
+
+    # B. Cross-Seller & Listing Spread
+    listing_spread_pct = np.where(
+        (n_list >= 2) & (med_list > 0),
+        np.maximum(0.0, (med_list - p) / med_list * 100.0),
+        0.0,
+    )
+    source_spread_pct = np.where(
+        (n_ret >= 2) & (src_med > 0),
+        np.maximum(0.0, (src_med - p) / src_med * 100.0),
+        0.0,
+    )
+
+    has_ret = ~np.isnan(ret_floor)
+    has_mkt = ~np.isnan(mkt_floor)
+    channel_signal = np.select(
+        [
+            has_ret & has_mkt & (ret_floor <= mkt_floor * 0.98),
+            has_ret & has_mkt & (mkt_floor < ret_floor * 0.98),
+            has_ret & has_mkt,
+            has_ret & ~has_mkt,
+            ~has_ret & has_mkt & (n_list >= 2),
+        ],
+        [
+            "Retail undercuts marketplace",
+            "Marketplace undercuts retail",
+            "Retail & marketplace aligned",
+            "Primary retail only",
+            "Marketplace only (multi-listing)",
+        ],
+        default="Single marketplace listing",
+    )
+
+    # D. Two-Threshold Frontier Distance (Pareto Frontier vs. Regime Best Value Leader)
+    drop_frontier_usd = np.zeros(len(df), dtype=float)
+    drop_frontier_pct = np.zeros(len(df), dtype=float)
+    blocking_rival = []
+
+    for i in range(len(df)):
+        # A rival j dominates or blocks i if score_j >= score_i and price_j < price_i
+        faster_mask = (s >= s[i]) & (np.arange(len(df)) != i)
+        if np.any(faster_mask):
+            faster_idx = np.where(faster_mask)[0]
+            best_j = faster_idx[np.argmin(p[faster_idx])]
+            if p[best_j] < p[i]:
+                diff = p[i] - p[best_j]
+                drop_frontier_usd[i] = diff
+                drop_frontier_pct[i] = (diff / p[i]) * 100.0
+                blocking_rival.append(str(df.iloc[best_j]["model_key"]))
+            else:
+                blocking_rival.append("On Pareto frontier")
+        else:
+            blocking_rival.append("On Pareto frontier")
+
+    spd = s / np.maximum(p, 1e-6)
+    df["_spd"] = spd
+    best_spd_by_regime = df.groupby("regime")["_spd"].transform("max").to_numpy()
+    target_best_val_price = s / np.maximum(best_spd_by_regime, 1e-6)
+    drop_best_val_usd = np.maximum(0.0, p - target_best_val_price)
+    drop_best_val_pct = np.where(p > 0, (drop_best_val_usd / p) * 100.0, 0.0)
+    df = df.drop(columns=["_spd"])
+
+    # D. Sticker-Price Momentum (7-day observed price change, decoupled from model recalibration)
+    price_change_7d_pct = np.zeros(len(df), dtype=float)
+    if history is not None and not history.empty:
+        kind_val = str(df["kind"].iloc[0]) if len(df) else ""
+        h_kind = history[history["kind"] == kind_val].copy()
+        if not h_kind.empty:
+            h_kind["date"] = pd.to_datetime(h_kind["date"])
+            h_kind = h_kind.sort_values("date")
+            change_map: dict[str, float] = {}
+            for m_key, g in h_kind.groupby("model_key"):
+                p_now = float(g.iloc[-1]["price_usd"])
+                prior = g[g["date"] < g.iloc[-1]["date"]]
+                if not prior.empty and float(prior.iloc[0]["price_usd"]) > 0:
+                    p_prev = float(prior.iloc[0]["price_usd"])
+                    change_map[str(m_key)] = (p_now / p_prev - 1.0) * 100.0
+            price_change_7d_pct = np.array(
+                [change_map.get(str(m), 0.0) for m in df["model_key"]], dtype=float
+            )
+
+    # C. Generational Hand-Off & Market Wind Diagnostic (Observation-based, non-speculative)
+    gap = df["gap_pct"].astype(float).to_numpy()
+    gen_rank = df["gen_rank"].astype(int).to_numpy()
+    lifecycle_signal = np.select(
+        [
+            (gen_rank >= 1) & (gap <= -config.FAIR_PRICE_GAP_PCT) & (n_list >= 2),
+            (gen_rank >= 1) & (gap >= config.FAIR_PRICE_GAP_PCT) & (~has_ret),
+            (gen_rank >= 1) & (gap >= config.FAIR_PRICE_GAP_PCT) & has_ret,
+            (gen_rank == 0) & (gap <= -config.FAIR_PRICE_GAP_PCT),
+            (drop_frontier_pct > 0) & (drop_frontier_pct <= 8.0),
+        ],
+        [
+            "Prev-gen clearance sweet spot",
+            "Thin-supply legacy premium (marketplace only)",
+            "Legacy specialty / socket holdout premium",
+            "Current-gen value leader",
+            "Near Pareto frontier (<8% drop needed)",
+        ],
+        default="Normal generational curve",
+    )
+
+    df["listing_spread_pct"] = listing_spread_pct
+    df["source_spread_pct"] = source_spread_pct
+    df["channel_signal"] = channel_signal
+    df["drop_to_frontier_usd"] = drop_frontier_usd
+    df["drop_to_frontier_pct"] = drop_frontier_pct
+    df["blocking_rival"] = blocking_rival
+    df["drop_to_best_value_usd"] = drop_best_val_usd
+    df["drop_to_best_value_pct"] = drop_best_val_pct
+    df["price_change_7d_pct"] = price_change_7d_pct
+    df["lifecycle_signal"] = lifecycle_signal
+    return df
+
+
 @dataclass
 class Result:
     leaderboard: pd.DataFrame
@@ -281,7 +458,7 @@ class Result:
     verdicts: dict
 
 
-def evaluate(table: pd.DataFrame) -> Result:
+def evaluate(table: pd.DataFrame, history: pd.DataFrame | None = None) -> Result:
     df = prepare(table)
     boards, parts, verdicts = [], [], {}
     central_candidates = [
@@ -317,6 +494,15 @@ def evaluate(table: pd.DataFrame) -> Result:
         beats = best != BASELINE and float(gain.mean()) > 2 * se
         # A model that does not clearly beat the baseline is not used: the simpler rule wins.
         picked = best if beats else BASELINE
+
+        # A. Leave-one-out empirical coverage test for the P20-P80 conditional band (target = 60%)
+        oof_lo = np.minimum(oof[FLOOR_NAME], oof[picked] - 0.05)
+        oof_hi = np.maximum(oof[CEILING_NAME], oof[picked] + 0.05)
+        loo_in_band = (y >= oof_lo) & (y <= oof_hi)
+        loo_coverage_pct = float(loo_in_band.mean() * 100.0)
+        rel_band_width_pct = float(
+            np.median((np.exp(oof_hi) - np.exp(oof_lo)) / np.exp(oof[picked])) * 100.0
+        )
 
         # Rank central models by MAE and include boundary quantile models with pinball loss
         ordered_names = sorted(
@@ -361,50 +547,8 @@ def evaluate(table: pd.DataFrame) -> Result:
             > 2 * float((err[BASELINE] - err[n]).std(ddof=1) / np.sqrt(len(train)))
         )
         typical = float(np.median(np.expm1(err[picked])) * 100)
-        verdicts[kind] = {
-            "used": picked,
-            "best_challenger": best if best != BASELINE else None,
-            "top3_ensemble_members": top3,
-            "n_models_tested": len(ordered_names),
-            "n_models_beating_baseline": int(n_beating),
-            "n_parts": int(len(train)),
-            "mae_log_baseline": float(err[BASELINE].mean()),
-            "mae_log_best": float(err[best].mean()),
-            "gain": float(gain.mean()),
-            "gain_standard_error": se,
-            "beats_baseline": bool(beats),
-            "typical_error_pct": typical,
-            "questions": {
-                "central_fair_price": picked,
-                "consensus_ensemble": ENSEMBLE_NAME,
-                "discount_floor_p20": FLOOR_NAME,
-                "scarcity_ceiling_p80": CEILING_NAME,
-            },
-            "finding": findings.from_test(
-                beats,
-                passed=f"{picked} won the {len(ordered_names)}-model regression tournament "
-                f"({n_beating} models beat the naive baseline by > 2 SE).",
-                failed="The fair price is the same price per point of score for every part, "
-                "so the gap is score per dollar restated. No model beat that baseline out of "
-                "sample.",
-                otherwise=findings.OBSERVATION,
-            ),
-            "statement": (
-                f"{picked} won the {len(ordered_names)}-model tournament (predicting within "
-                f"{typical:.0f}% for a typical part; {n_beating} regressions beat the "
-                f"same-price-per-point baseline by > 2 SE)."
-                if beats
-                else f"No model clearly beats the same-price-per-point baseline on "
-                f"{len(train)} parts, so the baseline sets the fair price. It is typically "
-                f"off by {typical:.0f}%, so read the gaps as rough."
-            ),
-        }
 
-        # Predict every part across the multi-question models:
-        # 1. Picked best model (central fair price)
-        # 2. Top-3 LOO Ensemble (consensus price)
-        # 3. Top-5 central models spread (cross-model disagreement %)
-        # 4. P20 Discount Floor & P80 Scarcity Ceiling
+        # Predict every part across the multi-question models
         full_fits = {name: MODELS[name](train) for name in MODELS}
 
         def _part_preds(
@@ -431,7 +575,6 @@ def evaluate(table: pd.DataFrame) -> Result:
         bayesian_usd = _part_preds("Bayesian Ridge (posterior structural)")
         trees_usd = _part_preds("Extra Trees (structural)")
 
-        # Ensure P20 <= Fair <= P80 monotonicity for display clarity
         floor_p20_usd = np.minimum(floor_p20_usd, fair * 0.95)
         ceiling_p80_usd = np.maximum(ceiling_p80_usd, fair * 1.05)
 
@@ -464,14 +607,87 @@ def evaluate(table: pd.DataFrame) -> Result:
                 out["price_usd"] <= out["floor_p20_usd"],
                 out["price_usd"] >= out["ceiling_p80_usd"],
             ],
-            ["Below P20 discount floor", "Above P80 scarcity ceiling"],
-            default="Inside P20-P80 normal band",
+            ["Below P20 low-listed band", "Above P80 high-listed band"],
+            default="Inside P20-P80 typical band",
         )
+        out = _add_market_signals(out, history=history)
+
+        # Historical Signal Validation: Do parts with high listing spread (>= 15%) experience
+        # larger subsequent price drops than low-spread parts across collected history?
+        high_spread_mask = (out["n_listings"] >= 2) & (out["listing_spread_pct"] >= 15.0)
+        low_spread_mask = (out["n_listings"] >= 2) & (out["listing_spread_pct"] < 15.0)
+        mean_chg_high = (
+            float(out.loc[high_spread_mask, "price_change_7d_pct"].mean())
+            if high_spread_mask.any()
+            else 0.0
+        )
+        mean_chg_low = (
+            float(out.loc[low_spread_mask, "price_change_7d_pct"].mean())
+            if low_spread_mask.any()
+            else 0.0
+        )
+        near_frontier_count = int(
+            ((out["drop_to_frontier_pct"] > 0) & (out["drop_to_frontier_pct"] <= 10.0)).sum()
+        )
+        on_frontier_count = int((out["drop_to_frontier_usd"] == 0).sum())
+
+        verdicts[kind] = {
+            "used": picked,
+            "best_challenger": best if best != BASELINE else None,
+            "top3_ensemble_members": top3,
+            "n_models_tested": len(ordered_names),
+            "n_models_beating_baseline": int(n_beating),
+            "n_parts": int(len(train)),
+            "mae_log_baseline": float(err[BASELINE].mean()),
+            "mae_log_best": float(err[best].mean()),
+            "gain": float(gain.mean()),
+            "gain_standard_error": se,
+            "beats_baseline": bool(beats),
+            "typical_error_pct": typical,
+            "p20_p80_loo_coverage_pct": round(loo_coverage_pct, 1),
+            "p20_p80_target_coverage_pct": 60.0,
+            "p20_p80_relative_width_pct": round(rel_band_width_pct, 1),
+            "market_signals": {
+                "n_on_pareto_frontier": on_frontier_count,
+                "n_within_10pct_of_frontier": near_frontier_count,
+                "n_high_seller_spread_15pct": int(high_spread_mask.sum()),
+                "mean_7d_change_high_spread_pct": round(mean_chg_high, 2),
+                "mean_7d_change_low_spread_pct": round(mean_chg_low, 2),
+            },
+            "questions": {
+                "central_fair_price": picked,
+                "consensus_ensemble": ENSEMBLE_NAME,
+                "discount_floor_p20": FLOOR_NAME,
+                "scarcity_ceiling_p80": CEILING_NAME,
+            },
+            "finding": findings.from_test(
+                beats,
+                passed=f"{picked} won the {len(ordered_names)}-model regression tournament "
+                f"({n_beating} models beat the naive baseline by > 2 SE; LOO P20–P80 band "
+                f"coverage is {loo_coverage_pct:.0f}% vs 60% target).",
+                failed="The fair price is the same price per point of score for every part, "
+                "so the gap is score per dollar restated. No model beat that baseline out of "
+                "sample.",
+                otherwise=findings.OBSERVATION,
+            ),
+            "statement": (
+                f"{picked} won the {len(ordered_names)}-model tournament (predicting within "
+                f"{typical:.0f}% for a typical part; {n_beating} regressions beat the "
+                f"same-price-per-point baseline by > 2 SE). Out-of-fold P20–P80 band coverage "
+                f"is {loo_coverage_pct:.0f}% (60% nominal target, median band width "
+                f"{rel_band_width_pct:.0f}%)."
+                if beats
+                else f"No model clearly beats the same-price-per-point baseline on "
+                f"{len(train)} parts, so the baseline sets the fair price. It is typically "
+                f"off by {typical:.0f}%, so read the gaps as rough."
+            ),
+        }
         parts.append(out)
     cols = [
         "kind",
         "model_key",
         "regime",
+        "gen_stage",
         "price_usd",
         "fair_price_usd",
         "ensemble_price_usd",
@@ -484,6 +700,16 @@ def evaluate(table: pd.DataFrame) -> Result:
         "gap_pct",
         "reading",
         "price_zone",
+        "listing_spread_pct",
+        "source_spread_pct",
+        "channel_signal",
+        "drop_to_frontier_usd",
+        "drop_to_frontier_pct",
+        "blocking_rival",
+        "drop_to_best_value_usd",
+        "drop_to_best_value_pct",
+        "price_change_7d_pct",
+        "lifecycle_signal",
         "confidence",
         "score",
         "n_listings",

@@ -53,6 +53,13 @@ READING_COLORS = {
 }
 
 
+def _fmt_rival(val: object) -> str:
+    s = str(val or "")
+    if not s or s == "On Pareto frontier":
+        return "On Pareto frontier"
+    return dashboard.display_name(s)
+
+
 def section(kind: str):
     part = parts[parts["kind"] == kind].copy() if len(parts) else parts
     if part.empty:
@@ -60,13 +67,32 @@ def section(kind: str):
     part["display_model"] = part["model_key"].map(dashboard.display_name)
     if "regime" not in part.columns:
         part["regime"] = "Consumer / Mainstream"
+    if "gen_stage" not in part.columns:
+        part["gen_stage"] = "Current gen (0)"
     for col in ("ensemble_price_usd", "floor_p20_usd", "ceiling_p80_usd", "huber_price_usd"):
         if col not in part.columns:
             part[col] = part["fair_price_usd"]
-    if "model_disagreement_pct" not in part.columns:
-        part["model_disagreement_pct"] = 0.0
+    for col in (
+        "model_disagreement_pct",
+        "listing_spread_pct",
+        "source_spread_pct",
+        "drop_to_frontier_usd",
+        "drop_to_frontier_pct",
+        "drop_to_best_value_usd",
+        "drop_to_best_value_pct",
+        "price_change_7d_pct",
+    ):
+        if col not in part.columns:
+            part[col] = 0.0
+    if "blocking_rival" not in part.columns:
+        part["blocking_rival"] = "On Pareto frontier"
+    part["blocking_rival_display"] = part["blocking_rival"].map(_fmt_rival)
+    if "channel_signal" not in part.columns:
+        part["channel_signal"] = "Single marketplace listing"
+    if "lifecycle_signal" not in part.columns:
+        part["lifecycle_signal"] = "Normal generational curve"
     if "price_zone" not in part.columns:
-        part["price_zone"] = "Inside P20-P80 normal band"
+        part["price_zone"] = "Inside P20-P80 typical band"
 
     fig = px.scatter(
         part, x="score", y="price_usd", color="reading", symbol="confidence",
@@ -74,11 +100,17 @@ def section(kind: str):
         color_discrete_map=READING_COLORS,
         hover_data={
             "regime": True,
+            "gen_stage": True,
             "fair_price_usd": ":.0f",
             "ensemble_price_usd": ":.0f",
             "floor_p20_usd": ":.0f",
             "ceiling_p80_usd": ":.0f",
             "gap_pct": ":+.0f",
+            "listing_spread_pct": ":.1f",
+            "drop_to_frontier_usd": ":.0f",
+            "drop_to_frontier_pct": ":.1f",
+            "blocking_rival_display": True,
+            "price_change_7d_pct": ":+.1f",
             "model_disagreement_pct": ":.1f",
             "n_listings": True,
             "display_model": False,
@@ -90,11 +122,17 @@ def section(kind: str):
             "reading": "Reading",
             "confidence": "Confidence",
             "regime": "Regime",
-            "fair_price_usd": "Winner P50 Fair (USD)",
+            "gen_stage": "Generation",
+            "fair_price_usd": "P50 Typical (USD)",
             "ensemble_price_usd": "Top-3 Ensemble (USD)",
-            "floor_p20_usd": "P20 Discount Floor (USD)",
-            "ceiling_p80_usd": "P80 Scarcity Ceiling (USD)",
+            "floor_p20_usd": "P20 Low Listed (USD)",
+            "ceiling_p80_usd": "P80 High Listed (USD)",
             "gap_pct": "Gap (%)",
+            "listing_spread_pct": "Listing Spread (%)",
+            "drop_to_frontier_usd": "Drop to Frontier (USD)",
+            "drop_to_frontier_pct": "Drop to Frontier (%)",
+            "blocking_rival_display": "Faster Cheaper Rival",
+            "price_change_7d_pct": "7d Sticker Change (%)",
             "model_disagreement_pct": "Model Spread (%)",
         },
     )
@@ -114,7 +152,7 @@ def section(kind: str):
             y=line["fair_price_usd"],
             mode="lines",
             line=dict(dash=dash, width=2.2, color=color),
-            name=f"P50 Winner ({regime_name})",
+            name=f"P50 Typical ({regime_name})",
             hoverinfo="skip",
         )
         if regime_name == "Consumer / Mainstream":
@@ -131,7 +169,7 @@ def section(kind: str):
                 y=line["floor_p20_usd"],
                 mode="lines",
                 line=dict(dash="dot", width=1.4, color="#1baf7a"),
-                name="P20 Discount Floor (Consumer)",
+                name="P20 Low Listed Band (Consumer)",
                 hoverinfo="skip",
             )
             fig.add_scatter(
@@ -139,7 +177,7 @@ def section(kind: str):
                 y=line["ceiling_p80_usd"],
                 mode="lines",
                 line=dict(dash="dot", width=1.4, color="#eb6834"),
-                name="P80 Scarcity Ceiling (Consumer)",
+                name="P80 High Listed Band (Consumer)",
                 hoverinfo="skip",
             )
     fig.update_layout(
@@ -153,8 +191,29 @@ def section(kind: str):
     )
     fig.show()
     names = {m["id"]: m["name"] for m in meta.get("sources", [])}
+    spread_col = [
+        f"{sp:.1f}% ({nr} src)" if nr >= 2 else (f"{lp:.1f}% (1 src)" if nl >= 2 else "1 listing")
+        for sp, lp, nr, nl in zip(
+            part["source_spread_pct"],
+            part["listing_spread_pct"],
+            part["n_retailers"],
+            part["n_listings"],
+        )
+    ]
+    frontier_col = [
+        "On frontier ($0)"
+        if d_usd <= 0
+        else f"-${d_usd:,.0f} (-{d_pct:.1f}%) vs {riv}"
+        for d_usd, d_pct, riv in zip(
+            part["drop_to_frontier_usd"],
+            part["drop_to_frontier_pct"],
+            part["blocking_rival_display"],
+        )
+    ]
     table = part.assign(
         model_key=part["display_model"],
+        Spread=spread_col,
+        Frontier=frontier_col,
         Cheapest=[
             f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
             for key, url in zip(part["retailer"], part["listing_url"])
@@ -163,15 +222,20 @@ def section(kind: str):
         [
             "model_key",
             "regime",
+            "gen_stage",
             "gap_pct",
             "price_usd",
             "fair_price_usd",
             "ensemble_price_usd",
             "floor_p20_usd",
             "ceiling_p80_usd",
+            "Spread",
+            "channel_signal",
+            "Frontier",
+            "drop_to_best_value_pct",
+            "price_change_7d_pct",
+            "lifecycle_signal",
             "model_disagreement_pct",
-            "price_zone",
-            "confidence",
             "n_listings",
             "Cheapest",
         ]
@@ -179,30 +243,71 @@ def section(kind: str):
         columns={
             "model_key": "Model",
             "regime": "Regime",
+            "gen_stage": "Generation",
             "gap_pct": "Gap (%)",
             "price_usd": "Lowest (USD)",
-            "fair_price_usd": "P50 Fair (USD)",
+            "fair_price_usd": "P50 Typical (USD)",
             "ensemble_price_usd": "Top-3 Ensemble (USD)",
-            "floor_p20_usd": "P20 Floor (USD)",
-            "ceiling_p80_usd": "P80 Ceiling (USD)",
+            "floor_p20_usd": "P20 Low Band (USD)",
+            "ceiling_p80_usd": "P80 High Band (USD)",
+            "Spread": "Seller / Listing Spread",
+            "channel_signal": "Channel Floor",
+            "Frontier": "Drop to Pareto Frontier",
+            "drop_to_best_value_pct": "Drop to #1 Value (%)",
+            "price_change_7d_pct": "7d Sticker Δ (%)",
+            "lifecycle_signal": "Market Wind Diagnostic",
             "model_disagreement_pct": "Model Spread (%)",
-            "price_zone": "Band Signal",
-            "confidence": "Confidence",
             "n_listings": "Listings",
             "Cheapest": "Cheapest at",
         }
     ).round(
         {
             "Gap (%)": 0,
-            "P50 Fair (USD)": 0,
+            "P50 Typical (USD)": 0,
             "Top-3 Ensemble (USD)": 0,
-            "P20 Floor (USD)": 0,
-            "P80 Ceiling (USD)": 0,
+            "P20 Low Band (USD)": 0,
+            "P80 High Band (USD)": 0,
+            "Drop to #1 Value (%)": 1,
+            "7d Sticker Δ (%)": 1,
             "Model Spread (%)": 1,
         }
     )
-    return show(table, paging=True, pageLength=25, order=[[2, "asc"]], showIndex=False,
+    return show(table, paging=True, pageLength=25, order=[[3, "asc"]], showIndex=False,
                 classes="display compact", allow_html=True)
+```
+
+## Market Wind & Frontier Watchlist
+
+Rather than predicting future prices, the four signals below separate **directly observable market structure** (`B` and `D`) from **conditional distribution diagnostics** (`A` and `C`) and **historical signal validation**:
+
+1. **Cross-Seller & Listing Spread (`B` — Observable today):** Compares the cheapest verified listing against the per-source floor median (`2+ src`) and the all-listing median (`1 src`), plus whether primary retail undercuts marketplace (`Retail undercuts marketplace`) or only marketplace listings remain (`Marketplace only`). Single-listing parts are explicitly marked `1 listing`.
+2. **Two-Threshold Frontier Entry Distance & Sticker Momentum (`D` — Actionable today):**
+   * **Pareto Frontier Entry (`Drop to Pareto Frontier`):** Exact dollar and percentage price cut required to match the cheapest rival that is **at least as fast** ($\text{score}_j \ge \text{score}_i$), naming the blocking rival.
+   * **Regime Value Leader (`Drop to #1 Value (%)`):** Percentage drop required to match the highest points-per-dollar part in the same regime.
+   * **Sticker-Price Momentum (`7d Sticker Δ (%)`):** Pure 7-day change in the part's lowest listed price from [`price_history.json`](file:///home/antigravity/liumOazed/public-data-intelligence/site/data/v1/tech-value/price_history.json), completely decoupled from model recalibration.
+3. **Conditional Quantile Band (`A` — Calibrated via Leave-One-Out Coverage):** `P20 Low Listed` and `P80 High Listed` curves are fitted with asymmetric pinball loss ($\tau = 0.20, 0.80$) and validated out-of-fold against their nominal `60%` target coverage.
+4. **Ordinal Generational Hand-Off (`C` — Lifecycle Diagnostic):** Uses each part's ordinal generation position within its product line (`Current gen (0)`, `Previous gen (-1)`, `Legacy gen (-2+)`) alongside channel coverage to distinguish a **previous-generation clearance sweet spot** from a **thin-supply legacy premium**.
+
+```{python}
+#| output: asis
+for kind, label in KINDS.items():
+    v = verdicts.get(kind) or {}
+    ms = v.get("market_signals") or {}
+    cov = v.get("p20_p80_loo_coverage_pct")
+    width = v.get("p20_p80_relative_width_pct")
+    if ms:
+        print(
+            f"::: {{.verdict}}\n"
+            f"**{label} Market Structure & Signal Validation (Observation):** "
+            f"**{ms.get('n_on_pareto_frontier', 0)}** parts currently sit on the Pareto efficiency frontier, "
+            f"and **{ms.get('n_within_10pct_of_frontier', 0)}** more are within a 10% price drop of joining it. "
+            f"**{ms.get('n_high_seller_spread_15pct', 0)}** multi-listing parts show a listing spread $\\ge 15\\%$ "
+            f"(7-day sticker price change: **{ms.get('mean_7d_change_high_spread_pct', 0.0):+.1f}%** for high-spread parts "
+            f"vs **{ms.get('mean_7d_change_low_spread_pct', 0.0):+.1f}%** for low-spread parts). "
+            f"Leave-one-out empirical coverage of the conditional `P20–P80` band is **{cov:.0f}%** "
+            f"(vs 60% nominal target; median relative width `(P80 - P20) / P50` = **{width:.0f}%**).\n"
+            f":::\n"
+        )
 ```
 
 ## Graphics cards
@@ -228,9 +333,9 @@ Boosted Trees L1 & Huber`, `Extra Trees`, `Random Forest`), local instance (`KNN
 **`Weighted Ensemble (Top-3 LOO)`** is scored by leaving each part out in turn. Different winners
 answer different questions:
 
-* **Central fair price (`P50`):** Which regression predicts typical out-of-sample price best?
+* **Central conditional price (`P50`):** Which regression predicts typical out-of-sample price best?
 * **Consensus blend (`Top-3 LOO Ensemble`):** What do the top 3 distinct regression families agree on, and how much do the top 5 models disagree (`Model Spread %`)?
-* **Discount floor (`P20`) & Scarcity ceiling (`P80`):** Evaluated via proper quantile pinball loss to mark when a part drops into a genuine buy zone (`<= P20`) or enters EOL / FOMO scarcity pricing (`>= P80`).
+* **Low & High Listed Bands (`P20` / `P80`):** Evaluated via asymmetric quantile pinball loss ($\tau = 0.20, 0.80$) and leave-one-out empirical coverage (`60%` target).
 
 ```{python}
 if board.empty:
