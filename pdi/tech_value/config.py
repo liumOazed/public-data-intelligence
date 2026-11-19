@@ -122,3 +122,7 @@ PRICE_MAX_AGE_DAYS = 8
 FAIR_PRICE_MIN_LISTINGS = 2  # parts with fewer listings are not used for fitting
 FAIR_PRICE_MIN_PARTS = 10  # fewer fitted parts of one kind than this: no fair price
 FAIR_PRICE_GAP_PCT = 15.0  # further than this from fair price is called below or above
+
+# Combine SPEC GWPG suites into one GPU score only where the suite calibration passes its
+# held-out check (gwpg.calibration_validation). False ranks every suite and labels the result.
+GWPG_VALIDATED_COHORTS_ONLY = True

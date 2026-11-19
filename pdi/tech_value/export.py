@@ -32,9 +32,10 @@ GWPG_LIMITS = [
     "SPEC GWPG results (SPECviewperf 15/2020/13/12.1, SPECworkstation 4.0/3.1/3.0, and "
     "SPECapc Maya/Solidworks/Creo/3ds Max) are submitted by workstation OEMs (Dell, HP, "
     "Lenovo, Fujitsu, MIFCOM) and GPU vendors.",
-    "Because SPEC GWPG spans multiple benchmark generations and resolutions (1080p vs 4K), "
-    "each suite-resolution cohort is calibrated onto the SPECviewperf 2020 v3 FHD/QHD scale "
-    "against physical hardware throughput before leave-one-GPU-out residuals are computed.",
+    "Because SPEC GWPG spans multiple benchmark generations, OS families and resolutions, each "
+    "suite-OS-resolution cohort is calibrated onto the SPECviewperf 2020 v3 Windows FHD/QHD scale "
+    "against physical hardware throughput, refitted inside every leave-one-GPU-out fold. Only "
+    "cohorts that pass the held-out calibration check (gpu_calibration) feed the ranking.",
     "Predicted scores and residuals are this site's estimates derived from SPEC GWPG disclosures. "
     "They are not official SPEC metrics.",
     "SPEC, SPECviewperf, SPECworkstation, and SPECapc are trademarks or registered trademarks "
@@ -347,8 +348,47 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
         )
         return
 
-    oof = gwpg.out_of_fold_gpu_residuals(gwpg_df)
+    calibration = gwpg.calibration_validation(gwpg_df)
+    used = gwpg.validated_cohorts(calibration)
+    if not config.GWPG_VALIDATED_COHORTS_ONLY:
+        used = set(calibration["cohort"])
+    calibration["used_in_ranking"] = calibration["cohort"].isin(used)
+    write_table(
+        M,
+        "gpu_calibration",
+        calibration,
+        description="Held-out check of the SPEC GWPG suite calibration: for each suite, OS and "
+        "resolution, how far a card's calibrated score there sits from the same card's "
+        "calibrated score in the other suites, with the calibration refitted without that card.",
+        extra={
+            "max_gap_pct": gwpg.CALIBRATION_MAX_GAP_PCT,
+            "min_shared_cards": gwpg.CALIBRATION_MIN_OVERLAP,
+            "reference": gwpg.REF_COHORT,
+            "validated_only": config.GWPG_VALIDATED_COHORTS_ONLY,
+            "finding": findings.explanation(
+                "A suite is combined into the GPU score only when cards measured in it and "
+                f"elsewhere agree within {gwpg.CALIBRATION_MAX_GAP_PCT:.0f}% (median) after "
+                "calibration."
+            ),
+        },
+        **common,
+    )
+    write_table(
+        M,
+        "gpu_workloads",
+        gwpg.workload_table(gwpg_df),
+        description="Raw SPEC GWPG composite scores per card within one suite and version, OS "
+        "family and resolution. No calibration: each group uses its suite's own metric.",
+        extra={
+            "finding": findings.observation(
+                "Scores as published, grouped so only like-for-like results sit together."
+            )
+        },
+        **common,
+    )
     gwpg_df = gwpg.with_specs(gwpg_df)
+    ranked_input = gwpg.in_cohorts(gwpg_df, used)
+    oof = gwpg.out_of_fold_gpu_residuals(ranked_input)
     ranking = gwpg.gpu_residual_ranking(oof)
     write_table(
         M,
@@ -377,6 +417,8 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
         extra={
             "min_results": config.GWPG_MIN_RESULTS_FOR_RANK,
             "n_disclosures": int(len(gwpg_df)),
+            "n_disclosures_ranked": int(len(ranked_input)),
+            "validated_suites_only": config.GWPG_VALIDATED_COHORTS_ONLY,
             "n_suites": int(gwpg_df["suite"].nunique()),
             "spec_source": "Shader count, clock, VRAM and bandwidth come from a specification "
             "table maintained in this repository (pdi/tech_value/gwpg.py), not from SPEC.",
@@ -390,6 +432,108 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
     )
 
 
+def export_sources(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.DataFrame) -> None:
+    """Every benchmark source the Tech Value pages use or have considered, with what is recorded."""
+
+    def n(df: pd.DataFrame, col: str) -> int:
+        return int(df[col].nunique()) if not df.empty and col in df.columns else 0
+
+    rows = [
+        {
+            "source": "SPEC CPU 2017",
+            "publisher": "Standard Performance Evaluation Corporation (vendor submissions, "
+            "reviewed by SPEC)",
+            "benchmark": "SPECrate 2017 Integer",
+            "metric": "SPECrate2017_int_base and _peak; this site uses base per socket",
+            "status": "Collected" if not spec.empty else "Not collected yet",
+            "results": int(len(spec)),
+            "products": n(spec, "processor"),
+            "last_collected": _retrieved(spec),
+            "recorded": "OEM, system, chips, cores, threads per core, clock, cache, memory, "
+            "compiler, OS, test and publication dates, disclosure link",
+            "used_for": "Over & under performers (CPU)",
+        },
+        {
+            "source": "SPEC GWPG",
+            "publisher": "SPEC Graphics and Workstation Performance Group (OEM and vendor "
+            "submissions)",
+            "benchmark": "SPECviewperf 12.1/13/2020/15, SPECworkstation 3.0/3.1/4.0, SPECapc",
+            "metric": "Each suite's composite; compared raw within suite, version, OS and "
+            "resolution, combined only where the calibration passes its check",
+            "status": "Collected" if not gwpg_df.empty else "Not collected yet",
+            "results": int(len(gwpg_df)),
+            "products": n(gwpg_df, "processor"),
+            "last_collected": _retrieved(gwpg_df),
+            "recorded": "OEM, system, CPU, GPU as written, OS, resolution, number of viewsets, "
+            "composite, best and worst viewset, disclosure link",
+            "used_for": "Over & under performers (GPU), results by workload",
+        },
+        {
+            "source": "Blender Open Data",
+            "publisher": "Blender Foundation (community-submitted runs)",
+            "benchmark": "Blender Benchmark",
+            "metric": "Median samples per minute over runs, per device and Blender version",
+            "status": "Collected" if not blender.empty else "Not collected yet",
+            "results": int(blender["n_runs"].sum()) if not blender.empty else 0,
+            "products": n(blender, "device_name"),
+            "last_collected": _retrieved(blender),
+            "recorded": "Device, CPU or GPU, Blender version, number of runs, median and "
+            "interquartile range",
+            "used_for": "Value ranking, Fair price, comparisons",
+        },
+        {
+            "source": "SPEC CPU 2017 floating point and speed",
+            "publisher": "SPEC",
+            "benchmark": "SPECrate 2017 Floating Point, SPECspeed 2017",
+            "metric": "Would be a separate workload view, never combined with Integer",
+            "status": "Not collected yet",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Planned",
+        },
+        {
+            "source": "OpenBenchmarking.org",
+            "publisher": "Phoronix Test Suite users (unreviewed)",
+            "benchmark": "Per-test results, e.g. pts/blender, pts/build-linux-kernel",
+            "metric": "Each test's own unit; compared only within one test, version and setting",
+            "status": "Not collected yet",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Planned: would add consumer CPUs and GPUs SPEC does not cover",
+        },
+        {
+            "source": "Independently published SPEC runs",
+            "publisher": "Reviewers and papers (not reviewed by SPEC)",
+            "benchmark": "SPEC CPU 2017 and SPECviewperf run outside SPEC's process",
+            "metric": "Would be labelled as unofficial and kept apart from SPEC-published results",
+            "status": "Not collected yet",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Planned",
+        },
+    ]
+    write_table(
+        M,
+        "benchmark_sources",
+        pd.DataFrame(rows),
+        description="Benchmark sources behind the Tech Value pages, collected or planned, with "
+        "the metric each reports and the configuration details recorded for every result.",
+        sources=["spec_cpu2017", "spec_gwpg", "blender_opendata"],
+        retrieved_at={
+            "spec_cpu2017": _retrieved(spec),
+            "spec_gwpg": _retrieved(gwpg_df),
+            "blender_opendata": _retrieved(blender),
+        },
+        extra={"finding": findings.observation("What each benchmark source contributes.")},
+    )
+
+
 def main() -> None:
     spec = pd.read_parquet(config.SPEC_TABLE) if config.SPEC_TABLE.exists() else pd.DataFrame()
     gwpg_df = pd.read_parquet(config.GWPG_TABLE) if config.GWPG_TABLE.exists() else pd.DataFrame()
@@ -400,6 +544,7 @@ def main() -> None:
     export_gpu_model(gwpg_df)
     export_value(blender, value.load_prices())
     export_catalogue(spec, gwpg_df, blender)
+    export_sources(spec, gwpg_df, blender)
     print(f"exported {M} tables")
 
 
@@ -415,6 +560,11 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
         "spec_gwpg": _retrieved(gwpg_df),
         "blender_opendata": _retrieved(blender),
     }
+    calib = table("gpu_calibration")
+    if not gwpg_df.empty and not calib.empty and "used_in_ranking" in calib.columns:
+        used = set(calib.loc[calib["used_in_ranking"].astype(bool), "cohort"])
+        key = gwpg_df["suite_base"] + " | " + gwpg_df["os_family"] + " | " + gwpg_df["res_tier"]
+        gwpg_df = gwpg_df.assign(in_ranked_suites=key.isin(used))
     cat = catalogue.build(
         value=table("value"),
         fair=table("fair_price"),

@@ -184,6 +184,39 @@ def test_gwpg_gpu_canonicalization_and_ranking():
     val = gwpg.gpu_residual_validation(ranking)
     assert {"Baseline (shaders x clock)", "OLS"} <= set(val["model"])
 
+    # A second suite on a different scale: the same cards, scores doubled. Calibration puts
+    # them back on one scale, so the held-out check passes.
+    doubled = sample_html
+    for v in (
+        "175.0",
+        "140.0",
+        "145.0",
+        "90.0",
+        "88.0",
+        "135.0",
+        "138.0",
+        "130.0",
+        "132.0",
+        "85.0",
+        "83.0",
+    ):
+        doubled = doubled.replace(f"<td>{v}</td>", f"<td>{float(v) * 2:.1f}</td>", 1)
+    both = gwpg.parse(
+        {
+            "SPECviewperf 2020 v3": {"url": "u", "html": sample_html},
+            "SPECviewperf 15": {"url": "u", "html": doubled},
+        }
+    )
+    check = gwpg.calibration_validation(both).set_index("suite")
+    assert check.loc["SPECviewperf 2020 v3", "status"] == "Reference scale"
+    assert check.loc["SPECviewperf 15", "n_shared_cards"] == 6
+    assert check.loc["SPECviewperf 15", "median_abs_gap_pct"] < 15
+    assert check.loc["SPECviewperf 15", "status"] == "Validated"
+    assert gwpg.in_cohorts(both, gwpg.validated_cohorts(check.reset_index())).shape[0] == 24
+    work = gwpg.workload_table(both)
+    assert set(work["suite"]) == {"SPECviewperf 2020 v3", "SPECviewperf 15"}
+    assert (work.groupby("suite").size() == 6).all()
+
 
 def test_residual_evidence_helpers():
     from pdi.tech_value import residual_evidence as rev

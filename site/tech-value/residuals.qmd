@@ -96,6 +96,11 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-cmp-sum { margin:10px 0 0; font-size:.92rem; line-height:1.45 }
 .op-cmp-wrap { overflow-x:auto }
 
+/* Workloads */
+.op-wl-pick { margin:10px 0 6px; font-size:.84rem; color:var(--op-muted) }
+.op-wl-pick select { max-width:100%; margin-left:6px; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
+.op-acc td small, .op-acc td .small { display:block; color:var(--op-muted); font-size:.76rem }
+
 /* Selected chip */
 .op-pick { margin-top:12px; border:1px solid var(--op-line); border-radius:12px; padding:12px 14px }
 .op-pick-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px }
@@ -505,6 +510,72 @@ to <select data-peer="gen1" aria-label="Released to">{yopts(years[-1])}</select>
 </div>""")
 
 
+gpu_wl, gpu_wl_meta = site.load("tech-value", "gpu_workloads")
+gpu_cal, gpu_cal_meta = site.load("tech-value", "gpu_calibration")
+
+
+def workloads():
+    """Raw scores within one suite, version, OS and resolution: comparable as published."""
+    head("Results by workload",
+         "Published composite scores, grouped so that only results from the same suite and version, OS and "
+         "resolution sit together. Nothing here is calibrated or combined, so every card SPEC measured appears, "
+         "ranked or not.")
+    if gpu_wl.empty:
+        raw(site.empty_state(gpu_wl_meta, "GPU results by workload"))
+        return
+    groups = []
+    for (suite, osf, res), g in gpu_wl.groupby(["suite", "os_family", "resolution"]):
+        groups.append((suite, osf, res, g.sort_values("median_score", ascending=False)))
+    groups.sort(key=lambda t: -len(t[3]))
+    used = set() if gpu_cal.empty else set(gpu_cal.loc[gpu_cal["used_in_ranking"].astype(bool), "cohort"])
+    opts, bodies = "", ""
+    for i, (suite, osf, res, g) in enumerate(groups):
+        base = suite.replace(" Linux", "")
+        in_rank = f"{base} | {osf} | {res}" in used
+        label = f"{suite} · {osf} · {res} ({len(g)} cards)"
+        opts += f'<option value="{i}">{escape(label)}</option>'
+        top = float(g["max_score"].max())
+        rows = ""
+        for r in g.itertuples():
+            w = 100 * r.median_score / top if top else 0
+            rng = "" if r.n_results < 2 else f"{r.min_score:,.1f} – {r.max_score:,.1f}"
+            link = f' <a href="{escape(r.disclosure_url)}">disclosure</a>' if r.disclosure_url else ""
+            rows += (f'<tr><td>{escape(r.processor)}<small>{escape(r.vendor)} · {escape(r.form_factor)}</small></td>'
+                     f'<td><span class="op-bar" style="width:{w * 1.6:.0f}px"></span>{r.median_score:,.2f}</td>'
+                     f'<td>{rng}</td><td>{r.n_results} · {r.n_oems}</td>'
+                     f'<td>{escape(r.best_workload or "")}{link}</td></tr>')
+        note = ("Included in the combined GPU ranking: its calibration passed the held-out check."
+                if in_rank else "Not in the combined GPU ranking: its calibration did not pass the held-out check.")
+        bodies += (f'<div class="op-wl" data-wl="{i}"{"" if i == 0 else " hidden"}>'
+                   f'<p class="op-foot">Metric: the {escape(base)} composite as published by SPEC (higher is better). {note}</p>'
+                   f'<div class="op-cmp-wrap"><table class="op-acc op-wl-table"><thead><tr><th>Card</th><th>Median composite</th>'
+                   f'<th>Range</th><th>Results · OEMs</th><th>Best workload</th></tr></thead><tbody>{rows}</tbody></table></div></div>')
+    raw(f'<div class="op-wl-pick"><label>Suite, OS and resolution <select aria-label="Suite, OS and resolution">{opts}</select></label></div>{bodies}')
+
+
+def calibration_card():
+    head("Can the suites be combined?",
+         "The GPU score puts different SPEC suites on one scale. Each suite is checked by refitting the "
+         "calibration without one card at a time and asking whether that card lands where its other suites put it.")
+    if gpu_cal.empty:
+        raw(site.empty_state(gpu_cal_meta, "GPU calibration check"))
+        return
+    gap = gpu_cal_meta.get("max_gap_pct", 15)
+    rows = ""
+    for r in gpu_cal.sort_values(["used_in_ranking", "n_results"], ascending=[False, False]).itertuples():
+        g = "—" if pd.isna(r.median_abs_gap_pct) else f"{r.median_abs_gap_pct:.1f}%"
+        rows += (f'<tr><td>{escape(r.suite)}<small>{escape(r.os_family)} · {escape(r.resolution)}</small></td>'
+                 f'<td>{r.n_results}</td><td>{r.n_cards}</td><td>{r.n_shared_cards}</td><td>{g}</td>'
+                 f'<td>{escape(r.status)}</td><td>{"Yes" if r.used_in_ranking else "No"}</td></tr>')
+    n_used = int(gpu_cal["used_in_ranking"].sum())
+    raw(f'<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Suite</th><th>Results</th><th>Cards</th>'
+        f'<th>Shared cards</th><th>Median gap</th><th>Check</th><th>In ranking</th></tr></thead><tbody>{rows}</tbody></table></div>'
+        f'<p class="op-foot">A suite passes when at least {gpu_cal_meta.get("min_shared_cards", 3)} cards are also measured elsewhere and their '
+        f'median gap is at most {gap:.0f}%. {n_used} of {len(gpu_cal)} suite groups pass and feed the GPU ranking; the reference '
+        'scale is SPECviewperf 2020 v3 on Windows at FHD/QHD. A gap mixes calibration error with real differences between workloads, '
+        'so a failing suite is not wrong, only not comparable on one scale. The calibration is refitted inside every leave-one-card-out fold.</p>')
+
+
 CMP_DEFAULT = {"cpu": ("amd ryzen 9 7950x", "intel core i9-13900k"),
                "gpu": ("nvidia rtx 4060", "amd radeon ai pro r9700")}
 
@@ -834,7 +905,8 @@ raw('<p class="op-foot">Errors by vendor, family and generation are under Explor
 #| output: asis
 head("Measured against predicted",
      "Each point is a graphics card. Its calibrated workstation score is plotted against the score a model predicts from its specifications, "
-     "using a fit that never saw that card. Pick a model, then hover or click a point.")
+     "using a fit that never saw that card. Only suites whose calibration passes the check below are combined. "
+     "Pick a model, then hover or click a point.")
 model_buttons("gpu")
 if not DATA["gpu"].empty:
     peers("gpu")
@@ -945,6 +1017,20 @@ raw('<p class="op-foot">With few cards per group, these errors are rough. Errors
 
 ::::::
 
+:::::: {.op-card}
+```{python}
+#| output: asis
+workloads()
+```
+::::::
+
+:::::: {.op-card}
+```{python}
+#| output: asis
+calibration_card()
+```
+::::::
+
 :::::::
 
 ```{python}
@@ -1046,6 +1132,36 @@ if gpu.empty:
 else:
     ranking("gpu")
 ```
+:::
+</details>
+
+<details class="op-detail">
+```{python}
+#| output: asis
+src, src_meta = site.load("tech-value", "benchmark_sources")
+summary("Benchmark sources", f"{int((src['status'] == 'Collected').sum()) if not src.empty else 0} collected · "
+        f"{int((src['status'] != 'Collected').sum()) if not src.empty else 0} planned · What each records")
+```
+::: {.op-detail-body}
+```{python}
+#| output: asis
+if src.empty:
+    print(site.empty_state(src_meta, "Benchmark sources"))
+else:
+    rows = ""
+    for r in src.itertuples():
+        when = str(r.last_collected)[:10] if r.last_collected else "—"
+        count = f"{r.results:,} · {r.products:,}" if r.results else "—"
+        rows += (f"<tr><td>{escape(r.source)}<small>{escape(r.publisher)}</small></td><td>{escape(r.benchmark)}"
+                 f"<small>{escape(r.metric)}</small></td><td>{escape(r.status)}<small>{when}</small></td><td>{count}</td>"
+                 f"<td>{escape(r.recorded) or '—'}</td><td>{escape(r.used_for)}</td></tr>")
+    raw(f'<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Source</th><th>Benchmark and metric</th>'
+        f'<th>Status · collected</th><th>Results · products</th><th>Recorded per result</th><th>Used for</th></tr></thead>'
+        f'<tbody>{rows}</tbody></table></div>')
+```
+
+Results from different sources, suites or versions are never mixed in one score. Unreviewed
+sources, once added, will be labelled as such and kept apart from SPEC-published results.
 :::
 </details>
 
@@ -1164,9 +1280,11 @@ to be ranked, GPUs at least `{python} gpu_meta.get("min_results", 2)`.
 
 **Scores.** CPU scores are SPECrate 2017 Integer base per socket, the median over a processor's
 results, because SPECrate grows with the number of sockets. GPU scores combine several SPEC GWPG
-suites and resolutions. Each suite and resolution is put on the SPECviewperf 2020 v3 scale
-before fitting, so a GPU score is this site's estimate, not a SPEC metric. A documented
-calibration check for that step is planned.
+suites. Each suite and version, OS and resolution is put on the SPECviewperf 2020 v3 (Windows,
+FHD/QHD) scale before fitting, so a GPU score is this site's estimate, not a SPEC metric. The
+calibration is refitted inside every leave-one-card-out fold, so a card never sets the scale it
+is judged on. Only suites that pass the held-out check in "Can the suites be combined?" feed the
+ranking; every other result is shown as published under "Results by workload".
 
 **The three models.**
 
@@ -1400,6 +1518,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try { history.replaceState(null, "", b.dataset.tab === "gpu" ? "#gpu" : location.pathname + location.search); } catch (e) {}
   }));
   show(location.hash === "#gpu" || window.TVPick?.urlKind() === "gpu" ? "gpu" : "cpu");
+
+  document.querySelectorAll(".op-wl-pick select").forEach(sel => sel.addEventListener("change", () => {
+    const card = sel.closest(".op-card");
+    card.querySelectorAll(".op-wl").forEach(d => { d.hidden = d.dataset.wl !== sel.value; });
+  }));
 
   // Two-product comparison from the shared catalogue.
   const usd = v => "$" + Math.round(v).toLocaleString("en-US");
