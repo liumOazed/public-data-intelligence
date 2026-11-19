@@ -88,27 +88,26 @@ def test_residuals_are_out_of_fold_and_ranked(spec_signal):
     }
     assert expected_cols <= set(ranking.columns)
     assert (ranking["tuning_spread_pct"] >= 0).all()
+    assert {"pred_ols", "pred_structural", "pred_nonlinear", "n_configs", "n_systems"} <= set(
+        ranking.columns
+    )
+    assert (ranking["pred_ols_lo"].dropna() <= ranking["pred_ols_hi"].dropna()).all()
+    val = model.residual_validation(ranking)
+    overall = val[(val["slice"] == "All")].set_index("model")
+    # On data generated from the plain model, the plain model beats the cores-x-clock baseline.
+    assert (
+        overall.loc["OLS", "mean_abs_log_error"]
+        < overall.loc["Baseline (cores x clock)", "mean_abs_log_error"]
+    )
     # Residuals of a well-specified model centre on zero.
     assert abs(np.median(ranking["residual_pct"])) < 2
 
 
 def test_consensus_verdict_and_compiler_classification():
-    assert (
-        model.consensus_verdict(46.5, 50.9, 73.7, cores_per_chip=32)
-        == "True architectural standout"
-    )
-    assert (
-        model.consensus_verdict(40.8, 23.1, 4.0, cores_per_chip=4)
-        == "Small-core linearity artifact"
-    )
-    assert (
-        model.consensus_verdict(48.8, 20.1, -6.2, cores_per_chip=12)
-        == "Linearity / regime artifact"
-    )
-    assert (
-        model.consensus_verdict(-21.4, -21.2, -8.1, cores_per_chip=72)
-        == "Memory / scaling bottleneck"
-    )
+    assert model.consensus_verdict(46.5, 50.9, 73.7, cores_per_chip=32) == model.ABOVE
+    assert model.consensus_verdict(40.8, 23.1, 4.0, cores_per_chip=4) == model.SENSITIVE_SMALL_CORE
+    assert model.consensus_verdict(48.8, 20.1, -6.2, cores_per_chip=12) == model.SENSITIVE_REGIME
+    assert model.consensus_verdict(-21.4, -21.2, -8.1, cores_per_chip=72) == model.BELOW
     assert model.classify_compiler("C/C++/Fortran: Version 2024.1 of Intel oneAPI") == (
         "Intel oneAPI (LLVM)"
     )
@@ -171,7 +170,31 @@ def test_gwpg_gpu_canonicalization_and_ranking():
         "gbdt_residual_pct",
         "consensus_verdict",
         "tuning_spread_pct",
-        "peak_gain_pct",
+        "workload_specialization_pct",
         "bandwidth_gbps",
         "vram_gb",
+        "pred_ols",
+        "pred_nonlinear_lo",
+        "model_spread_pts",
+        "outside_training_range",
     } <= set(ranking.columns)
+    # Predicted x exp(residual) gives back the measured score.
+    back = ranking["pred_ols"] * np.exp(ranking["ols_resid_log"])
+    assert np.allclose(back, ranking["measured_score"])
+    val = gwpg.gpu_residual_validation(ranking)
+    assert {"Baseline (shaders x clock)", "OLS"} <= set(val["model"])
+
+
+def test_residual_evidence_helpers():
+    from pdi.tech_value import residual_evidence as rev
+
+    assert rev.related_group("AMD EPYC 9454P") == "AMD EPYC 9454"
+    assert rev.related_group("Intel Xeon Gold 6430") == "Intel Xeon Gold 6430"
+    lo, hi = rev.loo_interval(np.linspace(-0.2, 0.2, 21))
+    assert (lo < hi).all()
+    chips = pd.DataFrame({"cores": [4, 64, 512]}, index=["a", "b", "c"])
+    results = pd.DataFrame({"processor": ["a", "b", "c"], "cores": [4, 64, 512]})
+    flags = rev.extrapolation_flags(chips, results, {"cores": "Cores"})
+    assert flags["c"] == "Cores above training range"
+    assert flags["a"] == "Cores below training range"
+    assert flags["b"] == ""

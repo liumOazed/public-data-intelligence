@@ -166,6 +166,10 @@ def parse(raw_csv: bytes | str) -> pd.DataFrame:
     buf = io.BytesIO(raw_csv) if isinstance(raw_csv, bytes) else io.StringIO(raw_csv)
     raw = pd.read_csv(buf, dtype=str, encoding_errors="replace")
     raw.columns = [c.strip() for c in raw.columns]
+    # Current dumps carry the links in "Disclosure" and leave "Disclosures" empty.
+    if "Disclosure" in raw.columns:
+        links = raw["Disclosure"]
+        raw["Disclosures"] = links.where(links.notna(), raw.get("Disclosures"))
     missing = [c for c in RAW_COLUMNS if c not in raw.columns]
     if missing:
         raise ValueError(

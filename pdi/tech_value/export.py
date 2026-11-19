@@ -83,7 +83,14 @@ def export_model(spec: pd.DataFrame) -> None:
 
     if spec.empty:
         note = {"status": "SPEC results have not been collected yet."}
-        for table in ("leaderboard", "holdout", "folds", "coefficients", "residuals"):
+        for table in (
+            "leaderboard",
+            "holdout",
+            "folds",
+            "coefficients",
+            "residuals",
+            "residual_validation",
+        ):
             write_table(M, table, pd.DataFrame(), description=note["status"], extra=note, **common)
         return
 
@@ -155,14 +162,34 @@ def export_model(spec: pd.DataFrame) -> None:
         **common,
     )
     ranking = model.residual_ranking(model.out_of_fold_residuals(df))
+    validation = model.residual_validation(ranking)
+    write_table(
+        M,
+        "residual_validation",
+        validation,
+        description="Held-out error of the residual models for processors: one median residual "
+        "per ranked processor, compared with the cores-times-clock baseline, overall and by "
+        "vendor, family and first-available year.",
+        extra={
+            "interval": "80% range from the 10th and 90th percentiles of every other "
+            "processor's held-out residual",
+            "finding": findings.explanation(
+                "Typical error of predictions made without the chip being predicted. It says "
+                "how far to trust a single chip's residual."
+            ),
+        },
+        **common,
+    )
     write_table(
         M,
         "residuals",
         ranking,
-        description="Per processor: median leave-one-processor-out residual of the plain "
-        "regression, with the tested configuration of a typical result.",
+        description="Per processor: median leave-one-chip-out residual of three models, "
+        "predicted scores per socket with 80% ranges, evidence counts, and the tested "
+        "configuration of a typical result.",
         extra={
             "min_results": config.MIN_RESULTS_FOR_RANK,
+            "spec_source": "Specifications are read from each SPEC disclosure.",
             "verdict": ev.verdict,
             "finding": findings.explanation(
                 "A residual is the part of a processor's score its specifications do not "
@@ -324,20 +351,38 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
     ranking = gwpg.gpu_residual_ranking(oof)
     write_table(
         M,
+        "gpu_residual_validation",
+        gwpg.gpu_residual_validation(ranking),
+        description="Held-out error of the residual models for GPUs: one median residual per "
+        "ranked GPU, compared with the shaders-times-clock baseline, overall and by vendor, form "
+        "factor, architecture and release year.",
+        extra={
+            "interval": "80% range from the 10th and 90th percentiles of every other GPU's "
+            "held-out residual",
+            "finding": findings.explanation(
+                "Typical error of predictions made without the GPU being predicted. With few "
+                "GPUs per group, these errors are rough."
+            ),
+        },
+        **common,
+    )
+    write_table(
+        M,
         "gpu_residuals",
         ranking,
-        description="Per GPU: median leave-one-GPU-out residual across SPEC GWPG disclosures "
-        "(SPECviewperf, SPECworkstation, SPECapc), with multi-model consensus and OEM workstation "
-        "tuning spread.",
+        description="Per GPU: median leave-one-GPU-out residual of three models across SPEC GWPG "
+        "disclosures (SPECviewperf, SPECworkstation, SPECapc), predicted calibrated scores with "
+        "80% ranges, evidence counts and spread across submitted configurations.",
         extra={
             "min_results": config.GWPG_MIN_RESULTS_FOR_RANK,
             "n_disclosures": int(len(gwpg_df)),
             "n_suites": int(gwpg_df["suite"].nunique()),
+            "spec_source": "Shader count, clock, VRAM and bandwidth come from a specification "
+            "table maintained in this repository (pdi/tech_value/gwpg.py), not from SPEC.",
             "finding": findings.explanation(
-                "A GPU residual is the part of a graphics card's SPEC GWPG workstation score its "
-                "shader count, boost clock, VRAM capacity, and memory bandwidth do not account "
-                "for. It separates true architectural standouts from entry-shader linearity "
-                "artifacts and memory-bandwidth bottlenecks."
+                "A GPU residual is the part of a graphics card's calibrated SPEC GWPG score its "
+                "shader count, boost clock, VRAM capacity and memory bandwidth do not account "
+                "for. It flags cards to look at more closely; it does not say why."
             ),
         },
         **common,

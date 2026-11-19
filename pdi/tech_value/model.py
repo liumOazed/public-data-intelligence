@@ -26,6 +26,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import SplineTransformer, StandardScaler
 
 from pdi.tech_value import config
+from pdi.tech_value import residual_evidence as rev
 
 NUMERIC = [
     "log_cores",
@@ -90,6 +91,15 @@ def classify_compiler(compiler: str | None) -> str:
     return "Other"
 
 
+# Classification labels. They describe agreement between models, not a cause: a chip above every
+# prediction is a candidate for a closer look, not proof of better silicon.
+ABOVE = "Above prediction across models"
+BELOW = "Below prediction across models"
+SENSITIVE_SMALL_CORE = "Model-sensitive (small-core)"
+SENSITIVE_REGIME = "Model-sensitive (scaling regime)"
+NEAR = "Near prediction"
+
+
 def consensus_verdict(
     ols_pct: float,
     structural_pct: float,
@@ -103,14 +113,14 @@ def consensus_verdict(
         and gbdt_pct >= 8.0
         and (ols_pct - gbdt_pct) < 25.0
     ):
-        return "True architectural standout"
+        return ABOVE
     if ols_pct >= 12.0 and (gbdt_pct < 8.0 or (ols_pct - gbdt_pct) >= 18.0):
         if cores_per_chip <= 8:
-            return "Small-core linearity artifact"
-        return "Linearity / regime artifact"
+            return SENSITIVE_SMALL_CORE
+        return SENSITIVE_REGIME
     if ols_pct <= -10.0 and structural_pct <= -8.0 and gbdt_pct <= -8.0:
-        return "Memory / scaling bottleneck"
-    return "Near expected spec curve"
+        return BELOW
+    return NEAR
 
 
 def prepare(spec: pd.DataFrame) -> pd.DataFrame:
@@ -366,12 +376,14 @@ def _predict_held_out(out: pd.DataFrame, train_idx, test_idx) -> tuple:
         Plain.fit(tr).predict(te),
         _fit_predict_structural(tr, te),
         _fit_predict_gbdt(tr, te),
+        Baseline.fit(tr).predict(te),
     )
 
 
 def out_of_fold_residuals(df: pd.DataFrame, n_jobs: int = -1) -> pd.DataFrame:
-    """Leave-one-processor-out predictions: every result is scored by models that never saw
-    any result for its processor.
+    """Leave-one-chip-out predictions: every result is scored by models that never saw any
+    result for its processor, or for a variant of the same silicon (see
+    ``residual_evidence.related_group``).
 
     Computes three held-out reference curves, refitting all three once per processor:
       1. Plain OLS (`predicted_log` / `residual_log`) — constant-elasticity linear specification
@@ -386,10 +398,11 @@ def out_of_fold_residuals(df: pd.DataFrame, n_jobs: int = -1) -> pd.DataFrame:
         out["smt_x_log_cpc"] = out["smt"] * out["log_cores_per_chip"]
         out["vintage_x_log_cpc"] = out["vintage_years"] * out["log_cores_per_chip"]
         out["vintage_sq"] = out["vintage_years"] ** 2
-    cols = ["predicted_log", "structural_pred_log", "gbdt_pred_log"]
+    cols = ["predicted_log", "structural_pred_log", "gbdt_pred_log", "baseline_pred_log"]
     for c in cols:
         out[c] = np.nan
-    splits = LeaveOneGroupOut().split(out, groups=out["processor"])
+    groups = out["processor"].map(rev.related_group)
+    splits = LeaveOneGroupOut().split(out, groups=groups)
     held_out = Parallel(n_jobs=n_jobs)(delayed(_predict_held_out)(out, tr, te) for tr, te in splits)
     for test_idx, *preds in held_out:
         for c, pred in zip(cols, preds, strict=True):
@@ -397,6 +410,7 @@ def out_of_fold_residuals(df: pd.DataFrame, n_jobs: int = -1) -> pd.DataFrame:
     out["residual_log"] = out[TARGET] - out["predicted_log"]
     out["structural_residual_log"] = out[TARGET] - out["structural_pred_log"]
     out["gbdt_residual_log"] = out[TARGET] - out["gbdt_pred_log"]
+    out["baseline_residual_log"] = out[TARGET] - out["baseline_pred_log"]
     return out
 
 
@@ -456,6 +470,12 @@ def residual_ranking(oof: pd.DataFrame) -> pd.DataFrame:
             else None
         )
         score_per_core = float((part[config.SPEC_METRIC] / part["cores"]).median())
+        # Evidence behind the median: how many distinct systems and configurations, and when.
+        config_cols = [c for c in ("system", "memory_text", "compiler", "os") if c in part.columns]
+        n_configs = int(part[config_cols].astype(str).drop_duplicates().shape[0])
+        n_systems = int(part["system"].nunique()) if "system" in part.columns else 1
+        tests = part["test_date"].dropna() if "test_date" in part.columns else pd.Series([])
+        pubs = part["published"].dropna() if "published" in part.columns else pd.Series([])
         ghz = float(typical["mhz"]) / 1000.0 if float(typical["mhz"]) > 0 else 1.0
         score_per_core_ghz = float(score_per_core / ghz)
 
@@ -494,7 +514,63 @@ def residual_ranking(oof: pd.DataFrame) -> pd.DataFrame:
                     else None
                 ),
                 "disclosure_url": typical.get("disclosure_url"),
+                "generation": int(typical["first_avail"].year),
+                # SPECrate scales with sockets, so the measured score is compared per socket.
+                "measured_per_socket": float((part[config.SPEC_METRIC] / part["chips"]).median()),
+                "ols_resid_log": float(med),
+                "structural_resid_log": (
+                    float(part["structural_residual_log"].median()) if has_struct else float(med)
+                ),
+                "nonlinear_resid_log": (
+                    float(part["gbdt_residual_log"].median()) if has_gbdt else float(med)
+                ),
+                "baseline_resid_log": (
+                    float(part["baseline_residual_log"].median())
+                    if "baseline_residual_log" in part.columns
+                    else None
+                ),
+                "n_systems": n_systems,
+                "n_configs": n_configs,
+                "sockets_tested": ", ".join(str(c) for c in sorted(part["chips"].unique())),
+                "first_test_date": tests.min().date().isoformat() if len(tests) else None,
+                "last_test_date": tests.max().date().isoformat() if len(tests) else None,
+                "last_published": pubs.max().date().isoformat() if len(pubs) else None,
             }
         )
-    cols = ["residual_pct"]
-    return pd.DataFrame(rows).sort_values(cols, ascending=False).reset_index(drop=True)
+    out = pd.DataFrame(rows).sort_values("residual_pct", ascending=False).reset_index(drop=True)
+    if out.empty:
+        return out
+    out = rev.add_model_summary(out, RESID_COLS, "measured_per_socket")
+    features = {
+        "cores_per_chip": "Cores per chip",
+        "mhz": "Clock",
+        "l3_mb_per_core": "L3 per core",
+        "l2_mb_per_core": "L2 per core",
+    }
+    res = oof.assign(cores_per_chip=oof["cores"] / oof["chips"])
+    flags = rev.extrapolation_flags(out.set_index("processor")[list(features)], res, features)
+    out["outside_training_range"] = out["processor"].map(flags).fillna("")
+    return out
+
+
+RESID_COLS = {
+    "ols": "ols_resid_log",
+    "structural": "structural_resid_log",
+    "nonlinear": "nonlinear_resid_log",
+}
+VALIDATION_MODELS = {
+    "Baseline (cores x clock)": "baseline_resid_log",
+    "OLS": "ols_resid_log",
+    "Structural L1": "structural_resid_log",
+    "Nonlinear GBDT": "nonlinear_resid_log",
+}
+
+
+def residual_validation(ranking: pd.DataFrame) -> pd.DataFrame:
+    """Held-out error by model, overall, by vendor, by family and by first-available year."""
+    chips = ranking.assign(generation=ranking["generation"].astype(str))
+    return rev.validation_table(
+        chips,
+        VALIDATION_MODELS,
+        {"Vendor": "vendor", "Family": "family", "Generation": "generation"},
+    )
