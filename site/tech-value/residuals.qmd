@@ -18,14 +18,20 @@ verdict = meta.get("verdict") or {}
 ```
 
 For every processor with enough published SPEC CPU 2017 results, this page compares its
-**SPECrate 2017 Integer base** score with the score a plain regression predicts from its
-specifications: cores, clock speed, cache per core, chips, multithreading, vendor and release
-date. The prediction for a processor always comes from a model that never saw that processor.
+**SPECrate 2017 Integer base** score with the score predicted from its specifications:
+cores, clock speed, cache per core, chips, multithreading, vendor and release date.
+Every prediction comes from an out-of-fold fit that never saw that processor.
 
-**A positive residual is a question, not an answer.** A processor that beats its prediction
-may be a better design, or it may have been tested with more memory, a newer compiler or a
-tuned operating system. The tested configuration is shown beside every residual for that
-reason.
+**How this page complements [Value ranking](index.qmd) and [Fair price](fair-price.qmd):**
+
+* **[Value ranking](index.qmd)** measures *today's sticker bang-for-buck* (`Blender score / lowest retail price`).
+* **[Fair price](fair-price.qmd)** detects *market pricing wind* (retailer discounts, cross-seller dispersion, and distance to the Pareto frontier).
+* **Over- and under-performers (this page)** separates *true silicon engineering* from *model linearity artifacts, OEM/compiler software tuning, and the memory-bandwidth wall*.
+
+**A positive residual is a question, not an answer.** A processor that beats a single linear
+regression may be a genuine architectural standout, a 4-core chip benefiting from a straight-line
+core-scaling assumption, or a chip tested with aggressive compiler flags and tuned memory.
+The three views below separate those three causes.
 
 ```{python}
 #| output: asis
@@ -35,9 +41,68 @@ if verdict:
 print(site.finding_line(meta.get("finding")))
 ```
 
+## 1. Multi-model residual consensus: true standouts vs. linearity artifacts
+
+A single constant-elasticity OLS line assumes that doubling core count from 4 to 8 scales
+throughput at the exact same rate as doubling from 96 to 192. Because 4-core and 6-core chips
+suffer almost no memory-bus contention, a single straight line across 4 to 192 cores
+underpredicts small-core chips and makes entry-level 4-core Xeons look like +40% "super-chips."
+
+To separate genuine silicon jumps from straight-line artifacts, every processor is scored out-of-fold
+against three reference curves:
+
+1. **Plain OLS (`OLS %`):** Readable constant-elasticity linear regression in logs.
+2. **L1 Structural Spline (`Structural L1 %`):** Huber/L1 spline curve allowing diminishing returns on core density (`cores / chip`) plus cache-by-density and SMT interactions.
+3. **Nonlinear L1 GBDT (`Nonlinear L1 GBDT %`):** Gradient Boosted Decision Trees trained with median (`L1`) loss that partition core-density regimes directly.
+
+```{python}
+#| output: asis
+if not res.empty and "consensus_verdict" in res.columns:
+    counts = res["consensus_verdict"].value_counts()
+    n_standout = int(counts.get("True architectural standout", 0))
+    n_small_art = int(counts.get("Small-core linearity artifact", 0))
+    n_regime_art = int(counts.get("Linearity / regime artifact", 0))
+    n_bottleneck = int(counts.get("Memory / scaling bottleneck", 0))
+    print(
+        f"Across **{len(res)}** ranked processors: "
+        f"**{n_standout}** are **True architectural standouts** (beating linear, structural spline, "
+        f"and nonlinear GBDT curves alike), "
+        f"**{n_small_art + n_regime_art}** are **Linearity / regime artifacts** "
+        f"({n_small_art} small-core chips whose +20% to +43% OLS residual vanishes once nonlinear "
+        f"core scaling is accounted for), and "
+        f"**{n_bottleneck}** face a **Memory / scaling bottleneck** across all three models."
+    )
+```
+
 ```{python}
 if res.empty:
     display(Markdown(site.empty_state(meta, "Residual ranking")))
+elif "gbdt_residual_pct" in res.columns:
+    fig = px.scatter(
+        res,
+        x="residual_pct",
+        y="gbdt_residual_pct",
+        color="consensus_verdict",
+        hover_name="processor",
+        hover_data={
+            "cores_per_chip": True,
+            "n_results": True,
+            "median_score": ":.0f",
+            "residual_pct": ":.1f",
+            "structural_residual_pct": ":.1f",
+            "gbdt_residual_pct": ":.1f",
+        },
+        labels={
+            "residual_pct": "Plain OLS residual (%)",
+            "gbdt_residual_pct": "Nonlinear L1 GBDT residual (%)",
+            "consensus_verdict": "Multi-model consensus",
+            "cores_per_chip": "Cores / chip",
+        },
+    )
+    fig.add_hline(y=0, line_dash="dot")
+    fig.add_vline(x=0, line_dash="dot")
+    fig.update_layout(margin=dict(t=20))
+    fig.show()
 else:
     fig = px.scatter(
         res, x="first_avail", y="residual_pct", color="vendor",
@@ -51,24 +116,142 @@ else:
     fig.show()
 ```
 
+## 2. Silicon vs. software & OEM tuning decomposition
+
+Even for the exact same silicon chip, published SPEC scores vary across server OEMs, BIOS power
+profiles, memory speeds, and compiler toolchains. We decompose this software/platform layer using
+three observable signals on each processor's disclosures:
+
+* **Same-silicon tuning spread (`Tuning spread %`):** `Highest % - Lowest %` out-of-fold residual across all submissions of that exact processor (controlling for socket count). A 15–35% spread means platform and compiler tuning can move throughput by a full hardware generation.
+* **Peak vs. Base compiler flag headroom (`Peak gain %`):** Median percentage gain of `SPECrate 2017 Integer peak` (aggressive per-benchmark compiler flags allowed) over `base` (uniform flags required) on disclosures that report both.
+* **Compiler toolchain (`Compiler family`):** Whether the typical submission used `Intel oneAPI (LLVM)`, `Intel Classic ICC`, `AMD AOCC`, or `GNU GCC`.
+
+```{python}
+if not res.empty and "compiler_family" in res.columns:
+    comp_rows = []
+    for fam, g in res.groupby("compiler_family"):
+        peak_valid = g["peak_gain_pct"].dropna() if "peak_gain_pct" in g.columns else []
+        comp_rows.append({
+            "Compiler family": fam,
+            "Ranked processors": int(len(g)),
+            "Total SPEC disclosures": int(g["n_results"].sum()),
+            "Median OLS residual %": round(float(g["residual_pct"].median()), 1),
+            "Median GBDT residual %": round(float(g["gbdt_residual_pct"].median()), 1)
+            if "gbdt_residual_pct" in g.columns else None,
+            "Median same-silicon spread %": round(float(g["tuning_spread_pct"].median()), 1)
+            if "tuning_spread_pct" in g.columns else None,
+            "Median Peak vs Base gain %": round(float(peak_valid.median()), 1)
+            if len(peak_valid) > 0 else None,
+        })
+    import pandas as pd
+    comp_df = pd.DataFrame(comp_rows).sort_values("Total SPEC disclosures", ascending=False)
+    show(comp_df, paging=False, showIndex=False, classes="display compact")
+```
+
+## 3. The memory-wall & L3 cache scaling view
+
+Why do large-cache processors (such as AMD `X3D` and high-cache EPYC parts) often command a retail
+price premium on [Fair price](fair-price.qmd) even when pure 3D rendering benchmarks do not reward
+them?
+
+In integer and data-center workloads, packing 64 to 192 cores onto a single socket forces cores to
+compete for memory channels. As core density (`Cores / chip`) rises, **per-core throughput
+(`SPEC base score / total cores`) falls sharply**—unless each core is cushioned by a larger L3
+cache slice (`L3 MB / core`).
+
+```{python}
+if not res.empty and "score_per_core" in res.columns and "l3_mb_per_core" in res.columns:
+    import numpy as np
+    cache_df = res.dropna(subset=["score_per_core", "cores_per_chip", "l3_mb_per_core"]).copy()
+    cache_df["l3_tier"] = np.select(
+        [
+            cache_df["l3_mb_per_core"] < 1.5,
+            cache_df["l3_mb_per_core"] <= 3.0,
+        ],
+        [
+            "Low L3 (< 1.5 MB / core)",
+            "Standard L3 (1.5–3.0 MB / core)",
+        ],
+        default="High L3 (> 3.0 MB / core)",
+    )
+    fig_mem = px.scatter(
+        cache_df,
+        x="cores_per_chip",
+        y="score_per_core",
+        color="l3_tier",
+        symbol="vendor",
+        hover_name="processor",
+        hover_data={
+            "mhz": ":.0f",
+            "l3_mb_per_core": ":.2f",
+            "score_per_core": ":.2f",
+            "score_per_core_ghz": ":.2f",
+            "gbdt_residual_pct": ":.1f",
+            "consensus_verdict": True,
+        },
+        log_x=True,
+        labels={
+            "cores_per_chip": "Cores per chip (log scale)",
+            "score_per_core": "Per-core integer throughput (base score / core)",
+            "l3_tier": "L3 cache cushion",
+            "vendor": "Vendor",
+        },
+    )
+    fig_mem.update_layout(margin=dict(t=20))
+    fig_mem.show()
+```
+
 ## Ranking
 
 ```{python}
 if not res.empty:
-    table = res.assign(
+    base_cols = [
+        "processor",
+        "consensus_verdict",
+        "residual_pct",
+        "structural_residual_pct",
+        "gbdt_residual_pct",
+        "tuning_spread_pct",
+        "peak_gain_pct",
+        "cores_per_chip",
+        "l3_mb_per_core",
+        "score_per_core",
+        "n_results",
+        "n_oems",
+        "median_score",
+        "first_avail",
+        "compiler_family",
+        "config_chips",
+        "config_memory",
+        "config_os",
+        "Disclosure",
+    ]
+    with_link = res.assign(
         Disclosure=[f'<a href="{u}">report</a>' if u else "" for u in res["disclosure_url"]]
-    )[[
-        "processor", "residual_pct", "residual_pct_min", "residual_pct_max", "n_results",
-        "median_score", "first_avail", "config_chips", "config_memory", "config_compiler",
-        "config_os", "config_test_date", "Disclosure",
-    ]].rename(columns={
-        "processor": "Processor", "residual_pct": "Residual %", "residual_pct_min": "Lowest %",
-        "residual_pct_max": "Highest %", "n_results": "Results", "median_score": "Median score",
-        "first_avail": "First available", "config_chips": "Chips tested",
-        "config_memory": "Memory tested", "config_compiler": "Compiler", "config_os": "OS",
-        "config_test_date": "Test date",
+    )
+    present_cols = [c for c in base_cols if c in with_link.columns]
+    table = with_link[present_cols].rename(columns={
+        "processor": "Processor",
+        "consensus_verdict": "Consensus verdict",
+        "residual_pct": "OLS %",
+        "structural_residual_pct": "Structural L1 %",
+        "gbdt_residual_pct": "Nonlinear L1 GBDT %",
+        "tuning_spread_pct": "Tuning spread %",
+        "peak_gain_pct": "Peak gain %",
+        "cores_per_chip": "Cores/chip",
+        "l3_mb_per_core": "L3 MB/core",
+        "score_per_core": "Score/core",
+        "n_results": "Results",
+        "n_oems": "OEMs",
+        "median_score": "Median score",
+        "first_avail": "First available",
+        "compiler_family": "Compiler family",
+        "config_chips": "Chips tested",
+        "config_memory": "Memory tested",
+        "config_os": "OS",
     }).round(1)
-    show(table, paging=True, pageLength=25, order=[[1, "desc"]], showIndex=False,
+    order_col = 2 if "Consensus verdict" in table.columns else 1
+    show(table, paging=True, pageLength=25, order=[[order_col, "desc"]], showIndex=False,
          classes="display compact",
          allow_html=True)
 ```
@@ -76,8 +259,11 @@ if not res.empty:
 ```{python}
 #| output: asis
 if not res.empty:
-    print(f"Residual % is the median over a processor's results. Processors with fewer than "
-          f"{meta['min_results']} published results are not ranked. The configuration shown is "
-          f"that of the result closest to the processor's median.")
+    print(f"OLS %, Structural L1 %, and Nonlinear L1 GBDT % are the median out-of-fold residuals "
+          f"over a processor's results. Tuning spread % is Highest % minus Lowest % across "
+          f"disclosures of the same silicon. Processors with fewer than {meta['min_results']} "
+          f"published results are not ranked. The configuration shown is that of the result "
+          f"closest to the processor's median.")
 print(site.source_note(meta))
 ```
+
