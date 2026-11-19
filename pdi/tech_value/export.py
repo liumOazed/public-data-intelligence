@@ -14,7 +14,7 @@ import pandas as pd
 
 from pdi.common import findings
 from pdi.common.export import write_table
-from pdi.tech_value import config, fair_price, gwpg, model, value
+from pdi.tech_value import catalogue, config, fair_price, gwpg, model, value
 
 M = config.MODULE
 SPEC_LIMITS = [
@@ -348,6 +348,7 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
         return
 
     oof = gwpg.out_of_fold_gpu_residuals(gwpg_df)
+    gwpg_df = gwpg.with_specs(gwpg_df)
     ranking = gwpg.gpu_residual_ranking(oof)
     write_table(
         M,
@@ -398,7 +399,49 @@ def main() -> None:
     export_model(spec)
     export_gpu_model(gwpg_df)
     export_value(blender, value.load_prices())
+    export_catalogue(spec, gwpg_df, blender)
     print(f"exported {M} tables")
+
+
+def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.DataFrame) -> None:
+    """One row per CPU or GPU seen anywhere, with its coverage on each Tech Value page."""
+    from pdi import site
+
+    def table(name: str) -> pd.DataFrame:
+        return site.load(M, name)[0]
+
+    dates = {
+        "spec_cpu2017": _retrieved(spec),
+        "spec_gwpg": _retrieved(gwpg_df),
+        "blender_opendata": _retrieved(blender),
+    }
+    cat = catalogue.build(
+        value=table("value"),
+        fair=table("fair_price"),
+        benchmarks=table("benchmarks"),
+        cpu_rank=table("residuals"),
+        gpu_rank=table("gpu_residuals"),
+        spec=spec,
+        gwpg=gwpg_df,
+        dates=dates,
+    )
+    counts = cat.groupby(["kind", "coverage_status"]).size() if not cat.empty else pd.Series()
+    write_table(
+        M,
+        "catalogue",
+        cat,
+        description="Every CPU and GPU seen in a Blender benchmark, a retail price, a SPEC CPU "
+        "2017 result or a SPEC GWPG disclosure, with the pages that show it and why it is or "
+        "is not ranked on the over- and under-performer page.",
+        sources=["spec_cpu2017", "spec_gwpg", "blender_opendata"],
+        retrieved_at=dates,
+        extra={
+            "status_counts": {f"{k}|{s}": int(n) for (k, s), n in counts.items()},
+            "finding": findings.observation(
+                "Coverage as collected: which products have which measurements."
+            ),
+        },
+    )
 
 
 if __name__ == "__main__":
