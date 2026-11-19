@@ -176,6 +176,7 @@ cpu, cpu_meta = site.load("tech-value", "residuals")
 gpu, gpu_meta = site.load("tech-value", "gpu_residuals")
 cpu_val, cpu_val_meta = site.load("tech-value", "residual_validation")
 gpu_val, gpu_val_meta = site.load("tech-value", "gpu_residual_validation")
+cat, cat_meta = site.load("tech-value", "catalogue")
 DATA = {"cpu": cpu, "gpu": gpu}
 META = {"cpu": cpu_meta, "gpu": gpu_meta}
 VAL = {"cpu": cpu_val, "gpu": gpu_val}
@@ -292,6 +293,19 @@ for kind in ("cpu", "gpu"):
     body = "".join(f'<div class="op-kpi"><strong>{n:,}</strong><span>{label}</span></div>' for n, label in cards)
     html += f'<div class="op-kpis" data-kind="{kind}">{body}</div>'
 html += '<p class="op-note">Agreement between models marks chips worth a closer look. It does not say why a chip differs.</p>'
+for kind in ("cpu", "gpu"):
+    if cat.empty:
+        break
+    c = cat[cat["kind"] == kind]
+    counts = c["coverage_status"].value_counts()
+    parts = " · ".join(f"{n:,} {s.lower()}" for s, n in counts.items())
+    on_pages = c[c["on_value_ranking"] | c["on_fair_price"]]
+    measured_there = int((on_pages["coverage_status"] == "Measured").sum())
+    none_there = int((on_pages["coverage_status"] == "Results not found").sum())
+    html += (f'<p class="op-note" data-kind="{kind}"><b>Coverage of {len(c):,} {NOUN[kind]} in the catalogue:</b> {parts}. '
+             f'Of the {len(on_pages)} {NOUN[kind]} on Value ranking or Fair price, {measured_there} are measured here '
+             f'and {none_there} have no SPEC result, which is common for consumer parts. '
+             'See "Coverage of every product" below for each product and the reason.</p>')
 raw(html)
 ```
 
@@ -921,6 +935,50 @@ if gpu.empty:
 else:
     ranking("gpu")
 ```
+:::
+</details>
+
+<details class="op-detail">
+```{python}
+#| output: asis
+summary("Coverage of every product", f"{len(cat):,} CPUs and GPUs · Status, reason and collection dates")
+```
+::: {.op-detail-body}
+```{python}
+if cat.empty:
+    display(Markdown(site.empty_state(cat_meta, "Hardware catalogue")))
+else:
+    yes = lambda s: s.map({True: "Yes", False: ""})
+    t = cat.assign(
+        Kind=cat["kind"].str.upper(), Value=yes(cat["on_value_ranking"]), Fair=yes(cat["on_fair_price"]),
+        Here=yes(cat["on_residuals"]),
+    )[["Kind", "name", "coverage_status", "reason", "spec_results", "spec_oems", "Value", "Fair", "Here",
+       "price_usd", "price_date", "blender_score", "benchmarks_collected"]].rename(columns={
+        "name": "Product", "coverage_status": "Status", "reason": "Reason", "spec_results": "SPEC results",
+        "spec_oems": "OEMs", "Value": "On Value ranking", "Fair": "On Fair price", "Here": "Ranked here",
+        "price_usd": "Price (USD)", "price_date": "Price date", "blender_score": "Blender score",
+        "benchmarks_collected": "SPEC collected",
+    })
+    t["SPEC collected"] = t["SPEC collected"].astype(str).str[:10]
+    t["Price (USD)"] = t["Price (USD)"].map(lambda v: f"{v:,.0f}" if pd.notna(v) else "")
+    t["Blender score"] = t["Blender score"].map(lambda v: f"{v:,.0f}" if pd.notna(v) else "")
+    t["Price date"] = t["Price date"].fillna("")
+    # Products shown on the other two pages first, so the gaps that matter are at the top.
+    on_pages = (t["On Value ranking"] != "") | (t["On Fair price"] != "")
+    t = pd.concat([t[on_pages], t[~on_pages]])
+    show(t, paging=True, pageLength=25, showIndex=False, classes="display compact",
+         lengthMenu=[25, 100, 2000], maxBytes=0)
+```
+
+**Measured**: ranked here, with at least four results from more than one OEM. **Limited
+evidence**: ranked on fewer results or a single OEM, or below the minimum number of results.
+**Missing specifications**: SPEC results exist but the card is not in the specification table.
+**Parsing failure**: a SPEC row names the product but no score could be read. **Results not
+found**: no SPEC result in the collected suites, either because none is published (missing
+measurements) or because the source does not cover that kind of product (SPEC GWPG is
+workstation submissions, so consumer graphics cards rarely appear). Products on Value ranking or
+Fair price are listed first. CPU specifications come from the SPEC disclosures; GPU specifications
+come from the table in `pdi/tech_value/gwpg.py`.
 :::
 </details>
 

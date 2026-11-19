@@ -135,10 +135,96 @@ GPU_SPECS: dict[str, tuple[int, int, float, int, float, str, int, int]] = {
     "AMD FirePro W4170M": (384, 825, 2.0, 128, 72.0, "GCN 1", 2014, 1),
 }
 
+# Consumer and further workstation cards, so that a SPEC GWPG disclosure for any card that the
+# Value ranking and Fair price pages cover is recognised. Values are the manufacturers' reference
+# specifications (FP32 lanes, boost clock, VRAM, bus width, bandwidth), entered by hand; the
+# coverage table marks every product whose specifications are missing here.
+_MORE_GPU_SPECS: dict[str, tuple[int, int, float, int, float, str, int, int]] = {
+    # NVIDIA GeForce Blackwell (2025)
+    "NVIDIA GeForce RTX 5090": (21760, 2407, 32.0, 512, 1792.0, "Blackwell", 2025, 0),
+    "NVIDIA GeForce RTX 5080": (10752, 2617, 16.0, 256, 960.0, "Blackwell", 2025, 0),
+    "NVIDIA GeForce RTX 5070 Ti": (8960, 2452, 16.0, 256, 896.0, "Blackwell", 2025, 0),
+    "NVIDIA GeForce RTX 5070": (6144, 2512, 12.0, 192, 672.0, "Blackwell", 2025, 0),
+    "NVIDIA GeForce RTX 5060 Ti": (4608, 2572, 16.0, 128, 448.0, "Blackwell", 2025, 0),
+    "NVIDIA GeForce RTX 5060": (3840, 2497, 8.0, 128, 448.0, "Blackwell", 2025, 0),
+    "NVIDIA GeForce RTX 5050": (2560, 2572, 8.0, 128, 320.0, "Blackwell", 2025, 0),
+    "NVIDIA RTX PRO 4500 Blackwell": (10496, 2617, 32.0, 256, 896.0, "Blackwell", 2025, 0),
+    "NVIDIA RTX PRO 4000 Blackwell": (8960, 2617, 24.0, 192, 672.0, "Blackwell", 2025, 0),
+    # NVIDIA GeForce Ada Lovelace (2022-2024)
+    "NVIDIA GeForce RTX 4090": (16384, 2520, 24.0, 384, 1008.0, "Ada Lovelace", 2022, 0),
+    "NVIDIA GeForce RTX 4080 SUPER": (10240, 2550, 16.0, 256, 736.0, "Ada Lovelace", 2024, 0),
+    "NVIDIA GeForce RTX 4070 Ti SUPER": (8448, 2610, 16.0, 256, 672.0, "Ada Lovelace", 2024, 0),
+    "NVIDIA GeForce RTX 4070 SUPER": (7168, 2475, 12.0, 192, 504.0, "Ada Lovelace", 2024, 0),
+    "NVIDIA GeForce RTX 4070": (5888, 2475, 12.0, 192, 504.0, "Ada Lovelace", 2023, 0),
+    "NVIDIA GeForce RTX 4060 Ti": (4352, 2535, 8.0, 128, 288.0, "Ada Lovelace", 2023, 0),
+    "NVIDIA GeForce RTX 4060": (3072, 2460, 8.0, 128, 272.0, "Ada Lovelace", 2023, 0),
+    # NVIDIA GeForce Ampere (2020-2022)
+    "NVIDIA GeForce RTX 3090 Ti": (10752, 1860, 24.0, 384, 1008.0, "Ampere", 2022, 0),
+    "NVIDIA GeForce RTX 3090": (10496, 1695, 24.0, 384, 936.0, "Ampere", 2020, 0),
+    "NVIDIA GeForce RTX 3080 Ti": (10240, 1665, 12.0, 384, 912.0, "Ampere", 2021, 0),
+    "NVIDIA GeForce RTX 3070 Ti": (6144, 1770, 8.0, 256, 608.0, "Ampere", 2021, 0),
+    "NVIDIA GeForce RTX 3070": (5888, 1725, 8.0, 256, 448.0, "Ampere", 2020, 0),
+    "NVIDIA GeForce RTX 3060 Ti": (4864, 1665, 8.0, 256, 448.0, "Ampere", 2020, 0),
+    "NVIDIA GeForce RTX 3060": (3584, 1777, 12.0, 192, 360.0, "Ampere", 2021, 0),
+    "NVIDIA GeForce RTX 3050": (2560, 1777, 8.0, 128, 224.0, "Ampere", 2022, 0),
+    "NVIDIA RTX A400": (768, 1762, 4.0, 64, 96.0, "Ampere", 2024, 0),
+    # NVIDIA GeForce Turing (2018-2019)
+    "NVIDIA GeForce RTX 2080 Ti": (4352, 1545, 11.0, 352, 616.0, "Turing", 2018, 0),
+    "NVIDIA GeForce RTX 2080 SUPER": (3072, 1815, 8.0, 256, 496.0, "Turing", 2019, 0),
+    "NVIDIA GeForce RTX 2070 SUPER": (2560, 1770, 8.0, 256, 448.0, "Turing", 2019, 0),
+    "NVIDIA GeForce RTX 2070": (2304, 1620, 8.0, 256, 448.0, "Turing", 2018, 0),
+    "NVIDIA GeForce RTX 2060 SUPER": (2176, 1650, 8.0, 256, 448.0, "Turing", 2019, 0),
+    "NVIDIA GeForce RTX 2060": (1920, 1680, 6.0, 192, 336.0, "Turing", 2019, 0),
+    # AMD Radeon RDNA 4 / 3 / 2 / 1
+    "AMD Radeon RX 9070 XT": (4096, 2970, 16.0, 256, 640.0, "RDNA 4", 2025, 0),
+    "AMD Radeon RX 9070 GRE": (3072, 2790, 12.0, 192, 432.0, "RDNA 4", 2025, 0),
+    "AMD Radeon RX 9070": (3584, 2520, 16.0, 256, 640.0, "RDNA 4", 2025, 0),
+    "AMD Radeon RX 9060 XT": (2048, 3130, 16.0, 128, 322.0, "RDNA 4", 2025, 0),
+    "AMD Radeon RX 7900 XTX": (6144, 2500, 24.0, 384, 960.0, "RDNA 3", 2022, 0),
+    "AMD Radeon RX 7900 XT": (5376, 2400, 20.0, 320, 800.0, "RDNA 3", 2022, 0),
+    "AMD Radeon RX 7900 GRE": (5120, 2245, 16.0, 256, 576.0, "RDNA 3", 2023, 0),
+    "AMD Radeon RX 7800 XT": (3840, 2430, 16.0, 256, 624.0, "RDNA 3", 2023, 0),
+    "AMD Radeon RX 7700 XT": (3456, 2544, 12.0, 192, 432.0, "RDNA 3", 2023, 0),
+    "AMD Radeon RX 7600 XT": (2048, 2755, 16.0, 128, 288.0, "RDNA 3", 2024, 0),
+    "AMD Radeon RX 7600": (2048, 2655, 8.0, 128, 288.0, "RDNA 3", 2023, 0),
+    "AMD Radeon RX 6950 XT": (5120, 2310, 16.0, 256, 576.0, "RDNA 2", 2022, 0),
+    "AMD Radeon RX 6900 XT": (5120, 2250, 16.0, 256, 512.0, "RDNA 2", 2020, 0),
+    "AMD Radeon RX 6800 XT": (4608, 2250, 16.0, 256, 512.0, "RDNA 2", 2020, 0),
+    "AMD Radeon RX 6800": (3840, 2105, 16.0, 256, 512.0, "RDNA 2", 2020, 0),
+    "AMD Radeon RX 6750 XT": (2560, 2600, 12.0, 192, 432.0, "RDNA 2", 2022, 0),
+    "AMD Radeon RX 6700 XT": (2560, 2581, 12.0, 192, 384.0, "RDNA 2", 2021, 0),
+    "AMD Radeon RX 6650 XT": (2048, 2635, 8.0, 128, 280.0, "RDNA 2", 2022, 0),
+    "AMD Radeon RX 6600 XT": (2048, 2589, 8.0, 128, 256.0, "RDNA 2", 2021, 0),
+    "AMD Radeon RX 6600": (1792, 2491, 8.0, 128, 224.0, "RDNA 2", 2021, 0),
+    "AMD Radeon RX 6500 XT": (1024, 2815, 4.0, 64, 144.0, "RDNA 2", 2022, 0),
+    "AMD Radeon RX 6400": (768, 2321, 4.0, 64, 128.0, "RDNA 2", 2022, 0),
+    "AMD Radeon RX 5700 XT": (2560, 1905, 8.0, 256, 448.0, "RDNA 1", 2019, 0),
+    "AMD Radeon RX 5600 XT": (2304, 1560, 6.0, 192, 288.0, "RDNA 1", 2020, 0),
+    "AMD Radeon RX 5500 XT": (1408, 1845, 8.0, 128, 224.0, "RDNA 1", 2019, 0),
+    # Intel Arc Battlemage / Alchemist
+    "Intel Arc B580": (2560, 2670, 12.0, 192, 456.0, "Battlemage", 2024, 0),
+    "Intel Arc B570": (2304, 2500, 10.0, 160, 380.0, "Battlemage", 2025, 0),
+    "Intel Arc Pro B60": (2560, 2400, 24.0, 192, 456.0, "Battlemage", 2025, 0),
+    "Intel Arc Pro B50": (2048, 2600, 16.0, 128, 224.0, "Battlemage", 2025, 0),
+    "Intel Arc A770": (4096, 2400, 16.0, 256, 560.0, "Alchemist", 2022, 0),
+    "Intel Arc A750": (3584, 2400, 8.0, 256, 512.0, "Alchemist", 2022, 0),
+    "Intel Arc A580": (3072, 2000, 8.0, 256, 512.0, "Alchemist", 2023, 0),
+    "Intel Arc A380": (1024, 2450, 6.0, 96, 186.0, "Alchemist", 2022, 0),
+}
+for _name, _spec in _MORE_GPU_SPECS.items():
+    GPU_SPECS.setdefault(_name, _spec)
+
+
+def gpu_vendor(name: str) -> str:
+    if name.startswith("Intel"):
+        return "Intel"
+    return "NVIDIA" if "NVIDIA" in name else "AMD"
+
+
 _GPU_MATCH_RULES: tuple[tuple[str, str], ...] = (
     (r"(NVIDIA\s+RTX\s+PRO\s+\d+\s*Blackwell)", "NVIDIA RTX PRO"),
     (r"(NVIDIA\s+RTX\s+\d+(?:\s+SFF)?\s+Ada)", "NVIDIA RTX Ada"),
-    (r"(NVIDIA\s+GeForce\s+RTX\s+\d+(?:\s*Ti|\s*SUPER)?)", "NVIDIA GeForce RTX"),
+    (r"(NVIDIA\s+GeForce\s+RTX\s+\d+(?:\s*Ti)?(?:\s*SUPER)?)", "NVIDIA GeForce RTX"),
     (r"(NVIDIA\s+RTX\s+A\d+)", "NVIDIA RTX A"),
     (r"(NVIDIA\s+Quadro\s+RTX\s+\d+)", "NVIDIA Quadro RTX"),
     (r"(NVIDIA\s+Quadro\s+GP100)", "NVIDIA Quadro GP100"),
@@ -147,7 +233,7 @@ _GPU_MATCH_RULES: tuple[tuple[str, str], ...] = (
     (r"(AMD\s+Radeon\s+AI\s+PRO\s+R\d+)", "AMD Radeon AI PRO"),
     (r"(AMD\s+Radeon\s+PRO\s+W\d+X?)", "AMD Radeon PRO W"),
     (r"(AMD\s+Radeon\s+Pro\s+WX\s+\d+)", "AMD Radeon Pro WX"),
-    (r"(AMD\s+Radeon\s+RX\s+\d+\s*(?:XT|XTX)?)", "AMD Radeon RX"),
+    (r"(AMD\s+Radeon\s+RX\s+\d+(?:\s*(?:XTX|XT|GRE))?)", "AMD Radeon RX"),
     (r"(AMD\s+Radeon\s+8\d+S)", "AMD Radeon 8000S"),
     (r"(AMD\s+FirePro\s+W\d+M?)", "AMD FirePro"),
     (r"(Intel\s+Arc\s+(?:Pro\s+)?[AB]\d+)", "Intel Arc"),
@@ -165,7 +251,9 @@ def canon_gpu(raw: str) -> str:
     s = re.sub(r"\s+", " ", str(raw)).strip()
     s = re.sub(r"\(R\)|\(TM\)|®|™", "", s)
     s = re.sub(r"\s+", " ", s).strip()
-    if re.match(r"^(?:Quadro|RTX|GeForce)\b", s, re.I):
+    if re.match(r"^(?:Arc)\b", s, re.I):
+        s = "Intel " + s
+    elif re.match(r"^(?:Quadro|RTX|GeForce)\b", s, re.I):
         s = "NVIDIA " + s
     elif re.match(r"^(?:Radeon|FirePro)\b", s, re.I):
         s = "AMD " + s
@@ -182,6 +270,11 @@ def canon_gpu(raw: str) -> str:
             val = re.sub(r"\s+SFF\s+Ada", " Ada", val, flags=re.I)
             if ("Blackwell" in val or "Ada" in val) and "Laptop" in s:
                 val = val + " Laptop"
+            val = re.sub(r"\bsuper\b", "SUPER", val, flags=re.I)
+            val = re.sub(r"\bti\b", "Ti", val, flags=re.I)
+            val = re.sub(r"\b(xtx|xt|gre)\b", lambda m: m.group(1).upper(), val, flags=re.I)
+            val = re.sub(r"^intel arc", "Intel Arc", val, flags=re.I)
+            val = re.sub(r"\bArc pro\b", "Arc Pro", val, flags=re.I)
             return _CANON_REMAP.get(val, val)
     return _CANON_REMAP.get(s[:45], s[:45])
 
@@ -368,6 +461,22 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
                     if 0.1 < val < 5000:
                         num_scores.append((k, val))
             if not num_scores:
+                # A row with a GPU but no readable score is a parsing failure, kept for the audit.
+                if gpu_raw.strip():
+                    canon = canon_gpu(gpu_raw)
+                    rows_out.append(
+                        {
+                            "suite": suite,
+                            "suite_base": suite.replace(" Linux", ""),
+                            "oem": str(vendor_oem).strip(),
+                            "system": str(sys_raw).strip(),
+                            "gpu_raw": gpu_raw.strip(),
+                            "processor": canon,
+                            "vendor": gpu_vendor(canon),
+                            "spec_status": "unparsed",
+                            "disclosure_url": full_link,
+                        }
+                    )
                 continue
 
             geomean_score = float(np.exp(np.mean(np.log([s[1] for s in num_scores]))))
@@ -377,6 +486,22 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
 
             gpu_canon = canon_gpu(gpu_raw)
             if gpu_canon not in GPU_SPECS:
+                # Kept, not dropped: the coverage table lists it as missing specifications.
+                rows_out.append(
+                    {
+                        "suite": suite,
+                        "suite_base": suite.replace(" Linux", ""),
+                        "oem": vendor_oem.strip(),
+                        "system": sys_raw.strip(),
+                        "gpu_raw": gpu_raw.strip(),
+                        "processor": gpu_canon,
+                        "vendor": gpu_vendor(gpu_canon),
+                        "spec_status": "missing",
+                        "n_viewsets": int(len(num_scores)),
+                        "composite_score": geomean_score,
+                        "disclosure_url": full_link,
+                    }
+                )
                 continue
             (
                 shaders,
@@ -388,7 +513,6 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
                 rel_year,
                 is_mobile,
             ) = GPU_SPECS[gpu_canon]
-            gpu_vendor = "NVIDIA" if "NVIDIA" in gpu_canon else "AMD"
 
             is_4k = (
                 "3840" in res_raw
@@ -411,7 +535,8 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
                     "cpu": cpu_raw.strip(),
                     "gpu_raw": gpu_raw.strip(),
                     "processor": gpu_canon,
-                    "vendor": gpu_vendor,
+                    "vendor": gpu_vendor(gpu_canon),
+                    "spec_status": "ok",
                     "family": arch,
                     "release_year": int(rel_year),
                     "is_mobile": int(is_mobile),
@@ -445,7 +570,14 @@ def parse(bundle: dict[str, dict[str, str]]) -> pd.DataFrame:
         raise ValueError("No SPEC GWPG GPU rows were parsed from the HTML bundle.")
     if retrieved_at:
         df["retrieved_at"] = retrieved_at
-    return df.sort_values(["release_year", "processor", "composite_score"]).reset_index(drop=True)
+    return df.sort_values(["processor", "composite_score"]).reset_index(drop=True)
+
+
+def with_specs(df: pd.DataFrame) -> pd.DataFrame:
+    """Rows whose GPU has specifications; older tables have no spec_status column."""
+    if "spec_status" not in df.columns:
+        return df
+    return df[df["spec_status"] == "ok"].reset_index(drop=True)
 
 
 def transform() -> pd.DataFrame:
@@ -573,6 +705,7 @@ def _classify_gpu_consensus(
 def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
     """Leave-one-GPU-out residuals for OLS, Structural L1, and GBDT: every disclosure is scored
     by models refitted without any disclosure of its GPU."""
+    df = with_specs(df)
     prepared = prepare_gpu(df) if "log_score_adj" not in df.columns else df.copy()
     gkf = LeaveOneGroupOut()
 

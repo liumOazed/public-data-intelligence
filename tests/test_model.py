@@ -198,3 +198,51 @@ def test_residual_evidence_helpers():
     assert flags["c"] == "Cores above training range"
     assert flags["a"] == "Cores below training range"
     assert flags["b"] == ""
+
+
+def test_catalogue_status_and_reasons():
+    from pdi.tech_value import catalogue
+
+    value = pd.DataFrame(
+        [
+            {"kind": "gpu", "model_key": "nvidia rtx 4060", "price_usd": 300.0},
+            {"kind": "cpu", "model_key": "amd ryzen 9 7950x", "price_usd": 500.0},
+        ]
+    )
+    fair = value[["kind", "model_key"]]
+    bench = pd.DataFrame([{"kind": "gpu", "model_key": "nvidia rtx 4060", "median_score": 3000.0}])
+    spec = pd.DataFrame(
+        {"processor": ["AMD Ryzen 9 7950X"] * 2, "hardware_vendor": ["ASUS", "ASUS"]}
+    )
+    gw = pd.DataFrame(
+        [
+            {"processor": "NVIDIA RTX A2000", "oem": "HP", "spec_status": "ok"},
+            {"processor": "NVIDIA Quadro X9", "oem": "HP", "spec_status": "missing"},
+        ]
+    )
+    rank = pd.DataFrame(
+        [{"processor": "NVIDIA RTX A2000", "residual_pct": 3.0, "consensus_verdict": "x"}]
+    )
+    cat = catalogue.build(
+        value=value,
+        fair=fair,
+        benchmarks=bench,
+        cpu_rank=pd.DataFrame(columns=rank.columns),
+        gpu_rank=rank,
+        spec=spec,
+        gwpg=gw,
+        dates={},
+    ).set_index("model_key")
+    assert cat.loc["nvidia rtx 4060", "coverage_status"] == catalogue.NOT_FOUND
+    assert cat.loc["nvidia rtx 4060", "reason"].startswith("Unsupported source")
+    assert cat.loc["amd ryzen 9 7950x", "coverage_status"] == catalogue.LIMITED
+    assert cat.loc["nvidia rtx a2000", "coverage_status"] == catalogue.LIMITED  # one OEM
+    assert cat.loc["nvidia quadro x9", "coverage_status"] == catalogue.MISSING_SPECS
+    assert bool(cat.loc["nvidia rtx 4060", "on_value_ranking"])
+
+
+def test_gwpg_recognises_consumer_cards():
+    assert gwpg.canon_gpu("NVIDIA GeForce RTX 4060") in gwpg.GPU_SPECS
+    assert gwpg.canon_gpu("GeForce RTX 4070 Ti Super") == "NVIDIA GeForce RTX 4070 Ti SUPER"
+    assert gwpg.canon_gpu("Radeon RX 7900 XTX") == "AMD Radeon RX 7900 XTX"
+    assert gwpg.gpu_vendor(gwpg.canon_gpu("Arc A770")) == "Intel"
