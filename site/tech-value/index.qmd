@@ -112,6 +112,7 @@ def html(fragment: str) -> None:
 
 
 js = Path("value-dashboard.js").read_text()
+pick_js = Path("tv-pick.js").read_text()
 data = json.dumps(dashboard.payload(bench, value, history)).replace("</", "<\\/")
 plotly_src = f"https://cdn.plot.ly/plotly-{plotly.offline.get_plotlyjs_version()}.min.js"
 ```
@@ -160,6 +161,7 @@ html(f"""
   <label class="vd-field"><span class="vd-label">Selected model</span><select id="vd-select"></select></label>
   <div id="vd-details" class="vd-details"></div>
 </div>
+<div class="tv-pick-panel" hidden></div>
 </div>
 """)
 ```
@@ -294,6 +296,7 @@ html(f"""
 <script>window.__vdDefine = window.define; window.define = undefined;</script>
 <script src="{plotly_src}" charset="utf-8"></script>
 <script>window.define = window.__vdDefine;</script>
+<script>{pick_js}</script>
 <script>{js}</script>
 """)
 ```
