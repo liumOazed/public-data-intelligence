@@ -14,7 +14,7 @@ import pandas as pd
 
 from pdi.common import findings
 from pdi.common.export import write_table
-from pdi.tech_value import config, fair_price, model, value
+from pdi.tech_value import config, fair_price, gwpg, model, value
 
 M = config.MODULE
 SPEC_LIMITS = [
@@ -27,6 +27,19 @@ SPEC_LIMITS = [
     "SPEC, SPEC CPU and SPECrate are registered trademarks of the Standard Performance "
     "Evaluation Corporation. The licensee behind each result is named in its SPEC disclosure, "
     "linked from every row.",
+]
+GWPG_LIMITS = [
+    "SPEC GWPG results (SPECviewperf 15/2020/13/12.1, SPECworkstation 4.0/3.1/3.0, and "
+    "SPECapc Maya/Solidworks/Creo/3ds Max) are submitted by workstation OEMs (Dell, HP, "
+    "Lenovo, Fujitsu, MIFCOM) and GPU vendors.",
+    "Because SPEC GWPG spans multiple benchmark generations and resolutions (1080p vs 4K), "
+    "each suite-resolution cohort is calibrated onto the SPECviewperf 2020 v3 FHD/QHD scale "
+    "against physical hardware throughput before out-of-fold residuals are computed.",
+    "Predicted scores and residuals are this site's estimates derived from SPEC GWPG disclosures. "
+    "They are not official SPEC metrics.",
+    "SPEC, SPECviewperf, SPECworkstation, and SPECapc are trademarks or registered trademarks "
+    "of the Standard Performance Evaluation Corporation. Every row links to its official SPEC "
+    "disclosure.",
 ]
 PRICE_LIMITS = [
     "Prices are listing prices at the retailers named, not transaction prices. Coverage is "
@@ -297,12 +310,48 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
     )
 
 
+def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
+    got = {"spec_gwpg": _retrieved(gwpg_df)}
+    common = dict(sources=["spec_gwpg"], retrieved_at=got, limitations=GWPG_LIMITS)
+    if gwpg_df.empty:
+        note = {"status": "SPEC GWPG GPU results have not been collected yet."}
+        write_table(
+            M, "gpu_residuals", pd.DataFrame(), description=note["status"], extra=note, **common
+        )
+        return
+
+    oof = gwpg.out_of_fold_gpu_residuals(gwpg_df)
+    ranking = gwpg.gpu_residual_ranking(oof)
+    write_table(
+        M,
+        "gpu_residuals",
+        ranking,
+        description="Per GPU: median out-of-fold residual across SPEC GWPG disclosures "
+        "(SPECviewperf, SPECworkstation, SPECapc), with multi-model consensus and OEM workstation "
+        "tuning spread.",
+        extra={
+            "min_results": config.GWPG_MIN_RESULTS_FOR_RANK,
+            "n_disclosures": int(len(gwpg_df)),
+            "n_suites": int(gwpg_df["suite"].nunique()),
+            "finding": findings.explanation(
+                "A GPU residual is the part of a graphics card's SPEC GWPG workstation score its "
+                "shader count, boost clock, VRAM capacity, and memory bandwidth do not account "
+                "for. It separates true architectural standouts from entry-shader linearity "
+                "artifacts and memory-bandwidth bottlenecks."
+            ),
+        },
+        **common,
+    )
+
+
 def main() -> None:
     spec = pd.read_parquet(config.SPEC_TABLE) if config.SPEC_TABLE.exists() else pd.DataFrame()
+    gwpg_df = pd.read_parquet(config.GWPG_TABLE) if config.GWPG_TABLE.exists() else pd.DataFrame()
     blender = (
         pd.read_parquet(config.BLENDER_TABLE) if config.BLENDER_TABLE.exists() else pd.DataFrame()
     )
     export_model(spec)
+    export_gpu_model(gwpg_df)
     export_value(blender, value.load_prices())
     print(f"exported {M} tables")
 

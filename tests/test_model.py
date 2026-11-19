@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from pdi.tech_value import model
+from pdi.tech_value import gwpg, model
 
 
 def test_periods_follow_time_and_never_split_a_processor(spec_signal):
@@ -122,3 +122,56 @@ def test_coefficients_recover_the_generating_process(spec_signal):
     assert abs(coef.loc["log_cores", "coefficient"] - 0.9) < 0.05
     assert abs(coef.loc["vintage_years", "coefficient"] - 0.06) < 0.01
     assert isinstance(coef, pd.DataFrame)
+
+
+def test_gwpg_gpu_canonicalization_and_ranking():
+    assert gwpg.canon_gpu("1x NVIDIA RTX PRO 6000 Blackwell Workstation Edition") == (
+        "NVIDIA RTX PRO 6000 Blackwell"
+    )
+    assert gwpg.canon_gpu("1x NVIDIA RTX PRO 5000 Blackwell Generation Laptop GPU") == (
+        "NVIDIA RTX PRO 5000 Blackwell Laptop"
+    )
+    assert gwpg.canon_gpu("NVIDIA RTX 4000 SFF Ada Generation") == "NVIDIA RTX 4000 Ada"
+    assert gwpg.canon_gpu("AMD FirePro WX5100") == "AMD Radeon Pro WX 5100"
+
+    sample_html = """
+    <table>
+      <tr><th>Submitter</th><th>System</th><th>GPU</th><th>Resolution</th><th>maya-06</th><th>snx-04</th></tr>
+      <tr><td>Dell</td><td>Precision 1</td><td>NVIDIA RTX 6000 Ada</td><td>1920x1080</td><td>180.0</td><td>220.0</td></tr>
+      <tr><td>HP</td><td>Z6 G5</td><td>NVIDIA RTX 6000 Ada</td><td>1920x1080</td><td>175.0</td><td>210.0</td></tr>
+      <tr><td>Dell</td><td>Precision 2</td><td>NVIDIA RTX 5000 Ada</td><td>1920x1080</td><td>140.0</td><td>170.0</td></tr>
+      <tr><td>Lenovo</td><td>P3 Tower</td><td>NVIDIA RTX 5000 Ada</td><td>1920x1080</td><td>145.0</td><td>175.0</td></tr>
+      <tr><td>HP</td><td>Z2 Tower</td><td>NVIDIA RTX 4000 Ada</td><td>1920x1080</td><td>90.0</td><td>110.0</td></tr>
+      <tr><td>Dell</td><td>Precision 3</td><td>NVIDIA RTX 4000 Ada</td><td>1920x1080</td><td>88.0</td><td>105.0</td></tr>
+      <tr><td>MIFCOM</td><td>Workstation 1</td><td>AMD Radeon AI PRO R9700</td><td>1920x1080</td><td>135.0</td><td>160.0</td></tr>
+      <tr><td>MIFCOM</td><td>Workstation 2</td><td>AMD Radeon AI PRO R9700</td><td>1920x1080</td><td>138.0</td><td>164.0</td></tr>
+      <tr><td>HP</td><td>Z4 G4</td><td>NVIDIA RTX A6000</td><td>1920x1080</td><td>130.0</td><td>155.0</td></tr>
+      <tr><td>Dell</td><td>Precision 4</td><td>NVIDIA RTX A6000</td><td>1920x1080</td><td>132.0</td><td>158.0</td></tr>
+      <tr><td>HP</td><td>Z2 G9</td><td>NVIDIA RTX A4000</td><td>1920x1080</td><td>85.0</td><td>98.0</td></tr>
+      <tr><td>Lenovo</td><td>P520</td><td>NVIDIA RTX A4000</td><td>1920x1080</td><td>83.0</td><td>96.0</td></tr>
+    </table>
+    """
+    df = gwpg.parse(
+        {
+            "SPECviewperf 2020 v3": {
+                "url": "https://www.spec.org/gwpg/gpc.data/viewperf2020v3/summary.html",
+                "html": sample_html,
+                "retrieved_at": "2026-04-19T10:00:00Z",
+            }
+        }
+    )
+    assert len(df) == 12
+    oof = gwpg.out_of_fold_gpu_residuals(df)
+    ranking = gwpg.gpu_residual_ranking(oof, min_results=2)
+    assert len(ranking) == 6
+    assert {"NVIDIA", "AMD"} == set(ranking["vendor"])
+    assert {
+        "residual_pct",
+        "structural_residual_pct",
+        "gbdt_residual_pct",
+        "consensus_verdict",
+        "tuning_spread_pct",
+        "peak_gain_pct",
+        "bandwidth_gbps",
+        "vram_gb",
+    } <= set(ranking.columns)

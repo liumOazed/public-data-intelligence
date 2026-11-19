@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coefficients",
   "description": "Plain regression fitted on all results. Features are in logs, so a coefficient on log_cores is an elasticity.",
-  "generated_at": "2026-11-19T01:35:11+00:00",
+  "generated_at": "2026-11-19T10:01:03+00:00",
   "rows": 10,
   "columns": [
    "term",
@@ -41,44 +41,44 @@
   {
    "term": "const",
    "coefficient": -3.682085206851628,
-   "std_error": 0.05490560805431974,
+   "std_error": 0.05490560805431973,
    "p_value": 0.0
   },
   {
    "term": "log_cores",
    "coefficient": 0.9479868591485335,
-   "std_error": 0.0019457840297290238,
+   "std_error": 0.0019457840297290234,
    "p_value": 0.0
   },
   {
    "term": "log_mhz",
    "coefficient": 0.6162898114290722,
-   "std_error": 0.006737441755450987,
+   "std_error": 0.0067374417554509885,
    "p_value": 0.0
   },
   {
    "term": "log_chips",
    "coefficient": 0.04025976776526609,
-   "std_error": 0.0036712186001000664,
-   "p_value": 7.290789348622681e-28
+   "std_error": 0.0036712186001000647,
+   "p_value": 7.290789348622276e-28
   },
   {
    "term": "smt",
    "coefficient": 0.3592907409248498,
-   "std_error": 0.005427330045560418,
+   "std_error": 0.005427330045560422,
    "p_value": 0.0
   },
   {
    "term": "log1p_l2_mb_per_core",
    "coefficient": 0.26001023752319696,
-   "std_error": 0.009060978483460356,
-   "p_value": 8.638131585262827e-176
+   "std_error": 0.009060978483460354,
+   "p_value": 8.6381315852616e-176
   },
   {
    "term": "log1p_l3_mb_per_core",
    "coefficient": 0.08393134581674577,
-   "std_error": 0.0032505391565698784,
-   "p_value": 1.6497010817351252e-143
+   "std_error": 0.003250539156569879,
+   "p_value": 1.649701081735337e-143
   },
   {
    "term": "vintage_years",
@@ -89,14 +89,14 @@
   {
    "term": "vendor_AMD",
    "coefficient": 0.04277679085768904,
-   "std_error": 0.005268436274406953,
-   "p_value": 5.090403115503697e-16
+   "std_error": 0.005268436274406952,
+   "p_value": 5.090403115503592e-16
   },
   {
    "term": "vendor_Other",
    "coefficient": -0.43369799829996436,
-   "std_error": 0.020753887728129094,
-   "p_value": 1.888151564474273e-95
+   "std_error": 0.02075388772812909,
+   "p_value": 1.8881515644740762e-95
   }
  ]
 }
