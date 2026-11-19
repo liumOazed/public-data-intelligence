@@ -17,10 +17,11 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from joblib import Parallel, delayed
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.linear_model import HuberRegressor
-from sklearn.model_selection import GroupKFold
+from sklearn.model_selection import LeaveOneGroupOut
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import SplineTransformer, StandardScaler
 
@@ -358,10 +359,21 @@ def evaluate(df: pd.DataFrame, automl: dict | None = None) -> Evaluation:
 # --- residual ranking ------------------------------------------------------------------------
 
 
-def out_of_fold_residuals(df: pd.DataFrame) -> pd.DataFrame:
-    """Out-of-fold predictions for every result from models that never saw its processor.
+def _predict_held_out(out: pd.DataFrame, train_idx, test_idx) -> tuple:
+    tr, te = out.iloc[train_idx], out.iloc[test_idx]
+    return (
+        test_idx,
+        Plain.fit(tr).predict(te),
+        _fit_predict_structural(tr, te),
+        _fit_predict_gbdt(tr, te),
+    )
 
-    Computes three out-of-fold reference curves across GroupKFold splits by processor:
+
+def out_of_fold_residuals(df: pd.DataFrame, n_jobs: int = -1) -> pd.DataFrame:
+    """Leave-one-processor-out predictions: every result is scored by models that never saw
+    any result for its processor.
+
+    Computes three held-out reference curves, refitting all three once per processor:
       1. Plain OLS (`predicted_log` / `residual_log`) — constant-elasticity linear specification
       2. L1 Structural Spline (`structural_pred_log` / `structural_residual_log`) — diminishing
          returns on core density plus L3 cache and SMT interactions
@@ -374,19 +386,14 @@ def out_of_fold_residuals(df: pd.DataFrame) -> pd.DataFrame:
         out["smt_x_log_cpc"] = out["smt"] * out["log_cores_per_chip"]
         out["vintage_x_log_cpc"] = out["vintage_years"] * out["log_cores_per_chip"]
         out["vintage_sq"] = out["vintage_years"] ** 2
-    out["predicted_log"] = np.nan
-    out["structural_pred_log"] = np.nan
-    out["gbdt_pred_log"] = np.nan
-    n_groups = out["processor"].nunique()
-    folds = GroupKFold(n_splits=min(config.N_RESIDUAL_FOLDS, n_groups))
-    for train_idx, test_idx in folds.split(out, groups=out["processor"]):
-        tr, te = out.iloc[train_idx], out.iloc[test_idx]
-        plain = Plain.fit(tr)
-        out.iloc[test_idx, out.columns.get_loc("predicted_log")] = plain.predict(te)
-        out.iloc[test_idx, out.columns.get_loc("structural_pred_log")] = _fit_predict_structural(
-            tr, te
-        )
-        out.iloc[test_idx, out.columns.get_loc("gbdt_pred_log")] = _fit_predict_gbdt(tr, te)
+    cols = ["predicted_log", "structural_pred_log", "gbdt_pred_log"]
+    for c in cols:
+        out[c] = np.nan
+    splits = LeaveOneGroupOut().split(out, groups=out["processor"])
+    held_out = Parallel(n_jobs=n_jobs)(delayed(_predict_held_out)(out, tr, te) for tr, te in splits)
+    for test_idx, *preds in held_out:
+        for c, pred in zip(cols, preds, strict=True):
+            out.iloc[test_idx, out.columns.get_loc(c)] = pred
     out["residual_log"] = out[TARGET] - out["predicted_log"]
     out["structural_residual_log"] = out[TARGET] - out["structural_pred_log"]
     out["gbdt_residual_log"] = out[TARGET] - out["gbdt_pred_log"]

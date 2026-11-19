@@ -1,13 +1,152 @@
 ---
-title: "Tech Value: over- and under-performers"
-subtitle: "Processors and GPUs whose published SPEC benchmark score differs from what their specifications predict"
+title: "Tech Value: Over & under performers"
+page-layout: full
+toc: false
 ---
 
+<style>
+#title-block-header { display:none }
+body {
+  --op-ink:#14233a; --op-muted:#4d5d70; --op-line:#dbe3ea; --op-surface:#ffffff;
+  --op-teal:#0f8f6c; --op-accent:#3fd4a0;
+  --op-standout:#18b47b; --op-sensitive:#f0b23e; --op-near:#c4cad1; --op-bottleneck:#d9707a;
+  --op-k1-bg:#eaf6f6; --op-k1-line:#bfe0df; --op-k2-bg:#e6f7ef; --op-k2-line:#a9e3cb;
+  --op-k3-bg:#fdf3e1; --op-k3-line:#f1d48f; --op-k4-bg:#fbeaea; --op-k4-line:#efc4c4;
+  --op-k3-ink:#8a4b08; --op-k4-ink:#7a1f24; --op-callout:#dcf5ea; --op-warn:#b45309;
+}
+body.quarto-dark {
+  --op-ink:#e8eef5; --op-muted:#a9b6c5; --op-line:#33414f; --op-surface:#1b2530;
+  --op-teal:#3fd4a0; --op-near:#5d6773;
+  --op-k1-bg:#132a2c; --op-k1-line:#22494b; --op-k2-bg:#14302a; --op-k2-line:#245647;
+  --op-k3-bg:#33290f; --op-k3-line:#5c4818; --op-k4-bg:#3a1d20; --op-k4-line:#5e2f33;
+  --op-k3-ink:#f2c46d; --op-k4-ink:#f0a3a8; --op-callout:#18392f; --op-warn:#f2b23a;
+}
+main.content { max-width:1200px; width:100%; margin:auto; color:var(--op-ink); font-family:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif }
+main.content p { margin-bottom:0 }
+.op-ico { width:1.2em; height:1.2em; flex:none; vertical-align:-.2em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+
+/* Section links */
+.op-subnav { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 0; margin:4px 0 12px; font-size:.95rem }
+.op-subnav a { padding:4px 18px; color:var(--op-ink); text-decoration:none; border-left:1px solid var(--op-line) }
+.op-subnav a:first-child { border-left:0 }
+.op-subnav a[aria-current="page"] { font-weight:700; color:var(--op-teal); text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:8px }
+
+/* Hero */
+.op-hero { border-radius:14px; padding:clamp(18px,3vw,30px) clamp(16px,3vw,32px); color:#e9f3f1;
+  background:radial-gradient(ellipse at 85% 20%, rgba(63,212,160,.18), transparent 55%), linear-gradient(120deg,#0a2f33,#0e4a45 55%,#0a2b31) }
+.op-hero .op-kicker { color:var(--op-accent); font-weight:700; font-size:clamp(1.05rem,2vw,1.35rem) }
+.op-hero h1 { margin:.25rem 0 .55rem; padding:0; border:0; color:#fff; font-size:clamp(1.5rem,3.4vw,2.35rem); font-weight:800; letter-spacing:-.015em; line-height:1.15 }
+.op-hero p { color:#d5e6e3; line-height:1.5; max-width:78ch }
+.op-hero-row { display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:18px }
+.op-toggle { display:inline-flex; padding:3px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:rgba(0,0,0,.18) }
+.op-toggle button { border:0; border-radius:999px; padding:7px 32px; background:transparent; color:#e9f3f1; font:inherit; font-weight:700; cursor:pointer }
+.op-toggle button[aria-pressed="true"] { background:#d3f5e5; color:#0b2f35 }
+.op-hero-meta { padding-left:20px; border-left:1px solid rgba(255,255,255,.3); color:#d5e6e3; font-size:.93rem }
+
+/* KPI cards */
+.op-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:18px 0 8px }
+.op-kpi { padding:16px 20px; border-radius:12px; border:1px solid }
+.op-kpi strong { display:block; font-size:clamp(1.8rem,3.4vw,2.4rem); font-weight:800; line-height:1.1; color:var(--op-ink) }
+.op-kpi span { display:block; margin-top:4px; font-size:.98rem; line-height:1.3 }
+.op-kpi:nth-child(1) { background:var(--op-k1-bg); border-color:var(--op-k1-line) }
+.op-kpi:nth-child(2) { background:var(--op-k2-bg); border-color:var(--op-k2-line) }
+.op-kpi:nth-child(3) { background:var(--op-k3-bg); border-color:var(--op-k3-line) }
+.op-kpi:nth-child(3) strong { color:var(--op-k3-ink) }
+.op-kpi:nth-child(4) { background:var(--op-k4-bg); border-color:var(--op-k4-line) }
+.op-kpi:nth-child(4) strong { color:var(--op-k4-ink) }
+.op-note { color:var(--op-muted); font-size:.9rem; margin:0 2px 18px }
+
+/* Cards */
+.op-card { border:1px solid var(--op-line); border-radius:14px; background:var(--op-surface); padding:clamp(14px,2.2vw,22px); margin-bottom:16px; min-width:0 }
+.op-card h2 { margin:0 0 .3rem; padding:0; border:0; font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:800; color:var(--op-ink) }
+.op-card .op-lede { color:var(--op-ink); line-height:1.45 }
+.op-card .op-lede + .op-lede { color:var(--op-muted) }
+.op-card .op-foot { color:var(--op-muted); font-size:.82rem; font-style:italic; margin-top:4px }
+.op-scatter-grid { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:0 20px; margin-top:8px }
+.op-legend { border-left:1px solid var(--op-line); padding:8px 0 8px 18px; font-size:.86rem }
+.op-legend ul { list-style:none; margin:0; padding:0 }
+.op-legend li { display:flex; gap:10px; margin:0 0 14px; line-height:1.3 }
+.op-legend li b { display:block; font-size:.98rem }
+.op-legend small { display:block; color:var(--op-muted); font-size:.8rem }
+.op-dot { width:14px; height:14px; border-radius:50%; flex:none; margin-top:3px }
+.op-legend hr { border:0; border-top:1px solid var(--op-line); margin:6px 0 12px; opacity:1 }
+.op-legend .op-callout { margin-top:14px; padding:10px 14px; border-radius:8px; background:var(--op-callout); font-weight:700; line-height:1.35 }
+
+/* Selected chip */
+.op-pick { display:flex; flex-wrap:wrap; align-items:stretch; gap:10px; margin-top:12px }
+.op-pick-name { display:flex; align-items:center; padding:10px 16px; border-radius:10px; background:var(--op-callout); font-size:clamp(1.05rem,2vw,1.35rem); font-weight:800 }
+.op-pick-vals { flex:1 1 520px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.6fr); border:1px solid var(--op-line); border-radius:10px }
+.op-pick-vals > div { padding:8px 16px; min-width:0 }
+.op-pick-vals > div + div { border-left:1px solid var(--op-line) }
+.op-pick-vals span { display:block; font-size:.85rem; color:var(--op-muted) }
+.op-pick-vals strong { display:block; font-size:1.35rem; font-weight:800; color:var(--op-teal) }
+.op-pick-vals strong.op-neg { color:var(--op-bottleneck) }
+.op-pick-vals .op-cov { font-size:.9rem }
+.op-pick-vals .op-cov b { font-weight:600 }
+.op-pick-vals .op-warn { display:block; color:var(--op-warn); font-size:.82rem; font-weight:600 }
+.op-pick-vals .op-cls { display:block; font-size:.82rem; color:var(--op-muted) }
+.op-pick label { display:flex; flex-direction:column; justify-content:center; font-size:.82rem; color:var(--op-muted) }
+.op-pick select { max-width:260px; padding:6px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.88rem }
+
+/* Two charts side by side */
+.op-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px }
+.op-keys { display:flex; flex-wrap:wrap; gap:6px 16px; padding-top:10px; border-top:1px solid var(--op-line); font-size:.8rem }
+.op-keys span { display:inline-flex; align-items:center; gap:6px }
+.op-shape { width:11px; height:11px; border:1.6px solid var(--op-ink); flex:none }
+.op-shape.circle { border-radius:50% }
+.op-shape.diamond { transform:rotate(45deg) scale(.85) }
+
+/* Evidence */
+.op-evidence h2 { margin:26px 2px 12px; padding:0; border:0; font-size:clamp(1.3rem,2.6vw,1.75rem); font-weight:800; color:var(--op-ink) }
+details.op-detail { border:1px solid var(--op-line); border-radius:10px; background:var(--op-surface); margin:10px 0; overflow-x:auto }
+.op-detail summary { display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr) 20px; align-items:center; gap:16px; padding:12px 20px; cursor:pointer; list-style:none; color:var(--op-ink) }
+.op-detail summary::-webkit-details-marker { display:none }
+.op-detail summary b { font-size:1.05rem }
+.op-detail summary span { padding-left:16px; border-left:1px solid var(--op-line); color:var(--op-muted); font-size:.9rem }
+.op-detail summary .op-chev { width:20px; height:20px; transition:transform .15s }
+.op-detail[open] summary .op-chev { transform:rotate(180deg) }
+.op-detail-body { padding:4px 20px 18px }
+.op-detail-body p { margin-bottom:.8rem !important; line-height:1.55 }
+.op-detail-body h3 { font-size:1.05rem; font-weight:700; margin:1rem 0 .5rem; border:0 }
+.op-closing { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 20px; margin-top:22px; padding-top:12px; border-top:1px solid var(--op-line); color:var(--op-muted); font-size:.85rem; font-style:italic }
+
+/* CPU / GPU switch */
+body:not(.op-gpu) main.content [data-kind="gpu"], body.op-gpu main.content [data-kind="cpu"] { display:none !important }
+
+/* Quarto turns page-full divs into column grids; keep these blocks as plain boxes. */
+main.content .op-cat { grid-column:page-start / page-end !important }
+main.content .op-card.page-columns, main.content .op-cat.page-columns, main.content .op-plot.page-columns { display:block !important }
+main.content .op-pair.page-columns { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important }
+main.content .op-scatter-grid.page-columns { display:grid !important; grid-template-columns:minmax(0,1fr) 260px !important }
+main.content .op-cat .page-columns > *, main.content .op-cat.page-columns > * { grid-column:auto !important; min-width:0 }
+
+@media (max-width: 900px) {
+  .op-kpis { grid-template-columns:repeat(2,1fr) }
+  main.content .op-pair, main.content .op-scatter-grid, main.content .op-pair.page-columns, main.content .op-scatter-grid.page-columns { grid-template-columns:minmax(0,1fr) !important }
+  .op-legend { border-left:0; border-top:1px solid var(--op-line); padding:14px 0 0 }
+  .op-legend ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px }
+  .op-hero-meta { border-left:0; padding-left:0 }
+  .op-detail summary { grid-template-columns:minmax(0,1fr) 20px }
+  .op-detail summary span { display:none }
+}
+@media (max-width: 560px) {
+  .op-pick-vals { grid-template-columns:repeat(3,minmax(0,1fr)) }
+  .op-pick-vals > div:nth-child(4) { grid-column:1 / -1; border-left:0; border-top:1px solid var(--op-line) }
+  .op-pick-vals > div { padding:8px 10px }
+  .op-pick-vals strong { font-size:1.1rem }
+  .op-toggle button { padding:7px 24px }
+  .op-subnav a { padding:4px 10px }
+}
+</style>
+
 ```{python}
+import json
+from html import escape
+
 import numpy as np
 import pandas as pd
-import plotly.express as px
-from IPython.display import HTML, Markdown
+import plotly.graph_objects as go
+from IPython.display import Markdown, display
 from itables import init_notebook_mode, show
 
 from pdi import site
@@ -15,584 +154,686 @@ from pdi import site
 # Bundle the table script into the page instead of loading it from a CDN.
 init_notebook_mode(connected=False)
 
-res, meta = site.load("tech-value", "residuals")
-verdict = meta.get("verdict") or {}
+cpu, cpu_meta = site.load("tech-value", "residuals")
+gpu, gpu_meta = site.load("tech-value", "gpu_residuals")
+DATA = {"cpu": cpu, "gpu": gpu}
+META = {"cpu": cpu_meta, "gpu": gpu_meta}
+NOUN = {"cpu": "CPUs", "gpu": "GPUs"}
 
-gpu_res, gpu_meta = site.load("tech-value", "gpu_residuals")
+# The pipeline's consensus verdicts, grouped into the four classes this page shows.
+CLASS_OF = {
+    "True architectural standout": "standout",
+    "Small-core linearity artifact": "sensitive",
+    "Linearity / regime artifact": "sensitive",
+    "Entry-shader linearity artifact": "sensitive",
+    "Memory / scaling bottleneck": "bottleneck",
+}
+CLASSES = {
+    "standout": ("Standout candidate", "Higher than expected across models.", "#18b47b"),
+    "sensitive": ("Model-sensitive", "Larger change between models.", "#f0b23e"),
+    "near": ("Near expected", "Close to model predictions.", "#c4cad1"),
+    "bottleneck": ("Scaling bottleneck", "Lower than expected, suggests scaling or configuration limits.", "#d9707a"),
+}
+FONT = dict(family="Inter, Segoe UI, system-ui, sans-serif", color="#8391a1", size=12)
+AXIS = dict(showgrid=False, showline=True, linecolor="#8391a1", ticks="outside", zeroline=False)
+
+for kind, df in DATA.items():
+    if not df.empty:
+        df["cls"] = df["consensus_verdict"].map(CLASS_OF).fillna("near")
+
+
+def coverage_limited(r) -> bool:
+    """Few disclosures, or every one from a single OEM: one configuration can carry the result."""
+    return int(r["n_oems"]) <= 1 or int(r["n_results"]) < 4
+
+
+def count(kind, cls):
+    df = DATA[kind]
+    return int((df["cls"] == cls).sum()) if not df.empty else 0
+
+
+ICON = {
+    "chev": '<path d="M6 9l6 6 6-6"/>',
+    "warn": '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
+}
+
+
+def icon(name, cls=""):
+    return f'<svg class="op-ico {cls}" viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg>'
 ```
-
-For every **CPU** (with enough published **SPEC CPU 2017** disclosures) and every **GPU**
-(with enough published **SPEC GWPG** workstation disclosures across **SPECviewperf**, **SPECworkstation**,
-and **SPECapc**), this page compares its measured benchmark score with the score predicted from its
-hardware specifications. Every prediction comes from an out-of-fold fit that never saw that chip.
-
-**How this page complements [Value ranking](index.qmd) and [Fair price](fair-price.qmd):**
-
-* **[Value ranking](index.qmd)** measures *today's sticker bang-for-buck* (`Blender score / lowest retail price`).
-* **[Fair price](fair-price.qmd)** detects *market pricing wind* (retailer discounts, cross-seller dispersion, and distance to the Pareto frontier).
-* **Over- and under-performers (this page)** separates *true silicon engineering* from *model linearity artifacts, OEM/compiler/driver software tuning, and the memory-bandwidth wall*.
-
-**Use the flip switch below to toggle the entire analysis between CPUs (Intel & AMD) and GPUs (NVIDIA & AMD):**
 
 ```{=html}
-<style>
-.hw-flip-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1.1rem 0 1.4rem 0;
-  padding: 0.65rem 1rem;
-  background: #f8fafc;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-}
-.hw-flip-label {
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #334155;
-}
-.hw-flip-group {
-  display: inline-flex;
-  background: #e2e8f0;
-  padding: 4px;
-  border-radius: 8px;
-  gap: 4px;
-}
-.hw-flip-btn {
-  border: none;
-  background: transparent;
-  color: #475569;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.45rem 1.05rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.hw-flip-btn:hover {
-  color: #0f172a;
-}
-.hw-flip-btn.active {
-  background: #0f172a;
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
-}
-.hw-mode-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 0.1rem 0.45rem;
-  border-radius: 4px;
-  margin-left: 0.4rem;
-  background: rgba(255, 255, 255, 0.18);
-}
-</style>
-
-<div class="hw-flip-bar">
-  <span class="hw-flip-label">Hardware benchmark mode:</span>
-  <div class="hw-flip-group" role="tablist" aria-label="CPU vs GPU flip switch">
-    <button type="button" id="btn-flip-cpu" class="hw-flip-btn active" onclick="switchHardwareMode('cpu')">
-      CPU · SPEC CPU 2017 <span class="hw-mode-badge">Intel &amp; AMD</span>
-    </button>
-    <button type="button" id="btn-flip-gpu" class="hw-flip-btn" onclick="switchHardwareMode('gpu')">
-      GPU · SPEC GWPG <span class="hw-mode-badge">NVIDIA &amp; AMD</span>
-    </button>
+<nav class="op-subnav" aria-label="Tech Value pages">
+  <a href="index.html">Value ranking</a>
+  <a href="fair-price.html">Fair price</a>
+  <a href="residuals.html" aria-current="page">Over &amp; under performers</a>
+</nav>
+<header class="op-hero">
+  <div class="op-kicker">Tech Value: Over &amp; under performers</div>
+  <h1>Which chips outperform their specifications?</h1>
+  <p>Compare measured SPEC benchmark scores with predictions from hardware specifications.
+  Each chip is evaluated using models trained without that chip.</p>
+  <div class="op-hero-row">
+    <div class="op-toggle" role="group" aria-label="Chip type">
+      <button type="button" data-tab="cpu" aria-pressed="true">CPU</button>
+      <button type="button" data-tab="gpu" aria-pressed="false">GPU</button>
+    </div>
+    <div class="op-hero-meta">
+      <span data-kind="cpu">SPEC CPU 2017 · SPECrate Integer base · Server-heavy submissions</span>
+      <span data-kind="gpu">SPEC GWPG · SPECviewperf, SPECworkstation, SPECapc · Workstation submissions</span>
+    </div>
   </div>
+</header>
+```
+
+```{python}
+#| output: asis
+for kind in ("cpu", "gpu"):
+    if DATA[kind].empty:
+        continue
+    cards = [
+        (len(DATA[kind]), f"Ranked {NOUN[kind]}"),
+        (count(kind, "standout"), "Standout candidates"),
+        (count(kind, "sensitive"), "Model-sensitive results"),
+        (count(kind, "bottleneck"), "Scaling bottlenecks"),
+    ]
+    body = "".join(f'<div class="op-kpi"><strong>{n:,}</strong><span>{label}</span></div>' for n, label in cards)
+    print(f'<div class="op-kpis" data-kind="{kind}">{body}</div>')
+print('<p class="op-note">Model agreement highlights candidates for closer investigation.</p>')
+```
+
+```{python}
+def pct_ticks(lim):
+    step = 20 if lim <= 100 else 40
+    vals = list(range(-int(lim // step) * step, int(lim // step) * step + 1, step))
+    return vals, [f"{v:+d}%" if v else "0%" for v in vals]
+
+
+def scatter(kind):
+    df = DATA[kind]
+    lim = max(80, float(np.ceil(df[["residual_pct", "gbdt_residual_pct"]].abs().max().max() / 10) * 10))
+    fig = go.Figure()
+    fig.add_shape(type="rect", x0=0, y0=0, x1=lim, y1=lim, fillcolor="rgba(24,180,123,0.09)", line_width=0, layer="below")
+    fig.add_hline(y=0, line=dict(color="#55606c", width=1.2))
+    fig.add_vline(x=0, line=dict(color="#55606c", width=1.2))
+    hover = ("<b>%{customdata[0]}</b><br>%{customdata[1]}<br>OLS %{x:+.1f}% · Structural %{customdata[2]:+.1f}%"
+             " · Nonlinear %{y:+.1f}%<br>%{customdata[3]} disclosures · %{customdata[4]} OEM(s)<extra></extra>")
+    for cls in ("near", "sensitive", "bottleneck", "standout"):
+        part = df[df["cls"] == cls]
+        if part.empty:
+            continue
+        name, _, color = CLASSES[cls]
+        custom = np.stack([part["processor"], [name] * len(part), part["structural_residual_pct"],
+                           part["n_results"], part["n_oems"]], axis=-1)
+        fig.add_scatter(
+            x=part["residual_pct"], y=part["gbdt_residual_pct"], mode="markers", name=f"cls:{cls}",
+            marker=dict(size=6 if cls == "near" else 8, color=color, opacity=0.75 if cls == "near" else 0.95,
+                        line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
+            customdata=custom, hovertemplate=hover, showlegend=False,
+        )
+    fig.add_scatter(x=[None], y=[None], mode="markers", name="selected", hoverinfo="skip", showlegend=False,
+                    marker=dict(size=17, color="rgba(24,180,123,0.2)", line=dict(width=2.4, color="#0f8f6c")))
+    vals, text = pct_ticks(lim)
+    fig.update_layout(
+        height=430, font=FONT, margin=dict(t=10, r=10, b=50, l=70),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Score above / below OLS prediction (%)"),
+        yaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Score above / below nonlinear prediction (%)"),
+        hoverlabel=dict(bgcolor="white", font_color="#14233a"), dragmode=False,
+    )
+    fig.show(config={"displayModeBar": False, "responsive": True})
+
+
+def raw(html):
+    """Emit HTML as a raw block so pandoc does not re-parse it as markdown."""
+    print(f"\n```{{=html}}\n{html}\n```\n")
+
+
+def legend(kind):
+    items = "".join(
+        f'<li><span class="op-dot" style="background:{c}"></span><span><b>{n}</b><small>{d}</small></span></li>'
+        for n, d, c in CLASSES.values()
+    )
+    raw(f'<aside class="op-legend"><ul>{items}</ul><hr><small>Classification also uses the structural model.</small>'
+          '<div class="op-callout">Positive residual = measured score above model prediction.</div></aside>')
+
+
+def pick(kind):
+    df = DATA[kind]
+    rows = [dict(name=r.processor, ols=round(r.residual_pct, 1), st=round(r.structural_residual_pct, 1),
+                 nl=round(r.gbdt_residual_pct, 1), n=int(r.n_results), oems=int(r.n_oems),
+                 cls=CLASSES[r.cls][0], limited=coverage_limited(r._asdict()))
+            for r in df.itertuples()]
+    standouts = df[df["cls"] == "standout"]
+    default = (standouts if len(standouts) else df).sort_values("gbdt_residual_pct").iloc[-1]["processor"]
+    opts = "".join(f'<option{" selected" if d["name"] == default else ""}>{escape(d["name"])}</option>'
+                   for d in sorted(rows, key=lambda d: d["name"]))
+    print(f"""```{{=html}}
+<div class="op-pick" data-chips="{escape(json.dumps(rows), quote=True)}">
+<div class="op-pick-name" data-f="name"></div>
+<div class="op-pick-vals">
+<div><span>OLS</span><strong data-f="ols"></strong></div>
+<div><span>Structural</span><strong data-f="st"></strong></div>
+<div><span>Nonlinear</span><strong data-f="nl"></strong></div>
+<div class="op-cov"><b data-f="cov"></b><span class="op-cls" data-f="cls"></span><span class="op-warn" data-f="warn">{icon("warn")} Limited configuration coverage</span></div>
 </div>
+<label>Inspect a chip<select aria-label="Inspect a chip">{opts}</select></label>
+</div>
+```""")
+
+
+def head(title, *ledes):
+    raw(f"<h2>{title}</h2>" + "".join(f'<p class="op-lede">{t}</p>' for t in ledes))
+```
+
+```{python}
+SHORT_GROUP = {
+    "Intel oneAPI (LLVM)": "Intel oneAPI",
+    "Oracle / Vendor Studio": "Oracle Studio",
+    "SPECviewperf 15 (DX12 / Vulkan / OpenGL)": "SPECviewperf 15",
+    "SPECviewperf 2020 (OpenGL / DX12)": "SPECviewperf 2020",
+    "SPECviewperf 12.1 / 13 (Legacy OpenGL)": "SPECviewperf 12.1 / 13",
+    "SPECworkstation (Full System + GPU)": "SPECworkstation",
+    "SPECapc (Maya / Solidworks / Creo / 3ds Max)": "SPECapc",
+}
+
+
+def group_table(kind):
+    df = DATA[kind]
+    g = df.groupby("compiler_family").agg(
+        chips=("processor", "size"), disclosures=("n_results", "sum"),
+        spread=("tuning_spread_pct", "median"), ols=("residual_pct", "median"),
+        nonlinear=("gbdt_residual_pct", "median"),
+    ).reset_index()
+    return g.sort_values("disclosures", ascending=False)
+
+
+def spread_chart(kind):
+    g = group_table(kind)
+    g = g[g["chips"] >= 1].sort_values("disclosures")
+    labels = [f"{SHORT_GROUP.get(f, f)} <span style='font-size:10px'>({c})</span>" for f, c in zip(g["compiler_family"], g["chips"])]
+    fig = go.Figure()
+    for y, v in zip(labels, g["spread"]):
+        fig.add_shape(type="line", x0=0, x1=v, y0=y, y1=y, line=dict(color="#8391a1", width=1.5))
+    fig.add_scatter(
+        x=g["spread"], y=labels, mode="markers+text", text=[f"{v:.1f}%" for v in g["spread"]],
+        textposition="middle right", textfont=dict(color="#8391a1", size=12),
+        marker=dict(size=13, color="#18b47b", line=dict(width=1, color="white")),
+        customdata=np.stack([g["chips"], g["disclosures"]], axis=-1),
+        hovertemplate="%{y}<br>Median spread %{x:.1f} pts<br>%{customdata[0]} chips · %{customdata[1]} disclosures<extra></extra>",
+        showlegend=False,
+    )
+    hi = float(np.ceil((g["spread"].max() * 1.25) / 5) * 5)
+    fig.update_layout(
+        height=max(240, 60 + 46 * len(g)), font=FONT, margin=dict(t=6, r=12, b=50, l=10),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(**AXIS, range=[0, hi], ticksuffix="%", title="Median same-chip residual spread (percentage points)"),
+        yaxis=dict(showgrid=False, showline=False, ticks="", automargin=True),
+        hoverlabel=dict(bgcolor="white", font_color="#14233a"), dragmode=False,
+    )
+    fig.show(config={"displayModeBar": False, "responsive": True})
+
+
+TIERS = {
+    "cpu": ("l3_mb_per_core", [1.5, 3.0], ["Low L3", "Standard L3", "High L3"]),
+    "gpu": ("bandwidth_gbps", [200, 500], ["Low bandwidth", "Standard bandwidth", "High bandwidth"]),
+}
+TIER_COLORS = ["#d9707a", "#f0b23e", "#18b47b"]
+SYMBOLS = {"Intel": "circle", "AMD": "diamond", "NVIDIA": "circle", "Other": "square"}
+
+
+def scaling_chart(kind):
+    df = DATA[kind].dropna(subset=["cores_per_chip", "score_per_core"]).copy()
+    col, cuts, names = TIERS[kind]
+    df["tier"] = np.digitize(df[col].fillna(df[col].median()), cuts)
+    fig = go.Figure()
+    unit = "MB L3 / core" if kind == "cpu" else "GB/s"
+    for t, name in enumerate(names):
+        for vendor, symbol in SYMBOLS.items():
+            part = df[(df["tier"] == t) & (df["vendor"] == vendor)]
+            if part.empty:
+                continue
+            fig.add_scatter(
+                x=part["cores_per_chip"], y=part["score_per_core"], mode="markers", showlegend=False,
+                marker=dict(size=7, symbol=symbol, color=TIER_COLORS[t], opacity=0.85, line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
+                customdata=np.stack([part["processor"], part[col], part["residual_pct"]], axis=-1),
+                hovertemplate=f"<b>%{{customdata[0]}}</b><br>%{{x:,.0f}} {'cores' if kind == 'cpu' else 'shaders'} · "
+                              f"%{{y:.1f}} per {'core' if kind == 'cpu' else '1,000 shaders'}<br>%{{customdata[1]:.1f}} {unit} · "
+                              "OLS %{customdata[2]:+.1f}%<extra></extra>",
+            )
+    lo, hi = df["cores_per_chip"].min(), df["cores_per_chip"].max()
+    xt = [2 ** e for e in range(0, 16) if lo / 1.5 <= 2 ** e <= hi * 1.5]
+    if kind == "gpu":
+        xt = [v for v in (500, 1000, 2000, 5000, 10000, 20000) if lo / 1.5 <= v <= hi * 1.5]
+    ylo, yhi = df["score_per_core"].min(), df["score_per_core"].max()
+    yt = [m * 10 ** e for e in range(-1, 4) for m in (1, 2, 5) if ylo / 1.3 <= m * 10 ** e <= yhi * 1.3]
+    fig.update_layout(
+        height=330, font=FONT, margin=dict(t=6, r=10, b=50, l=64),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(**AXIS, type="log", tickvals=xt, ticktext=[f"{v:,}" for v in xt],
+                   title="Cores per chip (log scale)" if kind == "cpu" else "Shaders per GPU (log scale)"),
+        yaxis=dict(**AXIS, type="log", tickvals=yt, ticktext=[f"{v:g}" for v in yt],
+                   title="Base score per core" if kind == "cpu" else "Score per 1,000 shaders"),
+        hoverlabel=dict(bgcolor="white", font_color="#14233a"), dragmode=False,
+    )
+    fig.show(config={"displayModeBar": False, "responsive": True})
+
+
+def scaling_keys(kind):
+    _, cuts, names = TIERS[kind]
+    unit = "MB/core" if kind == "cpu" else "GB/s"
+    bounds = [f"&lt; {cuts[0]:g} {unit}", f"{cuts[0]:g}–{cuts[1]:g}", f"&gt; {cuts[1]:g}"]
+    tiers = "".join(f'<span title="{b}"><span class="op-dot" style="background:{c};margin:0"></span>{n}</span>'
+                    for n, b, c in zip(names, bounds, TIER_COLORS))
+    vendors = ["Intel", "AMD", "Other"] if kind == "cpu" else ["NVIDIA", "AMD"]
+    shapes = "".join(f'<span><span class="op-shape {SYMBOLS[v]}"></span>{v}</span>' for v in vendors)
+    raw(f'<div class="op-keys">{tiers}{shapes}</div>')
+```
+
+```{python}
+#| output: asis
+for kind in ("cpu", "gpu"):
+    if DATA[kind].empty:
+        print(f'<div data-kind="{kind}">')
+        print(site.empty_state(META[kind], f"{NOUN[kind]} residuals"))
+        print("</div>")
+```
+
+::::::: {.op-cat data-kind="cpu"}
+
+:::::: {.op-card}
+
+```{python}
+#| output: asis
+head("Does the result survive a different model?",
+     "Compare the simple regression with the nonlinear model.",
+     "Hover a chip to see all three estimates and its disclosure coverage, or click it to pin it below.")
+```
+
+::::: {.op-scatter-grid}
+
+:::: {.op-plot}
+```{python}
+if not cpu.empty:
+    scatter("cpu")
+```
+::::
+
+```{python}
+#| output: asis
+if not cpu.empty:
+    legend("cpu")
+```
+
+:::::
+
+```{python}
+#| output: asis
+if not cpu.empty:
+    pick("cpu")
+```
+
+::::::
+
+:::::: {.op-pair}
+
+:::: {.op-card}
+```{python}
+#| output: asis
+head("How much does the platform change?",
+     "The same processor can post different scores across systems and compilers. Each bar is the "
+     "median, over the chips in a group, of the gap between a chip's best and worst result.")
+```
+```{python}
+if not cpu.empty:
+    spread_chart("cpu")
+```
+```{python}
+#| output: asis
+print('<p class="op-foot">Chips are grouped by the compiler of their typical submission (chip count in brackets). '
+      'Groups differ in hardware and submission mix.</p>')
+```
+::::
+
+:::: {.op-card}
+```{python}
+#| output: asis
+head("Where does scaling slow down?",
+     "Compare throughput per core as core count increases. Color shows L3 cache per core; marker shape shows vendor.")
+```
+```{python}
+if not cpu.empty:
+    scaling_chart("cpu")
+```
+```{python}
+#| output: asis
+if not cpu.empty:
+    scaling_keys("cpu")
+```
+::::
+
+::::::
+
+:::::::
+
+::::::: {.op-cat data-kind="gpu"}
+
+:::::: {.op-card}
+
+```{python}
+#| output: asis
+head("Does the result survive a different model?",
+     "Compare the simple regression with the nonlinear model.",
+     "Hover a card to see all three estimates and its disclosure coverage, or click it to pin it below.")
+```
+
+::::: {.op-scatter-grid}
+
+:::: {.op-plot}
+```{python}
+if not gpu.empty:
+    scatter("gpu")
+```
+::::
+
+```{python}
+#| output: asis
+if not gpu.empty:
+    legend("gpu")
+```
+
+:::::
+
+```{python}
+#| output: asis
+if not gpu.empty:
+    pick("gpu")
+```
+
+::::::
+
+:::::: {.op-pair}
+
+:::: {.op-card}
+```{python}
+#| output: asis
+head("How much does the platform change?",
+     "The same graphics card can post different scores across workstations and benchmark suites. Each bar is "
+     "the median, over the cards in a group, of the gap between a card's best and worst result.")
+```
+```{python}
+if not gpu.empty:
+    spread_chart("gpu")
+```
+```{python}
+#| output: asis
+print('<p class="op-foot">Cards are grouped by the suite of their typical submission (card count in brackets). '
+      'Groups differ in hardware and submission mix.</p>')
+```
+::::
+
+:::: {.op-card}
+```{python}
+#| output: asis
+head("Where does scaling slow down?",
+     "Compare throughput per shader as shader count increases. Color shows memory bandwidth; marker shape shows vendor.")
+```
+```{python}
+if not gpu.empty:
+    scaling_chart("gpu")
+```
+```{python}
+#| output: asis
+if not gpu.empty:
+    scaling_keys("gpu")
+```
+::::
+
+::::::
+
+:::::::
+
+```{python}
+LABELS = {
+    "processor": "Chip", "class": "Classification", "residual_pct": "OLS %",
+    "structural_residual_pct": "Structural %", "gbdt_residual_pct": "Nonlinear %",
+    "tuning_spread_pct": "Same-chip spread (pts)", "n_results": "Disclosures", "n_oems": "OEMs",
+    "cores_per_chip": "Cores/chip", "l3_mb_per_core": "L3 MB/core", "score_per_core": "Score/core",
+    "median_score": "Median score", "first_avail": "First available", "compiler_family": "Compiler",
+    "config_memory": "Memory tested", "config_system": "System", "Disclosure": "Disclosure",
+    "vram_gb": "VRAM GB", "bandwidth_gbps": "Bandwidth GB/s",
+}
+
+
+def ranking(kind):
+    df = DATA[kind]
+    table = df.assign(
+        **{"class": df["cls"].map(lambda c: CLASSES[c][0]),
+           "Disclosure": [f'<a href="{u}">report</a>' if u else "" for u in df["disclosure_url"]]}
+    )
+    cols = ["processor", "class", "residual_pct", "structural_residual_pct", "gbdt_residual_pct",
+            "tuning_spread_pct", "n_results", "n_oems", "cores_per_chip"]
+    cols += (["l3_mb_per_core", "score_per_core", "compiler_family", "config_memory"] if kind == "cpu"
+             else ["vram_gb", "bandwidth_gbps", "compiler_family", "config_system"])
+    cols += ["first_avail", "Disclosure"]
+    table = table[cols].rename(columns=LABELS).rename(columns={"Cores/chip": "Cores/chip" if kind == "cpu" else "Shaders",
+                                                              "Compiler": "Compiler" if kind == "cpu" else "Suite"})
+    show(table.round(1), paging=True, pageLength=25, order=[[2, "desc"]], showIndex=False,
+         classes="display compact", allow_html=True)
+
+
+def breakdown(kind):
+    g = group_table(kind).rename(columns={
+        "compiler_family": "Compiler" if kind == "cpu" else "Suite", "chips": NOUN[kind],
+        "disclosures": "Disclosures", "spread": "Median same-chip spread (pts)",
+        "ols": "Median OLS %", "nonlinear": "Median nonlinear %",
+    })
+    show(g.round(1), paging=False, showIndex=False, classes="display compact")
+
+
+def summary(title, note):
+    print(f"<summary><b>{title}</b><span>{note}</span>{icon('chev', 'op-chev')}</summary>")
+```
+
+```{=html}
+<div class="op-evidence"><h2>Explore the evidence</h2></div>
+```
+
+<details class="op-detail">
+```{python}
+#| output: asis
+summary("Full CPU ranking", f"{len(cpu):,} processors · Search, sort and disclosures")
+```
+::: {.op-detail-body}
+```{python}
+if cpu.empty:
+    display(Markdown(site.empty_state(cpu_meta, "CPU ranking")))
+else:
+    ranking("cpu")
+```
+:::
+</details>
+
+<details class="op-detail">
+```{python}
+#| output: asis
+summary("Full GPU ranking", f"{len(gpu):,} graphics cards · Search, sort and disclosures")
+```
+::: {.op-detail-body}
+```{python}
+if gpu.empty:
+    display(Markdown(site.empty_state(gpu_meta, "GPU ranking")))
+else:
+    ranking("gpu")
+```
+:::
+</details>
+
+<details class="op-detail">
+```{python}
+#| output: asis
+summary("Compiler &amp; workstation breakdowns", "Group medians and submission counts")
+```
+::: {.op-detail-body}
+
+### CPUs by compiler
+
+```{python}
+if not cpu.empty:
+    breakdown("cpu")
+```
+
+### GPUs by benchmark suite
+
+```{python}
+if not gpu.empty:
+    breakdown("gpu")
+```
+
+A chip's **same-chip spread** is the gap, in percentage points, between its best and worst
+result after the model's prediction is taken out. Each chip is placed in the group of its typical
+submission (the result closest to its median), so a group's median says how much platform and
+software move scores for chips that usually ship that way. The groups differ in which chips they
+hold, so they are not a ranking of compilers or suites.
+:::
+</details>
+
+<details class="op-detail">
+```{python}
+#| output: asis
+summary("Models, definitions &amp; limitations", "OLS · Structural L1 · Nonlinear GBDT")
+```
+::: {.op-detail-body}
+
+**Leave one chip out.** Every chip is scored by three models refitted without any result for
+that chip, so a chip never helps predict itself. A chip's residual is the median over its
+results of how far the measured score sits above (positive) or below (negative) the prediction.
+CPUs need at least `{python} cpu_meta.get("min_results", 3)` published results to be ranked,
+GPUs at least `{python} gpu_meta.get("min_results", 2)`.
+
+**The three models.**
+
+* **OLS** is a plain regression in logs on cores, clock, chips, SMT, L2 and L3 cache per core,
+  vintage and vendor (for GPUs: shaders, boost clock, VRAM, memory bandwidth, mobile form factor
+  and vendor).
+* **Structural L1** is a robust (Huber or median) regression that adds diminishing returns on
+  core or shader count and cache-by-density and bandwidth interactions.
+* **Nonlinear GBDT** is a gradient-boosted tree model with median loss over the same
+  specifications.
+
+**Classes.** A *standout candidate* is above all three predictions (CPUs: OLS +10% or more,
+structural and nonlinear +8% or more, and the OLS and nonlinear results within 25 points).
+A *scaling bottleneck* is below all three (CPUs: −10%, −8%, −8%). A *model-sensitive* result
+looks high on the straight-line OLS but much smaller once nonlinear scaling is allowed for
+(CPUs: OLS +12% or more with the nonlinear result under +8% or 18 points lower); most are
+small-core chips. GPU thresholds are similar and use the structural model to catch entry-level
+cards. Everything else is *near expected*.
+
+**Disclosure coverage.** A chip with fewer than four results, or with every result from one OEM,
+is marked *limited configuration coverage*: one system or compiler choice can carry its
+residual.
+
+```{python}
+#| output: asis
+v = cpu_meta.get("verdict") or {}
+if v:
+    print(f"**Does the CPU model carry signal at all?** {v['statement']} See "
+          "[Model and leaderboard](model.qmd).\n")
+```
+
+**Limitations.** A residual flags unexplained performance; it is not a quality score.
+Architecture, memory configuration, compiler, BIOS settings and model fit all contribute, and
+vendors choose which configurations to submit. The spread and scaling charts describe the
+submitted results and do not separate these causes. GPU results span several SPEC GWPG suites and
+resolutions, which are put on one scale before the models are fitted.
+
+```{python}
+#| output: asis
+print(site.finding_line(cpu_meta.get("finding")))
+for m in (cpu_meta, gpu_meta):
+    for line in m.get("limitations", []):
+        print(f"* {line}")
+    print()
+    print(site.source_note(m))
+    print()
+```
+:::
+</details>
+
+```{=html}
+<div class="op-closing"><span>Residuals flag unexplained performance. Architecture, configuration and model fit can all contribute.</span>
+<span>Predicted scores and residuals are this site's estimates, not SPEC metrics.</span></div>
+```
+
 
 <script>
-function switchHardwareMode(mode) {
-  var cpuPanel = document.getElementById("hw-panel-cpu");
-  var gpuPanel = document.getElementById("hw-panel-gpu");
-  var cpuBtn = document.getElementById("btn-flip-cpu");
-  var gpuBtn = document.getElementById("btn-flip-gpu");
-  if (!cpuPanel || !gpuPanel) return;
-  if (mode === "gpu") {
-    cpuPanel.style.display = "none";
-    gpuPanel.style.display = "block";
-    cpuBtn.classList.remove("active");
-    gpuBtn.classList.add("active");
-  } else {
-    gpuPanel.style.display = "none";
-    cpuPanel.style.display = "block";
-    gpuBtn.classList.remove("active");
-    cpuBtn.classList.add("active");
-  }
-  window.setTimeout(function() {
-    window.dispatchEvent(new Event("resize"));
-  }, 50);
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const signed = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}%`;
+  const graphOf = cat => cat.querySelector(".op-plot .js-plotly-plot");
+  document.querySelectorAll(".op-cat").forEach(cat => {
+    const pick = cat.querySelector(".op-pick");
+    if (!pick) return;
+    const chips = JSON.parse(pick.dataset.chips);
+    const select = pick.querySelector("select");
+    const field = f => pick.querySelector(`[data-f="${f}"]`);
+    const update = () => {
+      const c = chips.find(d => d.name === select.value) || chips[0];
+      field("name").textContent = c.name;
+      for (const k of ["ols", "st", "nl"]) {
+        field(k).textContent = signed(c[k]);
+        field(k).classList.toggle("op-neg", c[k] < 0);
+      }
+      field("cov").textContent = `${c.n} disclosure${c.n === 1 ? "" : "s"} · ${c.oems} OEM${c.oems === 1 ? "" : "s"}`;
+      field("cls").textContent = c.cls;
+      field("warn").style.display = c.limited ? "block" : "none";
+      const g = graphOf(cat);
+      if (!g || !window.Plotly) return;
+      const idx = g.data.findIndex(t => t.name === "selected");
+      if (idx >= 0) Plotly.restyle(g, { x: [[c.ols]], y: [[c.nl]] }, [idx]);
+    };
+    select.addEventListener("change", update);
+    cat._opUpdate = update;
+    const g = graphOf(cat);
+    if (g?.on) g.on("plotly_click", ev => {
+      const name = ev.points?.[0]?.customdata?.[0];
+      if (name && [...select.options].some(o => o.text === name)) { select.value = name; update(); }
+    });
+  });
+  // Phone width: thin the tick labels and shorten axis titles so nothing is clipped.
+  const SHORT = {
+    "Score above / below OLS prediction (%)": "Above / below OLS (%)",
+    "Score above / below nonlinear prediction (%)": "Above / below nonlinear (%)",
+    "Median same-chip residual spread (percentage points)": "Median spread (pts)",
+  };
+  const fitPhone = g => {
+    if (!g || !window.Plotly || g._opPhone || g.offsetWidth === 0 || g.offsetWidth >= 600) return;
+    g._opPhone = true;
+    const upd = { "margin.l": Math.min(g.layout.margin.l, 56) };
+    for (const ax of ["xaxis", "yaxis"]) {
+      const a = g.layout[ax], t = a.title?.text;
+      if (SHORT[t]) upd[`${ax}.title.text`] = SHORT[t];
+      if (a.tickvals && a.ticktext && a.tickvals.length > 7) {
+        upd[`${ax}.tickvals`] = a.tickvals.filter((_, i) => i % 2 === 0);
+        upd[`${ax}.ticktext`] = a.ticktext.filter((_, i) => i % 2 === 0);
+      }
+    }
+    Plotly.relayout(g, upd);
+  };
+  const show = kind => {
+    document.body.classList.toggle("op-gpu", kind === "gpu");
+    document.querySelectorAll(".op-toggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
+    document.querySelectorAll(`.op-cat[data-kind="${kind}"]`).forEach(cat => {
+      cat.querySelectorAll(".js-plotly-plot").forEach(g => { if (window.Plotly) { Plotly.Plots.resize(g); fitPhone(g); } });
+      cat._opUpdate?.();
+    });
+  };
+  document.querySelectorAll(".op-toggle button").forEach(b => b.addEventListener("click", () => {
+    show(b.dataset.tab);
+    try { history.replaceState(null, "", b.dataset.tab === "gpu" ? "#gpu" : location.pathname + location.search); } catch (e) {}
+  }));
+  show(location.hash === "#gpu" ? "gpu" : "cpu");
+  const settle = () => show(document.body.classList.contains("op-gpu") ? "gpu" : "cpu");
+  setTimeout(settle, 300);
+  window.addEventListener("load", settle);
+});
 </script>
-```
-
-::: {#hw-panel-cpu}
-
-```{python}
-#| output: asis
-if verdict:
-    print(f'::: {{.verdict}}\n**Does the CPU model carry signal?** {verdict["statement"]} '
-          f'See [Model and leaderboard](model.qmd).\n:::')
-print(site.finding_line(meta.get("finding")))
-```
-
-## 1. Multi-model CPU residual consensus: true standouts vs. linearity artifacts
-
-A single constant-elasticity OLS line assumes that doubling core count from 4 to 8 scales
-throughput at the exact same rate as doubling from 96 to 192. Because 4-core and 6-core chips
-suffer almost no memory-bus contention, a single straight line across 4 to 192 cores
-underpredicts small-core chips and makes entry-level 4-core Xeons look like +40% "super-chips."
-
-To separate genuine silicon jumps from straight-line artifacts, every processor is scored out-of-fold
-against three reference curves:
-
-1. **Plain OLS (`OLS %`):** Readable constant-elasticity linear regression in logs.
-2. **L1 Structural Spline (`Structural L1 %`):** Huber/L1 spline curve allowing diminishing returns on core density (`cores / chip`) plus cache-by-density and SMT interactions.
-3. **Nonlinear L1 GBDT (`Nonlinear L1 GBDT %`):** Gradient Boosted Decision Trees trained with median (`L1`) loss that partition core-density regimes directly.
-
-```{python}
-#| output: asis
-if not res.empty and "consensus_verdict" in res.columns:
-    counts = res["consensus_verdict"].value_counts()
-    n_standout = int(counts.get("True architectural standout", 0))
-    n_small_art = int(counts.get("Small-core linearity artifact", 0))
-    n_regime_art = int(counts.get("Linearity / regime artifact", 0))
-    n_bottleneck = int(counts.get("Memory / scaling bottleneck", 0))
-    print(
-        f"Across **{len(res)}** ranked CPUs: "
-        f"**{n_standout}** are **True architectural standouts** (beating linear, structural spline, "
-        f"and nonlinear GBDT curves alike), "
-        f"**{n_small_art + n_regime_art}** are **Linearity / regime artifacts** "
-        f"({n_small_art} small-core chips whose +20% to +43% OLS residual vanishes once nonlinear "
-        f"core scaling is accounted for), and "
-        f"**{n_bottleneck}** face a **Memory / scaling bottleneck** across all three models."
-    )
-```
-
-```{python}
-if res.empty:
-    display(Markdown(site.empty_state(meta, "Residual ranking")))
-elif "gbdt_residual_pct" in res.columns:
-    fig = px.scatter(
-        res,
-        x="residual_pct",
-        y="gbdt_residual_pct",
-        color="consensus_verdict",
-        hover_name="processor",
-        hover_data={
-            "cores_per_chip": True,
-            "n_results": True,
-            "median_score": ":.0f",
-            "residual_pct": ":.1f",
-            "structural_residual_pct": ":.1f",
-            "gbdt_residual_pct": ":.1f",
-        },
-        labels={
-            "residual_pct": "Plain OLS residual (%)",
-            "gbdt_residual_pct": "Nonlinear L1 GBDT residual (%)",
-            "consensus_verdict": "Multi-model consensus",
-            "cores_per_chip": "Cores / chip",
-        },
-    )
-    fig.add_hline(y=0, line_dash="dot")
-    fig.add_vline(x=0, line_dash="dot")
-    fig.update_layout(margin=dict(t=20))
-    fig.show()
-else:
-    fig = px.scatter(
-        res, x="first_avail", y="residual_pct", color="vendor",
-        hover_name="processor",
-        hover_data={"n_results": True, "median_score": ":.0f", "residual_pct": ":.1f"},
-        labels={"first_avail": "First hardware availability",
-                "residual_pct": "Score above or below prediction (%)", "vendor": "Vendor"},
-    )
-    fig.add_hline(y=0, line_dash="dot")
-    fig.update_layout(margin=dict(t=20))
-    fig.show()
-```
-
-## 2. Silicon vs. software & OEM tuning decomposition (CPU)
-
-Even for the exact same silicon chip, published SPEC scores vary across server OEMs, BIOS power
-profiles, memory speeds, and compiler toolchains. We decompose this software/platform layer using
-three observable signals on each processor's disclosures:
-
-* **Same-silicon tuning spread (`Tuning spread %`):** `Highest % - Lowest %` out-of-fold residual across all submissions of that exact processor (controlling for socket count). A 15–35% spread means platform and compiler tuning can move throughput by a full hardware generation.
-* **Peak vs. Base compiler flag headroom (`Peak gain %`):** Median percentage gain of `SPECrate 2017 Integer peak` (aggressive per-benchmark compiler flags allowed) over `base` (uniform flags required) on disclosures that report both.
-* **Compiler toolchain (`Compiler family`):** Whether the typical submission used `Intel oneAPI (LLVM)`, `Intel Classic ICC`, `AMD AOCC`, or `GNU GCC`.
-
-```{python}
-if not res.empty and "compiler_family" in res.columns:
-    comp_rows = []
-    for fam, g in res.groupby("compiler_family"):
-        peak_valid = g["peak_gain_pct"].dropna() if "peak_gain_pct" in g.columns else []
-        comp_rows.append({
-            "Compiler family": fam,
-            "Ranked processors": int(len(g)),
-            "Total SPEC disclosures": int(g["n_results"].sum()),
-            "Median OLS residual %": round(float(g["residual_pct"].median()), 1),
-            "Median GBDT residual %": round(float(g["gbdt_residual_pct"].median()), 1)
-            if "gbdt_residual_pct" in g.columns else None,
-            "Median same-silicon spread %": round(float(g["tuning_spread_pct"].median()), 1)
-            if "tuning_spread_pct" in g.columns else None,
-            "Median Peak vs Base gain %": round(float(peak_valid.median()), 1)
-            if len(peak_valid) > 0 else None,
-        })
-    comp_df = pd.DataFrame(comp_rows).sort_values("Total SPEC disclosures", ascending=False)
-    show(comp_df, paging=False, showIndex=False, classes="display compact")
-```
-
-## 3. The CPU memory-wall & L3 cache scaling view
-
-Why do large-cache processors (such as AMD `X3D` and high-cache EPYC parts) often command a retail
-price premium on [Fair price](fair-price.qmd) even when pure 3D rendering benchmarks do not reward
-them?
-
-In integer and data-center workloads, packing 64 to 192 cores onto a single socket forces cores to
-compete for memory channels. As core density (`Cores / chip`) rises, **per-core throughput
-(`SPEC base score / total cores`) falls sharply**—unless each core is cushioned by a larger L3
-cache slice (`L3 MB / core`).
-
-```{python}
-if not res.empty and "score_per_core" in res.columns and "l3_mb_per_core" in res.columns:
-    cache_df = res.dropna(subset=["score_per_core", "cores_per_chip", "l3_mb_per_core"]).copy()
-    cache_df["l3_tier"] = np.select(
-        [
-            cache_df["l3_mb_per_core"] < 1.5,
-            cache_df["l3_mb_per_core"] <= 3.0,
-        ],
-        [
-            "Low L3 (< 1.5 MB / core)",
-            "Standard L3 (1.5–3.0 MB / core)",
-        ],
-        default="High L3 (> 3.0 MB / core)",
-    )
-    fig_mem = px.scatter(
-        cache_df,
-        x="cores_per_chip",
-        y="score_per_core",
-        color="l3_tier",
-        symbol="vendor",
-        hover_name="processor",
-        hover_data={
-            "mhz": ":.0f",
-            "l3_mb_per_core": ":.2f",
-            "score_per_core": ":.2f",
-            "score_per_core_ghz": ":.2f",
-            "gbdt_residual_pct": ":.1f",
-            "consensus_verdict": True,
-        },
-        log_x=True,
-        labels={
-            "cores_per_chip": "Cores per chip (log scale)",
-            "score_per_core": "Per-core integer throughput (base score / core)",
-            "l3_tier": "L3 cache cushion",
-            "vendor": "Vendor",
-        },
-    )
-    fig_mem.update_layout(margin=dict(t=20))
-    fig_mem.show()
-```
-
-## CPU Ranking
-
-```{python}
-if not res.empty:
-    base_cols = [
-        "processor",
-        "consensus_verdict",
-        "residual_pct",
-        "structural_residual_pct",
-        "gbdt_residual_pct",
-        "tuning_spread_pct",
-        "peak_gain_pct",
-        "cores_per_chip",
-        "l3_mb_per_core",
-        "score_per_core",
-        "n_results",
-        "n_oems",
-        "median_score",
-        "first_avail",
-        "compiler_family",
-        "config_chips",
-        "config_memory",
-        "config_os",
-        "Disclosure",
-    ]
-    with_link = res.assign(
-        Disclosure=[f'<a href="{u}">report</a>' if u else "" for u in res["disclosure_url"]]
-    )
-    present_cols = [c for c in base_cols if c in with_link.columns]
-    table = with_link[present_cols].rename(columns={
-        "processor": "Processor",
-        "consensus_verdict": "Consensus verdict",
-        "residual_pct": "OLS %",
-        "structural_residual_pct": "Structural L1 %",
-        "gbdt_residual_pct": "Nonlinear L1 GBDT %",
-        "tuning_spread_pct": "Tuning spread %",
-        "peak_gain_pct": "Peak gain %",
-        "cores_per_chip": "Cores/chip",
-        "l3_mb_per_core": "L3 MB/core",
-        "score_per_core": "Score/core",
-        "n_results": "Results",
-        "n_oems": "OEMs",
-        "median_score": "Median score",
-        "first_avail": "First available",
-        "compiler_family": "Compiler family",
-        "config_chips": "Chips tested",
-        "config_memory": "Memory tested",
-        "config_os": "OS",
-    }).round(1)
-    order_col = 2 if "Consensus verdict" in table.columns else 1
-    show(table, paging=True, pageLength=25, order=[[order_col, "desc"]], showIndex=False,
-         classes="display compact",
-         allow_html=True)
-```
-
-```{python}
-#| output: asis
-if not res.empty:
-    print(f"OLS %, Structural L1 %, and Nonlinear L1 GBDT % are the median out-of-fold residuals "
-          f"over a processor's results. Tuning spread % is Highest % minus Lowest % across "
-          f"disclosures of the same silicon. Processors with fewer than {meta['min_results']} "
-          f"published results are not ranked. The configuration shown is that of the result "
-          f"closest to the processor's median.")
-print(site.source_note(meta))
-```
-
-:::
-
-::: {#hw-panel-gpu style="display: none;"}
-
-```{python}
-#| output: asis
-if not gpu_res.empty:
-    n_disc = gpu_meta.get("n_disclosures", int(gpu_res["n_results"].sum()))
-    n_suites = gpu_meta.get("n_suites", 15)
-    print(
-        f"::: {{.verdict}}\n"
-        f"**SPEC GWPG GPU Benchmark Coverage:** Scored across **{n_disc}** official workstation "
-        f"disclosures spanning **{n_suites}** SPEC GWPG benchmark suites (`SPECviewperf 15`, "
-        f"`SPECviewperf 2020 v3/v2/v1`, `SPECviewperf 13/12.1`, `SPECworkstation 4.0/3.1/3.0`, "
-        f"and `SPECapc Maya 2024 / Solidworks 2022 / Creo 9 / 3ds Max 2020`), covering **{len(gpu_res)}** "
-        f"NVIDIA and AMD graphics cards with $\\ge {gpu_meta.get('min_results', 2)}$ published results.\n"
-        f":::"
-    )
-print(site.finding_line(gpu_meta.get("finding")))
-```
-
-## 1. Multi-model GPU residual consensus: true standouts vs. shader-scaling artifacts
-
-Just as small-core CPUs benefit from a straight-line core-scaling regression, entry-level and midrange
-workstation GPUs (`640–2,048` shaders) experience lower viewport geometry overhead than flagship
-`18,000–24,000` shader processors (`RTX 6000 Ada`, `RTX PRO 6000 Blackwell`). We evaluate every GPU
-out-of-fold (`GroupKFold` by GPU model) against three reference curves fitted on `log(shaders)`,
-`log(boost_mhz)`, `log(vram_gb)`, `log(bandwidth_gbps)`, mobile form factor, and vendor:
-
-1. **Plain OLS (`OLS %`):** Constant-elasticity log-linear specification baseline.
-2. **L1 Structural Quadratic (`Structural L1 %`):** Median (`L1`) regression adding quadratic shader saturation, quadratic bandwidth scaling, and shader-by-bandwidth interaction terms.
-3. **Nonlinear L1 GBDT (`Nonlinear L1 GBDT %`):** Gradient Boosted Decision Trees (`L1` loss) capturing non-parametric shader and memory-bus regimes.
-
-```{python}
-#| output: asis
-if not gpu_res.empty and "consensus_verdict" in gpu_res.columns:
-    g_counts = gpu_res["consensus_verdict"].value_counts()
-    g_standout = int(g_counts.get("True architectural standout", 0))
-    g_art = int(g_counts.get("Entry-shader linearity artifact", 0))
-    g_bottle = int(g_counts.get("Memory / scaling bottleneck", 0))
-    g_near = int(g_counts.get("Near expected spec curve", 0))
-    print(
-        f"Across **{len(gpu_res)}** ranked NVIDIA & AMD GPUs: "
-        f"**{g_standout}** are **True architectural standouts** (led by AMD `Radeon AI PRO R9700` RDNA 4, "
-        f"`Radeon PRO W6800` RDNA 2, and NVIDIA `RTX A6000` / `RTX A4000` / `RTX 5000 Ada Laptop` / `Quadro RTX 5000`), "
-        f"**{g_art}** are **Entry-shader linearity artifacts**, "
-        f"**{g_near}** track **Near the expected spec curve**, and "
-        f"**{g_bottle}** exhibit a **Memory / scaling bottleneck**."
-    )
-```
-
-```{python}
-if gpu_res.empty:
-    display(Markdown(site.empty_state(gpu_meta, "GPU residual ranking")))
-else:
-    fig_gpu = px.scatter(
-        gpu_res,
-        x="residual_pct",
-        y="gbdt_residual_pct",
-        color="consensus_verdict",
-        symbol="vendor",
-        hover_name="processor",
-        hover_data={
-            "family": True,
-            "cores_per_chip": True,
-            "vram_gb": True,
-            "bandwidth_gbps": True,
-            "n_results": True,
-            "residual_pct": ":.1f",
-            "structural_residual_pct": ":.1f",
-            "gbdt_residual_pct": ":.1f",
-        },
-        labels={
-            "residual_pct": "Plain OLS GPU residual (%)",
-            "gbdt_residual_pct": "Nonlinear L1 GBDT GPU residual (%)",
-            "consensus_verdict": "Multi-model consensus",
-            "cores_per_chip": "Shaders / CUDA cores",
-            "bandwidth_gbps": "Memory bandwidth (GB/s)",
-            "family": "Architecture",
-        },
-    )
-    fig_gpu.add_hline(y=0, line_dash="dot")
-    fig_gpu.add_vline(x=0, line_dash="dot")
-    fig_gpu.update_layout(margin=dict(t=20))
-    fig_gpu.show()
-```
-
-## 2. Silicon vs. workstation OEM & benchmark suite decomposition (GPU)
-
-For the exact same GPU silicon, published SPEC GWPG scores shift substantially depending on workstation
-OEM thermal/power envelopes (Dell Precision vs. HP Z-series vs. Lenovo ThinkStation vs. MIFCOM),
-resolution (1080p vs. 4K), and graphics API workload:
-
-* **Same-GPU OEM & suite tuning spread (`Tuning spread %`):** `Highest % - Lowest %` out-of-fold residual across all workstation disclosures of that exact GPU model.
-* **Best viewset specialization headroom (`Viewset peak %`):** How much the GPU's strongest professional CAD/DCC viewset (such as `snx-04`, `maya-06`, or `solidworks-07`) exceeds its all-viewset composite geometric mean.
-* **Benchmark suite & API family (`Suite / API family`):** Breakdown across `SPECviewperf 15 (DX12 / Vulkan / OpenGL)`, `SPECviewperf 2020`, `SPECviewperf 12.1 / 13`, `SPECworkstation`, and `SPECapc`.
-
-```{python}
-if not gpu_res.empty and "compiler_family" in gpu_res.columns:
-    g_comp_rows = []
-    for fam, g in gpu_res.groupby("compiler_family"):
-        g_comp_rows.append({
-            "SPEC GWPG suite / API family": fam,
-            "Ranked GPUs": int(len(g)),
-            "Total GPU disclosures": int(g["n_results"].sum()),
-            "Median OLS residual %": round(float(g["residual_pct"].median()), 1),
-            "Median GBDT residual %": round(float(g["gbdt_residual_pct"].median()), 1),
-            "Median same-GPU OEM spread %": round(float(g["tuning_spread_pct"].median()), 1),
-            "Median best-viewset headroom %": round(float(g["peak_gain_pct"].median()), 1),
-        })
-    g_comp_df = pd.DataFrame(g_comp_rows).sort_values("Total GPU disclosures", ascending=False)
-    show(g_comp_df, paging=False, showIndex=False, classes="display compact")
-```
-
-## 3. The GPU memory-wall & VRAM bandwidth scaling view
-
-On [Fair price](fair-price.qmd), GPUs with wider memory buses and higher VRAM capacity/bandwidth command
-steep price premiums even when pure shader-compute benchmarks look similar.
-
-In professional CAD, medical volume rendering (`medical`), and seismic/energy (`energy`) viewsets—especially
-at 4K (`3840x2160`)—packing 10,000 to 24,000 shaders onto a die causes **per-1,000-shader throughput
-to drop sharply** unless fed by high **VRAM memory bandwidth (`> 500 GB/s`)**:
-
-```{python}
-if not gpu_res.empty and "score_per_core" in gpu_res.columns and "bandwidth_gbps" in gpu_res.columns:
-    bw_df = gpu_res.dropna(subset=["score_per_core", "cores_per_chip", "bandwidth_gbps"]).copy()
-    bw_df["bw_tier"] = np.select(
-        [
-            bw_df["bandwidth_gbps"] < 200.0,
-            bw_df["bandwidth_gbps"] <= 500.0,
-        ],
-        [
-            "Entry bandwidth (< 200 GB/s)",
-            "Midrange bandwidth (200–500 GB/s)",
-        ],
-        default="High bandwidth (> 500 GB/s)",
-    )
-    fig_gpu_mem = px.scatter(
-        bw_df,
-        x="cores_per_chip",
-        y="score_per_core",
-        color="bw_tier",
-        symbol="vendor",
-        hover_name="processor",
-        hover_data={
-            "family": True,
-            "vram_gb": ":.0f",
-            "bandwidth_gbps": ":.0f",
-            "score_per_core": ":.1f",
-            "gbdt_residual_pct": ":.1f",
-            "consensus_verdict": True,
-        },
-        log_x=True,
-        labels={
-            "cores_per_chip": "Shader / CUDA core count (log scale)",
-            "score_per_core": "Throughput per 1,000 shaders (calibrated score / 1k shaders)",
-            "bw_tier": "VRAM memory bandwidth tier",
-            "vendor": "Vendor",
-        },
-    )
-    fig_gpu_mem.update_layout(margin=dict(t=20))
-    fig_gpu_mem.show()
-```
-
-## GPU Ranking
-
-```{python}
-if not gpu_res.empty:
-    gpu_cols = [
-        "processor",
-        "vendor",
-        "family",
-        "consensus_verdict",
-        "residual_pct",
-        "structural_residual_pct",
-        "gbdt_residual_pct",
-        "tuning_spread_pct",
-        "peak_gain_pct",
-        "cores_per_chip",
-        "vram_gb",
-        "bandwidth_gbps",
-        "score_per_core",
-        "n_results",
-        "n_oems",
-        "median_score",
-        "release_year",
-        "compiler_family",
-        "config_system",
-        "config_memory",
-        "config_os",
-        "Disclosure",
-    ]
-    gpu_with_link = gpu_res.assign(
-        Disclosure=[f'<a href="{u}">report</a>' if u else "" for u in gpu_res["disclosure_url"]]
-    )
-    present_gpu_cols = [c for c in gpu_cols if c in gpu_with_link.columns]
-    gpu_table = gpu_with_link[present_gpu_cols].rename(columns={
-        "processor": "GPU",
-        "vendor": "Vendor",
-        "family": "Architecture",
-        "consensus_verdict": "Consensus verdict",
-        "residual_pct": "OLS %",
-        "structural_residual_pct": "Structural L1 %",
-        "gbdt_residual_pct": "Nonlinear L1 GBDT %",
-        "tuning_spread_pct": "OEM spread %",
-        "peak_gain_pct": "Viewset peak %",
-        "cores_per_chip": "Shaders",
-        "vram_gb": "VRAM (GB)",
-        "bandwidth_gbps": "Bandwidth (GB/s)",
-        "score_per_core": "Score / 1k shaders",
-        "n_results": "Results",
-        "n_oems": "OEMs",
-        "median_score": "Calibrated score",
-        "release_year": "Release year",
-        "compiler_family": "Suite / API family",
-        "config_system": "Workstation tested",
-        "config_memory": "VRAM config",
-        "config_os": "OS & peak workload",
-    }).round(1)
-    show(gpu_table, paging=True, pageLength=25, order=[[4, "desc"]], showIndex=False,
-         classes="display compact",
-         allow_html=True)
-```
-
-```{python}
-#| output: asis
-if not gpu_res.empty:
-    print(f"OLS %, Structural L1 %, and Nonlinear L1 GBDT % are the median out-of-fold residuals "
-          f"over a GPU's SPEC GWPG disclosures. OEM spread % is Highest % minus Lowest % across "
-          f"workstation submissions of the same GPU. GPUs with fewer than "
-          f"{gpu_meta.get('min_results', 2)} published disclosures are not ranked.")
-print(site.source_note(gpu_meta))
-```
-
-:::

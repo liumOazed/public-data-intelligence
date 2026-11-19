@@ -282,9 +282,11 @@ split dates are on the [model page](tech-value/model.qmd).
 
 ### Residuals
 
-The ranking of over- and under-performers uses out-of-fold predictions from the plain
-regression: each processor is predicted by a model fitted without any of its results. A
-processor's residual is the median over its results, and it needs at least three.
+The ranking of over- and under-performers uses leave-one-chip-out predictions: each processor
+(or graphics card) is predicted by three models (plain regression, a robust structural
+regression and a gradient-boosted tree model) refitted without any of its results. A chip's
+residual is the median over its results; a processor needs at least three, a graphics card two.
+A chip is a standout candidate only when it sits above all three predictions.
 
 A residual is not a quality score. SPEC results for the same processor differ with memory,
 compiler and operating system, and vendors choose which configurations to submit. The tested

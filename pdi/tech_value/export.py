@@ -34,7 +34,7 @@ GWPG_LIMITS = [
     "Lenovo, Fujitsu, MIFCOM) and GPU vendors.",
     "Because SPEC GWPG spans multiple benchmark generations and resolutions (1080p vs 4K), "
     "each suite-resolution cohort is calibrated onto the SPECviewperf 2020 v3 FHD/QHD scale "
-    "against physical hardware throughput before out-of-fold residuals are computed.",
+    "against physical hardware throughput before leave-one-GPU-out residuals are computed.",
     "Predicted scores and residuals are this site's estimates derived from SPEC GWPG disclosures. "
     "They are not official SPEC metrics.",
     "SPEC, SPECviewperf, SPECworkstation, and SPECapc are trademarks or registered trademarks "
@@ -159,8 +159,8 @@ def export_model(spec: pd.DataFrame) -> None:
         M,
         "residuals",
         ranking,
-        description="Per processor: median out-of-fold residual of the plain regression, with "
-        "the tested configuration of a typical result.",
+        description="Per processor: median leave-one-processor-out residual of the plain "
+        "regression, with the tested configuration of a typical result.",
         extra={
             "min_results": config.MIN_RESULTS_FOR_RANK,
             "verdict": ev.verdict,
@@ -326,7 +326,7 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
         M,
         "gpu_residuals",
         ranking,
-        description="Per GPU: median out-of-fold residual across SPEC GWPG disclosures "
+        description="Per GPU: median leave-one-GPU-out residual across SPEC GWPG disclosures "
         "(SPECviewperf, SPECworkstation, SPECapc), with multi-model consensus and OEM workstation "
         "tuning spread.",
         extra={
