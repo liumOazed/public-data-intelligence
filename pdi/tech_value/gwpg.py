@@ -638,42 +638,80 @@ def prepare_gpu(df: pd.DataFrame) -> pd.DataFrame:
     out["log_bw_sq"] = out["log_bw"] ** 2
     out["cores_x_bw"] = out["log_cores"] * out["log_bw"]
 
-    out["cohort"] = out["suite_base"] + " | " + out["res_tier"]
-    hw_index = (
-        0.35 * out["log_cores"]
-        + 0.35 * out["log_bw"]
-        + 0.30 * out["log_mhz"]
-        - 0.15 * out["is_mobile"]
-    )
-    ref_cohort = "SPECviewperf 2020 v3 | FHD/QHD (1080p/1440p)"
-    ref_sub = out[out["cohort"] == ref_cohort]
-    if len(ref_sub) >= 4 and float(hw_index.loc[ref_sub.index].std()) > 0.1:
-        ref_hw = hw_index.loc[ref_sub.index]
-        ref_b1 = float(np.cov(ref_sub["log_score"], ref_hw)[0, 1] / np.var(ref_hw))
-        ref_hw_med = float(ref_hw.median())
-        ref_y_med = float(ref_sub["log_score"].median())
-    else:
-        ref_b1 = 0.65
-        ref_hw_med = float(hw_index.median())
-        ref_y_med = float(out["log_score"].median())
-
-    adj_scores = pd.Series(index=out.index, dtype=float)
-    for _, g in out.groupby("cohort"):
-        hw_g = hw_index.loc[g.index]
-        y_g = g["log_score"]
-        y_med = float(y_g.median())
-        hw_med = float(hw_g.median())
-        if len(g) >= 6 and float(hw_g.std()) > 0.15:
-            b1 = float(np.cov(y_g, hw_g)[0, 1] / np.var(hw_g))
-            b1 = float(np.clip(b1, 0.25, 1.5))
-        else:
-            b1 = ref_b1
-        y_expected_on_ref = ref_y_med + ref_b1 * (hw_g - ref_hw_med)
-        within_resid = (y_g - (y_med + b1 * (hw_g - hw_med))) * min(ref_b1 / b1, 1.25)
-        adj_scores.loc[g.index] = y_expected_on_ref + within_resid
-
-    out["log_score_adj"] = adj_scores
+    # Results are only aligned within one suite and version, OS family and resolution.
+    out["cohort"] = out["suite_base"] + " | " + out["os_family"] + " | " + out["res_tier"]
+    params = fit_calibration(out)
+    out["log_score_adj"] = apply_calibration(out, params)
     out["adj_score"] = np.exp(out["log_score_adj"])
+    return out
+
+
+REF_COHORT = "SPECviewperf 2020 v3 | Windows | FHD/QHD (1080p/1440p)"
+
+
+def _hw_index(df: pd.DataFrame) -> pd.Series:
+    """Physical throughput index used only to align suite scales, not to predict scores."""
+    return (
+        0.35 * df["log_cores"] + 0.35 * df["log_bw"] + 0.30 * df["log_mhz"] - 0.15 * df["is_mobile"]
+    )
+
+
+def fit_calibration(train: pd.DataFrame) -> dict:
+    """Fit the suite-resolution alignment on ``train`` only.
+
+    Returns the reference scale and, for each cohort seen in ``train``, its median score,
+    median throughput index and slope. A cohort with fewer than six results or too little
+    spread in hardware borrows the reference slope (``slope_source`` says which).
+    """
+    hw = _hw_index(train)
+    ref_sub = train[train["cohort"] == REF_COHORT]
+    if len(ref_sub) >= 4 and float(hw.loc[ref_sub.index].std()) > 0.1:
+        ref_hw = hw.loc[ref_sub.index]
+        ref_b1 = float(np.cov(ref_sub["log_score"], ref_hw)[0, 1] / np.var(ref_hw))
+        ref = {
+            "b1": ref_b1,
+            "hw_med": float(ref_hw.median()),
+            "y_med": float(ref_sub["log_score"].median()),
+        }
+    else:
+        ref = {
+            "b1": 0.65,
+            "hw_med": float(hw.median()),
+            "y_med": float(train["log_score"].median()),
+        }
+    cohorts = {}
+    for name, g in train.groupby("cohort"):
+        hw_g = hw.loc[g.index]
+        if len(g) >= 6 and float(hw_g.std()) > 0.15:
+            b1 = float(np.clip(np.cov(g["log_score"], hw_g)[0, 1] / np.var(hw_g), 0.25, 1.5))
+            source = "fitted"
+        else:
+            b1, source = ref["b1"], "reference"
+        cohorts[name] = {
+            "b1": b1,
+            "y_med": float(g["log_score"].median()),
+            "hw_med": float(hw_g.median()),
+            "n": int(len(g)),
+            "slope_source": source,
+        }
+    return {"ref": ref, "cohorts": cohorts}
+
+
+def apply_calibration(df: pd.DataFrame, params: dict) -> pd.Series:
+    """Calibrated log score on the reference scale; NaN where the cohort was not fitted."""
+    ref = params["ref"]
+    hw = _hw_index(df)
+    out = pd.Series(np.nan, index=df.index, dtype=float)
+    for name, g in df.groupby("cohort"):
+        c = params["cohorts"].get(name)
+        if c is None:
+            continue
+        hw_g = hw.loc[g.index]
+        on_ref = ref["y_med"] + ref["b1"] * (hw_g - ref["hw_med"])
+        within = (g["log_score"] - (c["y_med"] + c["b1"] * (hw_g - c["hw_med"]))) * min(
+            ref["b1"] / c["b1"], 1.25
+        )
+        out.loc[g.index] = on_ref + within
     return out
 
 
@@ -714,9 +752,17 @@ def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
     oof_gbdt = pd.Series(index=prepared.index, dtype=float)
     oof_base = pd.Series(index=prepared.index, dtype=float)
 
+    # The suite calibration is refitted inside every fold, so a card's own results never set
+    # the scale it is judged on. A result whose suite-resolution cohort only this card has
+    # cannot be calibrated without it, and is left out of that card's score.
+    held_out_y = pd.Series(np.nan, index=prepared.index, dtype=float)
     for train_idx, test_idx in gkf.split(prepared, groups=prepared["processor"]):
-        tr = prepared.iloc[train_idx]
-        te = prepared.iloc[test_idx]
+        tr = prepared.iloc[train_idx].copy()
+        te = prepared.iloc[test_idx].copy()
+        params = fit_calibration(tr)
+        tr["log_score_adj"] = apply_calibration(tr, params)
+        te["log_score_adj"] = apply_calibration(te, params)
+        held_out_y.iloc[test_idx] = te["log_score_adj"].to_numpy()
 
         # 1. Plain OLS
         X_tr_ols = sm.add_constant(tr[GPU_PLAIN_FEATURES].astype(float), has_constant="add")
@@ -754,6 +800,9 @@ def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
         oof_base.iloc[test_idx] = (intercept + te["log_cores"] + te["log_mhz"]).to_numpy()
 
     out = prepared.copy()
+    out["log_score_adj_all"] = out["log_score_adj"]
+    out["log_score_adj"] = held_out_y
+    out["adj_score"] = np.exp(out["log_score_adj"])
     out["predicted_log_score"] = oof_ols
     out["residual_log"] = out["log_score_adj"] - oof_ols
     out["residual_pct"] = 100.0 * (np.exp(out["residual_log"]) - 1.0)
@@ -764,7 +813,7 @@ def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
     out["gbdt_residual_log"] = out["log_score_adj"] - oof_gbdt
     out["gbdt_residual_pct"] = 100.0 * (np.exp(out["gbdt_residual_log"]) - 1.0)
     out["baseline_residual_log"] = out["log_score_adj"] - oof_base
-    return out
+    return out[out["log_score_adj"].notna()].copy()
 
 
 def _suite_family(suite: str) -> str:
@@ -910,3 +959,113 @@ if __name__ == "__main__":
     path = collect()
     print(f"collected {path}")
     print(f"tidy GWPG rows: {len(transform())}")
+
+
+CALIBRATION_MAX_GAP_PCT = 15.0
+CALIBRATION_MIN_OVERLAP = 3
+
+
+def calibration_validation(df: pd.DataFrame) -> pd.DataFrame:
+    """How well the suite calibration puts the same card on the same scale.
+
+    For every card, the calibration is refitted without that card, and its results in each
+    suite-resolution cohort are calibrated. A cohort is consistent with the others when a card's
+    calibrated score there is close to that card's calibrated score in the other cohorts.
+    ``median_abs_gap_pct`` is that difference over every card measured in the cohort and at
+    least one other, and ``status`` says whether the cohort passes the documented threshold.
+    """
+    prepared = prepare_gpu(with_specs(df))
+    full = fit_calibration(prepared)
+    held = pd.Series(np.nan, index=prepared.index, dtype=float)
+    for _card, rows in prepared.groupby("processor"):
+        params = fit_calibration(prepared.drop(index=rows.index))
+        held.loc[rows.index] = apply_calibration(rows, params)
+    prepared = prepared.assign(held=held)
+    per = prepared.dropna(subset=["held"]).groupby(["processor", "cohort"])["held"].median()
+    gaps: dict[str, list[float]] = {}
+    for _card, by_cohort in per.groupby(level=0):
+        by_cohort = by_cohort.droplevel(0)
+        if len(by_cohort) < 2:
+            continue
+        for cohort, value in by_cohort.items():
+            others = by_cohort.drop(index=cohort)
+            gaps.setdefault(cohort, []).append(float(value - others.median()))
+    rows = []
+    for cohort, g in prepared.groupby("cohort"):
+        c = full["cohorts"][cohort]
+        gap = np.array(gaps.get(cohort, []))
+        n_overlap = int(len(gap))
+        med = float(np.median(np.abs(np.expm1(gap))) * 100) if n_overlap else None
+        if cohort == REF_COHORT:
+            status = "Reference scale"
+        elif n_overlap < CALIBRATION_MIN_OVERLAP:
+            status = "Not validated: too few shared cards"
+        elif med is not None and med <= CALIBRATION_MAX_GAP_PCT:
+            status = "Validated"
+        else:
+            status = "Not validated: cards disagree across suites"
+        suite, os_family, res = cohort.split(" | ", 2)
+        rows.append(
+            {
+                "cohort": cohort,
+                "suite": suite,
+                "os_family": os_family,
+                "resolution": res,
+                "n_results": int(len(g)),
+                "n_cards": int(g["processor"].nunique()),
+                "slope": round(c["b1"], 3),
+                "slope_source": c["slope_source"],
+                "n_shared_cards": n_overlap,
+                "median_abs_gap_pct": med,
+                "status": status,
+            }
+        )
+    return pd.DataFrame(rows).sort_values(["status", "n_results"], ascending=[True, False])
+
+
+def validated_cohorts(validation: pd.DataFrame) -> set[str]:
+    ok = validation["status"].isin(["Validated", "Reference scale"])
+    return set(validation.loc[ok, "cohort"])
+
+
+def in_cohorts(df: pd.DataFrame, cohorts: set[str]) -> pd.DataFrame:
+    """Rows of a raw GWPG table whose suite-OS-resolution cohort is in ``cohorts``."""
+    key = df["suite_base"] + " | " + df["os_family"] + " | " + df["res_tier"]
+    return df[key.isin(cohorts)].reset_index(drop=True)
+
+
+def workload_table(df: pd.DataFrame) -> pd.DataFrame:
+    """Raw scores per card within one suite, version, OS and resolution: no calibration.
+
+    Each row compares like with like: the same SPEC suite and version, run at the same
+    resolution on the same OS family, with that suite's own composite metric.
+    """
+    d = with_specs(df) if "spec_status" in df.columns else df
+    rows = []
+    keys = ["suite", "os_family", "res_tier", "processor"]
+    for (suite, os_family, res, proc), g in d.groupby(keys):
+        rows.append(
+            {
+                "suite": suite,
+                "os_family": os_family,
+                "resolution": res,
+                "processor": proc,
+                "vendor": g["vendor"].iloc[0],
+                "form_factor": "Laptop" if bool(g["is_mobile"].iloc[0]) else "Desktop",
+                "n_results": int(len(g)),
+                "n_oems": int(g["oem"].nunique()),
+                "median_score": float(g["composite_score"].median()),
+                "min_score": float(g["composite_score"].min()),
+                "max_score": float(g["composite_score"].max()),
+                "n_viewsets": int(g["n_viewsets"].median())
+                if g["n_viewsets"].notna().any()
+                else None,
+                "best_workload": g["best_workload"].mode().iloc[0]
+                if g["best_workload"].notna().any()
+                else None,
+                "disclosure_url": g["disclosure_url"].dropna().iloc[0]
+                if g["disclosure_url"].notna().any()
+                else None,
+            }
+        )
+    return pd.DataFrame(rows)

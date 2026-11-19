@@ -1,0 +1,130 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "benchmark_sources",
+  "description": "Benchmark sources behind the Tech Value pages, collected or planned, with the metric each reports and the configuration details recorded for every result.",
+  "generated_at": "2026-11-19T20:04:57+00:00",
+  "rows": 6,
+  "columns": [
+   "source",
+   "publisher",
+   "benchmark",
+   "metric",
+   "status",
+   "results",
+   "products",
+   "last_collected",
+   "recorded",
+   "used_for"
+  ],
+  "sources": [
+   {
+    "id": "spec_cpu2017",
+    "name": "SPEC CPU 2017 published results",
+    "url": "https://www.spec.org/cpu2017/results/",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
+    "frequency": "weekly collection; SPEC publishes new results about every two weeks",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": "2026-11-16T13:58:45+00:00"
+   },
+   {
+    "id": "spec_gwpg",
+    "name": "SPEC Graphics and Workstation Performance Group (GWPG) published results",
+    "url": "https://gwpg.spec.org/",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC, SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are compared only within the same benchmark release and resolution, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
+    "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": "2026-11-19T09:52:43+00:00"
+   },
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [],
+  "finding": {
+   "label": "observation",
+   "reason": "What each benchmark source contributes."
+  }
+ },
+ "data": [
+  {
+   "source": "SPEC CPU 2017",
+   "publisher": "Standard Performance Evaluation Corporation (vendor submissions, reviewed by SPEC)",
+   "benchmark": "SPECrate 2017 Integer",
+   "metric": "SPECrate2017_int_base and _peak; this site uses base per socket",
+   "status": "Collected",
+   "results": 13388,
+   "products": 644,
+   "last_collected": "2026-11-16T13:58:45+00:00",
+   "recorded": "OEM, system, chips, cores, threads per core, clock, cache, memory, compiler, OS, test and publication dates, disclosure link",
+   "used_for": "Over & under performers (CPU)"
+  },
+  {
+   "source": "SPEC GWPG",
+   "publisher": "SPEC Graphics and Workstation Performance Group (OEM and vendor submissions)",
+   "benchmark": "SPECviewperf 12.1/13/2020/15, SPECworkstation 3.0/3.1/4.0, SPECapc",
+   "metric": "Each suite's composite; compared raw within suite, version, OS and resolution, combined only where the calibration passes its check",
+   "status": "Collected",
+   "results": 385,
+   "products": 66,
+   "last_collected": "2026-11-19T09:52:43+00:00",
+   "recorded": "OEM, system, CPU, GPU as written, OS, resolution, number of viewsets, composite, best and worst viewset, disclosure link",
+   "used_for": "Over & under performers (GPU), results by workload"
+  },
+  {
+   "source": "Blender Open Data",
+   "publisher": "Blender Foundation (community-submitted runs)",
+   "benchmark": "Blender Benchmark",
+   "metric": "Median samples per minute over runs, per device and Blender version",
+   "status": "Collected",
+   "results": 327371,
+   "products": 1359,
+   "last_collected": "2026-11-16T13:58:49+00:00",
+   "recorded": "Device, CPU or GPU, Blender version, number of runs, median and interquartile range",
+   "used_for": "Value ranking, Fair price, comparisons"
+  },
+  {
+   "source": "SPEC CPU 2017 floating point and speed",
+   "publisher": "SPEC",
+   "benchmark": "SPECrate 2017 Floating Point, SPECspeed 2017",
+   "metric": "Would be a separate workload view, never combined with Integer",
+   "status": "Not collected yet",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Planned"
+  },
+  {
+   "source": "OpenBenchmarking.org",
+   "publisher": "Phoronix Test Suite users (unreviewed)",
+   "benchmark": "Per-test results, e.g. pts/blender, pts/build-linux-kernel",
+   "metric": "Each test's own unit; compared only within one test, version and setting",
+   "status": "Not collected yet",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Planned: would add consumer CPUs and GPUs SPEC does not cover"
+  },
+  {
+   "source": "Independently published SPEC runs",
+   "publisher": "Reviewers and papers (not reviewed by SPEC)",
+   "benchmark": "SPEC CPU 2017 and SPECviewperf run outside SPEC's process",
+   "metric": "Would be labelled as unofficial and kept apart from SPEC-published results",
+   "status": "Not collected yet",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Planned"
+  }
+ ]
+}

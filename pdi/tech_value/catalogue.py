@@ -88,6 +88,7 @@ def build(
                 "spec_oems": 0,
                 "spec_rows_unmatched": 0,
                 "spec_rows_unparsed": 0,
+                "spec_rows_combinable": None,
                 "score_per_dollar": None,
                 "value_rank": None,
                 "value_n": None,
@@ -160,6 +161,8 @@ def build(
             r["spec_oems"] = max(r["spec_oems"], int(ok["oem"].nunique()) if len(ok) else 0)
             r["spec_rows_unmatched"] += int((part["spec_status"] == "missing").sum())
             r["spec_rows_unparsed"] += int((part["spec_status"] == "unparsed").sum())
+            if "in_ranked_suites" in part.columns:
+                r["spec_rows_combinable"] = int((ok["in_ranked_suites"]).sum()) if len(ok) else 0
     for c in gpu_rank.itertuples():
         r = row("gpu", key_of("gpu", c.processor), c.processor)
         r["on_residuals"] = True
@@ -198,6 +201,8 @@ def _status(r: dict) -> tuple[str, str]:
         if _limited(r["spec_results"], r["spec_oems"]):
             return LIMITED, "Insufficient disclosures"
         return MEASURED, ""
+    if r["spec_results"] > 0 and r.get("spec_rows_combinable") == 0:
+        return LIMITED, "Only in suites without a validated calibration (see results by workload)"
     if r["spec_results"] > 0:
         return LIMITED, f"Insufficient disclosures ({r['spec_results']} of {min_n} needed)"
     if r["spec_rows_unmatched"] > 0:
