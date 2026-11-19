@@ -1,11 +1,38 @@
 ---
-title: "Tech Value: fair price"
-subtitle: "Which parts cost less, or more, than their benchmark performance predicts"
+title: "Tech Value: Fair Price"
+page-layout: full
+toc: false
 ---
+
+<style>
+#title-block-header { display:none }
+main.content { max-width:1200px; width:100%; margin:auto; font-family:"Century Gothic","Avenir Next",Arial,sans-serif; color:#20354b }
+.fp-hero { padding:clamp(22px,4vw,50px); border-radius:20px; background:linear-gradient(115deg,#112638,#173e47); color:#edf8f6 }
+.fp-hero h1 { margin:0; color:#a7e8d2; font-size:clamp(1.65rem,3vw,2.55rem); font-weight:600 }
+.fp-hero p { max-width:60ch; margin:.65rem 0 0; line-height:1.55 }
+.fp-verdicts,.fp-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:12px; margin:15px 0 24px }
+.fp-card,.fp-metric { padding:18px 22px; border:1px solid #d7e3e4; border-radius:14px; background:#f6faf9 }
+.fp-card h3,.fp-metric strong { margin:0 0 .5rem; font-size:1.02rem; color:#125d56 }
+.fp-card p,.fp-metric small { margin:0; line-height:1.5 }
+.fp-metric { background:white; border-top:3px solid #68ae9f }
+.fp-metric strong { display:block; font-size:1.5rem; margin:0 }
+.fp-metric span { display:block; font-weight:600 }
+.fp-panel { padding:clamp(10px,2vw,24px); border:1px solid #d7e3e4; border-radius:16px; margin:12px 0 20px; min-width:0 }
+.fp-panel .cell-output-display { overflow-x:auto }
+.fp-panel select { max-width:100%; padding:6px; border:1px solid #b8cdca; border-radius:6px; font:inherit }
+.fp-inspect { border-left:3px solid #4e9d88; padding:12px 16px; background:#edf6f2; margin:12px 0 }
+.fp-inspect output { display:block; margin-top:8px }
+details.fp-detail { border:1px solid #d7e3e4; border-radius:12px; background:white; padding:12px 18px; margin:8px 0; overflow-x:auto }
+.fp-detail summary { cursor:pointer; font-weight:600; color:#194c51 }
+.fp-detail[open] summary { margin-bottom:15px }
+</style>
+
+<div class="fp-hero"><h1>Tech Value: Fair Price</h1><p>How much should a desktop part cost for the rendering performance it delivers? Compare the lowest US listing with a benchmark-based fair price.</p></div>
 
 ```{python}
 import plotly.express as px
-from IPython.display import Markdown
+from html import escape
+from IPython.display import HTML, Markdown, display
 from itables import init_notebook_mode, show
 
 from pdi import site
@@ -18,32 +45,7 @@ board, board_meta = site.load("tech-value", "fair_price_leaderboard")
 verdicts = meta.get("verdicts") or {}
 threshold = meta.get("gap_pct_threshold")
 KINDS = {"gpu": "Graphics cards", "cpu": "Processors"}
-```
 
-A **fair price** is the price a part would have if price followed its
-[Blender benchmark](https://opendata.blender.org/) score and nothing else. The **gap** is how
-far the lowest listing is from that price: a negative gap means the part is cheap for the
-rendering performance it delivers.
-
-The fair price for a part always comes from a fit that never saw that part. Several models
-compete, and a naive baseline (every part costs the same per point of score) is always on the
-leaderboard. A model only replaces the baseline when it clearly beats it.
-
-```{python}
-#| output: asis
-for kind, label in KINDS.items():
-    v = verdicts.get(kind)
-    if v:
-        print(f'::: {{.verdict}}\n**{label}: does a model beat the baseline?** {v["statement"]}\n'
-              f'{site.finding_line(v.get("finding"))}:::\n')
-```
-
-A gap is a question, not an answer. Blender measures rendering only. A processor built for
-games, or a graphics card with more memory, can cost more than its rendering score predicts
-and still be priced sensibly. Graphics cards also run on different Blender backends, which
-favours NVIDIA, so AMD and Intel cards look expensive here for that reason alone.
-
-```{python}
 from pdi.tech_value import dashboard
 
 READING_COLORS = {
@@ -60,10 +62,10 @@ def _fmt_rival(val: object) -> str:
     return dashboard.display_name(s)
 
 
-def section(kind: str):
+def prepare(kind: str):
     part = parts[parts["kind"] == kind].copy() if len(parts) else parts
     if part.empty:
-        return Markdown(site.empty_state(meta, KINDS[kind]))
+        return part
     part["display_model"] = part["model_key"].map(dashboard.display_name)
     if "regime" not in part.columns:
         part["regime"] = "Consumer / Mainstream"
@@ -94,6 +96,10 @@ def section(kind: str):
     if "price_zone" not in part.columns:
         part["price_zone"] = "Inside P20-P80 typical band"
 
+    return part
+
+
+def chart(part):
     fig = px.scatter(
         part, x="score", y="price_usd", color="reading", symbol="confidence",
         hover_name="display_model", log_x=True, log_y=True,
@@ -181,15 +187,19 @@ def section(kind: str):
                 hoverinfo="skip",
             )
     fig.update_layout(
-        height=460,
+        height=560,
+        font=dict(family="Century Gothic, Avenir Next, sans-serif", color="#23394e"),
         margin=dict(t=24, r=20, b=52, l=64),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        yaxis=dict(tickprefix="$", separatethousands=True),
-        xaxis=dict(separatethousands=True),
+        yaxis=dict(showgrid=False, tickprefix="$", separatethousands=True),
+        xaxis=dict(showgrid=False, separatethousands=True),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
     )
     fig.show()
+
+
+def estimates(part):
     names = {m["id"]: m["name"] for m in meta.get("sources", [])}
     spread_col = [
         f"{sp:.1f}% ({nr} src)" if nr >= 2 else (f"{lp:.1f}% (1 src)" if nl >= 2 else "1 listing")
@@ -274,58 +284,112 @@ def section(kind: str):
     )
     return show(table, paging=True, pageLength=25, order=[[3, "asc"]], showIndex=False,
                 classes="display compact", allow_html=True)
+
+groups = {kind: prepare(kind) for kind in KINDS}
+
+
+def number(value, fmt=".0f"):
+    return format(value, fmt) if value is not None else "—"
+
+
+def overview(kind):
+    v = verdicts.get(kind) or {}
+    signals = v.get("market_signals") or {}
+    metrics = [
+        (number(signals.get("n_on_pareto_frontier")), "On the frontier", "No faster or equally fast rival costs less."),
+        (number(signals.get("n_within_10pct_of_frontier")), "Within reach", "A price cut of up to 10% would reach the frontier."),
+        (number(signals.get("n_high_seller_spread_15pct")), "Wide listing spread", "Parts with at least a 15% gap across listings."),
+        (number(v.get("p20_p80_loo_coverage_pct")) + "%", "Inside the P20–P80 band", "Held-out coverage against a 60% target."),
+    ]
+    cards = "".join(f"<div class='fp-metric'><strong>{n}</strong><span>{title}</span><small>{note}</small></div>" for n,title,note in metrics)
+    display(HTML(f"<div class='fp-metrics'>{cards}</div>"))
+    part = groups[kind]
+    if part.empty:
+        display(Markdown(site.empty_state(meta, KINDS[kind])))
+        return
+    chart(part)
+    options = []
+    for row in part.sort_values("display_model").itertuples():
+        note = (f"Lowest listing ${row.price_usd:,.0f} · Fair price ${row.fair_price_usd:,.0f} · "
+                f"Gap {row.gap_pct:+.0f}% · {row.channel_signal} · {row.lifecycle_signal}")
+        options.append(f'<option value="{escape(note, quote=True)}">{escape(row.display_model)}</option>')
+    display(HTML(f'<div class="fp-inspect"><label>Inspect a part &nbsp;<select>{"".join(options)}</select></label><output aria-live="polite"></output></div>'))
+    high = signals.get("mean_7d_change_high_spread_pct")
+    low = signals.get("mean_7d_change_low_spread_pct")
+    if high is not None and low is not None:
+        display(Markdown(f"**Seven-day price movement** · High-spread parts {high:+.1f}% on average · Low-spread parts {low:+.1f}% on average."))
 ```
 
-## Market Wind & Frontier Watchlist
-
-Rather than predicting future prices, the four signals below separate **directly observable market structure** (`B` and `D`) from **conditional distribution diagnostics** (`A` and `C`) and **historical signal validation**:
-
-1. **Cross-Seller & Listing Spread (`B` — Observable today):** Compares the cheapest verified listing against the per-source floor median (`2+ src`) and the all-listing median (`1 src`), plus whether primary retail undercuts marketplace (`Retail undercuts marketplace`) or only marketplace listings remain (`Marketplace only`). Single-listing parts are explicitly marked `1 listing`.
-2. **Two-Threshold Frontier Entry Distance & Sticker Momentum (`D` — Actionable today):**
-   * **Pareto Frontier Entry (`Drop to Pareto Frontier`):** Exact dollar and percentage price cut required to match the cheapest rival that is **at least as fast** ($\text{score}_j \ge \text{score}_i$), naming the blocking rival.
-   * **Regime Value Leader (`Drop to #1 Value (%)`):** Percentage drop required to match the highest points-per-dollar part in the same regime.
-   * **Sticker-Price Momentum (`7d Sticker Δ (%)`):** Pure 7-day change in the part's lowest listed price from [`price_history.json`](file:///home/antigravity/liumOazed/public-data-intelligence/site/data/v1/tech-value/price_history.json), completely decoupled from model recalibration.
-3. **Conditional Quantile Band (`A` — Calibrated via Leave-One-Out Coverage):** `P20 Low Listed` and `P80 High Listed` curves are fitted with asymmetric pinball loss ($\tau = 0.20, 0.80$) and validated out-of-fold against their nominal `60%` target coverage.
-4. **Ordinal Generational Hand-Off (`C` — Lifecycle Diagnostic):** Uses each part's ordinal generation position within its product line (`Current gen (0)`, `Previous gen (-1)`, `Legacy gen (-2+)`) alongside channel coverage to distinguish a **previous-generation clearance sweet spot** from a **thin-supply legacy premium**.
-
 ```{python}
-#| output: asis
+cards = []
 for kind, label in KINDS.items():
     v = verdicts.get(kind) or {}
-    ms = v.get("market_signals") or {}
-    cov = v.get("p20_p80_loo_coverage_pct")
-    width = v.get("p20_p80_relative_width_pct")
-    if ms:
-        print(
-            f"::: {{.verdict}}\n"
-            f"**{label} Market Structure & Signal Validation (Observation):** "
-            f"**{ms.get('n_on_pareto_frontier', 0)}** parts currently sit on the Pareto efficiency frontier, "
-            f"and **{ms.get('n_within_10pct_of_frontier', 0)}** more are within a 10% price drop of joining it. "
-            f"**{ms.get('n_high_seller_spread_15pct', 0)}** multi-listing parts show a listing spread $\\ge 15\\%$ "
-            f"(7-day sticker price change: **{ms.get('mean_7d_change_high_spread_pct', 0.0):+.1f}%** for high-spread parts "
-            f"vs **{ms.get('mean_7d_change_low_spread_pct', 0.0):+.1f}%** for low-spread parts). "
-            f"Leave-one-out empirical coverage of the conditional `P20–P80` band is **{cov:.0f}%** "
-            f"(vs 60% nominal target; median relative width `(P80 - P20) / P50` = **{width:.0f}%**).\n"
-            f":::\n"
-        )
+    verdict = "Model beats baseline" if v.get("beats_baseline") else "Baseline retained"
+    if not v:
+        verdict = "Awaiting model results"
+    cards.append(f'<article class="fp-card"><h3>{label} · {verdict}</h3><p>{escape(v.get("statement", "No model result available."))}</p></article>')
+display(HTML('<div class="fp-verdicts">' + ''.join(cards) + '</div>'))
 ```
 
-## Graphics cards
+## Market watch
+
+Choose a category to explore its market signals and fair-price chart.
+
+:::: {.panel-tabset}
+
+### GPU
+
+::: {.fp-panel}
+
+**Listed price vs. rendering performance**  
+Each marker is one part. Compare its price with the typical price for its tier, or hover for its estimate and listing coverage. Both axes use a log scale.
 
 ```{python}
-section("gpu")
+overview("gpu")
 ```
 
-## Processors
+:::
+
+### CPU
+
+::: {.fp-panel}
+
+**Listed price vs. rendering performance**  
+Each marker is one part. Compare its price with the typical price for its tier, or hover for its estimate and listing coverage. Both axes use a log scale.
 
 ```{python}
-section("cpu")
+overview("cpu")
 ```
 
-A part with a **single listing** is shown but was not used to fit the fair price. One listing
-is often a marketplace seller's asking price for a part that is no longer made.
+:::
 
-## Multi-Regression Tournament Leaderboard
+::::
+
+## Data and methodology
+
+<details class="fp-detail"><summary>Graphics card estimates</summary>
+
+```{python}
+if groups["gpu"].empty:
+    display(Markdown(site.empty_state(meta, KINDS["gpu"])))
+else:
+    estimates(groups["gpu"])
+```
+
+</details>
+
+<details class="fp-detail"><summary>Processor estimates</summary>
+
+```{python}
+if groups["cpu"].empty:
+    display(Markdown(site.empty_state(meta, KINDS["cpu"])))
+else:
+    estimates(groups["cpu"])
+```
+
+</details>
+
+<details class="fp-detail"><summary>Model tournament leaderboard</summary>
 
 Every candidate across linear (`OLS`, `Ridge`, `Lasso`, `ElasticNet`, `Bayesian Ridge`), robust
 (`Huber`, `Theil-Sen`), quantile (`L1 Quantile P20 / P50 / P80`), tree/boosting (`Gradient
@@ -384,6 +448,58 @@ else:
     )
     show(table, paging=False, showIndex=False, classes="display compact")
 ```
+
+</details>
+
+<details class="fp-detail"><summary>How to read the estimates and market signals</summary>
+
+A **fair price** is the price a part would have if price followed its
+[Blender benchmark](https://opendata.blender.org/) score and nothing else. The **gap** is how
+far the lowest listing is from that price: a negative gap means the part is cheap for the
+rendering performance it delivers.
+
+The fair price for a part always comes from a fit that never saw that part. Several models
+compete, and a naive baseline (every part costs the same per point of score) is always on the
+leaderboard. A model only replaces the baseline when it clearly beats it.
+
+A gap is a question, not an answer. Blender measures rendering only. A processor built for
+games, or a graphics card with more memory, can cost more than its rendering score predicts
+and still be priced sensibly. Graphics cards also run on different Blender backends, which
+favours NVIDIA, so AMD and Intel cards look expensive here for that reason alone.
+
+1. **Cross-Seller & Listing Spread (`B` — Observable today):** Compares the cheapest verified listing against the per-source floor median (`2+ src`) and the all-listing median (`1 src`), plus whether primary retail undercuts marketplace (`Retail undercuts marketplace`) or only marketplace listings remain (`Marketplace only`). Single-listing parts are explicitly marked `1 listing`.
+2. **Two-Threshold Frontier Entry Distance & Sticker Momentum (`D` — Actionable today):**
+   * **Pareto Frontier Entry (`Drop to Pareto Frontier`):** Exact dollar and percentage price cut required to match the cheapest rival that is **at least as fast** ($\text{score}_j \ge \text{score}_i$), naming the blocking rival.
+   * **Regime Value Leader (`Drop to #1 Value (%)`):** Percentage drop required to match the highest points-per-dollar part in the same regime.
+   * **Sticker-Price Momentum (`7d Sticker Δ (%)`):** Pure 7-day change in the part's lowest listed price from [`price_history.json`](../data/v1/tech-value/price_history.json), completely decoupled from model recalibration.
+3. **Conditional Quantile Band (`A` — Calibrated via Leave-One-Out Coverage):** `P20 Low Listed` and `P80 High Listed` curves are fitted with asymmetric pinball loss ($\tau = 0.20, 0.80$) and validated out-of-fold against their nominal `60%` target coverage.
+4. **Ordinal Generational Hand-Off (`C` — Lifecycle Diagnostic):** Uses each part's ordinal generation position within its product line (`Current gen (0)`, `Previous gen (-1)`, `Legacy gen (-2+)`) alongside channel coverage to distinguish a **previous-generation clearance sweet spot** from a **thin-supply legacy premium**.
+
+Single-listing parts appear in the chart and tables. Only parts with multiple listings train the model.
+
+</details>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".fp-inspect").forEach(box => {
+    const select = box.querySelector("select");
+    const update = () => { box.querySelector("output").textContent = select.value; };
+    select.addEventListener("change", update);
+    update();
+    const graph = box.closest(".fp-panel")?.querySelector(".js-plotly-plot");
+    if (graph?.on) graph.on("plotly_click", event => {
+      const name = event.points[0]?.hovertext;
+      const index = Array.from(select.options).findIndex(option => option.text === name);
+      if (index >= 0) { select.selectedIndex = index; update(); }
+    });
+  });
+  document.addEventListener("shown.bs.tab", () => {
+    document.querySelectorAll(".fp-panel .js-plotly-plot").forEach(graph => {
+      if (graph.offsetWidth && window.Plotly) Plotly.Plots.resize(graph);
+    });
+  });
+});
+</script>
 
 ```{python}
 #| output: asis
