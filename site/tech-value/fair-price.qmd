@@ -6,396 +6,674 @@ toc: false
 
 <style>
 #title-block-header { display:none }
-main.content { max-width:1200px; width:100%; margin:auto; font-family:"Century Gothic","Avenir Next",Arial,sans-serif; color:#20354b }
-.fp-hero { padding:clamp(22px,4vw,50px); border-radius:20px; background:linear-gradient(115deg,#112638,#173e47); color:#edf8f6 }
-.fp-hero h1 { margin:0; color:#a7e8d2; font-size:clamp(1.65rem,3vw,2.55rem); font-weight:600 }
-.fp-hero p { max-width:60ch; margin:.65rem 0 0; line-height:1.55 }
-.fp-verdicts,.fp-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:12px; margin:15px 0 24px }
-.fp-card,.fp-metric { padding:18px 22px; border:1px solid #d7e3e4; border-radius:14px; background:#f6faf9 }
-.fp-card h3,.fp-metric strong { margin:0 0 .5rem; font-size:1.02rem; color:#125d56 }
-.fp-card p,.fp-metric small { margin:0; line-height:1.5 }
-.fp-metric { background:white; border-top:3px solid #68ae9f }
-.fp-metric strong { display:block; font-size:1.5rem; margin:0 }
-.fp-metric span { display:block; font-weight:600 }
-.fp-panel { padding:clamp(10px,2vw,24px); border:1px solid #d7e3e4; border-radius:16px; margin:12px 0 20px; min-width:0 }
-.fp-panel .cell-output-display { overflow-x:auto }
-.fp-panel select { max-width:100%; padding:6px; border:1px solid #b8cdca; border-radius:6px; font:inherit }
-.fp-inspect { border-left:3px solid #4e9d88; padding:12px 16px; background:#edf6f2; margin:12px 0 }
-.fp-inspect output { display:block; margin-top:8px }
-details.fp-detail { border:1px solid #d7e3e4; border-radius:12px; background:white; padding:12px 18px; margin:8px 0; overflow-x:auto }
-.fp-detail summary { cursor:pointer; font-weight:600; color:#194c51 }
-.fp-detail[open] summary { margin-bottom:15px }
-[data-market="cpu"] { display:none }
-.fp-diagnostics strong { font-size:1.15rem; margin-top:.35rem }
-main.content .panel-tabset .nav-tabs { border:0; gap:6px }
-main.content .panel-tabset .nav-link { border:1px solid #c7d8d6; border-radius:20px; color:#254c50 }
-main.content .panel-tabset .nav-link.active { background:#164747; color:white }
+body {
+  --fp-ink:#14233a; --fp-muted:#4d5d70; --fp-line:#dbe3ea; --fp-surface:#ffffff; --fp-page:#f7f9fb;
+  --fp-navy:#0f1e33; --fp-accent:#3fd4a0; --fp-teal:#0f8f6c; --fp-amber:#d98a00;
+  --fp-under:#18b47b; --fp-near:#f5b400; --fp-above:#ef5b4c;
+  --fp-gpu-bg:#eaf8f2; --fp-gpu-line:#a9e3cb; --fp-cpu-bg:#fdf6e6; --fp-cpu-line:#f1d48f;
+  --fp-pill-green:#d3f5e5; --fp-pill-red:#fde0dc; --fp-pill-amber:#fbe7b4;
+}
+body.quarto-dark {
+  --fp-ink:#e8eef5; --fp-muted:#a9b6c5; --fp-line:#33414f; --fp-surface:#1b2530; --fp-page:#151d26;
+  --fp-navy:#0b1624; --fp-teal:#3fd4a0; --fp-amber:#f2b23a;
+  --fp-gpu-bg:#14302a; --fp-gpu-line:#245647; --fp-cpu-bg:#33290f; --fp-cpu-line:#5c4818;
+  --fp-pill-green:#1d4a3a; --fp-pill-red:#4f2522; --fp-pill-amber:#4c3b12;
+}
+main.content { max-width:1200px; width:100%; margin:auto; color:var(--fp-ink); font-family:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif }
+main.content p { margin-bottom:0 }
+.fp-ico { width:1.25em; height:1.25em; flex:none; vertical-align:-.2em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+
+/* Top bar */
+.fp-bar { display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px; padding:14px 22px; border-radius:14px; background:var(--fp-navy); color:#e9f1f8 }
+.fp-brand { display:flex; align-items:center; gap:12px; font-size:clamp(1.35rem,2.6vw,1.9rem); font-weight:700; letter-spacing:-.01em; color:#fff }
+.fp-brand .fp-ico { color:var(--fp-accent); width:1.35em; height:1.35em }
+.fp-brand em { font-style:normal; color:var(--fp-accent) }
+.fp-sub { padding-left:20px; border-left:1px solid #3a4a60; color:#c9d5e2; font-size:.95rem }
+.fp-chips { margin-left:auto; display:flex; flex-wrap:wrap; gap:6px 20px; font-size:.9rem; color:#dbe6f1 }
+.fp-chips span { display:inline-flex; align-items:center; gap:7px }
+
+/* Headline */
+.fp-head { margin:24px 4px 18px }
+.fp-head h1 { margin:0 0 .45rem; font-size:clamp(1.45rem,3vw,2.2rem); font-weight:800; line-height:1.15; letter-spacing:-.015em; color:var(--fp-ink); border:0 }
+.fp-head p { max-width:none; color:var(--fp-muted); line-height:1.6; font-size:1rem }
+.fp-pill { display:inline-block; padding:.05em .55em; border-radius:999px; font-weight:600; color:var(--fp-ink); white-space:nowrap }
+.fp-pill-neg { background:var(--fp-pill-green) }
+.fp-pill-pos { background:var(--fp-pill-red) }
+.fp-pill-mod { background:var(--fp-pill-amber) }
+
+/* Verdict cards */
+.fp-verdicts { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:16px; margin-bottom:16px }
+.fp-verdict { display:flex; gap:20px; padding:20px 22px; border-radius:14px; border:1px solid }
+.fp-verdict[data-tone="gpu"] { background:var(--fp-gpu-bg); border-color:var(--fp-gpu-line) }
+.fp-verdict[data-tone="cpu"] { background:var(--fp-cpu-bg); border-color:var(--fp-cpu-line) }
+.fp-verdict > .fp-ico { width:62px; height:62px; stroke-width:1.6; color:var(--fp-teal) }
+.fp-verdict[data-tone="cpu"] > .fp-ico { color:var(--fp-amber) }
+.fp-verdict-top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-bottom:.5rem }
+.fp-verdict h2 { margin:0; padding:0; border:0; font-size:1.45rem; font-weight:700; color:var(--fp-ink) }
+.fp-badge { display:inline-flex; align-items:center; gap:6px; padding:.2em .75em; border-radius:999px; font-size:.88rem; font-weight:600; color:var(--fp-ink) }
+.fp-verdict[data-tone="gpu"] .fp-badge { background:var(--fp-pill-green) }
+.fp-verdict[data-tone="cpu"] .fp-badge { background:var(--fp-pill-amber) }
+.fp-badge.fp-badge-off { background:var(--fp-line) !important }
+.fp-verdict p { color:var(--fp-ink); line-height:1.5 }
+.fp-verdict p + p { margin-top:.6rem }
+
+/* Market watch */
+.fp-watch { display:grid; grid-template-columns:1.25fr repeat(4,1fr); border:1px solid var(--fp-line); border-radius:14px; background:var(--fp-surface); margin-bottom:16px }
+.fp-watch > div { padding:16px 20px }
+.fp-watch > div + div { border-left:1px solid var(--fp-line) }
+.fp-watch-title { display:flex; align-items:center; gap:12px }
+.fp-watch-title .fp-ico { width:34px; height:34px; stroke-width:2.6; color:var(--fp-ink) }
+.fp-watch-title b { display:block; font-size:1.45rem; font-weight:700 }
+.fp-watch-title small { color:var(--fp-muted) }
+.fp-watch h4 { display:flex; align-items:center; gap:8px; margin:0; font-size:.95rem; font-weight:600; color:var(--fp-ink) }
+.fp-watch strong { display:block; font-size:1.55rem; font-weight:700; color:var(--fp-teal); line-height:1.3 }
+.fp-watch strong.fp-warn { color:var(--fp-amber) }
+.fp-watch small { display:block; color:var(--fp-muted); font-size:.8rem; line-height:1.35 }
+
+/* Category panel */
+.fp-shell { border:1px solid var(--fp-line); border-radius:16px; background:var(--fp-surface); padding:clamp(12px,2vw,18px); margin-bottom:14px }
+.fp-tabs { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px }
+.fp-tabs button { display:inline-flex; align-items:center; gap:10px; padding:9px 26px; border:1px solid var(--fp-line); border-radius:8px; background:var(--fp-surface); color:var(--fp-ink); font:inherit; font-weight:500; cursor:pointer }
+.fp-tabs button[aria-pressed="true"] { background:var(--fp-navy); border-color:var(--fp-navy); color:#fff }
+body.quarto-dark .fp-tabs button[aria-pressed="true"] { background:#e8eef5; color:#0f1e33 }
+.fp-panel-head h2 { margin:6px 0 .25rem; padding:0; border:0; font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:700; color:var(--fp-ink) }
+.fp-panel-head p { color:var(--fp-muted); font-size:.9rem; line-height:1.45; max-width:72ch }
+.fp-chart-grid { display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:0 20px; margin-top:6px }
+.fp-legend { border-left:1px solid var(--fp-line); padding:6px 0 6px 18px; font-size:.82rem; color:var(--fp-ink) }
+.fp-legend h3 { margin:0 0 .6rem; padding:0; border:0; font-size:1.15rem; font-weight:700 }
+.fp-legend h4 { margin:.85rem 0 .35rem; font-size:.88rem; font-weight:700 }
+.fp-legend button { all:unset; cursor:pointer; display:block; margin:.85rem 0 .35rem; font-size:.88rem; font-weight:700 }
+.fp-legend button[aria-pressed="false"] { opacity:.55 }
+.fp-legend button[aria-pressed="false"]::after { content:" · click to colour by this"; font-weight:400; font-size:.75rem }
+.fp-legend ul { list-style:none; margin:0; padding:0 }
+.fp-legend li { display:flex; gap:8px; align-items:flex-start; margin:.25rem 0; line-height:1.3 }
+.fp-legend .fp-inline li { display:inline-flex; margin-right:14px }
+.fp-legend small { display:block; color:var(--fp-muted); font-size:.74rem }
+.fp-dot { width:12px; height:12px; border-radius:50%; flex:none; margin-top:2px }
+.fp-line { width:30px; flex:none; margin-top:8px; border-top:2.5px solid }
+.fp-line.dash { border-top-style:dashed }
+.fp-swatch { width:30px; height:13px; flex:none; margin-top:2px; background:rgba(24,180,123,.22) }
+.fp-legend .fp-off { opacity:.4 }
+
+/* Selected part */
+.fp-pick { display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin:14px 0 12px; padding:14px 20px; border-radius:12px; background:var(--fp-gpu-bg); border:1px solid var(--fp-gpu-line) }
+.fp-pick > .fp-ico { width:44px; height:44px; stroke-width:1.6; color:var(--fp-teal) }
+.fp-pick-main { flex:1 1 380px; min-width:0 }
+.fp-pick-title { font-size:clamp(1.05rem,2.1vw,1.35rem); font-weight:700; line-height:1.35 }
+.fp-pick-title .fp-pill { font-weight:600 }
+.fp-pick-note { color:var(--fp-muted); font-size:.9rem }
+.fp-pick select { max-width:100%; padding:6px 8px; border:1px solid var(--fp-line); border-radius:8px; background:var(--fp-surface); color:var(--fp-ink); font:inherit; font-size:.88rem }
+.fp-tiles { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--fp-line); border-radius:12px; background:var(--fp-surface) }
+.fp-tiles > div { display:flex; gap:12px; padding:14px 18px }
+.fp-tiles > div + div { border-left:1px solid var(--fp-line) }
+.fp-tiles .fp-ico { width:24px; height:24px; color:var(--fp-ink); margin-top:2px }
+.fp-tiles span { display:block; font-weight:600; font-size:.92rem }
+.fp-tiles strong { display:block; font-size:1.55rem; font-weight:700; color:var(--fp-teal); line-height:1.3 }
+.fp-tiles strong.fp-neg { color:var(--fp-above) }
+.fp-tiles small { display:block; color:var(--fp-muted); font-size:.8rem; line-height:1.35 }
+
+/* Collapsibles */
+details.fp-detail { border:1px solid var(--fp-line); border-radius:10px; background:var(--fp-surface); margin:10px 0; overflow-x:auto }
+.fp-detail summary { display:flex; align-items:center; gap:16px; padding:12px 20px; cursor:pointer; list-style:none; font-size:1.12rem; font-weight:700; color:var(--fp-ink) }
+.fp-detail summary::-webkit-details-marker { display:none }
+.fp-detail summary .fp-ico { width:28px; height:28px; stroke-width:1.8 }
+.fp-detail summary .fp-chev { margin-left:auto; width:20px; height:20px; transition:transform .15s }
+.fp-detail[open] summary .fp-chev { transform:rotate(180deg) }
+.fp-detail-body { padding:4px 20px 18px }
+.fp-detail-body p { margin-bottom:.8rem !important; line-height:1.55 }
+
+/* Quarto turns page-full divs into column grids; keep these blocks as plain boxes. */
+main.content .fp-shell.page-columns { display:block !important; grid-column:page-start / page-end !important }
+main.content .fp-cat.page-columns { display:block !important }
+main.content .fp-chart-grid.page-columns { display:grid !important; grid-template-columns:minmax(0,1fr) 290px !important }
+main.content .fp-chart-grid > * { grid-column:auto !important; min-width:0 }
+main.content [data-kind="cpu"] { display:none !important }
+
+@media (max-width: 900px) {
+  .fp-watch { grid-template-columns:repeat(2,1fr) }
+  .fp-watch > div:first-child { grid-column:1 / -1 }
+  .fp-watch > div + div { border-left:0; border-top:1px solid var(--fp-line) }
+  .fp-watch > div:nth-child(odd):not(:first-child) { border-left:1px solid var(--fp-line) }
+  main.content .fp-chart-grid.page-columns { grid-template-columns:minmax(0,1fr) !important }
+  .fp-legend { border-left:0; border-top:1px solid var(--fp-line); padding:12px 0 0 }
+  .fp-tiles { grid-template-columns:repeat(2,1fr) }
+  .fp-tiles > div:nth-child(3) { border-left:0 }
+  .fp-tiles > div:nth-child(n+3) { border-top:1px solid var(--fp-line) }
+  .fp-sub { border-left:0; padding-left:0 }
+  .fp-chips { margin-left:0 }
+}
+@media (max-width: 520px) {
+  .fp-verdict { flex-direction:column; gap:10px }
+  .fp-verdict > .fp-ico { width:44px; height:44px }
+  .fp-tiles { grid-template-columns:1fr }
+  .fp-tiles > div + div { border-left:0; border-top:1px solid var(--fp-line) }
+  .fp-watch { grid-template-columns:1fr }
+  .fp-watch > div:nth-child(odd):not(:first-child) { border-left:0 }
+  .fp-detail summary { font-size:1rem; padding:12px 14px; gap:10px }
+}
 </style>
 
-<div class="fp-hero"><h1>Tech Value: Fair Price</h1><p>How much should a desktop part cost for the rendering performance it delivers? Compare the lowest US listing with a benchmark-based fair price.</p></div>
-
 ```{python}
-import plotly.express as px
+import json
 from html import escape
+
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 from IPython.display import HTML, Markdown, display
 from itables import init_notebook_mode, show
 
 from pdi import site
+from pdi.tech_value import dashboard
 
 # Bundle the table script into the page instead of loading it from a CDN.
 init_notebook_mode(connected=False)
 
 parts, meta = site.load("tech-value", "fair_price")
 board, board_meta = site.load("tech-value", "fair_price_leaderboard")
+history, _ = site.load("tech-value", "price_history")
 verdicts = meta.get("verdicts") or {}
-threshold = meta.get("gap_pct_threshold")
 KINDS = {"gpu": "Graphics cards", "cpu": "Processors"}
+SHORT = {"gpu": "GPU", "cpu": "CPU"}
+NEAR_PCT = 10.0  # within +/- this of the estimate reads as "near fair"
+GAP_COLORS = {"under": "#18b47b", "near": "#f5b400", "above": "#ef5b4c"}
+MAKER_COLORS = {"NVIDIA": "#2a78d6", "AMD": "#3aa63a", "Intel": "#9b5de5", "Other": "#9aa3ad"}
+REGIME_CURVES = {
+    "Consumer / Mainstream": ("P50 (mainstream regime)", "Typical price curve for mainstream {noun}", "#2a78d6"),
+    "Workstation / Pro": ("P50 (workstation regime)", "Typical price curve for workstation-class {noun}", "#f0a500"),
+    "3D V-Cache (X3D)": ("P50 (X3D regime)", "Typical price curve for 3D V-Cache (X3D) {noun}", "#ef5b4c"),
+}
+NOUN = {"gpu": "GPUs", "cpu": "CPUs"}
 
-from pdi.tech_value import dashboard
-
-READING_COLORS = {
-    "below fair price": "#1baf7a",
-    "near fair price": "#2a78d6",
-    "above fair price": "#eb6834",
+_P = {
+    "chip": '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+    "gpu": '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8.5" cy="12" r="3"/><circle cx="15.5" cy="12" r="3"/><path d="M4 18v2M20 6V4"/>',
+    "bars": '<path d="M5 20V12M12 20V5M19 20v-9"/>',
+    "target": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+    "diamond": '<path d="M12 3l9 9-9 9-9-9z"/><path d="M8 12h8"/>',
+    "trend": '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+    "layers": '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5" opacity=".6"/>',
+    "check": '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    "shield": '<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    "trophy": '<path d="M7 4h10v5a5 5 0 01-10 0z"/><path d="M7 6H4a3 3 0 003 4M17 6h3a3 3 0 01-3 4M12 14v4M8 21h8M9 18h6"/>',
+    "info": '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+    "chev": '<path d="M6 9l6 6 6-6"/>',
 }
 
 
-def _fmt_rival(val: object) -> str:
-    s = str(val or "")
-    if not s or s == "On Pareto frontier":
-        return "On Pareto frontier"
-    return dashboard.display_name(s)
+def icon(name: str, cls: str = "") -> str:
+    return f'<svg class="fp-ico {cls}" viewBox="0 0 24 24" aria-hidden="true">{_P[name]}</svg>'
 
 
-def prepare(kind: str):
+def maker(key: str) -> str:
+    name = dashboard.display_name(str(key).split()[0]) if key else ""
+    return name if name in MAKER_COLORS else "Other"
+
+
+def band(gap: float) -> str:
+    return "under" if gap <= -NEAR_PCT else ("above" if gap >= NEAR_PCT else "near")
+
+
+def prepare(kind: str) -> pd.DataFrame:
     part = parts[parts["kind"] == kind].copy() if len(parts) else parts
     if part.empty:
         return part
     part["display_model"] = part["model_key"].map(dashboard.display_name)
-    if "regime" not in part.columns:
-        part["regime"] = "Consumer / Mainstream"
-    if "gen_stage" not in part.columns:
-        part["gen_stage"] = "Current gen (0)"
-    for col in ("ensemble_price_usd", "floor_p20_usd", "ceiling_p80_usd", "huber_price_usd"):
+    part["maker"] = part["model_key"].map(maker)
+    part["gap_band"] = part["gap_pct"].map(band)
+    for col, default in {
+        "regime": "Consumer / Mainstream",
+        "blocking_rival": "On Pareto frontier",
+        "ensemble_price_usd": None,
+        "floor_p20_usd": None,
+        "ceiling_p80_usd": None,
+    }.items():
         if col not in part.columns:
-            part[col] = part["fair_price_usd"]
-    for col in (
-        "model_disagreement_pct",
-        "listing_spread_pct",
-        "source_spread_pct",
-        "drop_to_frontier_usd",
-        "drop_to_frontier_pct",
-        "drop_to_best_value_usd",
-        "drop_to_best_value_pct",
-        "price_change_7d_pct",
-    ):
+            part[col] = part["fair_price_usd"] if default is None else default
+    for col in ("model_disagreement_pct", "listing_spread_pct", "source_spread_pct",
+                "drop_to_frontier_usd", "drop_to_frontier_pct", "drop_to_best_value_pct",
+                "price_change_7d_pct"):
         if col not in part.columns:
             part[col] = 0.0
-    if "blocking_rival" not in part.columns:
-        part["blocking_rival"] = "On Pareto frontier"
-    part["blocking_rival_display"] = part["blocking_rival"].map(_fmt_rival)
-    if "channel_signal" not in part.columns:
-        part["channel_signal"] = "Single marketplace listing"
-    if "lifecycle_signal" not in part.columns:
-        part["lifecycle_signal"] = "Normal generational curve"
-    if "price_zone" not in part.columns:
-        part["price_zone"] = "Inside P20-P80 typical band"
-
+    for col in ("channel_signal", "lifecycle_signal"):
+        if col not in part.columns:
+            part[col] = ""
     return part
 
 
-def chart(part):
-    fig = px.scatter(
-        part, x="score", y="price_usd", color="reading", symbol="confidence",
-        hover_name="display_model", log_x=True, log_y=True,
-        color_discrete_map=READING_COLORS,
-        hover_data={
-            "regime": True,
-            "gen_stage": True,
-            "fair_price_usd": ":.0f",
-            "ensemble_price_usd": ":.0f",
-            "floor_p20_usd": ":.0f",
-            "ceiling_p80_usd": ":.0f",
-            "gap_pct": ":+.0f",
-            "listing_spread_pct": ":.1f",
-            "drop_to_frontier_usd": ":.0f",
-            "drop_to_frontier_pct": ":.1f",
-            "blocking_rival_display": True,
-            "price_change_7d_pct": ":+.1f",
-            "model_disagreement_pct": ":.1f",
-            "n_listings": True,
-            "display_model": False,
-        },
-        category_orders={"reading": ["below fair price", "near fair price", "above fair price"]},
-        labels={
-            "score": "Blender benchmark score (log scale)",
-            "price_usd": "Lowest new listing, USD (log scale)",
-            "reading": "Reading",
-            "confidence": "Confidence",
-            "regime": "Regime",
-            "gen_stage": "Generation",
-            "fair_price_usd": "P50 Typical (USD)",
-            "ensemble_price_usd": "Top-3 Ensemble (USD)",
-            "floor_p20_usd": "P20 Low Listed (USD)",
-            "ceiling_p80_usd": "P80 High Listed (USD)",
-            "gap_pct": "Gap (%)",
-            "listing_spread_pct": "Listing Spread (%)",
-            "drop_to_frontier_usd": "Drop to Frontier (USD)",
-            "drop_to_frontier_pct": "Drop to Frontier (%)",
-            "blocking_rival_display": "Faster Cheaper Rival",
-            "price_change_7d_pct": "7d Sticker Change (%)",
-            "model_disagreement_pct": "Model Spread (%)",
-        },
-    )
-    fig.update_traces(marker=dict(size=11, line=dict(width=1, color="rgba(255,255,255,0.6)")))
-    regime_styles = {
-        "Consumer / Mainstream": ("dash", "#6c757d"),
-        "Workstation / Pro": ("dot", "#8b5cf6"),
-        "3D V-Cache (X3D)": ("dashdot", "#f59e0b"),
-    }
-    for regime_name, grp in part.groupby("regime", sort=False):
+groups = {kind: prepare(kind) for kind in KINDS}
+
+
+def fmt_usd(v: float) -> str:
+    return f"${v:,.0f}"
+
+
+def gap_phrase(gap: float) -> str:
+    if abs(gap) < 0.5:
+        return "in line with estimate"
+    return f"{abs(gap):.0f}% {'below' if gap < 0 else 'above'} estimate"
+
+
+def typical_errors(kind: str):
+    """Typical out-of-sample error (median absolute % error) of the baseline and the pick."""
+    if board.empty:
+        return None, None
+    b = board[board["kind"] == kind]
+    base = b[b.get("is_baseline", False) == True]  # noqa: E712
+    used = b[b["used"] == True]  # noqa: E712
+    if base.empty or used.empty:
+        return None, None
+    return float(base["median_abs_pct_error"].iloc[0]), float(used["median_abs_pct_error"].iloc[0])
+
+
+def agreement(kind: str) -> float | None:
+    part = groups[kind]
+    if part.empty:
+        return None
+    trained = part[part["n_listings"] >= 2]
+    spread = (trained if len(trained) else part)["model_disagreement_pct"].median()
+    return max(0.0, 1 - spread / 100)
+
+
+def confidence_label(score: float | None) -> tuple[str, str, str]:
+    if score is None:
+        return "Unknown", "fp-pill-mod", "no model results yet"
+    if score >= 0.90:
+        return "High", "fp-pill-neg", "stable fit"
+    if score >= 0.80:
+        return "Moderate", "fp-pill-mod", "some disagreement between the top models"
+    return "Low", "fp-pill-pos", "the top models disagree; treat estimates with care"
+
+
+def price_change(kind: str):
+    """Median change in each part's lowest price over the last 30 days of collected history."""
+    if history.empty:
+        return None, None
+    h = history[history["kind"] == kind].copy()
+    if h.empty:
+        return None, None
+    h["date"] = pd.to_datetime(h["date"])
+    latest = h["date"].max()
+    window = h[h["date"] >= latest - pd.Timedelta(days=30)].sort_values("date")
+    first = window.groupby("model_key").first()
+    last = window.groupby("model_key").last()
+    ok = (last.index.isin(first.index)) & (first["date"] < last["date"])
+    if not ok.any():
+        return None, None
+    chg = (last.loc[ok, "price_usd"] / first.loc[ok, "price_usd"] - 1) * 100
+    span = int((latest - window["date"].min()).days)
+    return float(chg.median()), span
+```
+
+```{python}
+#| output: asis
+print(f"""
+<header class="fp-bar">
+  <div class="fp-brand">{icon("chip")}<span>Tech Value: <em>Fair Price</em></span></div>
+  <div class="fp-sub">PC Parts Research Dashboard</div>
+  <div class="fp-chips"><span>{icon("bars")}Data-driven</span><span>{icon("target")}Fair price</span><span>{icon("layers")}GPU &amp; CPU</span></div>
+</header>
+
+<div class="fp-head">
+<h1>Which parts cost less, or more, than their benchmark performance predicts</h1>
+<p>We estimate a &ldquo;fair price&rdquo; for each part from its benchmark performance using fitted price&ndash;performance models (an ensemble of top models).
+The gap shows how the listing compares to the estimated price: a <span class="fp-pill fp-pill-neg">negative gap</span> means the listing is below the estimated price (cheaper than expected
+for its performance), while a <span class="fp-pill fp-pill-pos">positive gap</span> means it is above the estimate (more expensive than expected).</p>
+</div>
+""")
+
+cards = []
+for kind, label in KINDS.items():
+    v = verdicts.get(kind) or {}
+    base, best = typical_errors(kind)
+    beats = bool(v.get("beats_baseline"))
+    if not v:
+        badge = '<span class="fp-badge fp-badge-off">Awaiting results</span>'
+        body = "No model result is available yet."
+    elif beats:
+        badge = f'<span class="fp-badge">{icon("check")}Beats baseline</span>'
+        body = "Our best fitted model beats the naive baseline (simple global price-per-performance)"
+        body += f" by ~{(base - best) / base * 100:.0f}% lower typical error (MAPE)." if base and best else "."
+    else:
+        badge = '<span class="fp-badge fp-badge-off">Baseline retained</span>'
+        body = "No fitted model beat the naive baseline (simple global price-per-performance) clearly enough, so the baseline sets the fair price."
+    if base and best:
+        body += f" Typical error {best:.0f}% vs. {base:.0f}% for the baseline."
+    score = agreement(kind)
+    conf, tone, why = confidence_label(score)
+    agree = f"ensemble agreement {score:.2f}, {why}" if score is not None else why
+    cards.append(f"""<article class="fp-verdict" data-tone="{kind}">{icon(kind if kind == "gpu" else "chip")}
+<div><div class="fp-verdict-top"><h2>{label}</h2>{badge}</div>
+<p>{escape(body)}</p>
+<p>Model confidence: <span class="fp-pill {tone}">{conf}</span> ({agree}).</p></div></article>""")
+print('<div class="fp-verdicts">' + "".join(cards) + "</div>")
+
+
+def pct(value, fmt=".0f", sign=False):
+    if value is None or (isinstance(value, float) and np.isnan(value)):
+        return "—"
+    return format(value, ("+" if sign else "") + fmt) + "%"
+
+
+for kind in KINDS:
+    part = groups[kind]
+    v = verdicts.get(kind) or {}
+    multi = part[part["n_listings"] >= 2] if not part.empty else part
+    spread = multi["listing_spread_pct"].median() if len(multi) else None
+    frontier = part["drop_to_frontier_pct"].median() if len(part) else None
+    change, span = price_change(kind)
+    change_note = "Median price vs. 30 days ago" if span and span >= 30 else (
+        f"Median price vs. {span} days ago (history so far)" if span else "Not enough price history yet")
+    cover = v.get("p20_p80_loo_coverage_pct")
+    target = v.get("p20_p80_target_coverage_pct", 60)
+    cover_cls = "fp-warn" if cover is not None and cover < target else ""
+    print(f"""<section class="fp-watch" data-kind="{kind}">
+<div class="fp-watch-title">{icon("bars")}<div><b>Market watch</b><small>Current market conditions (new listings), {KINDS[kind].lower()}</small></div></div>
+<div><h4>{icon("diamond")}Seller spread</h4><strong>{pct(spread)}</strong><small>Cheapest listing below the median listing, typical part</small></div>
+<div><h4>{icon("target")}Frontier distance</h4><strong>{pct(frontier)}</strong><small>Typical gap to the best price&ndash;performance listings</small></div>
+<div><h4>{icon("trend")}Price change</h4><strong>{pct(change, ".1f", sign=True)}</strong><small>{change_note}</small></div>
+<div><h4>{icon("layers")}P20&ndash;P80 coverage</h4><strong class="{cover_cls}">{pct(cover)}</strong><small>Of held-out parts fall within the model&rsquo;s P20&ndash;P80 band ({target:.0f}% target)</small></div>
+</section>""")
+```
+
+::: {.fp-shell}
+
+```{=html}
+<div class="fp-tabs" role="group" aria-label="Part category">
+  <button type="button" data-tab="gpu" aria-pressed="true"><svg class="fp-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8.5" cy="12" r="3"/><circle cx="15.5" cy="12" r="3"/></svg><span><b>GPU</b> (Graphics cards)</span></button>
+  <button type="button" data-tab="cpu" aria-pressed="false"><svg class="fp-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><span><b>CPU</b> (Processors)</span></button>
+</div>
+```
+
+```{python}
+def smooth(x, y, deg=2, n=80, lo=None, hi=None):
+    """A smooth display curve through per-part estimates, fitted in log-log space."""
+    lx, ly = np.log10(np.asarray(x, float)), np.log10(np.asarray(y, float))
+    ok = np.isfinite(lx) & np.isfinite(ly)
+    lx, ly = lx[ok], ly[ok]
+    if len(lx) < 2:
+        return None, None
+    deg = min(deg, len(np.unique(lx)) - 1, 1 if len(lx) < 8 else deg)
+    coef = np.polyfit(lx, ly, deg)
+    grid = np.linspace(lo if lo is not None else lx.min(), hi if hi is not None else lx.max(), n)
+    return 10 ** grid, 10 ** np.polyval(coef, grid)
+
+
+def log_ticks(lo, hi, steps=(1, 2, 5)):
+    vals = [m * 10 ** e for e in range(int(np.floor(np.log10(lo))), int(np.ceil(np.log10(hi))) + 1) for m in steps]
+    return [v for v in vals if lo / 1.05 <= v <= hi * 1.05]
+
+
+SUP = str.maketrans("0123456789-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁻")
+
+
+def chart(kind, part):
+    fig = go.Figure()
+    lx = np.log10(part["score"])
+    lo, hi = lx.min(), lx.max()
+    bx, low = smooth(part["score"], part["floor_p20_usd"])
+    _, high = smooth(part["score"], part["ceiling_p80_usd"])
+    if bx is not None:
+        fig.add_scatter(x=bx, y=low, mode="lines", line=dict(width=0), hoverinfo="skip", showlegend=False)
+        fig.add_scatter(x=bx, y=high, mode="lines", line=dict(width=0), fill="tonexty",
+                        fillcolor="rgba(24,180,123,0.20)", hoverinfo="skip", showlegend=False)
+    for regime, (name, _, color) in REGIME_CURVES.items():
+        grp = part[part["regime"] == regime]
         if len(grp) < 2:
             continue
-        line = grp.sort_values("score")
-        dash, color = regime_styles.get(regime_name, ("dash", "#6c757d"))
-        fig.add_scatter(
-            x=line["score"],
-            y=line["fair_price_usd"],
-            mode="lines",
-            line=dict(dash=dash, width=2.2, color=color),
-            name=f"P50 Typical ({regime_name})",
-            hoverinfo="skip",
-        )
-        if regime_name == "Consumer / Mainstream":
+        rx, ry = smooth(grp["score"], grp["fair_price_usd"])
+        if rx is not None:
+            fig.add_scatter(x=rx, y=ry, mode="lines", line=dict(dash="dash", width=2.2, color=color),
+                            hoverinfo="skip", showlegend=False)
+    ex, ey = smooth(part["score"], part["ensemble_price_usd"])
+    if ex is not None:
+        fig.add_scatter(x=ex, y=ey, mode="lines", line=dict(width=2.6, color="#0f8f6c"),
+                        hoverinfo="skip", showlegend=False)
+    custom = np.stack([
+        part["display_model"], part["fair_price_usd"], part["gap_pct"], part["n_listings"],
+        part["regime"], part["floor_p20_usd"], part["ceiling_p80_usd"],
+    ], axis=-1)
+    hover = ("<b>%{customdata[0]}</b><br>Listed $%{y:,.0f} · estimated $%{customdata[1]:,.0f}"
+             "<br>Gap %{customdata[2]:+.0f}% · %{customdata[3]} listing(s)"
+             "<br>P20–P80 $%{customdata[5]:,.0f} – $%{customdata[6]:,.0f}<br>%{customdata[4]}<extra></extra>")
+    # Two colourings of the same points; the legend switches between them.
+    for mode, column, palette in (("gap", "gap_band", GAP_COLORS), ("maker", "maker", MAKER_COLORS)):
+        for key, color in palette.items():
+            mask = (part[column] == key).to_numpy()
+            if not mask.any():
+                continue
             fig.add_scatter(
-                x=line["score"],
-                y=line["ensemble_price_usd"],
-                mode="lines",
-                line=dict(dash="solid", width=1.6, color="#0ea5e9"),
-                name="Top-3 Ensemble (Consumer)",
-                hoverinfo="skip",
+                x=part["score"][mask], y=part["price_usd"][mask], mode="markers",
+                marker=dict(size=9, color=color, line=dict(width=1, color="rgba(255,255,255,0.85)")),
+                customdata=custom[mask], hovertemplate=hover, name=f"{mode}:{key}",
+                visible=(mode == "gap"), showlegend=False,
             )
-            fig.add_scatter(
-                x=line["score"],
-                y=line["floor_p20_usd"],
-                mode="lines",
-                line=dict(dash="dot", width=1.4, color="#1baf7a"),
-                name="P20 Low Listed Band (Consumer)",
-                hoverinfo="skip",
-            )
-            fig.add_scatter(
-                x=line["score"],
-                y=line["ceiling_p80_usd"],
-                mode="lines",
-                line=dict(dash="dot", width=1.4, color="#eb6834"),
-                name="P80 High Listed Band (Consumer)",
-                hoverinfo="skip",
-            )
+    # Highlight for the selected part; the script below moves it.
+    fig.add_scatter(x=[None], y=[None], mode="markers", name="selected", hoverinfo="skip", showlegend=False,
+                    marker=dict(size=18, color="rgba(24,180,123,0.25)", line=dict(width=2.5, color="#0f8f6c")))
+    ylo = min(part["price_usd"].min(), part["floor_p20_usd"].min())
+    yhi = max(part["price_usd"].max(), part["ceiling_p80_usd"].max())
+    yt = log_ticks(ylo, yhi)
+    xt = [10 ** e for e in range(int(np.floor(lo)), int(np.ceil(hi)) + 1)]
+    xt = [t for t in xt if lo - 0.05 <= np.log10(t) <= hi + 0.05]
+    if len(xt) >= 2:
+        xtext = [f"10{str(int(np.log10(t))).translate(SUP)}" for t in xt]
+    else:  # less than two decades of scores: label 1-2-5 steps instead
+        xt = log_ticks(10 ** lo, 10 ** hi)
+        xtext = [f"{t:,.0f}" for t in xt]
     fig.update_layout(
-        height=560,
-        font=dict(family="Century Gothic, Avenir Next, sans-serif", color="#23394e"),
-        margin=dict(t=24, r=20, b=52, l=64),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        yaxis=dict(showgrid=False, tickprefix="$", separatethousands=True),
-        xaxis=dict(showgrid=False, separatethousands=True),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        height=500,
+        font=dict(family="Inter, Segoe UI, system-ui, sans-serif", color="#8391a1", size=13),
+        margin=dict(t=14, r=12, b=56, l=78),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(type="log", showgrid=False, showline=True, linecolor="#8391a1", ticks="outside",
+                   tickvals=xt, ticktext=xtext,
+                   title="Blender benchmark score (higher is better, log scale)",
+                   range=[lo - 0.05, hi + 0.05]),
+        yaxis=dict(type="log", showgrid=False, showline=True, linecolor="#8391a1", ticks="outside",
+                   tickvals=yt, ticktext=[f"{t:,.0f}" for t in yt],
+                   title="Lowest new listing price (USD)",
+                   range=[np.log10(ylo) - 0.06, np.log10(yhi) + 0.06]),
+        hoverlabel=dict(bgcolor="white", font_color="#14233a"),
+        dragmode=False,
     )
-    fig.show()
+    fig.show(config={"displayModeBar": False, "responsive": True})
 
 
+def legend(kind, part):
+    regimes = [r for r in REGIME_CURVES if (part["regime"] == r).sum() >= 2]
+    makers = [m for m in MAKER_COLORS if (part["maker"] == m).any()]
+    gap_items = [
+        ("under", "Under fair (≤ −10%)", "cheaper than estimate"),
+        ("near", "Near fair (−10% to +10%)", "in line with estimate"),
+        ("above", "Above fair (≥ +10%)", "more expensive than estimate"),
+    ]
+    rows = "".join(f'<li><span class="fp-dot" style="background:{GAP_COLORS[k]}"></span><span>{a} — <small style="display:inline">{b}</small></span></li>' for k, a, b in gap_items)
+    makers_html = "".join(f'<li><span class="fp-dot" style="background:{MAKER_COLORS[m]}"></span>{m}</li>' for m in makers)
+    curves = '<li><span class="fp-line" style="border-color:#0f8f6c"></span><span>Top-3 ensemble (fair price)<small>Ensemble of the 3 best-fitting models</small></span></li>'
+    for r in regimes:
+        name, note, color = REGIME_CURVES[r]
+        curves += f'<li><span class="fp-line dash" style="border-color:{color}"></span><span>{name}<small>{note.format(noun=NOUN[kind])}</small></span></li>'
+    curves += '<li><span class="fp-swatch"></span><span>P20–P80 coverage<small>Estimated typical price range (20th–80th percentile)</small></span></li>'
+    print(f"""<aside class="fp-legend"><h3>Legend</h3>
+<button type="button" data-color="gap" aria-pressed="true">Listing vs. fair price (gap)</button><ul data-legend="gap">{rows}</ul>
+<button type="button" data-color="maker" aria-pressed="false">Maker (point color)</button><ul class="fp-inline fp-off" data-legend="maker">{makers_html}</ul>
+<h4>Model &amp; price curves</h4><ul>{curves}</ul></aside>""")
+
+
+def selection_data(part):
+    rows = []
+    for r in part.itertuples():
+        trusted = r.n_listings >= 2
+        rival = "" if str(r.blocking_rival) in ("", "On Pareto frontier") else dashboard.display_name(r.blocking_rival)
+        if r.n_retailers >= 2:
+            spread, spread_note = f"{r.source_spread_pct:.0f}%", f"Cheapest vs. median of {r.n_retailers} sellers"
+        elif trusted:
+            spread, spread_note = f"{r.listing_spread_pct:.0f}%", f"Cheapest vs. median of {r.n_listings} listings, one seller"
+        else:
+            spread, spread_note = "—", "Only one listing, no spread to measure"
+        rows.append(dict(
+            name=r.display_model, x=float(r.score), y=float(r.price_usd), est=round(float(r.fair_price_usd)),
+            gap=round(float(r.gap_pct), 1), n=int(r.n_listings), trusted=bool(trusted),
+            p20=round(float(r.floor_p20_usd)), p80=round(float(r.ceiling_p80_usd)),
+            spread=spread, spread_note=spread_note,
+            drop=round(float(r.drop_to_frontier_usd)), rival=rival,
+        ))
+    return rows
+
+
+def picked_default(part):
+    trusted = part[part["n_listings"] >= 2]
+    return (trusted if len(trusted) else part).sort_values("gap_pct").iloc[0]["display_model"]
+
+
+def selected(kind, part):
+    rows = sorted(selection_data(part), key=lambda d: d["name"])
+    opts = "".join(f'<option{" selected" if d["name"] == picked_default(part) else ""}>{escape(d["name"])}</option>' for d in rows)
+    data = escape(json.dumps(rows), quote=True)
+    print(f"""<div class="fp-pick" data-parts="{data}">{icon(kind if kind == "gpu" else "chip")}
+<div class="fp-pick-main"><div class="fp-pick-title"></div><div class="fp-pick-note"></div></div>
+<label>Inspect a part<br><select aria-label="Inspect a part">{opts}</select></label></div>
+<div class="fp-tiles">
+<div>{icon("target")}<div><span>Market position</span><strong data-f="pos"></strong><small>Listing vs. estimated typical price</small></div></div>
+<div>{icon("bars")}<div><span>Median range</span><strong data-f="range"></strong><small>Estimated typical price range (P20–P80)</small></div></div>
+<div>{icon("diamond")}<div><span>Spread (source)</span><strong data-f="spread"></strong><small data-f="spread_note"></small></div></div>
+<div>{icon("shield")}<div><span>Pareto drop</span><strong data-f="drop"></strong><small data-f="drop_note"></small></div></div>
+</div>""")
+
+
+def panel(kind):
+    part = groups[kind]
+    print(f'<div class="fp-panel-head"><h2>{KINDS[kind]}: listing price vs. benchmark performance</h2>'
+          "<p>Lowest new listing price vs. Blender benchmark score (log–log). Fair price is from an ensemble of "
+          "fitted models, with P20–P80 coverage showing the typical price range for a given performance. "
+          "Click a point to inspect it.</p></div>")
+```
+
+::: {.fp-cat data-kind="gpu"}
+
+```{python}
+#| output: asis
+panel("gpu")
+```
+
+:::: {.fp-chart-grid}
+
+::::: {.fp-chart}
+
+```{python}
+if groups["gpu"].empty:
+    display(Markdown(site.empty_state(meta, KINDS["gpu"])))
+else:
+    chart("gpu", groups["gpu"])
+```
+
+:::::
+
+```{python}
+#| output: asis
+if not groups["gpu"].empty:
+    legend("gpu", groups["gpu"])
+```
+
+::::
+
+```{python}
+#| output: asis
+if not groups["gpu"].empty:
+    selected("gpu", groups["gpu"])
+```
+
+:::
+
+::: {.fp-cat data-kind="cpu"}
+
+```{python}
+#| output: asis
+panel("cpu")
+```
+
+:::: {.fp-chart-grid}
+
+::::: {.fp-chart}
+
+```{python}
+if groups["cpu"].empty:
+    display(Markdown(site.empty_state(meta, KINDS["cpu"])))
+else:
+    chart("cpu", groups["cpu"])
+```
+
+:::::
+
+```{python}
+#| output: asis
+if not groups["cpu"].empty:
+    legend("cpu", groups["cpu"])
+```
+
+::::
+
+```{python}
+#| output: asis
+if not groups["cpu"].empty:
+    selected("cpu", groups["cpu"])
+```
+
+:::
+
+:::
+
+```{python}
 def estimates(part):
     names = {m["id"]: m["name"] for m in meta.get("sources", [])}
     spread_col = [
         f"{sp:.1f}% ({nr} src)" if nr >= 2 else (f"{lp:.1f}% (1 src)" if nl >= 2 else "1 listing")
-        for sp, lp, nr, nl in zip(
-            part["source_spread_pct"],
-            part["listing_spread_pct"],
-            part["n_retailers"],
-            part["n_listings"],
-        )
+        for sp, lp, nr, nl in zip(part["source_spread_pct"], part["listing_spread_pct"],
+                                  part["n_retailers"], part["n_listings"])
     ]
     frontier_col = [
-        "On frontier ($0)"
-        if d_usd <= 0
-        else f"-${d_usd:,.0f} (-{d_pct:.1f}%) vs {riv}"
-        for d_usd, d_pct, riv in zip(
-            part["drop_to_frontier_usd"],
-            part["drop_to_frontier_pct"],
-            part["blocking_rival_display"],
-        )
+        "On frontier ($0)" if d_usd <= 0
+        else f"-${d_usd:,.0f} (-{d_pct:.1f}%) vs {dashboard.display_name(riv)}"
+        for d_usd, d_pct, riv in zip(part["drop_to_frontier_usd"], part["drop_to_frontier_pct"],
+                                     part["blocking_rival"])
     ]
     table = part.assign(
-        model_key=part["display_model"],
         Spread=spread_col,
         Frontier=frontier_col,
         Cheapest=[
             f'<a href="{url}">{names.get(key, key)}</a>' if url else names.get(key, key)
             for key, url in zip(part["retailer"], part["listing_url"])
         ],
-    )[
-        [
-            "model_key",
-            "regime",
-            "gen_stage",
-            "gap_pct",
-            "price_usd",
-            "fair_price_usd",
-            "ensemble_price_usd",
-            "floor_p20_usd",
-            "ceiling_p80_usd",
-            "Spread",
-            "channel_signal",
-            "Frontier",
-            "drop_to_best_value_pct",
-            "price_change_7d_pct",
-            "lifecycle_signal",
-            "model_disagreement_pct",
-            "n_listings",
-            "Cheapest",
-        ]
-    ].rename(
-        columns={
-            "model_key": "Model",
-            "regime": "Regime",
-            "gen_stage": "Generation",
-            "gap_pct": "Gap (%)",
-            "price_usd": "Lowest (USD)",
-            "fair_price_usd": "P50 Typical (USD)",
-            "ensemble_price_usd": "Top-3 Ensemble (USD)",
-            "floor_p20_usd": "P20 Low Band (USD)",
-            "ceiling_p80_usd": "P80 High Band (USD)",
-            "Spread": "Seller / Listing Spread",
-            "channel_signal": "Channel Floor",
-            "Frontier": "Drop to Pareto Frontier",
-            "drop_to_best_value_pct": "Drop to #1 Value (%)",
-            "price_change_7d_pct": "7d Sticker Δ (%)",
-            "lifecycle_signal": "Market Wind Diagnostic",
-            "model_disagreement_pct": "Model Spread (%)",
-            "n_listings": "Listings",
-            "Cheapest": "Cheapest at",
-        }
-    ).round(
-        {
-            "Gap (%)": 0,
-            "P50 Typical (USD)": 0,
-            "Top-3 Ensemble (USD)": 0,
-            "P20 Low Band (USD)": 0,
-            "P80 High Band (USD)": 0,
-            "Drop to #1 Value (%)": 1,
-            "7d Sticker Δ (%)": 1,
-            "Model Spread (%)": 1,
-        }
-    )
+    )[[
+        "display_model", "maker", "regime", "gap_pct", "price_usd", "fair_price_usd",
+        "ensemble_price_usd", "floor_p20_usd", "ceiling_p80_usd", "Spread", "Frontier",
+        "price_change_7d_pct", "model_disagreement_pct", "n_listings", "Cheapest",
+    ]].rename(columns={
+        "display_model": "Model", "maker": "Maker", "regime": "Regime", "gap_pct": "Gap (%)",
+        "price_usd": "Lowest (USD)", "fair_price_usd": "Estimated typical (USD)",
+        "ensemble_price_usd": "Top-3 ensemble (USD)", "floor_p20_usd": "P20 (USD)",
+        "ceiling_p80_usd": "P80 (USD)", "Spread": "Seller spread", "Frontier": "Pareto drop",
+        "price_change_7d_pct": "7-day change (%)", "model_disagreement_pct": "Model spread (%)",
+        "n_listings": "Listings", "Cheapest": "Cheapest at",
+    }).round({"Gap (%)": 0, "Estimated typical (USD)": 0, "Top-3 ensemble (USD)": 0,
+              "P20 (USD)": 0, "P80 (USD)": 0, "7-day change (%)": 1, "Model spread (%)": 1})
     return show(table, paging=True, pageLength=25, order=[[3, "asc"]], showIndex=False,
                 classes="display compact", allow_html=True)
 
-groups = {kind: prepare(kind) for kind in KINDS}
 
-
-def number(value, fmt=".0f"):
-    return format(value, fmt) if value is not None else "—"
-
-
-def market_watch(kind):
-    v = verdicts.get(kind) or {}
-    part = groups[kind]
-    multi = part[part["n_listings"] >= 2] if not part.empty else part
-    def median(frame, column, fmt=".1f"):
-        values = frame[column].dropna() if column in frame else []
-        return format(values.median(), fmt) + "%" if len(values) else "—"
-    metrics = [
-        (median(multi, "listing_spread_pct"), "Listing spread", "Median across parts with multiple listings."),
-        (median(part, "drop_to_frontier_pct"), "Frontier distance", "Median price cut to match an equally fast or faster rival."),
-        (median(part, "price_change_7d_pct", "+.1f"), "Seven-day price change", "Median change in the lowest listing."),
-        (number(v.get("p20_p80_loo_coverage_pct")) + "%", "P20–P80 coverage", "Held-out coverage against a 60% target."),
-    ]
-    cards = "".join(f"<div class='fp-metric'><strong>{n}</strong><span>{title}</span><small>{note}</small></div>" for n,title,note in metrics)
-    display(HTML(f"<div class='fp-metrics' data-market='{kind}'>{cards}</div>"))
-
-
-def overview(kind):
-    signals = (verdicts.get(kind) or {}).get("market_signals") or {}
-    part = groups[kind]
-    if part.empty:
-        display(Markdown(site.empty_state(meta, KINDS[kind])))
-        return
-    chart(part)
-    options = []
-    diagnostics = []
-    for row in part.sort_values("display_model").itertuples():
-        note = (f"Lowest listing ${row.price_usd:,.0f} · Fair price ${row.fair_price_usd:,.0f} · "
-                f"Gap {row.gap_pct:+.0f}% · {row.n_listings} listing(s) · {row.confidence} confidence · {row.channel_signal} · {row.lifecycle_signal}")
-        spread = f"{row.source_spread_pct:.1f}%" if row.n_retailers >= 2 else "Single source"
-        diagnostics.append([
-            f"{row.gap_pct:+.0f}%", f"${row.floor_p20_usd:,.0f} – ${row.ceiling_p80_usd:,.0f}",
-            spread, f"${row.drop_to_frontier_usd:,.0f}",
-        ])
-        options.append(f'<option value="{escape(note, quote=True)}">{escape(row.display_model)}</option>')
-    display(HTML(f'<div class="fp-inspect"><label>Inspect a part &nbsp;<select>{"".join(options)}</select></label><output aria-live="polite"></output></div>'))
-    labels = ["Market position", "Typical range · P20–P80", "Cross-source spread", "Drop to frontier"]
-    fields = "".join(f"<div class='fp-metric'><span>{label}</span><strong>{value}</strong></div>" for label,value in zip(labels, diagnostics[0]))
-    import json
-    display(HTML(f'<div class="fp-metrics fp-diagnostics" data-values="{escape(json.dumps(diagnostics), quote=True)}">{fields}</div>'))
-    high = signals.get("mean_7d_change_high_spread_pct")
-    low = signals.get("mean_7d_change_low_spread_pct")
-    if high is not None and low is not None:
-        display(Markdown(f"**Seven-day price movement** · High-spread parts {high:+.1f}% on average · Low-spread parts {low:+.1f}% on average."))
+def summary(name, title):
+    print(f"<summary>{icon(name)}<span>{title}</span>{icon('chev', 'fp-chev')}</summary>")
 ```
+
+<details class="fp-detail">
 
 ```{python}
-cards = []
-for kind, label in KINDS.items():
-    v = verdicts.get(kind) or {}
-    verdict = "Model beats baseline" if v.get("beats_baseline") else "Baseline retained"
-    if not v:
-        verdict = "Awaiting model results"
-    cards.append(f'<article class="fp-card"><h3>{label} · {verdict}</h3><p>{escape(v.get("statement", "No model result available."))}</p></article>')
-display(HTML('<div class="fp-verdicts">' + ''.join(cards) + '</div>'))
+#| output: asis
+summary("gpu", f"All GPU fair-price estimates ({len(groups['gpu'])})")
 ```
 
-## Market watch
-
-Current conditions for the selected category, based on new US listings.
-
-```{python}
-for kind in KINDS:
-    market_watch(kind)
-```
-
-:::: {.panel-tabset}
-
-### GPU (Graphics cards)
-
-::: {.fp-panel}
-
-**Listed price vs. rendering performance**  
-Each marker is one part. Compare its price with the typical price for its tier, or hover for its estimate and listing coverage. Both axes use a log scale.
-
-```{python}
-overview("gpu")
-```
-
-:::
-
-### CPU (Processors)
-
-::: {.fp-panel}
-
-**Listed price vs. rendering performance**  
-Each marker is one part. Compare its price with the typical price for its tier, or hover for its estimate and listing coverage. Both axes use a log scale.
-
-```{python}
-overview("cpu")
-```
-
-:::
-
-::::
-
-## Estimates and model details
-
-<details class="fp-detail"><summary>Graphics card estimates</summary>
+::: {.fp-detail-body}
 
 ```{python}
 if groups["gpu"].empty:
@@ -404,9 +682,18 @@ else:
     estimates(groups["gpu"])
 ```
 
+:::
+
 </details>
 
-<details class="fp-detail"><summary>Processor estimates</summary>
+<details class="fp-detail">
+
+```{python}
+#| output: asis
+summary("chip", f"All CPU fair-price estimates ({len(groups['cpu'])})")
+```
+
+::: {.fp-detail-body}
 
 ```{python}
 if groups["cpu"].empty:
@@ -415,138 +702,195 @@ else:
     estimates(groups["cpu"])
 ```
 
+:::
+
 </details>
 
-<details class="fp-detail"><summary>Model tournament leaderboard</summary>
+<details class="fp-detail">
+
+```{python}
+#| output: asis
+summary("trophy", "Model-fit leaderboard")
+```
+
+::: {.fp-detail-body}
 
 Every candidate across linear (`OLS`, `Ridge`, `Lasso`, `ElasticNet`, `Bayesian Ridge`), robust
 (`Huber`, `Theil-Sen`), quantile (`L1 Quantile P20 / P50 / P80`), tree/boosting (`Gradient
 Boosted Trees L1 & Huber`, `Extra Trees`, `Random Forest`), local instance (`KNN`), and the
-**`Weighted Ensemble (Top-3 LOO)`** is scored by leaving each part out in turn. Different winners
-answer different questions:
-
-* **Central conditional price (`P50`):** Which regression predicts typical out-of-sample price best?
-* **Consensus blend (`Top-3 LOO Ensemble`):** What do the top 3 distinct regression families agree on, and how much do the top 5 models disagree (`Model Spread %`)?
-* **Low & High Listed Bands (`P20` / `P80`):** Evaluated via asymmetric quantile pinball loss ($\tau = 0.20, 0.80$) and leave-one-out empirical coverage (`60%` target).
+**`Weighted Ensemble (Top-3 LOO)`** is scored by leaving each part out in turn. Typical error is
+the median absolute percentage error (MAPE) on the left-out parts.
 
 ```{python}
 if board.empty:
     display(Markdown(site.empty_state(board_meta, "Fair price leaderboard")))
 else:
-    cols = [
-        c
-        for c in [
-            "kind",
-            "rank",
-            "model",
-            "family",
-            "question",
-            "n_parts",
-            "mae_log",
-            "pinball_loss",
-            "median_abs_pct_error",
-            "gain_vs_baseline",
-            "beats_baseline",
-            "used",
-        ]
-        if c in board.columns
-    ]
-    table = board[cols].assign(kind=board["kind"].map(KINDS)).rename(
-        columns={
-            "kind": "Parts",
-            "rank": "Rank",
-            "model": "Model",
-            "family": "Family",
-            "question": "Question Answered",
-            "n_parts": "N",
-            "mae_log": "MAE (log)",
-            "pinball_loss": "Pinball Loss",
-            "median_abs_pct_error": "Typical Error (%)",
-            "gain_vs_baseline": "Gain vs. Baseline",
-            "beats_baseline": "Beats Baseline (>2 SE)",
-            "used": "Primary Pick",
-        }
-    ).round(
-        {
-            "MAE (log)": 3,
-            "Pinball Loss": 3,
-            "Typical Error (%)": 1,
-            "Gain vs. Baseline": 3,
-        }
-    )
+    cols = [c for c in ["kind", "rank", "model", "family", "question", "n_parts", "mae_log",
+                        "pinball_loss", "median_abs_pct_error", "gain_vs_baseline",
+                        "beats_baseline", "used"] if c in board.columns]
+    table = board[cols].assign(kind=board["kind"].map(KINDS)).rename(columns={
+        "kind": "Parts", "rank": "Rank", "model": "Model", "family": "Family",
+        "question": "Question answered", "n_parts": "N", "mae_log": "MAE (log)",
+        "pinball_loss": "Pinball loss", "median_abs_pct_error": "Typical error (%)",
+        "gain_vs_baseline": "Gain vs. baseline", "beats_baseline": "Beats baseline (>2 SE)",
+        "used": "Primary pick",
+    }).round({"MAE (log)": 3, "Pinball loss": 3, "Typical error (%)": 1, "Gain vs. baseline": 3})
     show(table, paging=False, showIndex=False, classes="display compact")
 ```
 
+:::
+
 </details>
 
-<details class="fp-detail"><summary>How to read the estimates and market signals</summary>
+<details class="fp-detail">
+
+```{python}
+#| output: asis
+summary("info", "Method &amp; limitations")
+```
+
+::: {.fp-detail-body}
 
 A **fair price** is the price a part would have if price followed its
-[Blender benchmark](https://opendata.blender.org/) score and nothing else. The **gap** is how
-far the lowest listing is from that price: a negative gap means the part is cheap for the
-rendering performance it delivers.
+[Blender benchmark](https://opendata.blender.org/) score and nothing else. The **gap** is how far
+the lowest new listing is from that estimate: a negative gap means the part is cheap for the
+rendering performance it delivers. A part within ±10% of its estimate reads as near fair.
 
-The fair price for a part always comes from a fit that never saw that part. Several models
-compete, and a naive baseline (every part costs the same per point of score) is always on the
-leaderboard. A model only replaces the baseline when it clearly beats it.
+The estimate for a part always comes from a fit that never saw that part. Eighteen models compete,
+and a naive baseline (every part costs the same per point of score) is always on the leaderboard.
+A model only replaces the baseline when it beats it by more than two standard errors.
 
-A gap is a question, not an answer. Blender measures rendering only. A processor built for
-games, or a graphics card with more memory, can cost more than its rendering score predicts
-and still be priced sensibly. Graphics cards also run on different Blender backends, which
-favours NVIDIA, so AMD and Intel cards look expensive here for that reason alone.
+**Model confidence** is the ensemble agreement: one minus the median spread between the top five
+models' estimates. At 0.90 or more it reads High, at 0.80 or more Moderate, and Low below that.
 
-1. **Cross-Seller & Listing Spread (`B` — Observable today):** Compares the cheapest verified listing against the per-source floor median (`2+ src`) and the all-listing median (`1 src`), plus whether primary retail undercuts marketplace (`Retail undercuts marketplace`) or only marketplace listings remain (`Marketplace only`). Single-listing parts are explicitly marked `1 listing`.
-2. **Two-Threshold Frontier Entry Distance & Sticker Momentum (`D` — Actionable today):**
-   * **Pareto Frontier Entry (`Drop to Pareto Frontier`):** Exact dollar and percentage price cut required to match the cheapest rival that is **at least as fast** ($\text{score}_j \ge \text{score}_i$), naming the blocking rival.
-   * **Regime Value Leader (`Drop to #1 Value (%)`):** Percentage drop required to match the highest points-per-dollar part in the same regime.
-   * **Sticker-Price Momentum (`7d Sticker Δ (%)`):** Pure 7-day change in the part's lowest listed price from [`price_history.json`](../data/v1/tech-value/price_history.json), completely decoupled from model recalibration.
-3. **Conditional Quantile Band (`A` — Calibrated via Leave-One-Out Coverage):** `P20 Low Listed` and `P80 High Listed` curves are fitted with asymmetric pinball loss ($\tau = 0.20, 0.80$) and validated out-of-fold against their nominal `60%` target coverage.
-4. **Ordinal Generational Hand-Off (`C` — Lifecycle Diagnostic):** Uses each part's ordinal generation position within its product line (`Current gen (0)`, `Previous gen (-1)`, `Legacy gen (-2+)`) alongside channel coverage to distinguish a **previous-generation clearance sweet spot** from a **thin-supply legacy premium**.
+**Market watch.** *Seller spread* is how far the cheapest listing sits below the median listing for
+the same part, as a median over parts with two or more listings. *Frontier distance* is the median
+price cut a part needs to match the cheapest rival that is at least as fast. *Price change* is the
+median change in each part's lowest price across the last 30 days of collected history; until 30
+days have been collected it covers the history so far, and the label says how many days.
+*P20–P80 coverage* is the share of left-out parts whose price fell inside their P20–P80 band
+(60% would be perfectly calibrated).
 
-Single-listing parts appear in the chart and tables. Only parts with multiple listings train the model.
+**Chart curves.** The P20–P80 band, the Top-3 ensemble line and the P50 regime curves are smooth
+curves drawn through the per-part estimates in log–log space, so they show the shape of the fit.
+The numbers for a part, in the detail cards and tables, are the model's own estimates for that part.
 
-</details>
+**Pareto drop** is the price cut needed to match the cheapest rival that is at least as fast. $0
+means the part is already on the price–performance frontier.
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".fp-inspect").forEach(box => {
-    const select = box.querySelector("select");
-    const diagnostics = box.closest(".fp-panel").querySelector(".fp-diagnostics");
-    const values = JSON.parse(diagnostics.dataset.values);
-    const update = () => {
-      box.querySelector("output").textContent = select.value;
-      diagnostics.querySelectorAll("strong").forEach((field, i) => {
-        field.textContent = values[select.selectedIndex][i];
-      });
-    };
-    select.addEventListener("change", update);
-    update();
-    const graph = box.closest(".fp-panel")?.querySelector(".js-plotly-plot");
-    if (graph?.on) graph.on("plotly_click", event => {
-      const point = event.points[0];
-      const name = point?.hovertext ?? point?.data?.hovertext?.[point.pointNumber];
-      const index = Array.from(select.options).findIndex(option => option.text === name);
-      if (index >= 0) { select.selectedIndex = index; update(); }
-    });
-  });
-  const syncMarket = () => {
-    const active = document.querySelector(".panel-tabset .nav-link.active");
-    const kind = active?.textContent.trim().toLowerCase().startsWith("cpu") ? "cpu" : "gpu";
-    document.querySelectorAll("[data-market]").forEach(strip => {
-      strip.style.display = strip.dataset.market === kind ? "grid" : "none";
-    });
-  };
-  syncMarket();
-  document.addEventListener("shown.bs.tab", () => {
-    syncMarket();
-    document.querySelectorAll(".fp-panel .js-plotly-plot").forEach(graph => {
-      if (graph.offsetWidth && window.Plotly) Plotly.Plots.resize(graph);
-    });
-  });
-});
-</script>
+A gap is a question, not an answer. Blender measures rendering only. A processor built for games,
+or a graphics card with more memory, can cost more than its rendering score predicts and still be
+priced sensibly. Graphics cards also run on different Blender backends, which favours NVIDIA, so
+AMD and Intel cards look expensive here for that reason alone. Parts with a single listing appear in
+the chart and tables but do not train the model, and their estimates carry low confidence.
 
 ```{python}
 #| output: asis
 print(site.source_note(meta))
 ```
+
+:::
+
+</details>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const COLORS = { under: "#18b47b", near: "#f5b400", above: "#ef5b4c" };
+  const usd = v => "$" + Math.round(v).toLocaleString("en-US");
+  const graphOf = cat => cat.querySelector(".js-plotly-plot");
+
+  document.querySelectorAll(".fp-cat").forEach(cat => {
+    const pick = cat.querySelector(".fp-pick");
+    if (!pick) return;
+    const parts = JSON.parse(pick.dataset.parts);
+    const select = pick.querySelector("select");
+    const field = f => cat.querySelector(`[data-f="${f}"]`);
+
+    const update = () => {
+      const p = parts.find(d => d.name === select.value) || parts[0];
+      const band = p.gap <= -10 ? "under" : p.gap >= 10 ? "above" : "near";
+      const pill = band === "under" ? "fp-pill-neg" : band === "above" ? "fp-pill-pos" : "fp-pill-mod";
+      const words = Math.abs(p.gap) < 0.5 ? "in line with estimate"
+        : `${Math.abs(p.gap).toFixed(0)}% ${p.gap < 0 ? "below" : "above"} estimate`;
+      pick.querySelector(".fp-pick-title").innerHTML =
+        `${p.name} · ${usd(p.y)} listed · ${usd(p.est)} estimated typical · <span class="fp-pill ${pill}">${words}</span>`;
+      pick.querySelector(".fp-pick-note").textContent = p.trusted
+        ? `${p.n} listings · Estimate from a fit that left this part out.`
+        : "One listing only · Low confidence (limited data; estimate may be less reliable).";
+      field("pos").textContent = `${p.gap > 0 ? "+" : p.gap < 0 ? "−" : ""}${Math.abs(p.gap).toFixed(0)}%`;
+      field("pos").classList.toggle("fp-neg", band === "above");
+      field("range").textContent = `${usd(p.p20)} – ${usd(p.p80)}`;
+      field("spread").textContent = p.spread;
+      field("spread_note").textContent = p.spread_note;
+      field("drop").textContent = usd(p.drop);
+      field("drop_note").textContent = p.drop > 0
+        ? `Cut needed to match ${p.rival || "a faster, cheaper part"}`
+        : "Already on the price–performance frontier";
+
+      const g = graphOf(cat);
+      if (!g || !window.Plotly) return;
+      const idx = g.data.findIndex(t => t.name === "selected");
+      if (idx >= 0) Plotly.restyle(g, { x: [[p.x]], y: [[p.y]] }, [idx]);
+      if (g.offsetWidth < 600) {
+        // Phone width: the banner below carries the details, so skip the callout.
+        Plotly.relayout(g, { annotations: [], "margin.l": 58, "margin.r": 8,
+          "xaxis.title.text": "Blender score (log scale)", "yaxis.title.text": "Lowest new listing (USD)" });
+        return;
+      }
+      Plotly.relayout(g, { annotations: [{
+        x: Math.log10(p.x), y: Math.log10(p.y), xref: "x", yref: "y",
+        ax: (Math.log10(p.x) - g.layout.xaxis.range[0]) / (g.layout.xaxis.range[1] - g.layout.xaxis.range[0]) < 0.5 ? 110 : -110,
+        ay: (Math.log10(p.y) - g.layout.yaxis.range[0]) / (g.layout.yaxis.range[1] - g.layout.yaxis.range[0]) < 0.5 ? -100 : 90, showarrow: true, arrowhead: 2, arrowwidth: 1.5, arrowcolor: "#0f8f6c",
+        align: "left", bgcolor: "rgba(255,255,255,0.96)", bordercolor: "#3fd4a0", borderwidth: 1.5, borderpad: 8,
+        font: { color: "#14233a", size: 12 },
+        text: `<b style="font-size:15px">${p.name}</b><br>${usd(p.y)} listed · ${usd(p.est)} estimated typical<br>` +
+              `<b><span style="color:${COLORS[band]}">${words}</span></b><br>` +
+              `<span style="color:#6b7a8c">${p.trusted ? p.n + " listings" : "One listing only · Low confidence"}</span>`,
+      }] });
+    };
+    select.addEventListener("change", update);
+    cat._fpUpdate = update;
+
+    const g = graphOf(cat);
+    if (g?.on) g.on("plotly_click", ev => {
+      const name = ev.points?.[0]?.customdata?.[0];
+      if (name && [...select.options].some(o => o.text === name)) { select.value = name; update(); }
+    });
+
+    cat.querySelectorAll(".fp-legend button[data-color]").forEach(btn => btn.addEventListener("click", () => {
+      const mode = btn.dataset.color;
+      cat.querySelectorAll(".fp-legend button[data-color]").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      cat.querySelectorAll(".fp-legend ul[data-legend]").forEach(u => u.classList.toggle("fp-off", u.dataset.legend !== mode));
+      const graph = graphOf(cat);
+      if (!graph || !window.Plotly) return;
+      const idx = [], vis = [];
+      graph.data.forEach((t, i) => {
+        if (t.name?.startsWith("gap:") || t.name?.startsWith("maker:")) { idx.push(i); vis.push(t.name.startsWith(mode + ":")); }
+      });
+      Plotly.restyle(graph, { visible: vis }, idx);
+    }));
+  });
+
+  const show = kind => {
+    document.querySelectorAll(".fp-tabs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
+    document.querySelectorAll("[data-kind]").forEach(el => {
+      el.style.setProperty("display", el.dataset.kind === kind ? (el.classList.contains("fp-watch") ? "grid" : "block") : "none", "important");
+    });
+    document.querySelectorAll(`.fp-cat[data-kind="${kind}"]`).forEach(cat => {
+      const g = graphOf(cat);
+      if (g && window.Plotly) Plotly.Plots.resize(g);
+      cat._fpUpdate?.();
+    });
+  };
+  document.querySelectorAll(".fp-tabs button").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+  show("gpu");
+  // Plotly may finish drawing after this script runs; refresh the callout once it has.
+  const settle = () => document.querySelectorAll(".fp-cat").forEach(c => {
+    const g = graphOf(c);
+    if (g && g.offsetWidth && window.Plotly) Plotly.Plots.resize(g);
+    c._fpUpdate?.();
+  });
+  setTimeout(settle, 300);
+  window.addEventListener("load", settle);
+});
+</script>
