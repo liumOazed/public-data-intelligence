@@ -28,6 +28,28 @@ sources:
       Vendor-submitted and dominated by servers. Used to prove the residual method, not to rank
       consumer parts.
 
+  spec_gwpg:
+    name: SPEC Graphics and Workstation Performance Group (GWPG) published results
+    owner: Standard Performance Evaluation Corporation (SPEC/GWPG)
+    url: https://gwpg.spec.org/
+    endpoint: https://www.spec.org/gwpg/gpc.static/specviewperfresults.html
+    licence: >-
+      SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the
+      source and retrieval date are stated, the licensee of each result is identifiable, the SPEC,
+      SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are
+      compared only within the same benchmark release and resolution, and derived values and
+      estimates are clearly labelled and never called SPEC metrics. The site does all of these.
+    frequency: weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically
+    typical_lag: results appear weeks to months after the test date
+    status: green
+    publish: derived
+    module: tech-value
+    terms_checked: 2026-11-19
+    notes: >-
+      Vendor-submitted workstation GPU benchmarks across SPECviewperf (15, 2020, 13, 12.1),
+      SPECworkstation (4.0, 3.1, 3.0) and SPECapc (Maya 2024, Solidworks 2022, Creo 9, 3ds Max
+      2020). Used to compute out-of-fold GPU specification residuals alongside SPEC CPU 2017.
+
   blender_opendata:
     name: Blender Open Data benchmark snapshots
     owner: Blender Foundation

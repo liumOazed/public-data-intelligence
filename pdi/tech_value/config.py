@@ -9,6 +9,7 @@ RAW_DIR = RAW / "tech_value"
 STORE_DIR = STORE / "tech_value"
 
 SPEC_TABLE = STORE_DIR / "spec_results.parquet"
+GWPG_TABLE = STORE_DIR / "spec_gwpg_results.parquet"
 BLENDER_TABLE = STORE_DIR / "blender_devices.parquet"
 PRICES_DIR = STORE_DIR / "prices"
 AUTOML_LEADERBOARD = STORE_DIR / "automl_leaderboard.parquet"
@@ -20,6 +21,26 @@ SPEC_ENDPOINT = "https://www.spec.org/cgi-bin/osgresults"
 SPEC_CONF = "rint2017"  # SPECrate 2017 Integer
 SPEC_BENCHMARK = "CINT2017rate"
 SPEC_METRIC = "base_score"
+
+# SPEC Graphics & Workstation Performance Group (GWPG) official result summary pages.
+GWPG_ENDPOINTS = {
+    "SPECviewperf 15": "https://www.spec.org/gwpg/gpc.data/viewperf15/summary.html",
+    "SPECviewperf 2020 v3": "https://www.spec.org/gwpg/gpc.data/viewperf2020v3/summary.html",
+    "SPECviewperf 2020 v3 Linux": "https://www.spec.org/gwpg/gpc.data/viewperf2020v3linux/summary.html",
+    "SPECviewperf 2020 v2": "https://www.spec.org/gwpg/gpc.data/viewperf2020v2/summary.html",
+    "SPECviewperf 2020 v1": "https://www.spec.org/gwpg/gpc.data/viewperf2020/summary.html",
+    "SPECviewperf 13": "https://www.spec.org/gwpg/gpc.data/vp13/summary.html",
+    "SPECviewperf 13 Linux": "https://www.spec.org/gwpg/gpc.data/vp13linux/summary.html",
+    "SPECviewperf 12.1": "https://www.spec.org/gwpg/gpc.data/vp12.1/summary.html",
+    "SPECworkstation 4.0": "https://www.spec.org/gwpg/wpc.data/specworkstation4_summary.html",
+    "SPECworkstation 3.1": "https://www.spec.org/gwpg/wpc.data/specworkstation31_summary.html",
+    "SPECworkstation 3.0": "https://www.spec.org/gwpg/wpc.data/specworkstation3_summary.html",
+    "SPECapc Maya 2024": "https://www.spec.org/gwpg/apc.data/specapc_maya2024_summary.html",
+    "SPECapc Solidworks 2022": "https://www.spec.org/gwpg/apc.data/specapc_sw2022_summary.html",
+    "SPECapc Creo 9": "https://www.spec.org/gwpg/apc.data/specapc_creo9_summary.html",
+    "SPECapc 3ds Max 2020": "https://www.spec.org/gwpg/apc.data/specapc_3dsm2020_summary.html",
+}
+GWPG_MIN_RESULTS_FOR_RANK = 2
 
 BLENDER_SNAPSHOT_URL = "https://opendata.blender.org/snapshots/opendata-latest.zip"
 BLENDER_SCENES = ("monster", "junkshop", "classroom")
