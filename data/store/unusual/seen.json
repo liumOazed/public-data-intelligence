@@ -67,6 +67,10 @@
   "baseline": false,
   "first_seen": "2026-11-18T01:57:06+00:00"
  },
+ "tech-value|amd ryzen 5 5500|price move|2026-11-19": {
+  "baseline": false,
+  "first_seen": "2026-11-19T18:30:56+00:00"
+ },
  "tech-value|amd ryzen 5 7600x|price move|2026-11-16": {
   "baseline": true,
   "first_seen": "2026-11-16T13:05:47+00:00"
@@ -183,6 +187,10 @@
   "baseline": false,
   "first_seen": "2026-11-17T16:55:01+00:00"
  },
+ "tech-value|amd ryzen 9 5950x|price move|2026-11-19": {
+  "baseline": false,
+  "first_seen": "2026-11-19T18:30:56+00:00"
+ },
  "tech-value|amd ryzen 9 7950x3d|price move|2026-11-19": {
   "baseline": false,
   "first_seen": "2026-11-19T01:35:59+00:00"
@@ -271,6 +279,10 @@
   "baseline": false,
   "first_seen": "2026-11-19T01:35:59+00:00"
  },
+ "tech-value|intel arc b570|price move|2026-11-19": {
+  "baseline": false,
+  "first_seen": "2026-11-19T18:30:56+00:00"
+ },
  "tech-value|intel arc pro b60|price move|2026-11-18": {
   "baseline": false,
   "first_seen": "2026-11-18T01:57:06+00:00"
@@ -327,6 +339,10 @@
   "baseline": false,
   "first_seen": "2026-11-19T01:35:59+00:00"
  },
+ "tech-value|intel core i9-13900k|price move|2026-11-19": {
+  "baseline": false,
+  "first_seen": "2026-11-19T18:30:56+00:00"
+ },
  "tech-value|intel core i9-14900k|price move|2026-11-17": {
   "baseline": false,
   "first_seen": "2026-11-17T18:46:56+00:00"
@@ -375,6 +391,10 @@
   "baseline": false,
   "first_seen": "2026-11-19T01:35:59+00:00"
  },
+ "tech-value|nvidia rtx 3060 ti|price move|2026-11-19": {
+  "baseline": false,
+  "first_seen": "2026-11-19T18:30:56+00:00"
+ },
  "tech-value|nvidia rtx 3060|price move|2026-11-17": {
   "baseline": false,
   "first_seen": "2026-11-17T18:46:56+00:00"
@@ -394,6 +414,10 @@
  "tech-value|nvidia rtx 4000 ada|price move|2026-11-19": {
   "baseline": false,
   "first_seen": "2026-11-19T01:35:59+00:00"
+ },
+ "tech-value|nvidia rtx 4070 super|price move|2026-11-19": {
+  "baseline": false,
+  "first_seen": "2026-11-19T18:30:56+00:00"
  },
  "tech-value|nvidia rtx 5060|price move|2026-11-16": {
   "baseline": false,

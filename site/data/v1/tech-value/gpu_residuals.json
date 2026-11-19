@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_residuals",
   "description": "Per GPU: median leave-one-GPU-out residual across SPEC GWPG disclosures (SPECviewperf, SPECworkstation, SPECapc), with multi-model consensus and OEM workstation tuning spread.",
-  "generated_at": "2026-11-19T10:41:51+00:00",
+  "generated_at": "2026-11-19T18:30:14+00:00",
   "rows": 56,
   "columns": [
    "processor",

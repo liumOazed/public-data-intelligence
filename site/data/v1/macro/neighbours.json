@@ -3,8 +3,8 @@
   "module": "macro",
   "table": "neighbours",
   "description": "For measures the BIS or IMF defines the same way in each country: each economy's surprise beside the median surprise of the other Southeast Asian economies.",
-  "generated_at": "2026-11-19T01:35:57+00:00",
-  "rows": 443,
+  "generated_at": "2026-11-19T18:30:54+00:00",
+  "rows": 448,
   "columns": [
    "period",
    "country",
@@ -24,7 +24,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-19T01:34:52+00:00"
+    "retrieved_at": "2026-11-19T18:27:37+00:00"
    },
    {
     "id": "imf",
@@ -33,7 +33,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-19T01:35:06+00:00"
+    "retrieved_at": "2026-11-19T18:27:53+00:00"
    }
   ],
   "preliminary": false,
@@ -2271,55 +2271,55 @@
    "country": "Indonesia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -1.203,
-   "neighbours_median_z": 0.028,
+   "own_z": -1.156,
+   "neighbours_median_z": 0.042,
    "n_neighbours": 4,
-   "gap": -1.231,
-   "z": -0.897
+   "gap": -1.198,
+   "z": -0.869
   },
   {
    "period": "2026-02-01T00:00:00",
    "country": "Indonesia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.746,
-   "neighbours_median_z": 0.22,
+   "own_z": -0.755,
+   "neighbours_median_z": 0.205,
    "n_neighbours": 4,
-   "gap": -0.966,
-   "z": -0.607
+   "gap": -0.961,
+   "z": -0.603
   },
   {
    "period": "2026-03-01T00:00:00",
    "country": "Indonesia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.932,
-   "neighbours_median_z": 0.173,
+   "own_z": 0.941,
+   "neighbours_median_z": 0.189,
    "n_neighbours": 4,
-   "gap": 0.759,
-   "z": 0.906
+   "gap": 0.752,
+   "z": 0.9
   },
   {
    "period": "2026-04-01T00:00:00",
    "country": "Indonesia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -1.776,
-   "neighbours_median_z": -0.473,
+   "own_z": -1.794,
+   "neighbours_median_z": -0.424,
    "n_neighbours": 4,
-   "gap": -1.303,
-   "z": -0.893
+   "gap": -1.37,
+   "z": -0.951
   },
   {
    "period": "2026-05-01T00:00:00",
    "country": "Indonesia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -2.258,
-   "neighbours_median_z": -0.14,
+   "own_z": -2.257,
+   "neighbours_median_z": -0.135,
    "n_neighbours": 4,
-   "gap": -2.117,
-   "z": -1.596
+   "gap": -2.122,
+   "z": -1.6
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -2327,10 +2327,10 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -0.45,
-   "neighbours_median_z": -0.424,
+   "neighbours_median_z": -0.415,
    "n_neighbours": 4,
-   "gap": -0.025,
-   "z": 0.23
+   "gap": -0.035,
+   "z": 0.222
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -2338,10 +2338,10 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -0.345,
-   "neighbours_median_z": -0.37,
+   "neighbours_median_z": -0.364,
    "n_neighbours": 4,
-   "gap": 0.025,
-   "z": 0.276
+   "gap": 0.02,
+   "z": 0.271
   },
   {
    "period": "2026-08-01T00:00:00",
@@ -2349,21 +2349,32 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -0.089,
-   "neighbours_median_z": -0.294,
+   "neighbours_median_z": -0.299,
    "n_neighbours": 4,
-   "gap": 0.205,
-   "z": 0.435
+   "gap": 0.21,
+   "z": 0.44
   },
   {
    "period": "2026-09-01T00:00:00",
    "country": "Indonesia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.107,
-   "neighbours_median_z": -0.882,
+   "own_z": 0.086,
+   "neighbours_median_z": -0.907,
    "n_neighbours": 4,
-   "gap": 0.989,
-   "z": 1.085
+   "gap": 0.993,
+   "z": 1.089
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "reer",
+   "name": "Real effective exchange rate, broad basket",
+   "own_z": -0.87,
+   "neighbours_median_z": -0.03,
+   "n_neighbours": 4,
+   "gap": -0.84,
+   "z": -0.493
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -2403,99 +2414,110 @@
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 1.671,
-   "neighbours_median_z": -0.304,
+   "own_z": 1.627,
+   "neighbours_median_z": -0.355,
    "n_neighbours": 4,
-   "gap": 1.975,
-   "z": 1.494
+   "gap": 1.982,
+   "z": 1.5
   },
   {
    "period": "2026-02-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 1.982,
-   "neighbours_median_z": -0.363,
+   "own_z": 1.962,
+   "neighbours_median_z": -0.377,
    "n_neighbours": 4,
-   "gap": 2.345,
-   "z": 1.729
+   "gap": 2.338,
+   "z": 1.724
   },
   {
    "period": "2026-03-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.303,
-   "neighbours_median_z": 0.389,
+   "own_z": 0.325,
+   "neighbours_median_z": 0.411,
    "n_neighbours": 4,
-   "gap": -0.086,
-   "z": -0.222
+   "gap": -0.087,
+   "z": -0.223
   },
   {
    "period": "2026-04-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -1.37,
-   "neighbours_median_z": -0.676,
+   "own_z": -1.282,
+   "neighbours_median_z": -0.68,
    "n_neighbours": 4,
-   "gap": -0.694,
-   "z": -0.692
+   "gap": -0.602,
+   "z": -0.617
   },
   {
    "period": "2026-05-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.481,
+   "own_z": 0.492,
    "neighbours_median_z": -1.509,
    "n_neighbours": 4,
-   "gap": 1.99,
-   "z": 1.459
+   "gap": 2.001,
+   "z": 1.467
   },
   {
    "period": "2026-06-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -2.902,
-   "neighbours_median_z": -0.333,
+   "own_z": -2.912,
+   "neighbours_median_z": -0.32,
    "n_neighbours": 4,
-   "gap": -2.568,
-   "z": -2.224
+   "gap": -2.592,
+   "z": -2.251
   },
   {
    "period": "2026-07-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.045,
+   "own_z": 0.057,
    "neighbours_median_z": -0.381,
    "n_neighbours": 4,
-   "gap": 0.426,
-   "z": 0.223
+   "gap": 0.438,
+   "z": 0.234
   },
   {
    "period": "2026-08-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -1.07,
+   "own_z": -1.069,
    "neighbours_median_z": 0.171,
    "n_neighbours": 4,
    "gap": -1.241,
-   "z": -1.143
+   "z": -1.145
   },
   {
    "period": "2026-09-01T00:00:00",
    "country": "Malaysia",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.926,
-   "neighbours_median_z": -0.404,
+   "own_z": -0.951,
+   "neighbours_median_z": -0.58,
    "n_neighbours": 4,
-   "gap": -0.522,
-   "z": -0.551
+   "gap": -0.371,
+   "z": -0.429
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "reer",
+   "name": "Real effective exchange rate, broad basket",
+   "own_z": 0.099,
+   "neighbours_median_z": -0.163,
+   "n_neighbours": 4,
+   "gap": 0.262,
+   "z": 0.09
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -2535,55 +2557,55 @@
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.155,
-   "neighbours_median_z": -0.121,
+   "own_z": -0.135,
+   "neighbours_median_z": -0.178,
    "n_neighbours": 4,
-   "gap": -0.034,
-   "z": 0.05
+   "gap": 0.042,
+   "z": 0.111
   },
   {
    "period": "2026-02-01T00:00:00",
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.419,
-   "neighbours_median_z": -0.363,
+   "own_z": 0.409,
+   "neighbours_median_z": -0.377,
    "n_neighbours": 4,
-   "gap": 0.783,
-   "z": 0.698
+   "gap": 0.786,
+   "z": 0.701
   },
   {
    "period": "2026-03-01T00:00:00",
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.042,
-   "neighbours_median_z": 0.52,
+   "own_z": 0.052,
+   "neighbours_median_z": 0.547,
    "n_neighbours": 4,
-   "gap": -0.477,
-   "z": -0.329
+   "gap": -0.495,
+   "z": -0.348
   },
   {
    "period": "2026-04-01T00:00:00",
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.424,
-   "neighbours_median_z": -1.573,
+   "own_z": 0.434,
+   "neighbours_median_z": -1.538,
    "n_neighbours": 4,
-   "gap": 1.997,
-   "z": 1.637
+   "gap": 1.972,
+   "z": 1.608
   },
   {
    "period": "2026-05-01T00:00:00",
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -2.812,
-   "neighbours_median_z": -0.14,
+   "own_z": -2.811,
+   "neighbours_median_z": -0.135,
    "n_neighbours": 4,
-   "gap": -2.672,
-   "z": -2.038
+   "gap": -2.676,
+   "z": -2.052
   },
   {
    "period": "2026-06-01T00:00:00",
@@ -2591,10 +2613,10 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": 0.851,
-   "neighbours_median_z": -0.541,
+   "neighbours_median_z": -0.545,
    "n_neighbours": 4,
-   "gap": 1.392,
-   "z": 1.133
+   "gap": 1.395,
+   "z": 1.123
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -2602,32 +2624,43 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -0.416,
-   "neighbours_median_z": -0.334,
+   "neighbours_median_z": -0.329,
    "n_neighbours": 4,
-   "gap": -0.082,
-   "z": -0.014
+   "gap": -0.088,
+   "z": -0.024
   },
   {
    "period": "2026-08-01T00:00:00",
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -1.02,
+   "own_z": -1.031,
    "neighbours_median_z": 0.171,
    "n_neighbours": 4,
-   "gap": -1.192,
-   "z": -0.878
+   "gap": -1.202,
+   "z": -0.889
   },
   {
    "period": "2026-09-01T00:00:00",
    "country": "Philippines",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -1.855,
-   "neighbours_median_z": -0.404,
+   "own_z": -1.875,
+   "neighbours_median_z": -0.58,
    "n_neighbours": 4,
-   "gap": -1.451,
-   "z": -1.049
+   "gap": -1.296,
+   "z": -0.925
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "reer",
+   "name": "Real effective exchange rate, broad basket",
+   "own_z": -0.076,
+   "neighbours_median_z": -0.117,
+   "n_neighbours": 4,
+   "gap": 0.041,
+   "z": 0.101
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -2667,99 +2700,110 @@
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.453,
-   "neighbours_median_z": 0.028,
+   "own_z": -0.575,
+   "neighbours_median_z": 0.042,
    "n_neighbours": 4,
-   "gap": -0.481,
-   "z": -0.632
+   "gap": -0.617,
+   "z": -0.771
   },
   {
    "period": "2026-02-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.02,
-   "neighbours_median_z": -0.163,
+   "own_z": 0.002,
+   "neighbours_median_z": -0.173,
    "n_neighbours": 4,
-   "gap": 0.183,
-   "z": 0.047
+   "gap": 0.175,
+   "z": 0.038
   },
   {
    "period": "2026-03-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.736,
-   "neighbours_median_z": 0.173,
+   "own_z": 0.77,
+   "neighbours_median_z": 0.189,
    "n_neighbours": 4,
-   "gap": 0.563,
-   "z": 0.42
+   "gap": 0.582,
+   "z": 0.429
   },
   {
    "period": "2026-04-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -2.359,
-   "neighbours_median_z": -0.473,
+   "own_z": -2.169,
+   "neighbours_median_z": -0.424,
    "n_neighbours": 4,
-   "gap": -1.886,
-   "z": -2.152
+   "gap": -1.745,
+   "z": -1.966
   },
   {
    "period": "2026-05-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.739,
+   "own_z": 0.747,
    "neighbours_median_z": -1.509,
    "n_neighbours": 4,
-   "gap": 2.248,
-   "z": 2.178
+   "gap": 2.256,
+   "z": 2.176
   },
   {
    "period": "2026-06-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.217,
-   "neighbours_median_z": -0.541,
+   "own_z": -0.191,
+   "neighbours_median_z": -0.545,
    "n_neighbours": 4,
-   "gap": 0.323,
-   "z": 0.175
+   "gap": 0.354,
+   "z": 0.203
   },
   {
    "period": "2026-07-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.324,
+   "own_z": -0.312,
    "neighbours_median_z": -0.381,
    "n_neighbours": 4,
-   "gap": 0.057,
-   "z": -0.106
+   "gap": 0.068,
+   "z": -0.094
   },
   {
    "period": "2026-08-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.752,
-   "neighbours_median_z": -0.555,
+   "own_z": 0.737,
+   "neighbours_median_z": -0.56,
    "n_neighbours": 4,
-   "gap": 1.307,
-   "z": 1.218
+   "gap": 1.297,
+   "z": 1.208
   },
   {
    "period": "2026-09-01T00:00:00",
    "country": "Singapore",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.03,
-   "neighbours_median_z": -0.882,
+   "own_z": -0.297,
+   "neighbours_median_z": -0.907,
    "n_neighbours": 4,
-   "gap": 0.912,
-   "z": 0.798
+   "gap": 0.61,
+   "z": 0.477
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "reer",
+   "name": "Real effective exchange rate, broad basket",
+   "own_z": -0.25,
+   "neighbours_median_z": -0.03,
+   "n_neighbours": 4,
+   "gap": -0.221,
+   "z": -0.409
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -2799,11 +2843,11 @@
    "country": "Thailand",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 0.211,
-   "neighbours_median_z": -0.304,
+   "own_z": 0.22,
+   "neighbours_median_z": -0.355,
    "n_neighbours": 4,
-   "gap": 0.515,
-   "z": 0.361
+   "gap": 0.575,
+   "z": 0.41
   },
   {
    "period": "2026-02-01T00:00:00",
@@ -2811,32 +2855,32 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -1.246,
-   "neighbours_median_z": 0.22,
+   "neighbours_median_z": 0.205,
    "n_neighbours": 4,
-   "gap": -1.465,
-   "z": -1.242
+   "gap": -1.451,
+   "z": -1.231
   },
   {
    "period": "2026-03-01T00:00:00",
    "country": "Thailand",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -2.101,
-   "neighbours_median_z": 0.52,
+   "own_z": -2.083,
+   "neighbours_median_z": 0.547,
    "n_neighbours": 4,
-   "gap": -2.62,
-   "z": -2.162
+   "gap": -2.63,
+   "z": -2.17
   },
   {
    "period": "2026-04-01T00:00:00",
    "country": "Thailand",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": 2.141,
-   "neighbours_median_z": -1.573,
+   "own_z": 2.149,
+   "neighbours_median_z": -1.538,
    "n_neighbours": 4,
-   "gap": 3.714,
-   "z": 2.931
+   "gap": 3.687,
+   "z": 2.91
   },
   {
    "period": "2026-05-01T00:00:00",
@@ -2844,21 +2888,21 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -0.761,
-   "neighbours_median_z": -0.888,
+   "neighbours_median_z": -0.882,
    "n_neighbours": 4,
-   "gap": 0.127,
-   "z": 0.037
+   "gap": 0.122,
+   "z": 0.033
   },
   {
    "period": "2026-06-01T00:00:00",
    "country": "Thailand",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.631,
-   "neighbours_median_z": -0.333,
+   "own_z": -0.64,
+   "neighbours_median_z": -0.32,
    "n_neighbours": 4,
-   "gap": -0.298,
-   "z": -0.304
+   "gap": -0.319,
+   "z": -0.321
   },
   {
    "period": "2026-07-01T00:00:00",
@@ -2866,10 +2910,10 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": -1.957,
-   "neighbours_median_z": -0.334,
+   "neighbours_median_z": -0.329,
    "n_neighbours": 4,
-   "gap": -1.623,
-   "z": -1.376
+   "gap": -1.628,
+   "z": -1.38
   },
   {
    "period": "2026-08-01T00:00:00",
@@ -2877,21 +2921,32 @@
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
    "own_z": 0.432,
-   "neighbours_median_z": -0.555,
+   "neighbours_median_z": -0.56,
    "n_neighbours": 4,
-   "gap": 0.987,
-   "z": 0.724
+   "gap": 0.992,
+   "z": 0.728
   },
   {
    "period": "2026-09-01T00:00:00",
    "country": "Thailand",
    "indicator": "reer",
    "name": "Real effective exchange rate, broad basket",
-   "own_z": -0.838,
-   "neighbours_median_z": -0.448,
+   "own_z": -0.863,
+   "neighbours_median_z": -0.624,
    "n_neighbours": 4,
-   "gap": -0.39,
-   "z": -0.373
+   "gap": -0.239,
+   "z": -0.253
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "reer",
+   "name": "Real effective exchange rate, broad basket",
+   "own_z": 0.016,
+   "neighbours_median_z": -0.163,
+   "n_neighbours": 4,
+   "gap": 0.18,
+   "z": 0.088
   },
   {
    "period": "2025-10-01T00:00:00",
