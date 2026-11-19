@@ -25,6 +25,11 @@ main.content { max-width:1200px; width:100%; margin:auto; font-family:"Century G
 details.fp-detail { border:1px solid #d7e3e4; border-radius:12px; background:white; padding:12px 18px; margin:8px 0; overflow-x:auto }
 .fp-detail summary { cursor:pointer; font-weight:600; color:#194c51 }
 .fp-detail[open] summary { margin-bottom:15px }
+[data-market="cpu"] { display:none }
+.fp-diagnostics strong { font-size:1.15rem; margin-top:.35rem }
+main.content .panel-tabset .nav-tabs { border:0; gap:6px }
+main.content .panel-tabset .nav-link { border:1px solid #c7d8d6; border-radius:20px; color:#254c50 }
+main.content .panel-tabset .nav-link.active { background:#164747; color:white }
 </style>
 
 <div class="fp-hero"><h1>Tech Value: Fair Price</h1><p>How much should a desktop part cost for the rendering performance it delivers? Compare the lowest US listing with a benchmark-based fair price.</p></div>
@@ -292,28 +297,46 @@ def number(value, fmt=".0f"):
     return format(value, fmt) if value is not None else "—"
 
 
-def overview(kind):
+def market_watch(kind):
     v = verdicts.get(kind) or {}
-    signals = v.get("market_signals") or {}
+    part = groups[kind]
+    multi = part[part["n_listings"] >= 2] if not part.empty else part
+    def median(frame, column, fmt=".1f"):
+        values = frame[column].dropna() if column in frame else []
+        return format(values.median(), fmt) + "%" if len(values) else "—"
     metrics = [
-        (number(signals.get("n_on_pareto_frontier")), "On the frontier", "No faster or equally fast rival costs less."),
-        (number(signals.get("n_within_10pct_of_frontier")), "Within reach", "A price cut of up to 10% would reach the frontier."),
-        (number(signals.get("n_high_seller_spread_15pct")), "Wide listing spread", "Parts with at least a 15% gap across listings."),
-        (number(v.get("p20_p80_loo_coverage_pct")) + "%", "Inside the P20–P80 band", "Held-out coverage against a 60% target."),
+        (median(multi, "listing_spread_pct"), "Listing spread", "Median across parts with multiple listings."),
+        (median(part, "drop_to_frontier_pct"), "Frontier distance", "Median price cut to match an equally fast or faster rival."),
+        (median(part, "price_change_7d_pct", "+.1f"), "Seven-day price change", "Median change in the lowest listing."),
+        (number(v.get("p20_p80_loo_coverage_pct")) + "%", "P20–P80 coverage", "Held-out coverage against a 60% target."),
     ]
     cards = "".join(f"<div class='fp-metric'><strong>{n}</strong><span>{title}</span><small>{note}</small></div>" for n,title,note in metrics)
-    display(HTML(f"<div class='fp-metrics'>{cards}</div>"))
+    display(HTML(f"<div class='fp-metrics' data-market='{kind}'>{cards}</div>"))
+
+
+def overview(kind):
+    signals = (verdicts.get(kind) or {}).get("market_signals") or {}
     part = groups[kind]
     if part.empty:
         display(Markdown(site.empty_state(meta, KINDS[kind])))
         return
     chart(part)
     options = []
+    diagnostics = []
     for row in part.sort_values("display_model").itertuples():
         note = (f"Lowest listing ${row.price_usd:,.0f} · Fair price ${row.fair_price_usd:,.0f} · "
-                f"Gap {row.gap_pct:+.0f}% · {row.channel_signal} · {row.lifecycle_signal}")
+                f"Gap {row.gap_pct:+.0f}% · {row.n_listings} listing(s) · {row.confidence} confidence · {row.channel_signal} · {row.lifecycle_signal}")
+        spread = f"{row.source_spread_pct:.1f}%" if row.n_retailers >= 2 else "Single source"
+        diagnostics.append([
+            f"{row.gap_pct:+.0f}%", f"${row.floor_p20_usd:,.0f} – ${row.ceiling_p80_usd:,.0f}",
+            spread, f"${row.drop_to_frontier_usd:,.0f}",
+        ])
         options.append(f'<option value="{escape(note, quote=True)}">{escape(row.display_model)}</option>')
     display(HTML(f'<div class="fp-inspect"><label>Inspect a part &nbsp;<select>{"".join(options)}</select></label><output aria-live="polite"></output></div>'))
+    labels = ["Market position", "Typical range · P20–P80", "Cross-source spread", "Drop to frontier"]
+    fields = "".join(f"<div class='fp-metric'><span>{label}</span><strong>{value}</strong></div>" for label,value in zip(labels, diagnostics[0]))
+    import json
+    display(HTML(f'<div class="fp-metrics fp-diagnostics" data-values="{escape(json.dumps(diagnostics), quote=True)}">{fields}</div>'))
     high = signals.get("mean_7d_change_high_spread_pct")
     low = signals.get("mean_7d_change_low_spread_pct")
     if high is not None and low is not None:
@@ -333,11 +356,16 @@ display(HTML('<div class="fp-verdicts">' + ''.join(cards) + '</div>'))
 
 ## Market watch
 
-Choose a category to explore its market signals and fair-price chart.
+Current conditions for the selected category, based on new US listings.
+
+```{python}
+for kind in KINDS:
+    market_watch(kind)
+```
 
 :::: {.panel-tabset}
 
-### GPU
+### GPU (Graphics cards)
 
 ::: {.fp-panel}
 
@@ -350,7 +378,7 @@ overview("gpu")
 
 :::
 
-### CPU
+### CPU (Processors)
 
 ::: {.fp-panel}
 
@@ -365,7 +393,7 @@ overview("cpu")
 
 ::::
 
-## Data and methodology
+## Estimates and model details
 
 <details class="fp-detail"><summary>Graphics card estimates</summary>
 
@@ -483,17 +511,34 @@ Single-listing parts appear in the chart and tables. Only parts with multiple li
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".fp-inspect").forEach(box => {
     const select = box.querySelector("select");
-    const update = () => { box.querySelector("output").textContent = select.value; };
+    const diagnostics = box.closest(".fp-panel").querySelector(".fp-diagnostics");
+    const values = JSON.parse(diagnostics.dataset.values);
+    const update = () => {
+      box.querySelector("output").textContent = select.value;
+      diagnostics.querySelectorAll("strong").forEach((field, i) => {
+        field.textContent = values[select.selectedIndex][i];
+      });
+    };
     select.addEventListener("change", update);
     update();
     const graph = box.closest(".fp-panel")?.querySelector(".js-plotly-plot");
     if (graph?.on) graph.on("plotly_click", event => {
-      const name = event.points[0]?.hovertext;
+      const point = event.points[0];
+      const name = point?.hovertext ?? point?.data?.hovertext?.[point.pointNumber];
       const index = Array.from(select.options).findIndex(option => option.text === name);
       if (index >= 0) { select.selectedIndex = index; update(); }
     });
   });
+  const syncMarket = () => {
+    const active = document.querySelector(".panel-tabset .nav-link.active");
+    const kind = active?.textContent.trim().toLowerCase().startsWith("cpu") ? "cpu" : "gpu";
+    document.querySelectorAll("[data-market]").forEach(strip => {
+      strip.style.display = strip.dataset.market === kind ? "grid" : "none";
+    });
+  };
+  syncMarket();
   document.addEventListener("shown.bs.tab", () => {
+    syncMarket();
     document.querySelectorAll(".fp-panel .js-plotly-plot").forEach(graph => {
       if (graph.offsetWidth && window.Plotly) Plotly.Plots.resize(graph);
     });
