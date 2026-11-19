@@ -50,6 +50,10 @@ def _day(value) -> str | None:
     return str(value)[:10]
 
 
+def _num(value) -> float | None:
+    return None if value is None or pd.isna(value) else float(value)
+
+
 def _limited(n_results: int, n_oems: int) -> bool:
     return n_oems <= 1 or n_results < 4
 
@@ -84,6 +88,12 @@ def build(
                 "spec_oems": 0,
                 "spec_rows_unmatched": 0,
                 "spec_rows_unparsed": 0,
+                "score_per_dollar": None,
+                "value_rank": None,
+                "value_n": None,
+                "fair_price_usd": None,
+                "fair_gap_pct": None,
+                "spec_score": None,
                 "residual_pct": None,
                 "consensus_verdict": None,
             },
@@ -103,8 +113,23 @@ def build(
         r["price_date"] = _day(getattr(v, "price_date", None)) or _day(
             getattr(v, "collected_date", None)
         )
+    # Rank by Blender points per dollar, as the Value ranking page does.
+    if "score_per_dollar" in value.columns and not value.empty:
+        ranked = value.assign(
+            rank_=value.groupby("kind")["score_per_dollar"].rank(ascending=False, method="min"),
+            n_=value.groupby("kind")["model_key"].transform("size"),
+        )
+        for v in ranked.itertuples():
+            r = row(v.kind, v.model_key, v.model_key)
+            r["score_per_dollar"] = float(v.score_per_dollar)
+            r["value_rank"] = int(v.rank_)
+            r["value_n"] = int(v.n_)
     for f in fair.itertuples():
-        row(f.kind, f.model_key, f.model_key)["on_fair_price"] = True
+        r = row(f.kind, f.model_key, f.model_key)
+        r["on_fair_price"] = True
+        if getattr(f, "fair_price_usd", None) is not None and pd.notna(f.fair_price_usd):
+            r["fair_price_usd"] = float(f.fair_price_usd)
+            r["fair_gap_pct"] = float(f.gap_pct)
 
     # SPEC CPU: every processor with a result, ranked or not.
     if not spec.empty:
@@ -121,6 +146,7 @@ def build(
         r["on_residuals"] = True
         r["residual_pct"] = float(c.residual_pct)
         r["consensus_verdict"] = c.consensus_verdict
+        r["spec_score"] = _num(getattr(c, "measured_per_socket", None))
 
     # SPEC GWPG: every disclosure, including cards without specifications or readable scores.
     if not gwpg.empty:
@@ -139,6 +165,7 @@ def build(
         r["on_residuals"] = True
         r["residual_pct"] = float(c.residual_pct)
         r["consensus_verdict"] = c.consensus_verdict
+        r["spec_score"] = _num(getattr(c, "measured_score", None))
 
     out = pd.DataFrame(rows.values())
     if out.empty:

@@ -179,6 +179,9 @@
       S.selected[k] = best ? best.model_key : null;
       S.edges[k] = (D.brackets[k] || []).join(", ");
       S.budget[k] = best ? Math.round(quantile(part.map((m) => m.price_usd), 0.5)) : null;
+      // A product picked on another Tech Value page (or in a shared link) wins over the default.
+      const shared = root.TVPick && root.TVPick.get(k);
+      if (shared && part.some((m) => m.model_key === shared)) S.selected[k] = shared;
     }
 
     function colors() {
@@ -950,6 +953,7 @@
       renderDist(rows, c);
       renderFrontier(rows);
       renderHistory(rows, c);
+      if (root.TVPick) root.TVPick.render(S.kind, S.selected[S.kind]);
     }
 
     changeChartKind = (kind) => {
@@ -989,6 +993,7 @@
     });
     $("vd-select").addEventListener("change", (e) => {
       S.selected[S.kind] = e.target.value;
+      if (root.TVPick) root.TVPick.set(S.kind, e.target.value);
       render();
     });
     $("vd-compare").addEventListener("change", (e) => {
@@ -1036,6 +1041,12 @@
       pending = setTimeout(render, 120);
     }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
     render();
+    // A shared link names its kind: open on that tab.
+    const linked = root.TVPick && root.TVPick.urlKind();
+    if (linked && linked !== S.kind) {
+      const btn = document.querySelector('[data-vd-kind="' + linked + '"]');
+      if (btn) btn.click();
+    }
     // A saved dark preference can switch the stylesheet after this first draw.
     window.addEventListener("load", () => setTimeout(render, 120));
   }

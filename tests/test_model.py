@@ -205,11 +205,21 @@ def test_catalogue_status_and_reasons():
 
     value = pd.DataFrame(
         [
-            {"kind": "gpu", "model_key": "nvidia rtx 4060", "price_usd": 300.0},
-            {"kind": "cpu", "model_key": "amd ryzen 9 7950x", "price_usd": 500.0},
+            {
+                "kind": "gpu",
+                "model_key": "nvidia rtx 4060",
+                "price_usd": 300.0,
+                "score_per_dollar": 10.0,
+            },
+            {
+                "kind": "cpu",
+                "model_key": "amd ryzen 9 7950x",
+                "price_usd": 500.0,
+                "score_per_dollar": 1.1,
+            },
         ]
     )
-    fair = value[["kind", "model_key"]]
+    fair = value[["kind", "model_key"]].assign(fair_price_usd=[350.0, 480.0], gap_pct=[-14.3, 4.2])
     bench = pd.DataFrame([{"kind": "gpu", "model_key": "nvidia rtx 4060", "median_score": 3000.0}])
     spec = pd.DataFrame(
         {"processor": ["AMD Ryzen 9 7950X"] * 2, "hardware_vendor": ["ASUS", "ASUS"]}
@@ -239,6 +249,10 @@ def test_catalogue_status_and_reasons():
     assert cat.loc["nvidia rtx a2000", "coverage_status"] == catalogue.LIMITED  # one OEM
     assert cat.loc["nvidia quadro x9", "coverage_status"] == catalogue.MISSING_SPECS
     assert bool(cat.loc["nvidia rtx 4060", "on_value_ranking"])
+    # The cross-page panel and comparison read these from the same row.
+    assert cat.loc["nvidia rtx 4060", "value_rank"] == 1
+    assert cat.loc["nvidia rtx 4060", "fair_price_usd"] == 350.0
+    assert cat.loc["nvidia rtx 4060", "score_per_dollar"] == 10.0
 
 
 def test_gwpg_recognises_consumer_cards():

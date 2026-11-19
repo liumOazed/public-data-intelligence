@@ -76,6 +76,26 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-seg button { border:0; border-radius:7px; padding:5px 14px; background:transparent; color:var(--op-ink); font:inherit; font-size:.86rem; cursor:pointer }
 .op-seg button[aria-pressed="true"] { background:var(--op-surface); font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,.12) }
 
+/* Peer filters */
+.op-peers { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin:10px 0 2px; font-size:.84rem; color:var(--op-muted) }
+.op-peers select, .op-peers input { max-width:100%; padding:4px 7px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.84rem }
+.op-peers input { width:5.5em }
+.op-peer-range { display:inline-flex; align-items:center; gap:5px; flex-wrap:wrap }
+.op-peer-reset { border:0; background:none; color:var(--op-teal); font:inherit; text-decoration:underline; cursor:pointer; padding:0 }
+.op-peer-count { flex-basis:100%; color:var(--op-ink); font-weight:600 }
+
+/* Two-product comparison */
+.op-cmp-pick { display:flex; flex-wrap:wrap; gap:8px 16px; margin:10px 0 8px; font-size:.84rem; color:var(--op-muted) }
+.op-cmp-pick label { display:flex; flex-direction:column; gap:3px; min-width:0; flex:1 1 220px }
+.op-cmp-pick input { padding:6px 9px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.9rem; min-width:0 }
+.op-cmp-table { width:100%; border-collapse:collapse; font-size:.88rem; font-variant-numeric:tabular-nums }
+.op-cmp-table th, .op-cmp-table td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--op-line); vertical-align:top }
+.op-cmp-table th { color:var(--op-muted); font-weight:600; font-size:.8rem }
+.op-cmp-table td:first-child { color:var(--op-muted) }
+.op-cmp-table small { display:block; color:var(--op-muted) }
+.op-cmp-sum { margin:10px 0 0; font-size:.92rem; line-height:1.45 }
+.op-cmp-wrap { overflow-x:auto }
+
 /* Selected chip */
 .op-pick { margin-top:12px; border:1px solid var(--op-line); border-radius:12px; padding:12px 14px }
 .op-pick-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px }
@@ -168,6 +188,7 @@ from IPython.display import Markdown, display
 from itables import init_notebook_mode, show
 
 from pdi import site
+from pdi.tech_value import catalogue as tvcat
 
 # Bundle the table script into the page instead of loading it from a CDN.
 init_notebook_mode(connected=False)
@@ -177,6 +198,10 @@ gpu, gpu_meta = site.load("tech-value", "gpu_residuals")
 cpu_val, cpu_val_meta = site.load("tech-value", "residual_validation")
 gpu_val, gpu_val_meta = site.load("tech-value", "gpu_residual_validation")
 cat, cat_meta = site.load("tech-value", "catalogue")
+PRICE = {} if cat.empty else {
+    (r.kind, r.model_key): (float(r.price_usd), r.price_date)
+    for r in cat.itertuples() if pd.notna(r.price_usd)
+}
 DATA = {"cpu": cpu, "gpu": gpu}
 META = {"cpu": cpu_meta, "gpu": gpu_meta}
 VAL = {"cpu": cpu_val, "gpu": gpu_val}
@@ -337,10 +362,10 @@ def main_chart(kind):
                 part[f"pred_{key}_lo"], part[f"pred_{key}_hi"], part["n_results"], part["n_oems"],
             ], axis=-1)
             fig.add_scatter(
-                x=part[f"pred_{key}"], y=ys, mode="markers", name=f"m:{key}:{cls}", visible=(key == "ols"),
+                x=part[f"pred_{key}"].tolist(), y=ys.tolist(), mode="markers", name=f"m:{key}:{cls}", visible=(key == "ols"),
                 marker=dict(size=6 if cls == "near" else 8, color=CLASSES[cls][2],
                             opacity=0.7 if cls == "near" else 0.95, line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
-                customdata=custom, showlegend=False,
+                customdata=custom.tolist(), showlegend=False,
                 hovertemplate=(f"<b>%{{customdata[0]}}</b><br>%{{customdata[1]}}<br>Measured %{{y:,.1f}} · {label} %{{x:,.1f}}"
                                " (%{customdata[2]:+.1f}%)<br>80% range %{customdata[3]:,.1f} – %{customdata[4]:,.1f}"
                                "<br>%{customdata[5]} disclosures · %{customdata[6]} OEM(s)<extra></extra>"),
@@ -410,7 +435,15 @@ def chip_rows(kind):
             facts += [("Suites", r["suites_tested"]), ("Released", int(r["generation"])),
                       ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts'),
                       ("Workload specialization", f'{r["workload_specialization_pct"]:+.0f}%')]
+        key = tvcat.key_of(kind, r["processor"])
+        price, price_date = PRICE.get((kind, key), (None, None))
+        if price:
+            facts.append(("Retail price", f"${price:,.0f} ({price_date})"))
+            facts.append((f"SPEC score per $100", f"{100 * float(r[score]) / price:,.1f}"))
         rows.append(dict(
+            key=key, vendor=r["vendor"], group=r["family"], form=r.get("form_factor") or "",
+            gen=None if pd.isna(r["generation"]) else int(r["generation"]),
+            cores=float(r["cores_per_chip"]), price=price,
             name=r["processor"], cls=CLASSES[r["cls"]][0], y=round(float(r[score]), 2), preds=preds,
             spread=round(float(r["model_spread_pts"]), 1), oor=r["outside_training_range"] or "",
             limited=limited(r), facts=facts, url=r.get("disclosure_url") or "",
@@ -437,6 +470,66 @@ def pick(kind):
 </div>
 <div class="op-pick-foot">Typical held-out error: {escape(err_txt)}. Predicted scores are this site's estimates, not SPEC metrics.
 <span data-f="link"></span></div>
+</div>
+<div class="tv-pick-panel" data-kind="{kind}" hidden></div>""")
+
+
+def peers(kind):
+    """Filters that narrow the main chart to comparable chips, with a count."""
+    df = DATA[kind]
+
+    def options(values, label):
+        vals = sorted({str(v) for v in values if pd.notna(v) and str(v)})
+        return f'<option value="">{label}: all</option>' + "".join(
+            f'<option value="{escape(v)}">{escape(v)}</option>' for v in vals)
+
+    years = sorted({int(v) for v in df["generation"].dropna()})
+    yopts = lambda first: "".join(
+        f'<option{" selected" if y == first else ""}>{y}</option>' for y in years)
+    group_label = "Family" if kind == "cpu" else "Architecture"
+    form = ("" if kind == "cpu" else
+            f'<select data-peer="form" aria-label="Form factor">{options(df["form_factor"], "Form factor")}</select>')
+    unit = "Cores" if kind == "cpu" else "Shaders"
+    n_priced = sum(1 for p in df["processor"] if (kind, tvcat.key_of(kind, p)) in PRICE)
+    raw(f"""<div class="op-peers" role="group" aria-label="Comparable {NOUN[kind]}">
+<select data-peer="vendor" aria-label="Vendor">{options(df["vendor"], "Vendor")}</select>
+<select data-peer="group" aria-label="{group_label}">{options(df["family"], group_label)}</select>{form}
+<span class="op-peer-range">Released <select data-peer="gen0" aria-label="Released from">{yopts(years[0])}</select>
+to <select data-peer="gen1" aria-label="Released to">{yopts(years[-1])}</select></span>
+<span class="op-peer-range">{unit} <input data-peer="c0" type="number" min="0" placeholder="min" aria-label="{unit} at least">
+<input data-peer="c1" type="number" min="0" placeholder="max" aria-label="{unit} at most"></span>
+<span class="op-peer-range" title="Retail price from the Value ranking; known for {n_priced} of {len(df)}">Price $ <input data-peer="p0" type="number" min="0" placeholder="min" aria-label="Price at least">
+<input data-peer="p1" type="number" min="0" placeholder="max" aria-label="Price at most"></span>
+<button type="button" data-peer="reset" class="op-peer-reset">Reset</button>
+<span class="op-peer-count" aria-live="polite"></span>
+</div>""")
+
+
+CMP_DEFAULT = {"cpu": ("amd ryzen 9 7950x", "intel core i9-13900k"),
+               "gpu": ("nvidia rtx 4060", "amd radeon ai pro r9700")}
+
+
+def compare(kind):
+    """Two products side by side from the shared catalogue, ranked here or not."""
+    head("Compare two products",
+         f"Any two {NOUN[kind]} from the catalogue, with what each Tech Value page says about them. "
+         "Blender and SPEC are separate benchmarks: each row compares like with like, and no row combines them.")
+    if cat.empty:
+        raw(site.empty_state(cat_meta, "Hardware catalogue"))
+        return
+    names = sorted(cat.loc[cat["kind"] == kind, "name"].dropna().unique())
+    opts = "".join(f'<option value="{escape(n)}">' for n in names)
+    a, b = CMP_DEFAULT[kind]
+    raw(f"""<div class="op-cmp" data-kind="{kind}" data-a="{escape(a)}" data-b="{escape(b)}">
+<div class="op-cmp-pick">
+<label>First {ONE[kind]}<input type="search" list="op-cmp-list-{kind}" data-cmp="a" autocomplete="off" aria-label="First {ONE[kind]}"></label>
+<label>Second {ONE[kind]}<input type="search" list="op-cmp-list-{kind}" data-cmp="b" autocomplete="off" aria-label="Second {ONE[kind]}"></label>
+<datalist id="op-cmp-list-{kind}">{opts}</datalist>
+</div>
+<div class="op-cmp-wrap"><table class="op-cmp-table"><tbody data-cmp="body"><tr><td>Loading the catalogue…</td></tr></tbody></table></div>
+<p class="op-cmp-sum" data-cmp="sum"></p>
+<p class="op-foot">Prices are the dated lowest new listing used on Value ranking and Fair price. Blender points per dollar use
+that same price. SPEC scores are {MEASURE[kind]}.</p>
 </div>""")
 
 
@@ -622,6 +715,8 @@ head("Measured against predicted",
      "Each point is a processor. Its measured score is plotted against the score a model predicts from its specifications, "
      "using a fit that never saw that processor. Pick a model, then hover or click a point.")
 model_buttons("cpu")
+if not DATA["cpu"].empty:
+    peers("cpu")
 ```
 
 ::::: {.op-main-grid}
@@ -647,6 +742,13 @@ if not cpu.empty:
     pick("cpu")
 ```
 
+::::::
+
+:::::: {.op-card}
+```{python}
+#| output: asis
+compare("cpu")
+```
 ::::::
 
 :::::: {.op-pair}
@@ -734,6 +836,8 @@ head("Measured against predicted",
      "Each point is a graphics card. Its calibrated workstation score is plotted against the score a model predicts from its specifications, "
      "using a fit that never saw that card. Pick a model, then hover or click a point.")
 model_buttons("gpu")
+if not DATA["gpu"].empty:
+    peers("gpu")
 ```
 
 ::::: {.op-main-grid}
@@ -759,6 +863,13 @@ if not gpu.empty:
     pick("gpu")
 ```
 
+::::::
+
+:::::: {.op-card}
+```{python}
+#| output: asis
+compare("gpu")
+```
 ::::::
 
 :::::: {.op-pair}
@@ -1091,7 +1202,8 @@ if v:
 
 **Provenance.** Benchmarks: SPEC CPU 2017 collected `{python} collected(cpu_meta)`, SPEC GWPG
 collected `{python} collected(gpu_meta)`. CPU specifications come from each SPEC disclosure.
-GPU specifications come from a table kept in this repository. This page uses no prices. Every
+GPU specifications come from a table kept in this repository. Prices, where shown, are the dated
+lowest new listing used on Value ranking and Fair price; most SPEC-tested chips have none. Every
 row links to its SPEC disclosure where SPEC publishes one.
 
 **Limitations.** A residual flags unexplained performance; it is not a quality score.
@@ -1119,6 +1231,12 @@ raw(f'<div class="op-closing"><span>Residuals flag unexplained performance. Arch
     f"Benchmarks collected: CPU {collected(cpu_meta)}, GPU {collected(gpu_meta)}.</span></div>")
 ```
 
+```{python}
+#| output: asis
+from pathlib import Path as _P
+print("\n```{=html}\n<script>" + _P("tv-pick.js").read_text() + "</script>\n```\n")
+```
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const MODELS = { ols: "OLS", structural: "Structural L1", nonlinear: "Nonlinear GBDT" };
@@ -1132,9 +1250,75 @@ document.addEventListener("DOMContentLoaded", () => {
     const chips = JSON.parse(pick.dataset.chips);
     const select = pick.querySelector("select");
     const field = f => pick.querySelector(`[data-f="${f}"]`);
+    const kind = cat.dataset.kind;
+    const noun = kind === "cpu" ? "CPUs" : "GPUs";
     cat._opModel = "ols";
+    // A product picked on another Tech Value page, or in a shared link, replaces the default.
+    const shared = chips.find(d => d.key === window.TVPick?.get(kind));
+    if (shared) select.value = shared.name;
+
+    // Peer filters: narrow the main chart to comparable chips and say where the pick sits.
+    const bar = cat.querySelector(".op-peers");
+    const pv = n => bar?.querySelector(`[data-peer="${n}"]`)?.value ?? "";
+    const pn = n => { const v = pv(n); return v === "" ? null : Number(v); };
+    let peerSet = null;
+    const peerCount = () => {
+      if (!bar) return;
+      const ok = peerSet ? chips.filter(c => peerSet.has(c.name)) : chips;
+      const m = cat._opModel;
+      const res = ok.map(c => c.preds[m].r).sort((a, b) => a - b);
+      const mid = res.length ? (res[Math.floor((res.length - 1) / 2)] + res[Math.ceil((res.length - 1) / 2)]) / 2 : null;
+      const sel = chips.find(d => d.name === select.value);
+      let txt = `${ok.length} of ${chips.length} ${noun} comparable`;
+      if (mid != null) txt += ` · median residual vs ${MODELS[m]} ${signed(mid)}`;
+      if (sel && ok.includes(sel)) txt += ` · ${sel.name} ranks ${1 + ok.filter(c => c.preds[m].r > sel.preds[m].r).length} of ${ok.length} by residual`;
+      else if (sel) txt += ` · ${sel.name} is outside these filters`;
+      if (pn("p0") != null || pn("p1") != null) txt += " · price filters keep only chips with a retail price";
+      bar.querySelector(".op-peer-count").textContent = txt;
+    };
+    const applyPeers = () => {
+      if (!bar) return;
+      const f = { vendor: pv("vendor"), group: pv("group"), form: pv("form"), g0: pn("gen0"), g1: pn("gen1"),
+                  c0: pn("c0"), c1: pn("c1"), p0: pn("p0"), p1: pn("p1") };
+      const priced = f.p0 != null || f.p1 != null;
+      const ok = chips.filter(c => (!f.vendor || c.vendor === f.vendor) && (!f.group || c.group === f.group)
+        && (!f.form || c.form === f.form)
+        && (c.gen == null || ((f.g0 == null || c.gen >= f.g0) && (f.g1 == null || c.gen <= f.g1)))
+        && (f.c0 == null || c.cores >= f.c0) && (f.c1 == null || c.cores <= f.c1)
+        && (!priced || (c.price != null && (f.p0 == null || c.price >= f.p0) && (f.p1 == null || c.price <= f.p1))));
+      peerSet = new Set(ok.map(c => c.name));
+      const g = mainGraph(cat);
+      if (g && window.Plotly) {
+        const idx = [], xs = [], ys = [], cds = [];
+        g.data.forEach((t, i) => {
+          if (!t.name?.startsWith("m:")) return;
+          if (!t._opAll) t._opAll = { x: Array.from(t.x), y: Array.from(t.y), c: Array.from(t.customdata) };
+          const keep = t._opAll.c.map(cd => peerSet.has(cd[0]));
+          idx.push(i);
+          xs.push(t._opAll.x.filter((_, j) => keep[j]));
+          ys.push(t._opAll.y.filter((_, j) => keep[j]));
+          cds.push(t._opAll.c.filter((_, j) => keep[j]));
+        });
+        if (idx.length) Plotly.restyle(g, { x: xs, y: ys, customdata: cds }, idx);
+      }
+      peerCount();
+    };
+    if (bar) {
+      bar.addEventListener("change", applyPeers);
+      bar.addEventListener("input", e => { if (e.target.tagName === "INPUT") applyPeers(); });
+      bar.querySelector('[data-peer="reset"]').addEventListener("click", () => {
+        bar.querySelectorAll("input").forEach(i => { i.value = ""; });
+        bar.querySelectorAll("select").forEach(s => {
+          s.selectedIndex = s.dataset.peer === "gen1" ? s.options.length - 1 : 0;
+        });
+        applyPeers();
+      });
+    }
+
     const update = () => {
       const c = chips.find(d => d.name === select.value) || chips[0];
+      window.TVPick?.render(kind, c.key);
+      peerCount();
       field("name").textContent = c.name;
       field("cls").textContent = c.cls;
       let rows = `<tr class="op-measured"><td>Measured</td><td>${num(c.y)}</td><td></td><td></td></tr>`;
@@ -1156,12 +1340,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const idx = g.data.findIndex(t => t.name === "selected");
       if (idx >= 0) Plotly.restyle(g, { x: [[c.preds[cat._opModel].p]], y: [[c.y]] }, [idx]);
     };
-    select.addEventListener("change", update);
+    select.addEventListener("change", () => {
+      const c = chips.find(d => d.name === select.value);
+      if (c) window.TVPick?.set(kind, c.key);
+      update();
+    });
     cat._opUpdate = update;
     const g = mainGraph(cat);
     if (g?.on) g.on("plotly_click", ev => {
       const name = ev.points?.[0]?.customdata?.[0];
-      if (name && [...select.options].some(o => o.text === name)) { select.value = name; update(); }
+      if (name && [...select.options].some(o => o.text === name)) { select.value = name; select.dispatchEvent(new Event("change")); }
     });
     cat.querySelectorAll("button[data-model]").forEach(btn => btn.addEventListener("click", () => {
       const m = btn.dataset.model;
@@ -1211,7 +1399,65 @@ document.addEventListener("DOMContentLoaded", () => {
     show(b.dataset.tab);
     try { history.replaceState(null, "", b.dataset.tab === "gpu" ? "#gpu" : location.pathname + location.search); } catch (e) {}
   }));
-  show(location.hash === "#gpu" ? "gpu" : "cpu");
+  show(location.hash === "#gpu" || window.TVPick?.urlKind() === "gpu" ? "gpu" : "cpu");
+
+  // Two-product comparison from the shared catalogue.
+  const usd = v => "$" + Math.round(v).toLocaleString("en-US");
+  const diff = (a, b) => (a && b ? signed(100 * (b / a - 1)) : "");
+  document.querySelectorAll(".op-cmp").forEach(box => {
+    if (!window.TVPick) return;
+    const kind = box.dataset.kind;
+    const ia = box.querySelector('[data-cmp="a"]');
+    const ib = box.querySelector('[data-cmp="b"]');
+    const body = box.querySelector('[data-cmp="body"]');
+    const sum = box.querySelector('[data-cmp="sum"]');
+    TVPick.load().then(all => {
+      const mine = all.filter(r => r.kind === kind);
+      if (!mine.length) { body.innerHTML = "<tr><td>The catalogue could not be loaded.</td></tr>"; return; }
+      const byKey = k => mine.find(r => r.model_key === k);
+      const byName = n => mine.find(r => r.name === n);
+      const first = byKey(TVPick.get(kind)) || byKey(box.dataset.a) || mine[0];
+      let second = byKey(box.dataset.b) || mine[1];
+      if (second === first) second = byKey(box.dataset.a) || mine.find(r => r !== first);
+      ia.value = first.name;
+      ib.value = second.name;
+      const spec = r => r.spec_score != null ? num(r.spec_score) : (r.spec_results ? "Not ranked" : "No SPEC result");
+      const rank = r => r.value_rank ? `#${r.value_rank} of ${r.value_n}` : "Not ranked";
+      const verdict = r => r.on_residuals ? `${r.consensus_verdict || "Near prediction"} <small>${signed(r.residual_pct)} vs OLS</small>` : `Not ranked <small>${esc(r.reason || "")}</small>`;
+      const draw = () => {
+        const a = byName(ia.value), b = byName(ib.value);
+        if (!a || !b) { sum.textContent = "Pick two products from the list."; return; }
+        const rowsHtml = [
+          ["Coverage", r => `${esc(r.coverage_status)}${r.reason ? `<small>${esc(r.reason)}</small>` : ""}`, null],
+          ["Retail price", r => r.price_usd != null ? `${usd(r.price_usd)}<small>${esc(r.price_date || "")}</small>` : "No current price", "price_usd"],
+          ["Blender score", r => r.blender_score != null ? num(r.blender_score) : "No Blender result", "blender_score"],
+          ["Blender points per dollar", r => r.score_per_dollar != null ? r.score_per_dollar.toFixed(2) : "—", "score_per_dollar"],
+          ["Value ranking", rank, null],
+          ["Fair price estimate", r => r.fair_price_usd != null ? `${usd(r.fair_price_usd)}<small>listing ${signed(r.fair_gap_pct)} vs estimate</small>` : "No estimate", null],
+          [kind === "cpu" ? "SPEC score per socket" : "Calibrated SPEC GWPG score", spec, "spec_score"],
+          ["Against prediction", verdict, null],
+          ["SPEC evidence", r => `${r.spec_results} results · ${r.spec_oems} OEM${r.spec_oems === 1 ? "" : "s"}`, null],
+        ].map(([label, f, col]) => `<tr><td>${label}</td><td>${f(a)}</td><td>${f(b)}</td><td>${col ? diff(a[col], b[col]) : ""}</td></tr>`).join("");
+        body.innerHTML = `<tr><th></th><th>${esc(a.name)}</th><th>${esc(b.name)}</th><th>Second vs first</th></tr>` + rowsHtml;
+        const parts = [];
+        if (a.blender_score && b.blender_score && a.price_usd && b.price_usd) {
+          const s = 100 * (b.blender_score / a.blender_score - 1), p = 100 * (b.price_usd / a.price_usd - 1);
+          const v = 100 * (b.score_per_dollar / a.score_per_dollar - 1);
+          parts.push(`${esc(b.name)} scores ${Math.abs(s).toFixed(0)}% ${s >= 0 ? "higher" : "lower"} in Blender at ${Math.abs(p).toFixed(0)}% ${p >= 0 ? "more" : "less"} money, so it gives ${Math.abs(v).toFixed(0)}% ${v >= 0 ? "more" : "fewer"} Blender points per dollar.`);
+        }
+        if (a.spec_score != null && b.spec_score != null) {
+          const d = 100 * (b.spec_score / a.spec_score - 1);
+          parts.push(`On SPEC it measures ${Math.abs(d).toFixed(0)}% ${d >= 0 ? "higher" : "lower"}.`);
+        } else if (a.spec_score != null || b.spec_score != null) {
+          parts.push(`Only ${esc((a.spec_score != null ? a : b).name)} has a ranked SPEC result, so SPEC can't compare the two.`);
+        }
+        sum.innerHTML = parts.join(" ");
+      };
+      ia.addEventListener("change", draw);
+      ib.addEventListener("change", draw);
+      draw();
+    });
+  });
   const settle = () => show(document.body.classList.contains("op-gpu") ? "gpu" : "cpu");
   setTimeout(settle, 300);
   window.addEventListener("load", settle);

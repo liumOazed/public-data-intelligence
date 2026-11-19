@@ -513,7 +513,7 @@ def selection_data(part):
         else:
             spread, spread_note = "—", "Only one listing, no spread to measure"
         rows.append(dict(
-            name=r.display_model, x=float(r.score), y=float(r.price_usd), est=round(float(r.fair_price_usd)),
+            name=r.display_model, key=r.model_key, x=float(r.score), y=float(r.price_usd), est=round(float(r.fair_price_usd)),
             gap=round(float(r.gap_pct), 1), n=int(r.n_listings), trusted=bool(trusted),
             p20=round(float(r.floor_p20_usd)), p80=round(float(r.ceiling_p80_usd)),
             spread=spread, spread_note=spread_note,
@@ -534,6 +534,7 @@ def selected(kind, part):
     print(f"""<div class="fp-pick" data-parts="{data}">{icon(kind if kind == "gpu" else "chip")}
 <div class="fp-pick-main"><div class="fp-pick-title"></div><div class="fp-pick-note"></div></div>
 <label>Inspect a part<br><select aria-label="Inspect a part">{opts}</select></label></div>
+<div class="tv-pick-panel" data-kind="{kind}" hidden></div>
 <div class="fp-tiles">
 <div>{icon("target")}<div><span>Market position</span><strong data-f="pos"></strong><small>Listing vs. estimated typical price</small></div></div>
 <div>{icon("bars")}<div><span>Median range</span><strong data-f="range"></strong><small>Estimated typical price range (P20–P80)</small></div></div>
@@ -793,6 +794,12 @@ print(site.source_note(meta))
 
 </details>
 
+```{python}
+#| output: asis
+from pathlib import Path as _P
+print("\n```{=html}\n<script>" + _P("tv-pick.js").read_text() + "</script>\n```\n")
+```
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const COLORS = { under: "#18b47b", near: "#f5b400", above: "#ef5b4c" };
@@ -848,13 +855,26 @@ document.addEventListener("DOMContentLoaded", () => {
               `<span style="color:#6b7a8c">${p.trusted ? p.n + " listings" : "One listing only · Low confidence"}</span>`,
       }] });
     };
-    select.addEventListener("change", update);
-    cat._fpUpdate = update;
+    // A product picked on another Tech Value page, or in a shared link, replaces the default.
+    const shared = window.TVPick?.get(cat.dataset.kind);
+    const sharedPart = parts.find(d => d.key === shared);
+    if (sharedPart) select.value = sharedPart.name;
+    select.addEventListener("change", () => {
+      const p = parts.find(d => d.name === select.value);
+      if (p) window.TVPick?.set(cat.dataset.kind, p.key);
+      update();
+    });
+    const baseUpdate = update;
+    cat._fpUpdate = () => {
+      baseUpdate();
+      const p = parts.find(d => d.name === select.value);
+      if (p) window.TVPick?.render(cat.dataset.kind, p.key);
+    };
 
     const g = graphOf(cat);
     if (g?.on) g.on("plotly_click", ev => {
       const name = ev.points?.[0]?.customdata?.[0];
-      if (name && [...select.options].some(o => o.text === name)) { select.value = name; update(); }
+      if (name && [...select.options].some(o => o.text === name)) { select.value = name; select.dispatchEvent(new Event("change")); }
     });
 
     cat.querySelectorAll(".fp-legend button[data-color]").forEach(btn => btn.addEventListener("click", () => {
@@ -883,7 +903,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
   document.querySelectorAll(".fp-tabs button").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
-  show("gpu");
+  show(window.TVPick?.urlKind() === "cpu" ? "cpu" : "gpu");
   // Plotly may finish drawing after this script runs; refresh the callout once it has.
   const settle = () => document.querySelectorAll(".fp-cat").forEach(c => {
     const g = graphOf(c);
