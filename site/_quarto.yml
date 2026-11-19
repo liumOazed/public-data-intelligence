@@ -20,7 +20,7 @@ website:
             href: tech-value/index.qmd
           - text: "Fair price"
             href: tech-value/fair-price.qmd
-          - text: "Over- and under-performers"
+          - text: "Over & under performers"
             href: tech-value/residuals.qmd
           - text: "Model and leaderboard"
             href: tech-value/model.qmd

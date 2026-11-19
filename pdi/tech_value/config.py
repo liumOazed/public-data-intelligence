@@ -93,8 +93,6 @@ VALID_START = "2023-01-01"
 HOLDOUT_START = "2024-06-01"
 # Expanding-window folds inside the pre-holdout period, used to measure fold-to-fold spread.
 N_TIME_FOLDS = 4
-# Group folds for the out-of-fold residuals that the ranking is built on.
-N_RESIDUAL_FOLDS = 5
 # A processor needs this many published results before its residual is ranked.
 MIN_RESULTS_FOR_RANK = 3
 VINTAGE_ORIGIN = "2017-01-01"

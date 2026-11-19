@@ -4,7 +4,7 @@ Collects the 15 official SPEC GWPG result summary pages (SPECviewperf 15/2020/13
 SPECworkstation 4.0/3.1/3.0, and SPECapc Maya 2024 / Solidworks 2022 / Creo 9 / 3ds Max 2020)
 from spec.org/gwpg/, enriches each canonical GPU with hardware specifications (shader count,
 boost clock, VRAM, memory bus width, memory bandwidth, architecture, release year), and
-computes the 3-view out-of-fold residual consensus ranking for GPUs.
+computes the 3-view leave-one-GPU-out residual consensus ranking for GPUs.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ import pandas as pd
 import statsmodels.api as sm
 from bs4 import BeautifulSoup
 from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.model_selection import GroupKFold
+from sklearn.model_selection import LeaveOneGroupOut
 
 from pdi.common.fetch import fetch, latest, read_meta
 from pdi.tech_value import config
@@ -566,11 +566,10 @@ def _classify_gpu_consensus(
 
 
 def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
-    """Compute 5-fold GroupKFold out-of-fold residuals for OLS, Structural L1, and GBDT."""
+    """Leave-one-GPU-out residuals for OLS, Structural L1, and GBDT: every disclosure is scored
+    by models refitted without any disclosure of its GPU."""
     prepared = prepare_gpu(df) if "log_score_adj" not in df.columns else df.copy()
-    n_groups = prepared["processor"].nunique()
-    n_splits = min(config.N_RESIDUAL_FOLDS, n_groups)
-    gkf = GroupKFold(n_splits=n_splits)
+    gkf = LeaveOneGroupOut()
 
     oof_ols = pd.Series(index=prepared.index, dtype=float)
     oof_struct = pd.Series(index=prepared.index, dtype=float)
