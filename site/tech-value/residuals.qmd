@@ -5,25 +5,27 @@ toc: false
 ---
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
 #title-block-header { display:none }
 body {
   --op-ink:#14233a; --op-muted:#4d5d70; --op-line:#dbe3ea; --op-surface:#ffffff;
-  --op-teal:#0f8f6c; --op-accent:#3fd4a0;
-  --op-standout:#18b47b; --op-sensitive:#f0b23e; --op-near:#c4cad1; --op-bottleneck:#d9707a;
+  --op-teal:#0f8f6c; --op-accent:#3fd4a0; --op-neg:#c2414d;
   --op-k1-bg:#eaf6f6; --op-k1-line:#bfe0df; --op-k2-bg:#e6f7ef; --op-k2-line:#a9e3cb;
   --op-k3-bg:#fdf3e1; --op-k3-line:#f1d48f; --op-k4-bg:#fbeaea; --op-k4-line:#efc4c4;
-  --op-k3-ink:#8a4b08; --op-k4-ink:#7a1f24; --op-callout:#dcf5ea; --op-warn:#b45309;
+  --op-k3-ink:#8a4b08; --op-k4-ink:#7a1f24; --op-callout:#dcf5ea; --op-warn:#b45309; --op-chip:#eef2f6;
 }
 body.quarto-dark {
   --op-ink:#e8eef5; --op-muted:#a9b6c5; --op-line:#33414f; --op-surface:#1b2530;
-  --op-teal:#3fd4a0; --op-near:#5d6773;
+  --op-teal:#3fd4a0; --op-neg:#f0a3a8;
   --op-k1-bg:#132a2c; --op-k1-line:#22494b; --op-k2-bg:#14302a; --op-k2-line:#245647;
   --op-k3-bg:#33290f; --op-k3-line:#5c4818; --op-k4-bg:#3a1d20; --op-k4-line:#5e2f33;
-  --op-k3-ink:#f2c46d; --op-k4-ink:#f0a3a8; --op-callout:#18392f; --op-warn:#f2b23a;
+  --op-k3-ink:#f2c46d; --op-k4-ink:#f0a3a8; --op-callout:#18392f; --op-warn:#f2b23a; --op-chip:#253241;
 }
-main.content { max-width:1200px; width:100%; margin:auto; color:var(--op-ink); font-family:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif }
+main.content { max-width:1200px; width:100%; margin:auto; color:var(--op-ink);
+  font-family:"Century Gothic","CenturyGothic","URW Gothic","URW Gothic L","AppleGothic","Questrial",system-ui,sans-serif }
 main.content p { margin-bottom:0 }
-.op-ico { width:1.2em; height:1.2em; flex:none; vertical-align:-.2em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
+main.content h1, main.content h2, main.content h3 { font-family:inherit }
+.op-ico { width:1.15em; height:1.15em; flex:none; vertical-align:-.2em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
 
 /* Section links */
 .op-subnav { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 0; margin:4px 0 12px; font-size:.95rem }
@@ -32,61 +34,69 @@ main.content p { margin-bottom:0 }
 .op-subnav a[aria-current="page"] { font-weight:700; color:var(--op-teal); text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:8px }
 
 /* Hero */
-.op-hero { border-radius:14px; padding:clamp(18px,3vw,30px) clamp(16px,3vw,32px); color:#e9f3f1;
-  background:radial-gradient(ellipse at 85% 20%, rgba(63,212,160,.18), transparent 55%), linear-gradient(120deg,#0a2f33,#0e4a45 55%,#0a2b31) }
-.op-hero .op-kicker { color:var(--op-accent); font-weight:700; font-size:clamp(1.05rem,2vw,1.35rem) }
-.op-hero h1 { margin:.25rem 0 .55rem; padding:0; border:0; color:#fff; font-size:clamp(1.5rem,3.4vw,2.35rem); font-weight:800; letter-spacing:-.015em; line-height:1.15 }
-.op-hero p { color:#d5e6e3; line-height:1.5; max-width:78ch }
-.op-hero-row { display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:18px }
+.op-hero { border-radius:14px; padding:clamp(16px,2.6vw,24px) clamp(16px,3vw,28px); color:#e9f3f1;
+  background:radial-gradient(ellipse at 85% 20%, rgba(63,212,160,.16), transparent 55%), linear-gradient(120deg,#0a2f33,#0e4a45 55%,#0a2b31) }
+.op-hero .op-kicker { color:var(--op-accent); font-weight:700; font-size:.95rem; letter-spacing:.02em }
+.op-hero h1 { margin:.2rem 0 .4rem; padding:0; border:0; color:#fff; font-size:clamp(1.3rem,2.6vw,1.75rem); font-weight:700; line-height:1.2 }
+.op-hero p { color:#d5e6e3; line-height:1.5; max-width:80ch; font-size:.95rem }
+.op-hero-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; margin-top:14px }
 .op-toggle { display:inline-flex; padding:3px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:rgba(0,0,0,.18) }
-.op-toggle button { border:0; border-radius:999px; padding:7px 32px; background:transparent; color:#e9f3f1; font:inherit; font-weight:700; cursor:pointer }
+.op-toggle button { border:0; border-radius:999px; padding:6px 28px; background:transparent; color:#e9f3f1; font:inherit; font-weight:700; cursor:pointer }
 .op-toggle button[aria-pressed="true"] { background:#d3f5e5; color:#0b2f35 }
-.op-hero-meta { padding-left:20px; border-left:1px solid rgba(255,255,255,.3); color:#d5e6e3; font-size:.93rem }
+.op-hero-meta { padding-left:20px; border-left:1px solid rgba(255,255,255,.3); color:#d5e6e3; font-size:.85rem; line-height:1.5 }
 
 /* KPI cards */
-.op-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:18px 0 8px }
-.op-kpi { padding:16px 20px; border-radius:12px; border:1px solid }
-.op-kpi strong { display:block; font-size:clamp(1.8rem,3.4vw,2.4rem); font-weight:800; line-height:1.1; color:var(--op-ink) }
-.op-kpi span { display:block; margin-top:4px; font-size:.98rem; line-height:1.3 }
+.op-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:16px 0 8px }
+.op-kpi { padding:14px 18px; border-radius:12px; border:1px solid }
+.op-kpi strong { display:block; font-size:clamp(1.6rem,3vw,2.1rem); font-weight:700; line-height:1.1; color:var(--op-ink) }
+.op-kpi span { display:block; margin-top:4px; font-size:.92rem; line-height:1.3 }
 .op-kpi:nth-child(1) { background:var(--op-k1-bg); border-color:var(--op-k1-line) }
 .op-kpi:nth-child(2) { background:var(--op-k2-bg); border-color:var(--op-k2-line) }
 .op-kpi:nth-child(3) { background:var(--op-k3-bg); border-color:var(--op-k3-line) }
 .op-kpi:nth-child(3) strong { color:var(--op-k3-ink) }
 .op-kpi:nth-child(4) { background:var(--op-k4-bg); border-color:var(--op-k4-line) }
 .op-kpi:nth-child(4) strong { color:var(--op-k4-ink) }
-.op-note { color:var(--op-muted); font-size:.9rem; margin:0 2px 18px }
+.op-note { color:var(--op-muted); font-size:.86rem; margin:0 2px 16px }
 
 /* Cards */
-.op-card { border:1px solid var(--op-line); border-radius:14px; background:var(--op-surface); padding:clamp(14px,2.2vw,22px); margin-bottom:16px; min-width:0 }
-.op-card h2 { margin:0 0 .3rem; padding:0; border:0; font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:800; color:var(--op-ink) }
-.op-card .op-lede { color:var(--op-ink); line-height:1.45 }
-.op-card .op-lede + .op-lede { color:var(--op-muted) }
-.op-card .op-foot { color:var(--op-muted); font-size:.82rem; font-style:italic; margin-top:4px }
-.op-scatter-grid { display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:0 20px; margin-top:8px }
-.op-legend { border-left:1px solid var(--op-line); padding:8px 0 8px 18px; font-size:.86rem }
+.op-card { border:1px solid var(--op-line); border-radius:14px; background:var(--op-surface); padding:clamp(14px,2.2vw,20px); margin-bottom:16px; min-width:0 }
+.op-card h2 { margin:0 0 .25rem; padding:0; border:0; font-size:clamp(1.1rem,2.1vw,1.35rem); font-weight:700; color:var(--op-ink) }
+.op-card .op-lede { color:var(--op-muted); line-height:1.45; font-size:.92rem }
+.op-card .op-foot { color:var(--op-muted); font-size:.8rem; margin-top:6px; line-height:1.4 }
+.op-main-grid { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:0 20px; margin-top:8px }
+.op-legend { border-left:1px solid var(--op-line); padding:6px 0 6px 18px; font-size:.84rem }
 .op-legend ul { list-style:none; margin:0; padding:0 }
-.op-legend li { display:flex; gap:10px; margin:0 0 14px; line-height:1.3 }
-.op-legend li b { display:block; font-size:.98rem }
-.op-legend small { display:block; color:var(--op-muted); font-size:.8rem }
-.op-dot { width:14px; height:14px; border-radius:50%; flex:none; margin-top:3px }
+.op-legend li { display:flex; gap:10px; margin:0 0 12px; line-height:1.3 }
+.op-legend li b { display:block; font-size:.92rem }
+.op-legend small { display:block; color:var(--op-muted); font-size:.78rem }
+.op-dot { width:13px; height:13px; border-radius:50%; flex:none; margin-top:3px }
 .op-legend hr { border:0; border-top:1px solid var(--op-line); margin:6px 0 12px; opacity:1 }
-.op-legend .op-callout { margin-top:14px; padding:10px 14px; border-radius:8px; background:var(--op-callout); font-weight:700; line-height:1.35 }
+.op-legend .op-callout { margin-top:12px; padding:10px 12px; border-radius:8px; background:var(--op-callout); font-weight:600; line-height:1.35 }
+.op-seg { display:inline-flex; flex-wrap:wrap; gap:4px; padding:3px; border-radius:9px; background:var(--op-chip); margin:8px 0 2px }
+.op-seg button { border:0; border-radius:7px; padding:5px 14px; background:transparent; color:var(--op-ink); font:inherit; font-size:.86rem; cursor:pointer }
+.op-seg button[aria-pressed="true"] { background:var(--op-surface); font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,.12) }
 
 /* Selected chip */
-.op-pick { display:flex; flex-wrap:wrap; align-items:stretch; gap:10px; margin-top:12px }
-.op-pick-name { display:flex; align-items:center; padding:10px 16px; border-radius:10px; background:var(--op-callout); font-size:clamp(1.05rem,2vw,1.35rem); font-weight:800 }
-.op-pick-vals { flex:1 1 520px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.6fr); border:1px solid var(--op-line); border-radius:10px }
-.op-pick-vals > div { padding:8px 16px; min-width:0 }
-.op-pick-vals > div + div { border-left:1px solid var(--op-line) }
-.op-pick-vals span { display:block; font-size:.85rem; color:var(--op-muted) }
-.op-pick-vals strong { display:block; font-size:1.35rem; font-weight:800; color:var(--op-teal) }
-.op-pick-vals strong.op-neg { color:var(--op-bottleneck) }
-.op-pick-vals .op-cov { font-size:.9rem }
-.op-pick-vals .op-cov b { font-weight:600 }
-.op-pick-vals .op-warn { display:block; color:var(--op-warn); font-size:.82rem; font-weight:600 }
-.op-pick-vals .op-cls { display:block; font-size:.82rem; color:var(--op-muted) }
-.op-pick label { display:flex; flex-direction:column; justify-content:center; font-size:.82rem; color:var(--op-muted) }
-.op-pick select { max-width:260px; padding:6px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.88rem }
+.op-pick { margin-top:12px; border:1px solid var(--op-line); border-radius:12px; padding:12px 14px }
+.op-pick-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px }
+.op-pick-name { font-size:clamp(1.05rem,2vw,1.25rem); font-weight:700 }
+.op-badge { display:inline-block; padding:.15em .65em; border-radius:999px; background:var(--op-chip); font-size:.8rem; font-weight:600 }
+.op-pick-head label { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--op-muted) }
+.op-pick select { max-width:min(240px,100%); min-width:0; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
+.op-pick-body { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:12px 22px; margin-top:10px }
+.op-preds { width:100%; border-collapse:collapse; font-size:.88rem; font-variant-numeric:tabular-nums }
+.op-preds th { text-align:left; font-weight:600; color:var(--op-muted); font-size:.78rem; padding:4px 6px; border-bottom:1px solid var(--op-line) }
+.op-preds td { padding:5px 6px; border-bottom:1px solid var(--op-line) }
+.op-preds tr:last-child td { border-bottom:0 }
+.op-preds td.op-pos { color:var(--op-teal); font-weight:700 }
+.op-preds td.op-negv { color:var(--op-neg); font-weight:700 }
+.op-preds tr.op-measured td { font-weight:700 }
+.op-facts { font-size:.85rem; line-height:1.5 }
+.op-facts div { display:flex; justify-content:space-between; gap:10px; border-bottom:1px dashed var(--op-line); padding:2px 0 }
+.op-facts span { color:var(--op-muted) }
+.op-facts b { font-weight:600; text-align:right }
+.op-flag { margin-top:6px; color:var(--op-warn); font-size:.82rem; font-weight:600 }
+.op-pick-foot { margin-top:8px; font-size:.8rem; color:var(--op-muted) }
 
 /* Two charts side by side */
 .op-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px }
@@ -95,47 +105,55 @@ main.content p { margin-bottom:0 }
 .op-shape { width:11px; height:11px; border:1.6px solid var(--op-ink); flex:none }
 .op-shape.circle { border-radius:50% }
 .op-shape.diamond { transform:rotate(45deg) scale(.85) }
+.op-alt[hidden] { display:none !important }
+
+/* Model accuracy */
+.op-acc { width:100%; border-collapse:collapse; font-size:.88rem; font-variant-numeric:tabular-nums; margin-top:8px }
+.op-acc th { text-align:left; font-weight:600; color:var(--op-muted); font-size:.78rem; padding:6px; border-bottom:1px solid var(--op-line) }
+.op-acc td { padding:6px; border-bottom:1px solid var(--op-line) }
+.op-bar { display:inline-block; height:8px; border-radius:4px; background:var(--op-teal); vertical-align:middle; margin-right:8px; opacity:.75 }
+.op-acc tr.op-base .op-bar { background:var(--op-muted) }
 
 /* Evidence */
-.op-evidence h2 { margin:26px 2px 12px; padding:0; border:0; font-size:clamp(1.3rem,2.6vw,1.75rem); font-weight:800; color:var(--op-ink) }
+.op-evidence h2 { margin:24px 2px 10px; padding:0; border:0; font-size:clamp(1.15rem,2.2vw,1.45rem); font-weight:700; color:var(--op-ink) }
 details.op-detail { border:1px solid var(--op-line); border-radius:10px; background:var(--op-surface); margin:10px 0; overflow-x:auto }
 .op-detail summary { display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr) 20px; align-items:center; gap:16px; padding:12px 20px; cursor:pointer; list-style:none; color:var(--op-ink) }
 .op-detail summary::-webkit-details-marker { display:none }
-.op-detail summary b { font-size:1.05rem }
-.op-detail summary span { padding-left:16px; border-left:1px solid var(--op-line); color:var(--op-muted); font-size:.9rem }
+.op-detail summary b { font-size:1rem }
+.op-detail summary span { padding-left:16px; border-left:1px solid var(--op-line); color:var(--op-muted); font-size:.88rem }
 .op-detail summary .op-chev { width:20px; height:20px; transition:transform .15s }
 .op-detail[open] summary .op-chev { transform:rotate(180deg) }
 .op-detail-body { padding:4px 20px 18px }
 .op-detail-body p { margin-bottom:.8rem !important; line-height:1.55 }
-.op-detail-body h3 { font-size:1.05rem; font-weight:700; margin:1rem 0 .5rem; border:0 }
-.op-closing { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 20px; margin-top:22px; padding-top:12px; border-top:1px solid var(--op-line); color:var(--op-muted); font-size:.85rem; font-style:italic }
+.op-detail-body h3 { font-size:1rem; font-weight:700; margin:1rem 0 .5rem; border:0 }
+.op-closing { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 20px; margin-top:22px; padding-top:12px; border-top:1px solid var(--op-line); color:var(--op-muted); font-size:.82rem }
 
 /* CPU / GPU switch */
 body:not(.op-gpu) main.content [data-kind="gpu"], body.op-gpu main.content [data-kind="cpu"] { display:none !important }
 
 /* Quarto turns page-full divs into column grids; keep these blocks as plain boxes. */
 main.content .op-cat { grid-column:page-start / page-end !important }
-main.content .op-card.page-columns, main.content .op-cat.page-columns, main.content .op-plot.page-columns { display:block !important }
+main.content .op-card.page-columns, main.content .op-cat.page-columns, main.content .op-plot.page-columns, main.content .op-alt.page-columns { display:block !important }
 main.content .op-pair.page-columns { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important }
-main.content .op-scatter-grid.page-columns { display:grid !important; grid-template-columns:minmax(0,1fr) 260px !important }
+main.content .op-main-grid.page-columns { display:grid !important; grid-template-columns:minmax(0,1fr) 250px !important }
 main.content .op-cat .page-columns > *, main.content .op-cat.page-columns > * { grid-column:auto !important; min-width:0 }
 
 @media (max-width: 900px) {
   .op-kpis { grid-template-columns:repeat(2,1fr) }
-  main.content .op-pair, main.content .op-scatter-grid, main.content .op-pair.page-columns, main.content .op-scatter-grid.page-columns { grid-template-columns:minmax(0,1fr) !important }
+  main.content .op-pair, main.content .op-main-grid, main.content .op-pair.page-columns, main.content .op-main-grid.page-columns { grid-template-columns:minmax(0,1fr) !important }
   .op-legend { border-left:0; border-top:1px solid var(--op-line); padding:14px 0 0 }
   .op-legend ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px }
   .op-hero-meta { border-left:0; padding-left:0 }
   .op-detail summary { grid-template-columns:minmax(0,1fr) 20px }
   .op-detail summary span { display:none }
+  .op-pick-body { grid-template-columns:minmax(0,1fr) }
 }
 @media (max-width: 560px) {
-  .op-pick-vals { grid-template-columns:repeat(3,minmax(0,1fr)) }
-  .op-pick-vals > div:nth-child(4) { grid-column:1 / -1; border-left:0; border-top:1px solid var(--op-line) }
-  .op-pick-vals > div { padding:8px 10px }
-  .op-pick-vals strong { font-size:1.1rem }
-  .op-toggle button { padding:7px 24px }
+  .op-toggle button { padding:6px 22px }
   .op-subnav a { padding:4px 10px }
+  .op-pick-head label { margin-left:0; flex-wrap:wrap; max-width:100% }
+  .op-preds { font-size:.8rem }
+  .op-preds th, .op-preds td { padding:4px 3px }
 }
 </style>
 
@@ -156,33 +174,43 @@ init_notebook_mode(connected=False)
 
 cpu, cpu_meta = site.load("tech-value", "residuals")
 gpu, gpu_meta = site.load("tech-value", "gpu_residuals")
+cpu_val, cpu_val_meta = site.load("tech-value", "residual_validation")
+gpu_val, gpu_val_meta = site.load("tech-value", "gpu_residual_validation")
 DATA = {"cpu": cpu, "gpu": gpu}
 META = {"cpu": cpu_meta, "gpu": gpu_meta}
+VAL = {"cpu": cpu_val, "gpu": gpu_val}
 NOUN = {"cpu": "CPUs", "gpu": "GPUs"}
+ONE = {"cpu": "processor", "gpu": "graphics card"}
+MEASURE = {
+    "cpu": "SPECrate 2017 Int base per socket",
+    "gpu": "Calibrated SPEC GWPG score (site estimate)",
+}
+MODELS = {"ols": "OLS", "structural": "Structural L1", "nonlinear": "Nonlinear GBDT"}
 
-# The pipeline's consensus verdicts, grouped into the four classes this page shows.
+# The pipeline's classifications, grouped into the four classes this page shows.
 CLASS_OF = {
-    "True architectural standout": "standout",
-    "Small-core linearity artifact": "sensitive",
-    "Linearity / regime artifact": "sensitive",
-    "Entry-shader linearity artifact": "sensitive",
-    "Memory / scaling bottleneck": "bottleneck",
+    "Above prediction across models": "above",
+    "Below prediction across models": "below",
+    "Model-sensitive (small-core)": "sensitive",
+    "Model-sensitive (scaling regime)": "sensitive",
+    "Model-sensitive (entry-level shaders)": "sensitive",
 }
 CLASSES = {
-    "standout": ("Standout candidate", "Higher than expected across models.", "#18b47b"),
-    "sensitive": ("Model-sensitive", "Larger change between models.", "#f0b23e"),
-    "near": ("Near expected", "Close to model predictions.", "#c4cad1"),
-    "bottleneck": ("Scaling bottleneck", "Lower than expected, suggests scaling or configuration limits.", "#d9707a"),
+    "above": ("Above prediction across models", "Measured score above all three predictions.", "#18b47b"),
+    "sensitive": ("Model-sensitive", "Above the straight-line model, much less so once scaling is allowed to bend.", "#f0b23e"),
+    "near": ("Near prediction", "Within the models' usual error.", "#c4cad1"),
+    "below": ("Below prediction across models", "A candidate for checking scaling, configuration or model limits.", "#d9707a"),
 }
-FONT = dict(family="Inter, Segoe UI, system-ui, sans-serif", color="#8391a1", size=12)
+FONT = dict(family="Century Gothic, URW Gothic, Questrial, system-ui, sans-serif", color="#8391a1", size=12)
 AXIS = dict(showgrid=False, showline=True, linecolor="#8391a1", ticks="outside", zeroline=False)
+HOVER = dict(bgcolor="white", font_color="#14233a", font_family=FONT["family"])
 
 for kind, df in DATA.items():
     if not df.empty:
         df["cls"] = df["consensus_verdict"].map(CLASS_OF).fillna("near")
 
 
-def coverage_limited(r) -> bool:
+def limited(r) -> bool:
     """Few disclosures, or every one from a single OEM: one configuration can carry the result."""
     return int(r["n_oems"]) <= 1 or int(r["n_results"]) < 4
 
@@ -190,6 +218,24 @@ def coverage_limited(r) -> bool:
 def count(kind, cls):
     df = DATA[kind]
     return int((df["cls"] == cls).sum()) if not df.empty else 0
+
+
+def day(ts):
+    return str(ts)[:10] if ts else "not recorded"
+
+
+def collected(meta):
+    srcs = meta.get("sources") or []
+    return day(srcs[0].get("retrieved_at")) if srcs else "not recorded"
+
+
+def typical_error(kind):
+    """Median absolute held-out error per model, over all ranked chips."""
+    v = VAL[kind]
+    if v.empty:
+        return {}
+    allrows = v[v["slice"] == "All"].set_index("model")
+    return {m: float(r["median_abs_pct_error"]) for m, r in allrows.iterrows()}
 
 
 ICON = {
@@ -200,93 +246,107 @@ ICON = {
 
 def icon(name, cls=""):
     return f'<svg class="op-ico {cls}" viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg>'
+
+
+def raw(html):
+    """Emit HTML as a raw block so pandoc does not re-parse it as markdown."""
+    print(f"\n```{{=html}}\n{html}\n```\n")
 ```
 
-```{=html}
-<nav class="op-subnav" aria-label="Tech Value pages">
+```{python}
+#| output: asis
+raw(f"""<nav class="op-subnav" aria-label="Tech Value pages">
   <a href="index.html">Value ranking</a>
   <a href="fair-price.html">Fair price</a>
   <a href="residuals.html" aria-current="page">Over &amp; under performers</a>
 </nav>
 <header class="op-hero">
-  <div class="op-kicker">Tech Value: Over &amp; under performers</div>
-  <h1>Which chips outperform their specifications?</h1>
-  <p>Compare measured SPEC benchmark scores with predictions from hardware specifications.
-  Each chip is evaluated using models trained without that chip.</p>
+  <div class="op-kicker">Tech Value · Over &amp; under performers</div>
+  <h1>Which chips score above or below what their specifications predict?</h1>
+  <p>Each chip's published SPEC score is compared with three model predictions made without that chip or its variants.</p>
   <div class="op-hero-row">
     <div class="op-toggle" role="group" aria-label="Chip type">
       <button type="button" data-tab="cpu" aria-pressed="true">CPU</button>
       <button type="button" data-tab="gpu" aria-pressed="false">GPU</button>
     </div>
     <div class="op-hero-meta">
-      <span data-kind="cpu">SPEC CPU 2017 · SPECrate Integer base · Server-heavy submissions</span>
-      <span data-kind="gpu">SPEC GWPG · SPECviewperf, SPECworkstation, SPECapc · Workstation submissions</span>
+      <span data-kind="cpu">SPEC CPU 2017 · SPECrate Integer base · Benchmarks collected {collected(cpu_meta)} · Specifications from each SPEC disclosure</span>
+      <span data-kind="gpu">SPEC GWPG · SPECviewperf, SPECworkstation, SPECapc · Benchmarks collected {collected(gpu_meta)} · Specifications from a table kept in this repository</span>
     </div>
   </div>
-</header>
+</header>""")
 ```
 
 ```{python}
 #| output: asis
+html = ""
 for kind in ("cpu", "gpu"):
     if DATA[kind].empty:
         continue
     cards = [
         (len(DATA[kind]), f"Ranked {NOUN[kind]}"),
-        (count(kind, "standout"), "Standout candidates"),
-        (count(kind, "sensitive"), "Model-sensitive results"),
-        (count(kind, "bottleneck"), "Scaling bottlenecks"),
+        (count(kind, "above"), "Above prediction across models"),
+        (count(kind, "sensitive"), "Model-sensitive"),
+        (count(kind, "below"), "Below prediction across models"),
     ]
     body = "".join(f'<div class="op-kpi"><strong>{n:,}</strong><span>{label}</span></div>' for n, label in cards)
-    print(f'<div class="op-kpis" data-kind="{kind}">{body}</div>')
-print('<p class="op-note">Model agreement highlights candidates for closer investigation.</p>')
+    html += f'<div class="op-kpis" data-kind="{kind}">{body}</div>'
+html += '<p class="op-note">Agreement between models marks chips worth a closer look. It does not say why a chip differs.</p>'
+raw(html)
 ```
 
 ```{python}
-def pct_ticks(lim):
-    step = 20 if lim <= 100 else 40
-    vals = list(range(-int(lim // step) * step, int(lim // step) * step + 1, step))
-    return vals, [f"{v:+d}%" if v else "0%" for v in vals]
+def log_ticks(lo, hi):
+    vals = [m * 10 ** e for e in range(-2, 7) for m in (1, 2, 5)]
+    return [v for v in vals if lo / 1.15 <= v <= hi * 1.15]
 
 
-def scatter(kind):
+def main_chart(kind):
+    """Measured against predicted, one set of points per model; the buttons switch models."""
     df = DATA[kind]
-    lim = max(80, float(np.ceil(df[["residual_pct", "gbdt_residual_pct"]].abs().max().max() / 10) * 10))
+    y = df["measured_per_socket" if kind == "cpu" else "measured_score"]
+    preds = [df[f"pred_{m}"] for m in MODELS]
+    lo = float(min(y.min(), *(p.min() for p in preds)))
+    hi = float(max(y.max(), *(p.max() for p in preds)))
     fig = go.Figure()
-    fig.add_shape(type="rect", x0=0, y0=0, x1=lim, y1=lim, fillcolor="rgba(24,180,123,0.09)", line_width=0, layer="below")
-    fig.add_hline(y=0, line=dict(color="#55606c", width=1.2))
-    fig.add_vline(x=0, line=dict(color="#55606c", width=1.2))
-    hover = ("<b>%{customdata[0]}</b><br>%{customdata[1]}<br>OLS %{x:+.1f}% · Structural %{customdata[2]:+.1f}%"
-             " · Nonlinear %{y:+.1f}%<br>%{customdata[3]} disclosures · %{customdata[4]} OEM(s)<extra></extra>")
-    for cls in ("near", "sensitive", "bottleneck", "standout"):
-        part = df[df["cls"] == cls]
-        if part.empty:
-            continue
-        name, _, color = CLASSES[cls]
-        custom = np.stack([part["processor"], [name] * len(part), part["structural_residual_pct"],
-                           part["n_results"], part["n_oems"]], axis=-1)
-        fig.add_scatter(
-            x=part["residual_pct"], y=part["gbdt_residual_pct"], mode="markers", name=f"cls:{cls}",
-            marker=dict(size=6 if cls == "near" else 8, color=color, opacity=0.75 if cls == "near" else 0.95,
-                        line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
-            customdata=custom, hovertemplate=hover, showlegend=False,
-        )
+    fig.add_scatter(x=[lo / 1.2, hi * 1.2], y=[lo / 1.2, hi * 1.2], mode="lines", hoverinfo="skip",
+                    line=dict(color="#55606c", width=1.3), showlegend=False, name="equal")
+    for key, label in MODELS.items():
+        for cls in ("near", "sensitive", "below", "above"):
+            part = df[df["cls"] == cls]
+            if part.empty:
+                continue
+            ys = y[part.index]
+            custom = np.stack([
+                part["processor"], [CLASSES[cls][0]] * len(part),
+                np.expm1(part[f"{key}_resid_log"]) * 100,
+                part[f"pred_{key}_lo"], part[f"pred_{key}_hi"], part["n_results"], part["n_oems"],
+            ], axis=-1)
+            fig.add_scatter(
+                x=part[f"pred_{key}"], y=ys, mode="markers", name=f"m:{key}:{cls}", visible=(key == "ols"),
+                marker=dict(size=6 if cls == "near" else 8, color=CLASSES[cls][2],
+                            opacity=0.7 if cls == "near" else 0.95, line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
+                customdata=custom, showlegend=False,
+                hovertemplate=(f"<b>%{{customdata[0]}}</b><br>%{{customdata[1]}}<br>Measured %{{y:,.1f}} · {label} %{{x:,.1f}}"
+                               " (%{customdata[2]:+.1f}%)<br>80% range %{customdata[3]:,.1f} – %{customdata[4]:,.1f}"
+                               "<br>%{customdata[5]} disclosures · %{customdata[6]} OEM(s)<extra></extra>"),
+            )
     fig.add_scatter(x=[None], y=[None], mode="markers", name="selected", hoverinfo="skip", showlegend=False,
                     marker=dict(size=17, color="rgba(24,180,123,0.2)", line=dict(width=2.4, color="#0f8f6c")))
-    vals, text = pct_ticks(lim)
+    ticks = log_ticks(lo, hi)
+    rng = [np.log10(lo / 1.15), np.log10(hi * 1.15)]
     fig.update_layout(
-        height=430, font=FONT, margin=dict(t=10, r=10, b=50, l=70),
+        height=460, font=FONT, margin=dict(t=10, r=10, b=54, l=74),
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Score above / below OLS prediction (%)"),
-        yaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Score above / below nonlinear prediction (%)"),
-        hoverlabel=dict(bgcolor="white", font_color="#14233a"), dragmode=False,
+        xaxis=dict(**AXIS, type="log", range=rng, tickvals=ticks, ticktext=[f"{t:,g}" for t in ticks],
+                   title="Predicted by OLS (log scale)"),
+        yaxis=dict(**AXIS, type="log", range=rng, tickvals=ticks, ticktext=[f"{t:,g}" for t in ticks],
+                   title=f"Measured: {MEASURE[kind]}"),
+        hoverlabel=HOVER, dragmode=False,
+        annotations=[dict(x=0.98, y=0.04, xref="paper", yref="paper", showarrow=False, xanchor="right",
+                          text="Line = measured equals predicted", font=dict(size=11, color="#8391a1"))],
     )
     fig.show(config={"displayModeBar": False, "responsive": True})
-
-
-def raw(html):
-    """Emit HTML as a raw block so pandoc does not re-parse it as markdown."""
-    print(f"\n```{{=html}}\n{html}\n```\n")
 
 
 def legend(kind):
@@ -294,32 +354,76 @@ def legend(kind):
         f'<li><span class="op-dot" style="background:{c}"></span><span><b>{n}</b><small>{d}</small></span></li>'
         for n, d, c in CLASSES.values()
     )
-    raw(f'<aside class="op-legend"><ul>{items}</ul><hr><small>Classification also uses the structural model.</small>'
-          '<div class="op-callout">Positive residual = measured score above model prediction.</div></aside>')
+    raw(f'<aside class="op-legend"><ul>{items}</ul><hr><small>Classes use all three models. '
+        'The chart shows one model at a time.</small>'
+        '<div class="op-callout">Above the line = measured score higher than predicted.</div></aside>')
+
+
+def model_buttons(kind):
+    err = typical_error(kind)
+    btns = "".join(
+        f'<button type="button" data-model="{k}" aria-pressed="{str(k == "ols").lower()}" '
+        f'title="Typical held-out error {err.get(v, float("nan")):.1f}%">{v}</button>'
+        for k, v in {"ols": "OLS", "structural": "Structural L1", "nonlinear": "Nonlinear GBDT"}.items()
+    )
+    raw(f'<div class="op-seg" role="group" aria-label="Prediction model">{btns}</div>')
+
+
+def chip_rows(kind):
+    df = DATA[kind]
+    score = "measured_per_socket" if kind == "cpu" else "measured_score"
+    rows = []
+    for _, r in df.iterrows():
+        preds = {}
+        for key, col in (("ols", "ols"), ("structural", "structural"), ("nonlinear", "nonlinear")):
+            preds[key] = dict(p=round(float(r[f"pred_{key}"]), 2),
+                              lo=None if pd.isna(r[f"pred_{key}_lo"]) else round(float(r[f"pred_{key}_lo"]), 2),
+                              hi=None if pd.isna(r[f"pred_{key}_hi"]) else round(float(r[f"pred_{key}_hi"]), 2),
+                              r=round(float(np.expm1(r[f"{col}_resid_log"]) * 100), 1))
+        facts = [
+            ("Disclosures", int(r["n_results"])),
+            ("OEMs", int(r["n_oems"])),
+            ("Distinct systems", int(r["n_systems"])),
+            ("Distinct configurations", int(r["n_configs"])),
+        ]
+        if kind == "cpu":
+            facts += [("Sockets tested", r["sockets_tested"]),
+                      ("Test dates", f'{day(r["first_test_date"])} to {day(r["last_test_date"])}'),
+                      ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts')]
+            if pd.notna(r.get("peak_gain_pct")):
+                facts.append(("Peak vs base compiler gain", f'{r["peak_gain_pct"]:+.1f}%'))
+        else:
+            facts += [("Suites", r["suites_tested"]), ("Released", int(r["generation"])),
+                      ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts'),
+                      ("Workload specialization", f'{r["workload_specialization_pct"]:+.0f}%')]
+        rows.append(dict(
+            name=r["processor"], cls=CLASSES[r["cls"]][0], y=round(float(r[score]), 2), preds=preds,
+            spread=round(float(r["model_spread_pts"]), 1), oor=r["outside_training_range"] or "",
+            limited=limited(r), facts=facts, url=r.get("disclosure_url") or "",
+        ))
+    return rows
 
 
 def pick(kind):
     df = DATA[kind]
-    rows = [dict(name=r.processor, ols=round(r.residual_pct, 1), st=round(r.structural_residual_pct, 1),
-                 nl=round(r.gbdt_residual_pct, 1), n=int(r.n_results), oems=int(r.n_oems),
-                 cls=CLASSES[r.cls][0], limited=coverage_limited(r._asdict()))
-            for r in df.itertuples()]
-    standouts = df[df["cls"] == "standout"]
-    default = (standouts if len(standouts) else df).sort_values("gbdt_residual_pct").iloc[-1]["processor"]
+    rows = chip_rows(kind)
+    above = df[df["cls"] == "above"]
+    default = (above if len(above) else df).sort_values("nonlinear_resid_log").iloc[-1]["processor"]
     opts = "".join(f'<option{" selected" if d["name"] == default else ""}>{escape(d["name"])}</option>'
                    for d in sorted(rows, key=lambda d: d["name"]))
-    print(f"""```{{=html}}
-<div class="op-pick" data-chips="{escape(json.dumps(rows), quote=True)}">
-<div class="op-pick-name" data-f="name"></div>
-<div class="op-pick-vals">
-<div><span>OLS</span><strong data-f="ols"></strong></div>
-<div><span>Structural</span><strong data-f="st"></strong></div>
-<div><span>Nonlinear</span><strong data-f="nl"></strong></div>
-<div class="op-cov"><b data-f="cov"></b><span class="op-cls" data-f="cls"></span><span class="op-warn" data-f="warn">{icon("warn")} Limited configuration coverage</span></div>
+    err = typical_error(kind)
+    err_txt = " · ".join(f"{m} {e:.1f}%" for m, e in err.items())
+    raw(f"""<div class="op-pick" data-chips="{escape(json.dumps(rows), quote=True)}">
+<div class="op-pick-head"><span class="op-pick-name" data-f="name"></span><span class="op-badge" data-f="cls"></span>
+<label>Inspect a {ONE[kind]}<select aria-label="Inspect a {ONE[kind]}">{opts}</select></label></div>
+<div class="op-pick-body">
+<div><table class="op-preds"><thead><tr><th></th><th>Score</th><th>80% range</th><th>Residual</th></tr></thead><tbody data-f="preds"></tbody></table>
+<div class="op-flag" data-f="flags"></div></div>
+<div class="op-facts" data-f="facts"></div>
 </div>
-<label>Inspect a chip<select aria-label="Inspect a chip">{opts}</select></label>
-</div>
-```""")
+<div class="op-pick-foot">Typical held-out error: {escape(err_txt)}. Predicted scores are this site's estimates, not SPEC metrics.
+<span data-f="link"></span></div>
+</div>""")
 
 
 def head(title, *ledes):
@@ -327,6 +431,33 @@ def head(title, *ledes):
 ```
 
 ```{python}
+def agreement(kind):
+    df = DATA[kind]
+    o = np.expm1(df["ols_resid_log"]) * 100
+    n = np.expm1(df["nonlinear_resid_log"]) * 100
+    lim = max(60, float(np.ceil(max(o.abs().max(), n.abs().max()) / 20) * 20))
+    fig = go.Figure()
+    fig.add_shape(type="rect", x0=0, y0=0, x1=lim, y1=lim, fillcolor="rgba(24,180,123,0.08)", line_width=0, layer="below")
+    fig.add_hline(y=0, line=dict(color="#55606c", width=1))
+    fig.add_vline(x=0, line=dict(color="#55606c", width=1))
+    for cls in ("near", "sensitive", "below", "above"):
+        m = (df["cls"] == cls).to_numpy()
+        if not m.any():
+            continue
+        fig.add_scatter(x=o[m], y=n[m], mode="markers", showlegend=False,
+                        marker=dict(size=6, color=CLASSES[cls][2], opacity=0.85),
+                        customdata=df["processor"][m], hovertemplate="<b>%{customdata}</b><br>OLS %{x:+.1f}% · Nonlinear %{y:+.1f}%<extra></extra>")
+    step = 20 if lim <= 100 else 40
+    vals = list(range(-int(lim), int(lim) + 1, step))
+    text = [f"{v:+d}%" if v else "0%" for v in vals]
+    fig.update_layout(height=320, font=FONT, margin=dict(t=6, r=8, b=50, l=62),
+                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                      xaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Residual vs OLS (%)"),
+                      yaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Residual vs nonlinear (%)"),
+                      hoverlabel=HOVER, dragmode=False)
+    fig.show(config={"displayModeBar": False, "responsive": True})
+
+
 SHORT_GROUP = {
     "Intel oneAPI (LLVM)": "Intel oneAPI",
     "Oracle / Vendor Studio": "Oracle Studio",
@@ -342,92 +473,120 @@ def group_table(kind):
     df = DATA[kind]
     g = df.groupby("compiler_family").agg(
         chips=("processor", "size"), disclosures=("n_results", "sum"),
-        spread=("tuning_spread_pct", "median"), ols=("residual_pct", "median"),
-        nonlinear=("gbdt_residual_pct", "median"),
+        spread=("tuning_spread_pct", "median"), configs=("n_configs", "median"),
+        ols=("residual_pct", "median"), nonlinear=("gbdt_residual_pct", "median"),
     ).reset_index()
     return g.sort_values("disclosures", ascending=False)
 
 
 def spread_chart(kind):
-    g = group_table(kind)
-    g = g[g["chips"] >= 1].sort_values("disclosures")
-    labels = [f"{SHORT_GROUP.get(f, f)} <span style='font-size:10px'>({c})</span>" for f, c in zip(g["compiler_family"], g["chips"])]
+    g = group_table(kind).sort_values("disclosures")
+    labels = [f"{SHORT_GROUP.get(f, f)} ({c})" for f, c in zip(g["compiler_family"], g["chips"])]
     fig = go.Figure()
     for y, v in zip(labels, g["spread"]):
         fig.add_shape(type="line", x0=0, x1=v, y0=y, y1=y, line=dict(color="#8391a1", width=1.5))
     fig.add_scatter(
-        x=g["spread"], y=labels, mode="markers+text", text=[f"{v:.1f}%" for v in g["spread"]],
+        x=g["spread"], y=labels, mode="markers+text", text=[f"{v:.1f}" for v in g["spread"]],
         textposition="middle right", textfont=dict(color="#8391a1", size=12),
-        marker=dict(size=13, color="#18b47b", line=dict(width=1, color="white")),
-        customdata=np.stack([g["chips"], g["disclosures"]], axis=-1),
-        hovertemplate="%{y}<br>Median spread %{x:.1f} pts<br>%{customdata[0]} chips · %{customdata[1]} disclosures<extra></extra>",
+        marker=dict(size=12, color="#18b47b", line=dict(width=1, color="white")),
+        customdata=np.stack([g["chips"], g["disclosures"], g["configs"]], axis=-1),
+        hovertemplate="%{y}<br>Median spread %{x:.1f} pts<br>%{customdata[0]} chips · %{customdata[1]} disclosures"
+                      "<br>Median %{customdata[2]} configurations per chip<extra></extra>",
         showlegend=False,
     )
     hi = float(np.ceil((g["spread"].max() * 1.25) / 5) * 5)
     fig.update_layout(
         height=max(240, 60 + 46 * len(g)), font=FONT, margin=dict(t=6, r=12, b=50, l=10),
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(**AXIS, range=[0, hi], ticksuffix="%", title="Median same-chip residual spread (percentage points)"),
+        xaxis=dict(**AXIS, range=[0, hi], title="Median spread across submitted configurations (pts)"),
         yaxis=dict(showgrid=False, showline=False, ticks="", automargin=True),
-        hoverlabel=dict(bgcolor="white", font_color="#14233a"), dragmode=False,
+        hoverlabel=HOVER, dragmode=False,
     )
     fig.show(config={"displayModeBar": False, "responsive": True})
 
 
 TIERS = {
-    "cpu": ("l3_mb_per_core", [1.5, 3.0], ["Low L3", "Standard L3", "High L3"]),
-    "gpu": ("bandwidth_gbps", [200, 500], ["Low bandwidth", "Standard bandwidth", "High bandwidth"]),
+    "cpu": ("l3_mb_per_core", [1.5, 3.0], ["Low L3", "Standard L3", "High L3"], "MB L3 per core"),
+    "gpu": ("bandwidth_gbps", [200, 500], ["Low bandwidth", "Standard bandwidth", "High bandwidth"], "GB/s"),
 }
 TIER_COLORS = ["#d9707a", "#f0b23e", "#18b47b"]
 SYMBOLS = {"Intel": "circle", "AMD": "diamond", "NVIDIA": "circle", "Other": "square"}
 
 
-def scaling_chart(kind):
-    df = DATA[kind].dropna(subset=["cores_per_chip", "score_per_core"]).copy()
-    col, cuts, names = TIERS[kind]
+def scaling_chart(kind, metric):
+    """metric 'unit': throughput per core or shader; 'total': measured score."""
+    df = DATA[kind].dropna(subset=["cores_per_chip"]).copy()
+    col, cuts, names, unit = TIERS[kind]
     df["tier"] = np.digitize(df[col].fillna(df[col].median()), cuts)
+    if metric == "unit":
+        df["yv"] = df["score_per_core"]
+        ytitle = "Base score per core" if kind == "cpu" else "Score per 1,000 shaders"
+    else:
+        df["yv"] = df["measured_per_socket" if kind == "cpu" else "measured_score"]
+        ytitle = "Base score per socket" if kind == "cpu" else "Calibrated score"
     fig = go.Figure()
-    unit = "MB L3 / core" if kind == "cpu" else "GB/s"
     for t, name in enumerate(names):
         for vendor, symbol in SYMBOLS.items():
             part = df[(df["tier"] == t) & (df["vendor"] == vendor)]
             if part.empty:
                 continue
             fig.add_scatter(
-                x=part["cores_per_chip"], y=part["score_per_core"], mode="markers", showlegend=False,
+                x=part["cores_per_chip"], y=part["yv"], mode="markers", showlegend=False,
                 marker=dict(size=7, symbol=symbol, color=TIER_COLORS[t], opacity=0.85, line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
                 customdata=np.stack([part["processor"], part[col], part["residual_pct"]], axis=-1),
                 hovertemplate=f"<b>%{{customdata[0]}}</b><br>%{{x:,.0f}} {'cores' if kind == 'cpu' else 'shaders'} · "
-                              f"%{{y:.1f}} per {'core' if kind == 'cpu' else '1,000 shaders'}<br>%{{customdata[1]:.1f}} {unit} · "
-                              "OLS %{customdata[2]:+.1f}%<extra></extra>",
+                              f"%{{y:,.1f}}<br>%{{customdata[1]:.1f}} {unit} · OLS residual %{{customdata[2]:+.1f}}%<extra></extra>",
             )
     lo, hi = df["cores_per_chip"].min(), df["cores_per_chip"].max()
     xt = [2 ** e for e in range(0, 16) if lo / 1.5 <= 2 ** e <= hi * 1.5]
     if kind == "gpu":
         xt = [v for v in (500, 1000, 2000, 5000, 10000, 20000) if lo / 1.5 <= v <= hi * 1.5]
-    ylo, yhi = df["score_per_core"].min(), df["score_per_core"].max()
-    yt = [m * 10 ** e for e in range(-1, 4) for m in (1, 2, 5) if ylo / 1.3 <= m * 10 ** e <= yhi * 1.3]
+    yt = log_ticks(df["yv"].min(), df["yv"].max())
     fig.update_layout(
-        height=330, font=FONT, margin=dict(t=6, r=10, b=50, l=64),
+        height=320, font=FONT, margin=dict(t=6, r=10, b=50, l=64),
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         xaxis=dict(**AXIS, type="log", tickvals=xt, ticktext=[f"{v:,}" for v in xt],
-                   title="Cores per chip (log scale)" if kind == "cpu" else "Shaders per GPU (log scale)"),
-        yaxis=dict(**AXIS, type="log", tickvals=yt, ticktext=[f"{v:g}" for v in yt],
-                   title="Base score per core" if kind == "cpu" else "Score per 1,000 shaders"),
-        hoverlabel=dict(bgcolor="white", font_color="#14233a"), dragmode=False,
+                   title="Cores per chip (log scale)" if kind == "cpu" else "Shaders (log scale)"),
+        yaxis=dict(**AXIS, type="log", tickvals=yt, ticktext=[f"{v:,g}" for v in yt], title=ytitle),
+        hoverlabel=HOVER, dragmode=False,
     )
     fig.show(config={"displayModeBar": False, "responsive": True})
 
 
+def scaling_buttons(kind):
+    unit = "Per core" if kind == "cpu" else "Per 1,000 shaders"
+    total = "Per socket" if kind == "cpu" else "Total"
+    raw(f'<div class="op-seg" role="group" aria-label="Throughput measure"><button type="button" data-alt="unit" aria-pressed="true">{unit}</button>'
+        f'<button type="button" data-alt="total" aria-pressed="false">{total}</button></div>')
+
+
 def scaling_keys(kind):
-    _, cuts, names = TIERS[kind]
-    unit = "MB/core" if kind == "cpu" else "GB/s"
-    bounds = [f"&lt; {cuts[0]:g} {unit}", f"{cuts[0]:g}–{cuts[1]:g}", f"&gt; {cuts[1]:g}"]
-    tiers = "".join(f'<span title="{b}"><span class="op-dot" style="background:{c};margin:0"></span>{n}</span>'
+    _, cuts, names, unit = TIERS[kind]
+    bounds = [f"&lt; {cuts[0]:g} {unit}", f"{cuts[0]:g}–{cuts[1]:g} {unit}", f"&gt; {cuts[1]:g} {unit}"]
+    tiers = "".join(f'<span><span class="op-dot" style="background:{c};margin:0"></span>{n} <small>({b})</small></span>'
                     for n, b, c in zip(names, bounds, TIER_COLORS))
     vendors = ["Intel", "AMD", "Other"] if kind == "cpu" else ["NVIDIA", "AMD"]
     shapes = "".join(f'<span><span class="op-shape {SYMBOLS[v]}"></span>{v}</span>' for v in vendors)
     raw(f'<div class="op-keys">{tiers}{shapes}</div>')
+
+
+def accuracy(kind):
+    v = VAL[kind]
+    if v.empty:
+        raw('<p class="op-lede">Model validation has not been exported yet.</p>')
+        return
+    a = v[v["slice"] == "All"]
+    top = float(a["median_abs_pct_error"].max())
+    rows = ""
+    for _, r in a.iterrows():
+        base = r["model"].startswith("Baseline")
+        cov = "" if pd.isna(r["range_coverage_pct"]) else f'{r["range_coverage_pct"]:.0f}%'
+        w = 100 * r["median_abs_pct_error"] / top if top else 0
+        rows += (f'<tr class="{"op-base" if base else ""}"><td>{r["model"]}</td>'
+                 f'<td><span class="op-bar" style="width:{w * 0.9:.0f}px"></span>{r["median_abs_pct_error"]:.1f}%</td>'
+                 f'<td>{cov}</td><td>{int(r["n_chips"])}</td></tr>')
+    raw(f'<table class="op-acc"><thead><tr><th>Model</th><th>Typical error</th><th>Inside 80% range</th><th>{NOUN[kind]}</th></tr></thead>'
+        f"<tbody>{rows}</tbody></table>")
 ```
 
 ```{python}
@@ -445,17 +604,18 @@ for kind in ("cpu", "gpu"):
 
 ```{python}
 #| output: asis
-head("Does the result survive a different model?",
-     "Compare the simple regression with the nonlinear model.",
-     "Hover a chip to see all three estimates and its disclosure coverage, or click it to pin it below.")
+head("Measured against predicted",
+     "Each point is a processor. Its measured score is plotted against the score a model predicts from its specifications, "
+     "using a fit that never saw that processor. Pick a model, then hover or click a point.")
+model_buttons("cpu")
 ```
 
-::::: {.op-scatter-grid}
+::::: {.op-main-grid}
 
-:::: {.op-plot}
+:::: {.op-plot .op-main}
 ```{python}
 if not cpu.empty:
-    scatter("cpu")
+    main_chart("cpu")
 ```
 ::::
 
@@ -477,12 +637,22 @@ if not cpu.empty:
 
 :::::: {.op-pair}
 
-:::: {.op-card}
+::::: {.op-card}
 ```{python}
 #| output: asis
-head("How much does the platform change?",
-     "The same processor can post different scores across systems and compilers. Each bar is the "
-     "median, over the chips in a group, of the gap between a chip's best and worst result.")
+head("Do the models agree?", "Residual against the straight-line OLS model and the nonlinear model. Points far from the diagonal depend on the model chosen.")
+```
+```{python}
+if not cpu.empty:
+    agreement("cpu")
+```
+:::::
+
+::::: {.op-card}
+```{python}
+#| output: asis
+head("How much do submitted configurations vary?",
+     "For each processor, the gap between its highest and lowest residual across submitted systems, memory, compilers and operating systems. Median per compiler group.")
 ```
 ```{python}
 if not cpu.empty:
@@ -490,27 +660,51 @@ if not cpu.empty:
 ```
 ```{python}
 #| output: asis
-print('<p class="op-foot">Chips are grouped by the compiler of their typical submission (chip count in brackets). '
-      'Groups differ in hardware and submission mix.</p>')
+raw('<p class="op-foot">Grouped by the compiler of each processor\'s typical submission (processor count in brackets). '
+    'Groups differ in hardware and submission mix. Peak-versus-base compiler gain is a separate measurement, shown per processor.</p>')
 ```
-::::
+:::::
 
-:::: {.op-card}
+::::::
+
+:::::: {.op-pair}
+
+::::: {.op-card}
 ```{python}
 #| output: asis
 head("Where does scaling slow down?",
-     "Compare throughput per core as core count increases. Color shows L3 cache per core; marker shape shows vendor.")
+     "Throughput as core count rises, colored by L3 cache per core, shaped by vendor. These are associations to investigate, not causes.")
+scaling_buttons("cpu")
 ```
+:::: {.op-alt data-alt="unit"}
 ```{python}
 if not cpu.empty:
-    scaling_chart("cpu")
+    scaling_chart("cpu", "unit")
 ```
+::::
+:::: {.op-alt data-alt="total" hidden="hidden"}
+```{python}
+if not cpu.empty:
+    scaling_chart("cpu", "total")
+```
+::::
 ```{python}
 #| output: asis
 if not cpu.empty:
     scaling_keys("cpu")
 ```
-::::
+:::::
+
+::::: {.op-card}
+```{python}
+#| output: asis
+head("How accurate are the models?",
+     "Typical error is the median absolute gap between measured and predicted, one value per processor, from fits that left it out. "
+     "The 80% range should contain about 80% of processors.")
+accuracy("cpu")
+raw('<p class="op-foot">Errors by vendor, family and generation are under Explore the evidence.</p>')
+```
+:::::
 
 ::::::
 
@@ -522,17 +716,18 @@ if not cpu.empty:
 
 ```{python}
 #| output: asis
-head("Does the result survive a different model?",
-     "Compare the simple regression with the nonlinear model.",
-     "Hover a card to see all three estimates and its disclosure coverage, or click it to pin it below.")
+head("Measured against predicted",
+     "Each point is a graphics card. Its calibrated workstation score is plotted against the score a model predicts from its specifications, "
+     "using a fit that never saw that card. Pick a model, then hover or click a point.")
+model_buttons("gpu")
 ```
 
-::::: {.op-scatter-grid}
+::::: {.op-main-grid}
 
-:::: {.op-plot}
+:::: {.op-plot .op-main}
 ```{python}
 if not gpu.empty:
-    scatter("gpu")
+    main_chart("gpu")
 ```
 ::::
 
@@ -554,12 +749,22 @@ if not gpu.empty:
 
 :::::: {.op-pair}
 
-:::: {.op-card}
+::::: {.op-card}
 ```{python}
 #| output: asis
-head("How much does the platform change?",
-     "The same graphics card can post different scores across workstations and benchmark suites. Each bar is "
-     "the median, over the cards in a group, of the gap between a card's best and worst result.")
+head("Do the models agree?", "Residual against the straight-line OLS model and the nonlinear model. Points far from the diagonal depend on the model chosen.")
+```
+```{python}
+if not gpu.empty:
+    agreement("gpu")
+```
+:::::
+
+::::: {.op-card}
+```{python}
+#| output: asis
+head("How much do submitted configurations vary?",
+     "For each card, the gap between its highest and lowest residual across workstations and benchmark suites. Median per suite group.")
 ```
 ```{python}
 if not gpu.empty:
@@ -567,27 +772,51 @@ if not gpu.empty:
 ```
 ```{python}
 #| output: asis
-print('<p class="op-foot">Cards are grouped by the suite of their typical submission (card count in brackets). '
-      'Groups differ in hardware and submission mix.</p>')
+raw('<p class="op-foot">Grouped by the suite of each card\'s typical submission (card count in brackets). '
+    'Workload specialization (best workload against the composite) is a separate measurement, shown per card.</p>')
 ```
-::::
+:::::
 
-:::: {.op-card}
+::::::
+
+:::::: {.op-pair}
+
+::::: {.op-card}
 ```{python}
 #| output: asis
 head("Where does scaling slow down?",
-     "Compare throughput per shader as shader count increases. Color shows memory bandwidth; marker shape shows vendor.")
+     "Throughput as shader count rises, colored by memory bandwidth, shaped by vendor. These are associations to investigate, not causes.")
+scaling_buttons("gpu")
 ```
+:::: {.op-alt data-alt="unit"}
 ```{python}
 if not gpu.empty:
-    scaling_chart("gpu")
+    scaling_chart("gpu", "unit")
 ```
+::::
+:::: {.op-alt data-alt="total" hidden="hidden"}
+```{python}
+if not gpu.empty:
+    scaling_chart("gpu", "total")
+```
+::::
 ```{python}
 #| output: asis
 if not gpu.empty:
     scaling_keys("gpu")
 ```
-::::
+:::::
+
+::::: {.op-card}
+```{python}
+#| output: asis
+head("How accurate are the models?",
+     "Typical error is the median absolute gap between measured and predicted, one value per card, from fits that left it out. "
+     "The 80% range should contain about 80% of cards.")
+accuracy("gpu")
+raw('<p class="op-foot">With few cards per group, these errors are rough. Errors by vendor, form factor, architecture and year are under Explore the evidence.</p>')
+```
+:::::
 
 ::::::
 
@@ -595,13 +824,20 @@ if not gpu.empty:
 
 ```{python}
 LABELS = {
-    "processor": "Chip", "class": "Classification", "residual_pct": "OLS %",
-    "structural_residual_pct": "Structural %", "gbdt_residual_pct": "Nonlinear %",
-    "tuning_spread_pct": "Same-chip spread (pts)", "n_results": "Disclosures", "n_oems": "OEMs",
+    "processor": "Chip", "class": "Classification", "measured": "Measured",
+    "pred_ols": "OLS predicted", "residual_pct": "OLS %",
+    "pred_structural": "Structural predicted", "structural_residual_pct": "Structural %",
+    "pred_nonlinear": "Nonlinear predicted", "gbdt_residual_pct": "Nonlinear %",
+    "model_spread_pts": "Model spread (pts)", "outside_training_range": "Outside training range",
+    "tuning_spread_pct": "Config spread (pts)", "peak_gain_pct": "Peak vs base gain %",
+    "workload_specialization_pct": "Workload specialization %",
+    "n_results": "Disclosures", "n_oems": "OEMs", "n_systems": "Systems", "n_configs": "Configurations",
     "cores_per_chip": "Cores/chip", "l3_mb_per_core": "L3 MB/core", "score_per_core": "Score/core",
-    "median_score": "Median score", "first_avail": "First available", "compiler_family": "Compiler",
+    "first_avail": "First available", "compiler_family": "Compiler",
+    "first_test_date": "First test", "last_test_date": "Last test",
     "config_memory": "Memory tested", "config_system": "System", "Disclosure": "Disclosure",
-    "vram_gb": "VRAM GB", "bandwidth_gbps": "Bandwidth GB/s",
+    "vram_gb": "VRAM GB", "bandwidth_gbps": "Bandwidth GB/s", "form_factor": "Form factor",
+    "suites_tested": "Suites",
 }
 
 
@@ -609,26 +845,45 @@ def ranking(kind):
     df = DATA[kind]
     table = df.assign(
         **{"class": df["cls"].map(lambda c: CLASSES[c][0]),
+           "measured": df["measured_per_socket" if kind == "cpu" else "measured_score"],
            "Disclosure": [f'<a href="{u}">report</a>' if u else "" for u in df["disclosure_url"]]}
     )
-    cols = ["processor", "class", "residual_pct", "structural_residual_pct", "gbdt_residual_pct",
-            "tuning_spread_pct", "n_results", "n_oems", "cores_per_chip"]
-    cols += (["l3_mb_per_core", "score_per_core", "compiler_family", "config_memory"] if kind == "cpu"
-             else ["vram_gb", "bandwidth_gbps", "compiler_family", "config_system"])
-    cols += ["first_avail", "Disclosure"]
-    table = table[cols].rename(columns=LABELS).rename(columns={"Cores/chip": "Cores/chip" if kind == "cpu" else "Shaders",
-                                                              "Compiler": "Compiler" if kind == "cpu" else "Suite"})
-    show(table.round(1), paging=True, pageLength=25, order=[[2, "desc"]], showIndex=False,
-         classes="display compact", allow_html=True)
+    cols = ["processor", "class", "measured", "pred_ols", "residual_pct", "pred_structural",
+            "structural_residual_pct", "pred_nonlinear", "gbdt_residual_pct", "model_spread_pts",
+            "outside_training_range", "tuning_spread_pct"]
+    if kind == "cpu":
+        cols += ["peak_gain_pct", "n_results", "n_oems", "n_systems", "n_configs", "cores_per_chip",
+                 "l3_mb_per_core", "score_per_core", "compiler_family", "first_avail", "first_test_date",
+                 "last_test_date", "config_memory", "Disclosure"]
+    else:
+        cols += ["workload_specialization_pct", "n_results", "n_oems", "n_systems", "n_configs",
+                 "cores_per_chip", "vram_gb", "bandwidth_gbps", "form_factor", "suites_tested",
+                 "first_avail", "config_system", "Disclosure"]
+    table = table[cols].rename(columns=LABELS)
+    if kind == "gpu":
+        table = table.rename(columns={"Cores/chip": "Shaders", "First available": "Released"})
+    show(table.round(1), paging=True, pageLength=25, order=[[4, "desc"]], showIndex=False,
+         classes="display compact", allow_html=True, lengthMenu=[25, 100, 1000])
 
 
 def breakdown(kind):
     g = group_table(kind).rename(columns={
         "compiler_family": "Compiler" if kind == "cpu" else "Suite", "chips": NOUN[kind],
-        "disclosures": "Disclosures", "spread": "Median same-chip spread (pts)",
-        "ols": "Median OLS %", "nonlinear": "Median nonlinear %",
+        "disclosures": "Disclosures", "spread": "Median config spread (pts)",
+        "configs": "Median configurations per chip", "ols": "Median OLS %", "nonlinear": "Median nonlinear %",
     })
     show(g.round(1), paging=False, showIndex=False, classes="display compact")
+
+
+def validation(kind):
+    v = VAL[kind]
+    if v.empty:
+        display(Markdown("Validation has not been exported yet."))
+        return
+    t = v.rename(columns={"slice": "Slice", "group": "Group", "model": "Model", "n_chips": NOUN[kind],
+                          "median_abs_pct_error": "Typical error %", "mean_abs_log_error": "Mean abs log error",
+                          "range_coverage_pct": "Inside 80% range %"})
+    show(t.round(3), paging=True, pageLength=25, showIndex=False, classes="display compact")
 
 
 def summary(title, note):
@@ -642,7 +897,7 @@ def summary(title, note):
 <details class="op-detail">
 ```{python}
 #| output: asis
-summary("Full CPU ranking", f"{len(cpu):,} processors · Search, sort and disclosures")
+summary("Full CPU ranking", f"{len(cpu):,} processors · Predictions, evidence and disclosures")
 ```
 ::: {.op-detail-body}
 ```{python}
@@ -657,7 +912,7 @@ else:
 <details class="op-detail">
 ```{python}
 #| output: asis
-summary("Full GPU ranking", f"{len(gpu):,} graphics cards · Search, sort and disclosures")
+summary("Full GPU ranking", f"{len(gpu):,} graphics cards · Predictions, evidence and disclosures")
 ```
 ::: {.op-detail-body}
 ```{python}
@@ -672,7 +927,7 @@ else:
 <details class="op-detail">
 ```{python}
 #| output: asis
-summary("Compiler &amp; workstation breakdowns", "Group medians and submission counts")
+summary("Configuration breakdowns", "Compiler and suite groups, spreads and submission counts")
 ```
 ::: {.op-detail-body}
 
@@ -690,48 +945,83 @@ if not gpu.empty:
     breakdown("gpu")
 ```
 
-A chip's **same-chip spread** is the gap, in percentage points, between its best and worst
-result after the model's prediction is taken out. Each chip is placed in the group of its typical
-submission (the result closest to its median), so a group's median says how much platform and
-software move scores for chips that usually ship that way. The groups differ in which chips they
-hold, so they are not a ranking of compilers or suites.
+**Config spread** is the gap, in percentage points, between a chip's highest and lowest OLS
+residual across its submitted results. It measures how much the submitted configurations
+(system, memory, compiler, operating system, or for GPUs the workstation and suite) move the
+score. It is not a tuning gain. Two other measurements are kept separate: the CPU **peak versus
+base compiler gain** (SPEC's peak run against its base run on the same system) and the GPU
+**workload specialization** (best single workload against the composite).
 :::
 </details>
 
 <details class="op-detail">
 ```{python}
 #| output: asis
-summary("Models, definitions &amp; limitations", "OLS · Structural L1 · Nonlinear GBDT")
+summary("Model validation by category and generation", "Typical error by vendor, family, form factor and year, against a simple baseline")
 ```
 ::: {.op-detail-body}
 
-**Leave one chip out.** Every chip is scored by three models refitted without any result for
-that chip, so a chip never helps predict itself. A chip's residual is the median over its
-results of how far the measured score sits above (positive) or below (negative) the prediction.
-CPUs need at least `{python} cpu_meta.get("min_results", 3)` published results to be ranked,
-GPUs at least `{python} gpu_meta.get("min_results", 2)`.
+### CPUs
+
+```{python}
+validation("cpu")
+```
+
+### GPUs
+
+```{python}
+validation("gpu")
+```
+
+Each chip contributes one median residual. The **baseline** predicts score from cores (or
+shaders) times clock with one fitted constant. A model that does not beat it in a group adds
+little there.
+:::
+</details>
+
+<details class="op-detail">
+```{python}
+#| output: asis
+summary("Models, definitions &amp; limitations", "OLS · Structural L1 · Nonlinear GBDT · provenance")
+```
+::: {.op-detail-body}
+
+**Held out by chip.** Every chip is scored by models refitted without any of its results.
+For CPUs, single-socket "P" parts (such as EPYC 9454P) are held out together with the part of
+the same silicon (EPYC 9454), so a near-identical chip cannot help predict it. A chip's residual
+is the median over its results of how far the measured score is above (positive) or below
+(negative) the prediction. CPUs need at least `{python} cpu_meta.get("min_results", 3)` results
+to be ranked, GPUs at least `{python} gpu_meta.get("min_results", 2)`.
+
+**Scores.** CPU scores are SPECrate 2017 Integer base per socket, the median over a processor's
+results, because SPECrate grows with the number of sockets. GPU scores combine several SPEC GWPG
+suites and resolutions. Each suite and resolution is put on the SPECviewperf 2020 v3 scale
+before fitting, so a GPU score is this site's estimate, not a SPEC metric. A documented
+calibration check for that step is planned.
 
 **The three models.**
 
 * **OLS** is a plain regression in logs on cores, clock, chips, SMT, L2 and L3 cache per core,
   vintage and vendor (for GPUs: shaders, boost clock, VRAM, memory bandwidth, mobile form factor
   and vendor).
-* **Structural L1** is a robust (Huber or median) regression that adds diminishing returns on
-  core or shader count and cache-by-density and bandwidth interactions.
+* **Structural L1** is a robust regression that lets returns to core or shader count diminish,
+  with cache-by-density and bandwidth interactions.
 * **Nonlinear GBDT** is a gradient-boosted tree model with median loss over the same
   specifications.
 
-**Classes.** A *standout candidate* is above all three predictions (CPUs: OLS +10% or more,
-structural and nonlinear +8% or more, and the OLS and nonlinear results within 25 points).
-A *scaling bottleneck* is below all three (CPUs: −10%, −8%, −8%). A *model-sensitive* result
-looks high on the straight-line OLS but much smaller once nonlinear scaling is allowed for
-(CPUs: OLS +12% or more with the nonlinear result under +8% or 18 points lower); most are
-small-core chips. GPU thresholds are similar and use the structural model to catch entry-level
-cards. Everything else is *near expected*.
+**Ranges and flags.** A chip's 80% range is its predicted score widened by the 10th and 90th
+percentiles of every other chip's residual for that model. **Model spread** is the gap between
+the highest and lowest of the three residuals. **Outside training range** names any
+specification on which the chip is beyond every other chip, where predictions extrapolate.
+**Limited evidence** marks a chip with fewer than four results, or with every result from one
+OEM.
 
-**Disclosure coverage.** A chip with fewer than four results, or with every result from one OEM,
-is marked *limited configuration coverage*: one system or compiler choice can carry its
-residual.
+**Classes.** *Above prediction across models*: above all three predictions (CPUs: OLS +10% or
+more, structural and nonlinear +8% or more, and OLS and nonlinear within 25 points).
+*Below prediction across models*: below all three (CPUs: −10%, −8%, −8%), a candidate for
+checking scaling, configuration or model limits. *Model-sensitive*: high on the straight-line OLS
+but much smaller once nonlinear scaling is allowed for. Everything else is *near prediction*.
+GPU thresholds are similar.
 
 ```{python}
 #| output: asis
@@ -741,11 +1031,15 @@ if v:
           "[Model and leaderboard](model.qmd).\n")
 ```
 
+**Provenance.** Benchmarks: SPEC CPU 2017 collected `{python} collected(cpu_meta)`, SPEC GWPG
+collected `{python} collected(gpu_meta)`. CPU specifications come from each SPEC disclosure.
+GPU specifications come from a table kept in this repository. This page uses no prices. Every
+row links to its SPEC disclosure where SPEC publishes one.
+
 **Limitations.** A residual flags unexplained performance; it is not a quality score.
 Architecture, memory configuration, compiler, BIOS settings and model fit all contribute, and
 vendors choose which configurations to submit. The spread and scaling charts describe the
-submitted results and do not separate these causes. GPU results span several SPEC GWPG suites and
-resolutions, which are put on one scale before the models are fitted.
+submitted results and do not separate these causes.
 
 ```{python}
 #| output: asis
@@ -760,70 +1054,98 @@ for m in (cpu_meta, gpu_meta):
 :::
 </details>
 
-```{=html}
-<div class="op-closing"><span>Residuals flag unexplained performance. Architecture, configuration and model fit can all contribute.</span>
-<span>Predicted scores and residuals are this site's estimates, not SPEC metrics.</span></div>
+```{python}
+#| output: asis
+raw(f'<div class="op-closing"><span>Residuals flag unexplained performance. Architecture, configuration and model fit can all contribute.</span>'
+    f"<span>Predicted scores, ranges and GPU calibrated scores are this site's estimates, not SPEC metrics. "
+    f"Benchmarks collected: CPU {collected(cpu_meta)}, GPU {collected(gpu_meta)}.</span></div>")
 ```
-
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  const MODELS = { ols: "OLS", structural: "Structural L1", nonlinear: "Nonlinear GBDT" };
   const signed = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}%`;
-  const graphOf = cat => cat.querySelector(".op-plot .js-plotly-plot");
+  const num = v => v == null ? "—" : v.toLocaleString("en-US", { maximumFractionDigits: v < 100 ? 1 : 0 });
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const mainGraph = cat => cat.querySelector(".op-main .js-plotly-plot");
   document.querySelectorAll(".op-cat").forEach(cat => {
     const pick = cat.querySelector(".op-pick");
     if (!pick) return;
     const chips = JSON.parse(pick.dataset.chips);
     const select = pick.querySelector("select");
     const field = f => pick.querySelector(`[data-f="${f}"]`);
+    cat._opModel = "ols";
     const update = () => {
       const c = chips.find(d => d.name === select.value) || chips[0];
       field("name").textContent = c.name;
-      for (const k of ["ols", "st", "nl"]) {
-        field(k).textContent = signed(c[k]);
-        field(k).classList.toggle("op-neg", c[k] < 0);
-      }
-      field("cov").textContent = `${c.n} disclosure${c.n === 1 ? "" : "s"} · ${c.oems} OEM${c.oems === 1 ? "" : "s"}`;
       field("cls").textContent = c.cls;
-      field("warn").style.display = c.limited ? "block" : "none";
-      const g = graphOf(cat);
+      let rows = `<tr class="op-measured"><td>Measured</td><td>${num(c.y)}</td><td></td><td></td></tr>`;
+      for (const [k, label] of Object.entries(MODELS)) {
+        const p = c.preds[k];
+        const range = p.lo == null ? "—" : `${num(p.lo)} – ${num(p.hi)}`;
+        rows += `<tr><td>${label}</td><td>${num(p.p)}</td><td>${range}</td><td class="${p.r >= 0 ? "op-pos" : "op-negv"}">${signed(p.r)}</td></tr>`;
+      }
+      field("preds").innerHTML = rows;
+      const flags = [`Model spread ${c.spread.toFixed(1)} pts`];
+      if (c.oor) flags.push(`Outside training range: ${c.oor}`);
+      if (c.limited) flags.push("Limited evidence: few results or one OEM");
+      field("flags").innerHTML = (c.oor || c.limited ? `<svg class="op-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg> ` : "") + esc(flags.join(" · "));
+      field("flags").style.color = c.oor || c.limited ? "" : "var(--op-muted)";
+      field("facts").innerHTML = c.facts.map(([k, v]) => `<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join("");
+      field("link").innerHTML = c.url ? `<a href="${esc(c.url)}">Typical SPEC disclosure</a>` : "";
+      const g = mainGraph(cat);
       if (!g || !window.Plotly) return;
       const idx = g.data.findIndex(t => t.name === "selected");
-      if (idx >= 0) Plotly.restyle(g, { x: [[c.ols]], y: [[c.nl]] }, [idx]);
+      if (idx >= 0) Plotly.restyle(g, { x: [[c.preds[cat._opModel].p]], y: [[c.y]] }, [idx]);
     };
     select.addEventListener("change", update);
     cat._opUpdate = update;
-    const g = graphOf(cat);
+    const g = mainGraph(cat);
     if (g?.on) g.on("plotly_click", ev => {
       const name = ev.points?.[0]?.customdata?.[0];
       if (name && [...select.options].some(o => o.text === name)) { select.value = name; update(); }
     });
+    cat.querySelectorAll("button[data-model]").forEach(btn => btn.addEventListener("click", () => {
+      const m = btn.dataset.model;
+      cat._opModel = m;
+      cat.querySelectorAll("button[data-model]").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      const graph = mainGraph(cat);
+      if (graph && window.Plotly) {
+        const idx = [], vis = [];
+        graph.data.forEach((t, i) => { if (t.name?.startsWith("m:")) { idx.push(i); vis.push(t.name.startsWith(`m:${m}:`)); } });
+        Plotly.restyle(graph, { visible: vis }, idx);
+        Plotly.relayout(graph, { "xaxis.title.text": `Predicted by ${MODELS[m]} (log scale)` });
+      }
+      update();
+    }));
+    cat.querySelectorAll("button[data-alt]").forEach(btn => btn.addEventListener("click", () => {
+      const card = btn.closest(".op-card");
+      card.querySelectorAll("button[data-alt]").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      card.querySelectorAll(".op-alt").forEach(d => { d.hidden = d.dataset.alt !== btn.dataset.alt; });
+      card.querySelectorAll(".op-alt:not([hidden]) .js-plotly-plot").forEach(gr => { if (window.Plotly) { Plotly.Plots.resize(gr); fitPhone(gr); } });
+    }));
   });
   // Phone width: thin the tick labels and shorten axis titles so nothing is clipped.
-  const SHORT = {
-    "Score above / below OLS prediction (%)": "Above / below OLS (%)",
-    "Score above / below nonlinear prediction (%)": "Above / below nonlinear (%)",
-    "Median same-chip residual spread (percentage points)": "Median spread (pts)",
-  };
-  const fitPhone = g => {
+  function fitPhone(g) {
     if (!g || !window.Plotly || g._opPhone || g.offsetWidth === 0 || g.offsetWidth >= 600) return;
     g._opPhone = true;
     const upd = { "margin.l": Math.min(g.layout.margin.l, 56) };
     for (const ax of ["xaxis", "yaxis"]) {
-      const a = g.layout[ax], t = a.title?.text;
-      if (SHORT[t]) upd[`${ax}.title.text`] = SHORT[t];
+      const a = g.layout[ax], t = a.title?.text || "";
+      if (t.startsWith("Measured:")) upd[`${ax}.title.text`] = "Measured";
+      else if (t.length > 30) upd[`${ax}.title.text`] = t.replace(" (log scale)", "").replace("Median spread across submitted configurations", "Median spread");
       if (a.tickvals && a.ticktext && a.tickvals.length > 7) {
         upd[`${ax}.tickvals`] = a.tickvals.filter((_, i) => i % 2 === 0);
         upd[`${ax}.ticktext`] = a.ticktext.filter((_, i) => i % 2 === 0);
       }
     }
     Plotly.relayout(g, upd);
-  };
+  }
   const show = kind => {
     document.body.classList.toggle("op-gpu", kind === "gpu");
     document.querySelectorAll(".op-toggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
     document.querySelectorAll(`.op-cat[data-kind="${kind}"]`).forEach(cat => {
-      cat.querySelectorAll(".js-plotly-plot").forEach(g => { if (window.Plotly) { Plotly.Plots.resize(g); fitPhone(g); } });
+      cat.querySelectorAll(".js-plotly-plot").forEach(g => { if (window.Plotly && g.offsetWidth) { Plotly.Plots.resize(g); fitPhone(g); } });
       cat._opUpdate?.();
     });
   };

@@ -284,9 +284,13 @@ split dates are on the [model page](tech-value/model.qmd).
 
 The ranking of over- and under-performers uses leave-one-chip-out predictions: each processor
 (or graphics card) is predicted by three models (plain regression, a robust structural
-regression and a gradient-boosted tree model) refitted without any of its results. A chip's
-residual is the median over its results; a processor needs at least three, a graphics card two.
-A chip is a standout candidate only when it sits above all three predictions.
+regression and a gradient-boosted tree model) refitted without any of its results. Single-socket
+"P" processors are held out together with the part of the same silicon. A chip's residual is the
+median over its results; a processor needs at least three, a graphics card two. Each prediction
+carries an 80% range from the spread of every other chip's residual, and the page reports each
+model's typical error by vendor, family and generation next to a cores-times-clock baseline.
+A chip is listed as above (or below) prediction across models only when it sits above (or below)
+all three predictions.
 
 A residual is not a quality score. SPEC results for the same processor differ with memory,
 compiler and operating system, and vendors choose which configurations to submit. The tested

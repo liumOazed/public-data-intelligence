@@ -24,6 +24,8 @@ from sklearn.model_selection import LeaveOneGroupOut
 
 from pdi.common.fetch import fetch, latest, read_meta
 from pdi.tech_value import config
+from pdi.tech_value import model as cpu_model
+from pdi.tech_value import residual_evidence as rev
 
 # Hardware specification lookup for canonical GPUs tested across SPEC GWPG suites:
 # (shaders, boost_mhz, vram_gb, bus_bits, bandwidth_gbps, architecture, release_year, is_mobile)
@@ -543,6 +545,9 @@ def prepare_gpu(df: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+SENSITIVE_ENTRY = "Model-sensitive (entry-level shaders)"
+
+
 def _classify_gpu_consensus(
     ols_pct: float,
     struct_pct: float,
@@ -551,18 +556,18 @@ def _classify_gpu_consensus(
     bw_gbps: float,
 ) -> str:
     if ols_pct >= 12.0 and struct_pct >= 8.0 and gbdt_pct >= 5.0:
-        return "True architectural standout"
+        return cpu_model.ABOVE
     if ols_pct <= -12.0 and struct_pct <= -8.0 and gbdt_pct <= -5.0:
-        return "Memory / scaling bottleneck"
+        return cpu_model.BELOW
     if abs(ols_pct - struct_pct) >= 12.0 or (
         shaders <= 1024 and abs(ols_pct) >= 12.0 and abs(struct_pct) < abs(ols_pct)
     ):
-        return "Entry-shader linearity artifact"
+        return SENSITIVE_ENTRY
     if ols_pct >= 10.0 and struct_pct >= 5.0:
-        return "True architectural standout"
+        return cpu_model.ABOVE
     if ols_pct <= -10.0 and struct_pct <= -5.0:
-        return "Memory / scaling bottleneck"
-    return "Near expected spec curve"
+        return cpu_model.BELOW
+    return cpu_model.NEAR
 
 
 def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
@@ -574,6 +579,7 @@ def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
     oof_ols = pd.Series(index=prepared.index, dtype=float)
     oof_struct = pd.Series(index=prepared.index, dtype=float)
     oof_gbdt = pd.Series(index=prepared.index, dtype=float)
+    oof_base = pd.Series(index=prepared.index, dtype=float)
 
     for train_idx, test_idx in gkf.split(prepared, groups=prepared["processor"]):
         tr = prepared.iloc[train_idx]
@@ -609,6 +615,11 @@ def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
         gbdt.fit(tr[GPU_GBDT_FEATURES], tr["log_score_adj"])
         oof_gbdt.iloc[test_idx] = gbdt.predict(te[GPU_GBDT_FEATURES])
 
+        # 4. Baseline: shaders x clock with one fitted constant.
+        throughput_tr = tr["log_cores"] + tr["log_mhz"]
+        intercept = float((tr["log_score_adj"] - throughput_tr).mean())
+        oof_base.iloc[test_idx] = (intercept + te["log_cores"] + te["log_mhz"]).to_numpy()
+
     out = prepared.copy()
     out["predicted_log_score"] = oof_ols
     out["residual_log"] = out["log_score_adj"] - oof_ols
@@ -619,6 +630,7 @@ def out_of_fold_gpu_residuals(df: pd.DataFrame) -> pd.DataFrame:
 
     out["gbdt_residual_log"] = out["log_score_adj"] - oof_gbdt
     out["gbdt_residual_pct"] = 100.0 * (np.exp(out["gbdt_residual_log"]) - 1.0)
+    out["baseline_residual_log"] = out["log_score_adj"] - oof_base
     return out
 
 
@@ -665,7 +677,8 @@ def gpu_residual_ranking(
         tuning_spread_pct = float(res_pct_max - res_pct_min)
 
         # Viewset specialization headroom: best viewset score vs composite geomean (%)
-        peak_gain_pct = float(100.0 * (g["viewset_spread_ratio"].median() - 1.0))
+        workload_specialization_pct = float(100.0 * (g["viewset_spread_ratio"].median() - 1.0))
+        configs = g[["oem", "system", "suite", "res_tier"]].astype(str).drop_duplicates()
 
         suite_label = str(typical["suite"])
         bus_w = int(typical["bus_bits"])
@@ -698,7 +711,9 @@ def gpu_residual_ranking(
                 "residual_pct_min": res_pct_min,
                 "residual_pct_max": res_pct_max,
                 "tuning_spread_pct": tuning_spread_pct,
-                "peak_gain_pct": peak_gain_pct,
+                # Best single workload vs the composite: a GPU's specialization, not a tuning
+                # gain. It is a different measurement from the CPU peak-vs-base compiler gain.
+                "workload_specialization_pct": workload_specialization_pct,
                 "compiler_family": _suite_family(suite_label),
                 "config_chips": 1,
                 "config_cores": int(shaders),
@@ -709,12 +724,53 @@ def gpu_residual_ranking(
                 "config_system": f"{typical['oem']} {typical['system']}".strip(),
                 "config_test_date": str(int(typical["release_year"])),
                 "disclosure_url": typical["disclosure_url"],
+                "generation": int(typical["release_year"]),
+                "form_factor": "Laptop" if int(typical["is_mobile"]) else "Desktop",
+                "measured_score": med_score,
+                "ols_resid_log": med_res,
+                "structural_resid_log": struct_med,
+                "nonlinear_resid_log": gbdt_med,
+                "baseline_resid_log": float(g["baseline_residual_log"].median()),
+                "n_systems": int(g["system"].nunique()),
+                "n_configs": int(len(configs)),
+                "suites_tested": ", ".join(sorted(g["suite"].astype(str).unique())),
             }
         )
     out = pd.DataFrame(rows)
     if out.empty:
         return out
-    return out.sort_values("residual_log", ascending=False).reset_index(drop=True)
+    out = out.sort_values("residual_log", ascending=False).reset_index(drop=True)
+    out = rev.add_model_summary(out, cpu_model.RESID_COLS, "measured_score")
+    features = {
+        "cores_per_chip": "Shaders",
+        "mhz": "Clock",
+        "vram_gb": "VRAM",
+        "bandwidth_gbps": "Memory bandwidth",
+    }
+    res = with_residuals.assign(cores_per_chip=with_residuals["cores"])
+    flags = rev.extrapolation_flags(out.set_index("processor")[list(features)], res, features)
+    out["outside_training_range"] = out["processor"].map(flags).fillna("")
+    return out
+
+
+def gpu_residual_validation(ranking: pd.DataFrame) -> pd.DataFrame:
+    """Held-out error by model, overall, by vendor, form factor, architecture and release year."""
+    chips = ranking.assign(generation=ranking["generation"].astype(str))
+    return rev.validation_table(
+        chips,
+        {
+            "Baseline (shaders x clock)": "baseline_resid_log",
+            **{
+                k: v for k, v in cpu_model.VALIDATION_MODELS.items() if not k.startswith("Baseline")
+            },
+        },
+        {
+            "Vendor": "vendor",
+            "Form factor": "form_factor",
+            "Architecture": "family",
+            "Generation": "generation",
+        },
+    )
 
 
 if __name__ == "__main__":
