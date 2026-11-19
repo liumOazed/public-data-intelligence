@@ -17,7 +17,12 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.linear_model import HuberRegressor
 from sklearn.model_selection import GroupKFold
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import SplineTransformer, StandardScaler
 
 from pdi.tech_value import config
 
@@ -32,6 +37,15 @@ NUMERIC = [
 ]
 VENDORS = ["AMD", "Other"]  # Intel is the reference level
 PLAIN_FEATURES = NUMERIC + [f"vendor_{v}" for v in VENDORS]
+STRUCTURAL_EXTRA = [
+    "log_cores_per_chip",
+    "l3_x_log_cpc",
+    "smt_x_log_cpc",
+    "vintage_x_log_cpc",
+    "vintage_sq",
+]
+STRUCTURAL_FEATURES = PLAIN_FEATURES + STRUCTURAL_EXTRA
+GBDT_FEATURES = PLAIN_FEATURES + ["log_cores_per_chip"]
 # What AutoGluon is given: the same information, untransformed.
 AUTOML_FEATURES = [
     "cores",
@@ -50,6 +64,54 @@ BASELINE_NAME = "Naive baseline (cores x clock)"
 PLAIN_NAME = "Plain regression (OLS)"
 
 
+def classify_compiler(compiler: str | None) -> str:
+    """Group SPEC compiler strings into readable compiler toolchains."""
+    if not compiler or not isinstance(compiler, str):
+        return "Other"
+    s = compiler.lower()
+    if "oneapi" in s or "icx" in s or "ifx" in s:
+        return "Intel oneAPI (LLVM)"
+    if "aocc" in s or "amd optimizing" in s:
+        return "AMD AOCC"
+    if (
+        "intel(r) c" in s
+        or "icc" in s
+        or "c++ compiler for linux" in s
+        or "version 19" in s
+        or "version 18" in s
+        or "version 17" in s
+    ):
+        return "Intel Classic ICC"
+    if "gcc" in s or "gnu" in s:
+        return "GNU GCC"
+    if "oracle" in s or "developer studio" in s or "fujitsu" in s:
+        return "Oracle / Vendor Studio"
+    return "Other"
+
+
+def consensus_verdict(
+    ols_pct: float,
+    structural_pct: float,
+    gbdt_pct: float,
+    cores_per_chip: int,
+) -> str:
+    """Classify a processor across linear (OLS), L1 structural spline, and L1 GBDT models."""
+    if (
+        ols_pct >= 10.0
+        and structural_pct >= 8.0
+        and gbdt_pct >= 8.0
+        and (ols_pct - gbdt_pct) < 25.0
+    ):
+        return "True architectural standout"
+    if ols_pct >= 12.0 and (gbdt_pct < 8.0 or (ols_pct - gbdt_pct) >= 18.0):
+        if cores_per_chip <= 8:
+            return "Small-core linearity artifact"
+        return "Linearity / regime artifact"
+    if ols_pct <= -10.0 and structural_pct <= -8.0 and gbdt_pct <= -8.0:
+        return "Memory / scaling bottleneck"
+    return "Near expected spec curve"
+
+
 def prepare(spec: pd.DataFrame) -> pd.DataFrame:
     """Add model columns and the train / validation / holdout period of every row."""
     df = spec.copy()
@@ -58,6 +120,7 @@ def prepare(spec: pd.DataFrame) -> pd.DataFrame:
     df["log_cores"] = np.log(df["cores"])
     df["log_mhz"] = np.log(df["mhz"])
     df["log_chips"] = np.log(df["chips"])
+    df["log_cores_per_chip"] = np.log(df["cores"] / df["chips"])
     df["smt"] = (df["threads_per_core"] > 1).astype(float)
     # Caches missing from a disclosure are filled with the training-free constant 0 and flagged
     # by the median below; SPEC disclosures nearly always state them.
@@ -65,6 +128,10 @@ def prepare(spec: pd.DataFrame) -> pd.DataFrame:
         df[col] = df[col].astype(float)
         df[f"log1p_{col}"] = np.log1p(df[col].fillna(df[col].median()))
     df["vintage_years"] = (df["hw_avail"] - pd.Timestamp(config.VINTAGE_ORIGIN)).dt.days / 365.25
+    df["l3_x_log_cpc"] = df["log1p_l3_mb_per_core"] * df["log_cores_per_chip"]
+    df["smt_x_log_cpc"] = df["smt"] * df["log_cores_per_chip"]
+    df["vintage_x_log_cpc"] = df["vintage_years"] * df["log_cores_per_chip"]
+    df["vintage_sq"] = df["vintage_years"] ** 2
     for v in VENDORS:
         df[f"vendor_{v}"] = (df["vendor"] == v).astype(float)
 
@@ -123,6 +190,33 @@ class Plain:
                 "p_value": r.pvalues.to_numpy(),
             }
         )
+
+
+def _fit_predict_structural(train: pd.DataFrame, test: pd.DataFrame) -> np.ndarray:
+    """L1/Huber structural spline curve capturing diminishing core scaling and cache x density."""
+    features = [f for f in STRUCTURAL_FEATURES if f in train.columns and train[f].nunique() > 1]
+    spline_cols = [c for c in ("log_cores", "log_cores_per_chip") if c in features]
+    rest_cols = [c for c in features if c not in spline_cols]
+    if spline_cols:
+        ct = ColumnTransformer(
+            [
+                ("sp", SplineTransformer(n_knots=6, degree=2, knots="uniform"), spline_cols),
+                ("rest", "passthrough", rest_cols),
+            ]
+        )
+        pipe = make_pipeline(ct, StandardScaler(), HuberRegressor(max_iter=500, alpha=0.05))
+    else:
+        pipe = make_pipeline(StandardScaler(), HuberRegressor(max_iter=500, alpha=0.05))
+    pipe.fit(train[features], train[TARGET])
+    return pipe.predict(test[features])
+
+
+def _fit_predict_gbdt(train: pd.DataFrame, test: pd.DataFrame) -> np.ndarray:
+    """Nonlinear L1 Gradient Boosted Decision Trees over specification features."""
+    features = [f for f in GBDT_FEATURES if f in train.columns and train[f].nunique() > 1]
+    gbdt = HistGradientBoostingRegressor(loss="absolute_error", max_iter=150, random_state=0)
+    gbdt.fit(train[features], train[TARGET])
+    return gbdt.predict(test[features])
 
 
 # --- errors --------------------------------------------------------------------------------------
@@ -265,31 +359,99 @@ def evaluate(df: pd.DataFrame, automl: dict | None = None) -> Evaluation:
 
 
 def out_of_fold_residuals(df: pd.DataFrame) -> pd.DataFrame:
-    """Plain-model predictions for every result from a model that never saw its processor."""
+    """Out-of-fold predictions for every result from models that never saw its processor.
+
+    Computes three out-of-fold reference curves across GroupKFold splits by processor:
+      1. Plain OLS (`predicted_log` / `residual_log`) — constant-elasticity linear specification
+      2. L1 Structural Spline (`structural_pred_log` / `structural_residual_log`) — diminishing
+         returns on core density plus L3 cache and SMT interactions
+      3. Nonlinear L1 GBDT (`gbdt_pred_log` / `gbdt_residual_log`) — tree-based median curve
+    """
     out = df.copy()
+    if "log_cores_per_chip" not in out.columns:
+        out["log_cores_per_chip"] = np.log(out["cores"] / out["chips"])
+        out["l3_x_log_cpc"] = out["log1p_l3_mb_per_core"] * out["log_cores_per_chip"]
+        out["smt_x_log_cpc"] = out["smt"] * out["log_cores_per_chip"]
+        out["vintage_x_log_cpc"] = out["vintage_years"] * out["log_cores_per_chip"]
+        out["vintage_sq"] = out["vintage_years"] ** 2
     out["predicted_log"] = np.nan
+    out["structural_pred_log"] = np.nan
+    out["gbdt_pred_log"] = np.nan
     n_groups = out["processor"].nunique()
     folds = GroupKFold(n_splits=min(config.N_RESIDUAL_FOLDS, n_groups))
     for train_idx, test_idx in folds.split(out, groups=out["processor"]):
-        model = Plain.fit(out.iloc[train_idx])
-        out.iloc[test_idx, out.columns.get_loc("predicted_log")] = model.predict(out.iloc[test_idx])
+        tr, te = out.iloc[train_idx], out.iloc[test_idx]
+        plain = Plain.fit(tr)
+        out.iloc[test_idx, out.columns.get_loc("predicted_log")] = plain.predict(te)
+        out.iloc[test_idx, out.columns.get_loc("structural_pred_log")] = _fit_predict_structural(
+            tr, te
+        )
+        out.iloc[test_idx, out.columns.get_loc("gbdt_pred_log")] = _fit_predict_gbdt(tr, te)
     out["residual_log"] = out[TARGET] - out["predicted_log"]
+    out["structural_residual_log"] = out[TARGET] - out["structural_pred_log"]
+    out["gbdt_residual_log"] = out[TARGET] - out["gbdt_pred_log"]
     return out
 
 
 def residual_ranking(oof: pd.DataFrame) -> pd.DataFrame:
-    """One row per processor: median out-of-fold residual and the configuration behind it.
+    """One row per processor: multi-model residual consensus, tuning spread, and cache scaling.
 
-    A positive residual is a question, not an answer. The configuration shown is the one
-    of the result closest to the processor's median, so the reader can check memory,
-    compiler and operating system before reading anything into the number.
+    A positive residual is a question, not an answer. Comparing the plain OLS residual against
+    the L1 Structural Spline and Nonlinear L1 GBDT residuals separates true architectural
+    standouts from 4-core OLS linearity artifacts, while within-processor tuning spread and
+    compiler family separate silicon performance from OEM/compiler tuning.
     """
+    has_struct = "structural_residual_log" in oof.columns
+    has_gbdt = "gbdt_residual_log" in oof.columns
     rows = []
     for processor, part in oof.groupby("processor"):
         if len(part) < config.MIN_RESULTS_FOR_RANK:
             continue
         med = part["residual_log"].median()
         typical = part.loc[(part["residual_log"] - med).abs().idxmin()]
+        ols_pct = float(np.expm1(med) * 100)
+        res_min = float(np.expm1(part["residual_log"].min()) * 100)
+        res_max = float(np.expm1(part["residual_log"].max()) * 100)
+        struct_pct = (
+            float(np.expm1(part["structural_residual_log"].median()) * 100)
+            if has_struct
+            else ols_pct
+        )
+        gbdt_pct = (
+            float(np.expm1(part["gbdt_residual_log"].median()) * 100) if has_gbdt else ols_pct
+        )
+        cores_per_chip = int(round(typical["cores"] / typical["chips"]))
+        verdict = consensus_verdict(ols_pct, struct_pct, gbdt_pct, cores_per_chip)
+
+        # Peak vs Base compiler flag headroom on disclosures that ran Peak (> Base).
+        peak_gain_pct = None
+        if "peak_score" in part.columns:
+            valid_peak = part[
+                (part["peak_score"] > part[config.SPEC_METRIC]) & (part[config.SPEC_METRIC] > 0)
+            ]
+            if not valid_peak.empty:
+                gains = (valid_peak["peak_score"] / valid_peak[config.SPEC_METRIC] - 1.0) * 100.0
+                peak_gain_pct = float(gains.median())
+
+        n_oems = (
+            int(part["hardware_vendor"].dropna().nunique())
+            if "hardware_vendor" in part.columns
+            else 1
+        )
+        l3_per_core = (
+            float(typical["l3_mb_per_core"])
+            if "l3_mb_per_core" in typical and pd.notna(typical["l3_mb_per_core"])
+            else None
+        )
+        l2_per_core = (
+            float(typical["l2_mb_per_core"])
+            if "l2_mb_per_core" in typical and pd.notna(typical["l2_mb_per_core"])
+            else None
+        )
+        score_per_core = float((part[config.SPEC_METRIC] / part["cores"]).median())
+        ghz = float(typical["mhz"]) / 1000.0 if float(typical["mhz"]) > 0 else 1.0
+        score_per_core_ghz = float(score_per_core / ghz)
+
         rows.append(
             {
                 "processor": processor,
@@ -297,12 +459,23 @@ def residual_ranking(oof: pd.DataFrame) -> pd.DataFrame:
                 "family": typical["family"],
                 "first_avail": typical["first_avail"].date().isoformat(),
                 "n_results": int(len(part)),
-                "cores_per_chip": int(round(typical["cores"] / typical["chips"])),
+                "n_oems": n_oems,
+                "cores_per_chip": cores_per_chip,
                 "mhz": float(typical["mhz"]),
+                "l2_mb_per_core": l2_per_core,
+                "l3_mb_per_core": l3_per_core,
                 "median_score": float(part[config.SPEC_METRIC].median()),
-                "residual_pct": float(np.expm1(med) * 100),
-                "residual_pct_min": float(np.expm1(part["residual_log"].min()) * 100),
-                "residual_pct_max": float(np.expm1(part["residual_log"].max()) * 100),
+                "score_per_core": score_per_core,
+                "score_per_core_ghz": score_per_core_ghz,
+                "residual_pct": ols_pct,
+                "structural_residual_pct": struct_pct,
+                "gbdt_residual_pct": gbdt_pct,
+                "consensus_verdict": verdict,
+                "residual_pct_min": res_min,
+                "residual_pct_max": res_max,
+                "tuning_spread_pct": float(res_max - res_min),
+                "peak_gain_pct": peak_gain_pct,
+                "compiler_family": classify_compiler(typical.get("compiler")),
                 "config_system": typical.get("system"),
                 "config_chips": int(typical["chips"]),
                 "config_memory": typical.get("memory_text"),
