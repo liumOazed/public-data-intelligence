@@ -1,37 +1,111 @@
 ---
 title: "Public Data Intelligence"
+pagetitle: "Public Data Intelligence"
+page-layout: full
 toc: false
+body-classes: tv-page home-page
 ---
 
-Research pages built only from free, public data for the **United States** and six
-**Southeast Asian** economies: Indonesia, Vietnam, Thailand, Malaysia, the Philippines and
-Singapore. Everything here is computed by scheduled jobs before the site is published. There is
-no server behind these pages.
+```{=html}
+<section class="home-hero" aria-labelledby="home-hero-title">
+  <img class="home-hero-img" src="assets/home/earth-night-sea.jpg" alt="Night lights across Southeast Asia, seen from orbit" width="1048" height="840">
+  <div class="home-hero-text">
+    <h1 id="home-hero-title">Public data.<br>Clear signals.</h1>
+    <p>Research on the United States and six Southeast Asian economies, built from public data.</p>
+    <div class="home-hero-actions">
+      <a class="home-btn home-btn-mint" href="#research">Explore research</a>
+      <a class="home-btn home-btn-ghost" href="sources.html">See sources</a>
+    </div>
+  </div>
+</section>
+```
 
-## Modules
+```{python}
+#| output: asis
+from pdi import home, site
+from pdi.common.paths import ROOT
 
-| Order | Module | Question it answers | Status |
-|---|---|---|---|
-| 1 | [Tech Value](tech-value/index.qmd) | Which CPU or GPU gives the most performance per dollar at US retail today, and which ones beat what their specifications predict? | Live |
-| 2 | [Macro Monitor](macro/index.qmd) | What moved this month in the US and the six Southeast Asian economies, and is the move unusual? | Built; waiting on its first full monthly cycle |
-| 3 | [Trade and Supply Chain](trade/index.qmd) | How is US demand shifting across Southeast Asian suppliers, by product? | Built; lead-time claim tested and dropped |
-| 4 | [Federal Procurement](procurement/index.qmd) | Where is US federal contract money moving, and who is winning it? | First slice built: computer hardware. Its totals check against USAspending is not met |
-| 5 | [What's unusual this week](unusual.qmd) | Across every module, what moved unusually, and is it new? | Built 16 November 2026; exit criterion needs four scheduled Mondays |
+items, week_meta = site.load("unusual", "week")
+prices, _ = site.load("tech-value", "price_history")
+move = home.top_price_move(items, prices)
+brief = home.latest_brief(ROOT / "site" / "briefs")
 
-Modules are built one at a time, in this order. The next one does not start until the current
-one meets its exit criterion, which is written in the
-[repository README](https://github.com/liumOazed/public-data-intelligence#readme).
+if brief:
+    brief_text = f'<p>Latest edition: <a href="{brief["href"]}">{brief["title"]}</a>.</p>'
+else:
+    brief_text = "<p>First edition covers November 2026.</p>"
 
-## How to read these pages
+CALENDAR = (
+    '<svg class="home-brief-icon" viewBox="0 0 64 64" aria-hidden="true" fill="none" '
+    'stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+    '<rect x="6" y="11" width="52" height="46" rx="7"/><path d="M6 24h52M20 5v12M44 5v12"/>'
+    '<g fill="currentColor" stroke="none"><rect x="15" y="31" width="6" height="6" rx="1"/>'
+    '<rect x="26" y="31" width="6" height="6" rx="1"/><rect x="37" y="31" width="6" height="6" rx="1"/>'
+    '<rect x="48" y="31" width="5" height="6" rx="1"/><rect x="15" y="42" width="6" height="6" rx="1"/>'
+    '<rect x="26" y="42" width="6" height="6" rx="1"/><rect x="37" y="42" width="6" height="6" rx="1"/>'
+    '<rect x="48" y="42" width="5" height="6" rx="1"/></g></svg>'
+)
 
-- Every table and chart carries its source, the date the data was retrieved, how often it
-  updates and what it cannot tell you.
-- Every model is shown next to a naive baseline. If the model does not beat the baseline, the
-  page says "no signal found".
-- Every finding is labelled as an observation, an explanation or a prediction. Only a model
-  that beat the naive baseline on data it never saw can produce a prediction. See
-  [finding labels](methodology.qmd#finding-labels).
-- A score or a flag here is a research lead. It is not advice.
+cards = (
+    '<div class="home-cards">'
+    + home.this_week_card(items, week_meta, move)
+    + '<section class="home-card home-brief" aria-labelledby="home-brief-title">'
+    '<div class="home-brief-body"><h2 id="home-brief-title">Monthly brief</h2>'
+    "<p>New readings, revisions and which earlier signals held.</p>"
+    + brief_text
+    + '<a class="home-btn home-btn-outline" href="briefs/index.html">View brief archive '
+    '<span aria-hidden="true">→</span></a></div>'
+    + CALENDAR
+    + "</section></div>"
+)
+print("```{=html}\n" + cards + "\n```")
+```
 
-See [Methodology](methodology.qmd) for how each number is made and
-[Failures log](failures.qmd) for what was tried and did not work.
+
+```{=html}
+<section id="research" class="home-research" aria-labelledby="home-research-title">
+  <h2 id="home-research-title">Explore the research</h2>
+  <div class="home-grid">
+    <article class="home-tile home-tv">
+      <img class="home-tv-img" src="assets/home/cpu.jpg" alt="" width="468" height="540">
+      <div class="home-tv-text">
+        <h3><a href="tech-value/index.html">Tech<br>Value</a></h3>
+        <p>Compare CPU and GPU performance, prices and benchmarks.</p>
+      </div>
+      <nav class="home-tv-links" aria-label="Tech Value pages">
+        <a href="tech-value/index.html">Value ranking</a>
+        <a href="tech-value/fair-price.html">Fair price</a>
+        <a href="tech-value/residuals.html">Over &amp; under performers</a>
+      </nav>
+    </article>
+
+    <a class="home-tile home-small" href="macro/index.html">
+      <svg class="home-icon home-icon-green" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="19" width="6" height="10" rx="1"/><rect x="13" y="12" width="6" height="17" rx="1"/><rect x="23" y="4" width="6" height="25" rx="1"/></svg>
+      <h3>Macro Monitor</h3>
+      <p>Unusual moves in economic data</p>
+      <span class="home-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="home-tile home-small" href="trade/index.html">
+      <svg class="home-icon home-icon-blue" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M16 3 28 9.5v13L16 29 4 22.5v-13z"/><path d="M4 9.5 16 16l12-6.5M16 16v13"/></svg>
+      <h3>Trade &amp; Supply Chain</h3>
+      <p>US imports by product and supplier</p>
+      <span class="home-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="home-tile home-small" href="energy/index.html">
+      <svg class="home-icon home-icon-green" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M18.5 2 5 18h10l-2 12L27 13H17z"/></svg>
+      <h3>Energy Demand</h3>
+      <p>Track changes in energy use</p>
+      <span class="home-arrow" aria-hidden="true">→</span>
+    </a>
+
+    <a class="home-tile home-small" href="procurement/index.html">
+      <svg class="home-icon home-icon-blue" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><rect x="6" y="3" width="20" height="26" rx="2"/><path d="M11 10h10M11 15h10M11 20h7"/></svg>
+      <h3>Federal Procurement</h3>
+      <p>Follow US contracts and suppliers</p>
+      <span class="home-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+```
