@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "blender_residuals",
   "description": "Per CPU and GPU: measured Blender score against the score predicted from specifications by fits that left the product (and any product with identical specifications) out, with 80% ranges and a verdict across three models.",
-  "generated_at": "2026-11-20T06:50:27+00:00",
+  "generated_at": "2026-11-20T18:02:11+00:00",
   "rows": 320,
   "columns": [
    "model_key",
