@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "benchmark_sources",
   "description": "Benchmark sources behind the Tech Value pages, collected or planned, with the metric each reports and the configuration details recorded for every result.",
-  "generated_at": "2026-11-20T01:35:43+00:00",
-  "rows": 6,
+  "generated_at": "2026-11-20T06:02:01+00:00",
+  "rows": 7,
   "columns": [
    "source",
    "publisher",
@@ -34,7 +34,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC, SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are compared only within the same benchmark release and resolution, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-19T09:52:43+00:00"
+    "retrieved_at": "2026-11-20T05:37:37+00:00"
    },
    {
     "id": "blender_opendata",
@@ -69,14 +69,26 @@
   {
    "source": "SPEC GWPG",
    "publisher": "SPEC Graphics and Workstation Performance Group (OEM and vendor submissions)",
-   "benchmark": "SPECviewperf 12.1/13/2020/15, SPECworkstation 3.0/3.1/4.0, SPECapc",
-   "metric": "Each suite's composite; compared raw within suite, version, OS and resolution, combined only where the calibration passes its check",
+   "benchmark": "SPECviewperf 12.1/13/2020/15 (Windows and Linux), SPECworkstation 3.0/3.1/4.0, SPECapc (Solidworks 2022/2024/2025, Siemens NX 2024, Maya 2024, Creo 9, 3ds Max 2020)",
+   "metric": "Each suite's GPU measurement (viewset geometric mean, SPECapc GPU composite or viewport workloads, SPECworkstation graphics subsystem); compared raw within suite, version, OS and resolution, combined only where the calibration passes its check",
    "status": "Collected",
-   "results": 385,
-   "products": 66,
-   "last_collected": "2026-11-19T09:52:43+00:00",
-   "recorded": "OEM, system, CPU, GPU as written, OS, resolution, number of viewsets, composite, best and worst viewset, disclosure link",
+   "results": 537,
+   "products": 103,
+   "last_collected": "2026-11-20T05:37:37+00:00",
+   "recorded": "OEM, system, CPU, GPU as written, OS, resolution, anti-aliasing, test date, metric, number of viewsets, composite, best and worst viewset, disclosure link",
    "used_for": "Over & under performers (GPU), results by workload"
+  },
+  {
+   "source": "SPECworkstation CPU subsystem",
+   "publisher": "SPEC Graphics and Workstation Performance Group (OEM submissions)",
+   "benchmark": "SPECworkstation 3.0/3.1/4.0, CPU subsystem score",
+   "metric": "The CPU subsystem score of one SPECworkstation version; never mixed with SPEC CPU 2017 and not used by the CPU models",
+   "status": "Collected",
+   "results": 54,
+   "products": 40,
+   "last_collected": "2026-11-20T05:36:48+00:00",
+   "recorded": "Submitter, system, CPU and GPU as written, suite version, disclosure link",
+   "used_for": "Catalogue measurements for desktop and workstation CPUs SPEC CPU 2017 does not cover"
   },
   {
    "source": "Blender Open Data",
@@ -107,12 +119,12 @@
    "publisher": "Phoronix Test Suite users (unreviewed)",
    "benchmark": "Per-test results, e.g. pts/blender, pts/build-linux-kernel",
    "metric": "Each test's own unit; compared only within one test, version and setting",
-   "status": "Not collected yet",
+   "status": "Blocked: every page answers automated clients with a Cloudflare challenge (checked 2026-11-20 from a home PC)",
    "results": 0,
    "products": 0,
    "last_collected": null,
    "recorded": "",
-   "used_for": "Planned: would add consumer CPUs and GPUs SPEC does not cover"
+   "used_for": "Not collected: would add consumer CPUs and GPUs SPEC does not cover, if the operator allows automated access"
   },
   {
    "source": "Independently published SPEC runs",

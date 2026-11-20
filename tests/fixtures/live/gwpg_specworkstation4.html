@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<head>
+<title>SPECworkstation 4.0 Result Report Summary</title>
+<link rel="home" href="/" title="Home" />
+<link rel="help" href="/spec/faq/" title="FAQ" />
+<link rel="contents" href="/contents.html" title="Contents" />
+<link rel="index" href="/permuted.html" title="Site Index" />
+<link rel="glossary" href="/spec/glossary/" title="Glossary" />
+<link rel="copyright" href="/spec/copyright.html" title="Copyright" />
+<link rel="search" href="/search.html" title="Search" />
+<!--[if lt IE 7]>
+        <script type="text/javascript" src="/includes/scripts/unitpngfix.js"></script>
+        <![endif]-->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" >
+<link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.1.2/b-colvis-3.1.2/b-html5-3.1.2/b-print-3.1.2/datatables.min.css" rel="stylesheet">
+<style type="text/css" media="screen">
+url(http://www.spec.org/includes/sitestyle.css);
+.footer {
+    font-size: small;
+}
+p.bannertext {
+    font-family: Roboto, sans-serif;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 4px
+}
+.new {
+    background-color: #FF9;
+}
+.header {
+    background-color: #07223E;
+    color: #eee;
+    vertical-align: top;
+}
+.metricheader {
+    background-color: #07223E;
+    color: #eee;
+    padding-left: 1em;
+    vertical-align: top;
+    font-size: 90%;
+}
+sup {
+    vertical-align: text-top;
+    font-size: 50%;
+}
+table tr td {
+    padding: 1em;
+}
+tr.resultrow {
+    border-bottom: 1px black solid;
+}
+td.product {
+    white-space: nowrap;
+}
+td.adapters {
+    white-space: nowrap;
+}
+th.header {
+    white-space: nowrap;
+}
+div.dataTables_wrapper {
+    margin-bottom: 3em;
+    margin-right: 5em;
+    margin-left: 2em;
+}
+a:visited {
+    color: #4c0077;
+}
+div.bannerimg {
+    margin-left: 50%;
+    margin-right: 50%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    background-image: url(/gwpg/images/workstation4.png);
+    transform: translateX(-50%) translateY(1%);
+    color: white;
+    height: 150px;
+    width: 620px;
+}
+th.header.dt-orderable-asc.dt-orderable-desc {
+    background-color: #07223E;
+    color: #eee;
+    vertical-align: bottom;
+}
+th.metricheader.dt-orderable-asc.dt-orderable-desc {
+    background-color: #07223E;
+    color: #eee;
+    padding-left: 1em;
+    vertical-align: bottom;
+    font-size: 90%;
+}
+.buttons-html5 {
+    background-color: #07223E;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> 
+<script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.8/b-3.1.2/b-colvis-3.1.2/b-html5-3.1.2/b-print-3.1.2/datatables.min.js"></script> 
+<script type="application/javascript">
+   $(document).ready( function () {
+		$('#results').DataTable( {
+			"paging" : false,
+    		"order" : [ 0, "asc",
+					    1, "asc",
+					    2, "asc"],
+			layout: {
+				topStart: "search",
+        		topEnd: { "buttons" : ['copyHtml5', 'csvHtml5', 'excelHtml5', 'pdfHtml5']},
+			}
+     	});
+} );
+
+   </script>
+</head>
+
+<body bgcolor="#fefefe" link="#0000bb" vlink="#4c0077" alink="#a4005a">
+<span style="float: left;"><a href="https://gwpg.spec.org"><img src="/images/SPEC_GWPG_navy140.png" alt="SPEC
+logo" border="0" /></a></span>
+<div class="bannerimg"><br />
+</div>
+<br clear="all">
+<div align="center">
+  <p style="font-weight: bold;">Higher scores indicate better performance.<br />
+    Results are sorted by submitter and system name.</p>
+  <p align="center">Last update: 
+     
+    Wed Feb 11 18:22:43 EST 2026</p>
+  <p>&nbsp;</p>
+</div>
+<table border="0" cellspacing="0" cellpadding="4" class="table" id="results">
+  <thead>
+    <tr>
+      <th class="header" colspan="5" data-dt-order="disable"> </th>
+      <th class="header" colspan="7" data-dt-order="disable">INDUSTRY VERTICALS</th>
+      <th class="header" colspan="4" data-dt-order="disable">HARDWARE SUBSYSTEM</th>
+    </tr>
+    <tr class="resultrow">
+      <th class="header">Company/<br />
+        Product</th>
+      <th class="header submitter">Submitted By</th>
+      <th class="header">CPU Model</th>
+      <th class="header">Graphics Device</th>
+      <th class="header">Storage Device</th>
+      <th class="metricheader">AI/Machine<br />
+        Learning</th>
+      <th class="metricheader">Energy</th>
+      <th class="metricheader">Financial<br />
+        Services</th>
+      <th class="metricheader">Life Sciences</th>
+      <th class="metricheader">Media &amp; <br />
+        Entertainment</th>
+      <th class="metricheader">Product Design</th>
+      <th class="metricheader">Productivity &amp; Development</th>
+      <th class="metricheader">CPU</th>
+      <th class="metricheader">Accelerator</th>
+      <th class="metricheader">Graphics</th>
+      <th class="metricheader">Storage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/3280-RTX4000SFFAda_result_2024-11-19-22-18-23/results.html">Dell Inc. <br />
+        Precision 3280 Compact</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Core(TM) i9-14900</td>
+      <td class="adapters">NVIDIA RTX 4000 SFF Ada Generation<br />
+        Intel(R) UHD Graphics 770</td>
+      <td>NVMe 3500 Micron 1024GB</td>
+      <td>1.89</td>
+      <td>1.83</td>
+      <td>1.07</td>
+      <td>2.18</td>
+      <td>2.10</td>
+      <td>2.16</td>
+      <td>1.38</td>
+      <td>1.53</td>
+      <td>4.02</td>
+      <td>6.55</td>
+      <td>1.36</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/3590-RTX500Ada_result_2024-11-19-12-34-28/results.html">Dell Inc. <br />
+        Precision 3590</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Core(TM) Ultra 7 165H</td>
+      <td class="adapters">NVIDIA RTX 500 Ada Generation Laptop GPU<br />
+        Intel(R) Arc(TM) Graphics</td>
+      <td>NVMe PM9A1 NVMe Samsung 1024GB</td>
+      <td>1.11</td>
+      <td>1.09</td>
+      <td>0.54</td>
+      <td>1.06</td>
+      <td>1.12</td>
+      <td>1.26</td>
+      <td>0.99</td>
+      <td>0.85</td>
+      <td>2.75</td>
+      <td>2.68</td>
+      <td>1.15</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/3680-RTX6000Ada_result_2024-11-19-14-04-48/results.html">Dell Inc. <br />
+        Precision 3680</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Core(TM) i9-14900K</td>
+      <td class="adapters">NVIDIA RTX 6000 Ada Generation<br />
+        Intel(R) UHD Graphics 770</td>
+      <td>NVMe PC811 SK hynix 2048GB</td>
+      <td>2.28</td>
+      <td>2.44</td>
+      <td>1.68</td>
+      <td>2.60</td>
+      <td>2.96</td>
+      <td>2.38</td>
+      <td>1.67</td>
+      <td>1.74</td>
+      <td>6.40</td>
+      <td>13.89</td>
+      <td>1.47</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/5860-RTX5000Ada_result_2024-11-19-22-45-13/results.html">Dell Inc. <br />
+        Precision 5860 Tower</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Xeon(R) w7-2495X</td>
+      <td class="adapters">NVIDIA RTX 5000 Ada Generation</td>
+      <td>NVMe KXG80ZNV2T04 NVM</td>
+      <td>2.77</td>
+      <td>2.88</td>
+      <td>2.10</td>
+      <td>2.95</td>
+      <td>2.70</td>
+      <td>2.41</td>
+      <td>1.48</td>
+      <td>2.06</td>
+      <td>5.66</td>
+      <td>11.03</td>
+      <td>1.11</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/5860-W7700_result_2024-11-20-01-26-02/results.html">Dell Inc. <br />
+        Precision 5860 Tower</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Xeon(R) w7-2475X</td>
+      <td class="adapters">AMD Radeon PRO W7700</td>
+      <td>NVMe PC SN810 NVMe WD</td>
+      <td>2.47</td>
+      <td>2.45</td>
+      <td>1.82</td>
+      <td>2.27</td>
+      <td>2.21</td>
+      <td>2.13</td>
+      <td>1.36</td>
+      <td>1.92</td>
+      <td>4.56</td>
+      <td>7.86</td>
+      <td>0.74</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/7780-RTX5000Ada_result_2024-11-20-01-09-23/results.html">Dell Inc. <br />
+        Precision 7780</a></td>
+      <td>Dell Technologies</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td class="adapters">NVIDIA RTX 5000 Ada Generation Laptop GPU<br />
+        Intel(R) UHD Graphics</td>
+      <td>Intel Raid 10 Volume</td>
+      <td>1.96</td>
+      <td>1.82</td>
+      <td>1.06</td>
+      <td>2.15</td>
+      <td>2.04</td>
+      <td>1.88</td>
+      <td>1.40</td>
+      <td>1.47</td>
+      <td>5.11</td>
+      <td>8.96</td>
+      <td>0.87</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/7875-W7900_result_2024-11-19-13-24-42/results.html">Dell Inc. <br />
+        Precision 7875 Tower</a></td>
+      <td>Dell Technologies</td>
+      <td>AMD Ryzen Threadripper PRO 7995WX 96-Cores</td>
+      <td class="adapters">AMD Radeon PRO W7900</td>
+      <td>Micron 2450 NVMe 256GB,<br />
+        WDC WD10EZEX-75WN4A1</td>
+      <td>3.21</td>
+      <td>5.37</td>
+      <td>7.19</td>
+      <td>4.64</td>
+      <td>3.73</td>
+      <td>3.04</td>
+      <td>1.45</td>
+      <td>4.07</td>
+      <td>6.18</td>
+      <td>11.78</td>
+      <td>0.41</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/7960-RTX6000Ada_result_2024-11-19-17-29-36/results.html">Dell Inc. <br />
+        Precision 7960 Tower</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Xeon(R) w9-3495X</td>
+      <td class="adapters">NVIDIA RTX 6000 Ada Generation</td>
+      <td>ST8000NM023B-2TJ133,<br />
+        NVMe PC801 NVMe SK hy</td>
+      <td>3.49</td>
+      <td>4.53</td>
+      <td>3.80</td>
+      <td>4.02</td>
+      <td>3.13</td>
+      <td>2.72</td>
+      <td>1.36</td>
+      <td>2.94</td>
+      <td>6.21</td>
+      <td>11.75</td>
+      <td>0.74</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/Dell_Pro_Max_16_MC16255_RTX_PRO_500_Blackwell/results.html">Dell<br />
+        Dell Pro Max 16 MC16255</a></td>
+      <td>Dell Technologies</td>
+      <td>AMD Ryzen AI 7 PRO 350 w/ Radeon 860M</td>
+      <td class="adapters">AMD Radeon(TM) 860M Graphics<br />
+        NVIDIA RTX PRO 500 Blackwell Generation Laptop GPU</td>
+      <td>PC811 SED SK hynix 1024GB
+        953.86 GB - SCSI</td>
+      <td>1.45</td>
+      <td>1.12</td>
+      <td>1.03</td>
+      <td>1.31</td>
+      <td>1.46</td>
+      <td>1.41</td>
+      <td>1.01</td>
+      <td>1.08</td>
+      <td>3.11</td>
+      <td>3.85</td>
+      <td>0.90</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/Dell_Pro_Max_16_MC16255_Radeon_890M/results.html">Dell<br />
+        Dell Pro Max 16 MC16255</a></td>
+      <td>Dell Technologies</td>
+      <td>AMD Ryzen AI 9 HX PRO 370 w/ Radeon 890M</td>
+      <td class="adapters">AMD Radeon(TM) 890M Graphics</td>
+      <td>PC811 SED SK hynix 2048GB
+        1907.73 GB - SCSI</td>
+      <td>1.53</td>
+      <td>1.30</td>
+      <td>1.36</td>
+      <td>1.45</td>
+      <td>1.49</td>
+      <td>1.36</td>
+      <td>1.10</td>
+      <td>1.29</td>
+      <td>2.50</td>
+      <td>2.41</td>
+      <td>0.86</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/DellProMaxMicro-Slim/DellProMaxMicro_result_2025-04-21-20-38-55/results.html">Dell<br />
+        Dell Pro Max Micro FCM2250</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Core(TM) Ultra 9 285K</td>
+      <td class="adapters">Intel(R) Graphics</td>
+      <td>NVMe PC SN8000S SED WD 2048GB</td>
+      <td>1.74</td>
+      <td>1.11</td>
+      <td>1.48</td>
+      <td>1.43</td>
+      <td>1.43</td>
+      <td>1.68</td>
+      <td>1.39</td>
+      <td>1.87</td>
+      <td>1.85</td>
+      <td>0.64</td>
+      <td>0.94</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Dell/DellProMaxMicro-Slim/DellProMaxSlim_result_2025-04-21-20-44-17/results.html">Dell<br />
+        Dell Pro Max Slim FCS1250</a></td>
+      <td>Dell Technologies</td>
+      <td>Intel(R) Core(TM) Ultra 9 285K</td>
+      <td class="adapters">Intel(R) Graphics</td>
+      <td>NVMe PC SN8000S SED WD 2048GB</td>
+      <td>1.81</td>
+      <td>1.11</td>
+      <td>1.80</td>
+      <td>1.53</td>
+      <td>1.52</td>
+      <td>1.63</td>
+      <td>1.37</td>
+      <td>2.03</td>
+      <td>1.82</td>
+      <td>0.61</td>
+      <td>0.76</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/HP/HP%20Z2%20Tower%20G9/results.html">HP <br />
+        HP Z2 Tower G9 Workstation Desktop PC</a></td>
+      <td>HP</td>
+      <td>Intel(R) Core(TM) i7-14700K</td>
+      <td class="adapters">NVIDIA RTX 4000 Ada Generation<br />
+        Intel(R) UHD Graphics 770</td>
+      <td>NVMe SAMSUNG MZVL21T0HCLR-00BH1<br />
+        NVMe SAMSUNG MZVL21T0HCLR-00BH1</td>
+      <td>2.02</td>
+      <td>1.84</td>
+      <td>1.35</td>
+      <td>2.19</td>
+      <td>2.26</td>
+      <td>2.13</td>
+      <td>1.50</td>
+      <td>1.62</td>
+      <td>4.83</td>
+      <td>7.98</td>
+      <td>1.11</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/HP/HP%20Z4%20G5/results.html">HP <br />
+        HP Z4 G5 Workstation Desktop PC</a></td>
+      <td>HP</td>
+      <td>Intel(R) Xeon(R) w7-2495X</td>
+      <td class="adapters">AMD Radeon PRO W7600</td>
+      <td>SAMSUNG MZVL21T0HCLR-00BH1<br />
+        SAMSUNG MZVL21T0HCLR-00BH1</td>
+      <td>2.23</td>
+      <td>2.34</td>
+      <td>2.06</td>
+      <td>2.48</td>
+      <td>2.18</td>
+      <td>2.05</td>
+      <td>1.11</td>
+      <td>1.89</td>
+      <td>3.58</td>
+      <td>5.67</td>
+      <td>0.87</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/HP/HP%20Z6%20G5A/results.html">HP <br />
+        HP Z6 G5 A Workstation Desktop PC</a></td>
+      <td>HP</td>
+      <td>AMD Ryzen Threadripper PRO 7975WX 32-Cores</td>
+      <td class="adapters">NVIDIA RTX 5000 Ada Generation</td>
+      <td>SAMSUNG MZVL21T0HCLR-00BH1<br />
+        SAMSUNG MZVL21T0HCLR-00BH1</td>
+      <td>3.26</td>
+      <td>4.35</td>
+      <td>4.17</td>
+      <td>4.13</td>
+      <td>3.34</td>
+      <td>3.13</td>
+      <td>1.76</td>
+      <td>3.08</td>
+      <td>6.17</td>
+      <td>12.08</td>
+      <td>1.05</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/HP/HP%20ZBook%20Power%20G11%20A/results.html">HP <br />
+        HP ZBook Power 16 inch G11 A Mobile Workstation PC</a></td>
+      <td>HP</td>
+      <td>AMD Ryzen 9 PRO 8945HS w/ Radeon 780M Graphics</td>
+      <td class="adapters">NVIDIA RTX 3000 Ada Generation Laptop GPU<br />
+        AMD Radeon(TM) Graphics</td>
+      <td>SAMSUNG MZVL22T0HBLB-00BH1</td>
+      <td>1.46</td>
+      <td>1.28</td>
+      <td>0.92</td>
+      <td>1.43</td>
+      <td>1.35</td>
+      <td>1.41</td>
+      <td>1.07</td>
+      <td>1.05</td>
+      <td>3.26</td>
+      <td>4.71</td>
+      <td>0.91</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/HP/HP%20ZBook%20Power%20G11/results.html">HP <br />
+        HP ZBook Power 16 inch G11 Mobile Workstation PC</a></td>
+      <td>HP</td>
+      <td>Intel(R) Core(TM) Ultra 9 185H</td>
+      <td class="adapters">Intel(R) Arc(TM) Graphics<br />
+        NVIDIA RTX 3000 Ada Generation Laptop GPU</td>
+      <td>SAMSUNG MZVL22T0HBLB-00BH1</td>
+      <td>1.43</td>
+      <td>1.35</td>
+      <td>0.74</td>
+      <td>1.43</td>
+      <td>1.41</td>
+      <td>1.48</td>
+      <td>0.96</td>
+      <td>1.06</td>
+      <td>3.80</td>
+      <td>4.53</td>
+      <td>0.85</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Lenovo/Lenovo%20ThinkPad%20P1%20Gen%206%20-%2013th%20Gen%20Intel(R)%20Core(TM)%20i9-13900H%2014C,%20RAM%2064GB,%20NVIDIA%20RTX%205000%20Ada%20G/results.html">LENOVO<br />
+        Lenovo ThinkPad P1 Gen 6</a></td>
+      <td>LENOVO</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13900H</td>
+      <td class="adapters">Intel(R) Iris(R) Xe Graphics<br />
+        NVIDIA RTX 5000 Ada Generation Laptop GPU</td>
+      <td>KXG8AZN84T09 LA KIOXIA</td>
+      <td>1.67</td>
+      <td>1.63</td>
+      <td>0.83</td>
+      <td>1.79</td>
+      <td>1.86</td>
+      <td>1.65</td>
+      <td>1.21</td>
+      <td>1.17</td>
+      <td>4.60</td>
+      <td>7.91</td>
+      <td>1.19</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Lenovo/Lenovo%20ThinkPad%20P16%20Gen%202%20-%2013th%20Gen%20Intel(R)%20Core(TM)%20i9-13950HX%2024C,%20RAM%2064GB,%20NVIDIA%20RTX%205000%20Ada/results.html">LENOVO<br />
+        Lenovo ThinkPad P16 Gen 2</a></td>
+      <td>LENOVO</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td class="adapters">NVIDIA RTX 5000 Ada Generation Laptop GPU</td>
+      <td>Intel Raid 0 Volume</td>
+      <td>1.87</td>
+      <td>1.90</td>
+      <td>0.94</td>
+      <td>2.18</td>
+      <td>2.33</td>
+      <td>2.05</td>
+      <td>1.47</td>
+      <td>1.38</td>
+      <td>4.72</td>
+      <td>9.36</td>
+      <td>1.64</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Lenovo/Lenovo%20ThinkStation%20P3%20Tower%20-%20Intel(R)%20Core(TM)%20i9-14900K%2024C,%20RAM%2064GB,%20NVIDIA%20RTX%205000%20Ada/results.html">LENOVO<br />
+        Lenovo ThinkStation P3 Tower</a></td>
+      <td>LENOVO</td>
+      <td>Intel(R) Core(TM) i9-14900K</td>
+      <td class="adapters">Intel(R) UHD Graphics 770<br />
+        NVIDIA RTX 5000 Ada Generation</td>
+      <td>Intel Raid 0 Volume</td>
+      <td>2.32</td>
+      <td>2.26</td>
+      <td>1.49</td>
+      <td>2.67</td>
+      <td>2.58</td>
+      <td>2.31</td>
+      <td>1.67</td>
+      <td>1.76</td>
+      <td>6.13</td>
+      <td>12.41</td>
+      <td>1.12</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Lenovo/Lenovo%20ThinkStation%20P8%20-%20AMD%20Ryzen%20Threadripper%20PRO%207995WX%2096-Cores,%20RAM%20512GB,%20NVIDIA%20RTX%206000%20Ada/results.html">LENOVO<br />
+        Lenovo ThinkStation P8</a></td>
+      <td>LENOVO</td>
+      <td>AMD Ryzen Threadripper PRO 7995WX 96-Cores</td>
+      <td class="adapters">NVIDIA RTX 6000 Ada Generation</td>
+      <td>KXG8AZNV2T04 LA KIOXIA<br />
+        WD PC SN810 SDCQNRY-1T00-1201<br />
+        KXG8AZNV2T04 LA KIOXIA<br />
+        KXG8AZNV2T04 LA KIOXIA<br />
+        KXG8AZNV2T04 LA KIOXIA</td>
+      <td>3.82</td>
+      <td>7.68</td>
+      <td>7.63</td>
+      <td>6.30</td>
+      <td>4.71</td>
+      <td>3.99</td>
+      <td>2.15</td>
+      <td>4.38</td>
+      <td>6.63</td>
+      <td>13.67</td>
+      <td>1.67</td>
+    </tr>
+    <tr class="resultrow">
+      <td class="product"><a href="workstation4.0/Lenovo/Lenovo%20ThinkStation%20PX%20-%202x%20INTEL(R)%20XEON(R)%20PLATINUM%208592+%2064C,%20RAM%20256GB,%20NVIDIA%20RTX%206000%20Ada,/results.html">LENOVO<br />
+        Lenovo ThinkStation PX</a></td>
+      <td>LENOVO</td>
+      <td>2x INTEL(R) XEON(R) PLATINUM 8592+</td>
+      <td class="adapters">NVIDIA RTX 6000 Ada Generation</td>
+      <td>SAMSUNG MZVL2512HDJD-00BLL<br />
+        KXG8AZNV2T04 LA KIOXIA<br />
+        KXG8AZNV2T04 LA KIOXIA<br />
+        KXG8AZNV2T04 LA KIOXIA<br />
+        KXG8AZNV2T04 LA KIOXIA</td>
+      <td>3.39</td>
+      <td>8.27</td>
+      <td>8.54</td>
+      <td>6.57</td>
+      <td>4.04</td>
+      <td>3.15</td>
+      <td>1.88</td>
+      <td>4.13</td>
+      <td>5.93</td>
+      <td>11.36</td>
+      <td>1.38</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
+<p class="copyright"> <a href="/spec/copyright.html">Copyright</a> &copy; 2018-2024
+  Standard Performance Evaluation Corporation. </p>
+</body>
+</html>

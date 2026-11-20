@@ -19,7 +19,7 @@ from pdi.macro import collect, config, store
 from pdi.procurement import collect as proc_collect
 from pdi.procurement import config as proc
 from pdi.procurement import tables as proc_tables
-from pdi.tech_value import blender, retail, spec
+from pdi.tech_value import blender, gwpg, retail, spec, workstation_cpu
 from pdi.trade import collect as trade_collect
 
 CAT = config.catalogue()
@@ -50,6 +50,45 @@ def test_spec_dump(live):
     assert (df["cores"] % df["chips"] == 0).all()
     assert df["disclosure_url"].str.startswith("https://www.spec.org/cpu2017/results/").all()
     assert not df["processor"].str.contains("  ").any()
+
+
+def _gwpg_page(live, name):
+    meta = _meta(live, name)
+    return meta["url"], (live / name).read_text(encoding="utf-8")
+
+
+def test_gwpg_viewperf15_linux_two_row_header(live):
+    url, html = _gwpg_page(live, "gwpg_viewperf15linux.html")
+    rows = gwpg.parse_suite_html("SPECviewperf 15 Linux", url, html)
+    # The GPU comes from "Rendering GPU", never from the kernel version beside it.
+    assert rows and not any(r["processor"][0].isdigit() for r in rows)
+    ok = [r for r in rows if r["spec_status"] == "ok"]
+    assert ok and all(r["os_family"] == "Linux" for r in ok)
+    assert all(r["n_viewsets"] >= 6 for r in ok)
+    assert all(r["disclosure_url"].startswith("https://www.spec.org/gwpg/") for r in ok)
+
+
+def test_gwpg_specworkstation_uses_the_graphics_subsystem_score(live):
+    url, html = _gwpg_page(live, "gwpg_specworkstation4.html")
+    rows = gwpg.parse_suite_html("SPECworkstation 4.0", url, html)
+    ok = [r for r in rows if r["spec_status"] == "ok"]
+    assert ok and {r["metric"] for r in rows} == {"Graphics subsystem score"}
+    assert all(r["n_viewsets"] == 1 for r in ok)
+    cpus = workstation_cpu.parse_page("SPECworkstation 4.0", url, html)
+    assert len(cpus) >= 10
+    assert all(0 < c["score"] < 50 for c in cpus)
+    assert not any("(R)" in c["processor"] or "(TM)" in c["processor"] for c in cpus)
+    assert {c["metric"] for c in cpus} == {"SPECworkstation 4.0 CPU subsystem score"}
+
+
+def test_gwpg_specapc_nx_uses_viewport_workloads_only(live):
+    url, html = _gwpg_page(live, "gwpg_specapc_nx2024.html")
+    rows = gwpg.parse_suite_html("SPECapc Siemens NX 2024", url, html)
+    ok = [r for r in rows if r["spec_status"] == "ok"]
+    assert len(ok) >= 10
+    assert all(r["n_viewsets"] == 3 for r in ok)
+    assert all("viewport" in r["metric"] for r in ok)
+    assert {r["aa"] for r in ok} <= {"FSAA", "No AA", "AA", ""}
 
 
 def test_blender_launches(live):

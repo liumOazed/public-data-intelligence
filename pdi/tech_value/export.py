@@ -432,7 +432,12 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
     )
 
 
-def export_sources(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.DataFrame) -> None:
+def export_sources(
+    spec: pd.DataFrame,
+    gwpg_df: pd.DataFrame,
+    blender: pd.DataFrame,
+    ws_cpu: pd.DataFrame | None = None,
+) -> None:
     """Every benchmark source the Tech Value pages use or have considered, with what is recorded."""
 
     def n(df: pd.DataFrame, col: str) -> int:
@@ -457,16 +462,36 @@ def export_sources(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.DataFr
             "source": "SPEC GWPG",
             "publisher": "SPEC Graphics and Workstation Performance Group (OEM and vendor "
             "submissions)",
-            "benchmark": "SPECviewperf 12.1/13/2020/15, SPECworkstation 3.0/3.1/4.0, SPECapc",
-            "metric": "Each suite's composite; compared raw within suite, version, OS and "
-            "resolution, combined only where the calibration passes its check",
+            "benchmark": "SPECviewperf 12.1/13/2020/15 (Windows and Linux), SPECworkstation "
+            "3.0/3.1/4.0, SPECapc (Solidworks 2022/2024/2025, Siemens NX 2024, Maya 2024, Creo 9, "
+            "3ds Max 2020)",
+            "metric": "Each suite's GPU measurement (viewset geometric mean, SPECapc GPU "
+            "composite or viewport workloads, SPECworkstation graphics subsystem); compared raw "
+            "within suite, version, OS and resolution, combined only where the calibration "
+            "passes its check",
             "status": "Collected" if not gwpg_df.empty else "Not collected yet",
             "results": int(len(gwpg_df)),
             "products": n(gwpg_df, "processor"),
             "last_collected": _retrieved(gwpg_df),
-            "recorded": "OEM, system, CPU, GPU as written, OS, resolution, number of viewsets, "
-            "composite, best and worst viewset, disclosure link",
+            "recorded": "OEM, system, CPU, GPU as written, OS, resolution, anti-aliasing, test "
+            "date, metric, number of viewsets, composite, best and worst viewset, disclosure link",
             "used_for": "Over & under performers (GPU), results by workload",
+        },
+        {
+            "source": "SPECworkstation CPU subsystem",
+            "publisher": "SPEC Graphics and Workstation Performance Group (OEM submissions)",
+            "benchmark": "SPECworkstation 3.0/3.1/4.0, CPU subsystem score",
+            "metric": "The CPU subsystem score of one SPECworkstation version; never mixed with "
+            "SPEC CPU 2017 and not used by the CPU models",
+            "status": "Collected"
+            if ws_cpu is not None and not ws_cpu.empty
+            else "Not collected yet",
+            "results": 0 if ws_cpu is None else int(len(ws_cpu)),
+            "products": 0 if ws_cpu is None else n(ws_cpu, "processor"),
+            "last_collected": None if ws_cpu is None else _retrieved(ws_cpu),
+            "recorded": "Submitter, system, CPU and GPU as written, suite version, disclosure link",
+            "used_for": "Catalogue measurements for desktop and workstation CPUs SPEC CPU 2017 "
+            "does not cover",
         },
         {
             "source": "Blender Open Data",
@@ -498,12 +523,14 @@ def export_sources(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.DataFr
             "publisher": "Phoronix Test Suite users (unreviewed)",
             "benchmark": "Per-test results, e.g. pts/blender, pts/build-linux-kernel",
             "metric": "Each test's own unit; compared only within one test, version and setting",
-            "status": "Not collected yet",
+            "status": "Blocked: every page answers automated clients with a Cloudflare "
+            "challenge (checked 2026-11-20 from a home PC)",
             "results": 0,
             "products": 0,
             "last_collected": None,
             "recorded": "",
-            "used_for": "Planned: would add consumer CPUs and GPUs SPEC does not cover",
+            "used_for": "Not collected: would add consumer CPUs and GPUs SPEC does not cover, "
+            "if the operator allows automated access",
         },
         {
             "source": "Independently published SPEC runs",
@@ -543,8 +570,9 @@ def main() -> None:
     export_model(spec)
     export_gpu_model(gwpg_df)
     export_value(blender, value.load_prices())
+    ws_cpu = pd.read_parquet(config.WS_CPU_TABLE) if config.WS_CPU_TABLE.exists() else None
     export_catalogue(spec, gwpg_df, blender)
-    export_sources(spec, gwpg_df, blender)
+    export_sources(spec, gwpg_df, blender, ws_cpu)
     print(f"exported {M} tables")
 
 
@@ -574,6 +602,7 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
         spec=spec,
         gwpg=gwpg_df,
         dates=dates,
+        ws_cpu=pd.read_parquet(config.WS_CPU_TABLE) if config.WS_CPU_TABLE.exists() else None,
     )
     counts = cat.groupby(["kind", "coverage_status"]).size() if not cat.empty else pd.Series()
     today = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%d")

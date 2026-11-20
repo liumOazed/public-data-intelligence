@@ -13,6 +13,7 @@ request, so the change is read before it reaches main.
 | File | Source |
 |---|---|
 | `spec_rint2017.csv` | SPEC CPU 2017 results dump, up to 3 rows per vendor group and one without a score |
+| `gwpg_viewperf15linux.html`, `gwpg_specworkstation4.html`, `gwpg_specapc_nx2024.html` | Three SPEC GWPG summary pages, whole (captured by hand on 20 November 2026, not by `pdi.samples`) |
 | `blender_launches.jsonl` | Blender Open Data snapshot, up to 4 launches per outcome |
 | `centralcomputer_cpu.html`, `centralcomputer_gpu.html` | First result tiles of two Central Computers searches |
 | `fred_*.csv`, `fred_*.json` | FRED public CSV, series notes and observations from the API |

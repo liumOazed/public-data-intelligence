@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPECviewperf 15 Linux Edition Results Overview</title>
+  <link href= 
+  "https://cdn.datatables.net/v/dt/jq-3.7.0/moment-2.29.4/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/cr-2.0.4/rr-1.5.0/sl-3.0.0/datatables.min.css"
+  rel="stylesheet" integrity="sha384-8zwR1o5yaR5KqMfPstK35J8KI8MP+YQ50VHxa5WpyRAl1S5ZCKnNWok425mc1M78" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity= 
+  "sha384-VFQrHzqBh5qiJIU0uGU5CIW3+OWpdGGJM9LBnGbuIH2mkICcFZ7lPd/AAtI7SNf7" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity= 
+  "sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script>
+  <script src= 
+  "https://cdn.datatables.net/v/dt/jq-3.7.0/moment-2.29.4/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/cr-2.0.4/rr-1.5.0/sl-3.0.0/datatables.min.js"
+  integrity="sha384-yeIrYDYvE5QP9U0qMEpk0DMuhoGzbQ2DhrjUs+abQ72VluO/YY6kzsRxksJf9b1T" crossorigin="anonymous"></script>
+  <style type="text/css" media="screen">
+  body {
+    background-color: #efefef;
+    color: #111;
+    font-family: Roboto, Ariel, Helvetica, sans-serif;
+  }
+  .footer {
+    font-size: small;
+  }
+  div.header {
+    background-color: #07223e;
+    color: #fff;
+    width: 100%;
+    height: 200px;
+    text-align: start;
+    font-size: xx-large;
+    line-height: 200px;
+    text-align: center;
+  }
+  div.splash img {
+    height: 200px;
+    width: auto;
+    float: left;
+    padding-right: 1em;
+  }
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  a:visited {
+    color: #4c0077;
+  }
+  div.dt-buttons>.dt-button {
+    background-color: #07223e !important;
+    color: white;
+  }
+  table.dataTable thead>tr>th {
+    background-color: #07223e !important;
+    color: white;
+  }
+  table.dataTable thead>tr>th.dt-orderable-asc span.dt-column-order:before, table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order:before, table.dataTable thead>tr>td.dt-orderable-asc span.dt-column-order:before, table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order:before {
+    position: absolute;
+    display: block;
+    bottom: 50%;
+    background-color: #07223e !important;
+    color: white !important;
+    content: "\2B06" !important;
+    content: "\2B06"/"\21F5";
+  }
+  table.dataTable thead>tr>th.dt-orderable-desc span.dt-column-order:after, table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order:after, table.dataTable thead>tr>td.dt-orderable-desc span.dt-column-order:after, table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
+    position: absolute;
+    display: block;
+    top: 50%;
+    background-color: #07223e !important;
+    color: white !important;
+    content: "\2B07" !important;
+    content: "\2B07"/"\21F5";
+  }
+  </style>
+  <script type="application/javascript">
+  $(document).ready( function () {
+      $('table.display').DataTable( {
+      paging: false,   
+      
+      columnDefs: [
+            {
+                targets: [ 4, 5, 7, 8, 9, 12 ],
+                visible: false,
+            }
+        ],
+      layout: {
+        top2Start: {
+          buttons: ['colvis']
+        },
+        top2End: {
+          buttons: [
+                    { extend: 'copy', className: 'copyButton' },
+            { extend: 'csv', text: 'Save as CSV' },
+                    { extend: 'excel', text: 'Save as Excel' },
+            { extend: 'pdf', text: 'Save as PDF' },
+                  ]
+        },
+        topStart: 'search',
+        topEnd: null,
+            
+      },
+      select: true,
+      rowReorder: true,
+      colReorder: true,
+      
+    });
+  } );
+
+  </script>
+</head>
+<body bgcolor="#FEFEFE" link="#0000BB" vlink="#4C0077" alink="#A4005A">
+  <div class="header" align="center">
+    <div class="splash"><img src="vp15logo.png" alt="SPECviewperf 15 Linux Edition"></div>
+    <h1>Results Overview</h1>
+  </div>
+  <div class="clearfix"></div>
+  <p align="center"><strong>Larger scores indicate greater speed.</strong>
+  <br></p>
+  <p align="center">&nbsp;</p>
+  <p align="center">Last update:  Mon Sep 14 13:49:32 EDT 2026
+
+  <br>
+  <br></p>
+  <p align="center"><a href="#fhd">FHD Results</a> || <a href="#4k">4K Results</a></p><a name="fhd" id="fhd">&nbsp;</a>
+  <h2>FHD Results</h2>
+  <p>Columns can be sorted by clicking the header and can be dragged to rearrange the order. To show or hide columns, use the menu below.</p>
+  <table class="display row-border compact" id="results" name="results" cellspacing="5" cellpadding="5">
+    <thead>
+      <tr>
+        <th rowspan="2">Company/Product</th>
+        <th colspan="2" align="center" data-dt-order="false">CPU</th>
+        <th colspan="2" align="center" data-dt-order="false">Graphics Device(s)</th>
+        <th rowspan="2">Submitter</th>
+        <th colspan="2" align="center" data-dt-order="false">O/S</th>
+        <th rowspan="2">Virtualized</th>
+        <th rowspan="2">Resolution</th>
+        <th rowspan="2">Test Date</th>
+        <th rowspan="2">Benchmark Version</th>
+        <th rowspan="2">Workload Gap</th>
+        <th rowspan="2">blender-01</th>
+        <th rowspan="2">catia-07</th>
+        <th rowspan="2">creo-04</th>
+        <th rowspan="2">energy-04</th>
+        <th rowspan="2">maya-07</th>
+        <th rowspan="2">medical-04</th>
+        <th rowspan="2">snx-05</th>
+        <th rowspan="2">solidworks-08</th>
+      </tr>
+      <tr>
+        <th style="font-size: smaller;">Processor</th>
+        <th style="font-size: smaller;">Architecture</th>
+        <th style="font-size: smaller;">Rendering GPU</th>
+        <th style="font-size: smaller;">Other GPU</th>
+        <th style="font-size: smaller;">Distribution</th>
+        <th style="font-size: smaller;">Display Server</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr align="right">
+        <td>
+          <a href="Dell/Dell_Pro_Max_with_GB10/results.html">Dell Inc. 038RY7</a>
+        </td>
+        <td>Cortex-A725</td>
+        <td>6.17.0-1029-nvidia.aarch64</td>
+        <td>NVIDIA GB10</td>
+        <td></td>
+        <td>Dell Technologies</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>1920x1200</td>
+        <td>Aug 12 2026</td>
+        <td>15.0.1-LE-aarch64</td>
+        <td>0.00</td>
+        <td>25.17</td>
+        <td>57.66</td>
+        <td>125.97</td>
+        <td>89.93</td>
+        <td>132.77</td>
+        <td>106.51</td>
+        <td>81.86</td>
+        <td>90.00</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P1_G9_Ultra9_386H_RTX_PRO_2000_FHD/results.html">LENOVO ThinkPad P1 Gen9</a>
+        </td>
+        <td>Intel(R) Core(TM) Ultra 9 386H</td>
+        <td>7.0.0-28-generic.x86_64</td>
+        <td>NVIDIA RTX PRO 2000 Blackwell Generation Laptop GPU</td>
+        <td>Intel (R)Graphics (PTL)</td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>1920x1080</td>
+        <td>Aug 12 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>49.48</td>
+        <td>56.25</td>
+        <td>129.67</td>
+        <td>61.79</td>
+        <td>139.63</td>
+        <td>111.27</td>
+        <td>108.52</td>
+        <td>68.41</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P3_G2_Ultra9_285K_RTX_PRO_6000_FHD/results.html">LENOVO ThinkStation P3 Tower Gen2</a>
+        </td>
+        <td>Intel(R) Core(TM) Ultra 9 285K</td>
+        <td>6.17.0-1025-oem.x86_64</td>
+        <td>NVIDIA RTX PRO 6000 Blackwell Workstation Edition</td>
+        <td>Intel (R)Graphics (ARL)</td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>1920x1080</td>
+        <td>Aug 05 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>195.95</td>
+        <td>175.40</td>
+        <td>263.43</td>
+        <td>404.20</td>
+        <td>350.36</td>
+        <td>320.33</td>
+        <td>124.94</td>
+        <td>225.87</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P4_9965X3D_RTX_PRO_6000_FHD/results.html">LENOVO ThinkStation P4</a>
+        </td>
+        <td>AMD Ryzen 9 PRO 9965X3D 16-Core Processor</td>
+        <td>6.17.0-35-generic.x86_64</td>
+        <td>NVIDIA RTX PRO 6000 Blackwell Workstation Edition</td>
+        <td>AMD Ryzen 9 PRO 9965X3D 16-Core Processor (RAPHAEL_MENDOCINO)</td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>1920x1080</td>
+        <td>Aug 05 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>216.15</td>
+        <td>185.41</td>
+        <td>288.64</td>
+        <td>409.06</td>
+        <td>378.32</td>
+        <td>320.90</td>
+        <td>99.95</td>
+        <td>253.68</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P8_9945WX_RTX_PRO_6000_FHD/results.html">LENOVO ThinkStation P8</a>
+        </td>
+        <td>AMD Ryzen Threadripper PRO 9945WX 12-Cores</td>
+        <td>7.0.0-28-generic.x86_64</td>
+        <td>NVIDIA RTX PRO 6000 Blackwell Workstation Edition</td>
+        <td></td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>1920x1080</td>
+        <td>Aug 03 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>210.62</td>
+        <td>186.48</td>
+        <td>284.59</td>
+        <td>403.44</td>
+        <td>387.92</td>
+        <td>318.64</td>
+        <td>107.15</td>
+        <td>253.24</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/PGX_Cortex-A725_GB10_FHD/results.html">LENOVO ThinkStation PGX</a>
+        </td>
+        <td>Cortex-A725</td>
+        <td>6.17.0-1029-nvidia.aarch64</td>
+        <td>NVIDIA GB10</td>
+        <td></td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>1920x1080</td>
+        <td>Aug 12 2026</td>
+        <td>15.0.1-LE-aarch64-rc5</td>
+        <td>0.00</td>
+        <td>26.22</td>
+        <td>60.90</td>
+        <td>133.09</td>
+        <td>88.46</td>
+        <td>130.83</td>
+        <td>108.14</td>
+        <td>69.45</td>
+        <td>90.76</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <br>
+  <a name="4k" id="4k">&nbsp;</a>
+  <h2>4K Results</h2>
+  <p>Columns can be sorted by clicking the header and can be dragged to rearrange the order. To show or hide columns, use the menu below.</p>
+  <table class="display row-border compact" id="4kresults" name="4kresults" cellspacing="5" cellpadding="5">
+    <thead>
+      <tr>
+        <th rowspan="2">Company/Product</th>
+        <th colspan="2" align="center" data-dt-order="false">CPU</th>
+        <th colspan="2" align="center" data-dt-order="false">Graphics Device(s)</th>
+        <th rowspan="2">Submitter</th>
+        <th colspan="2" align="center" data-dt-order="false">O/S</th>
+        <th rowspan="2">Virtualized</th>
+        <th rowspan="2">Resolution</th>
+        <th rowspan="2">Test Date</th>
+        <th rowspan="2">Benchmark Version</th>
+        <th rowspan="2">Workload Gap</th>
+        <th rowspan="2">blender-01</th>
+        <th rowspan="2">catia-07</th>
+        <th rowspan="2">creo-04</th>
+        <th rowspan="2">energy-04</th>
+        <th rowspan="2">maya-07</th>
+        <th rowspan="2">medical-04</th>
+        <th rowspan="2">snx-05</th>
+        <th rowspan="2">solidworks-08</th>
+      </tr>
+      <tr>
+        <th style="font-size: smaller;">Processor</th>
+        <th style="font-size: smaller;">Architecture</th>
+        <th style="font-size: smaller;">Rendering GPU</th>
+        <th style="font-size: smaller;">Other GPU</th>
+        <th style="font-size: smaller;">Distribution</th>
+        <th style="font-size: smaller;">Display Server</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P3_G2_Ultra9_285K_RTX_PRO_6000_4K/results.html">LENOVO ThinkStation P3 Tower Gen2</a>
+        </td>
+        <td>Intel(R) Core(TM) Ultra 9 285K</td>
+        <td>6.17.0-1025-oem.x86_64</td>
+        <td>NVIDIA RTX PRO 6000 Blackwell Workstation Edition</td>
+        <td>Intel (R)Graphics (ARL)</td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>3840x2160</td>
+        <td>Aug 05 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>120.69</td>
+        <td>133.62</td>
+        <td>238.19</td>
+        <td>157.09</td>
+        <td>192.32</td>
+        <td>168.59</td>
+        <td>115.94</td>
+        <td>191.91</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P4_9965X3D_RTX_PRO_6000_4K/results.html">LENOVO ThinkStation P4</a>
+        </td>
+        <td>AMD Ryzen 9 PRO 9965X3D 16-Core Processor</td>
+        <td>6.17.0-35-generic.x86_64</td>
+        <td>NVIDIA RTX PRO 6000 Blackwell Workstation Edition</td>
+        <td>AMD Ryzen 9 PRO 9965X3D 16-Core Processor (RAPHAEL_MENDOCINO)</td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>3840x2160</td>
+        <td>Aug 05 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>122.77</td>
+        <td>141.14</td>
+        <td>257.13</td>
+        <td>159.01</td>
+        <td>203.59</td>
+        <td>170.44</td>
+        <td>95.78</td>
+        <td>210.481</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/P8_9945WX_RTX_PRO_6000_4K/results.html">LENOVO ThinkStation P8</a>
+        </td>
+        <td>AMD Ryzen Threadripper PRO 9945WX 12-Cores</td>
+        <td>7.0.0-28-generic.x86_64</td>
+        <td>NVIDIA RTX PRO 6000 Blackwell Workstation Edition</td>
+        <td></td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>3840x2160</td>
+        <td>Aug 03 2026</td>
+        <td>15.0.1-LE-rc4</td>
+        <td>0.00</td>
+        <td>121.09</td>
+        <td>141.91</td>
+        <td>254.08</td>
+        <td>156.02</td>
+        <td>206.93</td>
+        <td>167.72</td>
+        <td>101.92</td>
+        <td>209.41</td>
+      </tr>
+      <tr align="right">
+        <td>
+          <a href="Lenovo/PGX_Cortex-A725_GB10_4K/results.html">LENOVO ThinkStation PGX</a>
+        </td>
+        <td>Cortex-A725</td>
+        <td>6.17.0-1029-nvidia.aarch64</td>
+        <td>NVIDIA GB10</td>
+        <td></td>
+        <td>Lenovo</td>
+        <td>Ubuntu 24.04.4 LTS</td>
+        <td>X11</td>
+        <td>No</td>
+        <td>3840x2160</td>
+        <td>Aug 12 2026</td>
+        <td>15.0.1-LE-aarch64-rc5</td>
+        <td>0.00</td>
+        <td>14.43</td>
+        <td>35.57</td>
+        <td>85.71</td>
+        <td>35.20</td>
+        <td>46.42</td>
+        <td>43.76</td>
+        <td>62.86</td>
+        <td>66.43</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <br>
+  <p class="footer"><br></p>
+  <p>Last updated:  Mon Sep 14 13:49:32 EDT 2026
+
+  <br>
+  Copyright &copy; 2026, Standard Performance Evaluation Corporation</p>
+</body>
+</html>

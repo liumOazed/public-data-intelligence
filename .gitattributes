@@ -1,0 +1,2 @@
+# Saved SPEC pages keep the bytes SPEC sent (CRLF line endings).
+tests/fixtures/live/gwpg_*.html -text

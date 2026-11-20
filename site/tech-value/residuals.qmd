@@ -1303,7 +1303,8 @@ else:
 #| output: asis
 src, src_meta = site.load("tech-value", "benchmark_sources")
 summary("Benchmark sources", f"{int((src['status'] == 'Collected').sum()) if not src.empty else 0} collected · "
-        f"{int((src['status'] != 'Collected').sum()) if not src.empty else 0} planned · What each records")
+        f"{int(src['status'].str.startswith('Blocked').sum()) if not src.empty else 0} blocked · "
+        f"{int((src['status'] == 'Not collected yet').sum()) if not src.empty else 0} planned · What each records")
 ```
 ::: {.op-detail-body}
 ```{python}
