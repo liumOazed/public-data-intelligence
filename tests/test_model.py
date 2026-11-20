@@ -293,3 +293,120 @@ def test_gwpg_recognises_consumer_cards():
     assert gwpg.canon_gpu("GeForce RTX 4070 Ti Super") == "NVIDIA GeForce RTX 4070 Ti SUPER"
     assert gwpg.canon_gpu("Radeon RX 7900 XTX") == "AMD Radeon RX 7900 XTX"
     assert gwpg.gpu_vendor(gwpg.canon_gpu("Arc A770")) == "Intel"
+
+
+def test_catalogue_tracks_retail_products_and_shows_sub_threshold_results():
+    from pdi.tech_value import catalogue
+
+    value = pd.DataFrame(
+        [
+            {"kind": "cpu", "model_key": "amd ryzen 9 7950x", "price_usd": 500.0},
+            {"kind": "cpu", "model_key": "intel core i9-14900k", "price_usd": 450.0},
+            {"kind": "gpu", "model_key": "nvidia rtx a400", "price_usd": 150.0},
+            {"kind": "gpu", "model_key": "nvidia rtx 4500 ada", "price_usd": 2500.0},
+        ]
+    )
+    spec = pd.DataFrame(
+        {
+            "processor": ["AMD Ryzen 9 7950X"] * 2 + ["AMD EPYC 9654"] * 4,
+            "hardware_vendor": ["ASUS", "Supermicro", "Dell", "HPE", "Lenovo", "Dell"],
+            "base_score": [175.0, 177.0, 1500.0, 1520.0, 1490.0, 1510.0],
+            "chips": [1, 1, 2, 2, 2, 2],
+        }
+    )
+    gw = pd.DataFrame(
+        [
+            # Four results, but only one in a suite whose calibration passed.
+            {
+                "processor": "NVIDIA RTX 4500 Ada",
+                "oem": o,
+                "spec_status": "ok",
+                "suite": s,
+                "os_family": "Windows",
+                "res_tier": "4K",
+                "composite_score": v,
+                "in_ranked_suites": r,
+            }
+            for o, s, v, r in [
+                ("HP", "SPECviewperf 2020 v3", 100.0, True),
+                ("Dell", "SPECviewperf 13", 80.0, False),
+                ("Dell", "SPECviewperf 13", 90.0, False),
+                ("HP", "SPECviewperf 13", 70.0, False),
+            ]
+        ]
+    )
+    cpu_rank = pd.DataFrame(
+        [
+            {
+                "processor": "AMD EPYC 9654",
+                "residual_pct": 1.0,
+                "consensus_verdict": "Near prediction",
+                "measured_per_socket": 750.0,
+            }
+        ]
+    )
+    cat = catalogue.build(
+        value=value,
+        fair=value[["kind", "model_key"]].iloc[0:0],
+        benchmarks=pd.DataFrame(columns=["kind", "model_key", "median_score"]),
+        cpu_rank=cpu_rank,
+        gpu_rank=pd.DataFrame(columns=["processor", "residual_pct", "consensus_verdict"]),
+        spec=spec,
+        gwpg=gw,
+        dates={},
+    ).set_index("model_key")
+
+    # Every priced product is tracked; SPEC-only hardware stays in the catalogue untracked.
+    assert cat["tracked"].sum() == 4
+    assert not cat.loc["amd epyc 9654", "tracked"]
+    # One disclosure below the threshold is still a visible measurement, kept apart from
+    # whether the models assess the chip.
+    r = cat.loc["amd ryzen 9 7950x"]
+    assert r["measured_value"] == 176.0 and r["measured_n"] == 2
+    assert r["assessment"] == catalogue.MEASURED_ONLY
+    assert r["reason"] == "Insufficient disclosures (2 of 3 needed)"
+    assert cat.loc["amd epyc 9654", "assessment"] == catalogue.ASSESSED
+    assert cat.loc["intel core i9-14900k", "assessment"] == catalogue.NO_MEASUREMENT
+    assert "SPEC CPU 2017" in cat.loc["intel core i9-14900k", "reason"]
+    assert cat.loc["intel core i9-14900k", "next_source"].startswith("OpenBenchmarking")
+    # The RTX A400 is a workstation card, not a consumer one.
+    assert not cat.loc["nvidia rtx a400", "reason"].startswith("Unsupported source")
+    # The usable count, not the total, is compared with the minimum.
+    g = cat.loc["nvidia rtx 4500 ada"]
+    assert "(1 of 2 needed; 3 more in other suites)" in g["reason"]
+    assert g["measured_value"] == 80.0 and "SPECviewperf 13" in g["measured_metric"]
+    assert g["measured_n"] == 4 and g["measured_groups"] == 2
+
+    summary = catalogue.tracked_summary(cat.reset_index())
+    assert summary["cpu"] == {
+        "tracked": 2,
+        "assessed": 0,
+        "measured_only": 1,
+        "no_measurement": 1,
+        "catalogue": 3,
+    }
+
+
+def test_coverage_history_keeps_one_count_per_day_and_first_seen():
+    from pdi.tech_value import catalogue
+
+    cat = pd.DataFrame(
+        {
+            "kind": ["gpu", "gpu"],
+            "model_key": ["a", "b"],
+            "tracked": [True, False],
+            "assessment": [catalogue.ASSESSED, catalogue.ASSESSED],
+        }
+    )
+    hist, seen = catalogue.update_history(cat, [], {}, "2026-11-20")
+    assert seen == {"gpu|a": "2026-11-20"}
+    cat.loc[1, "tracked"] = True
+    hist, seen = catalogue.update_history(cat, hist, seen, "2026-11-20")
+    hist, seen = catalogue.update_history(cat, hist, seen, "2026-11-27")
+    gpu = [h for h in hist if h["kind"] == "gpu"]
+    assert [(h["date"], h["tracked"], h["assessed"]) for h in gpu] == [
+        ("2026-11-20", 2, 2),
+        ("2026-11-27", 2, 2),
+    ]
+    # A product keeps the day it was first tracked.
+    assert seen == {"gpu|a": "2026-11-20", "gpu|b": "2026-11-20"}

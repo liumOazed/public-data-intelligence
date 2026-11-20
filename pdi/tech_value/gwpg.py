@@ -955,12 +955,6 @@ def gpu_residual_validation(ranking: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-if __name__ == "__main__":
-    path = collect()
-    print(f"collected {path}")
-    print(f"tidy GWPG rows: {len(transform())}")
-
-
 CALIBRATION_MAX_GAP_PCT = 15.0
 CALIBRATION_MIN_OVERLAP = 3
 
@@ -1069,3 +1063,9 @@ def workload_table(df: pd.DataFrame) -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+if __name__ == "__main__":
+    path = collect()
+    print(f"collected {path}")
+    print(f"tidy GWPG rows: {len(transform())}")

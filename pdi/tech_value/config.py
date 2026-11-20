@@ -11,6 +11,8 @@ STORE_DIR = STORE / "tech_value"
 SPEC_TABLE = STORE_DIR / "spec_results.parquet"
 GWPG_TABLE = STORE_DIR / "spec_gwpg_results.parquet"
 BLENDER_TABLE = STORE_DIR / "blender_devices.parquet"
+# Dated coverage counts and the first day each retail-tracked product appeared (committed).
+COVERAGE_STORE = STORE_DIR / "coverage_history.json"
 PRICES_DIR = STORE_DIR / "prices"
 AUTOML_LEADERBOARD = STORE_DIR / "automl_leaderboard.parquet"
 AUTOML_SUMMARY = STORE_DIR / "automl_summary.json"
