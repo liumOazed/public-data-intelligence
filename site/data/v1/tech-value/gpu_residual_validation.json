@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_residual_validation",
   "description": "Held-out error of the residual models for GPUs: one median residual per ranked GPU, compared with the shaders-times-clock baseline, overall and by vendor, form factor, architecture and release year.",
-  "generated_at": "2026-11-19T20:01:12+00:00",
+  "generated_at": "2026-11-20T01:34:44+00:00",
   "rows": 72,
   "columns": [
    "slice",
@@ -28,7 +28,7 @@
   "preliminary": false,
   "limitations": [
    "SPEC GWPG results (SPECviewperf 15/2020/13/12.1, SPECworkstation 4.0/3.1/3.0, and SPECapc Maya/Solidworks/Creo/3ds Max) are submitted by workstation OEMs (Dell, HP, Lenovo, Fujitsu, MIFCOM) and GPU vendors.",
-   "Because SPEC GWPG spans multiple benchmark generations and resolutions (1080p vs 4K), each suite-resolution cohort is calibrated onto the SPECviewperf 2020 v3 FHD/QHD scale against physical hardware throughput before leave-one-GPU-out residuals are computed.",
+   "Because SPEC GWPG spans multiple benchmark generations, OS families and resolutions, each suite-OS-resolution cohort is calibrated onto the SPECviewperf 2020 v3 Windows FHD/QHD scale against physical hardware throughput, refitted inside every leave-one-GPU-out fold. Only cohorts that pass the held-out calibration check (gpu_calibration) feed the ranking.",
    "Predicted scores and residuals are this site's estimates derived from SPEC GWPG disclosures. They are not official SPEC metrics.",
    "SPEC, SPECviewperf, SPECworkstation, and SPECapc are trademarks or registered trademarks of the Standard Performance Evaluation Corporation. Every row links to its official SPEC disclosure."
   ],
@@ -53,8 +53,8 @@
    "group": "All",
    "model": "OLS",
    "n_chips": 19,
-   "median_abs_pct_error": 18.31345683895711,
-   "mean_abs_log_error": 0.22489969117954853,
+   "median_abs_pct_error": 18.31345683895858,
+   "mean_abs_log_error": 0.22489969117955266,
    "range_coverage_pct": 68.42105263157895
   },
   {
@@ -62,8 +62,8 @@
    "group": "All",
    "model": "Structural L1",
    "n_chips": 19,
-   "median_abs_pct_error": 17.530352497941596,
-   "mean_abs_log_error": 0.24272686252506778,
+   "median_abs_pct_error": 17.530307017630207,
+   "mean_abs_log_error": 0.24272689318942473,
    "range_coverage_pct": 73.68421052631578
   },
   {
@@ -89,8 +89,8 @@
    "group": "AMD",
    "model": "OLS",
    "n_chips": 3,
-   "median_abs_pct_error": 44.1871005564375,
-   "mean_abs_log_error": 0.3620048512427547,
+   "median_abs_pct_error": 44.18710055643494,
+   "mean_abs_log_error": 0.362004851242763,
    "range_coverage_pct": 33.33333333333333
   },
   {
@@ -98,8 +98,8 @@
    "group": "AMD",
    "model": "Structural L1",
    "n_chips": 3,
-   "median_abs_pct_error": 49.515432662885715,
-   "mean_abs_log_error": 0.4206459126965251,
+   "median_abs_pct_error": 49.515427373087526,
+   "mean_abs_log_error": 0.4206462605851378,
    "range_coverage_pct": 33.33333333333333
   },
   {
@@ -125,8 +125,8 @@
    "group": "NVIDIA",
    "model": "OLS",
    "n_chips": 16,
-   "median_abs_pct_error": 17.885088122371496,
-   "mean_abs_log_error": 0.19919247366769735,
+   "median_abs_pct_error": 17.885088122372725,
+   "mean_abs_log_error": 0.1991924736677007,
    "range_coverage_pct": 75.0
   },
   {
@@ -134,8 +134,8 @@
    "group": "NVIDIA",
    "model": "Structural L1",
    "n_chips": 16,
-   "median_abs_pct_error": 17.065709972043464,
-   "mean_abs_log_error": 0.20936704061791955,
+   "median_abs_pct_error": 17.065681246140144,
+   "mean_abs_log_error": 0.2093670118027285,
    "range_coverage_pct": 81.25
   },
   {
@@ -161,8 +161,8 @@
    "group": "Desktop",
    "model": "OLS",
    "n_chips": 15,
-   "median_abs_pct_error": 18.31345683895711,
-   "mean_abs_log_error": 0.22864933542087107,
+   "median_abs_pct_error": 18.31345683895858,
+   "mean_abs_log_error": 0.2286493354208769,
    "range_coverage_pct": 66.66666666666666
   },
   {
@@ -170,8 +170,8 @@
    "group": "Desktop",
    "model": "Structural L1",
    "n_chips": 15,
-   "median_abs_pct_error": 17.530352497941596,
-   "mean_abs_log_error": 0.25794896042321375,
+   "median_abs_pct_error": 17.530307017630207,
+   "mean_abs_log_error": 0.25794899836903595,
    "range_coverage_pct": 66.66666666666666
   },
   {
@@ -197,8 +197,8 @@
    "group": "Laptop",
    "model": "OLS",
    "n_chips": 4,
-   "median_abs_pct_error": 24.17434277195805,
-   "mean_abs_log_error": 0.2108385252745889,
+   "median_abs_pct_error": 24.17434277195546,
+   "mean_abs_log_error": 0.21083852527458669,
    "range_coverage_pct": 75.0
   },
   {
@@ -206,8 +206,8 @@
    "group": "Laptop",
    "model": "Structural L1",
    "n_chips": 4,
-   "median_abs_pct_error": 19.8176381889928,
-   "mean_abs_log_error": 0.18564399540702048,
+   "median_abs_pct_error": 19.817638821002358,
+   "mean_abs_log_error": 0.18564399876588256,
    "range_coverage_pct": 100.0
   },
   {
@@ -233,8 +233,8 @@
    "group": "Ada Lovelace",
    "model": "OLS",
    "n_chips": 4,
-   "median_abs_pct_error": 18.42557028554837,
-   "mean_abs_log_error": 0.19699879960053712,
+   "median_abs_pct_error": 18.425570285548133,
+   "mean_abs_log_error": 0.19699879960053135,
    "range_coverage_pct": 75.0
   },
   {
@@ -242,8 +242,8 @@
    "group": "Ada Lovelace",
    "model": "Structural L1",
    "n_chips": 4,
-   "median_abs_pct_error": 17.065709972043464,
-   "mean_abs_log_error": 0.19238282228690728,
+   "median_abs_pct_error": 17.065681246140144,
+   "mean_abs_log_error": 0.1923826988689612,
    "range_coverage_pct": 75.0
   },
   {
@@ -269,8 +269,8 @@
    "group": "Ampere",
    "model": "OLS",
    "n_chips": 6,
-   "median_abs_pct_error": 16.984280326190195,
-   "mean_abs_log_error": 0.19268804339773293,
+   "median_abs_pct_error": 16.98428032619206,
+   "mean_abs_log_error": 0.1926880433977458,
    "range_coverage_pct": 83.33333333333334
   },
   {
@@ -278,8 +278,8 @@
    "group": "Ampere",
    "model": "Structural L1",
    "n_chips": 6,
-   "median_abs_pct_error": 18.456949686385705,
-   "mean_abs_log_error": 0.21494213470698686,
+   "median_abs_pct_error": 18.45695205301818,
+   "mean_abs_log_error": 0.2149421417696379,
    "range_coverage_pct": 83.33333333333334
   },
   {
@@ -305,8 +305,8 @@
    "group": "Blackwell",
    "model": "OLS",
    "n_chips": 4,
-   "median_abs_pct_error": 14.922933473607838,
-   "mean_abs_log_error": 0.14579733482977397,
+   "median_abs_pct_error": 14.922933473609529,
+   "mean_abs_log_error": 0.1457973348297794,
    "range_coverage_pct": 75.0
   },
   {
@@ -314,8 +314,8 @@
    "group": "Blackwell",
    "model": "Structural L1",
    "n_chips": 4,
-   "median_abs_pct_error": 5.662641259323389,
-   "mean_abs_log_error": 0.1269329525094981,
+   "median_abs_pct_error": 5.662640608048797,
+   "mean_abs_log_error": 0.1269329501533646,
    "range_coverage_pct": 100.0
   },
   {
@@ -341,8 +341,8 @@
    "group": "RDNA 1",
    "model": "OLS",
    "n_chips": 1,
-   "median_abs_pct_error": 0.39928007403792276,
-   "mean_abs_log_error": 0.0039848506665172145,
+   "median_abs_pct_error": 0.399280074040598,
+   "mean_abs_log_error": 0.00398485066654386,
    "range_coverage_pct": 100.0
   },
   {
@@ -350,8 +350,8 @@
    "group": "RDNA 1",
    "model": "Structural L1",
    "n_chips": 1,
-   "median_abs_pct_error": 4.272981983925206,
-   "mean_abs_log_error": 0.04184210108027164,
+   "median_abs_pct_error": 4.273098091330866,
+   "mean_abs_log_error": 0.041843214574283305,
    "range_coverage_pct": 100.0
   },
   {
@@ -377,8 +377,8 @@
    "group": "RDNA 2",
    "model": "OLS",
    "n_chips": 1,
-   "median_abs_pct_error": 104.6412220285413,
-   "mean_abs_log_error": 0.7160881234261618,
+   "median_abs_pct_error": 104.64122202854458,
+   "mean_abs_log_error": 0.7160881234261778,
    "range_coverage_pct": 0.0
   },
   {
@@ -386,8 +386,8 @@
    "group": "RDNA 2",
    "model": "Structural L1",
    "n_chips": 1,
-   "median_abs_pct_error": 126.56602260281966,
-   "mean_abs_log_error": 0.8178662069800646,
+   "median_abs_pct_error": 126.56601479794666,
+   "mean_abs_log_error": 0.8178661725315051,
    "range_coverage_pct": 0.0
   },
   {
@@ -413,8 +413,8 @@
    "group": "RDNA 4",
    "model": "OLS",
    "n_chips": 1,
-   "median_abs_pct_error": 44.1871005564375,
-   "mean_abs_log_error": 0.36594157963558516,
+   "median_abs_pct_error": 44.18710055643494,
+   "mean_abs_log_error": 0.3659415796355674,
    "range_coverage_pct": 0.0
   },
   {
@@ -422,8 +422,8 @@
    "group": "RDNA 4",
    "model": "Structural L1",
    "n_chips": 1,
-   "median_abs_pct_error": 49.515432662885715,
-   "mean_abs_log_error": 0.40222943002923905,
+   "median_abs_pct_error": 49.515427373087526,
+   "mean_abs_log_error": 0.40222939464962515,
    "range_coverage_pct": 0.0
   },
   {
@@ -449,8 +449,8 @@
    "group": "Turing",
    "model": "OLS",
    "n_chips": 2,
-   "median_abs_pct_error": 40.8220856083333,
-   "mean_abs_log_error": 0.3298833902877578,
+   "median_abs_pct_error": 40.822085608331655,
+   "mean_abs_log_error": 0.3298833902877467,
    "range_coverage_pct": 50.0
   },
   {
@@ -458,8 +458,8 @@
    "group": "Turing",
    "model": "Structural L1",
    "n_chips": 2,
-   "median_abs_pct_error": 47.91777264437819,
-   "mean_abs_log_error": 0.39147837122958506,
+   "median_abs_pct_error": 47.91777261820036,
+   "mean_abs_log_error": 0.39147837106826255,
    "range_coverage_pct": 50.0
   },
   {
@@ -485,8 +485,8 @@
    "group": "2018",
    "model": "OLS",
    "n_chips": 2,
-   "median_abs_pct_error": 40.8220856083333,
-   "mean_abs_log_error": 0.3298833902877578,
+   "median_abs_pct_error": 40.822085608331655,
+   "mean_abs_log_error": 0.3298833902877467,
    "range_coverage_pct": 50.0
   },
   {
@@ -494,8 +494,8 @@
    "group": "2018",
    "model": "Structural L1",
    "n_chips": 2,
-   "median_abs_pct_error": 47.91777264437819,
-   "mean_abs_log_error": 0.39147837122958506,
+   "median_abs_pct_error": 47.91777261820036,
+   "mean_abs_log_error": 0.39147837106826255,
    "range_coverage_pct": 50.0
   },
   {
@@ -521,8 +521,8 @@
    "group": "2020",
    "model": "OLS",
    "n_chips": 2,
-   "median_abs_pct_error": 20.59738459145358,
-   "mean_abs_log_error": 0.17306153515504996,
+   "median_abs_pct_error": 20.597384591456102,
+   "mean_abs_log_error": 0.17306153515507172,
    "range_coverage_pct": 50.0
   },
   {
@@ -530,8 +530,8 @@
    "group": "2020",
    "model": "Structural L1",
    "n_chips": 2,
-   "median_abs_pct_error": 27.866849618997385,
-   "mean_abs_log_error": 0.22849910718363087,
+   "median_abs_pct_error": 27.86690732490258,
+   "mean_abs_log_error": 0.22849966163434732,
    "range_coverage_pct": 50.0
   },
   {
@@ -557,8 +557,8 @@
    "group": "2021",
    "model": "OLS",
    "n_chips": 4,
-   "median_abs_pct_error": 14.475813058392552,
-   "mean_abs_log_error": 0.27154598418910225,
+   "median_abs_pct_error": 14.475813058393975,
+   "mean_abs_log_error": 0.27154598418911335,
    "range_coverage_pct": 75.0
   },
   {
@@ -566,8 +566,8 @@
    "group": "2021",
    "model": "Structural L1",
    "n_chips": 4,
-   "median_abs_pct_error": 13.66903939223257,
-   "mean_abs_log_error": 0.29482759679976955,
+   "median_abs_pct_error": 13.669040071216465,
+   "mean_abs_log_error": 0.29482759091856137,
    "range_coverage_pct": 75.0
   },
   {
@@ -593,8 +593,8 @@
    "group": "2022",
    "model": "OLS",
    "n_chips": 3,
-   "median_abs_pct_error": 15.655103813423283,
-   "mean_abs_log_error": 0.1721219841631895,
+   "median_abs_pct_error": 15.65510381342554,
+   "mean_abs_log_error": 0.17212198416319602,
    "range_coverage_pct": 100.0
   },
   {
@@ -602,8 +602,8 @@
    "group": "2022",
    "model": "Structural L1",
    "n_chips": 3,
-   "median_abs_pct_error": 22.896601557365667,
-   "mean_abs_log_error": 0.22485964936827182,
+   "median_abs_pct_error": 22.896605415952905,
+   "mean_abs_log_error": 0.22485953239432663,
    "range_coverage_pct": 100.0
   },
   {
@@ -629,8 +629,8 @@
    "group": "2023",
    "model": "OLS",
    "n_chips": 3,
-   "median_abs_pct_error": 21.382854603820117,
-   "mean_abs_log_error": 0.2385078244417159,
+   "median_abs_pct_error": 21.38285460382292,
+   "mean_abs_log_error": 0.23850782444171234,
    "range_coverage_pct": 66.66666666666666
   },
   {
@@ -638,8 +638,8 @@
    "group": "2023",
    "model": "Structural L1",
    "n_chips": 3,
-   "median_abs_pct_error": 16.601067446145333,
-   "mean_abs_log_error": 0.20266828525957706,
+   "median_abs_pct_error": 16.601055474650085,
+   "mean_abs_log_error": 0.20266824969118025,
    "range_coverage_pct": 66.66666666666666
   },
   {
@@ -665,8 +665,8 @@
    "group": "2025",
    "model": "OLS",
    "n_chips": 5,
-   "median_abs_pct_error": 17.456719405785883,
-   "mean_abs_log_error": 0.18982618379093621,
+   "median_abs_pct_error": 17.45671940578687,
+   "mean_abs_log_error": 0.18982618379093702,
    "range_coverage_pct": 60.0
   },
   {
@@ -674,8 +674,8 @@
    "group": "2025",
    "model": "Structural L1",
    "n_chips": 5,
-   "median_abs_pct_error": 9.921343651747367,
-   "mean_abs_log_error": 0.1819922480134463,
+   "median_abs_pct_error": 9.921342697254644,
+   "mean_abs_log_error": 0.1819922390526167,
    "range_coverage_pct": 80.0
   },
   {

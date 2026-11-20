@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "folds",
   "description": "Expanding-window folds before the holdout. The spread of the improvement column is the noise level the holdout result has to clear.",
-  "generated_at": "2026-11-19T18:27:57+00:00",
+  "generated_at": "2026-11-20T01:31:37+00:00",
   "rows": 4,
   "columns": [
    "fold",
@@ -33,7 +33,7 @@
    "Predicted scores and residuals are this site's estimates derived from SPEC results. They are not SPEC metrics and were not produced by SPEC-compliant runs.",
    "SPEC, SPEC CPU and SPECrate are registered trademarks of the Standard Performance Evaluation Corporation. The licensee behind each result is named in its SPEC disclosure, linked from every row."
   ],
-  "fold_spread": 0.14283701465673218
+  "fold_spread": 0.14283701465673235
  },
  "data": [
   {
@@ -42,8 +42,8 @@
    "n_train": 2710,
    "n_test": 1170,
    "baseline_mae_log": 0.13623232699586593,
-   "plain_mae_log": 0.06433717405354043,
-   "improvement": 0.0718951529423255
+   "plain_mae_log": 0.06433717405354003,
+   "improvement": 0.0718951529423259
   },
   {
    "fold": 2,
@@ -51,8 +51,8 @@
    "n_train": 3880,
    "n_test": 3206,
    "baseline_mae_log": 0.16214804568679342,
-   "plain_mae_log": 0.06223852426563695,
-   "improvement": 0.09990952142115647
+   "plain_mae_log": 0.062238524265636565,
+   "improvement": 0.09990952142115686
   },
   {
    "fold": 3,
@@ -60,8 +60,8 @@
    "n_train": 7086,
    "n_test": 2319,
    "baseline_mae_log": 0.3492455008353541,
-   "plain_mae_log": 0.0781977935407778,
-   "improvement": 0.2710477072945763
+   "plain_mae_log": 0.07819779354077486,
+   "improvement": 0.2710477072945793
   },
   {
    "fold": 4,
@@ -69,8 +69,8 @@
    "n_train": 9405,
    "n_test": 2355,
    "baseline_mae_log": 0.4556707252687942,
-   "plain_mae_log": 0.08307238513930837,
-   "improvement": 0.37259834012948584
+   "plain_mae_log": 0.08307238513930855,
+   "improvement": 0.3725983401294857
   }
  ]
 }

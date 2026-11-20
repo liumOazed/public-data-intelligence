@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_workloads",
   "description": "Raw SPEC GWPG composite scores per card within one suite and version, OS family and resolution. No calibration: each group uses its suite's own metric.",
-  "generated_at": "2026-11-19T20:01:07+00:00",
+  "generated_at": "2026-11-20T01:34:41+00:00",
   "rows": 154,
   "columns": [
    "suite",
@@ -35,7 +35,7 @@
   "preliminary": false,
   "limitations": [
    "SPEC GWPG results (SPECviewperf 15/2020/13/12.1, SPECworkstation 4.0/3.1/3.0, and SPECapc Maya/Solidworks/Creo/3ds Max) are submitted by workstation OEMs (Dell, HP, Lenovo, Fujitsu, MIFCOM) and GPU vendors.",
-   "Because SPEC GWPG spans multiple benchmark generations and resolutions (1080p vs 4K), each suite-resolution cohort is calibrated onto the SPECviewperf 2020 v3 FHD/QHD scale against physical hardware throughput before leave-one-GPU-out residuals are computed.",
+   "Because SPEC GWPG spans multiple benchmark generations, OS families and resolutions, each suite-OS-resolution cohort is calibrated onto the SPECviewperf 2020 v3 Windows FHD/QHD scale against physical hardware throughput, refitted inside every leave-one-GPU-out fold. Only cohorts that pass the held-out calibration check (gpu_calibration) feed the ranking.",
    "Predicted scores and residuals are this site's estimates derived from SPEC GWPG disclosures. They are not official SPEC metrics.",
    "SPEC, SPECviewperf, SPECworkstation, and SPECapc are trademarks or registered trademarks of the Standard Performance Evaluation Corporation. Every row links to its official SPEC disclosure."
   ],
