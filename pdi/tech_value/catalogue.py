@@ -13,6 +13,18 @@ under-performer page, why it is or is not ranked:
 
 ``reason`` says which of the five causes applies: missing measurements, unsupported source,
 parsing failure, missing specifications or insufficient disclosures.
+
+A product is **tracked** when Value ranking or Fair price shows it (it has a retail price that
+day). Every tracked product also gets:
+
+  measured_value / measured_metric / measured_n   any SPEC measurement, even one disclosure
+  assessment                                      Assessed, Measured but not assessed, or No
+                                                  measurement (model eligibility, kept apart
+                                                  from the measurement itself)
+  next_source                                     where a missing measurement could come from
+
+``history_rows`` and ``first_seen`` keep a dated count of tracked and assessed products so the
+page can show coverage over time and mark products that entered the catalogue recently.
 """
 
 from __future__ import annotations
@@ -29,9 +41,18 @@ MISSING_SPECS = "Missing specifications"
 PARSE_FAIL = "Parsing failure"
 NOT_FOUND = "Results not found"
 
+# Workstation lines that SPEC GWPG covers. "rtx a\d+" (not "rtx a\d") so that the RTX A400 and
+# A4500 are recognised as workstation cards rather than consumer ones.
 _WORKSTATION = re.compile(
-    r"\b(quadro|rtx a\d|rtx pro|ada|radeon pro|radeon ai pro|firepro|arc pro|t\d{3,4})\b", re.I
+    r"\b(quadro|rtx a\d+|rtx pro|ada|radeon pro|radeon ai pro|firepro|arc pro|t\d{3,4})\b", re.I
 )
+
+ASSESSED = "Assessed"
+MEASURED_ONLY = "Measured, not assessed"
+NO_MEASUREMENT = "No measurement"
+
+CPU_METRIC = "SPECrate 2017 Int base per socket"
+GPU_RANKED_METRIC = "Calibrated SPEC GWPG score (site estimate)"
 
 
 def key_of(kind: str, name: str) -> str:
@@ -97,6 +118,11 @@ def build(
                 "spec_score": None,
                 "residual_pct": None,
                 "consensus_verdict": None,
+                "blender_runs": None,
+                "measured_value": None,
+                "measured_metric": None,
+                "measured_n": 0,
+                "measured_groups": 0,
             },
         )
         # Prefer a SPEC or retail display name over a bare model key.
@@ -107,6 +133,8 @@ def build(
     for b in benchmarks.itertuples():
         r = row(b.kind, b.model_key, getattr(b, "device_name", None) or b.model_key)
         r["blender_score"] = float(b.median_score)
+        runs = getattr(b, "n_runs", None)
+        r["blender_runs"] = None if runs is None or pd.isna(runs) else int(runs)
     for v in value.itertuples():
         r = row(v.kind, v.model_key, v.model_key)
         r["on_value_ranking"] = True
@@ -142,12 +170,28 @@ def build(
             r["name"] = proc  # SPEC's name is the most precise one
             r["spec_results"] += int(c["n"])
             r["spec_oems"] = max(r["spec_oems"], int(c["oems"]))
+        # Every result counts as a measurement, ranked or not: median base score per socket,
+        # the same quantity the ranking uses.
+        if {config.SPEC_METRIC, "chips"} <= set(spec.columns):
+            per_socket = spec[config.SPEC_METRIC] / spec["chips"].where(spec["chips"] > 0)
+            med = per_socket.groupby(spec["processor"]).median()
+            for proc, v in med.items():
+                if pd.isna(v):
+                    continue
+                r = row("cpu", key_of("cpu", proc), proc)
+                r["measured_value"] = float(v)
+                r["measured_metric"] = CPU_METRIC
+                r["measured_n"] = r["spec_results"]
+                r["measured_groups"] = 1
     for c in cpu_rank.itertuples():
         r = row("cpu", key_of("cpu", c.processor), c.processor)
         r["on_residuals"] = True
         r["residual_pct"] = float(c.residual_pct)
         r["consensus_verdict"] = c.consensus_verdict
         r["spec_score"] = _num(getattr(c, "measured_per_socket", None))
+        if r["spec_score"] is not None:
+            r["measured_value"] = r["spec_score"]
+            r["measured_metric"] = CPU_METRIC
 
     # SPEC GWPG: every disclosure, including cards without specifications or readable scores.
     if not gwpg.empty:
@@ -163,12 +207,19 @@ def build(
             r["spec_rows_unparsed"] += int((part["spec_status"] == "unparsed").sum())
             if "in_ranked_suites" in part.columns:
                 r["spec_rows_combinable"] = int((ok["in_ranked_suites"]).sum()) if len(ok) else 0
+            m = _gwpg_measurement(ok)
+            if m:
+                r["measured_value"], r["measured_metric"], r["measured_n"], r["measured_groups"] = m
     for c in gpu_rank.itertuples():
         r = row("gpu", key_of("gpu", c.processor), c.processor)
         r["on_residuals"] = True
         r["residual_pct"] = float(c.residual_pct)
         r["consensus_verdict"] = c.consensus_verdict
         r["spec_score"] = _num(getattr(c, "measured_score", None))
+        if r["spec_score"] is not None:
+            r["measured_value"] = r["spec_score"]
+            r["measured_metric"] = GPU_RANKED_METRIC
+            r["measured_n"] = r["spec_results"]
 
     out = pd.DataFrame(rows.values())
     if out.empty:
@@ -176,6 +227,12 @@ def build(
     status, reason = zip(*(_status(r) for r in out.to_dict("records")), strict=True)
     out["coverage_status"] = status
     out["reason"] = reason
+    out["tracked"] = out["on_value_ranking"] | out["on_fair_price"]
+    out["assessment"] = [
+        ASSESSED if r["on_residuals"] else MEASURED_ONLY if r["measured_n"] else NO_MEASUREMENT
+        for r in out.to_dict("records")
+    ]
+    out["next_source"] = [_next_source(r) for r in out.to_dict("records")]
     out["benchmarks_collected"] = out["kind"].map(
         {"cpu": dates.get("spec_cpu2017"), "gpu": dates.get("spec_gwpg")}
     )
@@ -197,23 +254,102 @@ def build(
 
 def _status(r: dict) -> tuple[str, str]:
     min_n = config.MIN_RESULTS_FOR_RANK if r["kind"] == "cpu" else config.GWPG_MIN_RESULTS_FOR_RANK
+    n, oems = int(r["spec_results"]), int(r["spec_oems"])
     if r["on_residuals"]:
-        if _limited(r["spec_results"], r["spec_oems"]):
-            return LIMITED, "Insufficient disclosures"
+        if _limited(n, oems):
+            return LIMITED, (
+                f"Insufficient disclosures: assessed on {n} result{'s' if n != 1 else ''} from "
+                f"{oems} OEM{'s' if oems != 1 else ''}; Measured needs 4 from 2 or more OEMs"
+            )
         return MEASURED, ""
-    if r["spec_results"] > 0 and r.get("spec_rows_combinable") == 0:
+    combinable = r.get("spec_rows_combinable")
+    if n > 0 and combinable == 0:
         return LIMITED, "Only in suites without a validated calibration (see results by workload)"
-    if r["spec_results"] > 0:
-        return LIMITED, f"Insufficient disclosures ({r['spec_results']} of {min_n} needed)"
+    if n > 0 and combinable is not None and not pd.isna(combinable) and combinable < min_n:
+        # The ranking counts only results from suites whose calibration passed, so the total can
+        # exceed the minimum while the usable count does not.
+        return LIMITED, (
+            "Insufficient disclosures in suites with a validated calibration "
+            f"({int(combinable)} of {min_n} needed; {n - int(combinable)} more in other suites)"
+        )
+    if n > 0:
+        return LIMITED, f"Insufficient disclosures ({n} of {min_n} needed)"
     if r["spec_rows_unmatched"] > 0:
         return MISSING_SPECS, "Missing specifications"
     if r["spec_rows_unparsed"] > 0:
         return PARSE_FAIL, "Parsing failure"
-    if (
-        r["kind"] == "gpu"
-        and not _WORKSTATION.search(r["name"])
-        and not _WORKSTATION.search(r["model_key"])
-    ):
+    if r["kind"] == "gpu" and not _is_workstation(r):
         # SPEC GWPG results are workstation submissions; consumer cards are rarely submitted.
         return NOT_FOUND, "Unsupported source (consumer card, SPEC GWPG is workstation-only)"
-    return NOT_FOUND, "Missing measurements (no SPEC result published)"
+    if r["kind"] == "gpu":
+        return NOT_FOUND, "Missing measurements (no SPEC GWPG result published for this card)"
+    return NOT_FOUND, "Missing measurements (no SPEC CPU 2017 result published for this processor)"
+
+
+def _is_workstation(r: dict) -> bool:
+    return bool(_WORKSTATION.search(r["name"]) or _WORKSTATION.search(r["model_key"]))
+
+
+def _next_source(r: dict) -> str:
+    """Where a missing or thin measurement could come from; empty once a product is assessed."""
+    if r["on_residuals"]:
+        return ""
+    if r["kind"] == "cpu":
+        return "OpenBenchmarking.org (planned); SPEC CPU 2017 rechecked weekly"
+    if _is_workstation(r):
+        return "SPEC GWPG rechecked weekly; OpenBenchmarking.org (planned)"
+    return "OpenBenchmarking.org (planned)"
+
+
+def _gwpg_measurement(ok: pd.DataFrame) -> tuple[float, str, int, int] | None:
+    """A card's published composite in the suite, OS and resolution where it has most results.
+
+    Raw composites are comparable only within one suite and version, OS and resolution, so the
+    measurement names that group. Ties go to the newer suite (higher median score is not used,
+    so the choice does not depend on how well the card did).
+    """
+    need = {"suite", "os_family", "res_tier", "composite_score"}
+    if ok.empty or not need <= set(ok.columns):
+        return None
+    d = ok.dropna(subset=["composite_score"])
+    if d.empty:
+        return None
+    groups = d.groupby(["suite", "os_family", "res_tier"])["composite_score"].agg(
+        ["size", "median"]
+    )
+    groups = groups.reset_index().sort_values(["size", "suite"], ascending=[False, False])
+    top = groups.iloc[0]
+    metric = f"{top['suite']} composite · {top['os_family']} · {top['res_tier']}"
+    return float(top["median"]), metric, int(len(d)), int(len(groups))
+
+
+def tracked_summary(cat: pd.DataFrame) -> dict[str, dict[str, int]]:
+    """Per kind: tracked products, and how many are assessed, measured only, or unmeasured."""
+    out: dict[str, dict[str, int]] = {}
+    for kind in ("cpu", "gpu"):
+        t = cat[(cat["kind"] == kind) & cat["tracked"]] if not cat.empty else cat
+        a = t["assessment"] if len(t) else pd.Series(dtype=str)
+        out[kind] = {
+            "tracked": int(len(t)),
+            "assessed": int((a == ASSESSED).sum()),
+            "measured_only": int((a == MEASURED_ONLY).sum()),
+            "no_measurement": int((a == NO_MEASUREMENT).sum()),
+            "catalogue": int((cat["kind"] == kind).sum()) if not cat.empty else 0,
+        }
+    return out
+
+
+def update_history(
+    cat: pd.DataFrame, history: list[dict], first_seen: dict[str, str], today: str
+) -> tuple[list[dict], dict[str, str]]:
+    """Add today's coverage counts (replacing an earlier count from the same day) and record
+    the first day each tracked product appeared. Returns the new history and first-seen map."""
+    rows = [h for h in history if h.get("date") != today]
+    for kind, c in tracked_summary(cat).items():
+        rows.append({"date": today, "kind": kind, **c})
+    rows.sort(key=lambda h: (h["date"], h["kind"]))
+    seen = dict(first_seen)
+    if not cat.empty:
+        for r in cat[cat["tracked"]].itertuples():
+            seen.setdefault(f"{r.kind}|{r.model_key}", today)
+    return rows, seen

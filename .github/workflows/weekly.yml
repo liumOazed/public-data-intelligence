@@ -41,6 +41,9 @@ jobs:
       - name: Collect and tidy SPEC CPU 2017 results
         run: uv run python -m pdi.tech_value.spec
 
+      - name: Collect and tidy SPEC GWPG results (GPU disclosures for the over- and under-performer page)
+        run: uv run python -m pdi.tech_value.gwpg
+
       - name: Collect and tidy Blender Open Data
         run: uv run python -m pdi.tech_value.blender
 

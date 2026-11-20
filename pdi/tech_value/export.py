@@ -576,6 +576,27 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
         dates=dates,
     )
     counts = cat.groupby(["kind", "coverage_status"]).size() if not cat.empty else pd.Series()
+    today = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%d")
+    history, first_seen = _read_coverage_store()
+    history, first_seen = catalogue.update_history(cat, history, first_seen, today)
+    _write_coverage_store(history, first_seen)
+    if not cat.empty:
+        cat["first_tracked"] = [
+            first_seen.get(f"{k}|{m}") if t else None
+            for k, m, t in zip(cat["kind"], cat["model_key"], cat["tracked"], strict=True)
+        ]
+    summary = catalogue.tracked_summary(cat)
+    write_table(
+        M,
+        "coverage_history",
+        pd.DataFrame(history),
+        description="Tracked CPUs and GPUs (those on Value ranking or Fair price) per update, with "
+        "how many the over- and under-performer models assess, how many have a SPEC measurement "
+        "that is not assessed, and how many have none.",
+        sources=["spec_cpu2017", "spec_gwpg"],
+        retrieved_at=dates,
+        extra={"finding": findings.observation("Coverage of tracked products over time.")},
+    )
     write_table(
         M,
         "catalogue",
@@ -587,11 +608,25 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
         retrieved_at=dates,
         extra={
             "status_counts": {f"{k}|{s}": int(n) for (k, s), n in counts.items()},
+            "tracked": summary,
             "finding": findings.observation(
                 "Coverage as collected: which products have which measurements."
             ),
         },
     )
+
+
+def _read_coverage_store() -> tuple[list[dict], dict[str, str]]:
+    if not config.COVERAGE_STORE.exists():
+        return [], {}
+    d = json.loads(config.COVERAGE_STORE.read_text(encoding="utf-8"))
+    return list(d.get("history", [])), dict(d.get("first_seen", {}))
+
+
+def _write_coverage_store(history: list[dict], first_seen: dict[str, str]) -> None:
+    config.COVERAGE_STORE.parent.mkdir(parents=True, exist_ok=True)
+    body = {"history": history, "first_seen": dict(sorted(first_seen.items()))}
+    config.COVERAGE_STORE.write_text(json.dumps(body, indent=1) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

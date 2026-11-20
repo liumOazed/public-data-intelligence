@@ -96,9 +96,34 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-cmp-sum { margin:10px 0 0; font-size:.92rem; line-height:1.45 }
 .op-cmp-wrap { overflow-x:auto }
 
+/* Headline: tracked products assessed */
+.op-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 16px; margin:14px 0 4px; padding:14px 18px; border-radius:12px; border:1px solid var(--op-k1-line); background:var(--op-k1-bg) }
+.op-head strong { font-size:clamp(1.7rem,3.4vw,2.3rem); font-weight:700; line-height:1.1; color:var(--op-ink); font-variant-numeric:tabular-nums }
+.op-head .op-head-label { font-size:1.02rem; font-weight:700 }
+.op-head .op-head-sub { flex-basis:100%; color:var(--op-muted); font-size:.86rem; line-height:1.4 }
+
+/* Every tracked product */
+.op-tl-bar { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin:8px 0 6px; font-size:.84rem; color:var(--op-muted) }
+.op-tl-bar select, .op-tl-bar input { max-width:100%; padding:4px 7px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.84rem }
+.op-tl-bar input { flex:1 1 160px; min-width:0 }
+.op-tl-count { flex-basis:100%; color:var(--op-ink); font-weight:600 }
+.op-tl-wrap { overflow:auto; max-height:560px; border:1px solid var(--op-line); border-radius:10px }
+.op-tl { width:100%; border-collapse:collapse; font-size:.86rem; font-variant-numeric:tabular-nums }
+.op-tl th { position:sticky; top:0; z-index:1; background:var(--op-surface); text-align:left; font-weight:600; color:var(--op-muted); font-size:.78rem; padding:7px 8px; border-bottom:1px solid var(--op-line) }
+.op-tl td { padding:7px 8px; border-bottom:1px solid var(--op-line); vertical-align:top }
+.op-tl td small, .op-tl td .small { display:block; color:var(--op-muted); font-size:.76rem; line-height:1.35 }
+.op-tl tr[hidden] { display:none }
+.op-tl .op-badge { white-space:nowrap }
+.op-tl .op-a-assessed { background:var(--op-k2-bg); color:var(--op-teal) }
+.op-tl .op-a-measured { background:var(--op-k3-bg); color:var(--op-k3-ink) }
+.op-tl .op-a-none { background:var(--op-chip); color:var(--op-muted) }
+.op-tl .op-new { margin-left:6px; background:var(--op-callout); color:var(--op-teal); font-size:.7rem }
+.op-tl button.op-tl-go { border:0; background:none; padding:0; color:var(--op-teal); font:inherit; font-size:.76rem; text-decoration:underline; cursor:pointer }
+
 /* Workloads */
 .op-wl-pick { margin:10px 0 6px; font-size:.84rem; color:var(--op-muted) }
-.op-wl-pick select { max-width:100%; margin-left:6px; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
+.op-wl-pick label { display:flex; flex-wrap:wrap; align-items:center; gap:4px 6px; max-width:100% }
+.op-wl-pick select { max-width:100%; min-width:0; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
 .op-acc td small, .op-acc td .small { display:block; color:var(--op-muted); font-size:.76rem }
 
 /* Selected chip */
@@ -175,6 +200,7 @@ main.content .op-cat .page-columns > *, main.content .op-cat.page-columns > * { 
 }
 @media (max-width: 560px) {
   .op-toggle button { padding:6px 22px }
+  .op-tl th:nth-child(5), .op-tl td:nth-child(5) { display:none }
   .op-subnav a { padding:4px 10px }
   .op-pick-head label { margin-left:0; flex-wrap:wrap; max-width:100% }
   .op-preds { font-size:.8rem }
@@ -282,6 +308,142 @@ def icon(name, cls=""):
 def raw(html):
     """Emit HTML as a raw block so pandoc does not re-parse it as markdown."""
     print(f"\n```{{=html}}\n{html}\n```\n")
+
+TRACKED = (cat_meta.get("tracked") or {}) if not cat.empty else {}
+HIST, HIST_META = site.load("tech-value", "coverage_history")
+SRC_DATES = {src.get("id"): src.get("retrieved_at") for src in cat_meta.get("sources") or []}
+
+
+def tracked(kind):
+    """Products on Value ranking or Fair price: the retail-tracked list, refreshed every update."""
+    if cat.empty or "tracked" not in cat.columns:
+        return cat.iloc[0:0]
+    return cat[(cat["kind"] == kind) & cat["tracked"].astype(bool)]
+
+
+def headline():
+    """Overlap as the headline: how many retail-tracked products the models assess."""
+    html = ""
+    for kind in ("cpu", "gpu"):
+        t = tracked(kind)
+        if t.empty:
+            continue
+        n, a = len(t), int((t["assessment"] == tvcat.ASSESSED).sum())
+        m = int((t["assessment"] == tvcat.MEASURED_ONLY).sum())
+        none = int((t["assessment"] == tvcat.NO_MEASUREMENT).sum())
+        others = int(DATA[kind].shape[0] - a) if not DATA[kind].empty else 0
+        trend = ""
+        if not HIST.empty:
+            h = HIST[HIST["kind"] == kind].sort_values("date")
+            last = str(h["date"].iloc[-1]) if len(h) else None
+            if last:
+                cutoff = (pd.Timestamp(last) - pd.Timedelta(days=7)).strftime("%Y-%m-%d")
+                before = h[h["date"] <= cutoff]
+                if len(before):
+                    b = before.iloc[-1]
+                    trend = f" A week earlier ({b['date']}): {int(b['assessed'])}/{int(b['tracked'])}."
+                else:
+                    trend = f" Coverage is recorded at every update from {h['date'].iloc[0]} on."
+        html += (f'<div class="op-head" data-kind="{kind}"><strong>{a}/{n}</strong>'
+                 f'<span class="op-head-label">tracked {NOUN[kind]} assessed</span>'
+                 f'<span class="op-head-sub">Tracked means on Value ranking or Fair price today; the list follows '
+                 f'every price update. {m} more {"has" if m == 1 else "have"} a SPEC measurement below the ranking '
+                 f'threshold and {none} {"has" if none == 1 else "have"} none yet. The models also rank {others} '
+                 f'{NOUN[kind]} from SPEC hardware that no tracked retailer sells.{trend}</span></div>')
+    return html
+
+
+A_CLASS = {tvcat.ASSESSED: "op-a-assessed", tvcat.MEASURED_ONLY: "op-a-measured", tvcat.NO_MEASUREMENT: "op-a-none"}
+A_CODE = {tvcat.ASSESSED: "assessed", tvcat.MEASURED_ONLY: "measured", tvcat.NO_MEASUREMENT: "none"}
+A_ORDER = {tvcat.ASSESSED: 0, tvcat.MEASURED_ONLY: 1, tvcat.NO_MEASUREMENT: 2}
+
+
+def _fmt(v, digits=1):
+    if v is None or pd.isna(v):
+        return ""
+    return f"{v:,.{digits}f}" if abs(v) < 100 else f"{v:,.0f}"
+
+
+def tracked_list(kind):
+    """The page's main product list: every tracked product, then other SPEC-measured hardware."""
+    head(f"Every tracked {ONE[kind]}",
+         f"All {NOUN[kind]} on Value ranking or Fair price, then every other {ONE[kind]} SPEC measured. "
+         "A measurement is shown even from one disclosure; whether the models can assess it is a separate column. "
+         "Products not assessed form the audit queue, each with the reason and where a result could come from.")
+    if cat.empty or "assessment" not in cat.columns:
+        raw(site.empty_state(cat_meta, "Hardware catalogue"))
+        return
+    c = cat[cat["kind"] == kind]
+    extra = c[~c["tracked"].astype(bool) & (c["assessment"] != tvcat.NO_MEASUREMENT)]
+    t = tracked(kind)
+    first_day = None if HIST.empty else str(HIST["date"].min())
+    gen_day = str(cat_meta.get("generated_at") or "")[:10]
+    rows = []
+    for grp, part in (("t", t), ("x", extra)):
+        part = part.assign(_o=part["assessment"].map(A_ORDER)).sort_values(["_o", "name"])
+        for r in part.itertuples():
+            sub = []
+            if pd.notna(r.price_usd):
+                sub.append(f"${r.price_usd:,.0f}" + (f" on {r.price_date}" if r.price_date else ""))
+            if pd.notna(r.value_rank):
+                sub.append(f"value #{int(r.value_rank)} of {int(r.value_n)}")
+            if pd.notna(r.blender_score):
+                runs = getattr(r, "blender_runs", None)
+                sub.append(f"Blender {r.blender_score:,.0f}" + (f" ({int(runs):,} runs)" if runs is not None and pd.notna(runs) else ""))
+            if grp == "x":
+                sub.append("not sold by a tracked retailer")
+            new = ""
+            ft = getattr(r, "first_tracked", None)
+            if grp == "t" and ft and first_day and ft > first_day and gen_day and \
+                    (pd.Timestamp(gen_day) - pd.Timestamp(ft)).days <= 7:
+                new = f'<span class="op-badge op-new" title="First tracked {ft}">New</span>'
+            if pd.notna(r.measured_value):
+                meas = f"{_fmt(r.measured_value)}<small>{escape(str(r.measured_metric))}</small>"
+                if r.measured_groups and r.measured_groups > 1 and r.assessment != tvcat.ASSESSED:
+                    meas = meas[:-8] + f"; results in {int(r.measured_groups)} suite groups</small>"
+            else:
+                meas = "—"
+            n = int(r.measured_n or 0)
+            ev = (f"{n} result{'s' if n != 1 else ''} · {int(r.spec_oems)} OEM{'s' if int(r.spec_oems) != 1 else ''}"
+                  if n else "0 results")
+            if r.assessment == tvcat.ASSESSED:
+                verdict = r.consensus_verdict or "Near prediction"
+                detail = f"{escape(verdict)} · {r.residual_pct:+.1f}% vs OLS"
+                if r.coverage_status == tvcat.LIMITED:
+                    detail += " · limited evidence"
+                detail += f' <button type="button" class="op-tl-go" data-name="{escape(r.name)}">Inspect</button>'
+            else:
+                detail = escape(r.reason or "")
+            nxt = escape(r.next_source or "") or "—"
+            q = escape(f"{r.name} {r.model_key}".lower())
+            rows.append(
+                f'<tr data-g="{grp}" data-a="{A_CODE[r.assessment]}" data-q="{q}"{"" if grp == "t" else " hidden"}>'
+                f'<td>{escape(r.name)}{new}<small>{" · ".join(escape(x) for x in sub) or "&nbsp;"}</small></td>'
+                f'<td>{meas}</td><td>{ev}</td>'
+                f'<td><span class="op-badge {A_CLASS[r.assessment]}">{escape(r.assessment)}</span><small>{detail}</small></td>'
+                f'<td><small>{nxt}</small></td></tr>')
+    n_t, n_x = len(t), len(extra)
+    raw(f"""<div class="op-tl-box" data-kind="{kind}">
+<div class="op-tl-bar">
+<div class="op-seg" role="group" aria-label="Which products">
+<button type="button" data-g="t" aria-pressed="true">Tracked ({n_t})</button>
+<button type="button" data-g="x" aria-pressed="false">Other SPEC hardware ({n_x})</button>
+<button type="button" data-g="all" aria-pressed="false">All ({n_t + n_x})</button></div>
+<select data-tl="a" aria-label="Model assessment">
+<option value="">Any assessment</option><option value="assessed">Assessed</option>
+<option value="queue">Audit queue (not assessed)</option><option value="measured">Measured, not assessed</option>
+<option value="none">No measurement</option></select>
+<input type="search" data-tl="q" placeholder="Search {NOUN[kind]}" aria-label="Search {NOUN[kind]}">
+<span class="op-tl-count" aria-live="polite"></span>
+</div>
+<div class="op-tl-wrap"><table class="op-tl"><thead><tr><th>Product</th><th>SPEC measurement</th><th>Evidence</th>
+<th>Model assessment</th><th>Where a result could come from</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>
+<p class="op-foot">Assessed: ranked by the three models below, which need at least {cpu_meta.get("min_results", 3) if kind == "cpu" else gpu_meta.get("min_results", 2)} results.
+Measured, not assessed: a published SPEC result exists but is below that threshold or only in suites that cannot be combined.
+{"CPU measurements are the median SPECrate 2017 Int base per socket." if kind == "cpu" else "GPU measurements below the threshold are published composites, named with their suite, OS and resolution; they compare only with results from that same group (see Results by workload)."}
+Blender scores come from Blender Open Data, a separate benchmark the models do not use. SPEC collected {day(SRC_DATES.get("spec_cpu2017" if kind == "cpu" else "spec_gwpg"))}.</p>
+</div>""")
+
 ```
 
 ```{python}
@@ -323,20 +485,7 @@ for kind in ("cpu", "gpu"):
     body = "".join(f'<div class="op-kpi"><strong>{n:,}</strong><span>{label}</span></div>' for n, label in cards)
     html += f'<div class="op-kpis" data-kind="{kind}">{body}</div>'
 html += '<p class="op-note">Agreement between models marks chips worth a closer look. It does not say why a chip differs.</p>'
-for kind in ("cpu", "gpu"):
-    if cat.empty:
-        break
-    c = cat[cat["kind"] == kind]
-    counts = c["coverage_status"].value_counts()
-    parts = " · ".join(f"{n:,} {s.lower()}" for s, n in counts.items())
-    on_pages = c[c["on_value_ranking"] | c["on_fair_price"]]
-    measured_there = int((on_pages["coverage_status"] == "Measured").sum())
-    none_there = int((on_pages["coverage_status"] == "Results not found").sum())
-    html += (f'<p class="op-note" data-kind="{kind}"><b>Coverage of {len(c):,} {NOUN[kind]} in the catalogue:</b> {parts}. '
-             f'Of the {len(on_pages)} {NOUN[kind]} on Value ranking or Fair price, {measured_there} are measured here '
-             f'and {none_there} have no SPEC result, which is common for consumer parts. '
-             'See "Coverage of every product" below for each product and the reason.</p>')
-raw(html)
+raw(headline() + html)
 ```
 
 ```{python}
@@ -779,6 +928,13 @@ for kind in ("cpu", "gpu"):
 ::::::: {.op-cat data-kind="cpu"}
 
 :::::: {.op-card}
+```{python}
+#| output: asis
+tracked_list("cpu")
+```
+::::::
+
+:::::: {.op-card}
 
 ```{python}
 #| output: asis
@@ -898,6 +1054,13 @@ raw('<p class="op-foot">Errors by vendor, family and generation are under Explor
 :::::::
 
 ::::::: {.op-cat data-kind="gpu"}
+
+:::::: {.op-card}
+```{python}
+#| output: asis
+tracked_list("gpu")
+```
+::::::
 
 :::::: {.op-card}
 
@@ -1523,6 +1686,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const card = sel.closest(".op-card");
     card.querySelectorAll(".op-wl").forEach(d => { d.hidden = d.dataset.wl !== sel.value; });
   }));
+
+  // Every tracked product: which group, assessment filter and search.
+  document.querySelectorAll(".op-tl-box").forEach(box => {
+    const rows = [...box.querySelectorAll("tbody tr")];
+    const sel = box.querySelector('[data-tl="a"]');
+    const q = box.querySelector('[data-tl="q"]');
+    const count = box.querySelector(".op-tl-count");
+    const noun = box.dataset.kind === "cpu" ? "CPUs" : "GPUs";
+    let grp = "t";
+    const apply = () => {
+      const a = sel.value, text = q.value.trim().toLowerCase();
+      let shown = 0, inGroup = 0;
+      rows.forEach(r => {
+        const g = grp === "all" || r.dataset.g === grp;
+        if (g) inGroup++;
+        const okA = !a || (a === "queue" ? r.dataset.a !== "assessed" : r.dataset.a === a);
+        const ok = g && okA && (!text || r.dataset.q.includes(text));
+        r.hidden = !ok;
+        if (ok) shown++;
+      });
+      count.textContent = `Showing ${shown} of ${inGroup} ${noun}`;
+    };
+    box.querySelectorAll("button[data-g]").forEach(b => b.addEventListener("click", () => {
+      grp = b.dataset.g;
+      box.querySelectorAll("button[data-g]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      apply();
+    }));
+    sel.addEventListener("change", apply);
+    q.addEventListener("input", apply);
+    box.addEventListener("click", e => {
+      const go = e.target.closest(".op-tl-go");
+      if (!go) return;
+      const pick = box.closest(".op-cat")?.querySelector(".op-pick select");
+      if (!pick || ![...pick.options].some(o => o.text === go.dataset.name)) return;
+      pick.value = go.dataset.name;
+      pick.dispatchEvent(new Event("change"));
+      pick.closest(".op-pick").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    apply();
+  });
 
   // Two-product comparison from the shared catalogue.
   const usd = v => "$" + Math.round(v).toLocaleString("en-US");

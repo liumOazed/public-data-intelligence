@@ -1,0 +1,64 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "coverage_history",
+  "description": "Tracked CPUs and GPUs (those on Value ranking or Fair price) per update, with how many the over- and under-performer models assess, how many have a SPEC measurement that is not assessed, and how many have none.",
+  "generated_at": "2026-11-20T04:18:18+00:00",
+  "rows": 2,
+  "columns": [
+   "date",
+   "kind",
+   "tracked",
+   "assessed",
+   "measured_only",
+   "no_measurement",
+   "catalogue"
+  ],
+  "sources": [
+   {
+    "id": "spec_cpu2017",
+    "name": "SPEC CPU 2017 published results",
+    "url": "https://www.spec.org/cpu2017/results/",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
+    "frequency": "weekly collection; SPEC publishes new results about every two weeks",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": "2026-11-16T13:58:45+00:00"
+   },
+   {
+    "id": "spec_gwpg",
+    "name": "SPEC Graphics and Workstation Performance Group (GWPG) published results",
+    "url": "https://gwpg.spec.org/",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC, SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are compared only within the same benchmark release and resolution, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
+    "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": "2026-11-19T09:52:43+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [],
+  "finding": {
+   "label": "observation",
+   "reason": "Coverage of tracked products over time."
+  }
+ },
+ "data": [
+  {
+   "date": "2026-11-20",
+   "kind": "cpu",
+   "tracked": 76,
+   "assessed": 0,
+   "measured_only": 2,
+   "no_measurement": 74,
+   "catalogue": 856
+  },
+  {
+   "date": "2026-11-20",
+   "kind": "gpu",
+   "tracked": 58,
+   "assessed": 11,
+   "measured_only": 0,
+   "no_measurement": 47,
+   "catalogue": 158
+  }
+ ]
+}
