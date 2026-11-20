@@ -4,6 +4,7 @@ project:
   # The data contract is published as-is so anyone can check a number against its file.
   resources:
     - "data/v1/**"
+    - "assets/**"
 
 website:
   title: "Public Data Intelligence"
@@ -11,11 +12,17 @@ website:
   repo-url: https://github.com/liumOazed/public-data-intelligence
   repo-actions: [source]
   navbar:
-    left:
+    logo: assets/logo.svg
+    logo-alt: "Public Data Intelligence"
+    title: "Public Data Intelligence"
+    right:
       - text: "This week"
         href: unusual.qmd
-      - text: "Tech Value"
+      - text: "Monthly brief"
+        href: briefs/index.qmd
+      - text: "Research"
         menu:
+          - text: "Tech Value"
           - text: "Value ranking"
             href: tech-value/index.qmd
           - text: "Fair price"
@@ -24,8 +31,8 @@ website:
             href: tech-value/residuals.qmd
           - text: "Model and leaderboard"
             href: tech-value/model.qmd
-      - text: "Macro Monitor"
-        menu:
+          - text: "---"
+          - text: "Macro Monitor"
           - text: "What moved unusually"
             href: macro/index.qmd
           - text: "24-month backtest"
@@ -34,36 +41,42 @@ website:
             href: macro/series.qmd
           - text: "Forecast test"
             href: macro/model.qmd
-      - text: "Trade"
-        menu:
+          - text: "---"
+          - text: "Trade & Supply Chain"
           - text: "Who supplies the United States"
             href: trade/index.qmd
           - text: "Lead-time test"
             href: trade/lead.qmd
-      - text: "Energy Demand"
-        href: energy/index.qmd
-      - text: "Federal Procurement"
-        menu:
+          - text: "---"
+          - text: "Energy Demand"
+          - text: "Electricity demand"
+            href: energy/index.qmd
+          - text: "---"
+          - text: "Federal Procurement"
           - text: "Computer hardware by month"
             href: procurement/index.qmd
           - text: "Suppliers and competition"
             href: procurement/suppliers.qmd
           - text: "Promised against paid"
             href: procurement/paid.qmd
-      - text: "Monthly brief"
-        href: briefs/index.qmd
-      - text: "Decisions"
-        href: decisions.qmd
+      - text: "Methodology"
+        href: methodology.qmd
+  page-footer:
+    background: "#0f1e33"
+    foreground: "#e9f1f8"
+    left: |
+      <div class="pdi-foot-title">How the research is built</div>
+      <div class="pdi-foot-sub">Public sources · Scheduled updates · Evidence with every finding</div>
+      <div class="pdi-foot-note">Research output, not advice. Every number is rebuilt from public sources by a scheduled job.</div>
+    right:
       - text: "Methodology"
         href: methodology.qmd
       - text: "Sources"
         href: sources.qmd
+      - text: "Decisions"
+        href: decisions.qmd
       - text: "Failures log"
         href: failures.qmd
-  page-footer:
-    center: >-
-      Research output, not advice. Every number is rebuilt from public sources by a scheduled
-      job; see Methodology.
 
 format:
   html:
