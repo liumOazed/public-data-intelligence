@@ -307,3 +307,114 @@ body.quarto-dark .vd-badge-warn { color: #f59167; }
 .vd-dash { width: 1.4rem; border-top: 2px dashed var(--bs-secondary-color); display: inline-block; }
 .vd-insight summary > * { display: inline; }
 
+
+/* Tech Value frame, shared by Value ranking, Fair price and Over & under performers
+   (pages that set `body-classes: tv-page`): one content width, one page navigation, one hero
+   and one style for every switch and segmented control. */
+body.tv-page {
+  --tv-ink: #14233a;
+  --tv-muted: #4d5d70;
+  --tv-line: #dbe3ea;
+  --tv-surface: #ffffff;
+  --tv-chip: #eef2f6;
+  --tv-teal: #0f8f6c;
+  --tv-accent: #3fd4a0;
+  --tv-on-bg: #14233a;
+  --tv-on-ink: #ffffff;
+  --tv-font: "Century Gothic", CenturyGothic, "URW Gothic", "URW Gothic L", AppleGothic, "Questrial", system-ui, sans-serif;
+}
+body.tv-page.quarto-dark {
+  --tv-ink: #e8eef5;
+  --tv-muted: #a9b6c5;
+  --tv-line: #33414f;
+  --tv-surface: #1b2530;
+  --tv-chip: #253241;
+  --tv-teal: #3fd4a0;
+  --tv-on-bg: #e8eef5;
+  --tv-on-ink: #0f1e33;
+}
+body.tv-page main.content {
+  max-width: 1200px;
+  width: 100%;
+  margin-inline: auto;
+  font-family: var(--tv-font);
+}
+body.tv-page main.content :is(h1, h2, h3, h4) { font-family: inherit; }
+body.tv-page #title-block-header { display: none; }
+
+.tv-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 0; margin: 4px 0 12px; font-size: 0.95rem; }
+.tv-nav a { padding: 4px 18px; color: var(--tv-ink); text-decoration: none; border-left: 1px solid var(--tv-line); }
+.tv-nav a:first-child { border-left: 0; }
+.tv-nav a:hover { color: var(--tv-teal); }
+.tv-nav a[aria-current="page"] {
+  font-weight: 700;
+  color: var(--tv-teal);
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 8px;
+}
+
+.tv-hero {
+  border-radius: 14px;
+  padding: clamp(16px, 2.6vw, 24px) clamp(16px, 3vw, 28px);
+  margin-bottom: 4px;
+  color: #e9f1f8;
+  background: radial-gradient(ellipse at 85% 20%, rgba(63, 212, 160, 0.14), transparent 55%),
+    linear-gradient(120deg, #0f1e33, #12324a 55%, #0f2436);
+}
+.tv-hero .tv-kicker { color: var(--tv-accent); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; }
+.tv-hero h1 {
+  margin: 0.2rem 0 0.4rem;
+  padding: 0;
+  border: 0;
+  color: #fff;
+  font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.tv-hero p { color: #d2deea; line-height: 1.5; max-width: 84ch; font-size: 0.95rem; margin: 0; }
+.tv-hero a { color: #a8f0d2; }
+.tv-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 14px; }
+.tv-controls + .tv-controls { margin-top: 8px; }
+.tv-hero-meta { margin-top: 12px; color: #c9d5e2; font-size: 0.84rem; line-height: 1.5; }
+.tv-hero-meta > span { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; }
+
+/* The switch inside the hero (CPU / GPU, benchmark). */
+.tv-switch { display: inline-flex; flex-wrap: wrap; padding: 3px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(0, 0, 0, 0.18); }
+.tv-switch button {
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 28px;
+  background: transparent;
+  color: #e9f1f8;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.tv-switch button[aria-pressed="true"] { background: #d3f5e5; color: #0b2f35; }
+.tv-switch-wide { border-radius: 14px; }
+.tv-switch-wide button { border-radius: 11px; padding: 6px 20px; text-align: left; line-height: 1.25; }
+.tv-switch-wide button small { display: block; font-weight: 400; font-size: 0.78rem; opacity: 0.85; }
+
+/* Segmented controls inside the page. */
+.tv-seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 3px; border-radius: 9px; background: var(--tv-chip); margin: 8px 0 2px; }
+.tv-seg button {
+  border: 0;
+  border-radius: 7px;
+  padding: 5px 14px;
+  background: transparent;
+  color: var(--tv-ink);
+  font: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+.tv-seg button small { font-size: 0.76rem; opacity: 0.8; }
+.tv-seg button[aria-pressed="true"] { background: var(--tv-on-bg); color: var(--tv-on-ink); font-weight: 700; }
+body.tv-page .vd-seg button[aria-pressed="true"] { background: var(--tv-on-bg); color: var(--tv-on-ink); }
+
+@media (max-width: 560px) {
+  .tv-nav a { padding: 4px 10px; }
+  .tv-switch button { padding: 6px 20px; }
+  .tv-switch-wide { width: 100%; }
+  .tv-switch-wide button { flex: 1 1 0; padding: 6px 12px; }
+}

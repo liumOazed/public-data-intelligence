@@ -50,8 +50,15 @@
     return u ? u.kind : null;
   }
 
+  // On the performers page the link opens the benchmark that assesses the product, Blender first.
   function href(page, kind, key) {
-    return page + "?pick=" + encodeURIComponent(kind + ":" + key) + (kind === "gpu" && page === "residuals.html" ? "#gpu" : "");
+    let hash = "";
+    if (page === "residuals.html") {
+      const r = find(kind, key);
+      const spec = r && !r.on_blender_residuals && r.on_residuals;
+      hash = [kind === "gpu" ? "gpu" : "", spec ? "spec" : ""].filter(Boolean).join("-");
+    }
+    return page + "?pick=" + encodeURIComponent(kind + ":" + key) + (hash ? "#" + hash : "");
   }
 
   // Record a pick the reader made. Call only on a reader's action, never on a page default.
@@ -91,32 +98,47 @@
     return (rows || []).find((r) => r.kind === kind && r.model_key === key) || null;
   }
 
-  function verdictText(r) {
-    if (!r.on_residuals) return "Not ranked · " + (r.reason || r.coverage_status);
-    return (r.consensus_verdict || "Near prediction") + " (" + pct(r.residual_pct) + " vs OLS)";
+  // What each benchmark says about a product, named by benchmark. Blender rendering and SPEC
+  // workloads are separate models, so a product can be assessed by one, both or neither.
+  function blenderText(r) {
+    if (r.on_blender_residuals) {
+      return (r.blender_verdict || "Near prediction") + " (" + pct(r.blender_residual_pct) + " vs OLS)";
+    }
+    return "Not assessed" + (r.blender_reason ? " · " + r.blender_reason : "");
+  }
+
+  function specText(r) {
+    if (r.on_residuals) return (r.consensus_verdict || "Near prediction") + " (" + pct(r.residual_pct) + " vs OLS)";
+    return "Not assessed · " + (r.coverage_status || "No result") + (r.reason ? " (" + r.reason + ")" : "");
+  }
+
+  function assessedBadge(r) {
+    const by = [r.on_blender_residuals ? "Blender" : "", r.on_residuals ? "SPEC" : ""].filter(Boolean);
+    return by.length ? "Assessed by " + by.join(" and ") : r.assessment || "Not assessed";
   }
 
   function panelHtml(kind, r) {
     const here = (root.location.pathname.split("/").pop() || "index.html").replace(/^$/, "index.html");
     const value = r.on_value_ranking && r.value_rank
-      ? "#" + r.value_rank + " of " + r.value_n + " · " + r.score_per_dollar.toFixed(2) + " Blender pts/$ at " + usd(r.price_usd) + (r.price_date ? " (" + esc(r.price_date) + ")" : "")
+      ? esc("#" + r.value_rank + " of " + r.value_n + " · " + r.score_per_dollar.toFixed(2) + " Blender pts/$ at " + usd(r.price_usd) + (r.price_date ? " (" + r.price_date + ")" : ""))
       : "Not on the ranking (no Blender score with a current price)";
     const fair = r.fair_price_usd != null
-      ? usd(r.fair_price_usd) + " estimated · listing " + pct(r.fair_gap_pct) + " vs estimate"
+      ? esc(usd(r.fair_price_usd) + " estimated · listing " + pct(r.fair_gap_pct) + " vs estimate")
       : "No fair-price estimate";
+    const perf = "<b>Blender rendering:</b> " + esc(blenderText(r)) + "<br><b>SPEC workloads:</b> " + esc(specText(r));
     const cells = [
       ["Value ranking", value, PAGES[0][0]],
       ["Fair price", fair, PAGES[1][0]],
-      ["Over & under performers", verdictText(r), PAGES[2][0]],
+      ["Over & under performers", perf, PAGES[2][0]],
     ]
-      .map(([label, text, page]) => {
+      .map(([label, html, page]) => {
         const name = page === here ? "<b>" + label + "</b> (this page)" : '<a href="' + esc(href(page, kind, r.model_key)) + '">' + label + "</a>";
-        return "<div><span>" + name + "</span><span>" + esc(text) + "</span></div>";
+        return "<div><span>" + name + "</span><span>" + html + "</span></div>";
       })
       .join("");
     return (
       '<div class="tvp-head"><span class="tvp-kicker">Selected across Tech Value</span><b>' + esc(r.name) + "</b>" +
-      '<span class="tvp-badge">' + esc(r.coverage_status) + "</span></div>" +
+      '<span class="tvp-badge">' + esc(assessedBadge(r)) + "</span></div>" +
       '<div class="tvp-grid">' + cells + "</div>"
     );
   }
@@ -140,7 +162,8 @@
     ".tvp-badge{padding:.05em .6em;border-radius:999px;border:1px solid rgba(128,140,155,.45);font-size:.78rem}" +
     ".tvp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 18px}" +
     ".tvp-grid div{display:flex;flex-direction:column;min-width:0}" +
-    ".tvp-grid div span:last-child{opacity:.8;overflow-wrap:anywhere}" +
+    ".tvp-grid div span:last-child{opacity:.85;overflow-wrap:anywhere}" +
+    ".tvp-grid b{font-weight:600}" +
     "@media (max-width:700px){.tvp-grid{grid-template-columns:minmax(0,1fr)}}";
   if (typeof document !== "undefined" && !document.getElementById("tvp-style")) {
     const st = document.createElement("style");
