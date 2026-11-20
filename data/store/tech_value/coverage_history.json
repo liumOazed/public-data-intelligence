@@ -5,18 +5,18 @@
    "kind": "cpu",
    "tracked": 76,
    "assessed": 0,
-   "measured_only": 2,
-   "no_measurement": 74,
-   "catalogue": 856
+   "measured_only": 7,
+   "no_measurement": 69,
+   "catalogue": 874
   },
   {
    "date": "2026-11-20",
    "kind": "gpu",
    "tracked": 58,
-   "assessed": 11,
-   "measured_only": 0,
-   "no_measurement": 47,
-   "catalogue": 158
+   "assessed": 13,
+   "measured_only": 1,
+   "no_measurement": 44,
+   "catalogue": 192
   }
  ],
  "first_seen": {

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from datetime import date
 from pathlib import Path
 from urllib.parse import urljoin
@@ -201,6 +202,10 @@ _MORE_GPU_SPECS: dict[str, tuple[int, int, float, int, float, str, int, int]] = 
     "AMD Radeon RX 5700 XT": (2560, 1905, 8.0, 256, 448.0, "RDNA 1", 2019, 0),
     "AMD Radeon RX 5600 XT": (2304, 1560, 6.0, 192, 288.0, "RDNA 1", 2020, 0),
     "AMD Radeon RX 5500 XT": (1408, 1845, 8.0, 128, 224.0, "RDNA 1", 2019, 0),
+    # AMD Radeon PRO RDNA 3 workstation cards (SPECapc Solidworks 2024/2025, SPECworkstation 4.0)
+    "AMD Radeon PRO W7700": (3072, 2600, 16.0, 256, 576.0, "RDNA 3", 2023, 0),
+    "AMD Radeon PRO W7600": (2048, 2440, 8.0, 128, 288.0, "RDNA 3", 2023, 0),
+    "AMD Radeon PRO W7500": (1792, 1700, 8.0, 128, 172.8, "RDNA 3", 2023, 0),
     # Intel Arc Battlemage / Alchemist
     "Intel Arc B580": (2560, 2670, 12.0, 192, 456.0, "Battlemage", 2024, 0),
     "Intel Arc B570": (2304, 2500, 10.0, 160, 380.0, "Battlemage", 2025, 0),
@@ -243,6 +248,10 @@ _CANON_REMAP: dict[str, str] = {
     "NVIDIA Quadro K50001": "NVIDIA Quadro K5000",
     "NVIDIA Quadro K22001": "NVIDIA Quadro K2200",
     "NVIDIA Quadro M50001": "NVIDIA Quadro M5000",
+    # Laptop-only Ada parts: the specification table keys them without "Laptop".
+    "NVIDIA RTX 3500 Ada Laptop": "NVIDIA RTX 3500 Ada",
+    "NVIDIA RTX 3000 Ada Laptop": "NVIDIA RTX 3000 Ada",
+    "NVIDIA RTX 1000 Ada Laptop": "NVIDIA RTX 1000 Ada",
 }
 
 
@@ -284,11 +293,13 @@ def _slug(suite: str) -> str:
 
 
 def collect(today: date | None = None) -> Path:
-    """Fetch all 15 official SPEC GWPG summary HTML tables into data/raw/tech_value/gwpg/."""
+    """Fetch every official SPEC GWPG summary HTML tables into data/raw/tech_value/gwpg/."""
     today = today or date.today()
     bundle: dict[str, dict[str, str]] = {}
     raw_dir = config.RAW_DIR / "gwpg"
-    for suite, url in config.GWPG_ENDPOINTS.items():
+    for i, (suite, url) in enumerate(config.GWPG_ENDPOINTS.items()):
+        if i:
+            time.sleep(config.SPEC_PAUSE_S)
         slug = _slug(suite)
         dest = raw_dir / f"{today.isoformat()}_{slug}.html"
         fetch(url, dest, timeout=120)
@@ -300,6 +311,57 @@ def collect(today: date | None = None) -> Path:
     manifest = raw_dir / f"{today.isoformat()}_gwpg_bundle.json"
     manifest.write_text(json.dumps(bundle), encoding="utf-8")
     return manifest
+
+
+def _sub_headers(trs, header_idx: int) -> list[str] | None:
+    """Expand a two-row header where grouped cells (colspan) have their own sub-headers.
+
+    SPECviewperf 15 Linux writes "CPU", "Graphics Device(s)" and "O/S" over two columns each,
+    with "Processor / Architecture", "Rendering GPU / Other GPU" and "Distribution / Display
+    Server" in the next row. The expanded names are "Graphics Device(s): Rendering GPU" etc.
+    """
+    if header_idx + 1 >= len(trs):
+        return None
+    top = trs[header_idx].find_all(["th", "td"])
+    nxt = trs[header_idx + 1].find_all(["th", "td"])
+    grouped = [c for c in top if int(c.get("colspan", 1) or 1) > 1]
+    if not grouped or not nxt or any(c.name != "th" for c in nxt):
+        return None
+    if len(nxt) != sum(int(c.get("colspan", 1) or 1) for c in grouped):
+        return None
+    subs = iter(c.get_text(" ", strip=True) for c in nxt)
+    out = []
+    for c in top:
+        name = c.get_text(" ", strip=True)
+        n = int(c.get("colspan", 1) or 1)
+        out.extend([name] if n == 1 else [f"{name}: {next(subs)}" for _ in range(n)])
+    return out
+
+
+def _metric_columns(headers: list[str]) -> set[str]:
+    """Columns that hold the GPU measurement, when a page says which one it is.
+
+    SPECworkstation reports industry-vertical scores (mostly CPU-bound) and one score per
+    hardware subsystem. Its "Graphics" subsystem score is the GPU measurement; the other
+    columns are not. Other suites return an empty set: every workload column the parser does
+    not exclude (CPU composites, dates, memory and so on) is used.
+    """
+    if {"CPU Model", "Graphics Device", "Graphics"} <= set(headers):
+        return {"Graphics"}
+    # SPECapc for Siemens NX splits viewport (graphics) from computational (CPU) workloads.
+    viewport = {h for h in headers if h.lower().startswith("viewport")}
+    if viewport:
+        return viewport
+    return set()
+
+
+def _metric_label(metric_cols: set[str], used: list[str]) -> str:
+    if metric_cols == {"Graphics"}:
+        return "Graphics subsystem score"
+    if len(used) == 1:
+        return used[0]
+    prefix = "viewport " if metric_cols else ""
+    return f"Geometric mean of {len(used)} {prefix}workload scores"
 
 
 def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
@@ -328,6 +390,11 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
             "Graphic" in h or "GPU" in h or "System" in h or "Company" in h for h in headers
         ):
             continue
+        sub = _sub_headers(trs, header_idx)
+        if sub:
+            headers = sub
+            header_idx += 1
+        metric_cols = _metric_columns(headers)
         for tr in trs[header_idx + 1 :]:
             cells = tr.find_all(["td", "th"])
             if len(cells) < 5:
@@ -405,7 +472,10 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
             num_scores: list[tuple[str, float]] = []
             for k, v in row_dict.items():
                 kl = k.lower().strip()
-                if kl in (
+                if metric_cols:
+                    if k not in metric_cols:
+                        continue
+                elif kl in (
                     "system",
                     "vendor",
                     "submitter",
@@ -436,7 +506,7 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
                     "storage",
                 ):
                     continue
-                if any(
+                elif any(
                     w in kl
                     for w in (
                         "driver",
@@ -484,6 +554,16 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
             min_score = float(np.min([s[1] for s in num_scores]))
             best_workload = max(num_scores, key=lambda x: x[1])[0]
 
+            aa_raw = next(
+                (row_dict[k] for k in headers if k.lower() in ("aa", "anti-aliasing")), ""
+            )
+            measured = {
+                "metric": _metric_label(metric_cols, [k for k, _ in num_scores]),
+                "aa": aa_raw.strip(),
+                "test_date": next(
+                    (row_dict[k] for k in headers if k.lower() == "test date"), ""
+                ).strip(),
+            }
             gpu_canon = canon_gpu(gpu_raw)
             if gpu_canon not in GPU_SPECS:
                 # Kept, not dropped: the coverage table lists it as missing specifications.
@@ -500,6 +580,7 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
                         "n_viewsets": int(len(num_scores)),
                         "composite_score": geomean_score,
                         "disclosure_url": full_link,
+                        **measured,
                     }
                 )
                 continue
@@ -552,6 +633,7 @@ def parse_suite_html(suite: str, base_url: str, html: str) -> list[dict]:
                     "best_workload": best_workload,
                     "viewset_spread_ratio": max_score / max(geomean_score, 1e-6),
                     "disclosure_url": full_link,
+                    **measured,
                 }
             )
     return rows_out
@@ -1066,6 +1148,9 @@ def workload_table(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    from pdi.tech_value import workstation_cpu
+
     path = collect()
     print(f"collected {path}")
     print(f"tidy GWPG rows: {len(transform())}")
+    print(f"SPECworkstation CPU rows: {len(workstation_cpu.transform())}")

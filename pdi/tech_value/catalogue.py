@@ -54,6 +54,12 @@ NO_MEASUREMENT = "No measurement"
 CPU_METRIC = "SPECrate 2017 Int base per socket"
 GPU_RANKED_METRIC = "Calibrated SPEC GWPG score (site estimate)"
 
+# OpenBenchmarking.org answers every automated request with a Cloudflare challenge, from a
+# cloud sandbox and from a home PC alike. The collectors do nothing to get past it.
+OPENBENCHMARKING_BLOCKED = (
+    "OpenBenchmarking.org blocks automated clients (Cloudflare challenge, checked 2026-11-20)"
+)
+
 
 def key_of(kind: str, name: str) -> str:
     """The model key the other pages use, or a normalised name when they have none."""
@@ -89,6 +95,7 @@ def build(
     spec: pd.DataFrame,
     gwpg: pd.DataFrame,
     dates: dict[str, str | None],
+    ws_cpu: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     rows: dict[tuple[str, str], dict] = {}
 
@@ -123,6 +130,9 @@ def build(
                 "measured_metric": None,
                 "measured_n": 0,
                 "measured_groups": 0,
+                "ws_cpu_results": 0,
+                "ws_cpu_score": None,
+                "ws_cpu_metric": None,
             },
         )
         # Prefer a SPEC or retail display name over a bare model key.
@@ -183,6 +193,23 @@ def build(
                 r["measured_metric"] = CPU_METRIC
                 r["measured_n"] = r["spec_results"]
                 r["measured_groups"] = 1
+    # SPECworkstation CPU subsystem scores: a second, separate CPU measurement. It fills
+    # measured_value only where SPEC CPU 2017 has none, and is never used by the CPU models.
+    if ws_cpu is not None and not ws_cpu.empty:
+        single = (
+            ws_cpu[~ws_cpu["multi_socket"].astype(bool)] if "multi_socket" in ws_cpu else ws_cpu
+        )
+        for key, part in single.groupby(single["processor"].map(lambda p: key_of("cpu", p))):
+            m = _ws_measurement(part)
+            if m is None:
+                continue
+            r = row("cpu", key, str(part["processor"].iloc[0]))
+            # Results in the version the score comes from; measured_n counts every version.
+            r["ws_cpu_results"] = int((part["suite"] == m[4]).sum())
+            r["ws_cpu_score"], r["ws_cpu_metric"] = m[0], m[1]
+            if not r["measured_n"]:
+                r["measured_value"], r["measured_metric"], r["measured_n"] = m[0], m[1], m[2]
+                r["measured_groups"] = m[3]
     for c in cpu_rank.itertuples():
         r = row("cpu", key_of("cpu", c.processor), c.processor)
         r["on_residuals"] = True
@@ -280,9 +307,18 @@ def _status(r: dict) -> tuple[str, str]:
         return PARSE_FAIL, "Parsing failure"
     if r["kind"] == "gpu" and not _is_workstation(r):
         # SPEC GWPG results are workstation submissions; consumer cards are rarely submitted.
-        return NOT_FOUND, "Unsupported source (consumer card, SPEC GWPG is workstation-only)"
+        return NOT_FOUND, (
+            "Unsupported source (consumer card: SPEC GWPG is workstation-only, and "
+            "OpenBenchmarking.org blocks automated collection)"
+        )
     if r["kind"] == "gpu":
         return NOT_FOUND, "Missing measurements (no SPEC GWPG result published for this card)"
+    if r.get("ws_cpu_results"):
+        return NOT_FOUND, (
+            f"Different benchmark only: {r['ws_cpu_results']} {r['ws_cpu_metric']} "
+            f"result{'s' if r['ws_cpu_results'] != 1 else ''}, no SPEC CPU 2017 result; the CPU "
+            "models use SPECrate 2017 Integer, so it is shown but not assessed"
+        )
     return NOT_FOUND, "Missing measurements (no SPEC CPU 2017 result published for this processor)"
 
 
@@ -295,10 +331,10 @@ def _next_source(r: dict) -> str:
     if r["on_residuals"]:
         return ""
     if r["kind"] == "cpu":
-        return "OpenBenchmarking.org (planned); SPEC CPU 2017 rechecked weekly"
+        return f"SPEC CPU 2017 and SPECworkstation rechecked weekly; {OPENBENCHMARKING_BLOCKED}"
     if _is_workstation(r):
-        return "SPEC GWPG rechecked weekly; OpenBenchmarking.org (planned)"
-    return "OpenBenchmarking.org (planned)"
+        return f"SPEC GWPG rechecked weekly; {OPENBENCHMARKING_BLOCKED}"
+    return OPENBENCHMARKING_BLOCKED
 
 
 def _gwpg_measurement(ok: pd.DataFrame) -> tuple[float, str, int, int] | None:
@@ -321,6 +357,21 @@ def _gwpg_measurement(ok: pd.DataFrame) -> tuple[float, str, int, int] | None:
     top = groups.iloc[0]
     metric = f"{top['suite']} composite · {top['os_family']} · {top['res_tier']}"
     return float(top["median"]), metric, int(len(d)), int(len(groups))
+
+
+def _ws_measurement(part: pd.DataFrame) -> tuple[float, str, int, int, str] | None:
+    """Median CPU subsystem score in the SPECworkstation version with most results.
+
+    Versions are different benchmarks, so the median is taken within one. Ties go to the newer
+    version, so the choice does not depend on the scores.
+    """
+    d = part.dropna(subset=["score"])
+    if d.empty:
+        return None
+    groups = d.groupby("suite")["score"].agg(["size", "median"]).reset_index()
+    top = groups.sort_values(["size", "suite"], ascending=[False, False]).iloc[0]
+    metric = str(d.loc[d["suite"] == top["suite"], "metric"].iloc[0])
+    return float(top["median"]), metric, int(len(d)), int(len(groups)), str(top["suite"])
 
 
 def tracked_summary(cat: pd.DataFrame) -> dict[str, dict[str, int]]:

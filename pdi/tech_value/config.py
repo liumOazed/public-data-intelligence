@@ -10,6 +10,9 @@ STORE_DIR = STORE / "tech_value"
 
 SPEC_TABLE = STORE_DIR / "spec_results.parquet"
 GWPG_TABLE = STORE_DIR / "spec_gwpg_results.parquet"
+# SPECworkstation CPU subsystem scores, parsed from the same GWPG pages (a CPU measurement that
+# is never mixed with SPEC CPU 2017).
+WS_CPU_TABLE = STORE_DIR / "spec_workstation_cpu.parquet"
 BLENDER_TABLE = STORE_DIR / "blender_devices.parquet"
 # Dated coverage counts and the first day each retail-tracked product appeared (committed).
 COVERAGE_STORE = STORE_DIR / "coverage_history.json"
@@ -27,6 +30,7 @@ SPEC_METRIC = "base_score"
 # SPEC Graphics & Workstation Performance Group (GWPG) official result summary pages.
 GWPG_ENDPOINTS = {
     "SPECviewperf 15": "https://www.spec.org/gwpg/gpc.data/viewperf15/summary.html",
+    "SPECviewperf 15 Linux": "https://www.spec.org/gwpg/gpc.data/viewperf15linux/summary.html",
     "SPECviewperf 2020 v3": "https://www.spec.org/gwpg/gpc.data/viewperf2020v3/summary.html",
     "SPECviewperf 2020 v3 Linux": "https://www.spec.org/gwpg/gpc.data/viewperf2020v3linux/summary.html",
     "SPECviewperf 2020 v2": "https://www.spec.org/gwpg/gpc.data/viewperf2020v2/summary.html",
@@ -37,12 +41,17 @@ GWPG_ENDPOINTS = {
     "SPECworkstation 4.0": "https://www.spec.org/gwpg/wpc.data/specworkstation4_summary.html",
     "SPECworkstation 3.1": "https://www.spec.org/gwpg/wpc.data/specworkstation31_summary.html",
     "SPECworkstation 3.0": "https://www.spec.org/gwpg/wpc.data/specworkstation3_summary.html",
+    "SPECapc Solidworks 2025": "https://www.spec.org/gwpg/apc.data/specapc_sw2025_summary.html",
+    "SPECapc Solidworks 2024": "https://www.spec.org/gwpg/apc.data/specapc_sw2024_summary.html",
+    "SPECapc Siemens NX 2024": "https://www.spec.org/gwpg/apc.data/specapc_nx2024_summary.html",
     "SPECapc Maya 2024": "https://www.spec.org/gwpg/apc.data/specapc_maya2024_summary.html",
     "SPECapc Solidworks 2022": "https://www.spec.org/gwpg/apc.data/specapc_sw2022_summary.html",
     "SPECapc Creo 9": "https://www.spec.org/gwpg/apc.data/specapc_creo9_summary.html",
     "SPECapc 3ds Max 2020": "https://www.spec.org/gwpg/apc.data/specapc_3dsm2020_summary.html",
 }
 GWPG_MIN_RESULTS_FOR_RANK = 2
+# spec.org's robots.txt asks for five seconds between requests.
+SPEC_PAUSE_S = 5.0
 
 BLENDER_SNAPSHOT_URL = "https://opendata.blender.org/snapshots/opendata-latest.zip"
 BLENDER_SCENES = ("monster", "junkshop", "classroom")

@@ -1,0 +1,675 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SPECapc for Siemens NX 2024 Result Report Summary</title>
+<link href="https://cdn.datatables.net/v/dt/jq-3.7.0/moment-2.29.4/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/cr-2.0.4/rr-1.5.0/sl-3.0.0/datatables.min.css" rel="stylesheet" integrity="sha384-8zwR1o5yaR5KqMfPstK35J8KI8MP+YQ50VHxa5WpyRAl1S5ZCKnNWok425mc1M78" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity="sha384-VFQrHzqBh5qiJIU0uGU5CIW3+OWpdGGJM9LBnGbuIH2mkICcFZ7lPd/AAtI7SNf7" crossorigin="anonymous"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n" crossorigin="anonymous"></script> 
+<script src="https://cdn.datatables.net/v/dt/jq-3.7.0/moment-2.29.4/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-colvis-3.2.2/b-html5-3.2.2/b-print-3.2.2/cr-2.0.4/rr-1.5.0/sl-3.0.0/datatables.min.js" integrity="sha384-yeIrYDYvE5QP9U0qMEpk0DMuhoGzbQ2DhrjUs+abQ72VluO/YY6kzsRxksJf9b1T" crossorigin="anonymous"></script>
+<style type="text/css" media="screen">
+body {
+    background-color: #efefef;
+    color: #111;
+    font-family: Roboto, Ariel, Helvetica, sans-serif;
+}
+.footer {
+    font-size: small;
+}
+div.header {
+    background-color: #07223e;
+    color: #fff;
+    width: 100%;
+    height: 200px;
+    text-align: start;
+    font-size: xx-large;
+    line-height: 200px;
+    text-align: center;
+}
+div.splash img {
+    height: 200px;
+    width: auto;
+    float: left;
+    padding-right: 1em;
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+a:visited {
+    color: #4c0077;
+}
+div.dt-buttons>.dt-button {
+    background-color: #07223e !important;
+    color: white;
+}
+table.dataTable thead>tr>th {
+    background-color: #07223e !important;
+    color: white;
+}
+table.dataTable thead>tr>th.dt-orderable-asc span.dt-column-order:before, table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order:before, table.dataTable thead>tr>td.dt-orderable-asc span.dt-column-order:before, table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order:before {
+    position: absolute;
+    display: block;
+    bottom: 50%;
+    background-color: #07223e !important;
+    color: white;
+    content: "▲";
+    content: "▲"/"";
+}
+table.dataTable thead>tr>th.dt-orderable-desc span.dt-column-order:after, table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order:after, table.dataTable thead>tr>td.dt-orderable-desc span.dt-column-order:after, table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
+    position: absolute;
+    display: block;
+    top: 50%;
+    background-color: #07223e !important;
+    color: white;
+    content: "▼";
+    content: "▼"/"";
+}
+</style>
+<script type="application/javascript">
+        $(document).ready( function () {
+        $('table.display').DataTable( {
+                        paging: false,
+                        columnDefs: [
+                      
+                ],
+                        layout: {
+                                top2Start: {
+                                        buttons: ['colvis']
+                                },
+                                top2End: {
+                                        buttons: [
+                                		{ extend: 'copy', className: 'copyButton' },
+                                                { extend: 'csv', 
+							text: 'Save as CSV',
+							exportOptions: {
+								columns: ':visible'
+							}
+						},
+                                		{ extend: 'excel', 
+							text: 'Save as Excel',
+							exportOptions: {
+								columns: ':visible'
+							}
+						},
+						{ extend: 'pdf', 
+							orientation: 'landscape', 
+							text: 'Save as PDF', 
+							exportOptions: { 
+								modifier: { 
+									page: 'current' 
+								}, 
+								columns: ':visible'
+							} 
+						}
+                        		]
+                                },
+                                topStart: 'search',
+                                topEnd: null,
+
+                        },
+                        select: true,
+                        rowReorder: true,
+                        colReorder: true,
+
+                });
+        } );
+
+        </script>
+</head>
+<body bgcolor="#fefefe" link="#0000bb" vlink="#4c0077" alink="#a4005a">
+<div align="center"> <img src="SPECapcNX2024_results.png" alt="SPECapc for Siemens NX 2024 Results Summary">
+  <p>&nbsp;</p>
+  <p align="center">Last update: 
+     
+    Thu Apr 23 09:57:04 EDT 2026 <br />
+  </p>
+  <p align="center"><strong>Larger scores indicate greater speed. <br />
+    Results are sorted by default by submitter and system name, but are user-sortable by column.</strong><br />
+  </p>
+</div>
+<p align="center"><b>Screen Resolution:</b><br>
+  | <a href="#1920">FHD</a> | <a href="#4096">4K</a> | </p>
+<a name="1920"> </a>
+<h2>FHD</h2>
+<table class="display" id="1920_results">
+  <thead>
+    <tr>
+      <th class="header">Submitter</th>
+      <th class="header">Company/Product</th>
+      <th class="header">Graphics</th>
+      <th class="header">Processor</th>
+      <th class="header">O/S</th>
+      <th class="header">AA</th>
+      <th class="header">Resolution</th>
+      <th class="header">Test Date</th>
+      <th class="header">Publication <br>
+        Date</th>
+      <th class="header">Viewport-Studio</th>
+      <th class="header">Viewport-Shaded</th>
+      <th class="header">Viewport-Wireframe</th>
+      <th class="header">Computational-LoadModel</th>
+      <th class="header">Computational-ExportModel</th>
+      <th class="header">Computational-MassPropCalcs</th>
+      <th class="header">Computational-ClosestPointCalcs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/5690-RTX5000Ada-FHD-FSAA/snx2024/results_2025-05-05-09-21-39/apcSNXResults.html">Dell Inc.<br>
+        Precision 5690</a></td>
+      <td>Intel(R) Arc(TM) Graphics<br>
+        NVIDIA RTX 5000 Ada Generation Laptop GPU</td>
+      <td>Intel(R) Core(TM) Ultra 9 185H</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>1920 x 1200</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>0.95</td>
+      <td>0.85</td>
+      <td>0.85</td>
+      <td>0.93</td>
+      <td>1.37</td>
+      <td>0.97</td>
+      <td>1.25</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/5690-RTX5000Ada-FHD-NOAA/snx2024/results_2025-05-02-17-23-05/apcSNXResults.html">Dell Inc.<br>
+        Precision 5690</a></td>
+      <td>Intel(R) Arc(TM) Graphics<br>
+        NVIDIA RTX 5000 Ada Generation Laptop GPU</td>
+      <td>Intel(R) Core(TM) Ultra 9 185H</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1200</td>
+      <td>May 02, 2025</td>
+      <td>May 29, 2025</td>
+      <td>0.97</td>
+      <td>0.86</td>
+      <td>0.88</td>
+      <td>0.94</td>
+      <td>1.38</td>
+      <td>0.96</td>
+      <td>1.28</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/7680-RTX3500Ada-FHD-FSAA/snx2024/results_2025-05-05-10-28-10/apcSNXResults.html">Dell Inc.<br>
+        Precision 7680</a></td>
+      <td>Intel(R) UHD Graphics<br>
+        NVIDIA RTX 3500 Ada Generation Laptop GPU</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>1920 x 1200</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.50</td>
+      <td>1.29</td>
+      <td>1.34</td>
+      <td>1.23</td>
+      <td>1.70</td>
+      <td>1.20</td>
+      <td>1.69</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/7680-RTX3500Ada-FHD-NOAA/snx2024/results_2025-05-02-20-26-55/apcSNXResults.html">Dell Inc.<br>
+        Precision 7680</a></td>
+      <td>Intel(R) UHD Graphics<br>
+        NVIDIA RTX 3500 Ada Generation Laptop GPU</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1200</td>
+      <td>May 02, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.51</td>
+      <td>1.30</td>
+      <td>1.36</td>
+      <td>1.25</td>
+      <td>1.73</td>
+      <td>1.19</td>
+      <td>1.70</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/7780-RTX5000Ada-FHD-FSAA/snx2024/results_2025-05-06-13-06-36/apcSNXResults.html">Dell Inc.<br>
+        Precision 7780</a></td>
+      <td>NVIDIA RTX 5000 Ada Generation Laptop GPU<br>
+        Intel(R) UHD Graphics</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>1920 x 1080</td>
+      <td>May 06, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.48</td>
+      <td>1.22</td>
+      <td>1.28</td>
+      <td>1.19</td>
+      <td>1.63</td>
+      <td>1.17</td>
+      <td>1.61</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/7780-RTX5000Ada-FHD-NOAA/snx2024/results_2025-05-06-11-39-38/apcSNXResults.html">Dell Inc.<br>
+        Precision 7780</a></td>
+      <td>NVIDIA RTX 5000 Ada Generation Laptop GPU<br>
+        Intel(R) UHD Graphics</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td>May 06, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.48</td>
+      <td>1.22</td>
+      <td>1.28</td>
+      <td>1.21</td>
+      <td>1.63</td>
+      <td>1.18</td>
+      <td>1.56</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMMicro-RTX4000SFFAda-FHD-FSAA/snx2024/results_2025-05-05-10-21-01/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Micro FCM2250</a></td>
+      <td>NVIDIA RTX 4000 SFF Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>1920 x 1080</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.22</td>
+      <td>1.16</td>
+      <td>1.12</td>
+      <td>1.25</td>
+      <td>1.94</td>
+      <td>1.41</td>
+      <td>1.90</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMMicro-RTX4000SFFAda-FHD-NOAA/snx2024/results_2025-05-02-18-45-19/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Micro FCM2250</a></td>
+      <td>NVIDIA RTX 4000 SFF Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td>May 02, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.22</td>
+      <td>1.17</td>
+      <td>1.13</td>
+      <td>1.25</td>
+      <td>1.98</td>
+      <td>1.44</td>
+      <td>1.83</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMT2-RTX6000Ada-FHD-FSAA/snx2024/results_2025-05-05-09-57-35/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Tower T2 FCT2250</a></td>
+      <td>NVIDIA RTX 6000 Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>1920 x 1080</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.19</td>
+      <td>1.12</td>
+      <td>1.10</td>
+      <td>1.25</td>
+      <td>1.96</td>
+      <td>1.45</td>
+      <td>1.94</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMT2-RTX6000Ada-FHD-NOAA/snx2024/results_2025-05-02-15-43-30/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Tower T2 FCT2250</a></td>
+      <td>NVIDIA RTX 6000 Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td>May 02, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.19</td>
+      <td>1.14</td>
+      <td>1.11</td>
+      <td>1.25</td>
+      <td>1.98</td>
+      <td>1.45</td>
+      <td>1.92</td>
+    </tr>
+    <tr class="dt-body-left">
+      <td>HP</td>
+      <td><a href="hp/Z2_Mini_G1a_SNZ2406/snx2024/results_2025-12-09-10-27-39/apcSNXResults.html">HP Z2 Mini G1a Workstation Desktop PC</a></td>
+      <td>AMD Radeon(TM) 8060S Graphics</td>
+      <td>AMD RYZEN AI MAX+ PRO 395 w/ Radeon 8060S</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td nowrap>Dec 09 2025</td>
+      <td nowrap>Jan 12 2026</td>
+      <td>1.13</td>
+      <td>1.34</td>
+      <td>1.11</td>
+      <td>1.09</td>
+      <td>1.55</td>
+      <td>1.14</td>
+      <td>1.75</td>
+    </tr>
+    <tr class="dt-body-left">
+      <td>HP</td>
+      <td><a href="hp/Z2_Mini_G1i_SNX2406/snx2024/results_2025-12-16-13-00-40/apcSNXResults.html">HP Z2 Mini G1i Workstation Desktop PC</a></td>
+      <td>NVIDIA RTX 2000 Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 7 265K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td nowrap>Dec 16 2025</td>
+      <td nowrap>Jan 12 2026</td>
+      <td>1.99</td>
+      <td>1.42</td>
+      <td>1.72</td>
+      <td>1.36</td>
+      <td>1.94</td>
+      <td>1.41</td>
+      <td>1.87</td>
+    </tr>
+    <tr>
+      <td>HP</td>
+      <td><a href="HP/HP_Z2_Tower_G9_17-14700K_4000Ada_1080_noAA/snx2024/apcSNXResults.html">HP<br>
+        HP Z2 Tower G9 Workstation Desktop PC</a></td>
+      <td>NVIDIA RTX 4000 Ada Generation<br>
+        Intel(R) UHD Graphics</td>
+      <td>Intel(R) Core(TM) i7-14700K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td>Apr 28, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.53</td>
+      <td>1.30</td>
+      <td>1.35</td>
+      <td>1.32</td>
+      <td>1.78</td>
+      <td>1.32</td>
+      <td>1.75</td>
+    </tr>
+    <tr>
+      <td>HP</td>
+      <td><a href="HP/HP_ZBook_Fury_G11_I9-14800HK_2000Ada_1-8-_noAA/snx2024/apcSNXResults.html">HP<br>
+        HP ZBook Fury 16 G11 Mobile Workstation PC</a></td>
+      <td>NVIDIA RTX 3500 Ada Generation Laptop GPU<br>
+        Intel(R) UHD Graphics</td>
+      <td>Intel(R) Core(TM) i9-14900HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td>May 02, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.39</td>
+      <td>1.21</td>
+      <td>1.25</td>
+      <td>1.20</td>
+      <td>1.57</td>
+      <td>1.15</td>
+      <td>1.54</td>
+    </tr>
+    <tr>
+      <td>Lenovo</td>
+      <td><a href="Lenovo/ThinkStation_P3_Tower_RTX_2000_Ada_NoAA/snx2024/results_2025-04-29-15-36-48/apcSNXResults.html">LENOVO<br>
+        ThinkStation P3 Tower</a></td>
+      <td>Intel(R) UHD Graphics 770<br>
+        NVIDIA RTX 2000 Ada Generation</td>
+      <td>Intel(R) Core(TM) i9-14900K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>1920 x 1080</td>
+      <td>Apr 29, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.45</td>
+      <td>1.34</td>
+      <td>1.46</td>
+      <td>1.39</td>
+      <td>1.94</td>
+      <td>1.47</td>
+      <td>1.94</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<a name="4096"> </a>
+<h2>4K</h2>
+<table  class="display" id="4096_results">
+  <thead>
+    <tr>
+      <th class="header">Submitter</th>
+      <th class="header">Company/Product</th>
+      <th class="header">Graphics</th>
+      <th class="header">Processor</th>
+      <th class="header">O/S</th>
+      <th class="header">AA</th>
+      <th class="header">Resolution</th>
+      <th class="header">Test Date</th>
+      <th class="header">Publication <br>
+        Date</th>
+      <th class="header">Viewport-Studio</th>
+      <th class="header">Viewport-Shaded</th>
+      <th class="header">Viewport-Wireframe</th>
+      <th class="header">Computational-LoadModel</th>
+      <th class="header">Computational-ExportModel</th>
+      <th class="header">Computational-MassPropCalcs</th>
+      <th class="header">Computational-ClosestPointCalcs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/7780-RTX5000Ada-4K-FSAA/snx2024/results_2025-05-05-15-43-29/apcSNXResults.html">Dell Inc.<br>
+        Precision 7780</a></td>
+      <td>NVIDIA RTX 5000 Ada Generation Laptop GPU<br>
+        Intel(R) UHD Graphics</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>3840 x 2160</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.46</td>
+      <td>1.20</td>
+      <td>1.25</td>
+      <td>1.18</td>
+      <td>1.61</td>
+      <td>1.17</td>
+      <td>1.60</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/7780-RTX5000Ada-4K-NOAA/snx2024/results_2025-05-05-12-41-32/apcSNXResults.html">Dell Inc.<br>
+        Precision 7780</a></td>
+      <td>NVIDIA RTX 5000 Ada Generation Laptop GPU<br>
+        Intel(R) UHD Graphics</td>
+      <td>13th Gen Intel(R) Core(TM) i9-13950HX</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>3840 x 2160</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.41</td>
+      <td>1.16</td>
+      <td>1.24</td>
+      <td>1.18</td>
+      <td>1.61</td>
+      <td>1.17</td>
+      <td>1.60</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMMicro-RTX4000SFFAda-4K-FSAA/snx2024/results_2025-05-06-11-45-58/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Micro FCM2250</a></td>
+      <td>NVIDIA RTX 4000 SFF Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>3840 x 2160</td>
+      <td>May 06, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.22</td>
+      <td>1.16</td>
+      <td>1.12</td>
+      <td>1.24</td>
+      <td>1.98</td>
+      <td>1.44</td>
+      <td>1.89</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMMicro-RTX4000SFFAda-4K-NOAA/snx2024/results_2025-05-05-14-23-04/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Micro FCM2250</a></td>
+      <td>NVIDIA RTX 4000 SFF Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>3840 x 2160</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.19</td>
+      <td>1.11</td>
+      <td>1.11</td>
+      <td>1.25</td>
+      <td>1.94</td>
+      <td>1.42</td>
+      <td>1.92</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMT2-RTX6000Ada-4K-FSAA/snx2024/results_2025-05-06-09-41-17/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Tower T2 FCT2250</a></td>
+      <td>NVIDIA RTX 6000 Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>3840 x 2160</td>
+      <td>May 06, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.18</td>
+      <td>1.12</td>
+      <td>1.10</td>
+      <td>1.23</td>
+      <td>1.96</td>
+      <td>1.44</td>
+      <td>1.91</td>
+    </tr>
+    <tr>
+      <td>Dell Technologies</td>
+      <td><a href="Dell/DPMT2-RTX6000Ada-4K-NOAA/snx2024/results_2025-05-05-12-53-28/apcSNXResults.html">Dell Inc.<br>
+        Dell Pro Max Tower T2 FCT2250</a></td>
+      <td>NVIDIA RTX 6000 Ada Generation<br>
+        Intel(R) Graphics</td>
+      <td>Intel(R) Core(TM) Ultra 9 285K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>3840 x 2160</td>
+      <td>May 05, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.17</td>
+      <td>1.12</td>
+      <td>1.11</td>
+      <td>1.21</td>
+      <td>1.95</td>
+      <td>1.44</td>
+      <td>1.91</td>
+    </tr>
+    <tr>
+      <td>HP</td>
+      <td><a href="HP/HP_Z2_Tower_G9_I7-14700K_4000_Ada_4K_FSAA/snx2024/apcSNXResults.html">HP<br>
+        HP Z2 Tower G9 Workstation Desktop PC</a></td>
+      <td>NVIDIA RTX 4000 Ada Generation<br>
+        Intel(R) UHD Graphics</td>
+      <td>Intel(R) Core(TM) i7-14700K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>3840 x 2160</td>
+      <td>Apr 28, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.49</td>
+      <td>1.30</td>
+      <td>1.30</td>
+      <td>1.31</td>
+      <td>1.76</td>
+      <td>1.33</td>
+      <td>1.77</td>
+    </tr>
+    <tr>
+      <td>HP</td>
+      <td><a href="HP/HP_Z2_Tower_G9_I7-14700K_4000_Ada_4K_noAA/snx2024/apcSNXResults.html">HP<br>
+        HP Z2 Tower G9 Workstation Desktop PC</a></td>
+      <td>NVIDIA RTX 4000 Ada Generation<br>
+        Intel(R) UHD Graphics</td>
+      <td>Intel(R) Core(TM) i7-14700K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>No AA</td>
+      <td>3840 x 2160</td>
+      <td>Apr 28, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.49</td>
+      <td>1.29</td>
+      <td>1.28</td>
+      <td>1.31</td>
+      <td>1.76</td>
+      <td>1.31</td>
+      <td>1.71</td>
+    </tr>
+    <tr>
+      <td>Lenovo</td>
+      <td><a href="Lenovo/ThinkStation_P3_Tower_RTX_2000_Ada_FSAA/snx2024/results_2025-04-30-09-07-10/apcSNXResults.html">LENOVO<br>
+        ThinkStation P3 Tower</a></td>
+      <td>Intel(R) UHD Graphics 770<br>
+        NVIDIA RTX 2000 Ada Generation</td>
+      <td>Intel(R) Core(TM) i9-14900K</td>
+      <td>Microsoft Windows 11 Pro</td>
+      <td>FSAA</td>
+      <td>3840 x 2160</td>
+      <td>Apr 30, 2025</td>
+      <td>May 29, 2025</td>
+      <td>1.45</td>
+      <td>1.35</td>
+      <td>1.44</td>
+      <td>1.35</td>
+      <td>1.88</td>
+      <td>1.43</td>
+      <td>1.90</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<p style="font-size: smaller;"> <u>Notes</u>: <br />
+  1. Some product names may be shortened; complete names are included in the 
+  individual report pages. </p>
+<hr />
+<p style="font-size: smaller;"> <a href="/spec/copyright.html">Copyright</a> &copy; 2024
+  Standard Performance Evaluation Corporation. </p>
+</body>
+</html>

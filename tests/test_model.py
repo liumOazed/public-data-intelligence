@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pytest
 
 from pdi.tech_value import gwpg, model
 
@@ -368,7 +369,7 @@ def test_catalogue_tracks_retail_products_and_shows_sub_threshold_results():
     assert cat.loc["amd epyc 9654", "assessment"] == catalogue.ASSESSED
     assert cat.loc["intel core i9-14900k", "assessment"] == catalogue.NO_MEASUREMENT
     assert "SPEC CPU 2017" in cat.loc["intel core i9-14900k", "reason"]
-    assert cat.loc["intel core i9-14900k", "next_source"].startswith("OpenBenchmarking")
+    assert "OpenBenchmarking.org blocks" in cat.loc["intel core i9-14900k", "next_source"]
     # The RTX A400 is a workstation card, not a consumer one.
     assert not cat.loc["nvidia rtx a400", "reason"].startswith("Unsupported source")
     # The usable count, not the total, is compared with the minimum.
@@ -385,6 +386,66 @@ def test_catalogue_tracks_retail_products_and_shows_sub_threshold_results():
         "no_measurement": 1,
         "catalogue": 3,
     }
+
+
+def test_catalogue_uses_specworkstation_cpu_scores_only_where_spec_cpu_has_none():
+    from pdi.tech_value import catalogue
+
+    value = pd.DataFrame(
+        [
+            {"kind": "cpu", "model_key": "intel core i9-14900k", "price_usd": 450.0},
+            {"kind": "cpu", "model_key": "amd ryzen 9 7950x", "price_usd": 500.0},
+        ]
+    )
+    spec = pd.DataFrame(
+        {
+            "processor": ["AMD Ryzen 9 7950X"],
+            "hardware_vendor": ["ASUS"],
+            "base_score": [175.0],
+            "chips": [1],
+        }
+    )
+    ws = pd.DataFrame(
+        [
+            {
+                "suite": s,
+                "metric": f"{s} CPU subsystem score",
+                "processor": p,
+                "score": v,
+                "multi_socket": m,
+            }
+            for s, p, v, m in [
+                ("SPECworkstation 4.0", "Intel Core i9-14900K", 1.74, False),
+                ("SPECworkstation 4.0", "Intel Core i9-14900K", 1.76, False),
+                ("SPECworkstation 3.1", "Intel Core i9-14900K", 9.0, False),
+                ("SPECworkstation 4.0", "AMD Ryzen 9 7950X", 2.0, False),
+                ("SPECworkstation 4.0", "2x Intel Xeon Platinum 8592+", 4.1, True),
+            ]
+        ]
+    )
+    cat = catalogue.build(
+        value=value,
+        fair=value[["kind", "model_key"]].iloc[0:0],
+        benchmarks=pd.DataFrame(columns=["kind", "model_key", "median_score"]),
+        cpu_rank=pd.DataFrame(columns=["processor", "residual_pct", "consensus_verdict"]),
+        gpu_rank=pd.DataFrame(columns=["processor", "residual_pct", "consensus_verdict"]),
+        spec=spec,
+        gwpg=pd.DataFrame(),
+        dates={},
+        ws_cpu=ws,
+    ).set_index("model_key")
+    r = cat.loc["intel core i9-14900k"]
+    # Median within the version with most results; the 3.1 score is never mixed in.
+    assert r["measured_value"] == pytest.approx(1.75)
+    assert r["measured_metric"] == "SPECworkstation 4.0 CPU subsystem score"
+    assert r["measured_n"] == 3 and r["measured_groups"] == 2
+    assert r["assessment"] == catalogue.MEASURED_ONLY
+    assert r["reason"].startswith("Different benchmark only: 2 SPECworkstation 4.0")
+    # SPEC CPU 2017 stays the measurement where it exists.
+    s = cat.loc["amd ryzen 9 7950x"]
+    assert s["measured_metric"] == catalogue.CPU_METRIC and s["ws_cpu_results"] == 1
+    # Two-socket systems are left out.
+    assert not any("8592" in k for k in cat.index)
 
 
 def test_coverage_history_keeps_one_count_per_day_and_first_seen():
