@@ -2,6 +2,7 @@
 title: "Tech Value: Fair Price"
 page-layout: full
 toc: false
+body-classes: tv-page
 ---
 
 <style>
@@ -19,23 +20,13 @@ body.quarto-dark {
   --fp-gpu-bg:#14302a; --fp-gpu-line:#245647; --fp-cpu-bg:#33290f; --fp-cpu-line:#5c4818;
   --fp-pill-green:#1d4a3a; --fp-pill-red:#4f2522; --fp-pill-amber:#4c3b12;
 }
-main.content { max-width:1200px; width:100%; margin:auto; color:var(--fp-ink); font-family:"Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif }
+main.content { color:var(--fp-ink) }
 main.content p { margin-bottom:0 }
 .fp-ico { width:1.25em; height:1.25em; flex:none; vertical-align:-.2em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
 
-/* Top bar */
-.fp-bar { display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px; padding:14px 22px; border-radius:14px; background:var(--fp-navy); color:#e9f1f8 }
-.fp-brand { display:flex; align-items:center; gap:12px; font-size:clamp(1.35rem,2.6vw,1.9rem); font-weight:700; letter-spacing:-.01em; color:#fff }
-.fp-brand .fp-ico { color:var(--fp-accent); width:1.35em; height:1.35em }
-.fp-brand em { font-style:normal; color:var(--fp-accent) }
-.fp-sub { padding-left:20px; border-left:1px solid #3a4a60; color:#c9d5e2; font-size:.95rem }
-.fp-chips { margin-left:auto; display:flex; flex-wrap:wrap; gap:6px 20px; font-size:.9rem; color:#dbe6f1 }
-.fp-chips span { display:inline-flex; align-items:center; gap:7px }
 
 /* Headline */
 .fp-head { margin:24px 4px 18px }
-.fp-head h1 { margin:0 0 .45rem; font-size:clamp(1.45rem,3vw,2.2rem); font-weight:800; line-height:1.15; letter-spacing:-.015em; color:var(--fp-ink); border:0 }
-.fp-head p { max-width:none; color:var(--fp-muted); line-height:1.6; font-size:1rem }
 .fp-pill { display:inline-block; padding:.05em .55em; border-radius:999px; font-weight:600; color:var(--fp-ink); white-space:nowrap }
 .fp-pill-neg { background:var(--fp-pill-green) }
 .fp-pill-pos { background:var(--fp-pill-red) }
@@ -56,6 +47,7 @@ main.content p { margin-bottom:0 }
 .fp-badge.fp-badge-off { background:var(--fp-line) !important }
 .fp-verdict p { color:var(--fp-ink); line-height:1.5 }
 .fp-verdict p + p { margin-top:.6rem }
+.fp-verdict p.fp-verdict-note { color:var(--fp-muted); font-size:.85rem }
 
 /* Market watch */
 .fp-watch { display:grid; grid-template-columns:1.25fr repeat(4,1fr); border:1px solid var(--fp-line); border-radius:14px; background:var(--fp-surface); margin-bottom:16px }
@@ -72,10 +64,6 @@ main.content p { margin-bottom:0 }
 
 /* Category panel */
 .fp-shell { border:1px solid var(--fp-line); border-radius:16px; background:var(--fp-surface); padding:clamp(12px,2vw,18px); margin-bottom:14px }
-.fp-tabs { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px }
-.fp-tabs button { display:inline-flex; align-items:center; gap:10px; padding:9px 26px; border:1px solid var(--fp-line); border-radius:8px; background:var(--fp-surface); color:var(--fp-ink); font:inherit; font-weight:500; cursor:pointer }
-.fp-tabs button[aria-pressed="true"] { background:var(--fp-navy); border-color:var(--fp-navy); color:#fff }
-body.quarto-dark .fp-tabs button[aria-pressed="true"] { background:#e8eef5; color:#0f1e33 }
 .fp-panel-head h2 { margin:6px 0 .25rem; padding:0; border:0; font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:700; color:var(--fp-ink) }
 .fp-panel-head p { color:var(--fp-muted); font-size:.9rem; line-height:1.45; max-width:72ch }
 .fp-chart-grid { display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:0 20px; margin-top:6px }
@@ -139,8 +127,6 @@ main.content [data-kind="cpu"] { display:none !important }
   .fp-tiles { grid-template-columns:repeat(2,1fr) }
   .fp-tiles > div:nth-child(3) { border-left:0 }
   .fp-tiles > div:nth-child(n+3) { border-top:1px solid var(--fp-line) }
-  .fp-sub { border-left:0; padding-left:0 }
-  .fp-chips { margin-left:0 }
 }
 @media (max-width: 520px) {
   .fp-verdict { flex-direction:column; gap:10px }
@@ -275,14 +261,35 @@ def agreement(kind: str) -> float | None:
     return max(0.0, 1 - spread / 100)
 
 
-def confidence_label(score: float | None) -> tuple[str, str, str]:
+def agreement_label(score: float | None) -> tuple[str, str, str]:
+    """How closely the top models agree with each other. Not a measure of accuracy."""
     if score is None:
         return "Unknown", "fp-pill-mod", "no model results yet"
     if score >= 0.90:
-        return "High", "fp-pill-neg", "stable fit"
+        return "High", "fp-pill-neg", "the top models give similar estimates"
     if score >= 0.80:
         return "Moderate", "fp-pill-mod", "some disagreement between the top models"
     return "Low", "fp-pill-pos", "the top models disagree; treat estimates with care"
+
+
+def accuracy_text(kind: str, best: float | None) -> tuple[str, str]:
+    """Observed accuracy on held-out parts: typical error and how often the P20–P80 band held."""
+    v = verdicts.get(kind) or {}
+    err = v.get("typical_error_pct", best)
+    cover = v.get("p20_p80_loo_coverage_pct")
+    target = v.get("p20_p80_target_coverage_pct", 60)
+    parts = []
+    if err is not None:
+        parts.append(f"a typical part's estimate is off by {err:.0f}%")
+    tone = "fp-pill-neg"
+    if cover is not None:
+        parts.append(f"its P20–P80 band held {cover:.0f}% of held-out parts against a {target:.0f}% target")
+        if cover < target:
+            tone = "fp-pill-mod"
+    if not parts:
+        return "", tone
+    label = "Below target" if tone == "fp-pill-mod" else "On target"
+    return f'<span class="fp-pill {tone}">{label}</span> ({"; ".join(parts)})', tone
 
 
 def price_change(kind: str):
@@ -308,18 +315,26 @@ def price_change(kind: str):
 ```{python}
 #| output: asis
 print(f"""
-<header class="fp-bar">
-  <div class="fp-brand">{icon("chip")}<span>Tech Value: <em>Fair Price</em></span></div>
-  <div class="fp-sub">PC Parts Research Dashboard</div>
-  <div class="fp-chips"><span>{icon("bars")}Data-driven</span><span>{icon("target")}Fair price</span><span>{icon("layers")}GPU &amp; CPU</span></div>
-</header>
-
-<div class="fp-head">
-<h1>Which parts cost less, or more, than their benchmark performance predicts</h1>
-<p>We estimate a &ldquo;fair price&rdquo; for each part from its benchmark performance using fitted price&ndash;performance models (an ensemble of top models).
-The gap shows how the listing compares to the estimated price: a <span class="fp-pill fp-pill-neg">negative gap</span> means the listing is below the estimated price (cheaper than expected
-for its performance), while a <span class="fp-pill fp-pill-pos">positive gap</span> means it is above the estimate (more expensive than expected).</p>
+<nav class="tv-nav" aria-label="Tech Value pages">
+<a href="index.html">Value ranking</a>
+<a href="fair-price.html" aria-current="page">Fair price</a>
+<a href="residuals.html">Over &amp; under performers</a>
+</nav>
+<header class="tv-hero">
+<div class="tv-kicker">Tech Value · Fair price</div>
+<h1>Which parts cost less, or more, than their benchmark performance predicts?</h1>
+<p>A &ldquo;fair price&rdquo; is estimated for each part from its Blender benchmark score, using fitted price&ndash;performance models (an ensemble of the top models).
+The gap compares the lowest new listing with that estimate: a negative gap means the part is cheaper than expected for its performance,
+a positive gap that it costs more than expected.</p>
+<div class="tv-controls">
+<div class="tv-switch" role="group" aria-label="Part category">
+<button type="button" data-tab="cpu" aria-pressed="false">CPU</button>
+<button type="button" data-tab="gpu" aria-pressed="true">GPU</button>
 </div>
+</div>
+<div class="tv-hero-meta"><span>Blender Open Data scores · US retail prices, lowest new listing · estimates from fits that left each part out</span></div>
+</header>
+<div class="fp-head"></div>
 """)
 
 cards = []
@@ -333,19 +348,22 @@ for kind, label in KINDS.items():
     elif beats:
         badge = f'<span class="fp-badge">{icon("check")}Beats baseline</span>'
         body = "Our best fitted model beats the naive baseline (simple global price-per-performance)"
-        body += f" by ~{(base - best) / base * 100:.0f}% lower typical error (MAPE)." if base and best else "."
+        body += f" by ~{(base - best) / base * 100:.0f}% lower median absolute percentage error." if base and best else "."
     else:
         badge = '<span class="fp-badge fp-badge-off">Baseline retained</span>'
         body = "No fitted model beat the naive baseline (simple global price-per-performance) clearly enough, so the baseline sets the fair price."
     if base and best:
         body += f" Typical error {best:.0f}% vs. {base:.0f}% for the baseline."
     score = agreement(kind)
-    conf, tone, why = confidence_label(score)
-    agree = f"ensemble agreement {score:.2f}, {why}" if score is not None else why
+    conf, tone, why = agreement_label(score)
+    agree = f"{score:.2f}: {why}" if score is not None else why
+    acc, _ = accuracy_text(kind, best)
     cards.append(f"""<article class="fp-verdict" data-tone="{kind}">{icon(kind if kind == "gpu" else "chip")}
 <div><div class="fp-verdict-top"><h2>{label}</h2>{badge}</div>
 <p>{escape(body)}</p>
-<p>Model confidence: <span class="fp-pill {tone}">{conf}</span> ({agree}).</p></div></article>""")
+<p>Model agreement: <span class="fp-pill {tone}">{conf}</span> ({agree}).</p>
+{f"<p>Observed accuracy: {acc}.</p>" if acc else ""}
+<p class="fp-verdict-note">Agreement says the top models give similar answers; observed accuracy says how close those answers came to real prices on parts the models never saw. They can differ.</p></div></article>""")
 print('<div class="fp-verdicts">' + "".join(cards) + "</div>")
 
 
@@ -370,7 +388,7 @@ for kind in KINDS:
     print(f"""<section class="fp-watch" data-kind="{kind}">
 <div class="fp-watch-title">{icon("bars")}<div><b>Market watch</b><small>Current market conditions (new listings), {KINDS[kind].lower()}</small></div></div>
 <div><h4>{icon("diamond")}Seller spread</h4><strong>{pct(spread)}</strong><small>Cheapest listing below the median listing, typical part</small></div>
-<div><h4>{icon("target")}Frontier distance</h4><strong>{pct(frontier)}</strong><small>Typical gap to the best price&ndash;performance listings</small></div>
+<div><h4>{icon("target")}Frontier distance</h4><strong>{pct(frontier)}</strong><small>Typical price cut a part needs to reach the price&ndash;performance frontier (median over parts)</small></div>
 <div><h4>{icon("trend")}Price change</h4><strong>{pct(change, ".1f", sign=True)}</strong><small>{change_note}</small></div>
 <div><h4>{icon("layers")}P20&ndash;P80 coverage</h4><strong class="{cover_cls}">{pct(cover)}</strong><small>Of held-out parts fall within the model&rsquo;s P20&ndash;P80 band ({target:.0f}% target)</small></div>
 </section>""")
@@ -378,12 +396,6 @@ for kind in KINDS:
 
 ::: {.fp-shell}
 
-```{=html}
-<div class="fp-tabs" role="group" aria-label="Part category">
-  <button type="button" data-tab="gpu" aria-pressed="true"><svg class="fp-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8.5" cy="12" r="3"/><circle cx="15.5" cy="12" r="3"/></svg><span><b>GPU</b> (Graphics cards)</span></button>
-  <button type="button" data-tab="cpu" aria-pressed="false"><svg class="fp-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><span><b>CPU</b> (Processors)</span></button>
-</div>
-```
 
 ```{python}
 def smooth(x, y, deg=2, n=80, lo=None, hi=None):
@@ -539,7 +551,7 @@ def selected(kind, part):
 <div>{icon("target")}<div><span>Market position</span><strong data-f="pos"></strong><small>Listing vs. estimated typical price</small></div></div>
 <div>{icon("bars")}<div><span>Median range</span><strong data-f="range"></strong><small>Estimated typical price range (P20–P80)</small></div></div>
 <div>{icon("diamond")}<div><span>Spread (source)</span><strong data-f="spread"></strong><small data-f="spread_note"></small></div></div>
-<div>{icon("shield")}<div><span>Pareto drop</span><strong data-f="drop"></strong><small data-f="drop_note"></small></div></div>
+<div>{icon("shield")}<div><span>Price cut to frontier</span><strong data-f="drop"></strong><small data-f="drop_note"></small></div></div>
 </div>""")
 
 
@@ -654,7 +666,7 @@ def estimates(part):
         "display_model": "Model", "maker": "Maker", "regime": "Regime", "gap_pct": "Gap (%)",
         "price_usd": "Lowest (USD)", "fair_price_usd": "Estimated typical (USD)",
         "ensemble_price_usd": "Top-3 ensemble (USD)", "floor_p20_usd": "P20 (USD)",
-        "ceiling_p80_usd": "P80 (USD)", "Spread": "Seller spread", "Frontier": "Pareto drop",
+        "ceiling_p80_usd": "P80 (USD)", "Spread": "Seller spread", "Frontier": "Price cut to frontier",
         "price_change_7d_pct": "7-day change (%)", "model_disagreement_pct": "Model spread (%)",
         "n_listings": "Listings", "Cheapest": "Cheapest at",
     }).round({"Gap (%)": 0, "Estimated typical (USD)": 0, "Top-3 ensemble (USD)": 0,
@@ -720,7 +732,7 @@ Every candidate across linear (`OLS`, `Ridge`, `Lasso`, `ElasticNet`, `Bayesian 
 (`Huber`, `Theil-Sen`), quantile (`L1 Quantile P20 / P50 / P80`), tree/boosting (`Gradient
 Boosted Trees L1 & Huber`, `Extra Trees`, `Random Forest`), local instance (`KNN`), and the
 **`Weighted Ensemble (Top-3 LOO)`** is scored by leaving each part out in turn. Typical error is
-the median absolute percentage error (MAPE) on the left-out parts.
+the median absolute percentage error (median APE, not the mean) on the left-out parts.
 
 ```{python}
 if board.empty:
@@ -761,12 +773,16 @@ The estimate for a part always comes from a fit that never saw that part. Eighte
 and a naive baseline (every part costs the same per point of score) is always on the leaderboard.
 A model only replaces the baseline when it beats it by more than two standard errors.
 
-**Model confidence** is the ensemble agreement: one minus the median spread between the top five
-models' estimates. At 0.90 or more it reads High, at 0.80 or more Moderate, and Low below that.
+**Model agreement** is one minus the median spread between the top five models' estimates. At
+0.90 or more it reads High, at 0.80 or more Moderate, and Low below that. Agreement is not
+accuracy: models can agree and still miss. **Observed accuracy** is reported separately, as the
+median absolute percentage error on left-out parts and the share of left-out parts whose price fell
+inside their P20–P80 band; a share below the 60% target means the band is too narrow.
 
 **Market watch.** *Seller spread* is how far the cheapest listing sits below the median listing for
 the same part, as a median over parts with two or more listings. *Frontier distance* is the median
-price cut a part needs to match the cheapest rival that is at least as fast. *Price change* is the
+price cut a part needs to reach the price–performance frontier, that is, to match the cheapest rival
+that is at least as fast; parts already on the frontier count as 0%. *Price change* is the
 median change in each part's lowest price across the last 30 days of collected history; until 30
 days have been collected it covers the history so far, and the label says how many days.
 *P20–P80 coverage* is the share of left-out parts whose price fell inside their P20–P80 band
@@ -776,7 +792,7 @@ days have been collected it covers the history so far, and the label says how ma
 curves drawn through the per-part estimates in log–log space, so they show the shape of the fit.
 The numbers for a part, in the detail cards and tables, are the model's own estimates for that part.
 
-**Pareto drop** is the price cut needed to match the cheapest rival that is at least as fast. $0
+**Price cut to frontier** is the price cut needed to match the cheapest rival that is at least as fast. $0
 means the part is already on the price–performance frontier.
 
 A gap is a question, not an answer. Blender measures rendering only. A processor built for games,
@@ -892,7 +908,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const show = kind => {
-    document.querySelectorAll(".fp-tabs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
+    document.querySelectorAll(".tv-switch button[data-tab]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
     document.querySelectorAll("[data-kind]").forEach(el => {
       el.style.setProperty("display", el.dataset.kind === kind ? (el.classList.contains("fp-watch") ? "grid" : "block") : "none", "important");
     });
@@ -902,7 +918,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cat._fpUpdate?.();
     });
   };
-  document.querySelectorAll(".fp-tabs button").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+  document.querySelectorAll(".tv-switch button[data-tab]").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
   show(window.TVPick?.urlKind() === "cpu" ? "cpu" : "gpu");
   // Plotly may finish drawing after this script runs; refresh the callout once it has.
   const settle = () => document.querySelectorAll(".fp-cat").forEach(c => {
