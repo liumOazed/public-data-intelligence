@@ -2,68 +2,58 @@
 title: "Tech Value: Over & under performers"
 page-layout: full
 toc: false
+body-classes: tv-page
 ---
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
-#title-block-header { display:none }
 body {
-  --op-ink:#14233a; --op-muted:#4d5d70; --op-line:#dbe3ea; --op-surface:#ffffff;
-  --op-teal:#0f8f6c; --op-accent:#3fd4a0; --op-neg:#c2414d;
+  --op-ink:var(--tv-ink); --op-muted:var(--tv-muted); --op-line:var(--tv-line); --op-surface:var(--tv-surface);
+  --op-teal:var(--tv-teal); --op-neg:#c2414d; --op-chip:var(--tv-chip);
   --op-k1-bg:#eaf6f6; --op-k1-line:#bfe0df; --op-k2-bg:#e6f7ef; --op-k2-line:#a9e3cb;
   --op-k3-bg:#fdf3e1; --op-k3-line:#f1d48f; --op-k4-bg:#fbeaea; --op-k4-line:#efc4c4;
-  --op-k3-ink:#8a4b08; --op-k4-ink:#7a1f24; --op-callout:#dcf5ea; --op-warn:#b45309; --op-chip:#eef2f6;
+  --op-k3-ink:#8a4b08; --op-k4-ink:#7a1f24; --op-callout:#dcf5ea; --op-warn:#b45309;
 }
 body.quarto-dark {
-  --op-ink:#e8eef5; --op-muted:#a9b6c5; --op-line:#33414f; --op-surface:#1b2530;
-  --op-teal:#3fd4a0; --op-neg:#f0a3a8;
+  --op-neg:#f0a3a8;
   --op-k1-bg:#132a2c; --op-k1-line:#22494b; --op-k2-bg:#14302a; --op-k2-line:#245647;
   --op-k3-bg:#33290f; --op-k3-line:#5c4818; --op-k4-bg:#3a1d20; --op-k4-line:#5e2f33;
-  --op-k3-ink:#f2c46d; --op-k4-ink:#f0a3a8; --op-callout:#18392f; --op-warn:#f2b23a; --op-chip:#253241;
+  --op-k3-ink:#f2c46d; --op-k4-ink:#f0a3a8; --op-callout:#18392f; --op-warn:#f2b23a;
 }
-main.content { max-width:1200px; width:100%; margin:auto; color:var(--op-ink);
-  font-family:"Century Gothic","CenturyGothic","URW Gothic","URW Gothic L","AppleGothic","Questrial",system-ui,sans-serif }
+main.content { color:var(--op-ink) }
 main.content p { margin-bottom:0 }
-main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-ico { width:1.15em; height:1.15em; flex:none; vertical-align:-.2em; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round }
 
-/* Section links */
-.op-subnav { display:flex; flex-wrap:wrap; justify-content:center; gap:4px 0; margin:4px 0 12px; font-size:.95rem }
-.op-subnav a { padding:4px 18px; color:var(--op-ink); text-decoration:none; border-left:1px solid var(--op-line) }
-.op-subnav a:first-child { border-left:0 }
-.op-subnav a[aria-current="page"] { font-weight:700; color:var(--op-teal); text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:8px }
-
-/* Hero */
-.op-hero { border-radius:14px; padding:clamp(16px,2.6vw,24px) clamp(16px,3vw,28px); color:#e9f3f1;
-  background:radial-gradient(ellipse at 85% 20%, rgba(63,212,160,.16), transparent 55%), linear-gradient(120deg,#0a2f33,#0e4a45 55%,#0a2b31) }
-.op-hero .op-kicker { color:var(--op-accent); font-weight:700; font-size:.95rem; letter-spacing:.02em }
-.op-hero h1 { margin:.2rem 0 .4rem; padding:0; border:0; color:#fff; font-size:clamp(1.3rem,2.6vw,1.75rem); font-weight:700; line-height:1.2 }
-.op-hero p { color:#d5e6e3; line-height:1.5; max-width:80ch; font-size:.95rem }
-.op-hero-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; margin-top:14px }
-.op-toggle { display:inline-flex; padding:3px; border-radius:999px; border:1px solid rgba(255,255,255,.35); background:rgba(0,0,0,.18) }
-.op-toggle button { border:0; border-radius:999px; padding:6px 28px; background:transparent; color:#e9f3f1; font:inherit; font-weight:700; cursor:pointer }
-.op-toggle button[aria-pressed="true"] { background:#d3f5e5; color:#0b2f35 }
-.op-hero-meta { padding-left:20px; border-left:1px solid rgba(255,255,255,.3); color:#d5e6e3; font-size:.85rem; line-height:1.5 }
-
-/* KPI cards */
-.op-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:16px 0 8px }
+/* Coverage line and KPI cards */
+.op-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 14px; margin:14px 0 4px; padding:12px 16px; border-radius:12px; border:1px solid var(--op-k1-line); background:var(--op-k1-bg) }
+.op-head strong { font-size:clamp(1.5rem,3vw,2rem); font-weight:700; line-height:1.1; color:var(--op-ink); font-variant-numeric:tabular-nums }
+.op-head .op-head-label { font-size:1rem; font-weight:700 }
+.op-head .op-head-sub { flex-basis:100%; color:var(--op-muted); font-size:.86rem; line-height:1.45 }
+.op-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:14px 0 6px }
 .op-kpi { padding:14px 18px; border-radius:12px; border:1px solid }
 .op-kpi strong { display:block; font-size:clamp(1.6rem,3vw,2.1rem); font-weight:700; line-height:1.1; color:var(--op-ink) }
 .op-kpi span { display:block; margin-top:4px; font-size:.92rem; line-height:1.3 }
+.op-kpi small { display:block; margin-top:2px; color:var(--op-muted); font-size:.78rem }
 .op-kpi:nth-child(1) { background:var(--op-k1-bg); border-color:var(--op-k1-line) }
 .op-kpi:nth-child(2) { background:var(--op-k2-bg); border-color:var(--op-k2-line) }
 .op-kpi:nth-child(3) { background:var(--op-k3-bg); border-color:var(--op-k3-line) }
 .op-kpi:nth-child(3) strong { color:var(--op-k3-ink) }
 .op-kpi:nth-child(4) { background:var(--op-k4-bg); border-color:var(--op-k4-line) }
 .op-kpi:nth-child(4) strong { color:var(--op-k4-ink) }
-.op-note { color:var(--op-muted); font-size:.86rem; margin:0 2px 16px }
+.op-note { color:var(--op-muted); font-size:.86rem; margin:0 2px 16px; line-height:1.45 }
+
+/* Find a product */
+.op-find { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; margin:6px 0 4px }
+.op-find label { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; flex:1 1 320px; min-width:0; font-weight:600; font-size:.92rem }
+.op-find input { flex:1 1 200px; min-width:0; max-width:460px; padding:7px 10px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.92rem }
+.op-find-msg { flex-basis:100%; color:var(--op-muted); font-size:.84rem }
 
 /* Cards */
 .op-card { border:1px solid var(--op-line); border-radius:14px; background:var(--op-surface); padding:clamp(14px,2.2vw,20px); margin-bottom:16px; min-width:0 }
 .op-card h2 { margin:0 0 .25rem; padding:0; border:0; font-size:clamp(1.1rem,2.1vw,1.35rem); font-weight:700; color:var(--op-ink) }
 .op-card .op-lede { color:var(--op-muted); line-height:1.45; font-size:.92rem }
-.op-card .op-foot { color:var(--op-muted); font-size:.8rem; margin-top:6px; line-height:1.4 }
+.op-card .op-foot, .op-foot { color:var(--op-muted); font-size:.8rem; margin-top:6px; line-height:1.4 }
 .op-main-grid { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:0 20px; margin-top:8px }
+.op-main-grid > * { min-width:0 }
 .op-legend { border-left:1px solid var(--op-line); padding:6px 0 6px 18px; font-size:.84rem }
 .op-legend ul { list-style:none; margin:0; padding:0 }
 .op-legend li { display:flex; gap:10px; margin:0 0 12px; line-height:1.3 }
@@ -72,9 +62,6 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-dot { width:13px; height:13px; border-radius:50%; flex:none; margin-top:3px }
 .op-legend hr { border:0; border-top:1px solid var(--op-line); margin:6px 0 12px; opacity:1 }
 .op-legend .op-callout { margin-top:12px; padding:10px 12px; border-radius:8px; background:var(--op-callout); font-weight:600; line-height:1.35 }
-.op-seg { display:inline-flex; flex-wrap:wrap; gap:4px; padding:3px; border-radius:9px; background:var(--op-chip); margin:8px 0 2px }
-.op-seg button { border:0; border-radius:7px; padding:5px 14px; background:transparent; color:var(--op-ink); font:inherit; font-size:.86rem; cursor:pointer }
-.op-seg button[aria-pressed="true"] { background:var(--op-surface); font-weight:700; box-shadow:0 1px 2px rgba(0,0,0,.12) }
 
 /* Peer filters */
 .op-peers { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin:10px 0 2px; font-size:.84rem; color:var(--op-muted) }
@@ -93,16 +80,12 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-cmp-table th { color:var(--op-muted); font-weight:600; font-size:.8rem }
 .op-cmp-table td:first-child { color:var(--op-muted) }
 .op-cmp-table small { display:block; color:var(--op-muted) }
+.op-cmp-table tr.op-cmp-sec th { padding-top:14px; color:var(--op-ink); font-size:.86rem; font-weight:700; border-bottom:2px solid var(--op-line) }
+.op-cmp-table tr.op-cmp-sec th small { display:inline; font-weight:400; margin-left:6px }
 .op-cmp-sum { margin:10px 0 0; font-size:.92rem; line-height:1.45 }
 .op-cmp-wrap { overflow-x:auto }
 
-/* Headline: tracked products assessed */
-.op-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 16px; margin:14px 0 4px; padding:14px 18px; border-radius:12px; border:1px solid var(--op-k1-line); background:var(--op-k1-bg) }
-.op-head strong { font-size:clamp(1.7rem,3.4vw,2.3rem); font-weight:700; line-height:1.1; color:var(--op-ink); font-variant-numeric:tabular-nums }
-.op-head .op-head-label { font-size:1.02rem; font-weight:700 }
-.op-head .op-head-sub { flex-basis:100%; color:var(--op-muted); font-size:.86rem; line-height:1.4 }
-
-/* Every tracked product */
+/* Product lists (in the collapsible sections) */
 .op-tl-bar { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin:8px 0 6px; font-size:.84rem; color:var(--op-muted) }
 .op-tl-bar select, .op-tl-bar input { max-width:100%; padding:4px 7px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.84rem }
 .op-tl-bar input { flex:1 1 160px; min-width:0 }
@@ -114,11 +97,13 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-tl td small, .op-tl td .small { display:block; color:var(--op-muted); font-size:.76rem; line-height:1.35 }
 .op-tl tr[hidden] { display:none }
 .op-tl .op-badge { white-space:nowrap }
-.op-tl .op-a-assessed { background:var(--op-k2-bg); color:var(--op-teal) }
-.op-tl .op-a-measured { background:var(--op-k3-bg); color:var(--op-k3-ink) }
-.op-tl .op-a-none { background:var(--op-chip); color:var(--op-muted) }
+.op-a-assessed { background:var(--op-k2-bg) !important; color:var(--op-teal) }
+.op-a-measured { background:var(--op-k3-bg) !important; color:var(--op-k3-ink) }
+.op-a-none { background:var(--op-chip); color:var(--op-muted) }
 .op-tl .op-new { margin-left:6px; background:var(--op-callout); color:var(--op-teal); font-size:.7rem }
-.op-tl button.op-tl-go { border:0; background:none; padding:0; color:var(--op-teal); font:inherit; font-size:.76rem; text-decoration:underline; cursor:pointer }
+.op-tl .op-bench-line { display:block; margin-top:3px; font-size:.8rem; line-height:1.35 }
+.op-tl .op-bench-line b { font-weight:600 }
+button.op-tl-go { border:0; background:none; padding:0; color:var(--op-teal); font:inherit; font-size:.76rem; text-decoration:underline; cursor:pointer }
 
 /* Workloads */
 .op-wl-pick { margin:10px 0 6px; font-size:.84rem; color:var(--op-muted) }
@@ -126,13 +111,13 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-wl-pick select { max-width:100%; min-width:0; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
 .op-acc td small, .op-acc td .small { display:block; color:var(--op-muted); font-size:.76rem }
 
-/* Selected chip */
+/* Selected product */
 .op-pick { margin-top:12px; border:1px solid var(--op-line); border-radius:12px; padding:12px 14px }
 .op-pick-head { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px }
 .op-pick-name { font-size:clamp(1.05rem,2vw,1.25rem); font-weight:700 }
 .op-badge { display:inline-block; padding:.15em .65em; border-radius:999px; background:var(--op-chip); font-size:.8rem; font-weight:600 }
 .op-pick-head label { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--op-muted) }
-.op-pick select { max-width:min(240px,100%); min-width:0; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
+.op-pick select { max-width:min(260px,100%); min-width:0; padding:5px 8px; border:1px solid var(--op-line); border-radius:8px; background:var(--op-surface); color:var(--op-ink); font:inherit; font-size:.86rem }
 .op-pick-body { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:12px 22px; margin-top:10px }
 .op-preds { width:100%; border-collapse:collapse; font-size:.88rem; font-variant-numeric:tabular-nums }
 .op-preds th { text-align:left; font-weight:600; color:var(--op-muted); font-size:.78rem; padding:4px 6px; border-bottom:1px solid var(--op-line) }
@@ -140,12 +125,15 @@ main.content h1, main.content h2, main.content h3 { font-family:inherit }
 .op-preds tr:last-child td { border-bottom:0 }
 .op-preds td.op-pos { color:var(--op-teal); font-weight:700 }
 .op-preds td.op-negv { color:var(--op-neg); font-weight:700 }
+.op-preds td.op-err { color:var(--op-muted) }
 .op-preds tr.op-measured td { font-weight:700 }
 .op-facts { font-size:.85rem; line-height:1.5 }
 .op-facts div { display:flex; justify-content:space-between; gap:10px; border-bottom:1px dashed var(--op-line); padding:2px 0 }
 .op-facts span { color:var(--op-muted) }
 .op-facts b { font-weight:600; text-align:right }
 .op-flag { margin-top:6px; color:var(--op-warn); font-size:.82rem; font-weight:600 }
+.op-trust { margin-top:8px; padding:8px 10px; border-radius:8px; background:var(--op-chip); font-size:.82rem; line-height:1.45 }
+.op-trust b { font-weight:700 }
 .op-pick-foot { margin-top:8px; font-size:.8rem; color:var(--op-muted) }
 
 /* Two charts side by side */
@@ -178,30 +166,28 @@ details.op-detail { border:1px solid var(--op-line); border-radius:10px; backgro
 .op-detail-body h3 { font-size:1rem; font-weight:700; margin:1rem 0 .5rem; border:0 }
 .op-closing { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 20px; margin-top:22px; padding-top:12px; border-top:1px solid var(--op-line); color:var(--op-muted); font-size:.82rem }
 
-/* CPU / GPU switch */
-body:not(.op-gpu) main.content [data-kind="gpu"], body.op-gpu main.content [data-kind="cpu"] { display:none !important }
+/* CPU / GPU switch and benchmark selector: one view shows at a time. */
+body:not(.op-gpu) main.content [data-kind="gpu"]:not(button), body.op-gpu main.content [data-kind="cpu"]:not(button),
+body:not(.op-spec) main.content [data-bench="spec"]:not(button), body.op-spec main.content [data-bench="blender"]:not(button) { display:none !important }
 
-/* Quarto turns page-full divs into column grids; keep these blocks as plain boxes. */
-main.content .op-cat { grid-column:page-start / page-end !important }
-main.content .op-card.page-columns, main.content .op-cat.page-columns, main.content .op-plot.page-columns, main.content .op-alt.page-columns { display:block !important }
-main.content .op-pair.page-columns { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important }
-main.content .op-main-grid.page-columns { display:grid !important; grid-template-columns:minmax(0,1fr) 250px !important }
-main.content .op-cat .page-columns > *, main.content .op-cat.page-columns > * { grid-column:auto !important; min-width:0 }
+/* Quarto wraps cell output in column grids; keep these blocks as plain boxes. */
+main.content .op-view { grid-column:page-start / page-end !important }
+main.content .op-view, main.content .op-view .page-columns { display:block !important }
+main.content .op-view .op-pair { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important }
+main.content .op-view .op-main-grid { display:grid !important; grid-template-columns:minmax(0,1fr) 250px !important }
+main.content .op-view .page-columns > * { grid-column:auto !important; min-width:0 }
 
 @media (max-width: 900px) {
   .op-kpis { grid-template-columns:repeat(2,1fr) }
-  main.content .op-pair, main.content .op-main-grid, main.content .op-pair.page-columns, main.content .op-main-grid.page-columns { grid-template-columns:minmax(0,1fr) !important }
+  main.content .op-view .op-pair, main.content .op-view .op-main-grid { grid-template-columns:minmax(0,1fr) !important }
   .op-legend { border-left:0; border-top:1px solid var(--op-line); padding:14px 0 0 }
   .op-legend ul { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px }
-  .op-hero-meta { border-left:0; padding-left:0 }
   .op-detail summary { grid-template-columns:minmax(0,1fr) 20px }
   .op-detail summary span { display:none }
   .op-pick-body { grid-template-columns:minmax(0,1fr) }
 }
 @media (max-width: 560px) {
-  .op-toggle button { padding:6px 22px }
-  .op-tl th:nth-child(5), .op-tl td:nth-child(5) { display:none }
-  .op-subnav a { padding:4px 10px }
+  .op-tl th:nth-child(5), .op-tl td:nth-child(5), .op-tl th:nth-child(6), .op-tl td:nth-child(6) { display:none }
   .op-pick-head label { margin-left:0; flex-wrap:wrap; max-width:100% }
   .op-preds { font-size:.8rem }
   .op-preds th, .op-preds td { padding:4px 3px }
@@ -210,6 +196,7 @@ main.content .op-cat .page-columns > *, main.content .op-cat.page-columns > * { 
 
 ```{python}
 import json
+import sys
 from html import escape
 
 import numpy as np
@@ -232,20 +219,26 @@ cat, cat_meta = site.load("tech-value", "catalogue")
 bl, bl_meta = site.load("tech-value", "blender_residuals")
 bl_val, bl_val_meta = site.load("tech-value", "blender_residual_validation")
 bl_chk, bl_chk_meta = site.load("tech-value", "blender_version_check")
-PRICE = {} if cat.empty else {
-    (r.kind, r.model_key): (float(r.price_usd), r.price_date)
-    for r in cat.itertuples() if pd.notna(r.price_usd)
-}
-DATA = {"cpu": cpu, "gpu": gpu}
-META = {"cpu": cpu_meta, "gpu": gpu_meta}
-VAL = {"cpu": cpu_val, "gpu": gpu_val}
+gpu_wl, gpu_wl_meta = site.load("tech-value", "gpu_workloads")
+gpu_cal, gpu_cal_meta = site.load("tech-value", "gpu_calibration")
+HIST, HIST_META = site.load("tech-value", "coverage_history")
+
+KINDS = ("cpu", "gpu")
+BENCHES = ("blender", "spec")
+BENCH = {"blender": "Blender rendering", "spec": "SPEC workloads"}
 NOUN = {"cpu": "CPUs", "gpu": "GPUs"}
 ONE = {"cpu": "processor", "gpu": "graphics card"}
-MEASURE = {
-    "cpu": "SPECrate 2017 Int base per socket",
-    "gpu": "Calibrated SPEC GWPG score (site estimate)",
-}
 MODELS = {"ols": "OLS", "structural": "Structural L1", "nonlinear": "Nonlinear GBDT"}
+VAL_NAME = {"ols": "OLS", "structural": "Structural L1", "nonlinear": "Nonlinear GBDT"}
+SPEC_SUITE = {"cpu": "SPEC CPU 2017", "gpu": "SPEC GWPG"}
+MEASURE = {
+    ("cpu", "spec"): "SPECrate 2017 Int base per socket",
+    ("gpu", "spec"): "Calibrated SPEC GWPG score (site estimate)",
+    ("cpu", "blender"): "Blender score (samples per minute)",
+    ("gpu", "blender"): "Blender score (samples per minute)",
+}
+BL_VERSION = bl_meta.get("blender_version") or bl_val_meta.get("blender_version")
+BL_FEW_RUNS = 10
 
 # The pipeline's classifications, grouped into the four classes this page shows.
 CLASS_OF = {
@@ -265,19 +258,11 @@ FONT = dict(family="Century Gothic, URW Gothic, Questrial, system-ui, sans-serif
 AXIS = dict(showgrid=False, showline=True, linecolor="#8391a1", ticks="outside", zeroline=False)
 HOVER = dict(bgcolor="white", font_color="#14233a", font_family=FONT["family"])
 
-for kind, df in DATA.items():
-    if not df.empty:
-        df["cls"] = df["consensus_verdict"].map(CLASS_OF).fillna("near")
-
-
-def limited(r) -> bool:
-    """Few disclosures, or every one from a single OEM: one configuration can carry the result."""
-    return int(r["n_oems"]) <= 1 or int(r["n_results"]) < 4
-
-
-def count(kind, cls):
-    df = DATA[kind]
-    return int((df["cls"] == cls).sum()) if not df.empty else 0
+SRC_DATES = {src.get("id"): src.get("retrieved_at") for src in cat_meta.get("sources") or []}
+PRICE = {} if cat.empty else {
+    (r.kind, r.model_key): (float(r.price_usd), r.price_date)
+    for r in cat.itertuples() if pd.notna(r.price_usd)
+}
 
 
 def day(ts):
@@ -289,13 +274,106 @@ def collected(meta):
     return day(srcs[0].get("retrieved_at")) if srcs else "not recorded"
 
 
-def typical_error(kind):
-    """Median absolute held-out error per model, over all ranked chips."""
-    v = VAL[kind]
-    if v.empty:
+def tracked(kind):
+    """Products on Value ranking or Fair price: the retail-tracked list, refreshed every update."""
+    if cat.empty or "tracked" not in cat.columns:
+        return cat.iloc[0:0]
+    return cat[(cat["kind"] == kind) & cat["tracked"].astype(bool)]
+
+
+TRACKED_KEYS = {k: set(tracked(k)["model_key"]) for k in KINDS}
+
+
+def spec_frame(kind):
+    df = (cpu if kind == "cpu" else gpu).copy()
+    if df.empty:
+        return df
+    df["cls"] = df["consensus_verdict"].map(CLASS_OF).fillna("near")
+    df["y"] = df["measured_per_socket" if kind == "cpu" else "measured_score"]
+    df["key"] = [tvcat.key_of(kind, p) for p in df["processor"]]
+    df["tracked"] = df["key"].isin(TRACKED_KEYS[kind])
+    df["cores"] = df["cores_per_chip"]
+    df["gen"] = pd.to_numeric(df["generation"], errors="coerce")
+    df["form"] = df["form_factor"] if "form_factor" in df else ""
+    df["unit_score"] = df["score_per_core"]
+    df["tier_x"] = df["l3_mb_per_core"] if kind == "cpu" else df["bandwidth_gbps"]
+    oems = df["n_oems"].astype(int)
+    df["evidence"] = [f"{int(n)} SPEC disclosure{'s' if n != 1 else ''} · {o} OEM{'s' if o != 1 else ''}"
+                      for n, o in zip(df["n_results"], oems)]
+    df["limited"] = (oems <= 1) | (df["n_results"].astype(int) < 4)
+    return df.reset_index(drop=True)
+
+
+def blender_frame(kind):
+    if bl.empty:
+        return bl
+    df = bl[bl["kind"] == kind].copy().reset_index(drop=True)
+    if df.empty:
+        return df
+    df["cls"] = df["consensus_verdict"].map(CLASS_OF).fillna("near")
+    df["y"] = df["measured_score"]
+    df["key"] = df["model_key"]
+    df["tracked"] = df["key"].isin(TRACKED_KEYS[kind])
+    df["gen"] = pd.to_numeric(df["release_year"], errors="coerce")
+    df["form"] = df["form_factor"] if kind == "gpu" else ""
+    df["unit_score"] = df["y"] / df["cores"] if kind == "cpu" else 1000 * df["y"] / df["cores"]
+    df["tier_x"] = df["l3_mb"] / df["cores"] if kind == "cpu" else df["bandwidth_gbps"]
+    df["evidence"] = [f"{int(n):,} Blender run{'s' if n != 1 else ''}" + (f" · {b}" if kind == "gpu" else "")
+                      for n, b in zip(df["n_runs"], df["backend"])]
+    df["limited"] = df["n_runs"].astype(int) < BL_FEW_RUNS
+    return df
+
+
+def val_frame(kind, bench):
+    if bench == "spec":
+        return cpu_val if kind == "cpu" else gpu_val
+    return bl_val[bl_val["kind"] == kind] if not bl_val.empty else bl_val
+
+
+VIEWS = {}
+for _k in KINDS:
+    VIEWS[(_k, "spec")] = dict(kind=_k, bench="spec", df=spec_frame(_k), meta=cpu_meta if _k == "cpu" else gpu_meta,
+                               val=val_frame(_k, "spec"))
+    VIEWS[(_k, "blender")] = dict(kind=_k, bench="blender", df=blender_frame(_k), meta=bl_meta,
+                                  val=val_frame(_k, "blender"))
+
+
+def typical_error(v):
+    """Median absolute held-out error per model and the share inside the 80% range, over all ranked products."""
+    val = v["val"]
+    if val.empty:
         return {}
-    allrows = v[v["slice"] == "All"].set_index("model")
-    return {m: float(r["median_abs_pct_error"]) for m, r in allrows.iterrows()}
+    a = val[val["slice"] == "All"].set_index("model")
+    return {m: (float(r["median_abs_pct_error"]),
+                None if pd.isna(r["range_coverage_pct"]) else float(r["range_coverage_pct"]))
+            for m, r in a.iterrows()}
+
+
+def err_line(v):
+    err = typical_error(v)
+    parts = [f"{VAL_NAME[m]} {err[VAL_NAME[m]][0]:.1f}%" for m in MODELS if VAL_NAME[m] in err]
+    base = next((e for m, e in err.items() if m.startswith("Baseline")), None)
+    txt = " · ".join(parts)
+    if base:
+        txt += f" (simple baseline {base[0]:.1f}%)"
+    return txt
+
+
+def coverage_pct(v):
+    err = typical_error(v)
+    covs = [err[VAL_NAME[m]][1] for m in MODELS if VAL_NAME[m] in err and err[VAL_NAME[m]][1] is not None]
+    return (min(covs), max(covs)) if covs else None
+
+
+def version_text(kind):
+    """How far Blender residuals moved when the same fit ran on other Blender versions."""
+    c = bl_chk[bl_chk["kind"] == kind] if not bl_chk.empty else bl_chk
+    if c.empty:
+        return ""
+    parts = [f"{r.median_abs_gap_pct:.1f}% on Blender {r.check_version} ({int(r.n_shared)} shared)"
+             for r in c.itertuples() if pd.notna(r.median_abs_gap_pct)]
+    return "Refitted on other Blender versions, the median residual moved " + " and ".join(parts) + \
+        ". That is an average: a single product can move further."
 
 
 ICON = {
@@ -310,60 +388,17 @@ def icon(name, cls=""):
 
 def raw(html):
     """Emit HTML as a raw block so pandoc does not re-parse it as markdown."""
-    print(f"\n```{{=html}}\n{html}\n```\n")
-
-TRACKED = (cat_meta.get("tracked") or {}) if not cat.empty else {}
-HIST, HIST_META = site.load("tech-value", "coverage_history")
-SRC_DATES = {src.get("id"): src.get("retrieved_at") for src in cat_meta.get("sources") or []}
+    print(f"\n```{{=html}}\n{html}\n```\n", flush=True)
 
 
-def tracked(kind):
-    """Products on Value ranking or Fair price: the retail-tracked list, refreshed every update."""
-    if cat.empty or "tracked" not in cat.columns:
-        return cat.iloc[0:0]
-    return cat[(cat["kind"] == kind) & cat["tracked"].astype(bool)]
+def plot(fig):
+    sys.stdout.flush()
+    fig.show(config={"displayModeBar": False, "responsive": True})
+    sys.stdout.flush()
 
 
-def headline():
-    """Overlap as the headline: how many retail-tracked products the models assess."""
-    html = ""
-    for kind in ("cpu", "gpu"):
-        t = tracked(kind)
-        if t.empty:
-            continue
-        n, a = len(t), int((t["assessment"] == tvcat.ASSESSED).sum())
-        spec_on = t["on_residuals"].astype(bool)
-        bl_on = t["on_blender_residuals"].astype(bool) if "on_blender_residuals" in t else spec_on & False
-        by_spec, by_bl, both = int(spec_on.sum()), int(bl_on.sum()), int((spec_on & bl_on).sum())
-        m = int((t["assessment"] == tvcat.MEASURED_ONLY).sum())
-        none = int((t["assessment"] == tvcat.NO_MEASUREMENT).sum())
-        others = int(DATA[kind].shape[0] - by_spec) if not DATA[kind].empty else 0
-        trend = ""
-        if not HIST.empty:
-            h = HIST[HIST["kind"] == kind].sort_values("date")
-            last = str(h["date"].iloc[-1]) if len(h) else None
-            if last:
-                cutoff = (pd.Timestamp(last) - pd.Timedelta(days=7)).strftime("%Y-%m-%d")
-                before = h[h["date"] <= cutoff]
-                if len(before):
-                    b = before.iloc[-1]
-                    trend = f" A week earlier ({b['date']}): {int(b['assessed'])}/{int(b['tracked'])}."
-                else:
-                    trend = f" Coverage is recorded at every update from {h['date'].iloc[0]} on."
-        html += (f'<div class="op-head" data-kind="{kind}"><strong>{a}/{n}</strong>'
-                 f'<span class="op-head-label">tracked {NOUN[kind]} assessed</span>'
-                 f'<span class="op-head-sub">{by_spec} by the SPEC {"CPU 2017" if kind == "cpu" else "GWPG"} models and '
-                 f'{by_bl} by the Blender rendering model ({both} by both); the two are separate models on separate benchmarks. '
-                 f'Tracked means on Value ranking or Fair price today; the list follows '
-                 f'every price update. {m} more {"has" if m == 1 else "have"} a measurement no model can assess yet '
-                 f'and {none} {"has" if none == 1 else "have"} none. The SPEC models also rank {max(others, 0)} '
-                 f'{NOUN[kind]} from SPEC hardware that no tracked retailer sells.{trend}</span></div>')
-    return html
-
-
-A_CLASS = {tvcat.ASSESSED: "op-a-assessed", tvcat.MEASURED_ONLY: "op-a-measured", tvcat.NO_MEASUREMENT: "op-a-none"}
-A_CODE = {tvcat.ASSESSED: "assessed", tvcat.MEASURED_ONLY: "measured", tvcat.NO_MEASUREMENT: "none"}
-A_ORDER = {tvcat.ASSESSED: 0, tvcat.MEASURED_ONLY: 1, tvcat.NO_MEASUREMENT: 2}
+def head(title, *ledes):
+    raw(f"<h2>{title}</h2>" + "".join(f'<p class="op-lede">{t}</p>' for t in ledes))
 
 
 def _fmt(v, digits=1):
@@ -372,138 +407,138 @@ def _fmt(v, digits=1):
     return f"{v:,.{digits}f}" if abs(v) < 100 else f"{v:,.0f}"
 
 
-def tracked_list(kind):
-    """The page's main product list: every tracked product, then other SPEC-measured hardware."""
-    head(f"Every tracked {ONE[kind]}",
-         f"All {NOUN[kind]} on Value ranking or Fair price, then every other {ONE[kind]} SPEC measured. "
-         "A measurement is shown even from one disclosure; whether the models can assess it is a separate column. "
-         "Products not assessed form the audit queue, each with the reason and where a result could come from.")
-    if cat.empty or "assessment" not in cat.columns:
-        raw(site.empty_state(cat_meta, "Hardware catalogue"))
-        return
-    c = cat[cat["kind"] == kind]
-    extra = c[~c["tracked"].astype(bool) & (c["assessment"] != tvcat.NO_MEASUREMENT)]
-    t = tracked(kind)
-    first_day = None if HIST.empty else str(HIST["date"].min())
-    gen_day = str(cat_meta.get("generated_at") or "")[:10]
-    rows = []
-    for grp, part in (("t", t), ("x", extra)):
-        part = part.assign(_o=part["assessment"].map(A_ORDER)).sort_values(["_o", "name"])
-        for r in part.itertuples():
-            sub = []
-            if pd.notna(r.price_usd):
-                sub.append(f"${r.price_usd:,.0f}" + (f" on {r.price_date}" if r.price_date else ""))
-            if pd.notna(r.value_rank):
-                sub.append(f"value #{int(r.value_rank)} of {int(r.value_n)}")
-            if pd.notna(r.blender_score):
-                runs = getattr(r, "blender_runs", None)
-                sub.append(f"Blender {r.blender_score:,.0f}" + (f" ({int(runs):,} runs)" if runs is not None and pd.notna(runs) else ""))
-            if grp == "x":
-                sub.append("not sold by a tracked retailer")
-            new = ""
-            ft = getattr(r, "first_tracked", None)
-            if grp == "t" and ft and first_day and ft > first_day and gen_day and \
-                    (pd.Timestamp(gen_day) - pd.Timestamp(ft)).days <= 7:
-                new = f'<span class="op-badge op-new" title="First tracked {ft}">New</span>'
-            if pd.notna(r.measured_value):
-                meas = f"{_fmt(r.measured_value)}<small>{escape(str(r.measured_metric))}</small>"
-                if r.measured_groups and r.measured_groups > 1 and r.assessment != tvcat.ASSESSED:
-                    meas = meas[:-8] + f"; results in {int(r.measured_groups)} suite groups</small>"
-            else:
-                meas = "—"
-            n = int(r.measured_n or 0)
-            ev = (f"{n} result{'s' if n != 1 else ''} · {int(r.spec_oems)} OEM{'s' if int(r.spec_oems) != 1 else ''}"
-                  if n else "0 results")
-            if r.assessment == tvcat.ASSESSED:
-                parts = []
-                if r.on_residuals:
-                    verdict = r.consensus_verdict or "Near prediction"
-                    d = f"SPEC: {escape(verdict)} · {r.residual_pct:+.1f}% vs OLS"
-                    if r.coverage_status == tvcat.LIMITED:
-                        d += " · limited evidence"
-                    d += f' <button type="button" class="op-tl-go" data-name="{escape(r.name)}">Inspect</button>'
-                    parts.append(d)
-                if getattr(r, "on_blender_residuals", False):
-                    parts.append(f"Blender rendering: {escape(r.blender_verdict or 'Near prediction')} · "
-                                 f"{r.blender_residual_pct:+.1f}% vs OLS")
-                detail = "<br>".join(parts)
-            else:
-                detail = escape(r.reason or "")
-                br = getattr(r, "blender_reason", None)
-                if isinstance(br, str) and br:
-                    detail += f"<br>Blender model: {escape(br)}"
-            nxt = escape(r.next_source or "") or "—"
-            q = escape(f"{r.name} {r.model_key}".lower())
-            rows.append(
-                f'<tr data-g="{grp}" data-a="{A_CODE[r.assessment]}" data-q="{q}"{"" if grp == "t" else " hidden"}>'
-                f'<td>{escape(r.name)}{new}<small>{" · ".join(escape(x) for x in sub) or "&nbsp;"}</small></td>'
-                f'<td>{meas}</td><td>{ev}</td>'
-                f'<td><span class="op-badge {A_CLASS[r.assessment]}">{escape(r.assessment)}</span><small>{detail}</small></td>'
-                f'<td><small>{nxt}</small></td></tr>')
-    n_t, n_x = len(t), len(extra)
-    raw(f"""<div class="op-tl-box" data-kind="{kind}">
-<div class="op-tl-bar">
-<div class="op-seg" role="group" aria-label="Which products">
-<button type="button" data-g="t" aria-pressed="true">Tracked ({n_t})</button>
-<button type="button" data-g="x" aria-pressed="false">Other SPEC hardware ({n_x})</button>
-<button type="button" data-g="all" aria-pressed="false">All ({n_t + n_x})</button></div>
-<select data-tl="a" aria-label="Model assessment">
-<option value="">Any assessment</option><option value="assessed">Assessed</option>
-<option value="queue">Audit queue (not assessed)</option><option value="measured">Measured, not assessed</option>
-<option value="none">No measurement</option></select>
-<input type="search" data-tl="q" placeholder="Search {NOUN[kind]}" aria-label="Search {NOUN[kind]}">
-<span class="op-tl-count" aria-live="polite"></span>
-</div>
-<div class="op-tl-wrap"><table class="op-tl"><thead><tr><th>Product</th><th>SPEC measurement</th><th>Evidence</th>
-<th>Model assessment</th><th>Where a result could come from</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>
-<p class="op-foot">Assessed: ranked by the SPEC models below or by the separate Blender rendering model (next card). The SPEC models need at least {cpu_meta.get("min_results", 3) if kind == "cpu" else gpu_meta.get("min_results", 2)} results.
-Measured, not assessed: a published SPEC result exists but is below that threshold or only in suites that cannot be combined.
-{"CPU measurements are the median SPECrate 2017 Int base per socket." if kind == "cpu" else "GPU measurements below the threshold are published composites, named with their suite, OS and resolution; they compare only with results from that same group (see Results by workload)."}
-Blender scores come from Blender Open Data, a separate benchmark that only the Blender rendering model uses. SPEC collected {day(SRC_DATES.get("spec_cpu2017" if kind == "cpu" else "spec_gwpg"))}.</p>
-</div>""")
-
+def signed(v):
+    return "" if v is None or pd.isna(v) else f"{v:+.1f}%"
 ```
 
 ```{python}
 #| output: asis
-raw(f"""<nav class="op-subnav" aria-label="Tech Value pages">
+def bench_counts(kind):
+    t = tracked(kind)
+    if t.empty:
+        return 0, 0, 0, 0
+    spec_on = t["on_residuals"].astype(bool)
+    bl_on = t["on_blender_residuals"].astype(bool) if "on_blender_residuals" in t else spec_on & False
+    return len(t), int(bl_on.sum()), int(spec_on.sum()), int((spec_on | bl_on).sum())
+
+
+def bench_button(bench):
+    subs = ""
+    for kind in KINDS:
+        n, b, s, _ = bench_counts(kind)
+        k = b if bench == "blender" else s
+        what = "rendering only" if bench == "blender" else "varied workloads"
+        subs += f'<small data-kind="{kind}">{what} · {k} of {n} tracked {NOUN[kind]}</small>'
+    return (f'<button type="button" data-bench="{bench}" aria-pressed="{str(bench == "blender").lower()}">'
+            f'<span>{BENCH[bench]}</span>{subs}</button>')
+
+
+meta_line = {
+    ("cpu", "blender"): f"Blender Open Data {BL_VERSION} · samples per minute, three scenes · collected {day(SRC_DATES.get('blender_opendata'))} · specifications from tables in this repository",
+    ("gpu", "blender"): f"Blender Open Data {BL_VERSION} · OptiX, HIP or oneAPI backend · collected {day(SRC_DATES.get('blender_opendata'))} · specifications from tables in this repository",
+    ("cpu", "spec"): f"SPEC CPU 2017 · SPECrate Integer base · collected {collected(cpu_meta)} · specifications from each SPEC disclosure",
+    ("gpu", "spec"): f"SPEC GWPG · SPECviewperf, SPECworkstation, SPECapc · collected {collected(gpu_meta)} · specifications from a table in this repository",
+}
+metas = "".join(f'<span data-kind="{k}" data-bench="{b}">{escape(t)}</span>' for (k, b), t in meta_line.items())
+raw(f"""<nav class="tv-nav" aria-label="Tech Value pages">
   <a href="index.html">Value ranking</a>
   <a href="fair-price.html">Fair price</a>
   <a href="residuals.html" aria-current="page">Over &amp; under performers</a>
 </nav>
-<header class="op-hero">
-  <div class="op-kicker">Tech Value · Over &amp; under performers</div>
-  <h1>Which chips score above or below what their specifications predict?</h1>
-  <p>Each chip's published SPEC score is compared with three model predictions made without that chip or its variants.</p>
-  <div class="op-hero-row">
-    <div class="op-toggle" role="group" aria-label="Chip type">
+<header class="tv-hero">
+  <div class="tv-kicker">Tech Value · Over &amp; under performers</div>
+  <h1>Which chips perform above or below what their specifications predict?</h1>
+  <p>Each product's measured score is compared with three model predictions made without that product.
+  Two benchmarks are modelled separately and never combined: Blender rendering covers the retail hardware tracked on the
+  other two pages, and SPEC workloads covers varied professional workloads on mostly server and workstation hardware.</p>
+  <div class="tv-controls">
+    <div class="tv-switch" role="group" aria-label="Chip type">
       <button type="button" data-tab="cpu" aria-pressed="true">CPU</button>
       <button type="button" data-tab="gpu" aria-pressed="false">GPU</button>
     </div>
-    <div class="op-hero-meta">
-      <span data-kind="cpu">SPEC CPU 2017 · SPECrate Integer base · Benchmarks collected {collected(cpu_meta)} · Specifications from each SPEC disclosure</span>
-      <span data-kind="gpu">SPEC GWPG · SPECviewperf, SPECworkstation, SPECapc · Benchmarks collected {collected(gpu_meta)} · Specifications from a table kept in this repository</span>
-    </div>
   </div>
+  <div class="tv-controls">
+    <div class="tv-switch tv-switch-wide" role="group" aria-label="Benchmark">{bench_button("blender")}{bench_button("spec")}</div>
+  </div>
+  <div class="tv-hero-meta">{metas}</div>
 </header>""")
 ```
 
 ```{python}
 #| output: asis
+def headline(kind):
+    """Coverage of the tracked list, by benchmark, counting overlaps once."""
+    t = tracked(kind)
+    if t.empty:
+        return ""
+    n, by_bl, by_spec, either = bench_counts(kind)
+    both = by_bl + by_spec - either
+    m = int((t["assessment"] == tvcat.MEASURED_ONLY).sum())
+    none = int((t["assessment"] == tvcat.NO_MEASUREMENT).sum())
+    trend = ""
+    if not HIST.empty:
+        h = HIST[HIST["kind"] == kind].sort_values("date")
+        if len(h):
+            cutoff = (pd.Timestamp(str(h["date"].iloc[-1])) - pd.Timedelta(days=7)).strftime("%Y-%m-%d")
+            before = h[h["date"] <= cutoff]
+            if len(before):
+                b = before.iloc[-1]
+                trend = f" A week earlier ({b['date']}): {int(b['assessed'])}/{int(b['tracked'])}."
+            else:
+                trend = f" Coverage is recorded at every update from {h['date'].iloc[0]} on."
+    rest = []
+    if m:
+        rest.append(f"{m} more {'has' if m == 1 else 'have'} a measurement no model can assess yet")
+    if none:
+        rest.append(f"{none} {'has' if none == 1 else 'have'} none")
+    rest_txt = (" " + " and ".join(rest) + ".") if rest else ""
+    return (f'<div class="op-head" data-kind="{kind}"><strong>{either}/{n}</strong>'
+            f'<span class="op-head-label">tracked {NOUN[kind]} assessed by at least one benchmark</span>'
+            f'<span class="op-head-sub">Blender rendering assesses {by_bl}, SPEC workloads {by_spec}, both {both}. '
+            f'Tracked means on Value ranking or Fair price today.{rest_txt}{trend} '
+            f'Blender measures rendering only, so for many products there is no evidence yet on other workloads.</span></div>')
+
+
+def count(v, cls):
+    df = v["df"]
+    return int((df["cls"] == cls).sum()) if not df.empty else 0
+
+
+def kpis(v):
+    df = v["df"]
+    if df.empty:
+        return ""
+    n_t = int(df["tracked"].sum())
+    noun = NOUN[v["kind"]]
+    first = (f'<div class="op-kpi"><strong>{len(df):,}</strong><span>{noun} ranked on {BENCH[v["bench"]]}</span>'
+             f'<small>{n_t} of them tracked retail products</small></div>')
+    body = "".join(f'<div class="op-kpi"><strong>{count(v, c):,}</strong><span>{label}</span><small>of the {len(df):,} ranked</small></div>'
+                   for c, label in (("above", "Above prediction across models"), ("sensitive", "Model-sensitive"),
+                                    ("below", "Below prediction across models")))
+    err = err_line(v)
+    note = (f'<p class="op-note">Typical held-out error on {BENCH[v["bench"]]} for {noun}: {err}. '
+            "A verdict means the three models agree on the direction; it is not a confidence level, "
+            "and a residual smaller than the typical error says little on its own.</p>")
+    return f'<div class="op-kpis">{first}{body}</div>{note}'
+
+
+def find_bar(kind):
+    names = sorted(cat.loc[cat["kind"] == kind, "name"].dropna().unique()) if not cat.empty else []
+    opts = "".join(f'<option value="{escape(n)}">' for n in names)
+    return (f'<div class="op-find" data-kind="{kind}"><label>Find a {ONE[kind]}'
+            f'<input type="search" list="op-find-{kind}" autocomplete="off" placeholder="Type a name, e.g. {"7950X" if kind == "cpu" else "4060"}" '
+            f'aria-label="Find a {ONE[kind]}"></label><datalist id="op-find-{kind}">{opts}</datalist>'
+            f'<span class="op-find-msg" aria-live="polite"></span></div>'
+            f'<div class="tv-pick-panel" data-kind="{kind}" hidden></div>')
+
+
 html = ""
-for kind in ("cpu", "gpu"):
-    if DATA[kind].empty:
-        continue
-    cards = [
-        (len(DATA[kind]), f"Ranked {NOUN[kind]}"),
-        (count(kind, "above"), "Above prediction across models"),
-        (count(kind, "sensitive"), "Model-sensitive"),
-        (count(kind, "below"), "Below prediction across models"),
-    ]
-    body = "".join(f'<div class="op-kpi"><strong>{n:,}</strong><span>{label}</span></div>' for n, label in cards)
-    html += f'<div class="op-kpis" data-kind="{kind}">{body}</div>'
-html += '<p class="op-note">Agreement between models marks chips worth a closer look. It does not say why a chip differs.</p>'
-raw(headline() + html)
+for kind in KINDS:
+    html += headline(kind)
+    html += find_bar(kind)
+    for bench in BENCHES:
+        html += f'<div data-kind="{kind}" data-bench="{bench}">{kpis(VIEWS[(kind, bench)])}</div>'
+raw(html)
 ```
 
 ```{python}
@@ -512,35 +547,35 @@ def log_ticks(lo, hi):
     return [v for v in vals if lo / 1.15 <= v <= hi * 1.15]
 
 
-def main_chart(kind):
+def main_chart(v):
     """Measured against predicted, one set of points per model; the buttons switch models."""
-    df = DATA[kind]
-    y = df["measured_per_socket" if kind == "cpu" else "measured_score"]
+    df = v["df"]
+    y = df["y"]
     preds = [df[f"pred_{m}"] for m in MODELS]
     lo = float(min(y.min(), *(p.min() for p in preds)))
     hi = float(max(y.max(), *(p.max() for p in preds)))
     fig = go.Figure()
     fig.add_scatter(x=[lo / 1.2, hi * 1.2], y=[lo / 1.2, hi * 1.2], mode="lines", hoverinfo="skip",
                     line=dict(color="#55606c", width=1.3), showlegend=False, name="equal")
+    tracked_txt = np.where(df["tracked"], "<br>Tracked retail product", "")
     for key, label in MODELS.items():
         for cls in ("near", "sensitive", "below", "above"):
             part = df[df["cls"] == cls]
             if part.empty:
                 continue
-            ys = y[part.index]
             custom = np.stack([
                 part["processor"], [CLASSES[cls][0]] * len(part),
                 np.expm1(part[f"{key}_resid_log"]) * 100,
-                part[f"pred_{key}_lo"], part[f"pred_{key}_hi"], part["n_results"], part["n_oems"],
+                part[f"pred_{key}_lo"], part[f"pred_{key}_hi"], part["evidence"], tracked_txt[part.index],
             ], axis=-1)
             fig.add_scatter(
-                x=part[f"pred_{key}"].tolist(), y=ys.tolist(), mode="markers", name=f"m:{key}:{cls}", visible=(key == "ols"),
+                x=part[f"pred_{key}"].tolist(), y=part["y"].tolist(), mode="markers", name=f"m:{key}:{cls}", visible=(key == "ols"),
                 marker=dict(size=6 if cls == "near" else 8, color=CLASSES[cls][2],
                             opacity=0.7 if cls == "near" else 0.95, line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
                 customdata=custom.tolist(), showlegend=False,
                 hovertemplate=(f"<b>%{{customdata[0]}}</b><br>%{{customdata[1]}}<br>Measured %{{y:,.1f}} · {label} %{{x:,.1f}}"
                                " (%{customdata[2]:+.1f}%)<br>80% range %{customdata[3]:,.1f} – %{customdata[4]:,.1f}"
-                               "<br>%{customdata[5]} disclosures · %{customdata[6]} OEM(s)<extra></extra>"),
+                               "<br>%{customdata[5]}%{customdata[6]}<extra></extra>"),
             )
     fig.add_scatter(x=[None], y=[None], mode="markers", name="selected", hoverinfo="skip", showlegend=False,
                     marker=dict(size=17, color="rgba(24,180,123,0.2)", line=dict(width=2.4, color="#0f8f6c")))
@@ -552,118 +587,150 @@ def main_chart(kind):
         xaxis=dict(**AXIS, type="log", range=rng, tickvals=ticks, ticktext=[f"{t:,g}" for t in ticks],
                    title="Predicted by OLS (log scale)"),
         yaxis=dict(**AXIS, type="log", range=rng, tickvals=ticks, ticktext=[f"{t:,g}" for t in ticks],
-                   title=f"Measured: {MEASURE[kind]}"),
+                   title=f"Measured: {MEASURE[(v['kind'], v['bench'])]}"),
         hoverlabel=HOVER, dragmode=False,
         annotations=[dict(x=0.98, y=0.04, xref="paper", yref="paper", showarrow=False, xanchor="right",
                           text="Line = measured equals predicted", font=dict(size=11, color="#8391a1"))],
     )
-    fig.show(config={"displayModeBar": False, "responsive": True})
+    plot(fig)
 
 
-def legend(kind):
+def legend_html():
     items = "".join(
         f'<li><span class="op-dot" style="background:{c}"></span><span><b>{n}</b><small>{d}</small></span></li>'
         for n, d, c in CLASSES.values()
     )
-    raw(f'<aside class="op-legend"><ul>{items}</ul><hr><small>Classes use all three models. '
-        'The chart shows one model at a time.</small>'
-        '<div class="op-callout">Above the line = measured score higher than predicted.</div></aside>')
+    return (f'<aside class="op-legend"><ul>{items}</ul><hr><small>Classes use all three models. '
+            'The chart shows one model at a time.</small>'
+            '<div class="op-callout">Above the line = measured score higher than predicted.</div></aside>')
 
 
-def model_buttons(kind):
-    err = typical_error(kind)
+def model_buttons(v):
+    err = typical_error(v)
     btns = "".join(
-        f'<button type="button" data-model="{k}" aria-pressed="{str(k == "ols").lower()}" '
-        f'title="Typical held-out error {err.get(v, float("nan")):.1f}%">{v}</button>'
-        for k, v in {"ols": "OLS", "structural": "Structural L1", "nonlinear": "Nonlinear GBDT"}.items()
+        f'<button type="button" data-model="{k}" aria-pressed="{str(k == "ols").lower()}">{lbl}'
+        + (f' <small>· {err[lbl][0]:.1f}% typical error</small>' if lbl in err else "") + "</button>"
+        for k, lbl in MODELS.items()
     )
-    raw(f'<div class="op-seg" role="group" aria-label="Prediction model">{btns}</div>')
+    raw(f'<div class="tv-seg" role="group" aria-label="Prediction model">{btns}</div>')
 
 
-def chip_rows(kind):
-    df = DATA[kind]
-    score = "measured_per_socket" if kind == "cpu" else "measured_score"
+def chip_rows(v):
+    df, kind, bench = v["df"], v["kind"], v["bench"]
     rows = []
     for _, r in df.iterrows():
         preds = {}
-        for key, col in (("ols", "ols"), ("structural", "structural"), ("nonlinear", "nonlinear")):
+        for key in MODELS:
             preds[key] = dict(p=round(float(r[f"pred_{key}"]), 2),
                               lo=None if pd.isna(r[f"pred_{key}_lo"]) else round(float(r[f"pred_{key}_lo"]), 2),
                               hi=None if pd.isna(r[f"pred_{key}_hi"]) else round(float(r[f"pred_{key}_hi"]), 2),
-                              r=round(float(np.expm1(r[f"{col}_resid_log"]) * 100), 1))
-        facts = [
-            ("Disclosures", int(r["n_results"])),
-            ("OEMs", int(r["n_oems"])),
-            ("Distinct systems", int(r["n_systems"])),
-            ("Distinct configurations", int(r["n_configs"])),
-        ]
-        if kind == "cpu":
-            facts += [("Sockets tested", r["sockets_tested"]),
-                      ("Test dates", f'{day(r["first_test_date"])} to {day(r["last_test_date"])}'),
-                      ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts')]
-            if pd.notna(r.get("peak_gain_pct")):
-                facts.append(("Peak vs base compiler gain", f'{r["peak_gain_pct"]:+.1f}%'))
+                              r=round(float(np.expm1(r[f"{key}_resid_log"]) * 100), 1))
+        price, price_date = PRICE.get((kind, r["key"]), (None, None))
+        if bench == "spec":
+            facts = [("SPEC disclosures", int(r["n_results"])), ("OEMs", int(r["n_oems"])),
+                     ("Distinct systems", int(r["n_systems"])), ("Distinct configurations", int(r["n_configs"]))]
+            if kind == "cpu":
+                facts += [("Sockets tested", r["sockets_tested"]),
+                          ("Test dates", f'{day(r["first_test_date"])} to {day(r["last_test_date"])}'),
+                          ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts')]
+                if pd.notna(r.get("peak_gain_pct")):
+                    facts.append(("Peak vs base compiler gain", f'{r["peak_gain_pct"]:+.1f}%'))
+            else:
+                facts += [("Suites", r["suites_tested"]), ("Released", int(r["generation"])),
+                          ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts'),
+                          ("Workload specialization", f'{r["workload_specialization_pct"]:+.0f}%')]
+            if price:
+                facts.append(("Retail price", f"${price:,.0f} ({price_date})"))
+                facts.append(("SPEC score per $100", f"{100 * float(r['y']) / price:,.1f}"))
+            limited_txt = "Limited evidence: fewer than four SPEC disclosures or one OEM"
+            url = r.get("disclosure_url") or ""
         else:
-            facts += [("Suites", r["suites_tested"]), ("Released", int(r["generation"])),
-                      ("Config spread", f'{r["tuning_spread_pct"]:.1f} pts'),
-                      ("Workload specialization", f'{r["workload_specialization_pct"]:+.0f}%')]
-        key = tvcat.key_of(kind, r["processor"])
-        price, price_date = PRICE.get((kind, key), (None, None))
-        if price:
-            facts.append(("Retail price", f"${price:,.0f} ({price_date})"))
-            facts.append((f"SPEC score per $100", f"{100 * float(r[score]) / price:,.1f}"))
+            facts = [("Blender runs", f'{int(r["n_runs"]):,}'),
+                     ("Middle half of runs", f'{r["p25_score"]:,.0f} – {r["p75_score"]:,.0f}')]
+            if kind == "cpu":
+                cores = f'{int(r["cores"])}' + (f' ({int(r["p_cores"])}P + {int(r["e_cores"])}E)' if r["e_cores"] else "")
+                facts += [("Cores", cores), ("Threads", int(r["threads"])),
+                          ("Boost clock", f'{r["boost_mhz"]:,.0f} MHz'), ("L3 cache", f'{r["l3_mb"]:,.0f} MB'),
+                          ("TDP", f'{r["tdp_w"]:,.0f} W')]
+            else:
+                facts += [("Backend", r["backend"]), ("Shaders", f'{int(r["cores"]):,}'),
+                          ("Boost clock", f'{r["mhz"]:,.0f} MHz'), ("VRAM", f'{r["vram_gb"]:g} GB'),
+                          ("Memory bandwidth", f'{r["bandwidth_gbps"]:,.0f} GB/s')]
+            facts.append(("Released", int(r["release_year"])))
+            if price:
+                facts.append(("Retail price", f"${price:,.0f} ({price_date})"))
+                facts.append(("Blender points per dollar", f"{float(r['y']) / price:,.2f}"))
+            limited_txt = f"Limited evidence: fewer than {BL_FEW_RUNS} Blender runs"
+            url = ""
         rows.append(dict(
-            key=key, vendor=r["vendor"], group=r["family"], form=r.get("form_factor") or "",
-            gen=None if pd.isna(r["generation"]) else int(r["generation"]),
-            cores=float(r["cores_per_chip"]), price=price,
-            name=r["processor"], cls=CLASSES[r["cls"]][0], y=round(float(r[score]), 2), preds=preds,
-            spread=round(float(r["model_spread_pts"]), 1), oor=r["outside_training_range"] or "",
-            limited=limited(r), facts=facts, url=r.get("disclosure_url") or "",
+            key=r["key"], vendor=r["vendor"], group=r["family"], form=r["form"] if isinstance(r["form"], str) else "",
+            gen=None if pd.isna(r["gen"]) else int(r["gen"]), cores=float(r["cores"]), price=price,
+            tracked=bool(r["tracked"]), name=r["processor"], cls=CLASSES[r["cls"]][0], verdict=r["consensus_verdict"],
+            y=round(float(r["y"]), 2), preds=preds, spread=round(float(r["model_spread_pts"]), 1),
+            oor=r["outside_training_range"] if isinstance(r["outside_training_range"], str) else "",
+            limited=limited_txt if bool(r["limited"]) else "", facts=facts, url=url,
         ))
     return rows
 
 
-def pick(kind):
-    df = DATA[kind]
-    rows = chip_rows(kind)
-    above = df[df["cls"] == "above"]
-    default = (above if len(above) else df).sort_values("nonlinear_resid_log").iloc[-1]["processor"]
-    opts = "".join(f'<option{" selected" if d["name"] == default else ""}>{escape(d["name"])}</option>'
-                   for d in sorted(rows, key=lambda d: d["name"]))
-    err = typical_error(kind)
-    err_txt = " · ".join(f"{m} {e:.1f}%" for m, e in err.items())
-    raw(f"""<div class="op-pick" data-chips="{escape(json.dumps(rows), quote=True)}">
+def default_pick(v):
+    df = v["df"]
+    pool = df[df["tracked"]] if df["tracked"].any() else df
+    if v["kind"] == "gpu" and v["bench"] == "blender" and (pool["key"] == "nvidia rtx 4060").any():
+        return "nvidia rtx 4060"
+    above = pool[pool["cls"] == "above"]
+    return (above if len(above) else pool).sort_values("nonlinear_resid_log").iloc[-1]["key"]
+
+
+def pick(v):
+    kind, bench = v["kind"], v["bench"]
+    rows = chip_rows(v)
+    default = default_pick(v)
+    opts = "".join(f'<option value="{escape(d["key"])}"{" selected" if d["key"] == default else ""}>{escape(d["name"])}</option>'
+                   for d in sorted(rows, key=lambda d: (not d["tracked"], d["name"])))
+    err = typical_error(v)
+    errs = {k: err[VAL_NAME[k]][0] for k in MODELS if VAL_NAME[k] in err}
+    cov = coverage_pct(v)
+    cov_txt = f"{cov[0]:.0f}%" if cov and cov[0] == cov[1] else (f"{cov[0]:.0f}–{cov[1]:.0f}%" if cov else "about 80%")
+    stab = version_text(kind) if bench == "blender" else ""
+    trust = (f'<div class="op-trust"><b>How far to trust this.</b> The verdict says whether all three models put this {ONE[kind]} '
+             f'on the same side of its prediction. Agreement is not statistical confidence: compare the residual with the '
+             f'typical held-out error beside it, and with the 80% range, which held {cov_txt} of {NOUN[kind]} in held-out checks. '
+             f'{escape(stab)}</div>')
+    src = ("Predicted scores are this site's estimates, not SPEC metrics." if bench == "spec" else
+           "Predicted scores are this site's estimates from Blender Open Data (CC0); the Blender Foundation does not endorse them.")
+    raw(f"""<div class="op-pick" data-chips="{escape(json.dumps(rows), quote=True)}" data-errs="{escape(json.dumps(errs), quote=True)}">
 <div class="op-pick-head"><span class="op-pick-name" data-f="name"></span><span class="op-badge" data-f="cls"></span>
-<label>Inspect a {ONE[kind]}<select aria-label="Inspect a {ONE[kind]}">{opts}</select></label></div>
+<label>Inspect a {ONE[kind]}<select aria-label="Inspect a {ONE[kind]} on {BENCH[bench]}">{opts}</select></label></div>
 <div class="op-pick-body">
-<div><table class="op-preds"><thead><tr><th></th><th>Score</th><th>80% range</th><th>Residual</th></tr></thead><tbody data-f="preds"></tbody></table>
-<div class="op-flag" data-f="flags"></div></div>
+<div><table class="op-preds"><thead><tr><th></th><th>Score</th><th>80% range</th><th>Residual</th><th>Typical error</th></tr></thead><tbody data-f="preds"></tbody></table>
+<div class="op-flag" data-f="flags"></div>{trust}</div>
 <div class="op-facts" data-f="facts"></div>
 </div>
-<div class="op-pick-foot">Typical held-out error: {escape(err_txt)}. Predicted scores are this site's estimates, not SPEC metrics.
-<span data-f="link"></span></div>
-</div>
-<div class="tv-pick-panel" data-kind="{kind}" hidden></div>""")
+<div class="op-pick-foot">{src} Tracked retail products are listed first. <span data-f="link"></span></div>
+</div>""")
 
 
-def peers(kind):
-    """Filters that narrow the main chart to comparable chips, with a count."""
-    df = DATA[kind]
+def peers(v):
+    """Filters that narrow the main chart to comparable products, with a count."""
+    df, kind, bench = v["df"], v["kind"], v["bench"]
 
     def options(values, label):
-        vals = sorted({str(v) for v in values if pd.notna(v) and str(v)})
+        vals = sorted({str(x) for x in values if pd.notna(x) and str(x)})
         return f'<option value="">{label}: all</option>' + "".join(
-            f'<option value="{escape(v)}">{escape(v)}</option>' for v in vals)
+            f'<option value="{escape(x)}">{escape(x)}</option>' for x in vals)
 
-    years = sorted({int(v) for v in df["generation"].dropna()})
-    yopts = lambda first: "".join(
-        f'<option{" selected" if y == first else ""}>{y}</option>' for y in years)
+    years = sorted({int(x) for x in df["gen"].dropna()})
+    yopts = lambda first: "".join(f'<option{" selected" if y == first else ""}>{y}</option>' for y in years)
     group_label = "Family" if kind == "cpu" else "Architecture"
-    form = ("" if kind == "cpu" else
-            f'<select data-peer="form" aria-label="Form factor">{options(df["form_factor"], "Form factor")}</select>')
+    form = ("" if kind == "cpu" or not df["form"].astype(bool).any() else
+            f'<select data-peer="form" aria-label="Form factor">{options(df["form"], "Form factor")}</select>')
     unit = "Cores" if kind == "cpu" else "Shaders"
-    n_priced = sum(1 for p in df["processor"] if (kind, tvcat.key_of(kind, p)) in PRICE)
-    raw(f"""<div class="op-peers" role="group" aria-label="Comparable {NOUN[kind]}">
+    n_t = int(df["tracked"].sum())
+    n_priced = sum(1 for k in df["key"] if (kind, k) in PRICE)
+    scope = (f'<select data-peer="tracked" aria-label="Which products"><option value="t" selected>Tracked retail products ({n_t})</option>'
+             f'<option value="">Every benchmarked {ONE[kind]} ({len(df)})</option></select>') if n_t else ""
+    raw(f"""<div class="op-peers" role="group" aria-label="Comparable {NOUN[kind]}">{scope}
 <select data-peer="vendor" aria-label="Vendor">{options(df["vendor"], "Vendor")}</select>
 <select data-peer="group" aria-label="{group_label}">{options(df["family"], group_label)}</select>{form}
 <span class="op-peer-range">Released <select data-peer="gen0" aria-label="Released from">{yopts(years[0])}</select>
@@ -677,18 +744,302 @@ to <select data-peer="gen1" aria-label="Released to">{yopts(years[-1])}</select>
 </div>""")
 
 
-gpu_wl, gpu_wl_meta = site.load("tech-value", "gpu_workloads")
-gpu_cal, gpu_cal_meta = site.load("tech-value", "gpu_calibration")
+def main_card(v):
+    kind, bench = v["kind"], v["bench"]
+    if bench == "blender":
+        lede = (f"Each point is a {ONE[kind]}. Its median Blender score is plotted against the score a model predicts from its "
+                f"specifications, using a fit that never saw it or any {ONE[kind]} with identical specifications. "
+                "The chart opens on the tracked retail products; widen it to every benchmarked one. Pick a model, then hover or click a point.")
+    elif kind == "cpu":
+        lede = ("Each point is a processor. Its SPEC score is plotted against the score a model predicts from its specifications, "
+                "using a fit that never saw that processor. Pick a model, then hover or click a point.")
+    else:
+        lede = ("Each point is a graphics card. Its calibrated workstation score is plotted against the score a model predicts from its "
+                "specifications, using a fit that never saw that card. Only suites whose calibration passes the check below are combined. "
+                "Pick a model, then hover or click a point.")
+    raw('<div class="op-card">')
+    head(f"Measured against predicted: {BENCH[bench]}", lede)
+    model_buttons(v)
+    peers(v)
+    raw('<div class="op-main-grid"><div class="op-plot op-main">')
+    main_chart(v)
+    raw(f"</div>{legend_html()}</div>")
+    pick(v)
+    raw("</div>")
+
+
+CMP_DEFAULT = {"cpu": ("amd ryzen 9 7950x", "intel core i9-13900k"),
+               "gpu": ("nvidia rtx 4060", "amd radeon ai pro r9700")}
+
+
+def compare(v):
+    """Two products side by side from the shared catalogue, with both benchmarks' assessments, labelled."""
+    kind, bench = v["kind"], v["bench"]
+    raw('<div class="op-card">')
+    head("Compare two products",
+         f"Any two {NOUN[kind]} from the catalogue, with what each Tech Value page says about them. "
+         f"{BENCH[bench]} comes first; the other benchmark follows. Blender and SPEC are separate benchmarks: each row "
+         "compares like with like, and no row combines them.")
+    if cat.empty:
+        print(site.empty_state(cat_meta, "Hardware catalogue"))
+        raw("</div>")
+        return
+    names = sorted(cat.loc[cat["kind"] == kind, "name"].dropna().unique())
+    opts = "".join(f'<option value="{escape(n)}">' for n in names)
+    a, b = CMP_DEFAULT[kind]
+    # Every model's residual per product, so the panel can show all three for both benchmarks.
+    res = {}
+    for bb in BENCHES:
+        d = VIEWS[(kind, bb)]["df"]
+        res[bb] = {} if d.empty else {
+            r["key"]: [round(float(np.expm1(r[f"{m}_resid_log"]) * 100), 1) for m in MODELS] for _, r in d.iterrows()}
+    errs = {bb: {m: round(e[0], 1) for m, e in typical_error(VIEWS[(kind, bb)]).items()} for bb in BENCHES}
+    raw(f"""<div class="op-cmp" data-kind="{kind}" data-bench="{bench}" data-a="{escape(a)}" data-b="{escape(b)}"
+data-res="{escape(json.dumps(res), quote=True)}" data-errs="{escape(json.dumps(errs), quote=True)}">
+<div class="op-cmp-pick">
+<label>First {ONE[kind]}<input type="search" list="op-cmp-list-{kind}-{bench}" data-cmp="a" autocomplete="off" aria-label="First {ONE[kind]}"></label>
+<label>Second {ONE[kind]}<input type="search" list="op-cmp-list-{kind}-{bench}" data-cmp="b" autocomplete="off" aria-label="Second {ONE[kind]}"></label>
+<datalist id="op-cmp-list-{kind}-{bench}">{opts}</datalist>
+</div>
+<div class="op-cmp-wrap"><table class="op-cmp-table"><tbody data-cmp="body"><tr><td>Loading the catalogue…</td></tr></tbody></table></div>
+<p class="op-cmp-sum" data-cmp="sum"></p>
+<p class="op-foot">Prices are the dated lowest new listing used on Value ranking and Fair price. Blender points per dollar use
+that same price. SPEC scores are {MEASURE[(kind, "spec")]}. Residuals read OLS / Structural L1 / Nonlinear GBDT.</p>
+</div></div>""")
+```
+
+```{python}
+def agreement(v):
+    df = v["df"]
+    o = np.expm1(df["ols_resid_log"]) * 100
+    n = np.expm1(df["nonlinear_resid_log"]) * 100
+    lim = max(60, float(np.ceil(max(o.abs().max(), n.abs().max()) / 20) * 20))
+    fig = go.Figure()
+    fig.add_shape(type="rect", x0=0, y0=0, x1=lim, y1=lim, fillcolor="rgba(24,180,123,0.08)", line_width=0, layer="below")
+    fig.add_hline(y=0, line=dict(color="#55606c", width=1))
+    fig.add_vline(x=0, line=dict(color="#55606c", width=1))
+    for cls in ("near", "sensitive", "below", "above"):
+        m = (df["cls"] == cls).to_numpy()
+        if not m.any():
+            continue
+        fig.add_scatter(x=o[m], y=n[m], mode="markers", showlegend=False,
+                        marker=dict(size=6, color=CLASSES[cls][2], opacity=0.85),
+                        customdata=df["processor"][m], hovertemplate="<b>%{customdata}</b><br>OLS %{x:+.1f}% · Nonlinear %{y:+.1f}%<extra></extra>")
+    step = 20 if lim <= 100 else 40
+    vals = list(range(-int(lim), int(lim) + 1, step))
+    text = [f"{x:+d}%" if x else "0%" for x in vals]
+    fig.update_layout(height=320, font=FONT, margin=dict(t=6, r=8, b=50, l=62),
+                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+                      xaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Residual vs OLS (%)"),
+                      yaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Residual vs nonlinear (%)"),
+                      hoverlabel=HOVER, dragmode=False)
+    plot(fig)
+
+
+SHORT_GROUP = {
+    "Intel oneAPI (LLVM)": "Intel oneAPI",
+    "Oracle / Vendor Studio": "Oracle Studio",
+    "SPECviewperf 15 (DX12 / Vulkan / OpenGL)": "SPECviewperf 15",
+    "SPECviewperf 2020 (OpenGL / DX12)": "SPECviewperf 2020",
+    "SPECviewperf 12.1 / 13 (Legacy OpenGL)": "SPECviewperf 12.1 / 13",
+    "SPECworkstation (Full System + GPU)": "SPECworkstation",
+    "SPECapc (Maya / Solidworks / Creo / 3ds Max)": "SPECapc",
+}
+
+
+def group_table(df):
+    g = df.groupby("compiler_family").agg(
+        chips=("processor", "size"), disclosures=("n_results", "sum"),
+        spread=("tuning_spread_pct", "median"), configs=("n_configs", "median"),
+        ols=("residual_pct", "median"), nonlinear=("gbdt_residual_pct", "median"),
+    ).reset_index()
+    return g.sort_values("disclosures", ascending=False)
+
+
+def spread_chart(v):
+    g = group_table(v["df"]).sort_values("disclosures")
+    labels = [f"{SHORT_GROUP.get(f, f)} ({c})" for f, c in zip(g["compiler_family"], g["chips"])]
+    fig = go.Figure()
+    for y, x in zip(labels, g["spread"]):
+        fig.add_shape(type="line", x0=0, x1=x, y0=y, y1=y, line=dict(color="#8391a1", width=1.5))
+    fig.add_scatter(
+        x=g["spread"], y=labels, mode="markers+text", text=[f"{x:.1f}" for x in g["spread"]],
+        textposition="middle right", textfont=dict(color="#8391a1", size=12),
+        marker=dict(size=12, color="#18b47b", line=dict(width=1, color="white")),
+        customdata=np.stack([g["chips"], g["disclosures"], g["configs"]], axis=-1),
+        hovertemplate="%{y}<br>Median spread %{x:.1f} pts<br>%{customdata[0]} chips · %{customdata[1]} disclosures"
+                      "<br>Median %{customdata[2]} configurations per chip<extra></extra>",
+        showlegend=False,
+    )
+    hi = float(np.ceil((g["spread"].max() * 1.25) / 5) * 5)
+    fig.update_layout(
+        height=max(240, 60 + 46 * len(g)), font=FONT, margin=dict(t=6, r=12, b=50, l=10),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(**AXIS, range=[0, hi], title="Median spread across submitted configurations (pts)"),
+        yaxis=dict(showgrid=False, showline=False, ticks="", automargin=True),
+        hoverlabel=HOVER, dragmode=False,
+    )
+    plot(fig)
+
+
+TIERS = {
+    "cpu": ([1.5, 3.0], ["Low L3", "Standard L3", "High L3"], "MB L3 per core"),
+    "gpu": ([200, 500], ["Low bandwidth", "Standard bandwidth", "High bandwidth"], "GB/s"),
+}
+TIER_COLORS = ["#d9707a", "#f0b23e", "#18b47b"]
+SYMBOLS = {"cpu": {"Intel": "circle", "AMD": "diamond"}, "gpu": {"NVIDIA": "circle", "AMD": "diamond"}}
+
+
+def symbol_of(kind, vendor):
+    return SYMBOLS[kind].get(vendor, "square")
+
+
+def scaling_chart(v, metric):
+    """metric 'unit': throughput per core or per 1,000 shaders; 'total': measured score."""
+    kind, bench = v["kind"], v["bench"]
+    df = v["df"].dropna(subset=["cores"]).copy()
+    cuts, names, unit = TIERS[kind]
+    df["tier"] = np.digitize(df["tier_x"].fillna(df["tier_x"].median()), cuts)
+    if metric == "unit":
+        df["yv"] = df["unit_score"]
+        what = "Blender score" if bench == "blender" else ("Base score" if kind == "cpu" else "Score")
+        ytitle = f"{what} per core" if kind == "cpu" else f"{what} per 1,000 shaders"
+    else:
+        df["yv"] = df["y"]
+        ytitle = ("Blender score" if bench == "blender" else
+                  ("Base score per socket" if kind == "cpu" else "Calibrated score"))
+    fig = go.Figure()
+    for t in range(len(names)):
+        for vendor in sorted(df["vendor"].dropna().unique()):
+            part = df[(df["tier"] == t) & (df["vendor"] == vendor)]
+            if part.empty:
+                continue
+            fig.add_scatter(
+                x=part["cores"], y=part["yv"], mode="markers", showlegend=False,
+                marker=dict(size=7, symbol=symbol_of(kind, vendor), color=TIER_COLORS[t], opacity=0.85,
+                            line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
+                customdata=np.stack([part["processor"], part["tier_x"], part["residual_pct"]], axis=-1),
+                hovertemplate=f"<b>%{{customdata[0]}}</b><br>%{{x:,.0f}} {'cores' if kind == 'cpu' else 'shaders'} · "
+                              f"%{{y:,.1f}}<br>%{{customdata[1]:.1f}} {unit} · OLS residual %{{customdata[2]:+.1f}}%<extra></extra>",
+            )
+    lo, hi = df["cores"].min(), df["cores"].max()
+    xt = [2 ** e for e in range(0, 16) if lo / 1.5 <= 2 ** e <= hi * 1.5]
+    if kind == "gpu":
+        xt = [x for x in (500, 1000, 2000, 5000, 10000, 20000) if lo / 1.5 <= x <= hi * 1.5]
+    yt = log_ticks(df["yv"].min(), df["yv"].max())
+    fig.update_layout(
+        height=320, font=FONT, margin=dict(t=6, r=10, b=50, l=64),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(**AXIS, type="log", tickvals=xt, ticktext=[f"{x:,}" for x in xt],
+                   title="Cores per chip (log scale)" if kind == "cpu" else "Shaders (log scale)"),
+        yaxis=dict(**AXIS, type="log", tickvals=yt, ticktext=[f"{x:,g}" for x in yt], title=ytitle),
+        hoverlabel=HOVER, dragmode=False,
+    )
+    plot(fig)
+
+
+def scaling_card(v):
+    kind = v["kind"]
+    raw('<div class="op-card">')
+    what = "core" if kind == "cpu" else "shader"
+    by = "L3 cache per core" if kind == "cpu" else "memory bandwidth"
+    head("Where does scaling slow down?",
+         f"Throughput as {what} count rises, colored by {by}, shaped by vendor. These are associations to investigate, not causes.")
+    unit_lbl = "Per core" if kind == "cpu" else "Per 1,000 shaders"
+    total = ("Per socket" if kind == "cpu" else "Total") if v["bench"] == "spec" else "Total"
+    raw(f'<div class="tv-seg" role="group" aria-label="Throughput measure"><button type="button" data-alt="unit" aria-pressed="true">{unit_lbl}</button>'
+        f'<button type="button" data-alt="total" aria-pressed="false">{total}</button></div>')
+    raw('<div class="op-alt" data-alt="unit">')
+    scaling_chart(v, "unit")
+    raw('</div><div class="op-alt" data-alt="total" hidden>')
+    scaling_chart(v, "total")
+    raw("</div>")
+    cuts, names, unit = TIERS[kind]
+    bounds = [f"&lt; {cuts[0]:g} {unit}", f"{cuts[0]:g}–{cuts[1]:g} {unit}", f"&gt; {cuts[1]:g} {unit}"]
+    tiers = "".join(f'<span><span class="op-dot" style="background:{c};margin:0"></span>{n} <small>({b})</small></span>'
+                    for n, b, c in zip(names, bounds, TIER_COLORS))
+    vendors = sorted(v["df"]["vendor"].dropna().unique(), key=lambda x: (symbol_of(kind, x) == "square", x))
+    shapes = "".join(f'<span><span class="op-shape {symbol_of(kind, x)}"></span>{escape(x)}</span>' for x in vendors)
+    raw(f'<div class="op-keys">{tiers}{shapes}</div></div>')
+
+
+def accuracy_card(v):
+    kind, bench = v["kind"], v["bench"]
+    raw('<div class="op-card">')
+    head(f"How accurate are the models on {BENCH[bench]}?",
+         f"Typical error is the median absolute gap between measured and predicted, one value per {ONE[kind]}, from fits that "
+         f"left it out. The 80% range should contain about 80% of {NOUN[kind]}.")
+    val = v["val"]
+    if val.empty:
+        raw('<p class="op-lede">Model validation has not been exported yet.</p></div>')
+        return
+    a = val[val["slice"] == "All"]
+    top = float(a["median_abs_pct_error"].max())
+    rows = ""
+    for _, r in a.iterrows():
+        base = r["model"].startswith("Baseline")
+        cov = "" if pd.isna(r["range_coverage_pct"]) else f'{r["range_coverage_pct"]:.0f}%'
+        w = 100 * r["median_abs_pct_error"] / top if top else 0
+        rows += (f'<tr class="{"op-base" if base else ""}"><td>{escape(r["model"])}</td>'
+                 f'<td><span class="op-bar" style="width:{w * 0.9:.0f}px"></span>{r["median_abs_pct_error"]:.1f}%</td>'
+                 f'<td>{cov}</td><td>{int(r["n_chips"])}</td></tr>')
+    html = (f'<table class="op-acc"><thead><tr><th>Model</th><th>Typical error</th><th>Inside 80% range</th><th>{NOUN[kind]}</th></tr></thead>'
+            f"<tbody>{rows}</tbody></table>")
+    if bench == "blender":
+        c = bl_chk[bl_chk["kind"] == kind] if not bl_chk.empty else bl_chk
+        chk = ""
+        for r in c.itertuples():
+            gap = "—" if pd.isna(r.median_abs_gap_pct) else f"{r.median_abs_gap_pct:.1f}%"
+            chk += (f"<tr><td>Blender {escape(str(r.check_version))}</td><td>{int(r.n_shared)}</td>"
+                    f"<td>{gap}</td><td>{escape(r.status)}</td></tr>")
+        passed = (bl_meta.get("passed") or {}).get(kind) or {}
+        html += (f'<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Same fit on</th><th>Shared {NOUN[kind]}</th>'
+                 f'<th>Median residual gap</th><th>Check</th></tr></thead><tbody>{chk}</tbody></table></div>'
+                 f'<p class="op-foot"><strong>{"Used for assessment" if passed.get("passed") else "Shown only, not used for assessment"}.</strong> '
+                 f'{escape(str(passed.get("reason", "")))}. The version check is a median: it supports stability on average, '
+                 f'while a single product can move further. Errors by vendor, family and year are under Explore the evidence.</p>')
+    else:
+        html += ('<p class="op-foot">' + ("With few cards per group, these errors are rough. " if kind == "gpu" else "") +
+                 "Errors by vendor, family and generation are under Explore the evidence.</p>")
+    raw(html + "</div>")
+
+
+def agreement_card(v):
+    raw('<div class="op-card">')
+    head("Do the models agree?", "Residual against the straight-line OLS model and the nonlinear model. "
+         "Points far from the diagonal depend on the model chosen.")
+    agreement(v)
+    raw("</div>")
+
+
+def spread_card(v):
+    kind = v["kind"]
+    raw('<div class="op-card">')
+    if kind == "cpu":
+        head("How much do submitted configurations vary?",
+             "For each processor, the gap between its highest and lowest residual across submitted systems, memory, compilers "
+             "and operating systems. Median per compiler group.")
+    else:
+        head("How much do submitted configurations vary?",
+             "For each card, the gap between its highest and lowest residual across workstations and benchmark suites. Median per suite group.")
+    spread_chart(v)
+    raw('<p class="op-foot">' + (
+        "Grouped by the compiler of each processor's typical submission (processor count in brackets). Groups differ in hardware "
+        "and submission mix. Peak-versus-base compiler gain is a separate measurement, shown per processor." if kind == "cpu" else
+        "Grouped by the suite of each card's typical submission (card count in brackets). Workload specialization (best workload "
+        "against the composite) is a separate measurement, shown per card.") + "</p></div>")
 
 
 def workloads():
     """Raw scores within one suite, version, OS and resolution: comparable as published."""
+    raw('<div class="op-card">')
     head("Results by workload",
          "Published composite scores, grouped so that only results from the same suite and version, OS and "
          "resolution sit together. Nothing here is calibrated or combined, so every card SPEC measured appears, "
          "ranked or not.")
     if gpu_wl.empty:
-        raw(site.empty_state(gpu_wl_meta, "GPU results by workload"))
+        print(site.empty_state(gpu_wl_meta, "GPU results by workload"))
+        raw("</div>")
         return
     groups = []
     for (suite, osf, res), g in gpu_wl.groupby(["suite", "os_family", "resolution"]):
@@ -707,25 +1058,28 @@ def workloads():
             w = 100 * r.median_score / top if top else 0
             rng = "" if r.n_results < 2 else f"{r.min_score:,.1f} – {r.max_score:,.1f}"
             link = f' <a href="{escape(r.disclosure_url)}">disclosure</a>' if r.disclosure_url else ""
+            oems = f"{r.n_oems}" if r.n_oems else "OEM unknown"
             rows += (f'<tr><td>{escape(r.processor)}<small>{escape(r.vendor)} · {escape(r.form_factor)}</small></td>'
                      f'<td><span class="op-bar" style="width:{w * 1.6:.0f}px"></span>{r.median_score:,.2f}</td>'
-                     f'<td>{rng}</td><td>{r.n_results} · {r.n_oems}</td>'
+                     f'<td>{rng}</td><td>{r.n_results} · {oems}</td>'
                      f'<td>{escape(r.best_workload or "")}{link}</td></tr>')
         note = ("Included in the combined GPU ranking: its calibration passed the held-out check."
                 if in_rank else "Not in the combined GPU ranking: its calibration did not pass the held-out check.")
         bodies += (f'<div class="op-wl" data-wl="{i}"{"" if i == 0 else " hidden"}>'
                    f'<p class="op-foot">Metric: the {escape(base)} composite as published by SPEC (higher is better). {note}</p>'
                    f'<div class="op-cmp-wrap"><table class="op-acc op-wl-table"><thead><tr><th>Card</th><th>Median composite</th>'
-                   f'<th>Range</th><th>Results · OEMs</th><th>Best workload</th></tr></thead><tbody>{rows}</tbody></table></div></div>')
-    raw(f'<div class="op-wl-pick"><label>Suite, OS and resolution <select aria-label="Suite, OS and resolution">{opts}</select></label></div>{bodies}')
+                   f'<th>Range</th><th>SPEC disclosures · OEMs</th><th>Best workload</th></tr></thead><tbody>{rows}</tbody></table></div></div>')
+    raw(f'<div class="op-wl-pick"><label>Suite, OS and resolution <select aria-label="Suite, OS and resolution">{opts}</select></label></div>{bodies}</div>')
 
 
 def calibration_card():
+    raw('<div class="op-card">')
     head("Can the suites be combined?",
          "The GPU score puts different SPEC suites on one scale. Each suite is checked by refitting the "
          "calibration without one card at a time and asking whether that card lands where its other suites put it.")
     if gpu_cal.empty:
-        raw(site.empty_state(gpu_cal_meta, "GPU calibration check"))
+        print(site.empty_state(gpu_cal_meta, "GPU calibration check"))
+        raw("</div>")
         return
     gap = gpu_cal_meta.get("max_gap_pct", 15)
     rows = ""
@@ -735,241 +1089,189 @@ def calibration_card():
                  f'<td>{r.n_results}</td><td>{r.n_cards}</td><td>{r.n_shared_cards}</td><td>{g}</td>'
                  f'<td>{escape(r.status)}</td><td>{"Yes" if r.used_in_ranking else "No"}</td></tr>')
     n_used = int(gpu_cal["used_in_ranking"].sum())
-    raw(f'<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Suite</th><th>Results</th><th>Cards</th>'
+    raw(f'<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Suite</th><th>SPEC disclosures</th><th>Cards</th>'
         f'<th>Shared cards</th><th>Median gap</th><th>Check</th><th>In ranking</th></tr></thead><tbody>{rows}</tbody></table></div>'
         f'<p class="op-foot">A suite passes when at least {gpu_cal_meta.get("min_shared_cards", 3)} cards are also measured elsewhere and their '
         f'median gap is at most {gap:.0f}%. {n_used} of {len(gpu_cal)} suite groups pass and feed the GPU ranking; the reference '
         'scale is SPECviewperf 2020 v3 on Windows at FHD/QHD. A gap mixes calibration error with real differences between workloads, '
-        'so a failing suite is not wrong, only not comparable on one scale. The calibration is refitted inside every leave-one-card-out fold.</p>')
+        'so a failing suite is not wrong, only not comparable on one scale. The calibration is refitted inside every leave-one-card-out fold.</p></div>')
 
 
-CMP_DEFAULT = {"cpu": ("amd ryzen 9 7950x", "intel core i9-13900k"),
-               "gpu": ("nvidia rtx 4060", "amd radeon ai pro r9700")}
-
-
-def compare(kind):
-    """Two products side by side from the shared catalogue, ranked here or not."""
-    head("Compare two products",
-         f"Any two {NOUN[kind]} from the catalogue, with what each Tech Value page says about them. "
-         "Blender and SPEC are separate benchmarks: each row compares like with like, and no row combines them.")
-    if cat.empty:
-        raw(site.empty_state(cat_meta, "Hardware catalogue"))
+def view(kind, bench):
+    """One benchmark view for one kind: chart, inspector, comparison and model checks."""
+    v = VIEWS[(kind, bench)]
+    raw(f'<div class="op-view op-cat" data-kind="{kind}" data-bench="{bench}">')
+    if v["df"].empty:
+        print(site.empty_state(v["meta"], f"{NOUN[kind]} on {BENCH[bench]}"))
+        raw("</div>")
         return
-    names = sorted(cat.loc[cat["kind"] == kind, "name"].dropna().unique())
-    opts = "".join(f'<option value="{escape(n)}">' for n in names)
-    a, b = CMP_DEFAULT[kind]
-    raw(f"""<div class="op-cmp" data-kind="{kind}" data-a="{escape(a)}" data-b="{escape(b)}">
-<div class="op-cmp-pick">
-<label>First {ONE[kind]}<input type="search" list="op-cmp-list-{kind}" data-cmp="a" autocomplete="off" aria-label="First {ONE[kind]}"></label>
-<label>Second {ONE[kind]}<input type="search" list="op-cmp-list-{kind}" data-cmp="b" autocomplete="off" aria-label="Second {ONE[kind]}"></label>
-<datalist id="op-cmp-list-{kind}">{opts}</datalist>
-</div>
-<div class="op-cmp-wrap"><table class="op-cmp-table"><tbody data-cmp="body"><tr><td>Loading the catalogue…</td></tr></tbody></table></div>
-<p class="op-cmp-sum" data-cmp="sum"></p>
-<p class="op-foot">Prices are the dated lowest new listing used on Value ranking and Fair price. Blender points per dollar use
-that same price. SPEC scores are {MEASURE[kind]}.</p>
-</div>""")
-
-
-def head(title, *ledes):
-    raw(f"<h2>{title}</h2>" + "".join(f'<p class="op-lede">{t}</p>' for t in ledes))
+    main_card(v)
+    compare(v)
+    raw('<div class="op-pair">')
+    agreement_card(v)
+    accuracy_card(v)
+    raw('</div><div class="op-pair">')
+    scaling_card(v)
+    if bench == "spec":
+        spread_card(v)
+    else:
+        raw('<div class="op-card">')
+        head("What the Blender model covers",
+             f"Blender Open Data is a crowd-submitted rendering benchmark, so it covers consumer hardware that SPEC rarely sees. "
+             f"Its verdicts are about rendering only: rendering rewards cores, clocks and power, so a cache-heavy {ONE[kind]} can sit "
+             f"below prediction here and still lead in games or other workloads.")
+        n_t = int(v["df"]["tracked"].sum())
+        passed = (bl_meta.get("passed") or {}).get(kind) or {}
+        inputs = ("cores, threads, clocks, L3, TDP, vendor and release year" if kind == "cpu" else
+                  "shaders, clock, VRAM, bandwidth, release year, ray-tracing cores and the Blender backend (OptiX, HIP or oneAPI)")
+        raw(f'<table class="op-acc"><tbody>'
+            f'<tr><td>{NOUN[kind]} ranked</td><td>{len(v["df"]):,}</td></tr>'
+            f'<tr><td>Tracked retail products among them</td><td>{n_t} of {len(tracked(kind))}</td></tr>'
+            f'<tr><td>Benchmarked {NOUN[kind]} with specifications</td><td>{passed.get("n_with_specs", "—")} of {passed.get("n_benchmarked", "—")}</td></tr>'
+            f'<tr><td>Blender version</td><td>{escape(str(BL_VERSION))}</td></tr>'
+            f'<tr><td>Runs per product</td><td>at least {5}; median {int(v["df"]["n_runs"].median())}</td></tr>'
+            f'</tbody></table><p class="op-foot">Inputs: {inputs}. Specifications come from tables in this repository, entered from '
+            f'manufacturers\' reference figures. Blender Open Data collected {day(SRC_DATES.get("blender_opendata"))}; CC0.</p></div>')
+    raw("</div>")
+    if kind == "gpu" and bench == "spec":
+        workloads()
+        calibration_card()
+    raw("</div>")
 ```
 
 ```{python}
-def agreement(kind):
-    df = DATA[kind]
-    o = np.expm1(df["ols_resid_log"]) * 100
-    n = np.expm1(df["nonlinear_resid_log"]) * 100
-    lim = max(60, float(np.ceil(max(o.abs().max(), n.abs().max()) / 20) * 20))
-    fig = go.Figure()
-    fig.add_shape(type="rect", x0=0, y0=0, x1=lim, y1=lim, fillcolor="rgba(24,180,123,0.08)", line_width=0, layer="below")
-    fig.add_hline(y=0, line=dict(color="#55606c", width=1))
-    fig.add_vline(x=0, line=dict(color="#55606c", width=1))
-    for cls in ("near", "sensitive", "below", "above"):
-        m = (df["cls"] == cls).to_numpy()
-        if not m.any():
-            continue
-        fig.add_scatter(x=o[m], y=n[m], mode="markers", showlegend=False,
-                        marker=dict(size=6, color=CLASSES[cls][2], opacity=0.85),
-                        customdata=df["processor"][m], hovertemplate="<b>%{customdata}</b><br>OLS %{x:+.1f}% · Nonlinear %{y:+.1f}%<extra></extra>")
-    step = 20 if lim <= 100 else 40
-    vals = list(range(-int(lim), int(lim) + 1, step))
-    text = [f"{v:+d}%" if v else "0%" for v in vals]
-    fig.update_layout(height=320, font=FONT, margin=dict(t=6, r=8, b=50, l=62),
-                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                      xaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Residual vs OLS (%)"),
-                      yaxis=dict(**AXIS, range=[-lim, lim], tickvals=vals, ticktext=text, title="Residual vs nonlinear (%)"),
-                      hoverlabel=HOVER, dragmode=False)
-    fig.show(config={"displayModeBar": False, "responsive": True})
+#| output: asis
+for kind in KINDS:
+    for bench in BENCHES:
+        view(kind, bench)
+```
+
+```{python}
+A_CLASS = {tvcat.ASSESSED: "op-a-assessed", tvcat.MEASURED_ONLY: "op-a-measured", tvcat.NO_MEASUREMENT: "op-a-none"}
+A_CODE = {tvcat.ASSESSED: "assessed", tvcat.MEASURED_ONLY: "measured", tvcat.NO_MEASUREMENT: "none"}
+A_ORDER = {tvcat.ASSESSED: 0, tvcat.MEASURED_ONLY: 1, tvcat.NO_MEASUREMENT: 2}
 
 
-SHORT_GROUP = {
-    "Intel oneAPI (LLVM)": "Intel oneAPI",
-    "Oracle / Vendor Studio": "Oracle Studio",
-    "SPECviewperf 15 (DX12 / Vulkan / OpenGL)": "SPECviewperf 15",
-    "SPECviewperf 2020 (OpenGL / DX12)": "SPECviewperf 2020",
-    "SPECviewperf 12.1 / 13 (Legacy OpenGL)": "SPECviewperf 12.1 / 13",
-    "SPECworkstation (Full System + GPU)": "SPECworkstation",
-    "SPECapc (Maya / Solidworks / Creo / 3ds Max)": "SPECapc",
-}
+def spec_disclosures(n, oems):
+    """SPEC evidence for a catalogue row. Some collectors (SPECworkstation CPU) do not record the OEM."""
+    n = int(n or 0)
+    if not n:
+        return "0"
+    oem = "OEM unknown" if not oems or pd.isna(oems) or int(oems) == 0 else f"{int(oems)} OEM{'s' if int(oems) != 1 else ''}"
+    return f"{n}<small>{oem}</small>"
 
 
-def group_table(kind):
-    df = DATA[kind]
-    g = df.groupby("compiler_family").agg(
-        chips=("processor", "size"), disclosures=("n_results", "sum"),
-        spread=("tuning_spread_pct", "median"), configs=("n_configs", "median"),
-        ols=("residual_pct", "median"), nonlinear=("gbdt_residual_pct", "median"),
-    ).reset_index()
-    return g.sort_values("disclosures", ascending=False)
-
-
-def spread_chart(kind):
-    g = group_table(kind).sort_values("disclosures")
-    labels = [f"{SHORT_GROUP.get(f, f)} ({c})" for f, c in zip(g["compiler_family"], g["chips"])]
-    fig = go.Figure()
-    for y, v in zip(labels, g["spread"]):
-        fig.add_shape(type="line", x0=0, x1=v, y0=y, y1=y, line=dict(color="#8391a1", width=1.5))
-    fig.add_scatter(
-        x=g["spread"], y=labels, mode="markers+text", text=[f"{v:.1f}" for v in g["spread"]],
-        textposition="middle right", textfont=dict(color="#8391a1", size=12),
-        marker=dict(size=12, color="#18b47b", line=dict(width=1, color="white")),
-        customdata=np.stack([g["chips"], g["disclosures"], g["configs"]], axis=-1),
-        hovertemplate="%{y}<br>Median spread %{x:.1f} pts<br>%{customdata[0]} chips · %{customdata[1]} disclosures"
-                      "<br>Median %{customdata[2]} configurations per chip<extra></extra>",
-        showlegend=False,
-    )
-    hi = float(np.ceil((g["spread"].max() * 1.25) / 5) * 5)
-    fig.update_layout(
-        height=max(240, 60 + 46 * len(g)), font=FONT, margin=dict(t=6, r=12, b=50, l=10),
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(**AXIS, range=[0, hi], title="Median spread across submitted configurations (pts)"),
-        yaxis=dict(showgrid=False, showline=False, ticks="", automargin=True),
-        hoverlabel=HOVER, dragmode=False,
-    )
-    fig.show(config={"displayModeBar": False, "responsive": True})
-
-
-TIERS = {
-    "cpu": ("l3_mb_per_core", [1.5, 3.0], ["Low L3", "Standard L3", "High L3"], "MB L3 per core"),
-    "gpu": ("bandwidth_gbps", [200, 500], ["Low bandwidth", "Standard bandwidth", "High bandwidth"], "GB/s"),
-}
-TIER_COLORS = ["#d9707a", "#f0b23e", "#18b47b"]
-SYMBOLS = {"Intel": "circle", "AMD": "diamond", "NVIDIA": "circle", "Other": "square"}
-
-
-def scaling_chart(kind, metric):
-    """metric 'unit': throughput per core or shader; 'total': measured score."""
-    df = DATA[kind].dropna(subset=["cores_per_chip"]).copy()
-    col, cuts, names, unit = TIERS[kind]
-    df["tier"] = np.digitize(df[col].fillna(df[col].median()), cuts)
-    if metric == "unit":
-        df["yv"] = df["score_per_core"]
-        ytitle = "Base score per core" if kind == "cpu" else "Score per 1,000 shaders"
-    else:
-        df["yv"] = df["measured_per_socket" if kind == "cpu" else "measured_score"]
-        ytitle = "Base score per socket" if kind == "cpu" else "Calibrated score"
-    fig = go.Figure()
-    for t, name in enumerate(names):
-        for vendor, symbol in SYMBOLS.items():
-            part = df[(df["tier"] == t) & (df["vendor"] == vendor)]
-            if part.empty:
-                continue
-            fig.add_scatter(
-                x=part["cores_per_chip"], y=part["yv"], mode="markers", showlegend=False,
-                marker=dict(size=7, symbol=symbol, color=TIER_COLORS[t], opacity=0.85, line=dict(width=0.6, color="rgba(255,255,255,0.8)")),
-                customdata=np.stack([part["processor"], part[col], part["residual_pct"]], axis=-1),
-                hovertemplate=f"<b>%{{customdata[0]}}</b><br>%{{x:,.0f}} {'cores' if kind == 'cpu' else 'shaders'} · "
-                              f"%{{y:,.1f}}<br>%{{customdata[1]:.1f}} {unit} · OLS residual %{{customdata[2]:+.1f}}%<extra></extra>",
-            )
-    lo, hi = df["cores_per_chip"].min(), df["cores_per_chip"].max()
-    xt = [2 ** e for e in range(0, 16) if lo / 1.5 <= 2 ** e <= hi * 1.5]
-    if kind == "gpu":
-        xt = [v for v in (500, 1000, 2000, 5000, 10000, 20000) if lo / 1.5 <= v <= hi * 1.5]
-    yt = log_ticks(df["yv"].min(), df["yv"].max())
-    fig.update_layout(
-        height=320, font=FONT, margin=dict(t=6, r=10, b=50, l=64),
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(**AXIS, type="log", tickvals=xt, ticktext=[f"{v:,}" for v in xt],
-                   title="Cores per chip (log scale)" if kind == "cpu" else "Shaders (log scale)"),
-        yaxis=dict(**AXIS, type="log", tickvals=yt, ticktext=[f"{v:,g}" for v in yt], title=ytitle),
-        hoverlabel=HOVER, dragmode=False,
-    )
-    fig.show(config={"displayModeBar": False, "responsive": True})
-
-
-def scaling_buttons(kind):
-    unit = "Per core" if kind == "cpu" else "Per 1,000 shaders"
-    total = "Per socket" if kind == "cpu" else "Total"
-    raw(f'<div class="op-seg" role="group" aria-label="Throughput measure"><button type="button" data-alt="unit" aria-pressed="true">{unit}</button>'
-        f'<button type="button" data-alt="total" aria-pressed="false">{total}</button></div>')
-
-
-def scaling_keys(kind):
-    _, cuts, names, unit = TIERS[kind]
-    bounds = [f"&lt; {cuts[0]:g} {unit}", f"{cuts[0]:g}–{cuts[1]:g} {unit}", f"&gt; {cuts[1]:g} {unit}"]
-    tiers = "".join(f'<span><span class="op-dot" style="background:{c};margin:0"></span>{n} <small>({b})</small></span>'
-                    for n, b, c in zip(names, bounds, TIER_COLORS))
-    vendors = ["Intel", "AMD", "Other"] if kind == "cpu" else ["NVIDIA", "AMD"]
-    shapes = "".join(f'<span><span class="op-shape {SYMBOLS[v]}"></span>{v}</span>' for v in vendors)
-    raw(f'<div class="op-keys">{tiers}{shapes}</div>')
-
-
-def blender_card(kind):
-    """Over and under performers on Blender rendering: the separate model, its checks and its list."""
-    head(f"Blender rendering: {NOUN[kind]} against their specifications",
-         f"A separate model, fitted on Blender Open Data instead of SPEC: each {ONE[kind]}'s median Blender score "
-         f"against the score its specifications predict, from fits that left it out. Its verdicts are about rendering only.")
-    b = bl[bl["kind"] == kind] if not bl.empty else bl
-    passed = (bl_meta.get("passed") or {}).get(kind) or {}
-    if b.empty:
-        raw(site.empty_state(bl_meta, "Blender residuals"))
+def tracked_list(kind):
+    """Every tracked product, then other SPEC-measured hardware, with both benchmarks' assessments."""
+    if cat.empty or "assessment" not in cat.columns:
+        print(site.empty_state(cat_meta, "Hardware catalogue"))
         return
-    version = bl_meta.get("blender_version")
-    ok = bool(passed.get("passed"))
-    status = (f'<p class="op-lede"><strong>{"Used for assessment" if ok else "Shown only, not used for assessment"}.</strong> '
-              f'{escape(str(passed.get("reason", "")))}. Blender {escape(str(version))}; '
-              f'{passed.get("n_with_specs", 0)} of {passed.get("n_benchmarked", 0)} benchmarked {NOUN[kind]} have specifications.</p>')
-    v = bl_val[(bl_val["kind"] == kind) & (bl_val["slice"] == "All")] if not bl_val.empty else bl_val
-    acc = ""
-    for r in v.itertuples():
-        cov = "" if pd.isna(r.range_coverage_pct) else f"{r.range_coverage_pct:.0f}%"
-        acc += (f'<tr class="{"op-base" if r.model.startswith("Baseline") else ""}"><td>{escape(r.model)}</td>'
-                f'<td>{r.median_abs_pct_error:.1f}%</td><td>{cov}</td><td>{int(r.n_chips)}</td></tr>')
-    c = bl_chk[bl_chk["kind"] == kind] if not bl_chk.empty else bl_chk
-    chk = ""
-    for r in c.itertuples():
-        gap = "—" if pd.isna(r.median_abs_gap_pct) else f"{r.median_abs_gap_pct:.1f}%"
-        chk += (f"<tr><td>Blender {escape(str(r.check_version))}</td><td>{int(r.n_shared)}</td>"
-                f"<td>{gap}</td><td>{escape(r.status)}</td></tr>")
-    tracked_keys = set(tracked(kind)["model_key"]) if not cat.empty else set()
+    c = cat[cat["kind"] == kind]
+    extra = c[~c["tracked"].astype(bool) & (c["assessment"] != tvcat.NO_MEASUREMENT)]
+    t = tracked(kind)
+    first_day = None if HIST.empty else str(HIST["date"].min())
+    gen_day = str(cat_meta.get("generated_at") or "")[:10]
+    rows = []
+    for grp, part in (("t", t), ("x", extra)):
+        part = part.assign(_o=part["assessment"].map(A_ORDER)).sort_values(["_o", "name"])
+        for r in part.itertuples():
+            sub = []
+            if pd.notna(r.price_usd):
+                sub.append(f"${r.price_usd:,.0f}" + (f" on {r.price_date}" if r.price_date else ""))
+            if pd.notna(r.value_rank):
+                sub.append(f"value #{int(r.value_rank)} of {int(r.value_n)}")
+            if grp == "x":
+                sub.append("not sold by a tracked retailer")
+            new = ""
+            ft = getattr(r, "first_tracked", None)
+            if grp == "t" and ft and first_day and ft > first_day and gen_day and \
+                    (pd.Timestamp(gen_day) - pd.Timestamp(ft)).days <= 7:
+                new = f'<span class="op-badge op-new" title="First tracked {ft}">New</span>'
+            if pd.notna(r.measured_value):
+                meas = f"{_fmt(r.measured_value)}<small>{escape(str(r.measured_metric))}</small>"
+                if r.measured_groups and r.measured_groups > 1 and not r.on_residuals:
+                    meas = meas[:-8] + f"; results in {int(r.measured_groups)} suite groups</small>"
+            else:
+                meas = "—"
+            runs = r.blender_runs
+            bl_ev = (f"{int(runs):,}<small>Blender {r.blender_score:,.0f}</small>"
+                     if runs is not None and pd.notna(runs) else "0")
+            lines = []
+            if getattr(r, "on_blender_residuals", False):
+                lines.append(f'<span class="op-bench-line"><b>Blender rendering:</b> {escape(r.blender_verdict or "Near prediction")} · '
+                             f'{r.blender_residual_pct:+.1f}% vs OLS <button type="button" class="op-tl-go" data-key="{escape(r.model_key)}" '
+                             f'data-bench="blender">Inspect</button></span>')
+            else:
+                lines.append(f'<span class="op-bench-line"><b>Blender rendering:</b> not assessed · {escape(r.blender_reason or "no Blender result")}</span>')
+            if r.on_residuals:
+                d = f"{escape(r.consensus_verdict or 'Near prediction')} · {r.residual_pct:+.1f}% vs OLS"
+                if r.coverage_status == tvcat.LIMITED:
+                    d += " · limited evidence"
+                lines.append(f'<span class="op-bench-line"><b>SPEC workloads:</b> {d} <button type="button" class="op-tl-go" '
+                             f'data-key="{escape(r.model_key)}" data-bench="spec">Inspect</button></span>')
+            else:
+                lines.append(f'<span class="op-bench-line"><b>SPEC workloads:</b> not assessed · {escape(r.coverage_status)}'
+                             + (f" · {escape(r.reason)}" if r.reason else "") + "</span>")
+            nxt = escape(r.next_source or "") or "—"
+            q = escape(f"{r.name} {r.model_key}".lower())
+            rows.append(
+                f'<tr data-g="{grp}" data-a="{A_CODE[r.assessment]}" data-q="{q}"{"" if grp == "t" else " hidden"}>'
+                f'<td>{escape(r.name)}{new}<small>{" · ".join(escape(x) for x in sub) or "&nbsp;"}</small></td>'
+                f'<td><span class="op-badge {A_CLASS[r.assessment]}">{escape(r.assessment)}</span>{"".join(lines)}</td>'
+                f'<td>{bl_ev}</td><td>{spec_disclosures(r.measured_n, r.spec_oems)}</td><td>{meas}</td>'
+                f'<td><small>{nxt}</small></td></tr>')
+    n_t, n_x = len(t), len(extra)
+    raw(f"""<div class="op-tl-box" data-kind="{kind}">
+<div class="op-tl-bar">
+<div class="tv-seg" role="group" aria-label="Which products">
+<button type="button" data-g="t" aria-pressed="true">Tracked ({n_t})</button>
+<button type="button" data-g="x" aria-pressed="false">Other SPEC hardware ({n_x})</button>
+<button type="button" data-g="all" aria-pressed="false">All ({n_t + n_x})</button></div>
+<select data-tl="a" aria-label="Model assessment">
+<option value="">Any assessment</option><option value="assessed">Assessed</option>
+<option value="queue">Audit queue (not assessed)</option><option value="measured">Measured, not assessed</option>
+<option value="none">No measurement</option></select>
+<input type="search" data-tl="q" placeholder="Search {NOUN[kind]}" aria-label="Search {NOUN[kind]}">
+<span class="op-tl-count" aria-live="polite"></span>
+</div>
+<div class="op-tl-wrap"><table class="op-tl"><thead><tr><th>Product</th><th>Assessment, by benchmark</th><th>Blender runs</th>
+<th>SPEC disclosures</th><th>SPEC measurement</th><th>Where a result could come from</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>
+<p class="op-foot">Assessed: ranked by the Blender rendering model, the SPEC models, or both; each benchmark's line says which.
+The SPEC models need at least {cpu_meta.get("min_results", 3) if kind == "cpu" else gpu_meta.get("min_results", 2)} SPEC disclosures and the
+Blender model at least 5 runs in Blender {escape(str(BL_VERSION))}. Measured, not assessed: a published SPEC result exists but is below that
+threshold or only in suites that cannot be combined. OEM unknown: the collector for that source does not record who submitted the result.
+{"CPU SPEC measurements are the median SPECrate 2017 Int base per socket." if kind == "cpu" else "GPU SPEC measurements below the threshold are published composites, named with their suite, OS and resolution; they compare only with results from that same group (see Results by workload)."}
+SPEC collected {day(SRC_DATES.get("spec_cpu2017" if kind == "cpu" else "spec_gwpg"))}; Blender Open Data collected {day(SRC_DATES.get("blender_opendata"))}.</p>
+</div>""")
+
+
+def blender_table(kind):
+    """Every product the Blender rendering model ranked."""
+    b = VIEWS[(kind, "blender")]["df"]
+    if b.empty:
+        print(site.empty_state(bl_meta, "Blender residuals"))
+        return
     rows = []
     for r in b.sort_values("residual_pct", ascending=False).itertuples():
-        t = r.model_key in tracked_keys
-        price = PRICE.get((kind, r.model_key))
-        sub = [f"{int(r.n_runs):,} runs", r.backend if kind == "gpu" else ""]
+        price = PRICE.get((kind, r.key))
+        sub = [f"{int(r.n_runs):,} Blender runs", r.backend if kind == "gpu" else ""]
         if price:
             sub.append(f"${price[0]:,.0f}")
         rng = ""
         if pd.notna(r.pred_ols_lo) and pd.notna(r.pred_ols_hi):
             rng = f"<small>80% range {r.pred_ols_lo:,.0f}–{r.pred_ols_hi:,.0f}</small>"
-        out_range = r.outside_training_range if isinstance(r.outside_training_range, str) else ""
-        flag = f"<small>{escape(out_range)}</small>" if out_range else ""
-        q = escape(f"{r.processor} {r.model_key}".lower())
+        flag = f"<small>{escape(r.outside_training_range)}</small>" if isinstance(r.outside_training_range, str) and r.outside_training_range else ""
+        q = escape(f"{r.processor} {r.key}".lower())
         rows.append(
-            f'<tr data-g="{"t" if t else "x"}" data-q="{q}"{"" if t else " hidden"}>'
+            f'<tr data-g="{"t" if r.tracked else "x"}" data-q="{q}"{"" if r.tracked else " hidden"}>'
             f'<td>{escape(r.processor)}<small>{" · ".join(escape(x) for x in sub if x)}</small></td>'
             f'<td>{r.measured_score:,.0f}</td><td>{r.pred_ols:,.0f}{rng}</td>'
             f'<td>{r.residual_pct:+.1f}%<small>structural {r.structural_residual_pct:+.1f}% · GBDT {r.gbdt_residual_pct:+.1f}%</small></td>'
-            f'<td>{escape(r.consensus_verdict)}{flag}</td></tr>')
-    n_t = sum(1 for k in b["model_key"] if k in tracked_keys)
-    inputs = ("Cores, threads, clocks, L3, TDP, vendor and release year" if kind == "cpu" else
-              "Shaders, clock, VRAM, bandwidth, release year, ray-tracing cores and the Blender backend (OptiX, HIP or oneAPI)")
-    unit = "cores" if kind == "cpu" else "shaders"
-    raw(f"""{status}
-<div class="op-tl-box op-bl-box" data-kind="{kind}">
+            f'<td>{escape(r.consensus_verdict)}{flag} <button type="button" class="op-tl-go" data-key="{escape(r.key)}" data-bench="blender">Inspect</button></td></tr>')
+    n_t = int(b["tracked"].sum())
+    raw(f"""<div class="op-tl-box" data-kind="{kind}">
 <div class="op-tl-bar">
-<div class="op-seg" role="group" aria-label="Which products">
+<div class="tv-seg" role="group" aria-label="Which products">
 <button type="button" data-g="t" aria-pressed="true">Tracked ({n_t})</button>
 <button type="button" data-g="x" aria-pressed="false">Not tracked ({len(b) - n_t})</button>
 <button type="button" data-g="all" aria-pressed="false">All ({len(b)})</button></div>
@@ -978,330 +1280,10 @@ def blender_card(kind):
 </div>
 <div class="op-tl-wrap"><table class="op-tl"><thead><tr><th>Product</th><th>Blender score</th><th>Predicted (OLS)</th>
 <th>Residual vs OLS</th><th>Verdict across models</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>
-</div>
-<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Model</th><th>Typical held-out error</th><th>Inside 80% range</th><th>{NOUN[kind]}</th></tr></thead><tbody>{acc}</tbody></table></div>
-<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Same fit on</th><th>Shared {NOUN[kind]}</th><th>Median residual gap</th><th>Check</th></tr></thead><tbody>{chk}</tbody></table></div>
-<p class="op-foot">Specifications come from tables in this repository, entered from manufacturers' reference figures.
-{inputs} are the inputs. The model is used for assessment only when its plain model beats the {unit}-times-clock
-baseline on held-out products and its residuals agree within {float(bl_meta.get("max_gap_pct") or 15):.0f}% when refitted on other Blender versions.
-Rendering rewards cores, clocks and power; cache-heavy chips can sit below prediction here and still lead in games.
-Blender Open Data collected {day(SRC_DATES.get("blender_opendata"))}; CC0.</p>""")
+<p class="op-foot">Blender Open Data {escape(str(BL_VERSION))}, median score per product. Typical held-out error: {err_line(VIEWS[(kind, "blender")])}.</p>
+</div>""")
 
 
-def accuracy(kind):
-    v = VAL[kind]
-    if v.empty:
-        raw('<p class="op-lede">Model validation has not been exported yet.</p>')
-        return
-    a = v[v["slice"] == "All"]
-    top = float(a["median_abs_pct_error"].max())
-    rows = ""
-    for _, r in a.iterrows():
-        base = r["model"].startswith("Baseline")
-        cov = "" if pd.isna(r["range_coverage_pct"]) else f'{r["range_coverage_pct"]:.0f}%'
-        w = 100 * r["median_abs_pct_error"] / top if top else 0
-        rows += (f'<tr class="{"op-base" if base else ""}"><td>{r["model"]}</td>'
-                 f'<td><span class="op-bar" style="width:{w * 0.9:.0f}px"></span>{r["median_abs_pct_error"]:.1f}%</td>'
-                 f'<td>{cov}</td><td>{int(r["n_chips"])}</td></tr>')
-    raw(f'<table class="op-acc"><thead><tr><th>Model</th><th>Typical error</th><th>Inside 80% range</th><th>{NOUN[kind]}</th></tr></thead>'
-        f"<tbody>{rows}</tbody></table>")
-```
-
-```{python}
-#| output: asis
-for kind in ("cpu", "gpu"):
-    if DATA[kind].empty:
-        print(f'<div data-kind="{kind}">')
-        print(site.empty_state(META[kind], f"{NOUN[kind]} residuals"))
-        print("</div>")
-```
-
-::::::: {.op-cat data-kind="cpu"}
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-tracked_list("cpu")
-```
-::::::
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-blender_card("cpu")
-```
-::::::
-
-:::::: {.op-card}
-
-```{python}
-#| output: asis
-head("Measured against predicted",
-     "Each point is a processor. Its measured score is plotted against the score a model predicts from its specifications, "
-     "using a fit that never saw that processor. Pick a model, then hover or click a point.")
-model_buttons("cpu")
-if not DATA["cpu"].empty:
-    peers("cpu")
-```
-
-::::: {.op-main-grid}
-
-:::: {.op-plot .op-main}
-```{python}
-if not cpu.empty:
-    main_chart("cpu")
-```
-::::
-
-```{python}
-#| output: asis
-if not cpu.empty:
-    legend("cpu")
-```
-
-:::::
-
-```{python}
-#| output: asis
-if not cpu.empty:
-    pick("cpu")
-```
-
-::::::
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-compare("cpu")
-```
-::::::
-
-:::::: {.op-pair}
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("Do the models agree?", "Residual against the straight-line OLS model and the nonlinear model. Points far from the diagonal depend on the model chosen.")
-```
-```{python}
-if not cpu.empty:
-    agreement("cpu")
-```
-:::::
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("How much do submitted configurations vary?",
-     "For each processor, the gap between its highest and lowest residual across submitted systems, memory, compilers and operating systems. Median per compiler group.")
-```
-```{python}
-if not cpu.empty:
-    spread_chart("cpu")
-```
-```{python}
-#| output: asis
-raw('<p class="op-foot">Grouped by the compiler of each processor\'s typical submission (processor count in brackets). '
-    'Groups differ in hardware and submission mix. Peak-versus-base compiler gain is a separate measurement, shown per processor.</p>')
-```
-:::::
-
-::::::
-
-:::::: {.op-pair}
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("Where does scaling slow down?",
-     "Throughput as core count rises, colored by L3 cache per core, shaped by vendor. These are associations to investigate, not causes.")
-scaling_buttons("cpu")
-```
-:::: {.op-alt data-alt="unit"}
-```{python}
-if not cpu.empty:
-    scaling_chart("cpu", "unit")
-```
-::::
-:::: {.op-alt data-alt="total" hidden="hidden"}
-```{python}
-if not cpu.empty:
-    scaling_chart("cpu", "total")
-```
-::::
-```{python}
-#| output: asis
-if not cpu.empty:
-    scaling_keys("cpu")
-```
-:::::
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("How accurate are the models?",
-     "Typical error is the median absolute gap between measured and predicted, one value per processor, from fits that left it out. "
-     "The 80% range should contain about 80% of processors.")
-accuracy("cpu")
-raw('<p class="op-foot">Errors by vendor, family and generation are under Explore the evidence.</p>')
-```
-:::::
-
-::::::
-
-:::::::
-
-::::::: {.op-cat data-kind="gpu"}
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-tracked_list("gpu")
-```
-::::::
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-blender_card("gpu")
-```
-::::::
-
-:::::: {.op-card}
-
-```{python}
-#| output: asis
-head("Measured against predicted",
-     "Each point is a graphics card. Its calibrated workstation score is plotted against the score a model predicts from its specifications, "
-     "using a fit that never saw that card. Only suites whose calibration passes the check below are combined. "
-     "Pick a model, then hover or click a point.")
-model_buttons("gpu")
-if not DATA["gpu"].empty:
-    peers("gpu")
-```
-
-::::: {.op-main-grid}
-
-:::: {.op-plot .op-main}
-```{python}
-if not gpu.empty:
-    main_chart("gpu")
-```
-::::
-
-```{python}
-#| output: asis
-if not gpu.empty:
-    legend("gpu")
-```
-
-:::::
-
-```{python}
-#| output: asis
-if not gpu.empty:
-    pick("gpu")
-```
-
-::::::
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-compare("gpu")
-```
-::::::
-
-:::::: {.op-pair}
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("Do the models agree?", "Residual against the straight-line OLS model and the nonlinear model. Points far from the diagonal depend on the model chosen.")
-```
-```{python}
-if not gpu.empty:
-    agreement("gpu")
-```
-:::::
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("How much do submitted configurations vary?",
-     "For each card, the gap between its highest and lowest residual across workstations and benchmark suites. Median per suite group.")
-```
-```{python}
-if not gpu.empty:
-    spread_chart("gpu")
-```
-```{python}
-#| output: asis
-raw('<p class="op-foot">Grouped by the suite of each card\'s typical submission (card count in brackets). '
-    'Workload specialization (best workload against the composite) is a separate measurement, shown per card.</p>')
-```
-:::::
-
-::::::
-
-:::::: {.op-pair}
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("Where does scaling slow down?",
-     "Throughput as shader count rises, colored by memory bandwidth, shaped by vendor. These are associations to investigate, not causes.")
-scaling_buttons("gpu")
-```
-:::: {.op-alt data-alt="unit"}
-```{python}
-if not gpu.empty:
-    scaling_chart("gpu", "unit")
-```
-::::
-:::: {.op-alt data-alt="total" hidden="hidden"}
-```{python}
-if not gpu.empty:
-    scaling_chart("gpu", "total")
-```
-::::
-```{python}
-#| output: asis
-if not gpu.empty:
-    scaling_keys("gpu")
-```
-:::::
-
-::::: {.op-card}
-```{python}
-#| output: asis
-head("How accurate are the models?",
-     "Typical error is the median absolute gap between measured and predicted, one value per card, from fits that left it out. "
-     "The 80% range should contain about 80% of cards.")
-accuracy("gpu")
-raw('<p class="op-foot">With few cards per group, these errors are rough. Errors by vendor, form factor, architecture and year are under Explore the evidence.</p>')
-```
-:::::
-
-::::::
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-workloads()
-```
-::::::
-
-:::::: {.op-card}
-```{python}
-#| output: asis
-calibration_card()
-```
-::::::
-
-:::::::
-
-```{python}
 LABELS = {
     "processor": "Chip", "class": "Classification", "measured": "Measured",
     "pred_ols": "OLS predicted", "residual_pct": "OLS %",
@@ -1310,7 +1292,7 @@ LABELS = {
     "model_spread_pts": "Model spread (pts)", "outside_training_range": "Outside training range",
     "tuning_spread_pct": "Config spread (pts)", "peak_gain_pct": "Peak vs base gain %",
     "workload_specialization_pct": "Workload specialization %",
-    "n_results": "Disclosures", "n_oems": "OEMs", "n_systems": "Systems", "n_configs": "Configurations",
+    "n_results": "SPEC disclosures", "n_oems": "OEMs", "n_systems": "Systems", "n_configs": "Configurations",
     "cores_per_chip": "Cores/chip", "l3_mb_per_core": "L3 MB/core", "score_per_core": "Score/core",
     "first_avail": "First available", "compiler_family": "Compiler",
     "first_test_date": "First test", "last_test_date": "Last test",
@@ -1321,10 +1303,9 @@ LABELS = {
 
 
 def ranking(kind):
-    df = DATA[kind]
+    df = VIEWS[(kind, "spec")]["df"]
     table = df.assign(
-        **{"class": df["cls"].map(lambda c: CLASSES[c][0]),
-           "measured": df["measured_per_socket" if kind == "cpu" else "measured_score"],
+        **{"class": df["cls"].map(lambda c: CLASSES[c][0]), "measured": df["y"],
            "Disclosure": [f'<a href="{u}">report</a>' if u else "" for u in df["disclosure_url"]]}
     )
     cols = ["processor", "class", "measured", "pred_ols", "residual_pct", "pred_structural",
@@ -1346,22 +1327,23 @@ def ranking(kind):
 
 
 def breakdown(kind):
-    g = group_table(kind).rename(columns={
+    g = group_table(VIEWS[(kind, "spec")]["df"]).rename(columns={
         "compiler_family": "Compiler" if kind == "cpu" else "Suite", "chips": NOUN[kind],
-        "disclosures": "Disclosures", "spread": "Median config spread (pts)",
+        "disclosures": "SPEC disclosures", "spread": "Median config spread (pts)",
         "configs": "Median configurations per chip", "ols": "Median OLS %", "nonlinear": "Median nonlinear %",
     })
     show(g.round(1), paging=False, showIndex=False, classes="display compact")
 
 
-def validation(kind):
-    v = VAL[kind]
+def validation(kind, bench):
+    v = val_frame(kind, bench)
     if v.empty:
         display(Markdown("Validation has not been exported yet."))
         return
-    t = v.rename(columns={"slice": "Slice", "group": "Group", "model": "Model", "n_chips": NOUN[kind],
-                          "median_abs_pct_error": "Typical error %", "mean_abs_log_error": "Mean abs log error",
-                          "range_coverage_pct": "Inside 80% range %"})
+    t = v.drop(columns=[c for c in ("kind",) if c in v.columns]).rename(columns={
+        "slice": "Slice", "group": "Group", "model": "Model", "n_chips": NOUN[kind],
+        "median_abs_pct_error": "Typical error %", "mean_abs_log_error": "Mean abs log error",
+        "range_coverage_pct": "Inside 80% range %"})
     show(t.round(3), paging=True, pageLength=25, showIndex=False, classes="display compact")
 
 
@@ -1370,13 +1352,65 @@ def summary(title, note):
 ```
 
 ```{=html}
-<div class="op-evidence"><h2>Explore the evidence</h2></div>
+<div class="op-evidence"><h2>Product lists and evidence</h2></div>
 ```
 
-<details class="op-detail">
+<details class="op-detail" data-kind="cpu">
 ```{python}
 #| output: asis
-summary("Full CPU ranking", f"{len(cpu):,} processors · Predictions, evidence and disclosures")
+summary("Every tracked CPU", f"{len(tracked('cpu'))} on Value ranking or Fair price · Assessment by benchmark, evidence and the audit queue")
+```
+::: {.op-detail-body}
+```{python}
+#| output: asis
+tracked_list("cpu")
+```
+:::
+</details>
+
+<details class="op-detail" data-kind="gpu">
+```{python}
+#| output: asis
+summary("Every tracked GPU", f"{len(tracked('gpu'))} on Value ranking or Fair price · Assessment by benchmark, evidence and the audit queue")
+```
+::: {.op-detail-body}
+```{python}
+#| output: asis
+tracked_list("gpu")
+```
+:::
+</details>
+
+<details class="op-detail" data-kind="cpu" data-bench="blender">
+```{python}
+#| output: asis
+summary("Full Blender CPU ranking", f"{len(VIEWS[('cpu', 'blender')]['df']):,} processors · Scores, predictions and verdicts")
+```
+::: {.op-detail-body}
+```{python}
+#| output: asis
+blender_table("cpu")
+```
+:::
+</details>
+
+<details class="op-detail" data-kind="gpu" data-bench="blender">
+```{python}
+#| output: asis
+summary("Full Blender GPU ranking", f"{len(VIEWS[('gpu', 'blender')]['df']):,} graphics cards · Scores, predictions and verdicts")
+```
+::: {.op-detail-body}
+```{python}
+#| output: asis
+blender_table("gpu")
+```
+:::
+</details>
+
+<details class="op-detail" data-kind="cpu" data-bench="spec">
+```{python}
+#| output: asis
+summary("Full SPEC CPU ranking", f"{len(cpu):,} processors · Predictions, evidence and disclosures")
 ```
 ::: {.op-detail-body}
 ```{python}
@@ -1388,10 +1422,10 @@ else:
 :::
 </details>
 
-<details class="op-detail">
+<details class="op-detail" data-kind="gpu" data-bench="spec">
 ```{python}
 #| output: asis
-summary("Full GPU ranking", f"{len(gpu):,} graphics cards · Predictions, evidence and disclosures")
+summary("Full SPEC GPU ranking", f"{len(gpu):,} graphics cards · Predictions, evidence and disclosures")
 ```
 ::: {.op-detail-body}
 ```{python}
@@ -1421,9 +1455,9 @@ else:
     rows = ""
     for r in src.itertuples():
         when = str(r.last_collected)[:10] if r.last_collected else "—"
-        count = f"{r.results:,} · {r.products:,}" if r.results else "—"
+        n = f"{r.results:,} · {r.products:,}" if r.results else "—"
         rows += (f"<tr><td>{escape(r.source)}<small>{escape(r.publisher)}</small></td><td>{escape(r.benchmark)}"
-                 f"<small>{escape(r.metric)}</small></td><td>{escape(r.status)}<small>{when}</small></td><td>{count}</td>"
+                 f"<small>{escape(r.metric)}</small></td><td>{escape(r.status)}<small>{when}</small></td><td>{n}</td>"
                  f"<td>{escape(r.recorded) or '—'}</td><td>{escape(r.used_for)}</td></tr>")
     raw(f'<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Source</th><th>Benchmark and metric</th>'
         f'<th>Status · collected</th><th>Results · products</th><th>Recorded per result</th><th>Used for</th></tr></thead>'
@@ -1439,22 +1473,26 @@ the SPEC-published results.
 <details class="op-detail">
 ```{python}
 #| output: asis
-summary("Coverage of every product", f"{len(cat):,} CPUs and GPUs · Status, reason and collection dates")
+summary("Coverage of every product", f"{len(cat):,} CPUs and GPUs · Status by benchmark, reason and collection dates")
 ```
 ::: {.op-detail-body}
 ```{python}
 if cat.empty:
     display(Markdown(site.empty_state(cat_meta, "Hardware catalogue")))
 else:
-    yes = lambda s: s.map({True: "Yes", False: ""})
+    yes = lambda s: s.astype(bool).map({True: "Yes", False: ""})
+    oem = [("" if not n else ("Unknown" if not o or pd.isna(o) or int(o) == 0 else int(o)))
+           for n, o in zip(cat["measured_n"].fillna(0).astype(int), cat["spec_oems"])]
     t = cat.assign(
         Kind=cat["kind"].str.upper(), Value=yes(cat["on_value_ranking"]), Fair=yes(cat["on_fair_price"]),
-        Here=yes(cat["on_residuals"]),
-    )[["Kind", "name", "coverage_status", "reason", "spec_results", "spec_oems", "Value", "Fair", "Here",
-       "price_usd", "price_date", "blender_score", "benchmarks_collected"]].rename(columns={
-        "name": "Product", "coverage_status": "Status", "reason": "Reason", "spec_results": "SPEC results",
-        "spec_oems": "OEMs", "Value": "On Value ranking", "Fair": "On Fair price", "Here": "Ranked here",
-        "price_usd": "Price (USD)", "price_date": "Price date", "blender_score": "Blender score",
+        BlenderA=yes(cat["on_blender_residuals"]), SpecA=yes(cat["on_residuals"]), OEMs=oem,
+        Runs=cat["blender_runs"].map(lambda v: f"{int(v):,}" if pd.notna(v) else ""),
+    )[["Kind", "name", "assessment", "BlenderA", "Runs", "blender_score", "SpecA", "coverage_status", "reason",
+       "measured_n", "OEMs", "Value", "Fair", "price_usd", "price_date", "benchmarks_collected"]].rename(columns={
+        "name": "Product", "assessment": "Assessment", "BlenderA": "Blender assessed", "Runs": "Blender runs",
+        "blender_score": "Blender score", "SpecA": "SPEC assessed", "coverage_status": "SPEC status",
+        "reason": "SPEC reason", "measured_n": "SPEC disclosures", "OEMs": "SPEC OEMs",
+        "Value": "On Value ranking", "Fair": "On Fair price", "price_usd": "Price (USD)", "price_date": "Price date",
         "benchmarks_collected": "SPEC collected",
     })
     t["SPEC collected"] = t["SPEC collected"].astype(str).str[:10]
@@ -1468,22 +1506,23 @@ else:
          lengthMenu=[25, 100, 2000], maxBytes=0)
 ```
 
-**Measured**: ranked here, with at least four results from more than one OEM. **Limited
-evidence**: ranked on fewer results or a single OEM, or below the minimum number of results.
-**Missing specifications**: SPEC results exist but the card is not in the specification table.
-**Parsing failure**: a SPEC row names the product but no score could be read. **Results not
-found**: no SPEC result in the collected suites, either because none is published (missing
-measurements) or because the source does not cover that kind of product (SPEC GWPG is
-workstation submissions, so consumer graphics cards rarely appear). Products on Value ranking or
-Fair price are listed first. CPU specifications come from the SPEC disclosures; GPU specifications
-come from the table in `pdi/tech_value/gwpg.py`.
+**Assessed**: ranked by at least one model, Blender rendering or SPEC. The SPEC status says why a
+product is or is not ranked on SPEC: **Measured**: ranked, with at least four SPEC disclosures
+from more than one OEM. **Limited evidence**: ranked on fewer disclosures or a single OEM, or
+below the minimum. **Missing specifications**: SPEC results exist but the card is not in the
+specification table. **Parsing failure**: a SPEC row names the product but no score could be
+read. **Results not found**: no SPEC result in the collected suites, either because none is
+published or because the source does not cover that kind of product (SPEC GWPG is workstation
+submissions, so consumer graphics cards rarely appear). **SPEC OEMs: Unknown** means the
+collector does not record who submitted the result (SPECworkstation CPU scores). Products on
+Value ranking or Fair price are listed first.
 :::
 </details>
 
-<details class="op-detail">
+<details class="op-detail" data-bench="spec">
 ```{python}
 #| output: asis
-summary("Configuration breakdowns", "Compiler and suite groups, spreads and submission counts")
+summary("Configuration breakdowns", "SPEC compiler and suite groups, spreads and submission counts")
 ```
 ::: {.op-detail-body}
 
@@ -1510,23 +1549,47 @@ base compiler gain** (SPEC's peak run against its base run on the same system) a
 :::
 </details>
 
-<details class="op-detail">
+<details class="op-detail" data-bench="blender">
 ```{python}
 #| output: asis
-summary("Model validation by category and generation", "Typical error by vendor, family, form factor and year, against a simple baseline")
+summary("Blender model validation by category", "Typical error by vendor, family, year and backend, against a simple baseline")
 ```
 ::: {.op-detail-body}
 
 ### CPUs
 
 ```{python}
-validation("cpu")
+validation("cpu", "blender")
 ```
 
 ### GPUs
 
 ```{python}
-validation("gpu")
+validation("gpu", "blender")
+```
+
+Each product contributes one median residual from a fit that left it out. The **baseline**
+predicts score from cores (or shaders) times clock with one fitted constant.
+:::
+</details>
+
+<details class="op-detail" data-bench="spec">
+```{python}
+#| output: asis
+summary("SPEC model validation by category", "Typical error by vendor, family, form factor and year, against a simple baseline")
+```
+::: {.op-detail-body}
+
+### CPUs
+
+```{python}
+validation("cpu", "spec")
+```
+
+### GPUs
+
+```{python}
+validation("gpu", "spec")
 ```
 
 Each chip contributes one median residual. The **baseline** predicts score from cores (or
@@ -1538,72 +1601,81 @@ little there.
 <details class="op-detail">
 ```{python}
 #| output: asis
-summary("Models, definitions &amp; limitations", "OLS · Structural L1 · Nonlinear GBDT · provenance")
+summary("Models, definitions &amp; limitations", "OLS · Structural L1 · Nonlinear GBDT · both benchmarks · provenance")
 ```
 ::: {.op-detail-body}
 
-**Held out by chip.** Every chip is scored by models refitted without any of its results.
-For CPUs, single-socket "P" parts (such as EPYC 9454P) are held out together with the part of
-the same silicon (EPYC 9454), so a near-identical chip cannot help predict it. A chip's residual
-is the median over its results of how far the measured score is above (positive) or below
-(negative) the prediction. CPUs need at least `{python} cpu_meta.get("min_results", 3)` results
-to be ranked, GPUs at least `{python} gpu_meta.get("min_results", 2)`.
+**Two benchmarks, never combined.** Blender rendering and SPEC workloads each have their own
+three models, fitted on their own scores. A product can carry an assessment from both; the page
+shows one benchmark at a time, and the comparison panel labels every row with its benchmark.
 
-**Scores.** CPU scores are SPECrate 2017 Integer base per socket, the median over a processor's
-results, because SPECrate grows with the number of sockets. GPU scores combine several SPEC GWPG
-suites. Each suite and version, OS and resolution is put on the SPECviewperf 2020 v3 (Windows,
-FHD/QHD) scale before fitting, so a GPU score is this site's estimate, not a SPEC metric. The
-calibration is refitted inside every leave-one-card-out fold, so a card never sets the scale it
-is judged on. Only suites that pass the held-out check in "Can the suites be combined?" feed the
-ranking; every other result is shown as published under "Results by workload".
+**Held out by product.** Every product is scored by models refitted without any of its results.
+For SPEC CPUs, single-socket "P" parts (such as EPYC 9454P) are held out together with the part
+of the same silicon (EPYC 9454). For Blender, products with identical specifications are held
+out together. A residual is how far the measured score is above (positive) or below (negative)
+the prediction. SPEC CPUs need at least `{python} cpu_meta.get("min_results", 3)` disclosures
+to be ranked, SPEC GPUs at least `{python} gpu_meta.get("min_results", 2)`, and Blender
+products at least 5 runs in one Blender version.
+
+**Scores.** Blender scores are the median Blender Benchmark score (samples per minute over three
+scenes) in Blender `{python} BL_VERSION`, never combined across versions. SPEC CPU scores are
+SPECrate 2017 Integer base per socket, the median over a processor's results. SPEC GPU scores
+combine several SPEC GWPG suites, each put on the SPECviewperf 2020 v3 (Windows, FHD/QHD) scale
+before fitting, so a GPU score is this site's estimate, not a SPEC metric. Only suites that pass
+the held-out check in "Can the suites be combined?" feed the ranking.
 
 **The three models.**
 
-* **OLS** is a plain regression in logs on cores, clock, chips, SMT, L2 and L3 cache per core,
-  vintage and vendor (for GPUs: shaders, boost clock, VRAM, memory bandwidth, mobile form factor
-  and vendor).
+* **OLS** is a plain regression in logs on the product's specifications (SPEC CPUs: cores,
+  clock, chips, SMT, L2 and L3 cache per core, vintage and vendor; SPEC GPUs: shaders, boost
+  clock, VRAM, memory bandwidth, mobile form factor and vendor; Blender CPUs: cores, threads,
+  clocks, L3, TDP, vendor and year; Blender GPUs: shaders, clock, VRAM, bandwidth, year,
+  ray-tracing cores and backend).
 * **Structural L1** is a robust regression that lets returns to core or shader count diminish,
-  with cache-by-density and bandwidth interactions.
+  with cache and bandwidth interactions.
 * **Nonlinear GBDT** is a gradient-boosted tree model with median loss over the same
   specifications.
 
-**Ranges and flags.** A chip's 80% range is its predicted score widened by the 10th and 90th
-percentiles of every other chip's residual for that model. **Model spread** is the gap between
-the highest and lowest of the three residuals. **Outside training range** names any
-specification on which the chip is beyond every other chip, where predictions extrapolate.
-**Limited evidence** marks a chip with fewer than four results, or with every result from one
-OEM.
+**Verdicts are agreement, not confidence.** *Above prediction across models*: above all three
+predictions (CPUs: OLS +10% or more, structural and nonlinear +8% or more, and OLS and nonlinear
+within 25 points). *Below prediction across models*: below all three (CPUs: −10%, −8%, −8%).
+*Model-sensitive*: high on the straight-line OLS but much smaller once nonlinear scaling is
+allowed for. Everything else is *near prediction*. GPU thresholds are similar. A verdict says the
+models agree on the direction. How far to trust one product's residual comes from the typical
+held-out error of that benchmark's models and from the 80% range, both shown beside each
+verdict.
 
-**Classes.** *Above prediction across models*: above all three predictions (CPUs: OLS +10% or
-more, structural and nonlinear +8% or more, and OLS and nonlinear within 25 points).
-*Below prediction across models*: below all three (CPUs: −10%, −8%, −8%), a candidate for
-checking scaling, configuration or model limits. *Model-sensitive*: high on the straight-line OLS
-but much smaller once nonlinear scaling is allowed for. Everything else is *near prediction*.
-GPU thresholds are similar.
+**Ranges and flags.** A product's 80% range is its prediction widened by the 10th and 90th
+percentiles of every other product's residual for that model. **Model spread** is the gap
+between the highest and lowest of the three residuals. **Outside training range** names any
+specification on which the product is beyond every other one, where predictions extrapolate.
+**Limited evidence** marks a SPEC chip with fewer than four disclosures or every disclosure from
+one OEM, and a Blender product with fewer than `{python} BL_FEW_RUNS` runs.
 
 ```{python}
 #| output: asis
 v = cpu_meta.get("verdict") or {}
 if v:
-    print(f"**Does the CPU model carry signal at all?** {v['statement']} See "
+    print(f"**Does the SPEC CPU model carry signal at all?** {v['statement']} See "
           "[Model and leaderboard](model.qmd).\n")
 ```
 
-**Provenance.** Benchmarks: SPEC CPU 2017 collected `{python} collected(cpu_meta)`, SPEC GWPG
-collected `{python} collected(gpu_meta)`. CPU specifications come from each SPEC disclosure.
-GPU specifications come from a table kept in this repository. Prices, where shown, are the dated
-lowest new listing used on Value ranking and Fair price; most SPEC-tested chips have none. Every
-row links to its SPEC disclosure where SPEC publishes one.
+**Provenance.** Benchmarks: Blender Open Data collected `{python} day(SRC_DATES.get("blender_opendata"))`,
+SPEC CPU 2017 collected `{python} collected(cpu_meta)`, SPEC GWPG collected `{python} collected(gpu_meta)`.
+SPEC CPU specifications come from each SPEC disclosure. GPU and Blender CPU specifications come
+from tables kept in this repository. Prices, where shown, are the dated lowest new listing used on
+Value ranking and Fair price.
 
 **Limitations.** A residual flags unexplained performance; it is not a quality score.
-Architecture, memory configuration, compiler, BIOS settings and model fit all contribute, and
-vendors choose which configurations to submit. The spread and scaling charts describe the
-submitted results and do not separate these causes.
+Architecture, memory configuration, compiler, BIOS settings, cooling and model fit all
+contribute. SPEC submitters choose which configurations to submit; Blender Open Data is
+crowd-submitted and uncontrolled. The spread and scaling charts describe the submitted results
+and do not separate these causes.
 
 ```{python}
 #| output: asis
 print(site.finding_line(cpu_meta.get("finding")))
-for m in (cpu_meta, gpu_meta):
+for m in (bl_meta, cpu_meta, gpu_meta):
     for line in m.get("limitations", []):
         print(f"* {line}")
     print()
@@ -1616,8 +1688,8 @@ for m in (cpu_meta, gpu_meta):
 ```{python}
 #| output: asis
 raw(f'<div class="op-closing"><span>Residuals flag unexplained performance. Architecture, configuration and model fit can all contribute.</span>'
-    f"<span>Predicted scores, ranges and GPU calibrated scores are this site's estimates, not SPEC metrics. "
-    f"Benchmarks collected: CPU {collected(cpu_meta)}, GPU {collected(gpu_meta)}.</span></div>")
+    f"<span>Predicted scores, ranges and GPU calibrated scores are this site's estimates, not SPEC or Blender metrics. "
+    f"Benchmarks collected: Blender {day(SRC_DATES.get('blender_opendata'))}, SPEC CPU {collected(cpu_meta)}, SPEC GPU {collected(gpu_meta)}.</span></div>")
 ```
 
 ```{python}
@@ -1629,24 +1701,31 @@ print("\n```{=html}\n<script>" + _P("tv-pick.js").read_text() + "</script>\n```\
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const MODELS = { ols: "OLS", structural: "Structural L1", nonlinear: "Nonlinear GBDT" };
-  const signed = v => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}%`;
+  const BENCH = { blender: "Blender rendering", spec: "SPEC workloads" };
+  const signed = v => v == null ? "—" : `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}%`;
   const num = v => v == null ? "—" : v.toLocaleString("en-US", { maximumFractionDigits: v < 100 ? 1 : 0 });
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const mainGraph = cat => cat.querySelector(".op-main .js-plotly-plot");
+  const state = { kind: "cpu", bench: "blender" };
+  const views = [];
+
   document.querySelectorAll(".op-cat").forEach(cat => {
     const pick = cat.querySelector(".op-pick");
     if (!pick) return;
     const chips = JSON.parse(pick.dataset.chips);
+    const errs = JSON.parse(pick.dataset.errs || "{}");
     const select = pick.querySelector("select");
     const field = f => pick.querySelector(`[data-f="${f}"]`);
-    const kind = cat.dataset.kind;
+    const kind = cat.dataset.kind, bench = cat.dataset.bench;
     const noun = kind === "cpu" ? "CPUs" : "GPUs";
+    const byKey = k => chips.find(d => d.key === k);
+    const byName = n => chips.find(d => d.name === n);
     cat._opModel = "ols";
     // A product picked on another Tech Value page, or in a shared link, replaces the default.
-    const shared = chips.find(d => d.key === window.TVPick?.get(kind));
-    if (shared) select.value = shared.name;
+    const shared = byKey(window.TVPick?.get(kind));
+    if (shared) select.value = shared.key;
 
-    // Peer filters: narrow the main chart to comparable chips and say where the pick sits.
+    // Peer filters: narrow the main chart to comparable products and say where the pick sits.
     const bar = cat.querySelector(".op-peers");
     const pv = n => bar?.querySelector(`[data-peer="${n}"]`)?.value ?? "";
     const pn = n => { const v = pv(n); return v === "" ? null : Number(v); };
@@ -1657,27 +1736,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const m = cat._opModel;
       const res = ok.map(c => c.preds[m].r).sort((a, b) => a - b);
       const mid = res.length ? (res[Math.floor((res.length - 1) / 2)] + res[Math.ceil((res.length - 1) / 2)]) / 2 : null;
-      const sel = chips.find(d => d.name === select.value);
-      let txt = `${ok.length} of ${chips.length} ${noun} comparable`;
+      const sel = byKey(select.value);
+      let txt = `${ok.length} of ${chips.length} ${noun} shown`;
       if (mid != null) txt += ` · median residual vs ${MODELS[m]} ${signed(mid)}`;
       if (sel && ok.includes(sel)) txt += ` · ${sel.name} ranks ${1 + ok.filter(c => c.preds[m].r > sel.preds[m].r).length} of ${ok.length} by residual`;
       else if (sel) txt += ` · ${sel.name} is outside these filters`;
-      if (pn("p0") != null || pn("p1") != null) txt += " · price filters keep only chips with a retail price";
+      if (pn("p0") != null || pn("p1") != null) txt += " · price filters keep only products with a retail price";
       bar.querySelector(".op-peer-count").textContent = txt;
     };
     const applyPeers = () => {
       if (!bar) return;
-      const f = { vendor: pv("vendor"), group: pv("group"), form: pv("form"), g0: pn("gen0"), g1: pn("gen1"),
+      const f = { tracked: pv("tracked"), vendor: pv("vendor"), group: pv("group"), form: pv("form"), g0: pn("gen0"), g1: pn("gen1"),
                   c0: pn("c0"), c1: pn("c1"), p0: pn("p0"), p1: pn("p1") };
       const priced = f.p0 != null || f.p1 != null;
-      const ok = chips.filter(c => (!f.vendor || c.vendor === f.vendor) && (!f.group || c.group === f.group)
+      const ok = chips.filter(c => (!f.tracked || c.tracked) && (!f.vendor || c.vendor === f.vendor) && (!f.group || c.group === f.group)
         && (!f.form || c.form === f.form)
         && (c.gen == null || ((f.g0 == null || c.gen >= f.g0) && (f.g1 == null || c.gen <= f.g1)))
         && (f.c0 == null || c.cores >= f.c0) && (f.c1 == null || c.cores <= f.c1)
         && (!priced || (c.price != null && (f.p0 == null || c.price >= f.p0) && (f.p1 == null || c.price <= f.p1))));
       peerSet = new Set(ok.map(c => c.name));
       const g = mainGraph(cat);
-      if (g && window.Plotly) {
+      if (g && window.Plotly && g.data) {
         const idx = [], xs = [], ys = [], cds = [];
         g.data.forEach((t, i) => {
           if (!t.name?.startsWith("m:")) return;
@@ -1705,40 +1784,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const update = () => {
-      const c = chips.find(d => d.name === select.value) || chips[0];
-      window.TVPick?.render(kind, c.key);
+      const c = byKey(select.value) || chips[0];
       peerCount();
       field("name").textContent = c.name;
       field("cls").textContent = c.cls;
-      let rows = `<tr class="op-measured"><td>Measured</td><td>${num(c.y)}</td><td></td><td></td></tr>`;
+      let rows = `<tr class="op-measured"><td>Measured</td><td>${num(c.y)}</td><td></td><td></td><td></td></tr>`;
       for (const [k, label] of Object.entries(MODELS)) {
         const p = c.preds[k];
         const range = p.lo == null ? "—" : `${num(p.lo)} – ${num(p.hi)}`;
-        rows += `<tr><td>${label}</td><td>${num(p.p)}</td><td>${range}</td><td class="${p.r >= 0 ? "op-pos" : "op-negv"}">${signed(p.r)}</td></tr>`;
+        const e = errs[k] == null ? "—" : `${errs[k].toFixed(1)}%`;
+        rows += `<tr><td>${label}</td><td>${num(p.p)}</td><td>${range}</td><td class="${p.r >= 0 ? "op-pos" : "op-negv"}">${signed(p.r)}</td><td class="op-err">${e}</td></tr>`;
       }
       field("preds").innerHTML = rows;
       const flags = [`Model spread ${c.spread.toFixed(1)} pts`];
       if (c.oor) flags.push(`Outside training range: ${c.oor}`);
-      if (c.limited) flags.push("Limited evidence: few results or one OEM");
-      field("flags").innerHTML = (c.oor || c.limited ? `<svg class="op-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg> ` : "") + esc(flags.join(" · "));
-      field("flags").style.color = c.oor || c.limited ? "" : "var(--op-muted)";
+      if (c.limited) flags.push(c.limited);
+      if (!c.tracked) flags.push("Not sold by a tracked retailer");
+      const warn = c.oor || c.limited;
+      field("flags").innerHTML = (warn ? `<svg class="op-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg> ` : "") + esc(flags.join(" · "));
+      field("flags").style.color = warn ? "" : "var(--op-muted)";
       field("facts").innerHTML = c.facts.map(([k, v]) => `<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join("");
       field("link").innerHTML = c.url ? `<a href="${esc(c.url)}">Typical SPEC disclosure</a>` : "";
       const g = mainGraph(cat);
-      if (!g || !window.Plotly) return;
+      if (!g || !window.Plotly || !g.data) return;
       const idx = g.data.findIndex(t => t.name === "selected");
       if (idx >= 0) Plotly.restyle(g, { x: [[c.preds[cat._opModel].p]], y: [[c.y]] }, [idx]);
     };
+    // Choose a product by key (from the search, a list or another page). Returns false if this view lacks it.
+    const choose = (key, record) => {
+      const c = byKey(key);
+      if (!c) return false;
+      select.value = c.key;
+      if (record) window.TVPick?.set(kind, c.key);
+      if (bar && !c.tracked && pv("tracked")) { bar.querySelector('[data-peer="tracked"]').value = ""; applyPeers(); }
+      update();
+      return true;
+    };
     select.addEventListener("change", () => {
-      const c = chips.find(d => d.name === select.value);
+      const c = byKey(select.value);
       if (c) window.TVPick?.set(kind, c.key);
       update();
     });
-    cat._opUpdate = update;
     const g = mainGraph(cat);
     if (g?.on) g.on("plotly_click", ev => {
-      const name = ev.points?.[0]?.customdata?.[0];
-      if (name && [...select.options].some(o => o.text === name)) { select.value = name; select.dispatchEvent(new Event("change")); }
+      const c = byName(ev.points?.[0]?.customdata?.[0]);
+      if (c) { select.value = c.key; select.dispatchEvent(new Event("change")); }
     });
     cat.querySelectorAll("button[data-model]").forEach(btn => btn.addEventListener("click", () => {
       const m = btn.dataset.model;
@@ -1759,7 +1849,10 @@ document.addEventListener("DOMContentLoaded", () => {
       card.querySelectorAll(".op-alt").forEach(d => { d.hidden = d.dataset.alt !== btn.dataset.alt; });
       card.querySelectorAll(".op-alt:not([hidden]) .js-plotly-plot").forEach(gr => { if (window.Plotly) { Plotly.Plots.resize(gr); fitPhone(gr); } });
     }));
+    views.push({ kind, bench, cat, byKey, choose, update, applyPeers, current: () => select.value });
   });
+  const viewOf = (kind, bench) => views.find(v => v.kind === kind && v.bench === bench);
+
   // Phone width: thin the tick labels and shorten axis titles so nothing is clipped.
   function fitPhone(g) {
     if (!g || !window.Plotly || g._opPhone || g.offsetWidth === 0 || g.offsetWidth >= 600) return;
@@ -1776,32 +1869,83 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     Plotly.relayout(g, upd);
   }
-  const show = kind => {
-    document.body.classList.toggle("op-gpu", kind === "gpu");
-    document.querySelectorAll(".op-toggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
-    document.querySelectorAll(`.op-cat[data-kind="${kind}"]`).forEach(cat => {
-      cat.querySelectorAll(".js-plotly-plot").forEach(g => { if (window.Plotly && g.offsetWidth) { Plotly.Plots.resize(g); fitPhone(g); } });
-      cat._opUpdate?.();
-    });
+  const writeHash = () => {
+    const h = [state.kind === "gpu" ? "gpu" : "", state.bench === "spec" ? "spec" : ""].filter(Boolean).join("-");
+    try { history.replaceState(history.state, "", h ? "#" + h : location.pathname + location.search); } catch (e) {}
   };
-  document.querySelectorAll(".op-toggle button").forEach(b => b.addEventListener("click", () => {
-    show(b.dataset.tab);
-    try { history.replaceState(null, "", b.dataset.tab === "gpu" ? "#gpu" : location.pathname + location.search); } catch (e) {}
-  }));
-  show(location.hash === "#gpu" || window.TVPick?.urlKind() === "gpu" ? "gpu" : "cpu");
+  const show = (kind, bench) => {
+    state.kind = kind; state.bench = bench;
+    document.body.classList.toggle("op-gpu", kind === "gpu");
+    document.body.classList.toggle("op-spec", bench === "spec");
+    document.querySelectorAll(".tv-switch button[data-tab]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === kind)));
+    document.querySelectorAll(".tv-switch button[data-bench]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.bench === bench)));
+    document.querySelectorAll(`.op-cat[data-kind="${kind}"][data-bench="${bench}"]`).forEach(cat => {
+      cat.querySelectorAll(".js-plotly-plot").forEach(g => { if (window.Plotly && g.offsetWidth) { Plotly.Plots.resize(g); fitPhone(g); } });
+    });
+    const v = viewOf(kind, bench);
+    if (v) { v.update(); window.TVPick?.render(kind, v.current()); }
+    document.querySelectorAll(`.op-cmp[data-kind="${kind}"][data-bench="${bench}"]`).forEach(b => b._opDraw?.());
+  };
+  document.querySelectorAll(".tv-switch button[data-tab]").forEach(b => b.addEventListener("click", () => { show(b.dataset.tab, state.bench); writeHash(); }));
+  document.querySelectorAll(".tv-switch button[data-bench]").forEach(b => b.addEventListener("click", () => { show(state.kind, b.dataset.bench); writeHash(); }));
+
+  // Open on what the link asks for; otherwise on Blender, unless the shared pick is only assessed on SPEC.
+  const hash = location.hash.slice(1).split("-");
+  const kind0 = hash.includes("gpu") || window.TVPick?.urlKind() === "gpu" ? "gpu" : "cpu";
+  let bench0 = hash.includes("spec") ? "spec" : "blender";
+  const shared0 = window.TVPick?.get(kind0);
+  if (!hash.includes("spec") && shared0 && !viewOf(kind0, "blender")?.byKey(shared0) && viewOf(kind0, "spec")?.byKey(shared0)) bench0 = "spec";
+  views.forEach(v => v.applyPeers());
+  show(kind0, bench0);
+
+  // Jump to a product: switch to a benchmark that assesses it, select it and scroll to the inspector.
+  const goTo = (kind, key, bench) => {
+    const order = bench ? [bench] : [state.bench, state.bench === "spec" ? "blender" : "spec"];
+    for (const b of order) {
+      const v = viewOf(kind, b);
+      if (v && v.byKey(key)) {
+        if (b !== state.bench || kind !== state.kind) { show(kind, b); writeHash(); }
+        v.choose(key, true);
+        v.cat.querySelector(".op-pick")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return b;
+      }
+    }
+    window.TVPick?.set(kind, key);
+    return null;
+  };
+
+  // Find a product: any catalogue entry; the summary card shows what every page says about it.
+  document.querySelectorAll(".op-find").forEach(box => {
+    const kind = box.dataset.kind;
+    const input = box.querySelector("input");
+    const msg = box.querySelector(".op-find-msg");
+    if (!window.TVPick) return;
+    TVPick.load().then(all => {
+      const mine = all.filter(r => r.kind === kind);
+      const pickIt = () => {
+        const r = mine.find(x => x.name === input.value) || mine.find(x => x.name.toLowerCase() === input.value.trim().toLowerCase());
+        if (!r) { msg.textContent = input.value ? "Pick a name from the list." : ""; return; }
+        const b = goTo(kind, r.model_key);
+        msg.textContent = b ? `Showing ${r.name} on ${BENCH[b]}.`
+          : `${r.name} is not assessed on either benchmark yet. The summary below says why.`;
+      };
+      input.addEventListener("change", pickIt);
+    });
+  });
 
   document.querySelectorAll(".op-wl-pick select").forEach(sel => sel.addEventListener("change", () => {
     const card = sel.closest(".op-card");
     card.querySelectorAll(".op-wl").forEach(d => { d.hidden = d.dataset.wl !== sel.value; });
   }));
 
-  // Every tracked product: which group, assessment filter and search.
+  // Product lists: which group, assessment filter, search, and Inspect links.
   document.querySelectorAll(".op-tl-box").forEach(box => {
     const rows = [...box.querySelectorAll("tbody tr")];
     const sel = box.querySelector('[data-tl="a"]');
     const q = box.querySelector('[data-tl="q"]');
     const count = box.querySelector(".op-tl-count");
-    const noun = box.dataset.kind === "cpu" ? "CPUs" : "GPUs";
+    const kind = box.dataset.kind;
+    const noun = kind === "cpu" ? "CPUs" : "GPUs";
     let grp = "t";
     const apply = () => {
       const a = sel ? sel.value : "", text = q.value.trim().toLowerCase();
@@ -1825,22 +1969,19 @@ document.addEventListener("DOMContentLoaded", () => {
     q.addEventListener("input", apply);
     box.addEventListener("click", e => {
       const go = e.target.closest(".op-tl-go");
-      if (!go) return;
-      const pick = box.closest(".op-cat")?.querySelector(".op-pick select");
-      if (!pick || ![...pick.options].some(o => o.text === go.dataset.name)) return;
-      pick.value = go.dataset.name;
-      pick.dispatchEvent(new Event("change"));
-      pick.closest(".op-pick").scrollIntoView({ behavior: "smooth", block: "center" });
+      if (go) goTo(kind, go.dataset.key, go.dataset.bench);
     });
     apply();
   });
 
-  // Two-product comparison from the shared catalogue.
+  // Two-product comparison from the shared catalogue: both benchmarks, the selected one first.
   const usd = v => "$" + Math.round(v).toLocaleString("en-US");
   const diff = (a, b) => (a && b ? signed(100 * (b / a - 1)) : "");
   document.querySelectorAll(".op-cmp").forEach(box => {
     if (!window.TVPick) return;
-    const kind = box.dataset.kind;
+    const kind = box.dataset.kind, bench = box.dataset.bench;
+    const res = JSON.parse(box.dataset.res || "{}");
+    const errs = JSON.parse(box.dataset.errs || "{}");
     const ia = box.querySelector('[data-cmp="a"]');
     const ib = box.querySelector('[data-cmp="b"]');
     const body = box.querySelector('[data-cmp="body"]');
@@ -1855,44 +1996,84 @@ document.addEventListener("DOMContentLoaded", () => {
       if (second === first) second = byKey(box.dataset.a) || mine.find(r => r !== first);
       ia.value = first.name;
       ib.value = second.name;
-      const spec = r => r.spec_score != null ? num(r.spec_score) : (r.spec_results ? "Not ranked" : "No SPEC result");
-      const rank = r => r.value_rank ? `#${r.value_rank} of ${r.value_n}` : "Not ranked";
-      const verdict = r => r.on_residuals ? `${r.consensus_verdict || "Near prediction"} <small>${signed(r.residual_pct)} vs OLS</small>` : `Not ranked <small>${esc(r.reason || "")}</small>`;
+      const three = (b, r) => {
+        const v = res[b]?.[r.model_key];
+        return v ? `<small>OLS ${signed(v[0])} · Structural ${signed(v[1])} · GBDT ${signed(v[2])}</small>` : "";
+      };
+      const errNote = b => {
+        const e = errs[b] || {};
+        const ks = ["OLS", "Structural L1", "Nonlinear GBDT"].filter(k => e[k] != null);
+        return ks.length ? `typical held-out error ${ks.map(k => e[k].toFixed(1) + "%").join(" / ")}` : "";
+      };
+      const blAssess = r => r.on_blender_residuals
+        ? `Assessed: ${esc(r.blender_verdict || "Near prediction")}${three("blender", r)}`
+        : `Not assessed<small>${esc(r.blender_reason || "No Blender result")}</small>`;
+      const specAssess = r => r.on_residuals
+        ? `Assessed: ${esc(r.consensus_verdict || "Near prediction")}${three("spec", r)}`
+        : `Not assessed · ${esc(r.coverage_status)}${r.reason ? `<small>${esc(r.reason)}</small>` : ""}`;
+      const specScore = r => r.spec_score != null ? num(r.spec_score)
+        : (r.measured_value != null ? `${num(r.measured_value)}<small>${esc(r.measured_metric || "")}, not ranked</small>` : "No SPEC result");
+      const oems = r => !r.measured_n ? "" : (r.spec_oems ? ` · ${r.spec_oems} OEM${r.spec_oems === 1 ? "" : "s"}` : " · OEM unknown");
+      const SECTIONS = {
+        blender: [`Blender rendering`, errNote("blender"), [
+          ["Blender assessment", blAssess, null],
+          ["Blender score", r => r.blender_score != null ? num(r.blender_score) : "No Blender result", "blender_score"],
+          ["Blender runs", r => r.blender_runs != null ? r.blender_runs.toLocaleString("en-US") : "0", null],
+          ["Blender points per dollar", r => r.score_per_dollar != null ? r.score_per_dollar.toFixed(2) : "—", "score_per_dollar"],
+        ]],
+        spec: [`SPEC workloads`, errNote("spec"), [
+          ["SPEC assessment", specAssess, null],
+          [kind === "cpu" ? "SPEC score per socket" : "Calibrated SPEC GWPG score", specScore, "spec_score"],
+          ["SPEC disclosures", r => `${r.measured_n || 0}${oems(r)}`, null],
+        ]],
+      };
+      const COMMON = [
+        ["Assessment", r => `${esc(r.assessment)}${r.assessed_by ? `<small>by ${esc(r.assessed_by)}</small>` : ""}`, null],
+        ["Retail price", r => r.price_usd != null ? `${usd(r.price_usd)}<small>${esc(r.price_date || "")}</small>` : "No current price", "price_usd"],
+        ["Value ranking", r => r.value_rank ? `#${r.value_rank} of ${r.value_n}` : "Not ranked", null],
+        ["Fair price estimate", r => r.fair_price_usd != null ? `${usd(r.fair_price_usd)}<small>listing ${signed(r.fair_gap_pct)} vs estimate</small>` : "No estimate", null],
+      ];
       const draw = () => {
         const a = byName(ia.value), b = byName(ib.value);
         if (!a || !b) { sum.textContent = "Pick two products from the list."; return; }
-        const rowsHtml = [
-          ["Coverage", r => `${esc(r.coverage_status)}${r.reason ? `<small>${esc(r.reason)}</small>` : ""}`, null],
-          ["Retail price", r => r.price_usd != null ? `${usd(r.price_usd)}<small>${esc(r.price_date || "")}</small>` : "No current price", "price_usd"],
-          ["Blender score", r => r.blender_score != null ? num(r.blender_score) : "No Blender result", "blender_score"],
-          ["Blender points per dollar", r => r.score_per_dollar != null ? r.score_per_dollar.toFixed(2) : "—", "score_per_dollar"],
-          ["Value ranking", rank, null],
-          ["Fair price estimate", r => r.fair_price_usd != null ? `${usd(r.fair_price_usd)}<small>listing ${signed(r.fair_gap_pct)} vs estimate</small>` : "No estimate", null],
-          [kind === "cpu" ? "SPEC score per socket" : "Calibrated SPEC GWPG score", spec, "spec_score"],
-          ["Against prediction", verdict, null],
-          ["SPEC evidence", r => `${r.spec_results} results · ${r.spec_oems} OEM${r.spec_oems === 1 ? "" : "s"}`, null],
-        ].map(([label, f, col]) => `<tr><td>${label}</td><td>${f(a)}</td><td>${f(b)}</td><td>${col ? diff(a[col], b[col]) : ""}</td></tr>`).join("");
-        body.innerHTML = `<tr><th></th><th>${esc(a.name)}</th><th>${esc(b.name)}</th><th>Second vs first</th></tr>` + rowsHtml;
-        const parts = [];
-        if (a.blender_score && b.blender_score && a.price_usd && b.price_usd) {
-          const s = 100 * (b.blender_score / a.blender_score - 1), p = 100 * (b.price_usd / a.price_usd - 1);
-          const v = 100 * (b.score_per_dollar / a.score_per_dollar - 1);
-          parts.push(`${esc(b.name)} scores ${Math.abs(s).toFixed(0)}% ${s >= 0 ? "higher" : "lower"} in Blender at ${Math.abs(p).toFixed(0)}% ${p >= 0 ? "more" : "less"} money, so it gives ${Math.abs(v).toFixed(0)}% ${v >= 0 ? "more" : "fewer"} Blender points per dollar.`);
+        const line = ([label, f, col]) => `<tr><td>${label}</td><td>${f(a)}</td><td>${f(b)}</td><td>${col ? diff(a[col], b[col]) : ""}</td></tr>`;
+        let html = `<tr><th></th><th>${esc(a.name)}</th><th>${esc(b.name)}</th><th>Second vs first</th></tr>` + COMMON.map(line).join("");
+        for (const s of [bench, bench === "spec" ? "blender" : "spec"]) {
+          const [title, note, rows] = SECTIONS[s];
+          html += `<tr class="op-cmp-sec"><th colspan="4">${title}${note ? `<small>${esc(note)}</small>` : ""}</th></tr>` + rows.map(line).join("");
         }
-        if (a.spec_score != null && b.spec_score != null) {
+        body.innerHTML = html;
+        const parts = [];
+        if (bench === "blender") {
+          if (a.blender_score && b.blender_score && a.price_usd && b.price_usd) {
+            const s = 100 * (b.blender_score / a.blender_score - 1), p = 100 * (b.price_usd / a.price_usd - 1);
+            const v = 100 * (b.score_per_dollar / a.score_per_dollar - 1);
+            parts.push(`${esc(b.name)} scores ${Math.abs(s).toFixed(0)}% ${s >= 0 ? "higher" : "lower"} in Blender at ${Math.abs(p).toFixed(0)}% ${p >= 0 ? "more" : "less"} money, so it gives ${Math.abs(v).toFixed(0)}% ${v >= 0 ? "more" : "fewer"} Blender points per dollar.`);
+          }
+          if (a.on_blender_residuals && b.on_blender_residuals) {
+            parts.push(`Against their specifications, ${esc(a.name)} sits ${signed(a.blender_residual_pct)} and ${esc(b.name)} ${signed(b.blender_residual_pct)} against the OLS prediction (${errNote("blender")}).`);
+          }
+        } else if (a.spec_score != null && b.spec_score != null) {
           const d = 100 * (b.spec_score / a.spec_score - 1);
-          parts.push(`On SPEC it measures ${Math.abs(d).toFixed(0)}% ${d >= 0 ? "higher" : "lower"}.`);
+          parts.push(`On SPEC, ${esc(b.name)} measures ${Math.abs(d).toFixed(0)}% ${d >= 0 ? "higher" : "lower"}.`);
         } else if (a.spec_score != null || b.spec_score != null) {
           parts.push(`Only ${esc((a.spec_score != null ? a : b).name)} has a ranked SPEC result, so SPEC can't compare the two.`);
+        } else {
+          parts.push("Neither has a ranked SPEC result, so SPEC can't compare the two; the Blender rows below still can.");
         }
         sum.innerHTML = parts.join(" ");
+      };
+      box._opDraw = () => {
+        const f = byKey(TVPick.get(kind));
+        if (f && f.name !== ia.value && f.name !== ib.value) ia.value = f.name;
+        draw();
       };
       ia.addEventListener("change", draw);
       ib.addEventListener("change", draw);
       draw();
     });
   });
-  const settle = () => show(document.body.classList.contains("op-gpu") ? "gpu" : "cpu");
+  const settle = () => show(state.kind, state.bench);
   setTimeout(settle, 300);
   window.addEventListener("load", settle);
 });
