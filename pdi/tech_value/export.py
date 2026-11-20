@@ -14,7 +14,16 @@ import pandas as pd
 
 from pdi.common import findings
 from pdi.common.export import write_table
-from pdi.tech_value import catalogue, config, fair_price, gwpg, model, value
+from pdi.tech_value import (
+    blender_model,
+    catalogue,
+    config,
+    cpu_specs,
+    fair_price,
+    gwpg,
+    model,
+    value,
+)
 
 M = config.MODULE
 SPEC_LIMITS = [
@@ -58,6 +67,18 @@ PRICE_LIMITS = [
 BLENDER_LIMITS = [
     "Blender Open Data is crowd-submitted: cooling, memory and drivers are not controlled.",
     "Scores come from a single Blender version and are never combined across versions.",
+]
+BLENDER_MODEL_LIMITS = [
+    *BLENDER_LIMITS,
+    "The Blender residual model is separate from the SPEC models: it predicts a Blender "
+    "rendering score from specifications, and its verdicts say nothing about SPEC workloads.",
+    "Rendering rewards cores, clocks and power limits; cache-heavy parts such as AMD's X3D "
+    "chips can look like underperformers here and still lead in games.",
+    "CPU and GPU specifications come from tables maintained in this repository "
+    "(pdi/tech_value/cpu_specs.py, pdi/tech_value/gwpg.py), entered from manufacturers' "
+    "reference specifications. Factory-overclocked cards are measured but share one spec row.",
+    "Predicted scores and residuals are this site's estimates. Blender Open Data is CC0; the "
+    "Blender Foundation is credited and does not endorse these estimates.",
 ]
 FAIR_LIMITS = [
     "A fair price here means the price predicted from Blender rendering score alone. A part "
@@ -432,6 +453,85 @@ def export_gpu_model(gwpg_df: pd.DataFrame) -> None:
     )
 
 
+def export_blender_model(blender: pd.DataFrame) -> dict:
+    """Blender rendering residuals for CPUs and GPUs, with both validation checks.
+
+    Returns the build result so the catalogue uses only the kinds that passed.
+    """
+    got = {"blender_opendata": _retrieved(blender)}
+    common = dict(sources=["blender_opendata"], retrieved_at=got, limitations=BLENDER_MODEL_LIMITS)
+    if blender.empty:
+        note = {"status": "Blender Open Data has not been collected yet."}
+        for name in ("blender_residuals", "blender_residual_validation", "blender_version_check"):
+            write_table(M, name, pd.DataFrame(), description=note["status"], extra=note, **common)
+        return {"rank": {}, "passed": {}, "version": None}
+    built = blender_model.build(blender)
+    passed = built["passed"]
+    ranks = [r for r in built["rank"].values() if not r.empty]
+    rank = pd.concat(ranks, ignore_index=True) if ranks else pd.DataFrame()
+    if not rank.empty:
+        rank["used_for_assessment"] = rank["kind"].map(
+            {k: bool(v["passed"]) for k, v in passed.items()}
+        )
+    vals = [v for v in built["validation"].values() if not v.empty]
+    checks = [c for c in built["check"].values() if not c.empty]
+    extra = {
+        "blender_version": built["version"],
+        "passed": passed,
+        "max_gap_pct": gwpg.CALIBRATION_MAX_GAP_PCT,
+        "min_shared": gwpg.CALIBRATION_MIN_OVERLAP,
+        "min_products": blender_model.MIN_PRODUCTS,
+        "metric": blender_model.METRIC,
+    }
+    write_table(
+        M,
+        "blender_version_check",
+        pd.concat(checks, ignore_index=True) if checks else pd.DataFrame(),
+        description="The Blender residual model refitted on other Blender versions: for "
+        "products ranked in both, the median gap between their residuals. A source is used for "
+        f"assessment only when the gap is at most {gwpg.CALIBRATION_MAX_GAP_PCT:.0f}% on "
+        f"every version checked, over at least {gwpg.CALIBRATION_MIN_OVERLAP} shared products.",
+        extra={
+            **extra,
+            "finding": findings.observation("Residuals compared across benchmark versions."),
+        },
+        **common,
+    )
+    write_table(
+        M,
+        "blender_residual_validation",
+        pd.concat(vals, ignore_index=True) if vals else pd.DataFrame(),
+        description="Held-out error of the Blender residual models, one median residual per "
+        "product, against the cores-times-clock (CPU) or shaders-times-clock (GPU) baseline, "
+        "overall and by vendor, family, generation and (GPU) backend.",
+        extra={
+            **extra,
+            "finding": findings.explanation(
+                "Typical error of predictions made without the product being predicted."
+            ),
+        },
+        **common,
+    )
+    write_table(
+        M,
+        "blender_residuals",
+        rank,
+        description="Per CPU and GPU: measured Blender score against the score predicted from "
+        "specifications by fits that left the product (and any product with identical "
+        "specifications) out, with 80% ranges and a verdict across three models.",
+        extra={
+            **extra,
+            "finding": findings.explanation(
+                "A Blender residual is the part of a product's rendering score that its "
+                "specifications do not account for. It flags products to look at more closely; "
+                "it does not say why."
+            ),
+        },
+        **common,
+    )
+    return built
+
+
 def export_sources(
     spec: pd.DataFrame,
     gwpg_df: pd.DataFrame,
@@ -504,7 +604,8 @@ def export_sources(
             "last_collected": _retrieved(blender),
             "recorded": "Device, CPU or GPU, Blender version, number of runs, median and "
             "interquartile range",
-            "used_for": "Value ranking, Fair price, comparisons",
+            "used_for": "Value ranking, Fair price, comparisons, and its own over & under "
+            "performer models (CPU and GPU), kept apart from the SPEC ones",
         },
         {
             "source": "SPEC CPU 2017 floating point and speed",
@@ -531,6 +632,58 @@ def export_sources(
             "recorded": "",
             "used_for": "Not collected: would add consumer CPUs and GPUs SPEC does not cover, "
             "if the operator allows automated access",
+        },
+        {
+            "source": "Geekbench Browser",
+            "publisher": "Primate Labs (user uploads)",
+            "benchmark": "Geekbench 5 and 6 CPU and GPU compute",
+            "metric": "Geekbench score",
+            "status": "Not used: the Geekbench licence gives Primate Labs exclusive rights to "
+            "uploaded results, and robots.txt disallows its search pages (checked 2026-11-20)",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Not collected",
+        },
+        {
+            "source": "PassMark (cpubenchmark.net, videocardbenchmark.net)",
+            "publisher": "PassMark Software (user uploads)",
+            "benchmark": "PerformanceTest CPU Mark and G3D Mark",
+            "metric": "PassMark score",
+            "status": "Not used: PassMark says its data may not be copied without a licence "
+            "(checked 2026-11-20)",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Not collected",
+        },
+        {
+            "source": "TechPowerUp GPU and CPU databases",
+            "publisher": "TechPowerUp (editorial)",
+            "benchmark": "Relative performance (TechPowerUp's own summary of its reviews)",
+            "metric": "Percent of a reference card",
+            "status": "Not used: no export or reuse terms, and its robots.txt could not be read "
+            "by this project's fetcher (checked 2026-11-20)",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Not collected",
+        },
+        {
+            "source": "Cinebench scores in published reviews",
+            "publisher": "Review sites",
+            "benchmark": "Cinebench R23 and 2024",
+            "metric": "Cinebench points",
+            "status": "Not used: scattered across copyrighted reviews with no structured source "
+            "to collect automatically",
+            "results": 0,
+            "products": 0,
+            "last_collected": None,
+            "recorded": "",
+            "used_for": "Not collected",
         },
         {
             "source": "Independently published SPEC runs",
@@ -570,13 +723,19 @@ def main() -> None:
     export_model(spec)
     export_gpu_model(gwpg_df)
     export_value(blender, value.load_prices())
+    built = export_blender_model(blender)
     ws_cpu = pd.read_parquet(config.WS_CPU_TABLE) if config.WS_CPU_TABLE.exists() else None
-    export_catalogue(spec, gwpg_df, blender)
+    export_catalogue(spec, gwpg_df, blender, built)
     export_sources(spec, gwpg_df, blender, ws_cpu)
     print(f"exported {M} tables")
 
 
-def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.DataFrame) -> None:
+def export_catalogue(
+    spec: pd.DataFrame,
+    gwpg_df: pd.DataFrame,
+    blender: pd.DataFrame,
+    built: dict | None = None,
+) -> None:
     """One row per CPU or GPU seen anywhere, with its coverage on each Tech Value page."""
     from pdi import site
 
@@ -603,6 +762,8 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
         gwpg=gwpg_df,
         dates=dates,
         ws_cpu=pd.read_parquet(config.WS_CPU_TABLE) if config.WS_CPU_TABLE.exists() else None,
+        blender_rank=_passed_blender_rows(built),
+        blender_spec_keys=_blender_spec_keys(built),
     )
     counts = cat.groupby(["kind", "coverage_status"]).size() if not cat.empty else pd.Series()
     today = pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%d")
@@ -622,7 +783,7 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
         description="Tracked CPUs and GPUs (those on Value ranking or Fair price) per update, with "
         "how many the over- and under-performer models assess, how many have a SPEC measurement "
         "that is not assessed, and how many have none.",
-        sources=["spec_cpu2017", "spec_gwpg"],
+        sources=["spec_cpu2017", "spec_gwpg", "blender_opendata"],
         retrieved_at=dates,
         extra={"finding": findings.observation("Coverage of tracked products over time.")},
     )
@@ -643,6 +804,29 @@ def export_catalogue(spec: pd.DataFrame, gwpg_df: pd.DataFrame, blender: pd.Data
             ),
         },
     )
+
+
+def _passed_blender_rows(built: dict | None) -> pd.DataFrame | None:
+    """Blender residual rows of the kinds whose model passed both checks."""
+    if not built:
+        return None
+    parts = [
+        r
+        for k, r in built.get("rank", {}).items()
+        if not r.empty and built["passed"].get(k, {}).get("passed")
+    ]
+    return pd.concat(parts, ignore_index=True) if parts else None
+
+
+def _blender_spec_keys(built: dict | None) -> dict[str, set[str]]:
+    """Model keys with specifications, for the kinds whose Blender model passed."""
+    if not built:
+        return {}
+    keys = {
+        "cpu": set(cpu_specs.CPU_SPECS),
+        "gpu": set(blender_model._gpu_spec_by_key()),
+    }
+    return {k: v for k, v in keys.items() if built["passed"].get(k, {}).get("passed")}
 
 
 def _read_coverage_store() -> tuple[list[dict], dict[str, str]]:

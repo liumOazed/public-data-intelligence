@@ -61,6 +61,13 @@ OPENBENCHMARKING_BLOCKED = (
 )
 
 
+# Sources checked on 2026-11-20 and not collected (see sources/registry.yaml).
+NOT_COLLECTED = (
+    "Geekbench, PassMark and TechPowerUp do not allow reuse of their results, and "
+    "OpenBenchmarking.org blocks automated clients"
+)
+
+
 def key_of(kind: str, name: str) -> str:
     """The model key the other pages use, or a normalised name when they have none."""
     hit = names.model_key(name)
@@ -96,7 +103,12 @@ def build(
     gwpg: pd.DataFrame,
     dates: dict[str, str | None],
     ws_cpu: pd.DataFrame | None = None,
+    blender_rank: pd.DataFrame | None = None,
+    blender_spec_keys: dict[str, set[str]] | None = None,
 ) -> pd.DataFrame:
+    """``blender_rank`` holds the Blender residual rows of the kinds whose Blender model passed
+    its checks (see blender_model.passes); ``blender_spec_keys`` the model keys per kind that
+    have specifications for it, so a missing one can be named."""
     rows: dict[tuple[str, str], dict] = {}
 
     def row(kind: str, key: str, name: str) -> dict:
@@ -133,6 +145,10 @@ def build(
                 "ws_cpu_results": 0,
                 "ws_cpu_score": None,
                 "ws_cpu_metric": None,
+                "on_blender_residuals": False,
+                "blender_residual_pct": None,
+                "blender_predicted": None,
+                "blender_verdict": None,
             },
         )
         # Prefer a SPEC or retail display name over a bare model key.
@@ -248,6 +264,16 @@ def build(
             r["measured_metric"] = GPU_RANKED_METRIC
             r["measured_n"] = r["spec_results"]
 
+    # Blender rendering residuals: a separate model on a separate benchmark, never mixed with
+    # the SPEC ones above.
+    if blender_rank is not None and not blender_rank.empty:
+        for b in blender_rank.itertuples():
+            r = row(b.kind, b.model_key, b.model_key)
+            r["on_blender_residuals"] = True
+            r["blender_residual_pct"] = float(b.residual_pct)
+            r["blender_predicted"] = _num(getattr(b, "pred_ols", None))
+            r["blender_verdict"] = b.consensus_verdict
+
     out = pd.DataFrame(rows.values())
     if out.empty:
         return out
@@ -255,10 +281,27 @@ def build(
     out["coverage_status"] = status
     out["reason"] = reason
     out["tracked"] = out["on_value_ranking"] | out["on_fair_price"]
-    out["assessment"] = [
-        ASSESSED if r["on_residuals"] else MEASURED_ONLY if r["measured_n"] else NO_MEASUREMENT
+    out["assessed_by"] = [
+        " and ".join(
+            s
+            for s, on in (
+                (SPEC_SOURCE[r["kind"]], r["on_residuals"]),
+                (BLENDER_SOURCE, r["on_blender_residuals"]),
+            )
+            if on
+        )
         for r in out.to_dict("records")
     ]
+    out["assessment"] = [
+        ASSESSED
+        if r["on_residuals"] or r["on_blender_residuals"]
+        else MEASURED_ONLY
+        if r["measured_n"] or _has(r["blender_score"])
+        else NO_MEASUREMENT
+        for r in out.to_dict("records")
+    ]
+    keys = blender_spec_keys or {}
+    out["blender_reason"] = [_blender_reason(r, keys) for r in out.to_dict("records")]
     out["next_source"] = [_next_source(r) for r in out.to_dict("records")]
     out["benchmarks_collected"] = out["kind"].map(
         {"cpu": dates.get("spec_cpu2017"), "gpu": dates.get("spec_gwpg")}
@@ -277,6 +320,27 @@ def build(
         .drop(columns="_o")
         .reset_index(drop=True)
     )
+
+
+SPEC_SOURCE = {"cpu": "SPEC CPU 2017", "gpu": "SPEC GWPG"}
+BLENDER_SOURCE = "Blender Open Data"
+
+
+def _has(v) -> bool:
+    return v is not None and not (isinstance(v, float) and pd.isna(v))
+
+
+def _blender_reason(r: dict, spec_keys: dict[str, set[str]]) -> str:
+    """Why the Blender model does not assess a product; empty when it does."""
+    if r["on_blender_residuals"]:
+        return ""
+    if not _has(r["blender_score"]):
+        return "No Blender Open Data result with enough runs in the version used"
+    if r["kind"] not in spec_keys:
+        return "Blender model not validated for this kind this week"
+    if r["model_key"] not in spec_keys[r["kind"]]:
+        return "Blender result, but no specifications in the repository's table yet"
+    return "Blender result not in the ranked set"
 
 
 def _status(r: dict) -> tuple[str, str]:
@@ -328,13 +392,20 @@ def _is_workstation(r: dict) -> bool:
 
 def _next_source(r: dict) -> str:
     """Where a missing or thin measurement could come from; empty once a product is assessed."""
-    if r["on_residuals"]:
+    if r["on_residuals"] or r["on_blender_residuals"]:
         return ""
+    blender = r.get("blender_reason") or ""
+    if blender.startswith("Blender result, but no specifications"):
+        blender = "Blender Open Data, once its specifications are added"
+    elif blender:
+        blender = f"Blender Open Data ({blender[0].lower()}{blender[1:]})"
     if r["kind"] == "cpu":
-        return f"SPEC CPU 2017 and SPECworkstation rechecked weekly; {OPENBENCHMARKING_BLOCKED}"
-    if _is_workstation(r):
-        return f"SPEC GWPG rechecked weekly; {OPENBENCHMARKING_BLOCKED}"
-    return OPENBENCHMARKING_BLOCKED
+        spec = "SPEC CPU 2017 and SPECworkstation rechecked weekly"
+    elif _is_workstation(r):
+        spec = "SPEC GWPG rechecked weekly"
+    else:
+        spec = ""
+    return "; ".join(x for x in (blender, spec, NOT_COLLECTED) if x)
 
 
 def _gwpg_measurement(ok: pd.DataFrame) -> tuple[float, str, int, int] | None:
@@ -374,15 +445,26 @@ def _ws_measurement(part: pd.DataFrame) -> tuple[float, str, int, int, str] | No
     return float(top["median"]), metric, int(len(d)), int(len(groups)), str(top["suite"])
 
 
+def _flag(t: pd.DataFrame, col: str) -> pd.Series:
+    if col in t.columns:
+        return t[col].fillna(False).astype(bool)
+    return pd.Series(False, index=t.index, dtype=bool)
+
+
 def tracked_summary(cat: pd.DataFrame) -> dict[str, dict[str, int]]:
     """Per kind: tracked products, and how many are assessed, measured only, or unmeasured."""
     out: dict[str, dict[str, int]] = {}
     for kind in ("cpu", "gpu"):
         t = cat[(cat["kind"] == kind) & cat["tracked"]] if not cat.empty else cat
         a = t["assessment"] if len(t) else pd.Series(dtype=str)
+
+        spec_on, bl_on = _flag(t, "on_residuals"), _flag(t, "on_blender_residuals")
         out[kind] = {
             "tracked": int(len(t)),
             "assessed": int((a == ASSESSED).sum()),
+            "assessed_spec": int(spec_on.sum()),
+            "assessed_blender": int(bl_on.sum()),
+            "assessed_spec_only": int((spec_on & ~bl_on).sum()),
             "measured_only": int((a == MEASURED_ONLY).sum()),
             "no_measurement": int((a == NO_MEASUREMENT).sum()),
             "catalogue": int((cat["kind"] == kind).sum()) if not cat.empty else 0,

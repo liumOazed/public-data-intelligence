@@ -90,7 +90,82 @@ sources:
     terms_checked: 2026-11-14
     notes: >-
       Crowd-submitted, so the test configuration (memory, cooling, drivers) is not controlled.
-      Scores from different Blender versions are never combined.
+      Scores from different Blender versions are never combined. From 20 November 2026 it also
+      feeds its own over- and under-performer models (pdi/tech_value/blender_model.py), kept
+      apart from the SPEC models and used only for kinds that pass the held-out baseline check
+      and the cross-version residual check (15% median gap, as for SPEC GWPG suites). On 20
+      November 2026 the site's robots.txt (a Cloudflare-managed file) disallowed /snapshots/
+      for all user agents, while https://opendata.blender.org/download/ still offers the same
+      snapshot for download under CC0. The weekly job downloads one file a week from that
+      link; ask the Blender Foundation if this should stop.
+
+  geekbench_browser:
+    name: Geekbench Browser
+    owner: Primate Labs
+    url: https://browser.geekbench.com/
+    licence: >-
+      Geekbench 6 EULA (https://www.primatelabs.com/legal/eula-v6.html, updated 14 March 2025)
+      gives Primate Labs the sole and exclusive right to use and distribute uploaded benchmark
+      results and forbids automated access to the app. robots.txt (read 20 November 2026)
+      disallows the search pages (/v6/cpu/search and others) and sets the content signal
+      search=yes, ai-train=no, use=reference.
+    frequency: not collected
+    typical_lag: results appear as users upload them
+    status: red
+    publish: none
+    module: tech-value
+    terms_checked: 2026-11-20
+    notes: >-
+      Covers almost every consumer CPU, but the rights in the results sit with Primate Labs and
+      there is no export. Usable only with Primate Labs' permission.
+
+  passmark:
+    name: PassMark CPU and GPU benchmark charts (cpubenchmark.net, videocardbenchmark.net)
+    owner: PassMark Software
+    url: https://www.cpubenchmark.net/
+    licence: >-
+      A PassMark administrator wrote on its forum (July 2017): "No, you can't copy all the data
+      from our website and use it as your own", and offered to discuss licensing. robots.txt
+      (read 20 November 2026) sets the same content signal as Geekbench's.
+    frequency: not collected
+    typical_lag: results appear as users upload them
+    status: red
+    publish: none
+    module: tech-value
+    terms_checked: 2026-11-20
+    notes: Needs a paid data licence.
+
+  techpowerup_db:
+    name: TechPowerUp GPU and CPU databases
+    owner: TechPowerUp
+    url: https://www.techpowerup.com/gpu-specs/
+    licence: >-
+      No export or API, and no reuse terms found. Its robots.txt could not be read through this
+      project's fetcher on 20 November 2026.
+    frequency: not collected
+    typical_lag: editorial
+    status: red
+    publish: none
+    module: tech-value
+    terms_checked: unconfirmed
+    notes: >-
+      "Relative performance" is TechPowerUp's own summary of its reviews, not a benchmark
+      result, so it would not be a measurement even if collected.
+
+  cinebench_reviews:
+    name: Cinebench scores in published reviews
+    owner: Individual review sites
+    url: https://www.maxon.net/en/cinebench
+    licence: Each review is copyrighted by its publisher; no shared dataset exists.
+    frequency: not collected
+    typical_lag: weeks after a product launch
+    status: red
+    publish: none
+    module: tech-value
+    terms_checked: 2026-11-20
+    notes: >-
+      No structured source to collect from automatically. Would need per-site permission and a
+      hand-checked parser for every review layout.
 
   bestbuy_products:
     name: Best Buy Products API

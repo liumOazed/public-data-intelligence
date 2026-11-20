@@ -3,13 +3,16 @@
   "module": "tech-value",
   "table": "coverage_history",
   "description": "Tracked CPUs and GPUs (those on Value ranking or Fair price) per update, with how many the over- and under-performer models assess, how many have a SPEC measurement that is not assessed, and how many have none.",
-  "generated_at": "2026-11-20T06:02:01+00:00",
+  "generated_at": "2026-11-20T06:50:27+00:00",
   "rows": 2,
   "columns": [
    "date",
    "kind",
    "tracked",
    "assessed",
+   "assessed_spec",
+   "assessed_blender",
+   "assessed_spec_only",
    "measured_only",
    "no_measurement",
    "catalogue"
@@ -32,6 +35,15 @@
     "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
     "typical_lag": "results appear weeks to months after the test date",
     "retrieved_at": "2026-11-20T05:37:37+00:00"
+   },
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
    }
   ],
   "preliminary": false,
@@ -45,19 +57,25 @@
   {
    "date": "2026-11-20",
    "kind": "cpu",
-   "tracked": 76,
-   "assessed": 0,
-   "measured_only": 7,
-   "no_measurement": 69,
+   "tracked": 75,
+   "assessed": 75,
+   "assessed_spec": 0,
+   "assessed_blender": 75,
+   "assessed_spec_only": 0,
+   "measured_only": 0,
+   "no_measurement": 0,
    "catalogue": 874
   },
   {
    "date": "2026-11-20",
    "kind": "gpu",
    "tracked": 58,
-   "assessed": 13,
-   "measured_only": 1,
-   "no_measurement": 44,
+   "assessed": 58,
+   "assessed_spec": 13,
+   "assessed_blender": 57,
+   "assessed_spec_only": 1,
+   "measured_only": 0,
+   "no_measurement": 0,
    "catalogue": 192
   }
  ]

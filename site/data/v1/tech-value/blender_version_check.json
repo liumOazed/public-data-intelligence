@@ -1,0 +1,99 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "blender_version_check",
+  "description": "The Blender residual model refitted on other Blender versions: for products ranked in both, the median gap between their residuals. A source is used for assessment only when the gap is at most 15% on every version checked, over at least 3 shared products.",
+  "generated_at": "2026-11-20T06:50:27+00:00",
+  "rows": 4,
+  "columns": [
+   "kind",
+   "primary_version",
+   "check_version",
+   "n_products",
+   "n_shared",
+   "median_abs_gap_pct",
+   "status"
+  ],
+  "sources": [
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Blender Open Data is crowd-submitted: cooling, memory and drivers are not controlled.",
+   "Scores come from a single Blender version and are never combined across versions.",
+   "The Blender residual model is separate from the SPEC models: it predicts a Blender rendering score from specifications, and its verdicts say nothing about SPEC workloads.",
+   "Rendering rewards cores, clocks and power limits; cache-heavy parts such as AMD's X3D chips can look like underperformers here and still lead in games.",
+   "CPU and GPU specifications come from tables maintained in this repository (pdi/tech_value/cpu_specs.py, pdi/tech_value/gwpg.py), entered from manufacturers' reference specifications. Factory-overclocked cards are measured but share one spec row.",
+   "Predicted scores and residuals are this site's estimates. Blender Open Data is CC0; the Blender Foundation is credited and does not endorse these estimates."
+  ],
+  "blender_version": "4.5",
+  "passed": {
+   "cpu": {
+    "passed": true,
+    "reason": "OLS held-out error 7.1% vs baseline 17.4%; residuals agree within 15% on Blender 4.3, 4.0",
+    "n_benchmarked": 220,
+    "n_with_specs": 220
+   },
+   "gpu": {
+    "passed": true,
+    "reason": "OLS held-out error 11.1% vs baseline 21.5%; residuals agree within 15% on Blender 4.4, 5.1",
+    "n_benchmarked": 103,
+    "n_with_specs": 100
+   }
+  },
+  "max_gap_pct": 15.0,
+  "min_shared": 3,
+  "min_products": 25,
+  "metric": "Blender Benchmark score (samples per minute, three scenes)",
+  "finding": {
+   "label": "observation",
+   "reason": "Residuals compared across benchmark versions."
+  }
+ },
+ "data": [
+  {
+   "kind": "cpu",
+   "primary_version": "4.5",
+   "check_version": "4.3",
+   "n_products": 164,
+   "n_shared": 164,
+   "median_abs_gap_pct": 3.6117002845232595,
+   "status": "Validated"
+  },
+  {
+   "kind": "cpu",
+   "primary_version": "4.5",
+   "check_version": "4.0",
+   "n_products": 159,
+   "n_shared": 159,
+   "median_abs_gap_pct": 4.091891077516182,
+   "status": "Validated"
+  },
+  {
+   "kind": "gpu",
+   "primary_version": "4.5",
+   "check_version": "4.4",
+   "n_products": 86,
+   "n_shared": 86,
+   "median_abs_gap_pct": 4.115805427226955,
+   "status": "Validated"
+  },
+  {
+   "kind": "gpu",
+   "primary_version": "4.5",
+   "check_version": "5.1",
+   "n_products": 84,
+   "n_shared": 84,
+   "median_abs_gap_pct": 5.1817850635154254,
+   "status": "Validated"
+  }
+ ]
+}

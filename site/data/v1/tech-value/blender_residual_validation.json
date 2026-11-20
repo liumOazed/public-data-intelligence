@@ -1,0 +1,2224 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "blender_residual_validation",
+  "description": "Held-out error of the Blender residual models, one median residual per product, against the cores-times-clock (CPU) or shaders-times-clock (GPU) baseline, overall and by vendor, family, generation and (GPU) backend.",
+  "generated_at": "2026-11-20T06:50:27+00:00",
+  "rows": 216,
+  "columns": [
+   "slice",
+   "group",
+   "model",
+   "n_chips",
+   "median_abs_pct_error",
+   "mean_abs_log_error",
+   "range_coverage_pct",
+   "kind"
+  ],
+  "sources": [
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Blender Open Data is crowd-submitted: cooling, memory and drivers are not controlled.",
+   "Scores come from a single Blender version and are never combined across versions.",
+   "The Blender residual model is separate from the SPEC models: it predicts a Blender rendering score from specifications, and its verdicts say nothing about SPEC workloads.",
+   "Rendering rewards cores, clocks and power limits; cache-heavy parts such as AMD's X3D chips can look like underperformers here and still lead in games.",
+   "CPU and GPU specifications come from tables maintained in this repository (pdi/tech_value/cpu_specs.py, pdi/tech_value/gwpg.py), entered from manufacturers' reference specifications. Factory-overclocked cards are measured but share one spec row.",
+   "Predicted scores and residuals are this site's estimates. Blender Open Data is CC0; the Blender Foundation is credited and does not endorse these estimates."
+  ],
+  "blender_version": "4.5",
+  "passed": {
+   "cpu": {
+    "passed": true,
+    "reason": "OLS held-out error 7.1% vs baseline 17.4%; residuals agree within 15% on Blender 4.3, 4.0",
+    "n_benchmarked": 220,
+    "n_with_specs": 220
+   },
+   "gpu": {
+    "passed": true,
+    "reason": "OLS held-out error 11.1% vs baseline 21.5%; residuals agree within 15% on Blender 4.4, 5.1",
+    "n_benchmarked": 103,
+    "n_with_specs": 100
+   }
+  },
+  "max_gap_pct": 15.0,
+  "min_shared": 3,
+  "min_products": 25,
+  "metric": "Blender Benchmark score (samples per minute, three scenes)",
+  "finding": {
+   "label": "explanation",
+   "reason": "Typical error of predictions made without the product being predicted."
+  }
+ },
+ "data": [
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 220,
+   "median_abs_pct_error": 17.353145576374366,
+   "mean_abs_log_error": 0.20942514833035916,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "OLS",
+   "n_chips": 220,
+   "median_abs_pct_error": 7.0544541089702175,
+   "mean_abs_log_error": 0.09157411618541673,
+   "range_coverage_pct": 79.0909090909091,
+   "kind": "cpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "Structural L1",
+   "n_chips": 220,
+   "median_abs_pct_error": 6.54119261340411,
+   "mean_abs_log_error": 0.08916149974943469,
+   "range_coverage_pct": 79.0909090909091,
+   "kind": "cpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "Nonlinear GBDT",
+   "n_chips": 220,
+   "median_abs_pct_error": 6.977158487546843,
+   "mean_abs_log_error": 0.09784470837197025,
+   "range_coverage_pct": 79.54545454545455,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 97,
+   "median_abs_pct_error": 25.640199429529194,
+   "mean_abs_log_error": 0.24845513037902764,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "OLS",
+   "n_chips": 97,
+   "median_abs_pct_error": 5.865013738215912,
+   "mean_abs_log_error": 0.0926434855128936,
+   "range_coverage_pct": 82.4742268041237,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "Structural L1",
+   "n_chips": 97,
+   "median_abs_pct_error": 5.916816092608194,
+   "mean_abs_log_error": 0.08579130327186282,
+   "range_coverage_pct": 84.5360824742268,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "Nonlinear GBDT",
+   "n_chips": 97,
+   "median_abs_pct_error": 8.044071973703492,
+   "mean_abs_log_error": 0.11547103644752103,
+   "range_coverage_pct": 75.25773195876289,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 123,
+   "median_abs_pct_error": 11.985375760177295,
+   "mean_abs_log_error": 0.17864540638953924,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "OLS",
+   "n_chips": 123,
+   "median_abs_pct_error": 7.430011783057963,
+   "mean_abs_log_error": 0.0907307924068374,
+   "range_coverage_pct": 76.42276422764228,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "Structural L1",
+   "n_chips": 123,
+   "median_abs_pct_error": 6.977914033457794,
+   "mean_abs_log_error": 0.09181929697158485,
+   "range_coverage_pct": 74.79674796747967,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "Nonlinear GBDT",
+   "n_chips": 123,
+   "median_abs_pct_error": 6.428004134225719,
+   "mean_abs_log_error": 0.08394427078393425,
+   "range_coverage_pct": 82.92682926829268,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 110,
+   "median_abs_pct_error": 12.47223855890287,
+   "mean_abs_log_error": 0.18630475555789755,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core",
+   "model": "OLS",
+   "n_chips": 110,
+   "median_abs_pct_error": 7.3704001679159195,
+   "mean_abs_log_error": 0.09194867178816245,
+   "range_coverage_pct": 75.45454545454545,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core",
+   "model": "Structural L1",
+   "n_chips": 110,
+   "median_abs_pct_error": 7.02527025803663,
+   "mean_abs_log_error": 0.09258544840157923,
+   "range_coverage_pct": 73.63636363636363,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core",
+   "model": "Nonlinear GBDT",
+   "n_chips": 110,
+   "median_abs_pct_error": 6.347624465996693,
+   "mean_abs_log_error": 0.08214671999010845,
+   "range_coverage_pct": 83.63636363636363,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core Ultra",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 13,
+   "median_abs_pct_error": 4.495614640944052,
+   "mean_abs_log_error": 0.1138355288111228,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core Ultra",
+   "model": "OLS",
+   "n_chips": 13,
+   "median_abs_pct_error": 7.823162050082639,
+   "mean_abs_log_error": 0.08042565918024117,
+   "range_coverage_pct": 84.61538461538461,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core Ultra",
+   "model": "Structural L1",
+   "n_chips": 13,
+   "median_abs_pct_error": 6.977914033457794,
+   "mean_abs_log_error": 0.08533647717932477,
+   "range_coverage_pct": 84.61538461538461,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Core Ultra",
+   "model": "Nonlinear GBDT",
+   "n_chips": 13,
+   "median_abs_pct_error": 8.734300655216982,
+   "mean_abs_log_error": 0.09915431596246037,
+   "range_coverage_pct": 76.92307692307693,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ryzen",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 71,
+   "median_abs_pct_error": 21.68336391001138,
+   "mean_abs_log_error": 0.23314856937482412,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ryzen",
+   "model": "OLS",
+   "n_chips": 71,
+   "median_abs_pct_error": 5.765246519907833,
+   "mean_abs_log_error": 0.07498324108084484,
+   "range_coverage_pct": 84.50704225352112,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ryzen",
+   "model": "Structural L1",
+   "n_chips": 71,
+   "median_abs_pct_error": 6.162956359123368,
+   "mean_abs_log_error": 0.07316751644411287,
+   "range_coverage_pct": 85.91549295774648,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ryzen",
+   "model": "Nonlinear GBDT",
+   "n_chips": 71,
+   "median_abs_pct_error": 7.714189230381054,
+   "mean_abs_log_error": 0.0876369876100207,
+   "range_coverage_pct": 81.69014084507043,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Threadripper",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 26,
+   "median_abs_pct_error": 31.91547361875048,
+   "mean_abs_log_error": 0.2902538161981989,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Threadripper",
+   "model": "OLS",
+   "n_chips": 26,
+   "median_abs_pct_error": 7.6102512497441275,
+   "mean_abs_log_error": 0.14086953761579596,
+   "range_coverage_pct": 76.92307692307693,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Threadripper",
+   "model": "Structural L1",
+   "n_chips": 26,
+   "median_abs_pct_error": 4.873627127182995,
+   "mean_abs_log_error": 0.12026395191687221,
+   "range_coverage_pct": 80.76923076923077,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Threadripper",
+   "model": "Nonlinear GBDT",
+   "n_chips": 26,
+   "median_abs_pct_error": 11.192138052315215,
+   "mean_abs_log_error": 0.19147940058069504,
+   "range_coverage_pct": 57.692307692307686,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2011",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 2,
+   "median_abs_pct_error": 47.822509260798526,
+   "mean_abs_log_error": 0.3843867917886985,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2011",
+   "model": "OLS",
+   "n_chips": 2,
+   "median_abs_pct_error": 12.734010857603527,
+   "mean_abs_log_error": 0.11374723608180548,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2011",
+   "model": "Structural L1",
+   "n_chips": 2,
+   "median_abs_pct_error": 17.16151140397447,
+   "mean_abs_log_error": 0.1519279216832936,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2011",
+   "model": "Nonlinear GBDT",
+   "n_chips": 2,
+   "median_abs_pct_error": 12.138208243998967,
+   "mean_abs_log_error": 0.11374723608180548,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2012",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 4,
+   "median_abs_pct_error": 68.29841269914654,
+   "mean_abs_log_error": 0.5317222271832434,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2012",
+   "model": "OLS",
+   "n_chips": 4,
+   "median_abs_pct_error": 15.944198281770532,
+   "mean_abs_log_error": 0.1632261135368127,
+   "range_coverage_pct": 25.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2012",
+   "model": "Structural L1",
+   "n_chips": 4,
+   "median_abs_pct_error": 20.317791616103232,
+   "mean_abs_log_error": 0.20021528422314627,
+   "range_coverage_pct": 0.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2012",
+   "model": "Nonlinear GBDT",
+   "n_chips": 4,
+   "median_abs_pct_error": 5.803675039801956,
+   "mean_abs_log_error": 0.0693096499821918,
+   "range_coverage_pct": 75.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2013",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 4,
+   "median_abs_pct_error": 23.896061685565623,
+   "mean_abs_log_error": 0.19599646753506417,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2013",
+   "model": "OLS",
+   "n_chips": 4,
+   "median_abs_pct_error": 15.096139369730452,
+   "mean_abs_log_error": 0.13160224700709255,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2013",
+   "model": "Structural L1",
+   "n_chips": 4,
+   "median_abs_pct_error": 14.502562143829755,
+   "mean_abs_log_error": 0.12970098232116534,
+   "range_coverage_pct": 25.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2013",
+   "model": "Nonlinear GBDT",
+   "n_chips": 4,
+   "median_abs_pct_error": 12.737482329330756,
+   "mean_abs_log_error": 0.2412414916895962,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 6,
+   "median_abs_pct_error": 17.720826752714196,
+   "mean_abs_log_error": 0.20768277289433335,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "OLS",
+   "n_chips": 6,
+   "median_abs_pct_error": 4.8982017347229565,
+   "mean_abs_log_error": 0.06862432247601295,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "Structural L1",
+   "n_chips": 6,
+   "median_abs_pct_error": 3.8096548558710364,
+   "mean_abs_log_error": 0.07645288091264797,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "Nonlinear GBDT",
+   "n_chips": 6,
+   "median_abs_pct_error": 4.1652995658004155,
+   "mean_abs_log_error": 0.0593875180824639,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 4,
+   "median_abs_pct_error": 9.816701826302879,
+   "mean_abs_log_error": 0.1493229049777116,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "OLS",
+   "n_chips": 4,
+   "median_abs_pct_error": 10.639002361060909,
+   "mean_abs_log_error": 0.12906251023331705,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "Structural L1",
+   "n_chips": 4,
+   "median_abs_pct_error": 10.397029812995369,
+   "mean_abs_log_error": 0.12241860012336991,
+   "range_coverage_pct": 50.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "Nonlinear GBDT",
+   "n_chips": 4,
+   "median_abs_pct_error": 6.699204361305475,
+   "mean_abs_log_error": 0.08057670227553193,
+   "range_coverage_pct": 75.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 1,
+   "median_abs_pct_error": 17.52188047367365,
+   "mean_abs_log_error": 0.16145434705714923,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "OLS",
+   "n_chips": 1,
+   "median_abs_pct_error": 32.93243616682043,
+   "mean_abs_log_error": 0.28467081441287334,
+   "range_coverage_pct": 0.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "Structural L1",
+   "n_chips": 1,
+   "median_abs_pct_error": 41.023175712577235,
+   "mean_abs_log_error": 0.34375405763920863,
+   "range_coverage_pct": 0.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "Nonlinear GBDT",
+   "n_chips": 1,
+   "median_abs_pct_error": 7.822092122020308,
+   "mean_abs_log_error": 0.07531238768710047,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 16,
+   "median_abs_pct_error": 9.049686526881127,
+   "mean_abs_log_error": 0.11340803706082611,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "OLS",
+   "n_chips": 16,
+   "median_abs_pct_error": 3.686868363030218,
+   "mean_abs_log_error": 0.044558584678774105,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "Structural L1",
+   "n_chips": 16,
+   "median_abs_pct_error": 4.213515499366295,
+   "mean_abs_log_error": 0.05037875420794305,
+   "range_coverage_pct": 87.5,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "Nonlinear GBDT",
+   "n_chips": 16,
+   "median_abs_pct_error": 3.3220185517123806,
+   "mean_abs_log_error": 0.047725181549120727,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 14,
+   "median_abs_pct_error": 12.009294843961541,
+   "mean_abs_log_error": 0.15215089909032736,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "OLS",
+   "n_chips": 14,
+   "median_abs_pct_error": 4.452768526514888,
+   "mean_abs_log_error": 0.05890793737642652,
+   "range_coverage_pct": 92.85714285714286,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "Structural L1",
+   "n_chips": 14,
+   "median_abs_pct_error": 5.700504239049247,
+   "mean_abs_log_error": 0.061862687901423685,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "Nonlinear GBDT",
+   "n_chips": 14,
+   "median_abs_pct_error": 9.876496986006588,
+   "mean_abs_log_error": 0.0972697000586844,
+   "range_coverage_pct": 71.42857142857143,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 19,
+   "median_abs_pct_error": 12.842758286349005,
+   "mean_abs_log_error": 0.1836301515178987,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "OLS",
+   "n_chips": 19,
+   "median_abs_pct_error": 4.210889366171034,
+   "mean_abs_log_error": 0.06917198561533616,
+   "range_coverage_pct": 84.21052631578947,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "Structural L1",
+   "n_chips": 19,
+   "median_abs_pct_error": 4.159609413739757,
+   "mean_abs_log_error": 0.07240317603380537,
+   "range_coverage_pct": 78.94736842105263,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "Nonlinear GBDT",
+   "n_chips": 19,
+   "median_abs_pct_error": 6.461995577579377,
+   "mean_abs_log_error": 0.08612094892281351,
+   "range_coverage_pct": 89.47368421052632,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 25,
+   "median_abs_pct_error": 7.1851066567804045,
+   "mean_abs_log_error": 0.07498300781168642,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "OLS",
+   "n_chips": 25,
+   "median_abs_pct_error": 5.754655339759305,
+   "mean_abs_log_error": 0.07778518815271415,
+   "range_coverage_pct": 88.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "Structural L1",
+   "n_chips": 25,
+   "median_abs_pct_error": 7.077234069058899,
+   "mean_abs_log_error": 0.07036033647548692,
+   "range_coverage_pct": 96.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "Nonlinear GBDT",
+   "n_chips": 25,
+   "median_abs_pct_error": 4.792732667767363,
+   "mean_abs_log_error": 0.060241294795505274,
+   "range_coverage_pct": 92.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 18,
+   "median_abs_pct_error": 8.098715361866027,
+   "mean_abs_log_error": 0.09994148837926081,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "OLS",
+   "n_chips": 18,
+   "median_abs_pct_error": 7.9366176108530935,
+   "mean_abs_log_error": 0.092146808379424,
+   "range_coverage_pct": 77.77777777777779,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "Structural L1",
+   "n_chips": 18,
+   "median_abs_pct_error": 6.428719818598094,
+   "mean_abs_log_error": 0.08033416556843381,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "Nonlinear GBDT",
+   "n_chips": 18,
+   "median_abs_pct_error": 7.802430694298284,
+   "mean_abs_log_error": 0.09989755269642675,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 26,
+   "median_abs_pct_error": 24.601686749938,
+   "mean_abs_log_error": 0.19494801961379926,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "OLS",
+   "n_chips": 26,
+   "median_abs_pct_error": 2.9616981226825634,
+   "mean_abs_log_error": 0.05701497960712668,
+   "range_coverage_pct": 88.46153846153845,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "Structural L1",
+   "n_chips": 26,
+   "median_abs_pct_error": 3.580371093275324,
+   "mean_abs_log_error": 0.05079122864520343,
+   "range_coverage_pct": 92.3076923076923,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "Nonlinear GBDT",
+   "n_chips": 26,
+   "median_abs_pct_error": 5.234664717810055,
+   "mean_abs_log_error": 0.07073059642766648,
+   "range_coverage_pct": 88.46153846153845,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 30,
+   "median_abs_pct_error": 33.35466464340604,
+   "mean_abs_log_error": 0.29845258024343385,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "OLS",
+   "n_chips": 30,
+   "median_abs_pct_error": 7.021249268555472,
+   "mean_abs_log_error": 0.1375935193745811,
+   "range_coverage_pct": 80.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "Structural L1",
+   "n_chips": 30,
+   "median_abs_pct_error": 6.786598930636406,
+   "mean_abs_log_error": 0.13152208677126923,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "Nonlinear GBDT",
+   "n_chips": 30,
+   "median_abs_pct_error": 6.890556052602152,
+   "mean_abs_log_error": 0.15763137202413224,
+   "range_coverage_pct": 73.33333333333333,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 30,
+   "median_abs_pct_error": 31.13881055741644,
+   "mean_abs_log_error": 0.2990515928897997,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "OLS",
+   "n_chips": 30,
+   "median_abs_pct_error": 10.864406082996602,
+   "mean_abs_log_error": 0.11546953797089543,
+   "range_coverage_pct": 63.33333333333333,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "Structural L1",
+   "n_chips": 30,
+   "median_abs_pct_error": 11.413709900872652,
+   "mean_abs_log_error": 0.11769034872533647,
+   "range_coverage_pct": 63.33333333333333,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "Nonlinear GBDT",
+   "n_chips": 30,
+   "median_abs_pct_error": 10.58045887687725,
+   "mean_abs_log_error": 0.10944258090609728,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 18,
+   "median_abs_pct_error": 39.55701214426684,
+   "mean_abs_log_error": 0.31864174237373155,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "OLS",
+   "n_chips": 18,
+   "median_abs_pct_error": 9.297345544097123,
+   "mean_abs_log_error": 0.09865027587825034,
+   "range_coverage_pct": 72.22222222222221,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "Structural L1",
+   "n_chips": 18,
+   "median_abs_pct_error": 5.894988024305938,
+   "mean_abs_log_error": 0.07828050113531503,
+   "range_coverage_pct": 72.22222222222221,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "Nonlinear GBDT",
+   "n_chips": 18,
+   "median_abs_pct_error": 12.254415542956128,
+   "mean_abs_log_error": 0.12563533991511447,
+   "range_coverage_pct": 61.111111111111114,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2026",
+   "model": "Baseline (cores x clock)",
+   "n_chips": 3,
+   "median_abs_pct_error": 2.0415497766458137,
+   "mean_abs_log_error": 0.18419351800489991,
+   "range_coverage_pct": null,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2026",
+   "model": "OLS",
+   "n_chips": 3,
+   "median_abs_pct_error": 9.430006018946209,
+   "mean_abs_log_error": 0.07388541360763412,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2026",
+   "model": "Structural L1",
+   "n_chips": 3,
+   "median_abs_pct_error": 8.209085478077876,
+   "mean_abs_log_error": 0.08034927563526188,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2026",
+   "model": "Nonlinear GBDT",
+   "n_chips": 3,
+   "median_abs_pct_error": 3.1429963005903643,
+   "mean_abs_log_error": 0.04122574354537415,
+   "range_coverage_pct": 100.0,
+   "kind": "cpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 100,
+   "median_abs_pct_error": 21.49379571933069,
+   "mean_abs_log_error": 0.27067670710441294,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "OLS",
+   "n_chips": 100,
+   "median_abs_pct_error": 11.067988199248568,
+   "mean_abs_log_error": 0.14019340606188319,
+   "range_coverage_pct": 78.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "Structural L1",
+   "n_chips": 100,
+   "median_abs_pct_error": 7.018362916930219,
+   "mean_abs_log_error": 0.11430013026237994,
+   "range_coverage_pct": 78.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "All",
+   "group": "All",
+   "model": "Nonlinear GBDT",
+   "n_chips": 100,
+   "median_abs_pct_error": 12.601808129980547,
+   "mean_abs_log_error": 0.16423552102174124,
+   "range_coverage_pct": 79.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 27,
+   "median_abs_pct_error": 18.341899465197674,
+   "mean_abs_log_error": 0.1871610775564575,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "OLS",
+   "n_chips": 27,
+   "median_abs_pct_error": 10.369117132011297,
+   "mean_abs_log_error": 0.12686977453817075,
+   "range_coverage_pct": 85.18518518518519,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "Structural L1",
+   "n_chips": 27,
+   "median_abs_pct_error": 10.150791491887523,
+   "mean_abs_log_error": 0.10276609364854832,
+   "range_coverage_pct": 81.48148148148148,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "AMD",
+   "model": "Nonlinear GBDT",
+   "n_chips": 27,
+   "median_abs_pct_error": 9.536841885221186,
+   "mean_abs_log_error": 0.14754862145786068,
+   "range_coverage_pct": 81.48148148148148,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 8,
+   "median_abs_pct_error": 17.62113978249402,
+   "mean_abs_log_error": 0.16202615292517686,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "OLS",
+   "n_chips": 8,
+   "median_abs_pct_error": 3.6768089111021434,
+   "mean_abs_log_error": 0.1083767913318332,
+   "range_coverage_pct": 87.5,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "Structural L1",
+   "n_chips": 8,
+   "median_abs_pct_error": 7.559368826648891,
+   "mean_abs_log_error": 0.11926875381361457,
+   "range_coverage_pct": 75.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "Intel",
+   "model": "Nonlinear GBDT",
+   "n_chips": 8,
+   "median_abs_pct_error": 20.943205183441115,
+   "mean_abs_log_error": 0.16371635567956533,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "NVIDIA",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 65,
+   "median_abs_pct_error": 29.255558821188355,
+   "mean_abs_log_error": 0.3187401906617773,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "NVIDIA",
+   "model": "OLS",
+   "n_chips": 65,
+   "median_abs_pct_error": 11.993443632535856,
+   "mean_abs_log_error": 0.1496437286615853,
+   "range_coverage_pct": 73.84615384615385,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "NVIDIA",
+   "model": "Structural L1",
+   "n_chips": 65,
+   "median_abs_pct_error": 6.966776585245832,
+   "mean_abs_log_error": 0.11847966872643494,
+   "range_coverage_pct": 76.92307692307693,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Vendor",
+   "group": "NVIDIA",
+   "model": "Nonlinear GBDT",
+   "n_chips": 65,
+   "median_abs_pct_error": 12.908996089747028,
+   "mean_abs_log_error": 0.1712308996519287,
+   "range_coverage_pct": 75.38461538461539,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ada Lovelace",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 14,
+   "median_abs_pct_error": 27.06870304572093,
+   "mean_abs_log_error": 0.2514092181132683,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ada Lovelace",
+   "model": "OLS",
+   "n_chips": 14,
+   "median_abs_pct_error": 17.704926416929688,
+   "mean_abs_log_error": 0.16193582155053418,
+   "range_coverage_pct": 64.28571428571429,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ada Lovelace",
+   "model": "Structural L1",
+   "n_chips": 14,
+   "median_abs_pct_error": 7.663973125559334,
+   "mean_abs_log_error": 0.11657236464859924,
+   "range_coverage_pct": 92.85714285714286,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ada Lovelace",
+   "model": "Nonlinear GBDT",
+   "n_chips": 14,
+   "median_abs_pct_error": 13.375040353367961,
+   "mean_abs_log_error": 0.14797076018806754,
+   "range_coverage_pct": 92.85714285714286,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Alchemist",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 4,
+   "median_abs_pct_error": 10.902278433364895,
+   "mean_abs_log_error": 0.12312706786519301,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Alchemist",
+   "model": "OLS",
+   "n_chips": 4,
+   "median_abs_pct_error": 3.162139735624418,
+   "mean_abs_log_error": 0.12381232408805931,
+   "range_coverage_pct": 75.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Alchemist",
+   "model": "Structural L1",
+   "n_chips": 4,
+   "median_abs_pct_error": 8.294161473151707,
+   "mean_abs_log_error": 0.11205488263433505,
+   "range_coverage_pct": 75.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Alchemist",
+   "model": "Nonlinear GBDT",
+   "n_chips": 4,
+   "median_abs_pct_error": 17.95701974436677,
+   "mean_abs_log_error": 0.1535159017834009,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ampere",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 15,
+   "median_abs_pct_error": 17.121247132780113,
+   "mean_abs_log_error": 0.17297897541196156,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ampere",
+   "model": "OLS",
+   "n_chips": 15,
+   "median_abs_pct_error": 8.441376840354868,
+   "mean_abs_log_error": 0.11862998725895728,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ampere",
+   "model": "Structural L1",
+   "n_chips": 15,
+   "median_abs_pct_error": 5.352213267729828,
+   "mean_abs_log_error": 0.08076546986563286,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Ampere",
+   "model": "Nonlinear GBDT",
+   "n_chips": 15,
+   "median_abs_pct_error": 10.156366408658736,
+   "mean_abs_log_error": 0.14035937686395433,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Battlemage",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 4,
+   "median_abs_pct_error": 25.550196754849644,
+   "mean_abs_log_error": 0.2009252379851607,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Battlemage",
+   "model": "OLS",
+   "n_chips": 4,
+   "median_abs_pct_error": 7.938348262967932,
+   "mean_abs_log_error": 0.09294125857560709,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Battlemage",
+   "model": "Structural L1",
+   "n_chips": 4,
+   "median_abs_pct_error": 7.559368826648891,
+   "mean_abs_log_error": 0.1264826249928941,
+   "range_coverage_pct": 75.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Battlemage",
+   "model": "Nonlinear GBDT",
+   "n_chips": 4,
+   "median_abs_pct_error": 20.943205183441115,
+   "mean_abs_log_error": 0.17391680957572975,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Blackwell",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 11,
+   "median_abs_pct_error": 21.877972461225447,
+   "mean_abs_log_error": 0.2163313116148978,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Blackwell",
+   "model": "OLS",
+   "n_chips": 11,
+   "median_abs_pct_error": 13.960295008969487,
+   "mean_abs_log_error": 0.14988663122297619,
+   "range_coverage_pct": 72.72727272727273,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Blackwell",
+   "model": "Structural L1",
+   "n_chips": 11,
+   "median_abs_pct_error": 7.054672826709685,
+   "mean_abs_log_error": 0.08108267829288335,
+   "range_coverage_pct": 90.9090909090909,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Blackwell",
+   "model": "Nonlinear GBDT",
+   "n_chips": 11,
+   "median_abs_pct_error": 6.525967126981225,
+   "mean_abs_log_error": 0.17276368215309928,
+   "range_coverage_pct": 72.72727272727273,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Maxwell",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 6,
+   "median_abs_pct_error": 104.67094290371156,
+   "mean_abs_log_error": 0.6982296199226092,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Maxwell",
+   "model": "OLS",
+   "n_chips": 6,
+   "median_abs_pct_error": 21.191254988450382,
+   "mean_abs_log_error": 0.1703371352497934,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Maxwell",
+   "model": "Structural L1",
+   "n_chips": 6,
+   "median_abs_pct_error": 10.630759000028327,
+   "mean_abs_log_error": 0.12874405895296848,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Maxwell",
+   "model": "Nonlinear GBDT",
+   "n_chips": 6,
+   "median_abs_pct_error": 29.603808693616642,
+   "mean_abs_log_error": 0.2639269532708548,
+   "range_coverage_pct": 50.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Pascal",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 7,
+   "median_abs_pct_error": 66.56074268196876,
+   "mean_abs_log_error": 0.5197836665273206,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Pascal",
+   "model": "OLS",
+   "n_chips": 7,
+   "median_abs_pct_error": 9.048402836138928,
+   "mean_abs_log_error": 0.10845061920725627,
+   "range_coverage_pct": 85.71428571428571,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Pascal",
+   "model": "Structural L1",
+   "n_chips": 7,
+   "median_abs_pct_error": 27.213231900313055,
+   "mean_abs_log_error": 0.17924019691080634,
+   "range_coverage_pct": 42.857142857142854,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Pascal",
+   "model": "Nonlinear GBDT",
+   "n_chips": 7,
+   "median_abs_pct_error": 26.105666943489787,
+   "mean_abs_log_error": 0.2157422394074431,
+   "range_coverage_pct": 71.42857142857143,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 1",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 3,
+   "median_abs_pct_error": 37.1270737260763,
+   "mean_abs_log_error": 0.315469543018627,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 1",
+   "model": "OLS",
+   "n_chips": 3,
+   "median_abs_pct_error": 15.278656182816999,
+   "mean_abs_log_error": 0.1223714927991028,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 1",
+   "model": "Structural L1",
+   "n_chips": 3,
+   "median_abs_pct_error": 4.815516251054326,
+   "mean_abs_log_error": 0.0986894257329789,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 1",
+   "model": "Nonlinear GBDT",
+   "n_chips": 3,
+   "median_abs_pct_error": 36.12206649094987,
+   "mean_abs_log_error": 0.2948130852876722,
+   "range_coverage_pct": 33.33333333333333,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 2",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 11,
+   "median_abs_pct_error": 20.887049182644397,
+   "mean_abs_log_error": 0.26474266799747626,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 2",
+   "model": "OLS",
+   "n_chips": 11,
+   "median_abs_pct_error": 11.715375315381099,
+   "mean_abs_log_error": 0.1672365408007125,
+   "range_coverage_pct": 63.63636363636363,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 2",
+   "model": "Structural L1",
+   "n_chips": 11,
+   "median_abs_pct_error": 13.279986482871209,
+   "mean_abs_log_error": 0.14408382309235365,
+   "range_coverage_pct": 72.72727272727273,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 2",
+   "model": "Nonlinear GBDT",
+   "n_chips": 11,
+   "median_abs_pct_error": 7.305251083874234,
+   "mean_abs_log_error": 0.1564964675237096,
+   "range_coverage_pct": 81.81818181818183,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 3",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 8,
+   "median_abs_pct_error": 9.380335009730118,
+   "mean_abs_log_error": 0.11333201169887552,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 3",
+   "model": "OLS",
+   "n_chips": 8,
+   "median_abs_pct_error": 10.831239959071166,
+   "mean_abs_log_error": 0.11736502613549427,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 3",
+   "model": "Structural L1",
+   "n_chips": 8,
+   "median_abs_pct_error": 6.904784738356561,
+   "mean_abs_log_error": 0.08439087201264917,
+   "range_coverage_pct": 87.5,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 3",
+   "model": "Nonlinear GBDT",
+   "n_chips": 8,
+   "median_abs_pct_error": 6.050602033526523,
+   "mean_abs_log_error": 0.0701215399500682,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 4",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 5,
+   "median_abs_pct_error": 3.7904542031173083,
+   "mean_abs_log_error": 0.05762300468104566,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 4",
+   "model": "OLS",
+   "n_chips": 5,
+   "median_abs_pct_error": 5.68091776101632,
+   "mean_abs_log_error": 0.05596945524830197,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 4",
+   "model": "Structural L1",
+   "n_chips": 5,
+   "median_abs_pct_error": 2.136582985121575,
+   "mean_abs_log_error": 0.043713444238956886,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "RDNA 4",
+   "model": "Nonlinear GBDT",
+   "n_chips": 5,
+   "median_abs_pct_error": 13.835560849450118,
+   "mean_abs_log_error": 0.1633880122275741,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Turing",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 12,
+   "median_abs_pct_error": 56.73879169714438,
+   "mean_abs_log_error": 0.3663492412716307,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Turing",
+   "model": "OLS",
+   "n_chips": 12,
+   "median_abs_pct_error": 16.567375405279464,
+   "mean_abs_log_error": 0.18753008025074291,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Turing",
+   "model": "Structural L1",
+   "n_chips": 12,
+   "median_abs_pct_error": 5.97194858188239,
+   "mean_abs_log_error": 0.1615523434031847,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Family",
+   "group": "Turing",
+   "model": "Nonlinear GBDT",
+   "n_chips": 12,
+   "median_abs_pct_error": 12.87221068561339,
+   "mean_abs_log_error": 0.16323910688514842,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 3,
+   "median_abs_pct_error": 106.93006044572455,
+   "mean_abs_log_error": 0.753592990984448,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "OLS",
+   "n_chips": 3,
+   "median_abs_pct_error": 21.362269834669075,
+   "mean_abs_log_error": 0.2020595237497007,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "Structural L1",
+   "n_chips": 3,
+   "median_abs_pct_error": 24.1062054462244,
+   "mean_abs_log_error": 0.17608365857787067,
+   "range_coverage_pct": 33.33333333333333,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2014",
+   "model": "Nonlinear GBDT",
+   "n_chips": 3,
+   "median_abs_pct_error": 37.8490595821747,
+   "mean_abs_log_error": 0.322911278791637,
+   "range_coverage_pct": 33.33333333333333,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 3,
+   "median_abs_pct_error": 98.32963332607929,
+   "mean_abs_log_error": 0.6428662488607705,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "OLS",
+   "n_chips": 3,
+   "median_abs_pct_error": 6.346183513098436,
+   "mean_abs_log_error": 0.13861474674988608,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "Structural L1",
+   "n_chips": 3,
+   "median_abs_pct_error": 5.88310757864392,
+   "mean_abs_log_error": 0.08140445932806628,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2015",
+   "model": "Nonlinear GBDT",
+   "n_chips": 3,
+   "median_abs_pct_error": 27.65055610878857,
+   "mean_abs_log_error": 0.20494262775007263,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 5,
+   "median_abs_pct_error": 62.86481330506829,
+   "mean_abs_log_error": 0.47933582650854023,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "OLS",
+   "n_chips": 5,
+   "median_abs_pct_error": 9.048402836138928,
+   "mean_abs_log_error": 0.0962221949289594,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "Structural L1",
+   "n_chips": 5,
+   "median_abs_pct_error": 27.213231900313055,
+   "mean_abs_log_error": 0.1759537254323309,
+   "range_coverage_pct": 40.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2016",
+   "model": "Nonlinear GBDT",
+   "n_chips": 5,
+   "median_abs_pct_error": 26.105666943489787,
+   "mean_abs_log_error": 0.23535884882524058,
+   "range_coverage_pct": 60.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 2,
+   "median_abs_pct_error": 86.06172580046707,
+   "mean_abs_log_error": 0.6209032665742713,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "OLS",
+   "n_chips": 2,
+   "median_abs_pct_error": 15.381014943102697,
+   "mean_abs_log_error": 0.1390216799029984,
+   "range_coverage_pct": 50.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "Structural L1",
+   "n_chips": 2,
+   "median_abs_pct_error": 21.04104507522767,
+   "mean_abs_log_error": 0.1874563756069949,
+   "range_coverage_pct": 50.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2017",
+   "model": "Nonlinear GBDT",
+   "n_chips": 2,
+   "median_abs_pct_error": 18.410059512786024,
+   "mean_abs_log_error": 0.16670071586294943,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 3,
+   "median_abs_pct_error": 61.891529940561796,
+   "mean_abs_log_error": 0.5665803460862661,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "OLS",
+   "n_chips": 3,
+   "median_abs_pct_error": 10.134159641513282,
+   "mean_abs_log_error": 0.13555165571402097,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "Structural L1",
+   "n_chips": 3,
+   "median_abs_pct_error": 2.549744133376192,
+   "mean_abs_log_error": 0.03907398523483193,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2018",
+   "model": "Nonlinear GBDT",
+   "n_chips": 3,
+   "median_abs_pct_error": 5.987029841638588,
+   "mean_abs_log_error": 0.06279463557985832,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 11,
+   "median_abs_pct_error": 35.89518070045705,
+   "mean_abs_log_error": 0.301718307711022,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "OLS",
+   "n_chips": 11,
+   "median_abs_pct_error": 17.34877118597679,
+   "mean_abs_log_error": 0.19720098441745157,
+   "range_coverage_pct": 72.72727272727273,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "Structural L1",
+   "n_chips": 11,
+   "median_abs_pct_error": 12.739412902258652,
+   "mean_abs_log_error": 0.19138001752160808,
+   "range_coverage_pct": 54.54545454545454,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2019",
+   "model": "Nonlinear GBDT",
+   "n_chips": 11,
+   "median_abs_pct_error": 27.868198686975614,
+   "mean_abs_log_error": 0.21885963056787627,
+   "range_coverage_pct": 45.45454545454545,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 9,
+   "median_abs_pct_error": 15.431956720018167,
+   "mean_abs_log_error": 0.16202183983889806,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "OLS",
+   "n_chips": 9,
+   "median_abs_pct_error": 9.700356917857176,
+   "mean_abs_log_error": 0.11715764409463346,
+   "range_coverage_pct": 77.77777777777779,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "Structural L1",
+   "n_chips": 9,
+   "median_abs_pct_error": 3.194765263171707,
+   "mean_abs_log_error": 0.087235860616836,
+   "range_coverage_pct": 77.77777777777779,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2020",
+   "model": "Nonlinear GBDT",
+   "n_chips": 9,
+   "median_abs_pct_error": 4.180783314245516,
+   "mean_abs_log_error": 0.09440566234270678,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 10,
+   "median_abs_pct_error": 22.6012304604337,
+   "mean_abs_log_error": 0.23577476402001202,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "OLS",
+   "n_chips": 10,
+   "median_abs_pct_error": 4.631965583100397,
+   "mean_abs_log_error": 0.06946886758019515,
+   "range_coverage_pct": 90.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "Structural L1",
+   "n_chips": 10,
+   "median_abs_pct_error": 5.565433454650048,
+   "mean_abs_log_error": 0.07150118592402706,
+   "range_coverage_pct": 90.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2021",
+   "model": "Nonlinear GBDT",
+   "n_chips": 10,
+   "median_abs_pct_error": 6.157940962074001,
+   "mean_abs_log_error": 0.09767983616565896,
+   "range_coverage_pct": 90.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 15,
+   "median_abs_pct_error": 14.240092527967581,
+   "mean_abs_log_error": 0.18166571091060035,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "OLS",
+   "n_chips": 15,
+   "median_abs_pct_error": 12.233905890673448,
+   "mean_abs_log_error": 0.1702555120704422,
+   "range_coverage_pct": 73.33333333333333,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "Structural L1",
+   "n_chips": 15,
+   "median_abs_pct_error": 14.874431103845664,
+   "mean_abs_log_error": 0.1380216047156593,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2022",
+   "model": "Nonlinear GBDT",
+   "n_chips": 15,
+   "median_abs_pct_error": 9.018887494234496,
+   "mean_abs_log_error": 0.1685111649960625,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 12,
+   "median_abs_pct_error": 22.051500329198202,
+   "mean_abs_log_error": 0.20901839119660992,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "OLS",
+   "n_chips": 12,
+   "median_abs_pct_error": 14.380779313866924,
+   "mean_abs_log_error": 0.15736299675526944,
+   "range_coverage_pct": 66.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "Structural L1",
+   "n_chips": 12,
+   "median_abs_pct_error": 6.412458092297795,
+   "mean_abs_log_error": 0.11812709493101876,
+   "range_coverage_pct": 83.33333333333334,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2023",
+   "model": "Nonlinear GBDT",
+   "n_chips": 12,
+   "median_abs_pct_error": 12.310856890497856,
+   "mean_abs_log_error": 0.14532696561178082,
+   "range_coverage_pct": 91.66666666666666,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 7,
+   "median_abs_pct_error": 21.109618977435936,
+   "mean_abs_log_error": 0.2542992501394788,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "OLS",
+   "n_chips": 7,
+   "median_abs_pct_error": 12.226053074641374,
+   "mean_abs_log_error": 0.16842597728630324,
+   "range_coverage_pct": 71.42857142857143,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "Structural L1",
+   "n_chips": 7,
+   "median_abs_pct_error": 6.995435008487186,
+   "mean_abs_log_error": 0.08805456427932803,
+   "range_coverage_pct": 85.71428571428571,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2024",
+   "model": "Nonlinear GBDT",
+   "n_chips": 7,
+   "median_abs_pct_error": 18.6110158354012,
+   "mean_abs_log_error": 0.1898219541533534,
+   "range_coverage_pct": 85.71428571428571,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 20,
+   "median_abs_pct_error": 16.939595214703758,
+   "mean_abs_log_error": 0.16959597971947363,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "OLS",
+   "n_chips": 20,
+   "median_abs_pct_error": 10.469443179304555,
+   "mean_abs_log_error": 0.11460098543635473,
+   "range_coverage_pct": 85.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "Structural L1",
+   "n_chips": 20,
+   "median_abs_pct_error": 6.925188552508207,
+   "mean_abs_log_error": 0.07880496905240734,
+   "range_coverage_pct": 90.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Generation",
+   "group": "2025",
+   "model": "Nonlinear GBDT",
+   "n_chips": 20,
+   "median_abs_pct_error": 12.612749298376205,
+   "mean_abs_log_error": 0.16535803998069745,
+   "range_coverage_pct": 80.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "HIP",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 27,
+   "median_abs_pct_error": 18.341899465197674,
+   "mean_abs_log_error": 0.1871610775564575,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "HIP",
+   "model": "OLS",
+   "n_chips": 27,
+   "median_abs_pct_error": 10.369117132011297,
+   "mean_abs_log_error": 0.12686977453817075,
+   "range_coverage_pct": 85.18518518518519,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "HIP",
+   "model": "Structural L1",
+   "n_chips": 27,
+   "median_abs_pct_error": 10.150791491887523,
+   "mean_abs_log_error": 0.10276609364854832,
+   "range_coverage_pct": 81.48148148148148,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "HIP",
+   "model": "Nonlinear GBDT",
+   "n_chips": 27,
+   "median_abs_pct_error": 9.536841885221186,
+   "mean_abs_log_error": 0.14754862145786068,
+   "range_coverage_pct": 81.48148148148148,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "ONEAPI",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 8,
+   "median_abs_pct_error": 17.62113978249402,
+   "mean_abs_log_error": 0.16202615292517686,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "ONEAPI",
+   "model": "OLS",
+   "n_chips": 8,
+   "median_abs_pct_error": 3.6768089111021434,
+   "mean_abs_log_error": 0.1083767913318332,
+   "range_coverage_pct": 87.5,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "ONEAPI",
+   "model": "Structural L1",
+   "n_chips": 8,
+   "median_abs_pct_error": 7.559368826648891,
+   "mean_abs_log_error": 0.11926875381361457,
+   "range_coverage_pct": 75.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "ONEAPI",
+   "model": "Nonlinear GBDT",
+   "n_chips": 8,
+   "median_abs_pct_error": 20.943205183441115,
+   "mean_abs_log_error": 0.16371635567956533,
+   "range_coverage_pct": 100.0,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "OPTIX",
+   "model": "Baseline (shaders x clock)",
+   "n_chips": 65,
+   "median_abs_pct_error": 29.255558821188355,
+   "mean_abs_log_error": 0.3187401906617773,
+   "range_coverage_pct": null,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "OPTIX",
+   "model": "OLS",
+   "n_chips": 65,
+   "median_abs_pct_error": 11.993443632535856,
+   "mean_abs_log_error": 0.1496437286615853,
+   "range_coverage_pct": 73.84615384615385,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "OPTIX",
+   "model": "Structural L1",
+   "n_chips": 65,
+   "median_abs_pct_error": 6.966776585245832,
+   "mean_abs_log_error": 0.11847966872643494,
+   "range_coverage_pct": 76.92307692307693,
+   "kind": "gpu"
+  },
+  {
+   "slice": "Backend",
+   "group": "OPTIX",
+   "model": "Nonlinear GBDT",
+   "n_chips": 65,
+   "median_abs_pct_error": 12.908996089747028,
+   "mean_abs_log_error": 0.1712308996519287,
+   "range_coverage_pct": 75.38461538461539,
+   "kind": "gpu"
+  }
+ ]
+}
