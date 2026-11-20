@@ -382,6 +382,9 @@ def test_catalogue_tracks_retail_products_and_shows_sub_threshold_results():
     assert summary["cpu"] == {
         "tracked": 2,
         "assessed": 0,
+        "assessed_spec": 0,
+        "assessed_blender": 0,
+        "assessed_spec_only": 0,
         "measured_only": 1,
         "no_measurement": 1,
         "catalogue": 3,

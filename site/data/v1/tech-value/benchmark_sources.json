@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "benchmark_sources",
   "description": "Benchmark sources behind the Tech Value pages, collected or planned, with the metric each reports and the configuration details recorded for every result.",
-  "generated_at": "2026-11-20T06:02:01+00:00",
-  "rows": 7,
+  "generated_at": "2026-11-20T06:50:27+00:00",
+  "rows": 11,
   "columns": [
    "source",
    "publisher",
@@ -100,7 +100,7 @@
    "products": 1359,
    "last_collected": "2026-11-16T13:58:49+00:00",
    "recorded": "Device, CPU or GPU, Blender version, number of runs, median and interquartile range",
-   "used_for": "Value ranking, Fair price, comparisons"
+   "used_for": "Value ranking, Fair price, comparisons, and its own over & under performer models (CPU and GPU), kept apart from the SPEC ones"
   },
   {
    "source": "SPEC CPU 2017 floating point and speed",
@@ -125,6 +125,54 @@
    "last_collected": null,
    "recorded": "",
    "used_for": "Not collected: would add consumer CPUs and GPUs SPEC does not cover, if the operator allows automated access"
+  },
+  {
+   "source": "Geekbench Browser",
+   "publisher": "Primate Labs (user uploads)",
+   "benchmark": "Geekbench 5 and 6 CPU and GPU compute",
+   "metric": "Geekbench score",
+   "status": "Not used: the Geekbench licence gives Primate Labs exclusive rights to uploaded results, and robots.txt disallows its search pages (checked 2026-11-20)",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Not collected"
+  },
+  {
+   "source": "PassMark (cpubenchmark.net, videocardbenchmark.net)",
+   "publisher": "PassMark Software (user uploads)",
+   "benchmark": "PerformanceTest CPU Mark and G3D Mark",
+   "metric": "PassMark score",
+   "status": "Not used: PassMark says its data may not be copied without a licence (checked 2026-11-20)",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Not collected"
+  },
+  {
+   "source": "TechPowerUp GPU and CPU databases",
+   "publisher": "TechPowerUp (editorial)",
+   "benchmark": "Relative performance (TechPowerUp's own summary of its reviews)",
+   "metric": "Percent of a reference card",
+   "status": "Not used: no export or reuse terms, and its robots.txt could not be read by this project's fetcher (checked 2026-11-20)",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Not collected"
+  },
+  {
+   "source": "Cinebench scores in published reviews",
+   "publisher": "Review sites",
+   "benchmark": "Cinebench R23 and 2024",
+   "metric": "Cinebench points",
+   "status": "Not used: scattered across copyrighted reviews with no structured source to collect automatically",
+   "results": 0,
+   "products": 0,
+   "last_collected": null,
+   "recorded": "",
+   "used_for": "Not collected"
   },
   {
    "source": "Independently published SPEC runs",

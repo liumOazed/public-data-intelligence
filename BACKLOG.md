@@ -10,9 +10,11 @@ built, and are looked at again when the current module meets its exit criterion.
 - Confirm on the weekly run's skip counts that Blender 2.x launches (render time, not samples
   per minute) explain the whole 14% once filed as `old_schema`.
 
-- Add a consumer-CPU specification table (cores, clocks, cache, power) so the residual model
-  can be fitted on desktop parts as well as SPEC's server-heavy results. The retailer API
-  returns specifications and is the likely source.
+- Check the hand-entered CPU table (pdi/tech_value/cpu_specs.py) against a second source;
+  Core Ultra 5 250K Plus and 7 270K Plus were entered from launch coverage.
+- Ask the Blender Foundation whether the weekly snapshot download is fine, now that
+  opendata.blender.org's robots.txt disallows /snapshots/.
+- Ask Primate Labs (Geekbench) and PassMark whether derived, attributed figures may be published.
 - Add power (TDP) to the specification model. The SPEC results dump does not carry it.
 - Look at OpenBenchmarking.org as a second consumer benchmark source, after reading its terms.
 - Rerun AutoGluon's holdout comparison with a linear model in its model list.

@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_calibration",
   "description": "Held-out check of the SPEC GWPG suite calibration: for each suite, OS and resolution, how far a card's calibrated score there sits from the same card's calibrated score in the other suites, with the calibration refitted without that card.",
-  "generated_at": "2026-11-20T05:54:32+00:00",
+  "generated_at": "2026-11-20T06:47:35+00:00",
   "rows": 29,
   "columns": [
    "cohort",
@@ -183,7 +183,7 @@
    "slope": 0.25,
    "slope_source": "fitted",
    "n_shared_cards": 4,
-   "median_abs_gap_pct": 22.192149570837305,
+   "median_abs_gap_pct": 22.19214957083731,
    "status": "Not validated: cards disagree across suites",
    "used_in_ranking": false
   },
@@ -351,7 +351,7 @@
    "slope": 0.25,
    "slope_source": "fitted",
    "n_shared_cards": 5,
-   "median_abs_gap_pct": 8.865558957857122,
+   "median_abs_gap_pct": 8.865558957857123,
    "status": "Validated",
    "used_in_ranking": true
   },
@@ -407,7 +407,7 @@
    "slope": 0.25,
    "slope_source": "fitted",
    "n_shared_cards": 5,
-   "median_abs_gap_pct": 3.66249398217027,
+   "median_abs_gap_pct": 3.6624939821702696,
    "status": "Validated",
    "used_in_ranking": true
   },
@@ -421,7 +421,7 @@
    "slope": 0.979,
    "slope_source": "fitted",
    "n_shared_cards": 8,
-   "median_abs_gap_pct": 9.389356544584397,
+   "median_abs_gap_pct": 9.389356544584395,
    "status": "Validated",
    "used_in_ranking": true
   },

@@ -229,6 +229,9 @@ gpu, gpu_meta = site.load("tech-value", "gpu_residuals")
 cpu_val, cpu_val_meta = site.load("tech-value", "residual_validation")
 gpu_val, gpu_val_meta = site.load("tech-value", "gpu_residual_validation")
 cat, cat_meta = site.load("tech-value", "catalogue")
+bl, bl_meta = site.load("tech-value", "blender_residuals")
+bl_val, bl_val_meta = site.load("tech-value", "blender_residual_validation")
+bl_chk, bl_chk_meta = site.load("tech-value", "blender_version_check")
 PRICE = {} if cat.empty else {
     (r.kind, r.model_key): (float(r.price_usd), r.price_date)
     for r in cat.itertuples() if pd.notna(r.price_usd)
@@ -329,9 +332,12 @@ def headline():
         if t.empty:
             continue
         n, a = len(t), int((t["assessment"] == tvcat.ASSESSED).sum())
+        spec_on = t["on_residuals"].astype(bool)
+        bl_on = t["on_blender_residuals"].astype(bool) if "on_blender_residuals" in t else spec_on & False
+        by_spec, by_bl, both = int(spec_on.sum()), int(bl_on.sum()), int((spec_on & bl_on).sum())
         m = int((t["assessment"] == tvcat.MEASURED_ONLY).sum())
         none = int((t["assessment"] == tvcat.NO_MEASUREMENT).sum())
-        others = int(DATA[kind].shape[0] - a) if not DATA[kind].empty else 0
+        others = int(DATA[kind].shape[0] - by_spec) if not DATA[kind].empty else 0
         trend = ""
         if not HIST.empty:
             h = HIST[HIST["kind"] == kind].sort_values("date")
@@ -346,9 +352,11 @@ def headline():
                     trend = f" Coverage is recorded at every update from {h['date'].iloc[0]} on."
         html += (f'<div class="op-head" data-kind="{kind}"><strong>{a}/{n}</strong>'
                  f'<span class="op-head-label">tracked {NOUN[kind]} assessed</span>'
-                 f'<span class="op-head-sub">Tracked means on Value ranking or Fair price today; the list follows '
-                 f'every price update. {m} more {"has" if m == 1 else "have"} a SPEC measurement below the ranking '
-                 f'threshold and {none} {"has" if none == 1 else "have"} none yet. The models also rank {others} '
+                 f'<span class="op-head-sub">{by_spec} by the SPEC {"CPU 2017" if kind == "cpu" else "GWPG"} models and '
+                 f'{by_bl} by the Blender rendering model ({both} by both); the two are separate models on separate benchmarks. '
+                 f'Tracked means on Value ranking or Fair price today; the list follows '
+                 f'every price update. {m} more {"has" if m == 1 else "have"} a measurement no model can assess yet '
+                 f'and {none} {"has" if none == 1 else "have"} none. The SPEC models also rank {max(others, 0)} '
                  f'{NOUN[kind]} from SPEC hardware that no tracked retailer sells.{trend}</span></div>')
     return html
 
@@ -407,13 +415,23 @@ def tracked_list(kind):
             ev = (f"{n} result{'s' if n != 1 else ''} · {int(r.spec_oems)} OEM{'s' if int(r.spec_oems) != 1 else ''}"
                   if n else "0 results")
             if r.assessment == tvcat.ASSESSED:
-                verdict = r.consensus_verdict or "Near prediction"
-                detail = f"{escape(verdict)} · {r.residual_pct:+.1f}% vs OLS"
-                if r.coverage_status == tvcat.LIMITED:
-                    detail += " · limited evidence"
-                detail += f' <button type="button" class="op-tl-go" data-name="{escape(r.name)}">Inspect</button>'
+                parts = []
+                if r.on_residuals:
+                    verdict = r.consensus_verdict or "Near prediction"
+                    d = f"SPEC: {escape(verdict)} · {r.residual_pct:+.1f}% vs OLS"
+                    if r.coverage_status == tvcat.LIMITED:
+                        d += " · limited evidence"
+                    d += f' <button type="button" class="op-tl-go" data-name="{escape(r.name)}">Inspect</button>'
+                    parts.append(d)
+                if getattr(r, "on_blender_residuals", False):
+                    parts.append(f"Blender rendering: {escape(r.blender_verdict or 'Near prediction')} · "
+                                 f"{r.blender_residual_pct:+.1f}% vs OLS")
+                detail = "<br>".join(parts)
             else:
                 detail = escape(r.reason or "")
+                br = getattr(r, "blender_reason", None)
+                if isinstance(br, str) and br:
+                    detail += f"<br>Blender model: {escape(br)}"
             nxt = escape(r.next_source or "") or "—"
             q = escape(f"{r.name} {r.model_key}".lower())
             rows.append(
@@ -438,10 +456,10 @@ def tracked_list(kind):
 </div>
 <div class="op-tl-wrap"><table class="op-tl"><thead><tr><th>Product</th><th>SPEC measurement</th><th>Evidence</th>
 <th>Model assessment</th><th>Where a result could come from</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>
-<p class="op-foot">Assessed: ranked by the three models below, which need at least {cpu_meta.get("min_results", 3) if kind == "cpu" else gpu_meta.get("min_results", 2)} results.
+<p class="op-foot">Assessed: ranked by the SPEC models below or by the separate Blender rendering model (next card). The SPEC models need at least {cpu_meta.get("min_results", 3) if kind == "cpu" else gpu_meta.get("min_results", 2)} results.
 Measured, not assessed: a published SPEC result exists but is below that threshold or only in suites that cannot be combined.
 {"CPU measurements are the median SPECrate 2017 Int base per socket." if kind == "cpu" else "GPU measurements below the threshold are published composites, named with their suite, OS and resolution; they compare only with results from that same group (see Results by workload)."}
-Blender scores come from Blender Open Data, a separate benchmark the models do not use. SPEC collected {day(SRC_DATES.get("spec_cpu2017" if kind == "cpu" else "spec_gwpg"))}.</p>
+Blender scores come from Blender Open Data, a separate benchmark that only the Blender rendering model uses. SPEC collected {day(SRC_DATES.get("spec_cpu2017" if kind == "cpu" else "spec_gwpg"))}.</p>
 </div>""")
 
 ```
@@ -897,6 +915,79 @@ def scaling_keys(kind):
     raw(f'<div class="op-keys">{tiers}{shapes}</div>')
 
 
+def blender_card(kind):
+    """Over and under performers on Blender rendering: the separate model, its checks and its list."""
+    head(f"Blender rendering: {NOUN[kind]} against their specifications",
+         f"A separate model, fitted on Blender Open Data instead of SPEC: each {ONE[kind]}'s median Blender score "
+         f"against the score its specifications predict, from fits that left it out. Its verdicts are about rendering only.")
+    b = bl[bl["kind"] == kind] if not bl.empty else bl
+    passed = (bl_meta.get("passed") or {}).get(kind) or {}
+    if b.empty:
+        raw(site.empty_state(bl_meta, "Blender residuals"))
+        return
+    version = bl_meta.get("blender_version")
+    ok = bool(passed.get("passed"))
+    status = (f'<p class="op-lede"><strong>{"Used for assessment" if ok else "Shown only, not used for assessment"}.</strong> '
+              f'{escape(str(passed.get("reason", "")))}. Blender {escape(str(version))}; '
+              f'{passed.get("n_with_specs", 0)} of {passed.get("n_benchmarked", 0)} benchmarked {NOUN[kind]} have specifications.</p>')
+    v = bl_val[(bl_val["kind"] == kind) & (bl_val["slice"] == "All")] if not bl_val.empty else bl_val
+    acc = ""
+    for r in v.itertuples():
+        cov = "" if pd.isna(r.range_coverage_pct) else f"{r.range_coverage_pct:.0f}%"
+        acc += (f'<tr class="{"op-base" if r.model.startswith("Baseline") else ""}"><td>{escape(r.model)}</td>'
+                f'<td>{r.median_abs_pct_error:.1f}%</td><td>{cov}</td><td>{int(r.n_chips)}</td></tr>')
+    c = bl_chk[bl_chk["kind"] == kind] if not bl_chk.empty else bl_chk
+    chk = ""
+    for r in c.itertuples():
+        gap = "—" if pd.isna(r.median_abs_gap_pct) else f"{r.median_abs_gap_pct:.1f}%"
+        chk += (f"<tr><td>Blender {escape(str(r.check_version))}</td><td>{int(r.n_shared)}</td>"
+                f"<td>{gap}</td><td>{escape(r.status)}</td></tr>")
+    tracked_keys = set(tracked(kind)["model_key"]) if not cat.empty else set()
+    rows = []
+    for r in b.sort_values("residual_pct", ascending=False).itertuples():
+        t = r.model_key in tracked_keys
+        price = PRICE.get((kind, r.model_key))
+        sub = [f"{int(r.n_runs):,} runs", r.backend if kind == "gpu" else ""]
+        if price:
+            sub.append(f"${price[0]:,.0f}")
+        rng = ""
+        if pd.notna(r.pred_ols_lo) and pd.notna(r.pred_ols_hi):
+            rng = f"<small>80% range {r.pred_ols_lo:,.0f}–{r.pred_ols_hi:,.0f}</small>"
+        out_range = r.outside_training_range if isinstance(r.outside_training_range, str) else ""
+        flag = f"<small>{escape(out_range)}</small>" if out_range else ""
+        q = escape(f"{r.processor} {r.model_key}".lower())
+        rows.append(
+            f'<tr data-g="{"t" if t else "x"}" data-q="{q}"{"" if t else " hidden"}>'
+            f'<td>{escape(r.processor)}<small>{" · ".join(escape(x) for x in sub if x)}</small></td>'
+            f'<td>{r.measured_score:,.0f}</td><td>{r.pred_ols:,.0f}{rng}</td>'
+            f'<td>{r.residual_pct:+.1f}%<small>structural {r.structural_residual_pct:+.1f}% · GBDT {r.gbdt_residual_pct:+.1f}%</small></td>'
+            f'<td>{escape(r.consensus_verdict)}{flag}</td></tr>')
+    n_t = sum(1 for k in b["model_key"] if k in tracked_keys)
+    inputs = ("Cores, threads, clocks, L3, TDP, vendor and release year" if kind == "cpu" else
+              "Shaders, clock, VRAM, bandwidth, release year, ray-tracing cores and the Blender backend (OptiX, HIP or oneAPI)")
+    unit = "cores" if kind == "cpu" else "shaders"
+    raw(f"""{status}
+<div class="op-tl-box op-bl-box" data-kind="{kind}">
+<div class="op-tl-bar">
+<div class="op-seg" role="group" aria-label="Which products">
+<button type="button" data-g="t" aria-pressed="true">Tracked ({n_t})</button>
+<button type="button" data-g="x" aria-pressed="false">Not tracked ({len(b) - n_t})</button>
+<button type="button" data-g="all" aria-pressed="false">All ({len(b)})</button></div>
+<input type="search" data-tl="q" placeholder="Search {NOUN[kind]}" aria-label="Search {NOUN[kind]}">
+<span class="op-tl-count" aria-live="polite"></span>
+</div>
+<div class="op-tl-wrap"><table class="op-tl"><thead><tr><th>Product</th><th>Blender score</th><th>Predicted (OLS)</th>
+<th>Residual vs OLS</th><th>Verdict across models</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>
+</div>
+<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Model</th><th>Typical held-out error</th><th>Inside 80% range</th><th>{NOUN[kind]}</th></tr></thead><tbody>{acc}</tbody></table></div>
+<div class="op-cmp-wrap"><table class="op-acc"><thead><tr><th>Same fit on</th><th>Shared {NOUN[kind]}</th><th>Median residual gap</th><th>Check</th></tr></thead><tbody>{chk}</tbody></table></div>
+<p class="op-foot">Specifications come from tables in this repository, entered from manufacturers' reference figures.
+{inputs} are the inputs. The model is used for assessment only when its plain model beats the {unit}-times-clock
+baseline on held-out products and its residuals agree within {float(bl_meta.get("max_gap_pct") or 15):.0f}% when refitted on other Blender versions.
+Rendering rewards cores, clocks and power; cache-heavy chips can sit below prediction here and still lead in games.
+Blender Open Data collected {day(SRC_DATES.get("blender_opendata"))}; CC0.</p>""")
+
+
 def accuracy(kind):
     v = VAL[kind]
     if v.empty:
@@ -931,6 +1022,13 @@ for kind in ("cpu", "gpu"):
 ```{python}
 #| output: asis
 tracked_list("cpu")
+```
+::::::
+
+:::::: {.op-card}
+```{python}
+#| output: asis
+blender_card("cpu")
 ```
 ::::::
 
@@ -1059,6 +1157,13 @@ raw('<p class="op-foot">Errors by vendor, family and generation are under Explor
 ```{python}
 #| output: asis
 tracked_list("gpu")
+```
+::::::
+
+:::::: {.op-card}
+```{python}
+#| output: asis
+blender_card("gpu")
 ```
 ::::::
 
@@ -1304,6 +1409,7 @@ else:
 src, src_meta = site.load("tech-value", "benchmark_sources")
 summary("Benchmark sources", f"{int((src['status'] == 'Collected').sum()) if not src.empty else 0} collected · "
         f"{int(src['status'].str.startswith('Blocked').sum()) if not src.empty else 0} blocked · "
+        f"{int(src['status'].str.startswith('Not used').sum()) if not src.empty else 0} not allowed · "
         f"{int((src['status'] == 'Not collected yet').sum()) if not src.empty else 0} planned · What each records")
 ```
 ::: {.op-detail-body}
@@ -1324,8 +1430,9 @@ else:
         f'<tbody>{rows}</tbody></table></div>')
 ```
 
-Results from different sources, suites or versions are never mixed in one score. Unreviewed
-sources, once added, will be labelled as such and kept apart from SPEC-published results.
+Results from different sources, suites or versions are never mixed in one score. Blender Open
+Data, which is crowd-submitted and unreviewed, has its own model and verdicts, kept apart from
+the SPEC-published results.
 :::
 </details>
 
@@ -1697,7 +1804,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const noun = box.dataset.kind === "cpu" ? "CPUs" : "GPUs";
     let grp = "t";
     const apply = () => {
-      const a = sel.value, text = q.value.trim().toLowerCase();
+      const a = sel ? sel.value : "", text = q.value.trim().toLowerCase();
       let shown = 0, inGroup = 0;
       rows.forEach(r => {
         const g = grp === "all" || r.dataset.g === grp;
@@ -1714,7 +1821,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.querySelectorAll("button[data-g]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
       apply();
     }));
-    sel.addEventListener("change", apply);
+    if (sel) sel.addEventListener("change", apply);
     q.addEventListener("input", apply);
     box.addEventListener("click", e => {
       const go = e.target.closest(".op-tl-go");
