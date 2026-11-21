@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "blender_residual_validation",
   "description": "Held-out error of the Blender residual models, one median residual per product, against the cores-times-clock (CPU) or shaders-times-clock (GPU) baseline, overall and by vendor, family, generation and (GPU) backend.",
-  "generated_at": "2026-11-20T18:02:11+00:00",
+  "generated_at": "2026-11-21T01:06:31+00:00",
   "rows": 216,
   "columns": [
    "slice",
