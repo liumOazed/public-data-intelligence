@@ -3,8 +3,8 @@
   "module": "energy",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years.",
-  "generated_at": "2026-11-21T01:06:35+00:00",
-  "rows": 0,
+  "generated_at": "2026-11-21T17:06:20+00:00",
+  "rows": 1,
   "columns": [
    "key",
    "module",
@@ -28,12 +28,28 @@
     "licence": "Creative Commons Attribution 4.0 (CC BY 4.0), stated on the dataset page: \"All content is released under a Creative Commons Attribution Licence (CC-BY-4.0).\" Reuse, including derived figures, is allowed with credit to Ember; the site credits it under every table.",
     "frequency": "fetched at most once every six days; the publisher updates twice a month",
     "typical_lag": "one to six months, different for each country",
-    "retrieved_at": "2026-11-15T10:46:52+00:00"
+    "retrieved_at": "2026-11-21T16:55:13+00:00"
    }
   ],
   "preliminary": false,
   "limitations": [],
   "rule_text": "an economy's latest month is flagged: the move in demand per day from the month before is 2.5 spreads or more from what that calendar month brought in up to ten earlier years."
  },
- "data": []
+ "data": [
+  {
+   "key": "energy|SG|same calendar month|2026-08-01",
+   "module": "energy",
+   "subject": "SG",
+   "period": "2026-08-01",
+   "sentence": "Singapore: 5.5 TWh in August 2026, demand per day up 6.6% on a year earlier; the move from the month before was 2.6 spreads from what that calendar month usually brings.",
+   "rule": "same calendar month",
+   "measure": 2.572165279198016,
+   "threshold": 2.5,
+   "label": "observation",
+   "label_reason": "Arithmetic on published monthly figures: demand per day, its change on a year earlier, and how far the latest monthly move is from what that calendar month usually brings. No model is fitted.",
+   "test_passed": null,
+   "page": "energy/index.qmd",
+   "table": "energy/demand_latest.json"
+  }
+ ]
 }

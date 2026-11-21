@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "by_group",
   "description": "Net obligations by fiscal year and kind of hardware.",
-  "generated_at": "2026-11-21T01:06:37+00:00",
+  "generated_at": "2026-11-21T17:06:21+00:00",
   "rows": 42,
   "columns": [
    "fiscal_year",
