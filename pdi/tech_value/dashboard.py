@@ -449,7 +449,22 @@ def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> 
             "stable_share": STABLE_PRICE_SHARE,
         },
         "kinds": KINDS,
+        "funnel": {
+            r["kind"]: {k: int(r[k]) for k in ("benchmarked", "price_checked", "priced", "ranked")}
+            for r in funnel(bench, value).to_dict("records")
+        },
+        "checked_date": checked_date(value, history),
     }
+
+
+def checked_date(value: pd.DataFrame, history: pd.DataFrame) -> str | None:
+    """The most recent day a price was collected, from the ranking or the price history."""
+    days = []
+    if len(value) and "collected_date" in value.columns:
+        days += [str(d)[:10] for d in value["collected_date"].dropna()]
+    if len(history):
+        days += [str(d)[:10] for d in history["date"].dropna()]
+    return max(days) if days else None
 
 
 # --- HTML for the parts of the page that do not change with the filters ---------------------
@@ -458,112 +473,6 @@ def payload(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> 
 def _h(s) -> str:
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
             .replace('"', "&quot;"))  # fmt: skip
-
-
-def _card(title: str, body: str, cls: str = "") -> str:
-    extra = f" {cls}" if cls else ""
-    return f'<div class="vd-card{extra}"><div class="vd-card-title">{_h(title)}</div>{body}</div>'
-
-
-def overview_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
-    """Market overview cards: coverage per kind, best value per kind, price freshness."""
-    fun = funnel(bench, value).set_index("kind")
-    rk = ranked(value)
-    coverage_cards = []
-    for kind, label in KIND_SHORT.items():
-        f = fun.loc[kind]
-        pct = 100 * f["ranked"] / max(int(f["price_checked"]), 1)
-        coverage_cards.append(_card(f"{label} coverage", (
-            f'<div class="vd-big">{f["ranked"]} <span>ranked ({pct:.0f}% of checked)</span></div>'
-            f'<div class="vd-mini-bar"><span style="width:{min(pct, 100):.1f}%"></span></div>'
-            f'<div class="vd-small">{f["benchmarked"]} benchmarked · '
-            f'{f["price_checked"]} price-checked · {f["priced"]} priced</div>'
-        ), cls=f"vd-card-{kind}"))  # fmt: skip
-    cards = []
-    for kind, label in KIND_SHORT.items():
-        part = rk[rk["kind"] == kind]
-        if part.empty:
-            none = '<div class="vd-small">No ranked models yet.</div>'
-            cards.append(_card(f"Best {label} value", none, cls=f"vd-leader vd-card-{kind}"))
-            continue
-        b = part.loc[part["score_per_dollar"].idxmax()]
-        body = (
-            f'<div class="vd-big">{_h(display_name(b["model_key"]))}</div>'
-            f'<div class="vd-small"><strong>{b["score_per_dollar"]:.2f} pts/$</strong> · '
-            f"${b['price_usd']:,.2f} · {b['score']:,.0f} pts</div>"
-        )
-        if pd.notna(b.get("n_listings")) and b.get("confidence") != "low":
-            body += f'<div class="vd-small">{int(b["n_listings"])} listings</div>'
-        if b.get("confidence") == "low":
-            normal = part[part["confidence"] != "low"]
-            alt = ""
-            if len(normal):
-                n = normal.loc[normal["score_per_dollar"].idxmax()]
-                n_name = _h(display_name(n["model_key"]))
-                alt = (
-                    f" Best with 2+ listings: <strong>{n_name}</strong> "
-                    f"({n['score_per_dollar']:.2f} pts/$, ${n['price_usd']:,.0f})."
-                )
-            body += f'<div class="vd-small vd-warn">Single listing.{alt}</div>'
-        cards.append(_card(f"Best {label} value", body, cls=f"vd-leader vd-card-{kind}"))
-    cards.extend(coverage_cards)
-    fr = freshness(bench, value, history)
-    counts = fr["status"].value_counts().to_dict() if len(fr) else {}
-    last = max(history["date"].astype(str).str[:10]) if len(history) else "never"
-    fresh_pct = min(100 * counts.get("fresh", 0) / max(len(fr), 1), 100)
-    cards.append(_card("Price freshness", (
-        f'<div class="vd-big">{_h(last)}</div>'
-        f'<div class="vd-mini-bar vd-mini-bar-ok">'
-        f'<span style="width:{fresh_pct:.1f}%"></span></div>'
-        f'<div class="vd-small">Of {len(fr)} price-checked models: '
-        f'<strong>{counts.get("fresh", 0)} fresh</strong>, {counts.get("stale", 0)} stale, '
-        f'{counts.get("never priced", 0)} unmatched (≤{config.PRICE_MAX_AGE_DAYS}d window).</div>'
-    ), cls="vd-card-fresh"))  # fmt: skip
-    return '<div class="vd-cards vd-overview">' + "".join(cards) + "</div>"
-
-
-def insights_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
-    items = insights(bench, value, history)
-    labels = {
-        "Coverage": "Coverage",
-        "Value": "Value",
-        "Dominated": "Better alternatives",
-        "Market": "Market price range",
-        "Upgrade": "Upgrade",
-        "Prices": "Price trend",
-    }
-    out = []
-    for kind in KINDS:
-        hidden = " hidden" if kind == "cpu" else ""
-        out.append(f'<div class="mi-grid" id="mi-{kind}" data-insight-kind="{kind}"{hidden}>')
-        for topic, title in labels.items():
-            group = [item for item in items if item["kind"] == kind and item["topic"] == topic]
-            if not group:
-                continue
-            first = group[0]
-            headline = _h(first.get("headline", first["text"]))
-            out.append(f'<article class="mi-card mi-{topic.lower()}"><h3>{title}</h3>')
-            out.append(f'<strong class="mi-metric">{headline}</strong>')
-            if first.get("caption"):
-                out.append(f"<p>{_h(first['caption'])}</p>")
-            if topic == "Coverage":
-                count, total = first["progress"]
-                out.append(
-                    f'<progress aria-label="Share of checked models ranked" '
-                    f'value="{count}" max="{total}"></progress>'
-                )
-            if topic == "Market":
-                out.append('<div class="mi-range" aria-hidden="true"></div>')
-            for extra in group[1:]:
-                out.append(f"<p>{_h(extra['text'])}</p>")
-            out.append("<details><summary>See figures</summary>")
-            for item in group:
-                out.append(f"<p>{_h(item['detail'])}</p>")
-            out.append("</details></article>")
-        if not any(item["kind"] == kind for item in items):
-            out.append("<p>Insufficient data for market insights.</p>")
-        out.append("</div>")
-    return "".join(out)
 
 
 def coverage_html(bench: pd.DataFrame, value: pd.DataFrame, history: pd.DataFrame) -> str:
