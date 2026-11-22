@@ -47,6 +47,15 @@ jobs:
       - name: Collect and tidy Blender Open Data
         run: uv run python -m pdi.tech_value.blender
 
+      - name: Collect SPECpower results (measured server power)
+        # A failed download keeps the stored table; the efficiency page shows the last good one.
+        continue-on-error: true
+        run: uv run python -m pdi.tech_value.specpower
+
+      - name: Collect MLPerf Inference results with measured power
+        continue-on-error: true
+        run: uv run python -m pdi.tech_value.mlperf
+
       - name: Collect retail prices (crawler)
         run: uv run python -m pdi.tech_value.retail
 

@@ -73,6 +73,7 @@
       hours: D.summary.tco_defaults.hours_per_day,
       share: D.summary.tco_defaults.load_share,
       years: D.summary.tco_defaults.years,
+      spVendor: "all",
     };
 
     function colors() {
@@ -350,8 +351,66 @@
       );
     }
 
+    function renderSpecPower(c) {
+      const P = D.sp.processors.filter((r) => S.spVendor === "all" || r.cpu_vendor === S.spVendor);
+      const all = D.sp.processors;
+      if (!all.length) {
+        ["ef-sp-trend", "ef-sp-curve"].forEach((id) => empty(id, "SPECpower results have not been collected yet."));
+        $("ef-sp-table").innerHTML = '<div class="vd-state">SPECpower results have not been collected yet.</div>';
+        return;
+      }
+      const best = all[0];
+      $("ef-sp-best").textContent = best.processor;
+      $("ef-sp-best-note").textContent =
+        fmtInt(best.ops_per_watt) + " ssj_ops per watt · median of " + best.n_results + " result" + (best.n_results > 1 ? "s" : "");
+      $("ef-sp-double").textContent = D.sp.doubling_years ? D.sp.doubling_years.toFixed(1) + " years" : "Too few years";
+      const t = D.sp.trend.slice().sort((a, b) => a.year - b.year);
+      const last = t[t.length - 1];
+      $("ef-sp-idle").textContent = last ? Math.round(100 * last.idle_share) + "%" : "—";
+      $("ef-sp-idle-note").textContent = last
+        ? "Median idle power as a share of full load, results published in " + last.year
+        : "";
+      if (hasPlotly && t.length) {
+        const hover = (lab, f) => t.map((r) => `<b>${r.year}</b> · ${r.n} results<br>${lab}: ${f(r)}`);
+        Plotly.react(
+          clear("ef-sp-trend"),
+          [
+            { type: "scatter", mode: "lines+markers", x: t.map((r) => r.year), y: t.map((r) => r.best), line: { color: c.vendor("nvidia"), width: 2 },
+              hovertext: hover("Best", (r) => fmtInt(r.best) + " ssj_ops/W"), hovertemplate: "%{hovertext}<extra></extra>" },
+            { type: "scatter", mode: "lines+markers", x: t.map((r) => r.year), y: t.map((r) => r.median), line: { color: c.vendor("intel"), width: 2 },
+              hovertext: hover("Median", (r) => fmtInt(r.median) + " ssj_ops/W"), hovertemplate: "%{hovertext}<extra></extra>" },
+          ],
+          layout(c, { height: 300, xaxis: axis(c, "Year published"), yaxis: axis(c, "ssj_ops per watt (log scale)", { type: "log", tickformat: ",", tickvals: [500, 1000, 2000, 5000, 10000, 20000, 50000] }) }),
+          CONFIG
+        );
+        const loads = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+        const top = P.slice(0, 5);
+        const palette = [c.vendor("intel"), c.vendor("amd"), c.vendor("nvidia"), "#8a63d2", "#c9a227"];
+        Plotly.react(
+          clear("ef-sp-curve"),
+          top.map((r, i) => ({
+            type: "scatter", mode: "lines", name: r.processor, x: loads, y: loads.map((l) => r["ppw_" + l]),
+            line: { color: palette[i % palette.length], width: 2 },
+            hovertemplate: "<b>" + esc(r.processor) + "</b><br>%{x}% load: %{y:,.0f} ssj_ops/W<extra></extra>",
+          })),
+          layout(c, { height: 300, showlegend: true, legend: { orientation: "h", y: -0.3, font: { size: 11 } },
+            margin: { t: 12, r: 16, b: 96, l: 64 },
+            xaxis: axis(c, "Target load (%)", { dtick: 10 }), yaxis: axis(c, "ssj_ops per watt", { rangemode: "tozero", tickformat: "," }) }),
+          CONFIG
+        );
+      }
+      const rowsHtml = P.slice(0, 20).map((r, i) =>
+        `<tr><td>${i + 1}</td><td>${esc(r.processor)}</td><td>${r.year}</td><td class="num">${r.n_results}</td>` +
+        `<td class="num"><b>${fmtInt(r.ops_per_watt)}</b></td><td class="num">${r.idle_share == null ? "—" : Math.round(100 * r.idle_share) + "%"}</td></tr>`
+      ).join("");
+      $("ef-sp-table").innerHTML = P.length
+        ? `<table class="ef-table"><thead><tr><th>#</th><th>Processor</th><th>First result</th><th class="num">Results</th><th class="num">ssj_ops per W</th><th class="num">Idle share</th></tr></thead><tbody>${rowsHtml}</tbody></table>`
+        : '<div class="vd-state">No results for this maker.</div>';
+    }
+
     function render() {
       const c = colors();
+      document.querySelectorAll("[data-ef-for]").forEach((s) => (s.hidden = s.dataset.efFor !== S.kind));
       renderHead();
       renderVendors();
       const part = rows();
@@ -359,6 +418,7 @@
       renderTable(part);
       renderTco(part, c);
       renderTrend(c);
+      if (S.kind === "cpu") renderSpecPower(c);
     }
 
     // ---------------------------------------------------------------- events
@@ -368,6 +428,10 @@
         render();
       })
     );
+    $("ef-sp-vendor").addEventListener("change", (e) => {
+      S.spVendor = e.target.value;
+      renderSpecPower(colors());
+    });
     $("ef-vendor").addEventListener("change", (e) => {
       S.vendor = e.target.value;
       render();

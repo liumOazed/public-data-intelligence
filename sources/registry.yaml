@@ -54,6 +54,52 @@ sources:
       waits five seconds between pages, as spec.org's robots.txt asks. Reachable from GitHub's
       runners (the weekly job), so it needs no other machine.
 
+  spec_power:
+    name: SPECpower_ssj2008 published results
+    owner: Standard Performance Evaluation Corporation
+    url: https://www.spec.org/power_ssj2008/results/
+    endpoint: https://www.spec.org/cgi-bin/osgresults
+    licence: >-
+      SPEC Fair Use Rules (https://www.spec.org/products/fairuse), the same general rules as
+      SPEC CPU 2017: state the source and retrieval date, name the licensee of each result,
+      acknowledge the SPEC trademarks, compare SPEC metrics only within the same benchmark, and
+      label derived values. The SPECpower section of those rules has not been re-read for this
+      entry, because spec.org could not be reached from the build machine on 22 November 2026.
+    frequency: weekly collection; SPEC publishes new results every few weeks
+    typical_lag: results appear weeks to months after the test date
+    status: amber
+    publish: derived
+    module: tech-value
+    terms_checked: 2026-11-14
+    notes: >-
+      Measured AC power of whole servers at eleven load levels, with active idle. Only results
+      that name their processor are used, grouped by processor (efficiency page). Reachable from
+      GitHub's runners (the weekly job). Move to green once the SPECpower section of the Fair
+      Use Rules has been read.
+
+  mlperf_inference:
+    name: MLPerf® Inference results (MLCommons results repositories)
+    owner: MLCommons Association
+    url: https://github.com/mlcommons/inference_results_v5.1
+    endpoint: https://raw.githubusercontent.com/mlcommons/inference_results_v{round}/main/summary_results.json
+    licence: >-
+      Repositories are Apache 2.0. Use of the MLPerf name follows the MLPerf Results Messaging
+      Guidelines (https://github.com/mlcommons/policies/blob/master/MLPerf_Results_Messaging_Guidelines.adoc):
+      ® on every use of the name, the trademark legend, the submitter, benchmark, version and
+      system named beside each result, perf per watt only from MLPerf measured system power,
+      comparisons only between compatible results (same benchmark and scenario), and derived
+      metrics labelled as not official. Non-submitters may publish two weeks after a round's
+      publication. The site does all of these.
+    frequency: weekly collection; MLCommons publishes two inference rounds a year
+    typical_lag: published on the round's release date
+    status: green
+    publish: derived
+    module: tech-value
+    terms_checked: 2026-11-22
+    notes: >-
+      Only Closed-division results with an MLPerf Power measurement are kept. Very few
+      submitters measure power: two systems across rounds 5.0 and 5.1, none in 6.0.
+
   openbenchmarking:
     name: OpenBenchmarking.org (Phoronix Test Suite results)
     owner: Phoronix Media

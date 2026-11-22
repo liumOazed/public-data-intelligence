@@ -954,3 +954,13 @@ body.quarto-dark .vx-seg button[aria-pressed="true"] { background: #2b6b55; colo
   .ef-table { font-size: 0.85rem; }
   .ef-table th:nth-child(3), .ef-table td:nth-child(3), .ef-table th:nth-child(7), .ef-table td:nth-child(7) { display: none; }
 }
+.ef-measured { margin: 28px 0 16px; padding-top: 18px; border-top: 2px solid var(--vx-card-line); }
+.ef-measured[hidden] { display: none; }
+.ef-measured-head { margin-bottom: 12px; }
+.ef-measured-head h2 { font-size: 1.5rem; margin: 6px 0 4px; }
+.ef-badge { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 10px; border-radius: 999px; background: #1baf7a; color: #fff; }
+.ef-sp-hero { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ef-sp-hero .vx-tile:first-child { border-left: 0; }
+.ef-small { font-size: 1.25rem; }
+.ef-legal { margin-top: 10px; }
+@media (max-width: 720px) { .ef-sp-hero { grid-template-columns: minmax(0, 1fr); } .ef-sp-hero .vx-tile + .vx-tile { border-left: 0; border-top: 1px solid var(--vx-mint-line); } }

@@ -19,8 +19,8 @@ built, and are looked at again when the current module meets its exit criterion.
   (The efficiency page now has rated power for Blender CPUs and GPUs.)
 - Check the hand-entered GPU board power table (pdi/tech_value/gpu_specs.py) against a second
   source, and enter the RX 7650 GRE once AMD lists it.
-- Efficiency page phase 2: SPECpower (server CPUs, only results that name the CPU) and MLPerf
-  Inference Power, each after its terms are read and a registry entry is added.
+- Read the SPECpower section of SPEC's Fair Use Rules (spec.org was unreachable from the build
+  machine on 22 November 2026) and move `spec_power` from amber to green.
 - Efficiency page phase 3: efficiency residuals, tiers, frontier speed, vendor gap, price of
   efficiency and changepoints.
 - Ask TechPowerUp for permission to use measured board power (FPS per watt, idle power).

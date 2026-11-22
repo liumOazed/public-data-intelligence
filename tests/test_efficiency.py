@@ -131,3 +131,65 @@ console.log(JSON.stringify({{
     total, power = ef.tco(500, 200, 0.17, 4, 0.3, 3)
     assert out["tco"]["total"] == pytest.approx(float(total))
     assert out["tco"]["power"] == pytest.approx(float(power))
+
+
+# --- measured power ---------------------------------------------------------------------------
+
+FIXTURES = ROOT / "tests" / "fixtures" / "live"
+
+
+def test_specpower_parser_reads_the_live_slice():
+    from pdi.tech_value import specpower
+
+    df = specpower.parse((FIXTURES / "spec_power_ssj2008.csv").read_bytes(), "2026-11-22")
+    assert len(df) == 12
+    epyc = df[df["processor"] == "AMD EPYC 7763"].iloc[0]
+    assert epyc["cpu_vendor"] == "AMD"
+    assert epyc["ops_per_watt"] == 25252
+    assert epyc["watts_100"] == 408
+    assert epyc["idle_share"] == pytest.approx(94.6 / 408)
+    assert epyc["disclosure_url"].startswith("https://www.spec.org/power_ssj2008/results/")
+    assert set(df["processor"]) >= {"Intel Xeon X3360", "Ampere Altra Q80-30", "AMD EPYC 7742"}
+    assert df[[f"ppw_{p}" for p in specpower.LOADS]].notna().all().all()
+
+
+def test_specpower_processor_names_drop_clock_and_trademarks():
+    from pdi.tech_value.specpower import processor_name
+
+    assert processor_name("AMD EPYC 7742 2.25Ghz") == "AMD EPYC 7742"
+    assert (
+        processor_name("Ampere® Altra® 64-Bit Multi-Core Processor Q64-30") == "Ampere Altra Q64-30"
+    )
+    assert processor_name("Intel(R) Xeon(R) Platinum 8592+ @ 1.9GHz") == "Intel Xeon Platinum 8592+"
+    assert processor_name("--") is None
+
+
+def test_specpower_groups_by_processor_and_fits_a_doubling_time():
+    from pdi.tech_value import specpower
+
+    df = specpower.parse((FIXTURES / "spec_power_ssj2008.csv").read_bytes())
+    by = specpower.by_processor(df)
+    assert by.iloc[0]["processor"] == "AMD EPYC 7763"
+    assert by.iloc[0]["n_results"] == 2
+    trend = pd.DataFrame({"year": [2020, 2021, 2022, 2023], "best": [100, 200, 400, 800]})
+    assert specpower.doubling_years(trend) == pytest.approx(1.0)
+    assert specpower.doubling_years(trend.head(3)) is None
+
+
+def test_mlperf_keeps_only_closed_measured_watts_rows():
+    from pdi.tech_value import mlperf
+
+    v50 = json.loads((FIXTURES / "mlperf_inference_v5.0.json").read_text())
+    v51 = json.loads((FIXTURES / "mlperf_inference_v5.1.json").read_text())
+    df = pd.concat([mlperf.parse(v50, "5.0"), mlperf.parse(v51, "5.1")], ignore_index=True)
+    assert len(df) == 31
+    assert set(df["submitter"]) == {"Fujitsu", "Lenovo"}
+    row = df[
+        (df["round"] == "5.1") & (df["model"] == "llama2-70b-99") & (df["scenario"] == "Offline")
+    ]
+    assert row.iloc[0]["perf_per_watt"] == pytest.approx(102909.0 / 10400.9988793425)
+    assert row.iloc[0]["perf_per_watt_units"] == "tokens per joule"
+    groups = mlperf.comparable_groups(mlperf.drop_accuracy_twins(df))
+    assert set(groups["model"]) == {"llama2-70b-99", "rgat"}
+    # The v5.1 Server run scored differently under the two targets, so both stay.
+    assert len(mlperf.drop_accuracy_twins(df)) == 23

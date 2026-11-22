@@ -15,6 +15,8 @@ GWPG_TABLE = STORE_DIR / "spec_gwpg_results.parquet"
 WS_CPU_TABLE = STORE_DIR / "spec_workstation_cpu.parquet"
 BLENDER_TABLE = STORE_DIR / "blender_devices.parquet"
 ELECTRICITY_TABLE = STORE_DIR / "electricity_price.parquet"
+MLPERF_TABLE = STORE_DIR / "mlperf_power.parquet"
+SPECPOWER_TABLE = STORE_DIR / "specpower_results.parquet"
 # Dated coverage counts and the first day each retail-tracked product appeared (committed).
 COVERAGE_STORE = STORE_DIR / "coverage_history.json"
 PRICES_DIR = STORE_DIR / "prices"

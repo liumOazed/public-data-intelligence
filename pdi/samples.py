@@ -152,6 +152,29 @@ def spec_power() -> None:
     )
 
 
+def mlperf_inference() -> None:
+    """MLPerf Inference summaries: closed rows with power, two rows without, one open power row."""
+    from pdi.tech_value import mlperf
+
+    for round_ in ("5.0", "5.1"):
+        resp = _get(mlperf.URL.format(round=round_))
+        rows = resp.json()
+        keep = [r for r in rows if r.get("has_power") and r.get("Category") == "closed"]
+        keep += [r for r in rows if not r.get("has_power")][:2]
+        keep += [r for r in rows if r.get("has_power") and r.get("Category") == "open"][:1]
+        for r in keep:
+            for k in ("Notes", "Details", "Code"):
+                r.pop(k, None)
+        _save(
+            f"mlperf_inference_v{round_}.json",
+            json.dumps(keep, indent=1).encode(),
+            url=resp.url,
+            full=resp.content,
+            note="closed-division rows with a power measurement, two rows without, one "
+            "open-division power row; Notes, Details and Code fields dropped",
+        )
+
+
 def blender_launches() -> None:
     resp = _get(tv.BLENDER_SNAPSHOT_URL, timeout=900, stream=True)
     tmp = OUT.parent / "_blender.zip"
@@ -399,6 +422,7 @@ _COMPANY = re.compile(
 CAPTURES = {
     "spec": spec,
     "spec_power": spec_power,
+    "mlperf": mlperf_inference,
     "blender": blender_launches,
     "centralcomputer": central_computers,
     "fred": fred,

@@ -19,6 +19,9 @@ from pdi import site
 eff, meta = site.load("tech-value", "efficiency")
 trend, _ = site.load("tech-value", "efficiency_trend")
 missing, miss_meta = site.load("tech-value", "efficiency_missing")
+sp_proc, sp_meta = site.load("tech-value", "specpower_processors")
+sp_trend, _ = site.load("tech-value", "specpower_trend")
+mlp, mlp_meta = site.load("tech-value", "mlperf_power")
 summary = meta.get("summary") or {"kinds": {}, "electricity": {"usd_per_kwh": 0.17, "fallback": True},
                                    "tco_defaults": {"hours_per_day": 4, "load_share": 0.3, "years": 3},
                                    "job_samples": 10000}  # fmt: skip
@@ -31,10 +34,18 @@ models = (
 )
 for m in models:
     m["year"] = int(m["year"])
+SP_COLS = ["processor", "cpu_vendor", "n_results", "n_vendors", "ops_per_watt", "idle_share",
+           "year", *[f"ppw_{p}" for p in (100, 90, 80, 70, 60, 50, 40, 30, 20, 10)]]  # fmt: skip
 data = {
     "models": models,
     "trend": trend.to_dict("records") if len(trend) else [],
     "summary": summary,
+    "sp": {
+        "processors": sp_proc[SP_COLS].head(60).to_dict("records") if len(sp_proc) else [],
+        "trend": sp_trend.to_dict("records") if len(sp_trend) else [],
+        "n_results": sp_meta.get("n_results") or 0,
+        "doubling_years": sp_meta.get("doubling_years"),
+    },
 }
 data_json = json.dumps(data).replace("</", "<\\/")
 js = Path("efficiency.js").read_text()
@@ -42,10 +53,75 @@ plotly_src = f"https://cdn.plot.ly/plotly-{plotly.offline.get_plotlyjs_version()
 rate = summary["electricity"]["usd_per_kwh"]
 
 
+def mlperf_html(df: pd.DataFrame, meta: dict) -> str:
+    if df.empty:
+        return f'<div class="vd-state">{escape(meta.get("status") or "Not collected yet.")}</div>'
+    n_sys = df.groupby(["model", "scenario"])["system"].transform("nunique")
+    groups = df[n_sys >= 2]
+    singles = df[n_sys < 2]
+
+    def table(part: pd.DataFrame) -> str:
+        rows = []
+        for (model, scen), g in part.groupby(["model", "scenario"], sort=False):
+            g = g.sort_values("perf_per_watt", ascending=False)
+            for i, r in enumerate(g.to_dict("records")):
+                lead = (
+                    f'<td rowspan="{len(g)}"><b>{escape(model)}</b><br><span class="vx-fine">{escape(scen)}</span></td>'
+                    if i == 0 else ""
+                )
+                rows.append(
+                    f"<tr>{lead}<td>{escape(r['submitter'])} {escape(r['system'])}<br>"
+                    f'<span class="vx-fine">{r["n_accelerators"]}× {escape(r["accelerator"])}</span></td>'
+                    f"<td>v{escape(r['round'])}</td>"
+                    f'<td class="num">{r["performance"]:,.0f} {escape(r["performance_units"])}</td>'
+                    f'<td class="num">{r["watts"]:,.0f}</td>'
+                    f'<td class="num"><b>{r["perf_per_watt"]:,.2f}</b> <span class="vx-fine">{escape(r["perf_per_watt_units"])}</span></td>'
+                    f'<td><a href="{escape(r["source_url"])}">{escape(r["result_id"])}</a></td></tr>'
+                )
+        head = ("<tr><th>Benchmark</th><th>System</th><th>Round</th><th class='num'>Throughput</th>"
+                "<th class='num'>Measured W</th><th class='num'>Work per joule</th><th>Result ID</th></tr>")  # fmt: skip
+        return f'<div class="ef-table-wrap"><table class="ef-table"><thead>{head}</thead><tbody>{"".join(rows)}</tbody></table></div>'
+
+    out = '<section class="vx-card"><h2>Benchmarks measured on two or more systems</h2>'
+    if len(groups):
+        g = groups[(groups["model"] == "llama2-70b-99") & (groups["scenario"] == "Offline")]
+        if g["system"].nunique() >= 2:
+            g = g.sort_values("perf_per_watt")
+            lo, hi = g.iloc[0], g.iloc[-1]
+            chips = (
+                f"at {hi['n_accelerators']} accelerators each"
+                if hi["n_accelerators"] == lo["n_accelerators"]
+                else f"with {hi['n_accelerators']} and {lo['n_accelerators']} accelerators"
+            )
+            out += (
+                f'<p class="vx-strip">On Llama 2 70B (Offline), the {escape(hi["accelerator"])} system '
+                f'(v{escape(hi["round"])}) did {hi["perf_per_watt"] / lo["perf_per_watt"]:.1f}× the tokens '
+                f'per joule of the {escape(lo["accelerator"])} system (v{escape(lo["round"])}), {chips}.</p>'
+            )
+        out += table(groups)
+    else:
+        out += '<div class="vd-state">No benchmark has measured power from two systems yet.</div>'
+    out += "</section>"
+    if len(singles):
+        out += (
+            '<details class="vx-more"><summary>Benchmarks measured on one system only</summary>'
+            + table(singles) + "</details>"
+        )
+    out += (
+        '<p class="vx-fine ef-legal">MLPerf® Inference v5.0 and v5.1, Closed division, datacenter. '
+        "Retrieved from MLCommons' results repositories; result IDs link to each submission. "
+        "Results verified by MLCommons Association. Work per joule is throughput divided by measured "
+        "system power, derived by this site; it is not an official MLPerf metric. "
+        + escape(meta.get("legend", "")) + "</p>"
+    )
+    return out
+
+
 def html(fragment: str) -> None:
     print("\n```{=html}\n" + fragment + "\n```\n")
 
 
+MLPERF_HTML = mlperf_html(mlp, mlp_meta)
 html(f"""<nav class="tv-nav" aria-label="Tech Value pages">
 <a href="index.html">Value ranking</a>
 <a href="fair-price.html">Fair price</a>
@@ -87,7 +163,7 @@ html(f"""<nav class="tv-nav" aria-label="Tech Value pages">
   </div>
 </section>
 
-<p class="ef-rated"><b>Every watt on this page is rated.</b> CPU figures are TDP (Intel: processor base power) and GPU figures are reference board power, both from manufacturers' specifications. Real draw during a render can differ by 30% or more, and Intel desktop chips boost far above their base power, which flatters Intel's 65 W parts. Measured power (SPECpower for server CPUs, MLPerf for AI inference) is coming as separate panels.</p>
+<p class="ef-rated"><b>Every watt on this page is rated.</b> CPU figures are TDP (Intel: processor base power) and GPU figures are reference board power, both from manufacturers' specifications. Real draw during a render can differ by 30% or more, and Intel desktop chips boost far above their base power, which flatters Intel's 65 W parts. Measured power, from SPECpower for server processors and MLPerf® Inference for AI systems, is in its own panel below and never mixed into these rankings.</p>
 
 <section class="vx-card">
   <div class="vx-card-head">
@@ -145,6 +221,46 @@ html(f"""<nav class="tv-nav" aria-label="Tech Value pages">
     <p class="vx-muted">Is the label creeping up? Median rated power of the <span class="ef-kind">GPU</span>s launched each year that have a Blender score.</p>
   </section>
 </div>
+
+<section class="ef-measured" data-ef-for="cpu" aria-label="Measured server power">
+  <div class="ef-measured-head">
+    <span class="ef-badge">Measured</span>
+    <h2>Server processors under a power meter</h2>
+    <p class="vx-muted">SPECpower_ssj2008 reads the wall power of a whole server at every load from 100% down to idle. Results are grouped by the processor each disclosure names, and never ranked against the desktop chips above.</p>
+  </div>
+  <div class="vx-hero ef-sp-hero">
+    <div class="vx-tile"><span class="vx-tile-label">Most efficient processor</span><span class="vx-tile-value ef-small" id="ef-sp-best"></span><span class="vx-tile-note" id="ef-sp-best-note"></span></div>
+    <div class="vx-tile"><span class="vx-tile-label">Frontier doubles every</span><span class="vx-tile-value" id="ef-sp-double"></span><span class="vx-tile-note">Fit to the yearly best result, last six years</span></div>
+    <div class="vx-tile"><span class="vx-tile-label">Idle draw</span><span class="vx-tile-value" id="ef-sp-idle"></span><span class="vx-tile-note" id="ef-sp-idle-note"></span></div>
+  </div>
+  <div class="vx-grid vx-grid-2">
+    <section class="vx-card">
+      <h2>Measured efficiency by year</h2>
+      <div id="ef-sp-trend" class="vd-chart" role="img" aria-label="Best and median measured ssj_ops per watt by year of publication"><div class="vd-state">Loading chart…</div></div>
+      <div class="vx-legend vx-legend-left"><span><span class="ef-swatch" style="background:var(--vd-s3)"></span>Best</span><span><span class="ef-swatch" style="background:var(--vd-s1)"></span>Median</span></div>
+    </section>
+    <section class="vx-card">
+      <h2>Efficiency across the load range</h2>
+      <div id="ef-sp-curve" class="vd-chart" role="img" aria-label="Measured ssj_ops per watt at each target load for the top processors"><div class="vd-state">Loading chart…</div></div>
+      <p class="vx-muted">Servers spend most of their time well below full load. A flat curve keeps its efficiency when the work runs out.</p>
+    </section>
+  </div>
+  <section class="vx-card">
+    <div class="vx-card-head"><h2>Processors by measured efficiency</h2>
+      <label class="vx-field ef-inline"><span class="visually-hidden">Maker</span><select id="ef-sp-vendor"><option value="all">All makers</option><option>AMD</option><option>Intel</option><option>Ampere</option></select></label></div>
+    <div id="ef-sp-table" class="ef-table-wrap"></div>
+    <p class="vx-fine">Median of each processor's SPECpower results. Idle share is active-idle power as a share of full-load power: lower means the server gets closer to drawing nothing when it has nothing to do.</p>
+  </section>
+</section>
+
+<section class="ef-measured" data-ef-for="gpu" aria-label="Measured AI inference power">
+  <div class="ef-measured-head">
+    <span class="ef-badge">Measured</span>
+    <h2>AI inference under a power meter</h2>
+    <p class="vx-muted">MLPerf® Inference Power measures the whole system while it runs the benchmark. Few submitters measure power, so this panel is small. Each comparison uses the same benchmark and scenario.</p>
+  </div>
+  {MLPERF_HTML}
+</section>
 </div>
 """)
 ```
@@ -170,6 +286,10 @@ else:
 ```{python}
 #| output: asis
 print(site.source_note(meta))
+print()
+print(site.source_note(sp_meta))
+print()
+print(site.source_note(mlp_meta))
 ```
 
 </details>

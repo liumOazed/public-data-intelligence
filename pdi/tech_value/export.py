@@ -23,7 +23,9 @@ from pdi.tech_value import (
     electricity,
     fair_price,
     gwpg,
+    mlperf,
     model,
+    specpower,
     value,
 )
 
@@ -94,6 +96,32 @@ EFFICIENCY_LIMITS = [
     "or not published.",
     "The cost calculator charges electricity only for the hours under load, because no idle "
     "power figure exists yet. The default rate is the BLS US city average price per kWh.",
+]
+MLPERF_LEGEND = (
+    "The MLPerf name and logo are registered and unregistered trademarks of MLCommons "
+    "Association in the United States and other countries. All rights reserved. Unauthorized "
+    "use strictly prohibited. See www.mlcommons.org for more information."
+)
+MLPERF_LIMITS = [
+    "MLPerf® Inference Closed division, datacenter suite, results with an MLPerf Power "
+    "measurement only. Results verified by MLCommons Association.",
+    "Power is the measured power of the whole system under test (accelerators, host CPUs, "
+    "memory, fans), not of one chip.",
+    "Work per joule (throughput divided by measured system power) is derived by this site. It "
+    "is not an official MLPerf metric. Results are compared only within the same benchmark and "
+    "scenario, across rounds MLCommons lists as compatible.",
+    "Few submitters measure power, so most accelerators have no result here.",
+    MLPERF_LEGEND,
+]
+SPECPOWER_LIMITS = [
+    "SPECpower_ssj2008 measures the AC power of a whole server at each target load from 100% "
+    "down to active idle, with a calibrated power analyser. It is a measurement, not a label.",
+    "Only results whose disclosure names the processor model are kept, and they are grouped "
+    "by that processor. Memory, power supplies and node count differ between results.",
+    "ssj_ops per watt is SPEC's own overall metric. Per-processor medians are this site's "
+    "summaries and are not SPEC metrics.",
+    "SPEC and SPECpower are registered trademarks of the Standard Performance Evaluation "
+    "Corporation. Every row links to its SPEC disclosure.",
 ]
 FAIR_LIMITS = [
     "A fair price here means the price predicted from Blender rendering score alone. A part "
@@ -373,6 +401,7 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         extra=extra,
     )
     export_efficiency(bench, table, version, got)
+    export_measured_power()
 
 
 def export_efficiency(
@@ -417,6 +446,61 @@ def export_efficiency(
         missing,
         description="Benchmarked models left off the efficiency page, with the reason.",
         extra={"blender_version": version, "status": status},
+        **common,
+    )
+
+
+def export_measured_power() -> None:
+    ml = mlperf.load()
+    got = {"mlperf_inference": ml["retrieved_at"].max() if len(ml) else None}
+    write_table(
+        M,
+        "mlperf_power",
+        ml.drop(columns=["retrieved_at"], errors="ignore"),
+        description="MLPerf® Inference Closed-division results with measured system power, and "
+        "the work per joule derived from them.",
+        sources=["mlperf_inference"],
+        retrieved_at=got,
+        limitations=MLPERF_LIMITS,
+        extra={
+            "status": None if len(ml) else "MLPerf Inference results have not been collected yet.",
+            "legend": MLPERF_LEGEND,
+        },
+    )
+    sp = specpower.load()
+    got = {"spec_power": sp["retrieved_at"].max() if len(sp) else None}
+    trend = specpower.year_trend(sp)
+    status = None if len(sp) else "SPECpower results have not been collected yet."
+    common = dict(sources=["spec_power"], retrieved_at=got, limitations=SPECPOWER_LIMITS)
+    write_table(
+        M,
+        "specpower",
+        sp.drop(columns=["retrieved_at"], errors="ignore"),
+        description="SPECpower_ssj2008 results that name their processor: measured server power "
+        "at full load and active idle, and ssj_ops per watt at each target load.",
+        extra={"status": status},
+        **common,
+    )
+    write_table(
+        M,
+        "specpower_processors",
+        specpower.by_processor(sp),
+        description="Per processor: median measured ssj_ops per watt, idle power as a share of "
+        "full-load power, and the median efficiency curve across target loads.",
+        extra={
+            "status": status,
+            "doubling_years": specpower.doubling_years(trend),
+            "n_results": int(len(sp)),
+        },
+        **common,
+    )
+    write_table(
+        M,
+        "specpower_trend",
+        trend,
+        description="Best and median measured ssj_ops per watt, and median idle share, by year "
+        "of publication.",
+        extra={"status": status},
         **common,
     )
 
