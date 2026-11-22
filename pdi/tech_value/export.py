@@ -20,6 +20,8 @@ from pdi.tech_value import (
     config,
     cpu_specs,
     efficiency,
+    efficiency_ml,
+    efficiency_signals,
     electricity,
     fair_price,
     gwpg,
@@ -96,6 +98,22 @@ EFFICIENCY_LIMITS = [
     "or not published.",
     "The cost calculator charges electricity only for the hours under load, because no idle "
     "power figure exists yet. The default rate is the BLS US city average price per kWh.",
+]
+EFFICIENCY_ML_LIMITS = [
+    "The power these models learn from is rated, not measured, so 'efficiency' means points per "
+    "rated watt and an estimated power figure is an estimated rating. The same code learns from "
+    "measured desktop power once there is some.",
+    "Process nodes are the foundries' marketing names, used as a rough density class "
+    "(pdi/tech_value/process_nodes.py). Intel 7 counts as 7 nm and TSMC 4N as 5 nm.",
+    "Every prediction comes from models refitted without the chip and without any chip with "
+    "identical specifications. The 80% range is the spread of every other chip's held-out "
+    "error, so it is checked, not assumed.",
+]
+SIGNAL_LIMITS = [
+    "Signals describe how fast the past moved. None is a forecast.",
+    "Launch years with fewer than 3 benchmarked chips are left out of the yearly series.",
+    "The price signal uses today's prices for chips of every launch year, not launch prices.",
+    "Apple silicon is not on this page, so no gap involving Apple is measured.",
 ]
 MLPERF_LEGEND = (
     "The MLPerf name and logo are registered and unregistered trademarks of MLCommons "
@@ -400,13 +418,14 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         limitations=BLENDER_LIMITS,
         extra=extra,
     )
-    export_efficiency(bench, table, version, got)
-    export_measured_power()
+    ranked = export_efficiency(bench, table, version, got)
+    sp_trend = export_measured_power()
+    export_efficiency_ml(bench, ranked, history, sp_trend, version, got)
 
 
 def export_efficiency(
     bench: pd.DataFrame, table: pd.DataFrame, version: str | None, got: dict
-) -> None:
+) -> pd.DataFrame:
     ranked, missing = efficiency.build(bench, table)
     elec = electricity.load()
     rate = electricity.latest_rate(elec)
@@ -448,9 +467,103 @@ def export_efficiency(
         extra={"blender_version": version, "status": status},
         **common,
     )
+    return ranked
 
 
-def export_measured_power() -> None:
+def export_efficiency_ml(
+    bench: pd.DataFrame,
+    ranked: pd.DataFrame,
+    history: pd.DataFrame,
+    sp_trend: pd.DataFrame,
+    version: str | None,
+    got: dict,
+) -> None:
+    built = efficiency_ml.build(bench, ranked)
+    val = built["validation"]
+    status = None if len(built["frame"]) else "Blender Open Data has not been collected yet."
+    beats = {
+        (k, t): efficiency_ml.beats_baseline(val, k, t)
+        for k in ("cpu", "gpu")
+        for t in ("rated power", "points per rated watt")
+    }
+
+    def label(target: str) -> dict:
+        ok = all(beats[(k, target)] for k in ("cpu", "gpu") if (val["kind"] == k).any())
+        return findings.from_test(
+            ok and len(val) > 0,
+            passed="Held-out predictions from models refitted without each chip beat the "
+            "launch-year-only baseline for every kind.",
+            failed="The models did not beat the launch-year-only baseline on held-out chips "
+            "for every kind.",
+            otherwise=findings.EXPLANATION,
+        )
+
+    common = dict(sources=["blender_opendata"], retrieved_at=got, limitations=EFFICIENCY_ML_LIMITS)
+    base = {"blender_version": version, "status": status}
+    write_table(
+        M,
+        "efficiency_power_estimates",
+        built["power"],
+        description="Power figure each chip's specifications predict, from models refitted "
+        "without it, with an 80% range. 'Estimated' rows have no figure of their own; "
+        "'Held-out check' rows show how close the estimate comes where the figure is known.",
+        extra={**base, "finding": label("rated power"), "target": "rated power"},
+        **common,
+    )
+    write_table(
+        M,
+        "efficiency_residuals",
+        built["residuals"],
+        description="Per chip: points per rated watt its specifications, process node, "
+        "architecture and rated power predict, from models refitted without it, and the "
+        "verdict when the measured value sits outside the 80% range.",
+        extra={**base, "finding": label("points per rated watt")},
+        **common,
+    )
+    write_table(
+        M,
+        "efficiency_model_validation",
+        val,
+        description="Typical held-out error of each model, against a launch-year-only baseline.",
+        extra=base,
+        **common,
+    )
+    write_table(
+        M,
+        "efficiency_tiers",
+        built["tier_summary"],
+        description="Efficiency tiers of the current line-up from a Gaussian mixture on log "
+        "points per rated watt, with the number of tiers chosen by BIC.",
+        extra={**base, "finding": findings.explanation(
+            "Clusters found in the data; a description of the line-up, not a test.")},
+        **common,
+    )  # fmt: skip
+    signals, series = efficiency_signals.build(built["frame"], sp_trend, history)
+    write_table(
+        M,
+        "efficiency_signals",
+        signals,
+        description="Rates of change in efficiency, rated power, the vendor gap and the price "
+        "of efficiency, recent pace against the pace before, and turning points. No forecasts.",
+        sources=["blender_opendata", "spec_power"],
+        retrieved_at=got,
+        limitations=EFFICIENCY_ML_LIMITS + SIGNAL_LIMITS,
+        extra=base,
+    )
+    write_table(
+        M,
+        "efficiency_signal_series",
+        series,
+        description="The yearly values each efficiency signal is computed from, and the fitted "
+        "line for turning points.",
+        sources=["blender_opendata", "spec_power"],
+        retrieved_at=got,
+        limitations=SIGNAL_LIMITS,
+        extra=base,
+    )
+
+
+def export_measured_power() -> pd.DataFrame:
     ml = mlperf.load()
     got = {"mlperf_inference": ml["retrieved_at"].max() if len(ml) else None}
     write_table(
@@ -503,6 +616,7 @@ def export_measured_power() -> None:
         extra={"status": status},
         **common,
     )
+    return trend
 
 
 def export_gpu_model(gwpg_df: pd.DataFrame) -> None:

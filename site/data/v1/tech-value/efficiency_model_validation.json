@@ -1,0 +1,134 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "efficiency_model_validation",
+  "description": "Typical held-out error of each model, against a launch-year-only baseline.",
+  "generated_at": "2026-11-22T14:51:45+00:00",
+  "rows": 12,
+  "columns": [
+   "kind",
+   "target",
+   "model",
+   "n_chips",
+   "median_abs_pct_error",
+   "range_coverage_pct"
+  ],
+  "sources": [
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "The power these models learn from is rated, not measured, so 'efficiency' means points per rated watt and an estimated power figure is an estimated rating. The same code learns from measured desktop power once there is some.",
+   "Process nodes are the foundries' marketing names, used as a rough density class (pdi/tech_value/process_nodes.py). Intel 7 counts as 7 nm and TSMC 4N as 5 nm.",
+   "Every prediction comes from models refitted without the chip and without any chip with identical specifications. The 80% range is the spread of every other chip's held-out error, so it is checked, not assumed."
+  ],
+  "blender_version": "4.5",
+  "status": null
+ },
+ "data": [
+  {
+   "kind": "cpu",
+   "target": "rated power",
+   "model": "Launch year only",
+   "n_chips": 220,
+   "median_abs_pct_error": 46.427557688101665,
+   "range_coverage_pct": 81.81818181818183
+  },
+  {
+   "kind": "cpu",
+   "target": "rated power",
+   "model": "Linear",
+   "n_chips": 220,
+   "median_abs_pct_error": 12.151760409114075,
+   "range_coverage_pct": 79.0909090909091
+  },
+  {
+   "kind": "cpu",
+   "target": "rated power",
+   "model": "Gradient boosting",
+   "n_chips": 220,
+   "median_abs_pct_error": 9.65544313184429,
+   "range_coverage_pct": 79.54545454545455
+  },
+  {
+   "kind": "gpu",
+   "target": "rated power",
+   "model": "Launch year only",
+   "n_chips": 98,
+   "median_abs_pct_error": 39.19142840954317,
+   "range_coverage_pct": 78.57142857142857
+  },
+  {
+   "kind": "gpu",
+   "target": "rated power",
+   "model": "Linear",
+   "n_chips": 98,
+   "median_abs_pct_error": 9.037291838152079,
+   "range_coverage_pct": 77.55102040816327
+  },
+  {
+   "kind": "gpu",
+   "target": "rated power",
+   "model": "Gradient boosting",
+   "n_chips": 98,
+   "median_abs_pct_error": 12.96348009341207,
+   "range_coverage_pct": 78.57142857142857
+  },
+  {
+   "kind": "cpu",
+   "target": "points per rated watt",
+   "model": "Launch year only",
+   "n_chips": 220,
+   "median_abs_pct_error": 24.774515175324712,
+   "range_coverage_pct": 79.0909090909091
+  },
+  {
+   "kind": "cpu",
+   "target": "points per rated watt",
+   "model": "Linear",
+   "n_chips": 220,
+   "median_abs_pct_error": 5.869084987499239,
+   "range_coverage_pct": 79.0909090909091
+  },
+  {
+   "kind": "cpu",
+   "target": "points per rated watt",
+   "model": "Gradient boosting",
+   "n_chips": 220,
+   "median_abs_pct_error": 7.4895003195084335,
+   "range_coverage_pct": 79.0909090909091
+  },
+  {
+   "kind": "gpu",
+   "target": "points per rated watt",
+   "model": "Launch year only",
+   "n_chips": 98,
+   "median_abs_pct_error": 55.37740689976333,
+   "range_coverage_pct": 77.55102040816327
+  },
+  {
+   "kind": "gpu",
+   "target": "points per rated watt",
+   "model": "Linear",
+   "n_chips": 98,
+   "median_abs_pct_error": 10.092299664683239,
+   "range_coverage_pct": 78.57142857142857
+  },
+  {
+   "kind": "gpu",
+   "target": "points per rated watt",
+   "model": "Gradient boosting",
+   "n_chips": 98,
+   "median_abs_pct_error": 9.495549621220425,
+   "range_coverage_pct": 77.55102040816327
+  }
+ ]
+}

@@ -21,8 +21,10 @@ built, and are looked at again when the current module meets its exit criterion.
   source, and enter the RX 7650 GRE once AMD lists it.
 - Read the SPECpower section of SPEC's Fair Use Rules (spec.org was unreachable from the build
   machine on 22 November 2026) and move `spec_power` from amber to green.
-- Efficiency page phase 3: efficiency residuals, tiers, frontier speed, vendor gap, price of
-  efficiency and changepoints.
+- Efficiency page: once measured desktop power exists, retrain the power gap filler on it so the
+  estimate is real draw, not a rating.
+- Efficiency page: the daily price-of-efficiency trend switches on after 8 weeks of prices
+  (mid-January 2027). Check it then.
 - Ask TechPowerUp for permission to use measured board power (FPS per watt, idle power).
 - Look at OpenBenchmarking.org as a second consumer benchmark source, after reading its terms.
 - Rerun AutoGluon's holdout comparison with a linear model in its model list.
