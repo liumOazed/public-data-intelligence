@@ -1,7 +1,7 @@
 {
   "url": "https://stats.bis.org/api/v1/data/WS_XRU/M.ID+MY+PH+SG+TH+VN../all?format=csv&detail=dataonly&startPeriod=2026-01",
-  "retrieved_at": "2026-11-15T10:27:21+00:00",
+  "retrieved_at": "2026-11-22T14:05:03+00:00",
   "full_response_bytes": 3389,
-  "full_response_sha256": "280525c4923a2d80e9a601b634d9507ba3d2b2d5167d46eaee731d426a864776",
+  "full_response_sha256": "ae6b827f3ed54df6d24b4f6bd944a2f1b6efe904dcac24f74e7ba686c547f543",
   "slice": "whole answer from 2026-01"
 }

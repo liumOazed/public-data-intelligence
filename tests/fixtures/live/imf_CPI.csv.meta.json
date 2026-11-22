@@ -1,7 +1,7 @@
 {
   "url": "https://api.imf.org/external/sdmx/2.1/data/IMF.STA,CPI/VNM+THA.CPI._T.IX.M?startPeriod=2025-01",
-  "retrieved_at": "2026-11-15T10:27:24+00:00",
-  "full_response_bytes": 123041,
-  "full_response_sha256": "ea1b51d206eb0d241ee907588fdf1371ca32b6b7de632e2e13f747dd0ac7ceee",
+  "retrieved_at": "2026-11-22T14:05:07+00:00",
+  "full_response_bytes": 123164,
+  "full_response_sha256": "5e7edb18d4272d87f41c624c867191bf7b2e20888925dcaf7c5fc8a180458357",
   "slice": "whole answer from 2025-01"
 }

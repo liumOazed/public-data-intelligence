@@ -1,7 +1,7 @@
 {
   "url": "https://api.imf.org/external/sdmx/2.1/data/IMF.STA,IL/THA+VNM+PHL.RXF11_REVS.USD.M?startPeriod=2025-01",
-  "retrieved_at": "2026-11-15T10:27:23+00:00",
-  "full_response_bytes": 86165,
-  "full_response_sha256": "8be3cf5a69f1059394dde0e5e46e9019e9394976572a68cdfcea0a17d199a2fd",
+  "retrieved_at": "2026-11-22T14:05:06+00:00",
+  "full_response_bytes": 85976,
+  "full_response_sha256": "0df95c5ee63d7979e91c83abebb24f00a819640e77ed8ae35709560f51c7f8bd",
   "slice": "whole answer from 2025-01"
 }

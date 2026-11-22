@@ -1,0 +1,7 @@
+{
+  "url": "https://raw.githubusercontent.com/mlcommons/inference_results_v5.1/main/summary_results.json",
+  "retrieved_at": "2026-11-22T14:10:00+00:00",
+  "full_response_bytes": 2221336,
+  "full_response_sha256": "68c19b46cf5a87f535beae81154d61c3d981fe850ae3d09af530c769b6e0cc68",
+  "slice": "closed-division rows with a power measurement, two rows without, one open-division power row; Notes, Details and Code fields dropped"
+}

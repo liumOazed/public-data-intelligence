@@ -1,120 +1,140 @@
 Area,ISO 3 code,Date,Area type,Electricity source,Is aggregated source,Generation (TWh),Generation YoY change (TWh),Generation YoY change (%),Share of generation (%),Share of generation YoY change (% points),Emissions (MtCO2e),Emissions YoY change (MtCO2e),Emissions YoY change (%),Share of emissions (%),Emissions intensity (gCO2e/kWh),Continent,Ember region,EU member,OECD member,G20 member,G7 member,ASEAN member
-Malaysia,MYS,2024-01-01,Country or economy,Coal,False,6.14,0.67,12.249,40.608,1.199,5.513,0.601,12.235,59.681,897.883,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-01-01,Country or economy,Net imports,False,0.01,0.01,,0.066,0.066,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-01-01,Country or economy,Total generation,True,15.12,1.24,8.934,100.0,0.0,9.238,0.562,6.478,100.005,610.979,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-01-01,Country or economy,Demand,True,15.13,1.25,9.006,100.066,0.066,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-02-01,Country or economy,Coal,False,5.46,0.08,1.487,37.629,-3.915,4.903,0.072,1.49,55.304,897.985,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-02-01,Country or economy,Net imports,False,-0.02,-0.02,,-0.138,-0.138,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-02-01,Country or economy,Total generation,True,14.51,1.56,12.046,100.0,0.0,8.865,0.724,8.893,99.994,610.958,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-02-01,Country or economy,Demand,True,14.49,1.54,11.892,99.862,-0.138,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-03-01,Country or economy,Coal,False,6.62,0.57,9.421,41.144,0.016,5.944,0.512,9.426,58.804,897.885,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-03-01,Country or economy,Net imports,False,0.03,0.03,,0.186,0.186,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-03-01,Country or economy,Total generation,True,16.09,1.38,9.381,100.0,0.0,10.108,0.708,7.532,99.998,628.216,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-03-01,Country or economy,Demand,True,16.12,1.41,9.585,100.186,0.186,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-04-01,Country or economy,Coal,False,6.54,0.15,2.347,42.166,-2.771,5.872,0.134,2.335,60.096,897.859,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-04-01,Country or economy,Net imports,False,-0.01,0.0,0.0,-0.064,0.006,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-04-01,Country or economy,Total generation,True,15.51,1.29,9.072,100.0,0.0,9.771,0.555,6.022,100.0,629.981,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-04-01,Country or economy,Demand,True,15.5,1.29,9.078,99.936,0.006,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-05-01,Country or economy,Coal,False,7.23,-0.12,-1.633,44.139,-3.128,6.492,-0.108,-1.636,61.749,897.925,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-05-01,Country or economy,Net imports,False,-0.02,-0.03,-300.0,-0.122,-0.186,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-05-01,Country or economy,Total generation,True,16.38,0.83,5.338,100.0,0.0,10.514,0.369,3.637,100.004,641.88,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-05-01,Country or economy,Demand,True,16.36,0.8,5.141,99.878,-0.186,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-06-01,Country or economy,Coal,False,6.71,-0.02,-0.297,44.644,-1.045,6.025,-0.018,-0.298,62.013,897.914,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-06-01,Country or economy,Net imports,False,-0.01,-0.01,,-0.067,-0.067,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-06-01,Country or economy,Total generation,True,15.03,0.3,2.037,100.0,0.0,9.716,0.104,1.082,100.003,646.44,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-06-01,Country or economy,Demand,True,15.02,0.29,1.969,99.933,-0.067,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-07-01,Country or economy,Coal,False,6.83,0.06,0.886,42.875,-2.198,6.133,0.054,0.888,59.843,897.95,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-07-01,Country or economy,Net imports,False,0.0,0.01,-100.0,0.0,0.067,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-07-01,Country or economy,Total generation,True,15.93,0.91,6.059,100.0,0.0,10.248,0.501,5.14,99.996,643.315,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-07-01,Country or economy,Demand,True,15.93,0.92,6.129,100.0,0.067,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-08-01,Country or economy,Coal,False,7.07,0.08,1.144,44.271,-1.929,6.348,0.072,1.147,62.374,897.878,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-08-01,Country or economy,Net imports,False,0.0,-0.01,-100.0,0.0,-0.066,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-08-01,Country or economy,Total generation,True,15.97,0.84,5.552,100.0,0.0,10.177,0.365,3.72,99.997,637.257,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-08-01,Country or economy,Demand,True,15.97,0.83,5.482,100.0,-0.066,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-09-01,Country or economy,Coal,False,7.08,0.75,11.848,46.95,3.564,6.357,0.673,11.84,64.808,897.881,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-09-01,Country or economy,Net imports,False,0.01,-0.02,-66.667,0.066,-0.14,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-09-01,Country or economy,Total generation,True,15.08,0.49,3.358,100.0,0.0,9.809,0.515,5.541,100.0,650.464,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-09-01,Country or economy,Demand,True,15.09,0.47,3.215,100.066,-0.14,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-10-01,Country or economy,Coal,False,6.72,0.3,4.673,42.559,0.898,6.034,0.269,4.666,60.55,897.917,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-10-01,Country or economy,Net imports,False,0.0,-0.02,-100.0,0.0,-0.13,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-10-01,Country or economy,Total generation,True,15.79,0.38,2.466,100.0,0.0,9.965,0.186,1.902,99.997,631.096,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-10-01,Country or economy,Demand,True,15.79,0.36,2.333,100.0,-0.13,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-11-01,Country or economy,Coal,False,6.87,0.79,12.993,45.739,3.923,6.169,0.71,13.006,64.702,897.962,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-11-01,Country or economy,Net imports,False,0.0,0.0,,0.0,0.0,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-11-01,Country or economy,Total generation,True,15.02,0.48,3.301,100.0,0.0,9.534,0.26,2.804,99.996,634.754,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-11-01,Country or economy,Demand,True,15.02,0.48,3.301,100.0,0.0,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-12-01,Country or economy,Coal,False,6.95,0.59,9.277,45.724,2.103,6.24,0.529,9.263,65.604,897.842,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-12-01,Country or economy,Net imports,False,-0.01,-0.02,-200.0,-0.066,-0.135,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-12-01,Country or economy,Total generation,True,15.2,0.62,4.252,100.0,0.0,9.512,0.254,2.744,100.003,625.789,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2024-12-01,Country or economy,Demand,True,15.19,0.6,4.112,99.934,-0.135,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-01-01,Country or economy,Coal,False,6.37,0.23,3.746,42.495,1.887,5.72,0.207,3.755,62.021,897.959,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-01-01,Country or economy,Net imports,False,-0.02,-0.03,-300.0,-0.133,-0.199,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-01-01,Country or economy,Total generation,True,14.99,-0.13,-0.86,100.0,0.0,9.223,-0.015,-0.162,100.004,615.277,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-01-01,Country or economy,Demand,True,14.97,-0.16,-1.058,99.867,-0.199,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-02-01,Country or economy,Coal,False,5.94,0.48,8.791,41.949,4.32,5.334,0.431,8.791,60.488,897.98,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-02-01,Country or economy,Net imports,False,-0.03,-0.01,50.0,-0.212,-0.074,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-02-01,Country or economy,Total generation,True,14.16,-0.35,-2.412,100.0,0.0,8.818,-0.047,-0.53,99.998,622.74,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-02-01,Country or economy,Demand,True,14.13,-0.36,-2.484,99.788,-0.074,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-03-01,Country or economy,Coal,False,7.4,0.78,11.782,46.629,5.485,6.644,0.7,11.777,65.336,897.838,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-03-01,Country or economy,Net imports,False,0.0,-0.03,-100.0,0.0,-0.186,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-03-01,Country or economy,Total generation,True,15.87,-0.22,-1.367,100.0,0.0,10.169,0.061,0.603,100.001,640.769,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-03-01,Country or economy,Demand,True,15.87,-0.25,-1.551,100.0,-0.186,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-04-01,Country or economy,Coal,False,7.26,0.72,11.009,47.143,4.977,6.519,0.647,11.018,65.956,897.934,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-04-01,Country or economy,Net imports,False,-0.03,-0.02,200.0,-0.195,-0.131,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-04-01,Country or economy,Total generation,True,15.4,-0.11,-0.709,100.0,0.0,9.884,0.113,1.156,100.001,641.818,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-04-01,Country or economy,Demand,True,15.37,-0.13,-0.839,99.805,-0.131,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-05-01,Country or economy,Coal,False,7.47,0.24,3.32,45.136,0.997,6.707,0.215,3.312,63.521,897.858,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-05-01,Country or economy,Net imports,False,-0.04,-0.02,100.0,-0.242,-0.12,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-05-01,Country or economy,Total generation,True,16.55,0.17,1.038,100.0,0.0,10.559,0.045,0.428,100.003,638.006,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-05-01,Country or economy,Demand,True,16.51,0.15,0.917,99.758,-0.12,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-06-01,Country or economy,Coal,False,7.71,1.0,14.903,48.736,4.092,6.923,0.898,14.905,67.469,897.925,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-06-01,Country or economy,Net imports,False,-0.02,-0.01,100.0,-0.126,-0.059,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-06-01,Country or economy,Total generation,True,15.82,0.79,5.256,100.0,0.0,10.261,0.545,5.609,100.0,648.609,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-06-01,Country or economy,Demand,True,15.8,0.78,5.193,99.874,-0.059,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-07-01,Country or economy,Coal,False,7.59,0.76,11.127,45.806,2.931,6.815,0.682,11.12,64.341,897.892,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-07-01,Country or economy,Net imports,False,-0.02,-0.02,,-0.121,-0.121,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-07-01,Country or economy,Total generation,True,16.57,0.64,4.018,100.0,0.0,10.592,0.344,3.357,100.0,639.228,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-07-01,Country or economy,Demand,True,16.55,0.62,3.892,99.879,-0.121,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-08-01,Country or economy,Coal,False,7.52,0.45,6.365,45.938,1.667,6.752,0.404,6.364,64.935,897.872,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-08-01,Country or economy,Net imports,False,-0.03,-0.03,,-0.183,-0.183,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-08-01,Country or economy,Total generation,True,16.37,0.4,2.505,100.0,0.0,10.398,0.221,2.172,99.999,635.186,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-08-01,Country or economy,Demand,True,16.34,0.37,2.317,99.817,-0.183,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-09-01,Country or economy,Coal,False,6.72,-0.36,-5.085,43.979,-2.971,6.034,-0.323,-5.081,62.152,897.917,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-09-01,Country or economy,Net imports,False,-0.01,-0.02,-200.0,-0.065,-0.131,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-09-01,Country or economy,Total generation,True,15.28,0.2,1.326,100.0,0.0,9.708,-0.101,-1.03,99.995,635.34,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-09-01,Country or economy,Demand,True,15.27,0.18,1.193,99.935,-0.131,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-10-01,Country or economy,Coal,False,7.05,0.33,4.911,44.035,1.476,6.33,0.296,4.906,62.129,897.872,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-10-01,Country or economy,Net imports,False,0.05,0.05,,0.312,0.312,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-10-01,Country or economy,Total generation,True,16.01,0.22,1.393,100.0,0.0,10.188,0.223,2.238,99.996,636.352,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-10-01,Country or economy,Demand,True,16.06,0.27,1.71,100.312,0.312,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-11-01,Country or economy,Coal,False,6.84,-0.03,-0.437,43.762,-1.977,6.142,-0.027,-0.438,62.238,897.953,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-11-01,Country or economy,Net imports,False,0.05,0.05,,0.32,0.32,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-11-01,Country or economy,Total generation,True,15.63,0.61,4.061,100.0,0.0,9.869,0.335,3.514,100.004,631.414,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-11-01,Country or economy,Demand,True,15.68,0.66,4.394,100.32,0.32,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-12-01,Country or economy,Coal,False,6.65,-0.3,-4.317,41.693,-4.031,5.971,-0.269,-4.311,59.469,897.895,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-12-01,Country or economy,Net imports,False,-0.02,-0.01,100.0,-0.125,-0.059,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-12-01,Country or economy,Total generation,True,15.95,0.75,4.934,100.0,0.0,10.04,0.528,5.551,99.995,629.467,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2025-12-01,Country or economy,Demand,True,15.93,0.74,4.872,99.875,-0.059,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-01-01,Country or economy,Coal,False,6.55,0.18,2.826,41.014,-1.481,5.881,0.161,2.815,57.868,897.863,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-01-01,Country or economy,Net imports,False,-0.03,-0.01,50.0,-0.188,-0.055,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-01-01,Country or economy,Total generation,True,15.97,0.98,6.538,100.0,0.0,10.163,0.94,10.192,100.003,636.381,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-01-01,Country or economy,Demand,True,15.94,0.97,6.48,99.812,-0.055,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-02-01,Country or economy,Coal,False,6.05,0.11,1.852,41.128,-0.821,5.432,0.098,1.837,58.64,897.851,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-02-01,Country or economy,Net imports,False,-0.01,0.02,-66.667,-0.068,0.144,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-02-01,Country or economy,Total generation,True,14.71,0.55,3.884,100.0,0.0,9.263,0.445,5.046,99.997,629.708,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-02-01,Country or economy,Demand,True,14.7,0.57,4.034,99.932,0.144,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-03-01,Country or economy,Coal,False,7.18,-0.22,-2.973,43.227,-3.402,6.447,-0.197,-2.965,60.642,897.911,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-03-01,Country or economy,Net imports,False,-0.001,-0.001,,-0.006,-0.006,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-03-01,Country or economy,Total generation,True,16.61,0.74,4.663,100.0,0.0,10.631,0.462,4.543,99.997,640.036,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-03-01,Country or economy,Demand,True,16.609,0.739,4.657,99.994,-0.006,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-04-01,Country or economy,Coal,False,6.67,-0.59,-8.127,39.585,-7.558,5.989,-0.53,-8.13,55.769,897.901,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-04-01,Country or economy,Net imports,False,-0.015,0.015,-50.0,-0.089,0.106,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-04-01,Country or economy,Total generation,True,16.85,1.45,9.416,100.0,0.0,10.739,0.855,8.65,100.0,637.329,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-04-01,Country or economy,Demand,True,16.835,1.465,9.532,99.911,0.106,,,,,,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-05-01,Country or economy,Coal,False,7.02,-0.45,-6.024,41.029,-4.107,6.303,-0.404,-6.024,57.578,897.863,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-05-01,Country or economy,Net imports,False,-0.017,0.023,-57.5,-0.099,0.143,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-05-01,Country or economy,Total generation,True,17.11,0.56,3.384,100.0,0.0,10.947,0.388,3.675,100.001,639.801,Asia,Asia,False,False,False,False,True
-Malaysia,MYS,2026-05-01,Country or economy,Demand,True,17.093,0.583,3.531,99.901,0.143,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-01-01,Country or economy,Coal,False,6.497,0.7,12.075,42.405,1.013,5.834,0.629,12.085,61.507,897.953,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-01-01,Country or economy,Net imports,False,0.013,0.013,,0.085,0.085,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-01-01,Country or economy,Total generation,True,15.321,1.316,9.397,99.999,0.001,9.485,0.579,6.501,100.0,619.085,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-01-01,Country or economy,Demand,True,15.334,1.329,9.489,100.084,0.086,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-02-01,Country or economy,Coal,False,5.807,0.131,2.308,39.367,-4.067,5.214,0.118,2.316,57.25,897.882,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-02-01,Country or economy,Net imports,False,-0.02,-0.018,900.0,-0.136,-0.121,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-02-01,Country or economy,Total generation,True,14.751,1.683,12.879,99.999,0.0,9.107,0.768,9.21,99.995,617.382,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-02-01,Country or economy,Demand,True,14.731,1.664,12.734,99.864,-0.127,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-03-01,Country or economy,Coal,False,6.996,0.618,9.69,42.705,-0.181,6.282,0.555,9.691,60.529,897.942,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-03-01,Country or economy,Net imports,False,0.028,0.029,-2900.0,0.171,0.178,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-03-01,Country or economy,Total generation,True,16.382,1.51,10.153,99.999,-0.001,10.378,0.748,7.767,99.996,633.5,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-03-01,Country or economy,Demand,True,16.41,1.539,10.349,100.169,0.175,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-04-01,Country or economy,Coal,False,6.913,0.201,2.995,43.817,-2.829,6.208,0.182,3.02,61.847,898.018,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-04-01,Country or economy,Net imports,False,-0.009,-0.001,12.5,-0.057,-0.001,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-04-01,Country or economy,Total generation,True,15.777,1.388,9.646,100.0,0.001,10.038,0.598,6.335,100.004,636.243,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-04-01,Country or economy,Demand,True,15.768,1.387,9.645,99.943,0.0,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-05-01,Country or economy,Coal,False,7.613,-0.078,-1.014,45.785,-3.127,6.836,-0.07,-1.014,63.409,897.938,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-05-01,Country or economy,Net imports,False,-0.022,-0.037,-246.667,-0.132,-0.227,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-05-01,Country or economy,Total generation,True,16.628,0.904,5.749,100.002,0.004,10.781,0.399,3.843,100.001,648.364,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-05-01,Country or economy,Demand,True,16.606,0.867,5.509,99.87,-0.224,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-06-01,Country or economy,Coal,False,7.045,-0.01,-0.142,46.064,-1.347,6.326,-0.009,-0.142,63.573,897.942,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-06-01,Country or economy,Net imports,False,-0.014,-0.016,-800.0,-0.092,-0.105,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-06-01,Country or economy,Total generation,True,15.294,0.413,2.775,100.0,-0.002,9.951,0.119,1.21,100.002,650.647,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-06-01,Country or economy,Demand,True,15.28,0.397,2.667,99.909,-0.107,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-07-01,Country or economy,Coal,False,7.177,0.079,1.113,44.204,-2.576,6.444,0.071,1.114,61.399,897.868,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-07-01,Country or economy,Net imports,False,0.003,0.008,-160.0,0.018,0.051,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-07-01,Country or economy,Total generation,True,16.236,1.063,7.006,100.0,0.0,10.495,0.519,5.202,99.998,646.403,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-07-01,Country or economy,Demand,True,16.239,1.071,7.061,100.018,0.051,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-08-01,Country or economy,Coal,False,7.447,0.12,1.638,45.794,-2.107,6.686,0.107,1.626,64.023,897.811,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-08-01,Country or economy,Net imports,False,-0.002,-0.015,-115.385,-0.012,-0.097,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-08-01,Country or economy,Total generation,True,16.262,0.966,6.315,100.0,0.0,10.443,0.396,3.941,99.999,642.172,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-08-01,Country or economy,Demand,True,16.26,0.951,6.212,99.987,-0.098,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-09-01,Country or economy,Coal,False,7.425,0.763,11.453,48.264,3.111,6.667,0.685,11.451,66.32,897.912,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-09-01,Country or economy,Net imports,False,0.006,-0.023,-79.31,0.039,-0.158,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-09-01,Country or economy,Total generation,True,15.384,0.63,4.27,99.998,-0.001,10.053,0.532,5.588,100.002,653.471,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-09-01,Country or economy,Demand,True,15.39,0.607,4.106,100.037,-0.158,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-10-01,Country or economy,Coal,False,7.082,0.308,4.547,43.935,0.518,6.359,0.276,4.537,62.208,897.91,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-10-01,Country or economy,Net imports,False,0.0,-0.021,-100.0,0.0,-0.135,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-10-01,Country or economy,Total generation,True,16.119,0.517,3.314,99.998,-0.001,10.222,0.198,1.975,99.998,634.158,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-10-01,Country or economy,Demand,True,16.12,0.497,3.181,100.004,-0.13,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-11-01,Country or economy,Coal,False,7.213,0.796,12.405,47.176,3.548,6.477,0.715,12.409,66.233,897.962,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-11-01,Country or economy,Net imports,False,0.001,-0.002,-66.667,0.007,-0.013,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-11-01,Country or economy,Total generation,True,15.289,0.58,3.943,99.997,-0.006,9.779,0.271,2.85,99.999,639.61,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-11-01,Country or economy,Demand,True,15.291,0.579,3.936,100.01,-0.013,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-12-01,Country or economy,Coal,False,7.293,0.594,8.867,47.175,1.734,6.548,0.533,8.861,67.115,897.847,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-12-01,Country or economy,Net imports,False,-0.008,-0.019,-172.727,-0.052,-0.127,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-12-01,Country or economy,Total generation,True,15.459,0.717,4.864,99.997,-0.001,9.756,0.265,2.792,99.995,631.089,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2024-12-01,Country or economy,Demand,True,15.452,0.699,4.738,99.952,-0.12,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-01-01,Country or economy,Coal,False,6.736,0.239,3.679,44.053,1.648,6.048,0.214,3.668,63.742,897.862,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-01-01,Country or economy,Net imports,False,-0.021,-0.034,-261.538,-0.137,-0.222,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-01-01,Country or economy,Total generation,True,15.291,-0.03,-0.196,100.002,0.003,9.488,0.003,0.032,99.997,620.496,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-01-01,Country or economy,Demand,True,15.269,-0.065,-0.424,99.859,-0.225,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-02-01,Country or economy,Coal,False,6.283,0.476,8.197,43.368,4.001,5.641,0.427,8.189,62.242,897.82,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-02-01,Country or economy,Net imports,False,-0.034,-0.014,70.0,-0.235,-0.099,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-02-01,Country or economy,Total generation,True,14.488,-0.263,-1.783,100.003,0.004,9.063,-0.044,-0.483,100.0,625.552,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-02-01,Country or economy,Demand,True,14.454,-0.277,-1.88,99.769,-0.095,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-03-01,Country or economy,Coal,False,7.78,0.784,11.206,47.861,5.156,6.986,0.704,11.207,66.907,897.943,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-03-01,Country or economy,Net imports,False,0.001,-0.027,-96.429,0.006,-0.165,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-03-01,Country or economy,Total generation,True,16.255,-0.127,-0.775,99.997,-0.002,10.441,0.063,0.607,99.996,642.325,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-03-01,Country or economy,Demand,True,16.257,-0.153,-0.932,100.01,-0.159,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-04-01,Country or economy,Coal,False,7.631,0.718,10.386,48.309,4.492,6.852,0.644,10.374,67.481,897.916,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-04-01,Country or economy,Net imports,False,-0.027,-0.018,200.0,-0.171,-0.114,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-04-01,Country or economy,Total generation,True,15.796,0.019,0.12,99.999,-0.001,10.154,0.116,1.156,100.0,642.821,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-04-01,Country or economy,Demand,True,15.769,0.001,0.006,99.828,-0.115,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-05-01,Country or economy,Coal,False,7.847,0.234,3.074,46.257,0.472,7.046,0.21,3.072,65.043,897.923,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-05-01,Country or economy,Net imports,False,-0.032,-0.01,45.455,-0.189,-0.057,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-05-01,Country or economy,Total generation,True,16.964,0.336,2.021,100.0,-0.002,10.833,0.052,0.482,100.002,638.588,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-05-01,Country or economy,Demand,True,16.932,0.326,1.963,99.811,-0.059,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-06-01,Country or economy,Coal,False,8.069,1.024,14.535,49.736,3.672,7.245,0.919,14.527,68.887,897.881,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-06-01,Country or economy,Net imports,False,-0.022,-0.008,57.143,-0.136,-0.044,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-06-01,Country or economy,Total generation,True,16.224,0.93,6.081,100.002,0.002,10.517,0.566,5.688,99.997,648.237,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-06-01,Country or economy,Demand,True,16.202,0.922,6.034,99.867,-0.042,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-07-01,Country or economy,Coal,False,7.947,0.77,10.729,46.69,2.486,7.135,0.691,10.723,65.757,897.823,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-07-01,Country or economy,Net imports,False,-0.024,-0.027,-900.0,-0.141,-0.159,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-07-01,Country or economy,Total generation,True,17.021,0.785,4.835,100.002,0.002,10.851,0.356,3.392,100.004,637.507,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-07-01,Country or economy,Demand,True,16.997,0.758,4.668,99.861,-0.157,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-08-01,Country or economy,Coal,False,7.904,0.457,6.137,46.995,1.201,7.097,0.411,6.147,66.469,897.9,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-08-01,Country or economy,Net imports,False,-0.029,-0.027,1350.0,-0.172,-0.16,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-08-01,Country or economy,Total generation,True,16.819,0.557,3.425,100.001,0.001,10.677,0.234,2.241,99.999,634.818,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-08-01,Country or economy,Demand,True,16.789,0.529,3.253,99.823,-0.164,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-09-01,Country or economy,Coal,False,7.063,-0.362,-4.875,44.972,-3.292,6.342,-0.325,-4.875,63.698,897.919,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-09-01,Country or economy,Net imports,False,-0.011,-0.017,-283.333,-0.07,-0.109,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-09-01,Country or economy,Total generation,True,15.705,0.321,2.087,99.998,0.0,9.956,-0.097,-0.965,99.996,633.938,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-09-01,Country or economy,Demand,True,15.694,0.304,1.975,99.928,-0.109,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-10-01,Country or economy,Coal,False,7.417,0.335,4.73,44.97,1.035,6.66,0.301,4.733,63.687,897.937,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-10-01,Country or economy,Net imports,False,0.051,0.051,,0.309,0.309,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-10-01,Country or economy,Total generation,True,16.493,0.374,2.32,99.998,0.0,10.457,0.235,2.299,99.996,634.027,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-10-01,Country or economy,Demand,True,16.545,0.425,2.636,100.313,0.309,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-11-01,Country or economy,Coal,False,7.201,-0.012,-0.166,44.929,-2.247,6.466,-0.011,-0.17,63.82,897.931,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-11-01,Country or economy,Net imports,False,0.046,0.045,4500.0,0.287,0.28,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-11-01,Country or economy,Total generation,True,16.027,0.738,4.827,99.997,0.0,10.132,0.353,3.61,100.004,632.183,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-11-01,Country or economy,Demand,True,16.073,0.782,5.114,100.284,0.274,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-12-01,Country or economy,Coal,False,7.008,-0.285,-3.908,42.75,-4.425,6.293,-0.255,-3.894,61.112,897.974,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-12-01,Country or economy,Net imports,False,-0.018,-0.01,125.0,-0.11,-0.058,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-12-01,Country or economy,Total generation,True,16.393,0.934,6.042,100.001,0.004,10.297,0.541,5.545,99.996,628.134,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2025-12-01,Country or economy,Demand,True,16.375,0.923,5.973,99.891,-0.061,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-01-01,Country or economy,Coal,False,6.916,0.18,2.672,41.934,-2.119,6.21,0.162,2.679,59.518,897.918,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-01-01,Country or economy,Net imports,False,-0.033,-0.012,57.143,-0.2,-0.063,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-01-01,Country or economy,Total generation,True,16.493,1.202,7.861,100.002,0.0,10.434,0.946,9.97,100.001,632.632,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-01-01,Country or economy,Demand,True,16.46,1.191,7.8,99.802,-0.057,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-02-01,Country or economy,Coal,False,6.409,0.126,2.005,42.105,-1.263,5.755,0.114,2.021,60.39,897.956,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-02-01,Country or economy,Net imports,False,-0.013,0.021,-61.765,-0.085,0.15,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-02-01,Country or economy,Total generation,True,15.221,0.733,5.059,99.998,-0.005,9.53,0.467,5.153,100.003,626.109,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-02-01,Country or economy,Demand,True,15.209,0.755,5.223,99.919,0.15,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-03-01,Country or economy,Coal,False,7.547,-0.233,-2.995,44.09,-3.771,6.776,-0.21,-3.006,62.126,897.84,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-03-01,Country or economy,Net imports,False,-0.022,-0.023,-2300.0,-0.129,-0.135,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-03-01,Country or economy,Total generation,True,17.117,0.862,5.303,99.998,0.001,10.907,0.466,4.463,100.002,637.203,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-03-01,Country or economy,Demand,True,17.095,0.838,5.155,99.869,-0.141,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-04-01,Country or economy,Coal,False,7.032,-0.599,-7.85,40.338,-7.971,6.314,-0.538,-7.852,57.177,897.895,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-04-01,Country or economy,Net imports,False,-0.005,0.022,-81.481,-0.029,0.142,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-04-01,Country or economy,Total generation,True,17.433,1.637,10.363,100.001,0.002,11.043,0.889,8.755,100.001,633.454,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-04-01,Country or economy,Demand,True,17.428,1.659,10.521,99.972,0.144,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-05-01,Country or economy,Coal,False,7.387,-0.46,-5.862,42.085,-4.172,6.633,-0.413,-5.861,59.1,897.929,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-05-01,Country or economy,Net imports,False,0.01,0.042,-131.25,0.057,0.246,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-05-01,Country or economy,Total generation,True,17.552,0.588,3.466,99.997,-0.003,11.223,0.39,3.6,99.997,639.414,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-05-01,Country or economy,Demand,True,17.563,0.631,3.727,100.06,0.249,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-06-01,Country or economy,Coal,False,7.346,-0.723,-8.96,42.633,-7.103,6.596,-0.649,-8.958,60.006,897.904,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-06-01,Country or economy,Net imports,False,0.103,0.125,-568.182,0.598,0.734,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-06-01,Country or economy,Total generation,True,17.231,1.007,6.207,100.001,-0.001,10.992,0.475,4.516,99.997,637.92,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-06-01,Country or economy,Demand,True,17.334,1.132,6.987,100.599,0.732,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-07-01,Country or economy,Coal,False,7.868,-0.079,-0.994,44.054,-2.636,7.065,-0.07,-0.981,61.359,897.941,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-07-01,Country or economy,Net imports,False,-0.02,0.004,-16.667,-0.112,0.029,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-07-01,Country or economy,Total generation,True,17.86,0.839,4.929,100.002,0.0,11.514,0.663,6.11,99.999,644.681,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-07-01,Country or economy,Demand,True,17.84,0.843,4.96,99.89,0.029,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-08-01,Country or economy,Coal,False,8.101,0.197,2.492,44.135,-2.86,7.274,0.177,2.494,61.841,897.914,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-08-01,Country or economy,Net imports,False,-0.036,-0.007,24.138,-0.196,-0.024,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-08-01,Country or economy,Total generation,True,18.355,1.536,9.133,99.999,-0.002,11.762,1.085,10.162,99.996,640.806,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-08-01,Country or economy,Demand,True,18.319,1.53,9.113,99.803,-0.02,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-09-01,Country or economy,Coal,False,7.673,0.61,8.637,43.991,-0.981,6.89,0.548,8.641,61.201,897.954,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-09-01,Country or economy,Net imports,False,0.018,0.029,-263.636,0.103,0.173,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-09-01,Country or economy,Total generation,True,17.442,1.737,11.06,99.998,0.0,11.258,1.302,13.078,99.999,645.454,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-09-01,Country or economy,Demand,True,17.46,1.766,11.253,100.101,0.173,,,,,,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-10-01,Country or economy,Coal,False,7.953,0.536,7.227,43.966,-1.004,7.141,0.481,7.222,61.462,897.9,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-10-01,Country or economy,Net imports,False,0.011,-0.04,-78.431,0.061,-0.248,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-10-01,Country or economy,Total generation,True,18.089,1.596,9.677,100.001,0.003,11.619,1.162,11.112,100.004,642.324,Asia,Asia,False,False,False,False,True
+Malaysia,MYS,2026-10-01,Country or economy,Demand,True,18.1,1.555,9.399,100.062,-0.251,,,,,,Asia,Asia,False,False,False,False,True
 Singapore,SGP,2024-01-01,Country or economy,Net imports,False,0.0,-0.021,-100.0,0.0,-0.452,0.0,0.0,,0.0,,Asia,Asia,False,False,False,False,True
 Singapore,SGP,2024-01-01,Country or economy,Total generation,True,4.82,0.177,3.812,99.994,-0.006,2.285,0.064,2.882,99.997,474.066,Asia,Asia,False,False,False,False,True
 Singapore,SGP,2024-01-01,Country or economy,Demand,True,4.82,0.156,3.345,99.994,-0.459,,,,,,Asia,Asia,False,False,False,False,True
@@ -208,6 +228,9 @@ Singapore,SGP,2026-06-01,Country or economy,Demand,True,5.23,0.081,1.573,99.996,
 Singapore,SGP,2026-07-01,Country or economy,Net imports,False,0.017,-0.007,-29.167,0.323,-0.127,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
 Singapore,SGP,2026-07-01,Country or economy,Total generation,True,5.266,-0.062,-1.164,100.006,0.009,2.438,-0.067,-2.675,100.014,462.97,Asia,Asia,False,False,False,False,True
 Singapore,SGP,2026-07-01,Country or economy,Demand,True,5.282,-0.07,-1.308,100.31,-0.138,,,,,,Asia,Asia,False,False,False,False,True
+Singapore,SGP,2026-08-01,Country or economy,Net imports,False,0.048,0.024,100.0,0.876,0.411,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
+Singapore,SGP,2026-08-01,Country or economy,Total generation,True,5.478,0.32,6.204,99.991,0.001,2.512,0.088,3.63,100.006,458.562,Asia,Asia,False,False,False,False,True
+Singapore,SGP,2026-08-01,Country or economy,Demand,True,5.526,0.344,6.638,100.867,0.411,,,,,,Asia,Asia,False,False,False,False,True
 Thailand,THA,2024-01-01,Country or economy,Coal,False,2.596,0.083,3.303,16.067,-2.176,2.268,0.071,3.232,25.814,873.652,Asia,Asia,False,False,False,False,True
 Thailand,THA,2024-01-01,Country or economy,Net imports,False,1.68,-0.481,-22.258,10.398,-5.29,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
 Thailand,THA,2024-01-01,Country or economy,Total generation,True,16.157,2.382,17.292,99.997,-0.004,8.786,1.472,20.126,100.002,543.789,Asia,Asia,False,False,False,False,True
@@ -332,105 +355,105 @@ Thailand,THA,2026-07-01,Country or economy,Coal,False,2.134,-0.901,-29.687,12.74
 Thailand,THA,2026-07-01,Country or economy,Net imports,False,3.866,-0.023,-0.591,23.089,-1.447,0.0,0.0,,0.0,0.0,Asia,Asia,False,False,False,False,True
 Thailand,THA,2026-07-01,Country or economy,Total generation,True,16.744,0.894,5.64,100.0,0.001,8.873,0.134,1.533,100.002,529.921,Asia,Asia,False,False,False,False,True
 Thailand,THA,2026-07-01,Country or economy,Demand,True,20.61,0.871,4.413,123.088,-1.448,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-01-01,Country or economy,Coal,False,5.267,0.565,12.016,57.714,-0.842,4.819,0.517,12.018,85.127,914.942,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-01-01,Country or economy,Total generation,True,9.126,1.096,13.649,100.0,0.0,5.661,0.722,14.618,100.001,620.316,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-01-01,Country or economy,Demand,True,9.126,1.096,13.649,100.0,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-02-01,Country or economy,Coal,False,5.585,0.198,3.676,60.4,-2.091,5.11,0.181,3.672,87.647,914.951,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-02-01,Country or economy,Total generation,True,9.247,0.627,7.274,100.003,0.007,5.83,0.279,5.026,99.997,630.475,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-02-01,Country or economy,Demand,True,9.247,0.627,7.274,100.003,0.007,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-03-01,Country or economy,Coal,False,5.868,0.585,11.073,63.945,-1.276,5.369,0.535,11.067,88.758,914.963,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-03-01,Country or economy,Total generation,True,9.177,1.077,13.296,100.004,0.006,6.049,0.7,13.087,99.999,659.148,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-03-01,Country or economy,Demand,True,9.177,1.077,13.296,100.004,0.006,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-04-01,Country or economy,Coal,False,6.87,0.519,8.172,64.367,-1.378,6.286,0.475,8.174,86.593,914.993,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-04-01,Country or economy,Total generation,True,10.673,1.013,10.487,99.999,-0.001,7.259,0.735,11.266,99.997,680.127,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-04-01,Country or economy,Demand,True,10.673,1.013,10.487,99.999,-0.001,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-05-01,Country or economy,Coal,False,7.218,0.597,9.017,64.087,-1.737,6.604,0.546,9.013,85.367,914.935,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-05-01,Country or economy,Total generation,True,11.263,1.204,11.969,100.002,-0.002,7.736,0.844,12.246,100.0,686.851,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-05-01,Country or economy,Demand,True,11.263,1.204,11.969,100.002,-0.002,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-06-01,Country or economy,Coal,False,7.111,0.671,10.419,65.036,0.962,6.506,0.614,10.421,87.305,914.921,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-06-01,Country or economy,Total generation,True,10.934,0.883,8.785,100.001,0.0,7.452,0.735,10.942,100.0,681.544,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-06-01,Country or economy,Demand,True,10.934,0.883,8.785,100.001,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-07-01,Country or economy,Coal,False,6.351,0.315,5.219,63.124,-0.216,5.811,0.289,5.234,86.745,914.974,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-07-01,Country or economy,Total generation,True,10.061,0.531,5.572,99.998,-0.007,6.699,0.415,6.604,100.001,665.838,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-07-01,Country or economy,Demand,True,10.061,0.531,5.572,99.998,-0.007,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-08-01,Country or economy,Coal,False,6.58,0.833,14.495,62.293,3.837,6.02,0.762,14.492,87.83,914.894,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-08-01,Country or economy,Total generation,True,10.563,0.732,7.446,100.001,0.004,6.854,0.741,12.122,99.998,648.869,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-08-01,Country or economy,Demand,True,10.563,0.732,7.446,100.001,0.004,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-09-01,Country or economy,Coal,False,6.311,0.581,10.14,61.779,3.037,5.774,0.531,10.128,88.661,914.91,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-09-01,Country or economy,Total generation,True,10.215,0.46,4.716,99.995,-0.009,6.512,0.407,6.667,99.993,637.494,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-09-01,Country or economy,Demand,True,10.215,0.46,4.716,99.995,-0.009,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-10-01,Country or economy,Coal,False,6.209,0.435,7.534,61.459,1.348,5.68,0.397,7.515,88.859,914.801,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-10-01,Country or economy,Total generation,True,10.103,0.497,5.174,100.004,0.0,6.392,0.255,4.155,99.997,632.683,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-10-01,Country or economy,Demand,True,10.103,0.497,5.174,100.004,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-11-01,Country or economy,Coal,False,6.086,0.264,4.535,59.622,-0.712,5.569,0.242,4.543,88.014,915.051,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-11-01,Country or economy,Total generation,True,10.208,0.558,5.782,100.004,0.0,6.327,0.168,2.728,99.993,619.808,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-11-01,Country or economy,Demand,True,10.208,0.558,5.782,100.004,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-12-01,Country or economy,Coal,False,5.775,0.195,3.495,60.334,-0.36,5.284,0.179,3.506,87.745,914.978,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-12-01,Country or economy,Total generation,True,9.572,0.378,4.111,100.004,0.0,6.022,0.106,1.792,100.0,629.127,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2024-12-01,Country or economy,Demand,True,9.572,0.378,4.111,100.004,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-01-01,Country or economy,Coal,False,5.271,0.004,0.076,56.591,-1.123,4.823,0.004,0.083,85.732,915.007,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-01-01,Country or economy,Total generation,True,9.314,0.188,2.06,99.998,-0.002,5.626,-0.035,-0.618,100.005,604.037,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-01-01,Country or economy,Demand,True,9.314,0.188,2.06,99.998,-0.002,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-02-01,Country or economy,Coal,False,5.502,-0.083,-1.486,57.206,-3.194,5.034,-0.076,-1.487,85.516,914.94,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-02-01,Country or economy,Total generation,True,9.618,0.371,4.012,100.002,-0.001,5.887,0.057,0.978,100.006,612.082,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-02-01,Country or economy,Demand,True,9.618,0.371,4.012,100.002,-0.001,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-03-01,Country or economy,Coal,False,5.136,-0.732,-12.474,55.763,-8.182,4.699,-0.67,-12.479,83.755,914.914,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-03-01,Country or economy,Total generation,True,9.21,0.033,0.36,99.995,-0.009,5.61,-0.439,-7.257,99.993,609.121,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-03-01,Country or economy,Demand,True,9.21,0.033,0.36,99.995,-0.009,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-04-01,Country or economy,Coal,False,6.698,-0.172,-2.504,60.99,-3.377,6.128,-0.158,-2.514,86.617,914.9,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-04-01,Country or economy,Total generation,True,10.982,0.309,2.895,99.999,0.0,7.075,-0.184,-2.535,100.002,644.236,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-04-01,Country or economy,Demand,True,10.982,0.309,2.895,99.999,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-05-01,Country or economy,Coal,False,6.71,-0.508,-7.038,61.03,-3.057,6.14,-0.464,-7.026,86.567,915.052,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-05-01,Country or economy,Total generation,True,10.995,-0.268,-2.379,100.003,0.001,7.093,-0.643,-8.312,100.003,645.111,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-05-01,Country or economy,Demand,True,10.995,-0.268,-2.379,100.003,0.001,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-06-01,Country or economy,Coal,False,6.357,-0.754,-10.603,58.573,-6.463,5.816,-0.69,-10.606,84.487,914.897,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-06-01,Country or economy,Total generation,True,10.853,-0.081,-0.741,100.0,-0.001,6.884,-0.568,-7.622,100.002,634.295,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-06-01,Country or economy,Demand,True,10.853,-0.081,-0.741,100.0,-0.001,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-07-01,Country or economy,Coal,False,5.5,-0.851,-13.399,55.115,-8.009,5.033,-0.778,-13.388,82.734,915.091,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-07-01,Country or economy,Total generation,True,9.979,-0.082,-0.815,99.999,0.001,6.083,-0.616,-9.195,99.994,609.58,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-07-01,Country or economy,Demand,True,9.979,-0.082,-0.815,99.999,0.001,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-08-01,Country or economy,Coal,False,5.438,-1.142,-17.356,51.819,-10.474,4.976,-1.044,-17.342,80.89,915.042,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-08-01,Country or economy,Total generation,True,10.494,-0.069,-0.653,99.997,-0.004,6.152,-0.702,-10.242,100.007,586.24,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-08-01,Country or economy,Demand,True,10.494,-0.069,-0.653,99.997,-0.004,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-09-01,Country or economy,Coal,False,5.445,-0.866,-13.722,55.984,-5.795,4.982,-0.792,-13.717,84.756,914.968,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-09-01,Country or economy,Total generation,True,9.726,-0.489,-4.787,100.0,0.005,5.878,-0.634,-9.736,99.999,604.359,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-09-01,Country or economy,Demand,True,9.726,-0.489,-4.787,100.0,0.005,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-10-01,Country or economy,Coal,False,5.506,-0.703,-11.322,56.303,-5.156,5.038,-0.642,-11.303,85.62,915.002,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-10-01,Country or economy,Total generation,True,9.779,-0.324,-3.207,99.998,-0.006,5.884,-0.508,-7.947,99.998,601.698,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-10-01,Country or economy,Demand,True,9.779,-0.324,-3.207,99.998,-0.006,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-11-01,Country or economy,Coal,False,5.234,-0.852,-13.999,53.603,-6.019,4.789,-0.78,-14.006,83.034,914.979,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-11-01,Country or economy,Total generation,True,9.764,-0.444,-4.35,99.996,-0.008,5.768,-0.559,-8.835,100.008,590.741,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-11-01,Country or economy,Demand,True,9.764,-0.444,-4.35,99.996,-0.008,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-12-01,Country or economy,Coal,False,5.305,-0.47,-8.139,56.344,-3.99,4.854,-0.43,-8.138,84.842,914.986,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-12-01,Country or economy,Total generation,True,9.415,-0.157,-1.64,99.997,-0.007,5.721,-0.301,-4.998,99.996,607.647,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2025-12-01,Country or economy,Demand,True,9.415,-0.157,-1.64,99.997,-0.007,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-01-01,Country or economy,Coal,False,5.503,0.232,4.401,59.48,2.889,5.036,0.213,4.416,88.19,915.137,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-01-01,Country or economy,Total generation,True,9.252,-0.062,-0.666,100.002,0.004,5.71,0.084,1.493,99.993,617.164,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-01-01,Country or economy,Demand,True,9.252,-0.062,-0.666,100.002,0.004,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-02-01,Country or economy,Coal,False,5.332,-0.17,-3.09,55.656,-1.55,4.879,-0.155,-3.079,84.889,915.041,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-02-01,Country or economy,Total generation,True,9.58,-0.038,-0.395,99.998,-0.004,5.747,-0.14,-2.378,99.991,599.896,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-02-01,Country or economy,Demand,True,9.58,-0.038,-0.395,99.998,-0.004,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-03-01,Country or economy,Coal,False,5.261,0.125,2.434,58.304,2.541,4.814,0.115,2.447,85.984,915.035,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-03-01,Country or economy,Total generation,True,9.023,-0.187,-2.03,99.995,0.0,5.599,-0.011,-0.196,100.005,620.525,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-03-01,Country or economy,Demand,True,9.023,-0.187,-2.03,99.995,0.0,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-04-01,Country or economy,Coal,False,5.691,-1.007,-15.034,59.938,-1.052,5.208,-0.92,-15.013,85.662,915.129,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-04-01,Country or economy,Total generation,True,9.495,-1.487,-13.54,100.001,0.002,6.08,-0.995,-14.064,100.004,640.337,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-04-01,Country or economy,Demand,True,9.495,-1.487,-13.54,100.001,0.002,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-05-01,Country or economy,Coal,False,6.408,-0.302,-4.501,59.617,-1.413,5.864,-0.276,-4.495,84.492,915.106,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-05-01,Country or economy,Total generation,True,10.749,-0.246,-2.237,100.004,0.001,6.94,-0.153,-2.157,99.996,645.641,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-05-01,Country or economy,Demand,True,10.749,-0.246,-2.237,100.004,0.001,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-06-01,Country or economy,Coal,False,5.937,-0.42,-6.607,59.935,1.362,5.433,-0.383,-6.585,84.865,915.109,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-06-01,Country or economy,Total generation,True,9.906,-0.947,-8.726,100.003,0.003,6.402,-0.482,-7.002,100.001,646.275,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-06-01,Country or economy,Demand,True,9.906,-0.947,-8.726,100.003,0.003,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-07-01,Country or economy,Coal,False,5.975,0.475,8.636,59.76,4.645,5.467,0.434,8.623,85.469,914.979,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-07-01,Country or economy,Total generation,True,9.998,0.019,0.19,99.997,-0.002,6.396,0.313,5.145,99.993,639.728,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-07-01,Country or economy,Demand,True,9.998,0.019,0.19,99.997,-0.002,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-08-01,Country or economy,Coal,False,5.128,-0.31,-5.701,55.599,3.78,4.693,-0.283,-5.687,84.152,915.172,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-08-01,Country or economy,Total generation,True,9.223,-1.271,-12.112,99.999,0.002,5.577,-0.575,-9.347,100.003,604.684,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-08-01,Country or economy,Demand,True,9.223,-1.271,-12.112,99.999,0.002,,,,,,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-09-01,Country or economy,Coal,False,4.832,-0.613,-11.258,52.04,-3.944,4.421,-0.561,-11.261,82.897,914.942,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-09-01,Country or economy,Total generation,True,9.285,-0.441,-4.534,99.998,-0.002,5.333,-0.545,-9.272,99.998,574.367,Asia,Asia,False,False,False,False,True
-The Philippines,PHL,2026-09-01,Country or economy,Demand,True,9.285,-0.441,-4.534,99.998,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-01-01,Country or economy,Coal,False,5.267,0.565,12.016,56.3,-1.538,4.819,0.517,12.018,84.962,914.942,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-01-01,Country or economy,Total generation,True,9.355,1.225,15.068,99.997,-0.008,5.672,0.729,14.748,100.001,606.307,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-01-01,Country or economy,Demand,True,9.355,1.225,15.068,99.997,-0.008,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-02-01,Country or economy,Coal,False,5.585,0.198,3.676,58.727,-2.822,5.11,0.181,3.672,87.457,914.951,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-02-01,Country or economy,Total generation,True,9.51,0.758,8.661,99.999,0.003,5.843,0.285,5.128,100.003,614.406,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-02-01,Country or economy,Demand,True,9.51,0.758,8.661,99.999,0.003,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-03-01,Country or economy,Coal,False,5.868,0.585,11.073,61.824,-1.939,5.369,0.535,11.067,88.536,914.963,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-03-01,Country or economy,Total generation,True,9.492,1.207,14.568,100.005,0.01,6.064,0.706,13.177,99.997,638.854,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-03-01,Country or economy,Demand,True,9.492,1.207,14.568,100.005,0.01,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-04-01,Country or economy,Coal,False,6.87,0.519,8.172,62.348,-2.141,6.286,0.475,8.174,86.395,914.993,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-04-01,Country or economy,Total generation,True,11.019,1.171,11.891,100.002,0.004,7.276,0.743,11.373,100.002,660.314,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-04-01,Country or economy,Demand,True,11.019,1.171,11.891,100.002,0.004,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-05-01,Country or economy,Coal,False,7.218,0.597,9.017,62.299,-2.265,6.604,0.546,9.013,85.196,914.935,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-05-01,Country or economy,Total generation,True,11.586,1.331,12.979,99.999,-0.002,7.752,0.851,12.332,100.006,669.083,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-05-01,Country or economy,Demand,True,11.586,1.331,12.979,99.999,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-06-01,Country or economy,Coal,False,7.111,0.671,10.419,63.439,0.514,6.506,0.614,10.421,87.151,914.921,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-06-01,Country or economy,Total generation,True,11.209,0.975,9.527,99.998,0.002,7.465,0.739,10.987,99.997,665.983,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-06-01,Country or economy,Demand,True,11.209,0.975,9.527,99.998,0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-07-01,Country or economy,Coal,False,6.351,0.315,5.219,61.602,-0.554,5.811,0.289,5.234,86.591,914.974,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-07-01,Country or economy,Total generation,True,10.31,0.599,6.168,100.003,0.004,6.711,0.418,6.642,100.002,650.921,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-07-01,Country or economy,Demand,True,10.31,0.599,6.168,100.003,0.004,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-08-01,Country or economy,Coal,False,6.58,0.833,14.495,60.535,3.332,6.02,0.762,14.492,87.642,914.894,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-08-01,Country or economy,Total generation,True,10.87,0.823,8.191,100.002,-0.002,6.869,0.746,12.184,100.002,631.923,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-08-01,Country or economy,Demand,True,10.87,0.823,8.191,100.002,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-09-01,Country or economy,Coal,False,6.311,0.581,10.14,60.27,2.761,5.774,0.531,10.128,88.494,914.91,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-09-01,Country or economy,Total generation,True,10.471,0.507,5.088,99.998,-0.005,6.525,0.41,6.705,100.004,623.15,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-09-01,Country or economy,Demand,True,10.471,0.507,5.088,99.998,-0.005,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-10-01,Country or economy,Coal,False,6.209,0.435,7.534,59.744,0.995,5.68,0.397,7.515,88.666,914.801,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-10-01,Country or economy,Total generation,True,10.393,0.565,5.749,100.002,0.005,6.406,0.259,4.213,99.999,616.376,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-10-01,Country or economy,Demand,True,10.393,0.565,5.749,100.002,0.005,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-11-01,Country or economy,Coal,False,6.086,0.264,4.535,57.914,-1.151,5.569,0.242,4.543,87.813,915.051,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-11-01,Country or economy,Total generation,True,10.509,0.652,6.615,100.003,0.003,6.342,0.174,2.821,100.002,603.483,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-11-01,Country or economy,Demand,True,10.509,0.652,6.615,100.003,0.003,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-12-01,Country or economy,Coal,False,5.775,0.195,3.495,58.809,-0.485,5.284,0.179,3.506,87.572,914.978,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-12-01,Country or economy,Total generation,True,9.82,0.409,4.346,100.001,-0.001,6.034,0.108,1.822,100.001,614.46,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2024-12-01,Country or economy,Demand,True,9.82,0.409,4.346,100.001,-0.001,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-01-01,Country or economy,Coal,False,5.271,0.004,0.076,54.911,-1.389,4.823,0.004,0.083,85.524,915.007,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-01-01,Country or economy,Total generation,True,9.599,0.244,2.608,99.997,0.0,5.639,-0.033,-0.582,99.993,587.457,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-01-01,Country or economy,Demand,True,9.599,0.244,2.608,99.997,0.0,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-02-01,Country or economy,Coal,False,5.502,-0.083,-1.486,55.551,-3.176,5.034,-0.076,-1.487,85.316,914.94,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-02-01,Country or economy,Total generation,True,9.904,0.394,4.143,99.997,-0.002,5.9,0.057,0.976,99.993,595.719,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-02-01,Country or economy,Demand,True,9.904,0.394,4.143,99.997,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-03-01,Country or economy,Coal,False,5.136,-0.732,-12.474,53.48,-8.344,4.699,-0.67,-12.479,83.474,914.914,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-03-01,Country or economy,Total generation,True,9.604,0.112,1.18,100.004,-0.001,5.629,-0.435,-7.173,99.995,586.11,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-03-01,Country or economy,Demand,True,9.604,0.112,1.18,100.004,-0.001,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-04-01,Country or economy,Coal,False,6.698,-0.172,-2.504,58.545,-3.803,6.128,-0.158,-2.514,86.348,914.9,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-04-01,Country or economy,Total generation,True,11.441,0.422,3.83,100.001,-0.001,7.097,-0.179,-2.46,100.002,620.313,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-04-01,Country or economy,Demand,True,11.441,0.422,3.83,100.001,-0.001,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-05-01,Country or economy,Coal,False,6.71,-0.508,-7.038,58.801,-3.498,6.14,-0.464,-7.026,86.323,915.052,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-05-01,Country or economy,Total generation,True,11.411,-0.175,-1.51,99.997,-0.002,7.113,-0.639,-8.243,100.003,623.346,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-05-01,Country or economy,Demand,True,11.411,-0.175,-1.51,99.997,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-06-01,Country or economy,Coal,False,6.357,-0.754,-10.603,56.772,-6.667,5.816,-0.69,-10.606,84.285,914.897,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-06-01,Country or economy,Total generation,True,11.197,-0.012,-0.107,99.996,-0.002,6.9,-0.565,-7.569,99.994,616.236,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-06-01,Country or economy,Demand,True,11.197,-0.012,-0.107,99.996,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-07-01,Country or economy,Coal,False,5.5,-0.851,-13.399,53.093,-8.509,5.033,-0.778,-13.388,82.486,915.091,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-07-01,Country or economy,Total generation,True,10.359,0.049,0.475,99.998,-0.005,6.102,-0.609,-9.075,100.006,589.053,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-07-01,Country or economy,Demand,True,10.359,0.049,0.475,99.998,-0.005,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-08-01,Country or economy,Coal,False,5.438,-1.142,-17.356,49.881,-10.654,4.976,-1.044,-17.342,80.634,915.042,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-08-01,Country or economy,Total generation,True,10.902,0.032,0.294,100.0,-0.002,6.171,-0.698,-10.162,99.998,566.043,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-08-01,Country or economy,Demand,True,10.902,0.032,0.294,100.0,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-09-01,Country or economy,Coal,False,5.445,-0.866,-13.722,53.97,-6.3,4.982,-0.792,-13.717,84.505,914.968,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-09-01,Country or economy,Total generation,True,10.089,-0.382,-3.648,100.0,0.002,5.896,-0.629,-9.64,100.008,584.399,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-09-01,Country or economy,Demand,True,10.089,-0.382,-3.648,100.0,0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-10-01,Country or economy,Coal,False,5.506,-0.703,-11.322,53.861,-5.883,5.038,-0.642,-11.303,85.311,915.002,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-10-01,Country or economy,Total generation,True,10.223,-0.17,-1.636,100.003,0.001,5.905,-0.501,-7.821,99.993,577.619,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-10-01,Country or economy,Demand,True,10.223,-0.17,-1.636,100.003,0.001,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-11-01,Country or economy,Coal,False,5.234,-0.852,-13.999,51.418,-6.496,4.789,-0.78,-14.006,82.748,914.979,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-11-01,Country or economy,Total generation,True,10.179,-0.33,-3.14,99.997,-0.006,5.787,-0.555,-8.751,99.992,568.523,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-11-01,Country or economy,Demand,True,10.179,-0.33,-3.14,99.997,-0.006,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-12-01,Country or economy,Coal,False,5.305,-0.47,-8.139,53.777,-5.032,4.854,-0.43,-8.138,84.523,914.986,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-12-01,Country or economy,Total generation,True,9.865,0.045,0.458,100.001,0.0,5.743,-0.291,-4.823,100.003,582.159,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2025-12-01,Country or economy,Demand,True,9.865,0.045,0.458,100.001,0.0,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-01-01,Country or economy,Coal,False,5.503,0.232,4.401,56.607,1.696,5.036,0.213,4.416,87.843,915.137,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-01-01,Country or economy,Total generation,True,9.721,0.122,1.271,99.995,-0.002,5.733,0.094,1.667,100.001,589.754,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-01-01,Country or economy,Demand,True,9.721,0.122,1.271,99.995,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-02-01,Country or economy,Coal,False,5.332,-0.17,-3.09,52.825,-2.726,4.879,-0.155,-3.079,84.527,915.041,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-02-01,Country or economy,Total generation,True,10.094,0.19,1.918,100.003,0.006,5.772,-0.128,-2.169,99.997,571.825,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-02-01,Country or economy,Demand,True,10.094,0.19,1.918,100.003,0.006,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-03-01,Country or economy,Coal,False,5.261,0.125,2.434,53.866,0.386,4.814,0.115,2.447,85.439,915.035,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-03-01,Country or economy,Total generation,True,9.767,0.163,1.697,100.002,-0.002,5.634,0.005,0.089,99.992,576.84,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-03-01,Country or economy,Demand,True,9.767,0.163,1.697,100.002,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-04-01,Country or economy,Coal,False,5.691,-1.007,-15.034,54.995,-3.55,5.208,-0.92,-15.013,85.088,915.129,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-04-01,Country or economy,Total generation,True,10.348,-1.093,-9.553,99.999,-0.002,6.121,-0.976,-13.752,100.005,591.515,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-04-01,Country or economy,Demand,True,10.348,-1.093,-9.553,99.999,-0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-05-01,Country or economy,Coal,False,6.408,-0.302,-4.501,55.28,-3.521,5.864,-0.276,-4.495,84.002,915.106,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-05-01,Country or economy,Total generation,True,11.592,0.181,1.586,100.001,0.004,6.981,-0.132,-1.856,100.003,602.226,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-05-01,Country or economy,Demand,True,11.592,0.181,1.586,100.001,0.004,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-06-01,Country or economy,Coal,False,5.937,-0.42,-6.607,55.771,-1.001,5.433,-0.383,-6.585,84.397,915.109,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-06-01,Country or economy,Total generation,True,10.645,-0.552,-4.93,99.997,0.001,6.437,-0.463,-6.71,99.993,604.697,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-06-01,Country or economy,Demand,True,10.645,-0.552,-4.93,99.997,0.001,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-07-01,Country or economy,Coal,False,5.975,0.475,8.636,55.474,2.381,5.467,0.434,8.623,84.977,914.979,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-07-01,Country or economy,Total generation,True,10.771,0.412,3.977,100.003,0.005,6.434,0.332,5.441,100.007,597.345,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-07-01,Country or economy,Demand,True,10.771,0.412,3.977,100.003,0.005,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-08-01,Country or economy,Coal,False,5.128,-0.31,-5.701,51.209,1.328,4.693,-0.283,-5.687,83.583,915.172,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-08-01,Country or economy,Total generation,True,10.014,-0.888,-8.145,100.002,0.002,5.615,-0.556,-9.01,100.004,560.715,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-08-01,Country or economy,Demand,True,10.014,-0.888,-8.145,100.002,0.002,,,,,,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-09-01,Country or economy,Coal,False,4.832,-0.613,-11.258,47.659,-6.311,4.421,-0.561,-11.261,82.265,914.942,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-09-01,Country or economy,Total generation,True,10.139,0.05,0.496,100.002,0.002,5.374,-0.522,-8.853,99.999,530.033,Asia,Asia,False,False,False,False,True
+The Philippines,PHL,2026-09-01,Country or economy,Demand,True,10.139,0.05,0.496,100.002,0.002,,,,,,Asia,Asia,False,False,False,False,True
 United States,USA,2024-01-01,Country or economy,Coal,False,75.618,14.261,23.243,19.607,2.16,71.842,13.564,23.275,43.827,950.065,North America,North America,False,True,True,True,False
 United States,USA,2024-01-01,Country or economy,Net imports,False,1.737,-1.548,-47.123,0.45,-0.484,0.0,0.0,,0.0,0.0,North America,North America,False,True,True,True,False
 United States,USA,2024-01-01,Country or economy,Total generation,True,385.674,33.989,9.665,100.0,0.0,163.922,26.406,19.202,100.0,425.027,North America,North America,False,True,True,True,False

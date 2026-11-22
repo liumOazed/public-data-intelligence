@@ -1,0 +1,56 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "specpower",
+  "description": "SPECpower_ssj2008 results that name their processor: measured server power at full load and active idle, and ssj_ops per watt at each target load.",
+  "generated_at": "2026-11-22T14:11:25+00:00",
+  "rows": 0,
+  "columns": [
+   "system",
+   "hardware_vendor",
+   "processor",
+   "processor_key",
+   "cpu_vendor",
+   "nodes",
+   "chips",
+   "cores",
+   "published",
+   "hw_avail",
+   "ops_per_watt",
+   "watts_100",
+   "watts_idle",
+   "idle_share",
+   "ppw_100",
+   "ppw_90",
+   "ppw_80",
+   "ppw_70",
+   "ppw_60",
+   "ppw_50",
+   "ppw_40",
+   "ppw_30",
+   "ppw_20",
+   "ppw_10",
+   "disclosure_url"
+  ],
+  "sources": [
+   {
+    "id": "spec_power",
+    "name": "SPECpower_ssj2008 published results",
+    "url": "https://www.spec.org/power_ssj2008/results/",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse), the same general rules as SPEC CPU 2017: state the source and retrieval date, name the licensee of each result, acknowledge the SPEC trademarks, compare SPEC metrics only within the same benchmark, and label derived values. The SPECpower section of those rules has not been re-read for this entry, because spec.org could not be reached from the build machine on 22 November 2026.",
+    "frequency": "weekly collection; SPEC publishes new results every few weeks",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": null
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "SPECpower_ssj2008 measures the AC power of a whole server at each target load from 100% down to active idle, with a calibrated power analyser. It is a measurement, not a label.",
+   "Only results whose disclosure names the processor model are kept, and they are grouped by that processor. Memory, power supplies and node count differ between results.",
+   "ssj_ops per watt is SPEC's own overall metric. Per-processor medians are this site's summaries and are not SPEC metrics.",
+   "SPEC and SPECpower are registered trademarks of the Standard Performance Evaluation Corporation. Every row links to its SPEC disclosure."
+  ],
+  "status": "SPECpower results have not been collected yet."
+ },
+ "data": []
+}

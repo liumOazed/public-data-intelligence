@@ -1,0 +1,7 @@
+{
+  "url": "https://www.spec.org/cgi-bin/osgresults?conf=power_ssj2008&op=dump&format=csvdump",
+  "retrieved_at": "2026-11-22T14:04:45+00:00",
+  "full_response_bytes": 2021327,
+  "full_response_sha256": "8bf67a5801fb2227ffac65476e2826c2984dec6a21cc8451762362aee3b346cc",
+  "slice": "header and up to 4 rows per group ['amd', 'intel', 'other']"
+}
