@@ -127,6 +127,31 @@ def spec() -> None:
     )
 
 
+def spec_power() -> None:
+    """SPECpower_ssj2008 results dump: header and up to 4 rows per processor maker."""
+    resp = _get(
+        tv.SPEC_ENDPOINT, params={"conf": "power_ssj2008", "op": "dump", "format": "csvdump"}
+    )
+    text = resp.content.decode("utf-8", errors="replace")
+    picked: dict[str, int] = {}
+
+    def keep(r: dict) -> bool:
+        blob = " ".join(r.values())
+        group = "intel" if "Intel" in blob else "amd" if "AMD" in blob else "other"
+        if picked.get(group, 0) >= 4:
+            return False
+        picked[group] = picked.get(group, 0) + 1
+        return True
+
+    _save(
+        "spec_power_ssj2008.csv",
+        _csv_slice(text, keep).encode(),
+        url=resp.url,
+        full=resp.content,
+        note=f"header and up to 4 rows per group {sorted(picked)}",
+    )
+
+
 def blender_launches() -> None:
     resp = _get(tv.BLENDER_SNAPSHOT_URL, timeout=900, stream=True)
     tmp = OUT.parent / "_blender.zip"
@@ -373,6 +398,7 @@ _COMPANY = re.compile(
 
 CAPTURES = {
     "spec": spec,
+    "spec_power": spec_power,
     "blender": blender_launches,
     "centralcomputer": central_computers,
     "fred": fred,
