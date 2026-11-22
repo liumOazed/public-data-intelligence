@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "totals_check",
   "description": "Sum of the product chapters against the all-commodity total Census publishes, by partner and year.",
-  "generated_at": "2026-11-21T17:06:21+00:00",
+  "generated_at": "2026-11-22T17:22:08+00:00",
   "rows": 112,
   "columns": [
    "partner",

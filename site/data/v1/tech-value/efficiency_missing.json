@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_missing",
   "description": "Benchmarked models left off the efficiency page, with the reason.",
-  "generated_at": "2026-11-22T13:44:42+00:00",
+  "generated_at": "2026-11-22T17:20:22+00:00",
   "rows": 4,
   "columns": [
    "kind",
@@ -28,7 +28,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": null
+    "retrieved_at": "2026-11-22T17:17:38+00:00"
    }
   ],
   "preliminary": false,

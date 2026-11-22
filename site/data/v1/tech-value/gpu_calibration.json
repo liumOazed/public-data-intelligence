@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_calibration",
   "description": "Held-out check of the SPEC GWPG suite calibration: for each suite, OS and resolution, how far a card's calibrated score there sits from the same card's calibrated score in the other suites, with the calibration refitted without that card.",
-  "generated_at": "2026-11-21T17:02:51+00:00",
+  "generated_at": "2026-11-22T17:19:51+00:00",
   "rows": 29,
   "columns": [
    "cohort",
@@ -183,7 +183,7 @@
    "slope": 0.25,
    "slope_source": "fitted",
    "n_shared_cards": 4,
-   "median_abs_gap_pct": 22.192149570837362,
+   "median_abs_gap_pct": 22.19214957083731,
    "status": "Not validated: cards disagree across suites",
    "used_in_ranking": false
   },
