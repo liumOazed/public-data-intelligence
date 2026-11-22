@@ -1,7 +1,7 @@
 {
   "url": "https://raw.githubusercontent.com/hiring-lab/job_postings_tracker/master/US/aggregate_job_postings_US.csv",
-  "retrieved_at": "2026-11-15T10:27:23+00:00",
-  "full_response_bytes": 204981,
-  "full_response_sha256": "1da20afe872d7bb93df00b7c297531c6b89f52578ba7ff3427ac89c532838ff9",
+  "retrieved_at": "2026-11-22T14:05:06+00:00",
+  "full_response_bytes": 205567,
+  "full_response_sha256": "4087dc63e3686d4b2b8a309e76138cd377b59e9a5d7347e18a62d4ec731fb47b",
   "slice": "header and the last 80 rows of each variable ['new postings', 'total postings']"
 }
