@@ -1,0 +1,2400 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "efficiency_signal_series",
+  "description": "The yearly values each efficiency signal is computed from, and the fitted line for turning points.",
+  "generated_at": "2026-11-22T14:51:45+00:00",
+  "rows": 294,
+  "columns": [
+   "signal",
+   "kind",
+   "group",
+   "x",
+   "y",
+   "fit"
+  ],
+  "sources": [
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
+   },
+   {
+    "id": "spec_power",
+    "name": "SPECpower_ssj2008 published results",
+    "url": "https://www.spec.org/power_ssj2008/results/",
+    "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse), the same general rules as SPEC CPU 2017: state the source and retrieval date, name the licensee of each result, acknowledge the SPEC trademarks, compare SPEC metrics only within the same benchmark, and label derived values. The SPECpower section of those rules has not been re-read for this entry, because spec.org could not be reached from the build machine on 22 November 2026.",
+    "frequency": "weekly collection; SPEC publishes new results every few weeks",
+    "typical_lag": "results appear weeks to months after the test date",
+    "retrieved_at": null
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Signals describe how fast the past moved. None is a forecast.",
+   "Launch years with fewer than 3 benchmarked chips are left out of the yearly series.",
+   "The price signal uses today's prices for chips of every launch year, not launch prices.",
+   "Apple silicon is not on this page, so no gap involving Apple is measured."
+  ],
+  "blender_version": "4.5",
+  "status": null
+ },
+ "data": [
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2014.0,
+   "y": 1.7745683928810188,
+   "fit": 1.7745683928810188
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2015.0,
+   "y": 2.0184603899133573,
+   "fit": 2.0184603899133573
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2016.0,
+   "y": 3.4708579946839624,
+   "fit": 3.4708579946839624
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2018.0,
+   "y": 12.030857843738847,
+   "fit": 12.030857843738847
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2019.0,
+   "y": 11.769839257938584,
+   "fit": 12.030857843738847
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2020.0,
+   "y": 17.14945199083441,
+   "fit": 17.14945199083441
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2021.0,
+   "y": 25.016728306188035,
+   "fit": 25.016728306188035
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2022.0,
+   "y": 35.517640803328206,
+   "fit": 35.517640803328206
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2023.0,
+   "y": 34.19803237684598,
+   "fit": 35.517640803328206
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2024.0,
+   "y": 37.98331917285507,
+   "fit": 37.98331917285507
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "gpu",
+   "group": "Best of the year",
+   "x": 2025.0,
+   "y": 44.68362860779906,
+   "fit": 44.68362860779906
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx50",
+   "x": 2015.0,
+   "y": 90.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx50",
+   "x": 2016.0,
+   "y": 75.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx50",
+   "x": 2019.0,
+   "y": 75.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx50",
+   "x": 2022.0,
+   "y": 130.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx50",
+   "x": 2025.0,
+   "y": 130.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60",
+   "x": 2015.0,
+   "y": 120.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60",
+   "x": 2016.0,
+   "y": 120.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60",
+   "x": 2019.0,
+   "y": 140.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60",
+   "x": 2021.0,
+   "y": 170.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60",
+   "x": 2023.0,
+   "y": 115.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60",
+   "x": 2025.0,
+   "y": 145.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60 Ti",
+   "x": 2019.0,
+   "y": 120.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60 Ti",
+   "x": 2020.0,
+   "y": 200.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60 Ti",
+   "x": 2023.0,
+   "y": 160.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx60 Ti",
+   "x": 2025.0,
+   "y": 180.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70",
+   "x": 2014.0,
+   "y": 145.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70",
+   "x": 2016.0,
+   "y": 150.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70",
+   "x": 2018.0,
+   "y": 175.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70",
+   "x": 2020.0,
+   "y": 220.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70",
+   "x": 2023.0,
+   "y": 200.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70",
+   "x": 2025.0,
+   "y": 250.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70 Ti",
+   "x": 2017.0,
+   "y": 180.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70 Ti",
+   "x": 2021.0,
+   "y": 290.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70 Ti",
+   "x": 2023.0,
+   "y": 285.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx70 Ti",
+   "x": 2025.0,
+   "y": 300.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80",
+   "x": 2014.0,
+   "y": 165.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80",
+   "x": 2016.0,
+   "y": 180.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80",
+   "x": 2018.0,
+   "y": 215.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80",
+   "x": 2020.0,
+   "y": 320.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80",
+   "x": 2022.0,
+   "y": 320.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80",
+   "x": 2025.0,
+   "y": 360.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80 Ti",
+   "x": 2015.0,
+   "y": 250.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80 Ti",
+   "x": 2017.0,
+   "y": 250.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80 Ti",
+   "x": 2018.0,
+   "y": 250.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx80 Ti",
+   "x": 2021.0,
+   "y": 350.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx90",
+   "x": 2020.0,
+   "y": 350.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx90",
+   "x": 2022.0,
+   "y": 450.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "GeForce xx90",
+   "x": 2025.0,
+   "y": 575.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "Radeon x600 XT",
+   "x": 2020.0,
+   "y": 150.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "Radeon x600 XT",
+   "x": 2021.0,
+   "y": 160.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "Radeon x600 XT",
+   "x": 2024.0,
+   "y": 190.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "Radeon x700 XT",
+   "x": 2019.0,
+   "y": 225.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "Radeon x700 XT",
+   "x": 2021.0,
+   "y": 230.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "gpu",
+   "group": "Radeon x700 XT",
+   "x": 2023.0,
+   "y": 245.0,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "NVIDIA",
+   "x": 2019.0,
+   "y": 6.191782010774974,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "NVIDIA",
+   "x": 2020.0,
+   "y": 14.502313745502024,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "NVIDIA",
+   "x": 2021.0,
+   "y": 19.08903933361909,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "NVIDIA",
+   "x": 2022.0,
+   "y": 24.581026286745953,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "NVIDIA",
+   "x": 2023.0,
+   "y": 26.094794138785815,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "NVIDIA",
+   "x": 2025.0,
+   "y": 25.381917351782295,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "AMD",
+   "x": 2019.0,
+   "y": 4.083116172006898,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "AMD",
+   "x": 2020.0,
+   "y": 7.7503048158902885,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "AMD",
+   "x": 2021.0,
+   "y": 6.565588259717414,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "AMD",
+   "x": 2022.0,
+   "y": 6.1564824418008435,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "AMD",
+   "x": 2023.0,
+   "y": 8.920988070005752,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "gpu",
+   "group": "AMD",
+   "x": 2025.0,
+   "y": 10.791908493268236,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2019.0,
+   "y": 28.672437680449484,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2020.0,
+   "y": 28.938734153161498,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2021.0,
+   "y": 15.18943625837785,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2022.0,
+   "y": 17.400115762807363,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2023.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2024.0,
+   "y": 18.16560571918381,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2025.0,
+   "y": 15.890079323143402,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 0.0,
+   "y": 19.30609743563481,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 1.0,
+   "y": 19.30609743563481,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 2.0,
+   "y": 19.30609743563481,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 3.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 4.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 5.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 6.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 7.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2014.0,
+   "y": 1.7745683928810188,
+   "fit": 1.6357140463554916
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2015.0,
+   "y": 2.0184603899133573,
+   "fit": 2.4555804775174237
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2016.0,
+   "y": 3.4708579946839624,
+   "fit": 3.6863872967281592
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2018.0,
+   "y": 12.030857843738849,
+   "fit": 8.307962710081988
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2019.0,
+   "y": 11.769839257938585,
+   "fit": 12.472150058425516
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2020.0,
+   "y": 17.149451990834407,
+   "fit": 18.723546615238536
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2021.0,
+   "y": 25.016728306188035,
+   "fit": 28.10832103612988
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2022.0,
+   "y": 35.5176408033282,
+   "fit": 31.464238893764783
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2023.0,
+   "y": 34.19803237684597,
+   "fit": 35.22082759377112
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2024.0,
+   "y": 37.98331917285507,
+   "fit": 39.4259241603959
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "gpu",
+   "group": "best points per rated watt",
+   "x": 2025.0,
+   "y": 44.68362860779905,
+   "fit": 44.13307699152954
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2014.0,
+   "y": 144.99999999999997,
+   "fit": 118.45808414527501
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2015.0,
+   "y": 119.99999999999997,
+   "fit": 130.98983108998559
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2016.0,
+   "y": 119.99999999999997,
+   "fit": 144.84731854974342
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2018.0,
+   "y": 214.99999999999991,
+   "fit": 177.11535554906496
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2019.0,
+   "y": 129.99999999999997,
+   "fit": 195.85248802742996
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2020.0,
+   "y": 299.99999999999994,
+   "fit": 216.57183222551532
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2021.0,
+   "y": 184.99999999999991,
+   "fit": 213.78281061627217
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2022.0,
+   "y": 249.9999999999999,
+   "fit": 211.02970615034187
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2023.0,
+   "y": 205.00000000000006,
+   "fit": 208.31205628517404
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2024.0,
+   "y": 190.0,
+   "fit": 205.62940443486227
+  },
+  {
+   "signal": "turn_power",
+   "kind": "gpu",
+   "group": "median rated power",
+   "x": 2025.0,
+   "y": 209.99999999999994,
+   "fit": 202.9812998934153
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2012.0,
+   "y": 0.6301406468286159,
+   "fit": 0.6301406468286159
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2013.0,
+   "y": 0.7994870839288107,
+   "fit": 0.7994870839288107
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2014.0,
+   "y": 0.8634056472022855,
+   "fit": 0.8634056472022855
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2015.0,
+   "y": 1.0361192453756896,
+   "fit": 1.0361192453756896
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2017.0,
+   "y": 1.793548997708561,
+   "fit": 1.793548997708561
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2018.0,
+   "y": 1.9114417140884772,
+   "fit": 1.9114417140884772
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2019.0,
+   "y": 3.8018597069780045,
+   "fit": 3.8018597069780045
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2020.0,
+   "y": 4.072967071789271,
+   "fit": 4.072967071789271
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2021.0,
+   "y": 2.8895155405972104,
+   "fit": 4.072967071789271
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2022.0,
+   "y": 4.608539488444028,
+   "fit": 4.608539488444028
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2023.0,
+   "y": 8.553466247312144,
+   "fit": 8.553466247312144
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2024.0,
+   "y": 4.929031093803275,
+   "fit": 8.553466247312144
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2025.0,
+   "y": 7.558323299768814,
+   "fit": 8.553466247312144
+  },
+  {
+   "signal": "frontier_pace",
+   "kind": "cpu",
+   "group": "Best of the year",
+   "x": 2026.0,
+   "y": 4.888995170722077,
+   "fit": 8.553466247312144
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 3",
+   "x": 2013.0,
+   "y": 54.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 3",
+   "x": 2019.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 3",
+   "x": 2020.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 3",
+   "x": 2022.0,
+   "y": 59.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2012.0,
+   "y": 77.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2013.0,
+   "y": 84.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2014.0,
+   "y": 84.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2015.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2017.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2018.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2019.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2020.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2021.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2022.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2023.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5",
+   "x": 2025.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2012.0,
+   "y": 77.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2014.0,
+   "y": 88.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2015.0,
+   "y": 91.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2017.0,
+   "y": 91.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2018.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2019.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2020.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2021.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2022.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2023.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2024.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 5 K",
+   "x": 2026.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2011.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2012.0,
+   "y": 77.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2013.0,
+   "y": 84.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2014.0,
+   "y": 84.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2015.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2016.0,
+   "y": 140.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2017.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2019.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2020.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2021.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2022.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2023.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7",
+   "x": 2025.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2011.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2012.0,
+   "y": 77.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2013.0,
+   "y": 84.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2014.0,
+   "y": 114.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2015.0,
+   "y": 91.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2017.0,
+   "y": 93.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2018.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2020.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2021.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2022.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2023.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2024.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 7 K",
+   "x": 2026.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2017.0,
+   "y": 165.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2019.0,
+   "y": 165.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2020.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2021.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2023.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9",
+   "x": 2025.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9 K",
+   "x": 2018.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9 K",
+   "x": 2020.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9 K",
+   "x": 2021.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9 K",
+   "x": 2022.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9 K",
+   "x": 2023.0,
+   "y": 125.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Core 9 K",
+   "x": 2024.0,
+   "y": 137.5,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5",
+   "x": 2017.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5",
+   "x": 2018.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5",
+   "x": 2019.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5",
+   "x": 2022.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5",
+   "x": 2023.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 G",
+   "x": 2018.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 G",
+   "x": 2019.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 G",
+   "x": 2020.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 G",
+   "x": 2021.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 G",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X",
+   "x": 2018.0,
+   "y": 80.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X",
+   "x": 2019.0,
+   "y": 80.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X",
+   "x": 2020.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X",
+   "x": 2022.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X3D",
+   "x": 2023.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X3D",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 5 X3D",
+   "x": 2025.0,
+   "y": 85.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7",
+   "x": 2017.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7",
+   "x": 2018.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7",
+   "x": 2023.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7",
+   "x": 2024.0,
+   "y": 65.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X",
+   "x": 2017.0,
+   "y": 95.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X",
+   "x": 2018.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X",
+   "x": 2019.0,
+   "y": 85.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X",
+   "x": 2020.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X",
+   "x": 2022.0,
+   "y": 85.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X",
+   "x": 2024.0,
+   "y": 85.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X3D",
+   "x": 2022.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X3D",
+   "x": 2023.0,
+   "y": 120.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X3D",
+   "x": 2024.0,
+   "y": 112.5,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 7 X3D",
+   "x": 2026.0,
+   "y": 120.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 9 X",
+   "x": 2019.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 9 X",
+   "x": 2020.0,
+   "y": 105.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 9 X",
+   "x": 2022.0,
+   "y": 170.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Ryzen 9 X",
+   "x": 2024.0,
+   "y": 120.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper",
+   "x": 2017.0,
+   "y": 180.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper",
+   "x": 2018.0,
+   "y": 250.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper",
+   "x": 2019.0,
+   "y": 280.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper",
+   "x": 2020.0,
+   "y": 280.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper",
+   "x": 2023.0,
+   "y": 350.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper",
+   "x": 2025.0,
+   "y": 350.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper Pro",
+   "x": 2022.0,
+   "y": 280.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper Pro",
+   "x": 2023.0,
+   "y": 350.0,
+   "fit": null
+  },
+  {
+   "signal": "tdp_creep",
+   "kind": "cpu",
+   "group": "Threadripper Pro",
+   "x": 2025.0,
+   "y": 350.0,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2017.0,
+   "y": 1.4786153140492357,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2018.0,
+   "y": 1.308555499724338,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2019.0,
+   "y": 1.9706039682699812,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2020.0,
+   "y": 2.326906064575426,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2021.0,
+   "y": 2.5444209842000336,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2022.0,
+   "y": 2.3700363333174614,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2023.0,
+   "y": 3.0567759170496753,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2024.0,
+   "y": 2.871327465488621,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "AMD",
+   "x": 2025.0,
+   "y": 3.5317179726491914,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2017.0,
+   "y": 1.118972162929894,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2018.0,
+   "y": 1.311901396221454,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2019.0,
+   "y": 1.2975139140169176,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2020.0,
+   "y": 1.7900825759402492,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2021.0,
+   "y": 2.068954941827985,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2022.0,
+   "y": 2.45245802254191,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2023.0,
+   "y": 3.7555794227756456,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2024.0,
+   "y": 3.7998027170464796,
+   "fit": null
+  },
+  {
+   "signal": "vendor_gap",
+   "kind": "cpu",
+   "group": "Intel",
+   "x": 2025.0,
+   "y": 5.1325074757986195,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2020.0,
+   "y": 62.31450517382923,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2021.0,
+   "y": 82.67545064948644,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2022.0,
+   "y": 41.702327651742586,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2023.0,
+   "y": 45.84157813306966,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2024.0,
+   "y": 39.59379638622071,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2025.0,
+   "y": 48.86555442891183,
+   "fit": null
+  },
+  {
+   "signal": "price_cohort",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2026.0,
+   "y": 60.6706039028857,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 0.0,
+   "y": 45.5127619202435,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 1.0,
+   "y": 45.5127619202435,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 2.0,
+   "y": 45.5127619202435,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 3.0,
+   "y": 39.59379638622071,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 4.0,
+   "y": 39.59379638622071,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 5.0,
+   "y": 39.59379638622071,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 6.0,
+   "y": 39.59379638622071,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 7.0,
+   "y": 39.59379638622071,
+   "fit": null
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2012.0,
+   "y": 0.6301406468286159,
+   "fit": 0.6003652525563125
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2013.0,
+   "y": 0.7994870839288107,
+   "fit": 0.7459871809190629
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2014.0,
+   "y": 0.8634056472022855,
+   "fit": 0.9269305172576972
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2015.0,
+   "y": 1.0361192453756896,
+   "fit": 1.1517626653651485
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2017.0,
+   "y": 1.793548997708561,
+   "fit": 1.7782574168295704
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2018.0,
+   "y": 1.9114417140884772,
+   "fit": 2.209583635429673
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2019.0,
+   "y": 3.8018597069780045,
+   "fit": 2.745530425321323
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2020.0,
+   "y": 4.072967071789271,
+   "fit": 3.411474087469546
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2021.0,
+   "y": 2.889515540597211,
+   "fit": 4.238946085659728
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2022.0,
+   "y": 4.608539488444028,
+   "fit": 5.267126015446058
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2023.0,
+   "y": 8.553466247312143,
+   "fit": 6.544696701012878
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2024.0,
+   "y": 4.929031093803275,
+   "fit": 6.150137453822621
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2025.0,
+   "y": 7.558323299768812,
+   "fit": 5.779364946745377
+  },
+  {
+   "signal": "turn_frontier",
+   "kind": "cpu",
+   "group": "best points per rated watt",
+   "x": 2026.0,
+   "y": 4.888995170722077,
+   "fit": 5.430945151788234
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2012.0,
+   "y": 77.00000000000001,
+   "fit": 80.15516740240726
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2013.0,
+   "y": 83.99999999999997,
+   "fit": 81.37875931457499
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2014.0,
+   "y": 85.99999999999997,
+   "fit": 82.62102971268496
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2015.0,
+   "y": 78.0,
+   "fit": 83.88226372925037
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2017.0,
+   "y": 90.99999999999997,
+   "fit": 86.46278497739787
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2018.0,
+   "y": 95.0,
+   "fit": 87.78266450395057
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2019.0,
+   "y": 64.99999999999999,
+   "fit": 89.12269237484666
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2020.0,
+   "y": 104.99999999999997,
+   "fit": 93.17993503556951
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2021.0,
+   "y": 125.00000000000004,
+   "fit": 97.4218805768867
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2022.0,
+   "y": 104.99999999999997,
+   "fit": 101.85693745669788
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2023.0,
+   "y": 119.99999999999997,
+   "fit": 106.49389692154114
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2024.0,
+   "y": 64.99999999999999,
+   "fit": 111.34195043275449
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2025.0,
+   "y": 144.99999999999997,
+   "fit": 116.41070788594963
+  },
+  {
+   "signal": "turn_power",
+   "kind": "cpu",
+   "group": "median rated power",
+   "x": 2026.0,
+   "y": 125.00000000000004,
+   "fit": 121.71021665991348
+  }
+ ]
+}

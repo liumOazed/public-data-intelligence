@@ -22,6 +22,12 @@ missing, miss_meta = site.load("tech-value", "efficiency_missing")
 sp_proc, sp_meta = site.load("tech-value", "specpower_processors")
 sp_trend, _ = site.load("tech-value", "specpower_trend")
 mlp, mlp_meta = site.load("tech-value", "mlperf_power")
+res, res_meta = site.load("tech-value", "efficiency_residuals")
+power_est, power_meta = site.load("tech-value", "efficiency_power_estimates")
+ml_val, _ = site.load("tech-value", "efficiency_model_validation")
+tier_sum, tier_meta = site.load("tech-value", "efficiency_tiers")
+signals, sig_meta = site.load("tech-value", "efficiency_signals")
+sig_series, _ = site.load("tech-value", "efficiency_signal_series")
 summary = meta.get("summary") or {"kinds": {}, "electricity": {"usd_per_kwh": 0.17, "fallback": True},
                                    "tco_defaults": {"hours_per_day": 4, "load_share": 0.3, "years": 3},
                                    "job_samples": 10000}  # fmt: skip
@@ -46,6 +52,35 @@ data = {
         "n_results": sp_meta.get("n_results") or 0,
         "doubling_years": sp_meta.get("doubling_years"),
     },
+}
+
+
+def records(df: pd.DataFrame, cols: list[str] | None = None) -> list[dict]:
+    if df.empty:
+        return []
+    part = df[[c for c in (cols or df.columns) if c in df.columns]]
+    return part.astype(object).where(part.notna(), None).to_dict("records")
+
+
+RES_COLS = ["kind", "name", "vendor", "year", "arch", "node", "n_runs", "watts", "score_per_watt",
+            "expected_ppw", "expected_lo", "expected_hi", "residual_pct", "gbdt_residual_pct",
+            "verdict", "tier", "tier_prob", "borderline"]  # fmt: skip
+POWER_COLS = ["kind", "name", "year", "arch", "node", "status", "model", "estimate_w",
+              "estimate_lo_w", "estimate_hi_w", "rated_w", "gap_pct", "est_score_per_watt"]  # fmt: skip
+if len(power_est):
+    checked = power_est[power_est["status"] == "Held-out check"]
+    odd = checked.assign(a=checked["gap_pct"].abs()).sort_values("a", ascending=False)
+    odd = odd.groupby("kind").head(6)
+    power_rows = pd.concat([power_est[power_est["status"] == "Estimated"], odd])
+else:
+    power_rows = power_est
+data["ml"] = {
+    "residuals": records(res, RES_COLS),
+    "power": records(power_rows, POWER_COLS),
+    "validation": records(ml_val),
+    "tiers": records(tier_sum.drop(columns=["bic_by_k"], errors="ignore")),
+    "signals": records(signals),
+    "series": records(sig_series),
 }
 data_json = json.dumps(data).replace("</", "<\\/")
 js = Path("efficiency.js").read_text()
@@ -115,6 +150,15 @@ def mlperf_html(df: pd.DataFrame, meta: dict) -> str:
         + escape(meta.get("legend", "")) + "</p>"
     )
     return out
+
+
+def badge(finding: dict | None) -> str:
+    if not finding:
+        return ""
+    names = {"observation": "Observation", "explanation": "Explanation", "prediction": "Prediction"}
+    return (f'<p class="vx-fine"><a class="finding finding-{finding["label"]}" '
+            f'href="../methodology.html#finding-labels">{names[finding["label"]]}</a> '
+            f"{escape(finding['reason'])}</p>")  # fmt: skip
 
 
 def html(fragment: str) -> None:
@@ -222,6 +266,46 @@ html(f"""<nav class="tv-nav" aria-label="Tech Value pages">
   </section>
 </div>
 
+<section class="ef-measured ef-ml" aria-label="Models and trend signals">
+  <div class="ef-measured-head">
+    <span class="ef-badge ef-badge-ml">Models</span>
+    <h2>Where the wind is blowing</h2>
+    <p class="vx-muted">Rates of change, not forecasts. Each signal compares the recent pace with the pace before it and says which way it points. Every figure here rests on rated power and Blender scores, so read it as the direction of the label, not of real draw.</p>
+  </div>
+  <div id="ef-wind" class="ef-wind"></div>
+
+  <section class="vx-card">
+    <h2>Beats or misses its specs</h2>
+    <p class="vx-muted">Points per rated watt that each <span class="ef-kind">GPU</span>'s cores, clocks, memory or cache, process node, architecture, rated power and launch year predict, from models refitted without it. A chip beats its specs when it lands above the 80% range and the second model agrees.</p>
+    {badge(res_meta.get("finding"))}
+    <div id="ef-res-chart" class="vd-chart" role="img" aria-label="Measured against predicted points per rated watt"><div class="vd-state">Loading chart…</div></div>
+    <div id="ef-res-legend" class="vx-legend"></div>
+    <p class="vx-fine" id="ef-res-val"></p>
+    <h3 class="ef-h3">Beats its specs</h3><div id="ef-res-beats" class="ef-table-wrap"></div>
+    <h3 class="ef-h3">Misses its specs</h3><div id="ef-res-misses" class="ef-table-wrap"></div>
+  </section>
+
+  <section class="vx-card">
+    <h2>Efficiency tiers</h2>
+    <p class="vx-muted">Today's line-up (launched in the last three launch years, or on sale now) grouped by a Gaussian mixture on points per rated watt. The data picks the number of tiers; nobody draws the brackets.</p>
+    {badge(tier_meta.get("finding"))}
+    <p class="vx-strip" id="ef-tier-note"></p>
+    <div id="ef-tier-chart" class="vd-chart" role="img" aria-label="Each chip's points per rated watt, coloured by tier"><div class="vd-state">Loading chart…</div></div>
+    <div id="ef-tier-table" class="ef-table-wrap"></div>
+  </section>
+
+  <section class="vx-card">
+    <h2>Filling power gaps</h2>
+    <p class="vx-muted">The power figure a chip's specifications predict, with an 80% range, for benchmarked chips that have no figure of their own. Today the model can only learn rated power, so the estimate is an estimated rating. When measured desktop power is collected, the same model learns real draw instead.</p>
+    {badge(power_meta.get("finding"))}
+    <p class="vx-fine" id="ef-gap-val"></p>
+    <div id="ef-gap-table" class="ef-table-wrap"></div>
+    <h3 class="ef-h3">Rated furthest from what the specs predict</h3>
+    <div id="ef-gap-odd" class="ef-table-wrap"></div>
+    <p class="vx-fine">A large gap usually means a factory-overclocked or power-limited edition, or a base-power rating that sits far below real draw.</p>
+  </section>
+</section>
+
 <section class="ef-measured" data-ef-for="cpu" aria-label="Measured server power">
   <div class="ef-measured-head">
     <span class="ef-badge">Measured</span>
@@ -290,6 +374,10 @@ print()
 print(site.source_note(sp_meta))
 print()
 print(site.source_note(mlp_meta))
+print()
+print(site.source_note(res_meta))
+print()
+print(site.source_note(sig_meta))
 ```
 
 </details>

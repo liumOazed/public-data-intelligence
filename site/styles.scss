@@ -952,7 +952,7 @@ body.quarto-dark .vx-seg button[aria-pressed="true"] { background: #2b6b55; colo
 @media (max-width: 720px) {
   .ef-calc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ef-table { font-size: 0.85rem; }
-  .ef-table th:nth-child(3), .ef-table td:nth-child(3), .ef-table th:nth-child(7), .ef-table td:nth-child(7) { display: none; }
+  #ef-table .ef-table th:nth-child(3), #ef-table .ef-table td:nth-child(3), #ef-table .ef-table th:nth-child(7), #ef-table .ef-table td:nth-child(7) { display: none; }
 }
 .ef-measured { margin: 28px 0 16px; padding-top: 18px; border-top: 2px solid var(--vx-card-line); }
 .ef-measured[hidden] { display: none; }
@@ -964,3 +964,15 @@ body.quarto-dark .vx-seg button[aria-pressed="true"] { background: #2b6b55; colo
 .ef-small { font-size: 1.25rem; }
 .ef-legal { margin-top: 10px; }
 @media (max-width: 720px) { .ef-sp-hero { grid-template-columns: minmax(0, 1fr); } .ef-sp-hero .vx-tile + .vx-tile { border-left: 0; border-top: 1px solid var(--vx-mint-line); } }
+
+.ef-badge-ml { background: #5b6bd6; }
+.ef-h3 { font-size: 1rem; font-weight: 700; margin: 14px 0 6px; }
+.ef-wind { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 16px; }
+.ef-sig { background: var(--vx-card); border: 1px solid var(--vx-card-line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ef-sig header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ef-sig h3 { font-size: 0.95rem; font-weight: 700; margin: 0; }
+.ef-sig p { margin: 0; font-size: 0.9rem; }
+.ef-sig .vx-fine { margin-top: auto; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ef-dir { font-size: 0.75rem; font-weight: 700; white-space: nowrap; padding: 1px 8px; border-radius: 999px; background: var(--vx-mint); color: var(--tv-ink); }
+.ef-sig-chart { width: 100%; min-height: 180px; }
+@media (max-width: 720px) { .ef-wind { grid-template-columns: minmax(0, 1fr); } }

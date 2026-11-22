@@ -50,6 +50,7 @@
     String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const fmtUsd = (x) => "$" + Math.round(x).toLocaleString("en-US");
   const fmt1 = (x) => x.toLocaleString("en-US", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+  const fmtE = (x) => x.toLocaleString("en-US", { maximumFractionDigits: x < 10 ? 2 : 1, minimumFractionDigits: x < 10 ? 2 : 1 });
   const fmtInt = (x) => Math.round(x).toLocaleString("en-US");
   const fmtPct = (x) => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(0) + "%";
   const VENDOR = { amd: "AMD", intel: "Intel", nvidia: "NVIDIA" };
@@ -408,6 +409,233 @@
         : '<div class="vd-state">No results for this maker.</div>';
     }
 
+
+    // ---------------------------------------------------------------- models and signals
+    const ML = D.ml || { residuals: [], power: [], validation: [], tiers: [], signals: [], series: [] };
+    const ARROW = {
+      slowing: "↘", "speeding up": "↗", steady: "→", climbing: "↗", falling: "↘", flat: "→",
+      widening: "↔", closing: "→←", "no clear change": "→", "bends up": "⤴", "bends down": "⤵",
+      "no bend": "→", collecting: "…",
+    };
+    const ORDER = ["frontier_pace", "turn_frontier", "specpower_pace", "turn_specpower", "tdp_creep",
+      "turn_power", "vendor_gap", "price_cohort", "price_daily"];
+
+    function seriesFor(signal) {
+      return ML.series.filter((r) => r.signal === signal && r.kind === S.kind);
+    }
+
+    function miniChart(id, sig, c) {
+      const pts = seriesFor(sig.signal);
+      if (!pts.length || !hasPlotly) return false;
+      const groups = [...new Set(pts.map((r) => r.group))];
+      const palette = [c.vendor("intel"), c.vendor("amd"), c.vendor("nvidia"), "#8a63d2", "#c9a227",
+        "#d1495b", "#00798c", "#edae49", "#66a182", "#2e4057"];
+      const logY = ["frontier_pace", "specpower_pace", "tdp_creep", "turn_frontier", "turn_specpower",
+        "turn_power", "price_cohort", "price_daily"].includes(sig.signal);
+      const traces = groups.map((g, i) => {
+        const p = pts.filter((r) => r.group === g).sort((a, b) => a.x - b.x);
+        const vendorColor = { NVIDIA: c.vendor("nvidia"), AMD: c.vendor("amd"), Intel: c.vendor("intel") }[g];
+        return {
+          type: sig.signal === "price_cohort" ? "bar" : "scatter",
+          mode: "lines+markers",
+          name: g,
+          x: p.map((r) => r.x),
+          y: p.map((r) => r.y),
+          marker: { size: 5, color: vendorColor || palette[i % palette.length] },
+          line: { width: 1.6, color: vendorColor || palette[i % palette.length] },
+          hovertemplate: "<b>" + esc(g) + "</b><br>%{x}: %{y:,.3~g}<extra></extra>",
+        };
+      });
+      const fit = pts.filter((r) => r.fit !== null).sort((a, b) => a.x - b.x);
+      if (fit.length) {
+        traces.push({
+          type: "scatter", mode: "lines", name: sig.signal.startsWith("turn") ? "Bent line" : "Running best",
+          x: fit.map((r) => r.x), y: fit.map((r) => r.fit), hoverinfo: "skip",
+          line: { color: c.muted, width: 1.4, dash: "dot" },
+        });
+      }
+      Plotly.react(
+        clear(id),
+        traces,
+        layout(c, {
+          height: 180,
+          margin: { t: 6, r: 8, b: 30, l: 44 },
+          showlegend: groups.length > 1 && groups.length <= 4,
+          legend: { orientation: "h", y: -0.25, font: { size: 10 } },
+          xaxis: axis(c, "", { tickfont: { color: c.muted, size: 10 }, title: undefined,
+            dtick: sig.signal === "price_daily" ? undefined : 2 }),
+          yaxis: axis(c, "", { tickfont: { color: c.muted, size: 10 }, title: undefined,
+            type: logY ? "log" : "linear", tickformat: "~g", nticks: 5 }),
+        }),
+        CONFIG
+      );
+      return true;
+    }
+
+    function renderWind(c) {
+      const list = ML.signals
+        .filter((r) => r.kind === S.kind)
+        .sort((a, b) => ORDER.indexOf(a.signal) - ORDER.indexOf(b.signal));
+      const box = $("ef-wind");
+      if (!list.length) {
+        box.innerHTML = '<div class="vd-state">No signals yet: too few launches with a score and a rated power figure.</div>';
+        return;
+      }
+      box.innerHTML = list
+        .map(
+          (r, i) =>
+            `<article class="ef-sig ef-dir-${esc(r.direction).replace(/\s+/g, "-")}">` +
+            `<header><h3>${esc(r.title)}</h3><span class="ef-dir">${ARROW[r.direction] || ""} ${esc(r.direction)}</span></header>` +
+            `<p>${esc(r.sentence)}</p>` +
+            `<div id="ef-sig-${i}" class="ef-sig-chart"></div>` +
+            `<p class="vx-fine" title="${esc(r.method)}">${esc(r.method)}</p></article>`
+        )
+        .join("");
+      list.forEach((r, i) => {
+        if (!miniChart("ef-sig-" + i, r, c)) $("ef-sig-" + i).remove();
+      });
+    }
+
+    function valLine(target, what) {
+      const v = ML.validation.filter((r) => r.kind === S.kind && r.target === target);
+      const by = Object.fromEntries(v.map((r) => [r.model, r]));
+      if (!by.Linear) return "";
+      const base = by["Launch year only"];
+      return (
+        "Typical held-out error: linear " + by.Linear.median_abs_pct_error.toFixed(1) + "%, gradient boosting " +
+        by["Gradient boosting"].median_abs_pct_error.toFixed(1) + "%, against " + base.median_abs_pct_error.toFixed(1) +
+        "% for launch year alone, over " + by.Linear.n_chips + " " + unit() + "s. The 80% range held the measured value for " +
+        Math.round(by.Linear.range_coverage_pct) + "% of them (" + what + ")."
+      );
+    }
+
+    const VERDICT_SLOT = { "Beats its specs": "nvidia", "Misses its specs": "amd", "In line with its specs": null };
+
+    function renderResiduals(c) {
+      const part = ML.residuals.filter((r) => r.kind === S.kind);
+      $("ef-res-val").textContent = valLine("points per rated watt", "measured efficiency");
+      if (!part.length) {
+        empty("ef-res-chart", "Too few " + unit() + "s to fit the model.");
+        $("ef-res-beats").innerHTML = $("ef-res-misses").innerHTML = "";
+        return;
+      }
+      if (hasPlotly) {
+        const traces = Object.keys(VERDICT_SLOT).map((v) => {
+          const p = part.filter((r) => r.verdict === v);
+          const col = VERDICT_SLOT[v] ? c.vendor(VERDICT_SLOT[v]) : c.muted;
+          return {
+            type: "scatter", mode: "markers", name: v,
+            x: p.map((r) => r.expected_ppw), y: p.map((r) => r.score_per_watt),
+            text: p.map((r) =>
+              `<b>${esc(r.name)}</b> (${r.year}, ${esc(r.arch)}, ${esc(r.node)})<br>Measured ${fmtE(r.score_per_watt)} · predicted ${fmtE(
+                r.expected_ppw)} (${fmtE(r.expected_lo)}–${fmtE(r.expected_hi)})<br>${fmtPct(r.residual_pct)} linear · ${fmtPct(
+                r.gbdt_residual_pct)} boosting`),
+            hovertemplate: "%{text}<extra></extra>",
+            marker: { size: v === "In line with its specs" ? 6 : 9, color: v === "In line with its specs" ? "rgba(0,0,0,0)" : col,
+              line: { width: 1.4, color: col } },
+          };
+        });
+        const all = part.flatMap((r) => [r.expected_ppw, r.score_per_watt]);
+        const lo = Math.min(...all) * 0.9, hi = Math.max(...all) * 1.1;
+        traces.push({ type: "scatter", mode: "lines", x: [lo, hi], y: [lo, hi], hoverinfo: "skip",
+          line: { color: c.muted, width: 1, dash: "dot" } });
+        const ticks = [0.2, 0.5, 1, 2, 5, 10, 20, 50];
+        Plotly.react(
+          clear("ef-res-chart"),
+          traces,
+          layout(c, {
+            height: 380,
+            xaxis: axis(c, "Predicted points per rated watt (log)", { type: "log", tickvals: ticks }),
+            yaxis: axis(c, "Measured points per rated watt (log)", { type: "log", tickvals: ticks }),
+          }),
+          CONFIG
+        );
+        $("ef-res-legend").innerHTML = Object.keys(VERDICT_SLOT).map((v) =>
+          `<span><span class="vx-dot${VERDICT_SLOT[v] ? "" : " vx-hollow"}" style="${VERDICT_SLOT[v]
+            ? "background:" + c.vendor(VERDICT_SLOT[v]) : "border-color:" + c.muted}"></span>${v}</span>`
+        ).join("") + '<span><span class="ef-dash"></span>Measured = predicted</span>';
+      }
+      const table = (list) =>
+        list.length
+          ? `<table class="ef-table"><thead><tr><th>Model</th><th>Node</th><th class="num">Measured</th><th class="num">Predicted (80% range)</th><th class="num">Gap</th></tr></thead><tbody>` +
+            list.slice(0, 10).map((r) =>
+              `<tr><td>${esc(r.name)}<br><span class="vx-fine">${r.year} · ${esc(r.arch)} · ${r.n_runs} runs</span></td><td>${esc(r.node)}</td>` +
+              `<td class="num">${fmtE(r.score_per_watt)}</td><td class="num">${fmtE(r.expected_ppw)} <span class="vx-fine">(${fmtE(
+                r.expected_lo)}–${fmtE(r.expected_hi)})</span></td><td class="num"><b>${fmtPct(r.residual_pct)}</b></td></tr>`
+            ).join("") + "</tbody></table>"
+          : '<div class="vd-state">None.</div>';
+      $("ef-res-beats").innerHTML = table(part.filter((r) => r.verdict === "Beats its specs"));
+      $("ef-res-misses").innerHTML = table(
+        part.filter((r) => r.verdict === "Misses its specs").sort((a, b) => a.residual_pct - b.residual_pct)
+      );
+    }
+
+    function renderTiers(c) {
+      const summ = ML.tiers.filter((r) => r.kind === S.kind).sort((a, b) => a.tier - b.tier);
+      const chips = ML.residuals.filter((r) => r.kind === S.kind && r.tier !== null);
+      if (!summ.length) {
+        $("ef-tier-note").textContent = "";
+        $("ef-tier-table").innerHTML = "";
+        return empty("ef-tier-chart", "Too few " + unit() + "s in today's line-up to look for tiers.");
+      }
+      const k = summ[0].n_tiers;
+      $("ef-tier-note").textContent =
+        k === 1
+          ? "No natural tiers: today's " + unit() + "s form one continuous band of efficiency, from " +
+            fmtE(summ[0].min_ppw) + " to " + fmtE(summ[0].max_ppw) + " points per rated watt. Any bracket would be drawn by hand."
+          : "The data supports " + k + " tiers among " + chips.length + " " + unit() + "s" +
+            (summ[0].clear ? "." : ", though other tier counts fit almost as well, so treat the boundaries as soft.") +
+            " Borderline chips sit between two tiers.";
+      if (hasPlotly && chips.length) {
+        const palette = [c.vendor("nvidia"), c.vendor("intel"), c.vendor("amd"), "#8a63d2", "#c9a227", "#d1495b"];
+        Plotly.react(
+          clear("ef-tier-chart"),
+          summ.map((t) => {
+            const p = chips.filter((r) => r.tier === t.tier);
+            return {
+              type: "scatter", mode: "markers", name: "Tier " + t.tier,
+              x: p.map((r) => r.score_per_watt), y: p.map(() => "Tier " + t.tier),
+              text: p.map((r) => `<b>${esc(r.name)}</b> (${r.year})<br>${fmtE(r.score_per_watt)} points per rated watt<br>Tier ${t.tier}, ${Math.round(
+                100 * r.tier_prob)}% membership${r.borderline ? " · borderline" : ""}`),
+              hovertemplate: "%{text}<extra></extra>",
+              marker: { size: 9, color: p.map((r) => (r.borderline ? "rgba(0,0,0,0)" : palette[(t.tier - 1) % palette.length])),
+                line: { width: 1.5, color: palette[(t.tier - 1) % palette.length] } },
+            };
+          }),
+          layout(c, {
+            height: 90 + 46 * summ.length,
+            margin: { t: 8, r: 16, b: 44, l: 64 },
+            xaxis: axis(c, "Points per rated watt (log)", { type: "log", tickvals: [0.5, 1, 2, 5, 10, 20, 50] }),
+            yaxis: axis(c, "", { autorange: "reversed", showgrid: false }),
+          }),
+          CONFIG
+        );
+      }
+      $("ef-tier-table").innerHTML =
+        `<table class="ef-table"><thead><tr><th>Tier</th><th class="num">Chips</th><th class="num">Points per rated watt</th><th class="num">Median launch</th><th>Most efficient</th></tr></thead><tbody>` +
+        summ.map((t) => `<tr><td>Tier ${t.tier}</td><td class="num">${t.n}</td><td class="num">${fmtE(t.min_ppw)}–${fmtE(t.max_ppw)}</td>` +
+          `<td class="num">${Math.round(t.median_year)}</td><td>${esc(t.examples)}</td></tr>`).join("") + "</tbody></table>";
+    }
+
+    function renderGaps() {
+      const part = ML.power.filter((r) => r.kind === S.kind);
+      $("ef-gap-val").textContent = valLine("rated power", "rated power");
+      const est = part.filter((r) => r.status === "Estimated");
+      $("ef-gap-table").innerHTML = est.length
+        ? `<table class="ef-table"><thead><tr><th>Model</th><th>Node</th><th class="num">Estimated W (80% range)</th><th class="num">Points per estimated W</th></tr></thead><tbody>` +
+          est.map((r) => `<tr><td>${esc(r.name)}<br><span class="vx-fine">${r.year} · ${esc(r.arch)} · ${esc(r.model)} model</span></td><td>${esc(r.node)}</td>` +
+            `<td class="num"><b>${fmtInt(r.estimate_w)}</b> <span class="vx-fine">(${fmtInt(r.estimate_lo_w)}–${fmtInt(r.estimate_hi_w)})</span></td>` +
+            `<td class="num">${fmt1(r.est_score_per_watt)}</td></tr>`).join("") + "</tbody></table>"
+        : '<div class="vd-state">Every benchmarked ' + unit() + " with specifications already has a power figure.</div>";
+      const odd = part.filter((r) => r.status === "Held-out check");
+      $("ef-gap-odd").innerHTML = odd.length
+        ? `<table class="ef-table"><thead><tr><th>Model</th><th class="num">Rated W</th><th class="num">Specs predict (80% range)</th><th class="num">Rated vs predicted</th></tr></thead><tbody>` +
+          odd.map((r) => `<tr><td>${esc(r.name)}<br><span class="vx-fine">${r.year} · ${esc(r.arch)}</span></td><td class="num">${fmtInt(r.rated_w)}</td>` +
+            `<td class="num">${fmtInt(r.estimate_w)} <span class="vx-fine">(${fmtInt(r.estimate_lo_w)}–${fmtInt(r.estimate_hi_w)})</span></td>` +
+            `<td class="num"><b>${fmtPct(r.gap_pct)}</b></td></tr>`).join("") + "</tbody></table>"
+        : "";
+    }
+
     function render() {
       const c = colors();
       document.querySelectorAll("[data-ef-for]").forEach((s) => (s.hidden = s.dataset.efFor !== S.kind));
@@ -418,6 +646,10 @@
       renderTable(part);
       renderTco(part, c);
       renderTrend(c);
+      renderWind(c);
+      renderResiduals(c);
+      renderTiers(c);
+      renderGaps();
       if (S.kind === "cpu") renderSpecPower(c);
     }
 
