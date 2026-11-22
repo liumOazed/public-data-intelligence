@@ -1,0 +1,70 @@
+{
+ "meta": {
+  "module": "tech-value",
+  "table": "efficiency_missing",
+  "description": "Benchmarked models left off the efficiency page, with the reason.",
+  "generated_at": "2026-11-22T13:44:42+00:00",
+  "rows": 4,
+  "columns": [
+   "kind",
+   "model_key",
+   "name",
+   "reason"
+  ],
+  "sources": [
+   {
+    "id": "blender_opendata",
+    "name": "Blender Open Data benchmark snapshots",
+    "url": "https://opendata.blender.org/",
+    "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
+    "frequency": "weekly collection; snapshots are regenerated daily",
+    "typical_lag": "about one day",
+    "retrieved_at": "2026-11-16T13:58:49+00:00"
+   },
+   {
+    "id": "fred",
+    "name": "FRED, Federal Reserve Economic Data",
+    "url": "https://fred.stlouisfed.org/",
+    "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
+    "frequency": "weekly collection; most series are monthly",
+    "typical_lag": "two to eight weeks after the month ends, depending on the series",
+    "retrieved_at": null
+   }
+  ],
+  "preliminary": false,
+  "limitations": [
+   "Every power figure is rated, not measured: CPU TDP (Intel's processor base power) and GPU reference board power, entered by hand from manufacturers' specifications (pdi/tech_value/cpu_specs.py, pdi/tech_value/gpu_specs.py). Real draw under a Blender render can be 30% or more away from the label, and Intel desktop chips boost well above their base power.",
+   "Performance is the Blender Open Data median score (samples per minute) in one Blender version. CPU and GPU scores use different backends and are never compared with each other.",
+   "Laptop chips and Apple silicon are left out: their power limit is set by the laptop maker or not published.",
+   "The cost calculator charges electricity only for the hours under load, because no idle power figure exists yet. The default rate is the BLS US city average price per kWh."
+  ],
+  "blender_version": "4.5",
+  "status": null
+ },
+ "data": [
+  {
+   "kind": "gpu",
+   "model_key": "nvidia rtx pro 6000 blackwell",
+   "name": "NVIDIA RTX Pro 6000 Blackwell",
+   "reason": "Sold at 600 W and 300 W (Max-Q) under one name; Blender cannot tell them apart"
+  },
+  {
+   "kind": "gpu",
+   "model_key": "nvidia rtx 2050",
+   "name": "NVIDIA RTX 2050",
+   "reason": "Laptop only: its power limit is set by each laptop maker"
+  },
+  {
+   "kind": "gpu",
+   "model_key": "nvidia gtx 1650 ti",
+   "name": "NVIDIA GTX 1650 Ti",
+   "reason": "Laptop only: its power limit is set by each laptop maker"
+  },
+  {
+   "kind": "gpu",
+   "model_key": "amd rx 7650 gre",
+   "name": "AMD RX 7650 GRE",
+   "reason": "No reference board power found on AMD's product pages yet"
+  }
+ ]
+}

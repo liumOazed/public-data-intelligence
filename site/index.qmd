@@ -76,6 +76,7 @@ print("```{=html}\n" + cards + "\n```")
         <a href="tech-value/index.html">Value ranking</a>
         <a href="tech-value/fair-price.html">Fair price</a>
         <a href="tech-value/residuals.html">Over &amp; under performers</a>
+        <a href="tech-value/efficiency.html">Performance per watt</a>
       </nav>
     </article>
 

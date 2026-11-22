@@ -87,6 +87,7 @@ html(f"""<nav class="tv-nav" aria-label="Tech Value pages">
 <a href="index.html" aria-current="page">Value ranking</a>
 <a href="fair-price.html">Fair price</a>
 <a href="residuals.html">Over &amp; under performers</a>
+<a href="efficiency.html">Performance per watt</a>
 </nav>
 <div id="vd-root" class="vx">
 <script type="application/json" id="vd-data">{data}</script>

@@ -319,6 +319,7 @@ print(f"""
 <a href="index.html">Value ranking</a>
 <a href="fair-price.html" aria-current="page">Fair price</a>
 <a href="residuals.html">Over &amp; under performers</a>
+<a href="efficiency.html">Performance per watt</a>
 </nav>
 <header class="tv-hero">
 <div class="tv-kicker">Tech Value · Fair price</div>

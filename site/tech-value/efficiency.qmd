@@ -1,0 +1,185 @@
+---
+title: "Tech Value: Performance per watt"
+page-layout: full
+toc: false
+body-classes: tv-page vx-page
+---
+
+```{python}
+#| output: asis
+import json
+from html import escape
+from pathlib import Path
+
+import pandas as pd
+import plotly.offline
+
+from pdi import site
+
+eff, meta = site.load("tech-value", "efficiency")
+trend, _ = site.load("tech-value", "efficiency_trend")
+missing, miss_meta = site.load("tech-value", "efficiency_missing")
+summary = meta.get("summary") or {"kinds": {}, "electricity": {"usd_per_kwh": 0.17, "fallback": True},
+                                   "tco_defaults": {"hours_per_day": 4, "load_share": 0.3, "years": 3},
+                                   "job_samples": 10000}  # fmt: skip
+version = meta.get("blender_version") or "?"
+
+COLS = ["kind", "model_key", "name", "vendor", "year", "score", "watts", "power_label",
+        "power_kind", "score_per_watt", "energy_kj_per_job", "on_frontier", "price_usd"]  # fmt: skip
+models = (
+    eff[COLS].astype(object).where(eff[COLS].notna(), None).to_dict("records") if len(eff) else []
+)
+for m in models:
+    m["year"] = int(m["year"])
+data = {
+    "models": models,
+    "trend": trend.to_dict("records") if len(trend) else [],
+    "summary": summary,
+}
+data_json = json.dumps(data).replace("</", "<\\/")
+js = Path("efficiency.js").read_text()
+plotly_src = f"https://cdn.plot.ly/plotly-{plotly.offline.get_plotlyjs_version()}.min.js"
+rate = summary["electricity"]["usd_per_kwh"]
+
+
+def html(fragment: str) -> None:
+    print("\n```{=html}\n" + fragment + "\n```\n")
+
+
+html(f"""<nav class="tv-nav" aria-label="Tech Value pages">
+<a href="index.html">Value ranking</a>
+<a href="fair-price.html">Fair price</a>
+<a href="residuals.html">Over &amp; under performers</a>
+<a href="efficiency.html" aria-current="page">Performance per watt</a>
+</nav>
+<div id="ef-root" class="vx">
+<script type="application/json" id="ef-data">{data_json}</script>
+
+<header class="vx-head">
+  <div class="vx-head-text">
+    <h1 id="ef-title">Graphics card efficiency</h1>
+    <p>Blender rendering performance for each rated watt.</p>
+  </div>
+  <div class="vx-head-side">
+    <div class="vx-toggle" role="group" aria-label="Part category">
+      <button type="button" data-ef-kind="gpu" aria-pressed="true">GPU</button>
+      <button type="button" data-ef-kind="cpu" aria-pressed="false">CPU</button>
+    </div>
+    <span class="vx-checked">Blender {escape(str(version))} · power rated, not measured</span>
+  </div>
+</header>
+
+<section class="vx-hero" aria-label="Efficiency summary">
+  <div class="vx-best" role="group">
+    <span class="vx-best-label">Most points per rated watt</span>
+    <span class="vx-best-name" id="ef-best-name"></span>
+    <span class="vx-best-meta" id="ef-best-meta"></span>
+  </div>
+  <div class="vx-tile">
+    <span class="vx-tile-label">Efficiency gain</span>
+    <span class="vx-tile-value" id="ef-trend"></span>
+    <span class="vx-tile-note" id="ef-trend-note"></span>
+  </div>
+  <div class="vx-tile">
+    <span class="vx-tile-label">Coverage</span>
+    <span class="vx-tile-value" id="ef-cover"></span>
+    <span class="vx-tile-note" id="ef-cover-note"></span>
+  </div>
+</section>
+
+<p class="ef-rated"><b>Every watt on this page is rated.</b> CPU figures are TDP (Intel: processor base power) and GPU figures are reference board power, both from manufacturers' specifications. Real draw during a render can differ by 30% or more, and Intel desktop chips boost far above their base power, which flatters Intel's 65 W parts. Measured power (SPECpower for server CPUs, MLPerf for AI inference) is coming as separate panels.</p>
+
+<section class="vx-card">
+  <div class="vx-card-head">
+    <h2>Performance vs rated power</h2>
+    <label class="vx-field ef-inline"><span class="visually-hidden">Maker</span><select id="ef-vendor"></select></label>
+  </div>
+  <div id="ef-scatter" class="vd-chart" role="img" aria-label="Scatter of Blender score against rated power"><div class="vd-state">Loading chart…</div></div>
+  <div id="ef-legend" class="vx-legend"></div>
+  <p class="vx-muted">Hollow dots are rated power. Points above and to the left of another chip do more work on a smaller label.</p>
+</section>
+
+<section class="vx-card">
+  <div class="vx-card-head">
+    <h2>Efficiency ranking</h2>
+    <div class="vx-switches">
+      <div class="vx-seg" role="group" aria-label="Metric">
+        <button type="button" data-ef-metric="ppw" aria-pressed="true">Points per watt</button><button type="button" data-ef-metric="edp" aria-pressed="false">Energy-delay</button>
+      </div>
+      <label class="ef-alpha" id="ef-alpha-wrap" hidden>Weight on speed <input id="ef-alpha" type="range" min="1" max="2" step="0.1" value="1"> <span id="ef-alpha-val">1.0</span></label>
+      <select id="ef-top" class="vx-mini-select" aria-label="How many to show">
+        <option value="15">Top 15</option><option value="30">Top 30</option><option value="all">All</option>
+      </select>
+    </div>
+  </div>
+  <p class="vx-muted" id="ef-metric-note"></p>
+  <div id="ef-table" class="ef-table-wrap"></div>
+  <p class="vx-fine" id="ef-count"></p>
+  <p class="vx-fine">Energy-delay multiplies the energy a render takes by its time, so a slow chip on a small label does not win just by drawing less. Weight 1 is EDP; weight 2 is ED²P, for work where waiting costs more than power.</p>
+</section>
+
+<section class="vx-card">
+  <h2>Cost of ownership</h2>
+  <p class="vx-muted">Price plus electricity for the hours under load. Idle hours are not charged, because no idle power figure exists yet.</p>
+  <div class="ef-calc">
+    <label class="vx-field"><span>Electricity (USD per kWh)</span><input id="ef-rate" type="number" min="0" step="0.01" inputmode="decimal"></label>
+    <label class="vx-field"><span>Hours used per day</span><input id="ef-hours" type="number" min="0" max="24" step="0.5" inputmode="decimal"></label>
+    <label class="vx-field"><span>Share under full load (%)</span><input id="ef-share" type="number" min="0" max="100" step="5" inputmode="numeric"></label>
+    <label class="vx-field"><span>Years</span><input id="ef-years" type="number" min="1" max="10" step="1" inputmode="numeric"></label>
+  </div>
+  <p class="vx-fine" id="ef-rate-note"></p>
+  <div id="ef-tco" class="vd-chart" role="img" aria-label="Cheapest total cost of ownership, price plus electricity"><div class="vd-state">Loading chart…</div></div>
+  <div class="vx-legend vx-legend-left"><span><span class="ef-swatch" style="background:var(--vd-s1)"></span>Price</span><span><span class="ef-swatch" style="background:var(--vd-s3)"></span>Electricity</span></div>
+  <p class="vx-strip" id="ef-tco-summary"></p>
+</section>
+
+<div class="vx-grid vx-grid-2">
+  <section class="vx-card">
+    <h2>Efficiency by launch year</h2>
+    <div id="ef-trend-chart" class="vd-chart" role="img" aria-label="Best and median points per rated watt by launch year"><div class="vd-state">Loading chart…</div></div>
+    <div class="vx-legend vx-legend-left"><span><span class="ef-swatch" style="background:var(--vd-s3)"></span>Best</span><span><span class="ef-swatch" style="background:var(--vd-s1)"></span>Median</span></div>
+  </section>
+  <section class="vx-card">
+    <h2>Rated power by launch year</h2>
+    <div id="ef-watts-chart" class="vd-chart" role="img" aria-label="Median rated power by launch year"><div class="vd-state">Loading chart…</div></div>
+    <p class="vx-muted">Is the label creeping up? Median rated power of the <span class="ef-kind">GPU</span>s launched each year that have a Blender score.</p>
+  </section>
+</div>
+</div>
+""")
+```
+
+<details class="vx-more"><summary>Benchmarked models not on this page</summary>
+
+```{python}
+#| output: asis
+if len(missing):
+    rows = "".join(
+        f"<tr><td>{escape(r['name'])}</td><td>{escape(r['kind'].upper())}</td><td>{escape(r['reason'])}</td></tr>"
+        for r in missing.to_dict("records")
+    )
+    html(f'<table class="ef-table"><thead><tr><th>Model</th><th>Kind</th><th>Why not</th></tr></thead><tbody>{rows}</tbody></table>')
+else:
+    print("Every benchmarked model has a rated power figure.")
+```
+
+</details>
+
+<details class="vx-more"><summary>Sources and limits</summary>
+
+```{python}
+#| output: asis
+print(site.source_note(meta))
+```
+
+</details>
+
+```{python}
+#| output: asis
+html(f"""
+<script>window.__efDefine = window.define; window.define = undefined;</script>
+<script src="{plotly_src}" charset="utf-8"></script>
+<script>window.define = window.__efDefine;</script>
+<script>{js}</script>
+""")
+```

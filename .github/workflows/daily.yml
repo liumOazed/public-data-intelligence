@@ -101,6 +101,13 @@ jobs:
           if-no-files-found: ignore
           retention-days: 90
 
+      - name: Collect the US electricity price (BLS through FRED)
+        # A failed download keeps the stored series; the efficiency page then uses its last month.
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: uv run python -m pdi.tech_value.electricity
+
       - name: Collect macro series (FRED, BIS, OpenDOSM, IMF, Indeed)
         env:
           # Optional. Without it the collector uses FRED's public CSV download.

@@ -19,6 +19,8 @@ from pdi.tech_value import (
     catalogue,
     config,
     cpu_specs,
+    efficiency,
+    electricity,
     fair_price,
     gwpg,
     model,
@@ -79,6 +81,19 @@ BLENDER_MODEL_LIMITS = [
     "reference specifications. Factory-overclocked cards are measured but share one spec row.",
     "Predicted scores and residuals are this site's estimates. Blender Open Data is CC0; the "
     "Blender Foundation is credited and does not endorse these estimates.",
+]
+EFFICIENCY_LIMITS = [
+    "Every power figure is rated, not measured: CPU TDP (Intel's processor base power) and GPU "
+    "reference board power, entered by hand from manufacturers' specifications "
+    "(pdi/tech_value/cpu_specs.py, pdi/tech_value/gpu_specs.py). Real draw under a Blender "
+    "render can be 30% or more away from the label, and Intel desktop chips boost well above "
+    "their base power.",
+    "Performance is the Blender Open Data median score (samples per minute) in one Blender "
+    "version. CPU and GPU scores use different backends and are never compared with each other.",
+    "Laptop chips and Apple silicon are left out: their power limit is set by the laptop maker "
+    "or not published.",
+    "The cost calculator charges electricity only for the hours under load, because no idle "
+    "power figure exists yet. The default rate is the BLS US city average price per kWh.",
 ]
 FAIR_LIMITS = [
     "A fair price here means the price predicted from Blender rendering score alone. A part "
@@ -356,6 +371,53 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
         retrieved_at=got,
         limitations=BLENDER_LIMITS,
         extra=extra,
+    )
+    export_efficiency(bench, table, version, got)
+
+
+def export_efficiency(
+    bench: pd.DataFrame, table: pd.DataFrame, version: str | None, got: dict
+) -> None:
+    ranked, missing = efficiency.build(bench, table)
+    elec = electricity.load()
+    rate = electricity.latest_rate(elec)
+    sources = ["blender_opendata", "fred"]
+    retrieved = {**got, "fred": rate["retrieved_at"] if rate else None}
+    status = None if len(ranked) else "Blender Open Data has not been collected yet."
+    extra = {
+        "blender_version": version,
+        "status": status,
+        "summary": efficiency.summary(ranked, rate),
+        "finding": findings.observation(
+            "Measured Blender score divided by the manufacturer's rated power. No model is "
+            "involved, and the power figure is a label, not a measurement."
+        ),
+    }
+    common = dict(sources=sources, retrieved_at=retrieved, limitations=EFFICIENCY_LIMITS)
+    write_table(
+        M,
+        "efficiency",
+        ranked,
+        description="Blender score per rated watt, energy and EDP for a fixed render job, per "
+        "model with both a score and a rated power figure.",
+        extra=extra,
+        **common,
+    )
+    write_table(
+        M,
+        "efficiency_trend",
+        efficiency.year_trend(ranked),
+        description="Median and best Blender score per rated watt by launch year.",
+        extra={"blender_version": version, "status": status},
+        **common,
+    )
+    write_table(
+        M,
+        "efficiency_missing",
+        missing,
+        description="Benchmarked models left off the efficiency page, with the reason.",
+        extra={"blender_version": version, "status": status},
+        **common,
     )
 
 

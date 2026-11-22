@@ -29,6 +29,8 @@ website:
             href: tech-value/fair-price.qmd
           - text: "Over & under performers"
             href: tech-value/residuals.qmd
+          - text: "Performance per watt"
+            href: tech-value/efficiency.qmd
           - text: "Model and leaderboard"
             href: tech-value/model.qmd
           - text: "---"
