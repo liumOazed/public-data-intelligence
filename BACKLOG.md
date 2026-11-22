@@ -15,7 +15,15 @@ built, and are looked at again when the current module meets its exit criterion.
 - Ask the Blender Foundation whether the weekly snapshot download is fine, now that
   opendata.blender.org's robots.txt disallows /snapshots/.
 - Ask Primate Labs (Geekbench) and PassMark whether derived, attributed figures may be published.
-- Add power (TDP) to the specification model. The SPEC results dump does not carry it.
+- Add power (TDP) to the SPEC specification model. The SPEC results dump does not carry it.
+  (The efficiency page now has rated power for Blender CPUs and GPUs.)
+- Check the hand-entered GPU board power table (pdi/tech_value/gpu_specs.py) against a second
+  source, and enter the RX 7650 GRE once AMD lists it.
+- Efficiency page phase 2: SPECpower (server CPUs, only results that name the CPU) and MLPerf
+  Inference Power, each after its terms are read and a registry entry is added.
+- Efficiency page phase 3: efficiency residuals, tiers, frontier speed, vendor gap, price of
+  efficiency and changepoints.
+- Ask TechPowerUp for permission to use measured board power (FPS per watt, idle power).
 - Look at OpenBenchmarking.org as a second consumer benchmark source, after reading its terms.
 - Rerun AutoGluon's holdout comparison with a linear model in its model list.
 

@@ -646,7 +646,7 @@ a.home-tile:hover { border-color: var(--home-green); text-decoration: none; colo
 .home-tv h3 { font-size: fluid(36, 48); font-weight: 700; line-height: 1; letter-spacing: -0.02em; margin: 1.2rem 0 1.2rem; }
 .home-tv h3 a { color: var(--tv-ink); font-weight: 700; text-decoration: none; }
 .home-tv p { font-size: 1rem; line-height: 1.5; margin: 0; }
-.home-tv-links { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 24px; }
+.home-tv-links { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding: 24px; }
 .home-tv-links a {
   display: flex;
   align-items: center;
@@ -931,4 +931,26 @@ body.quarto-dark .vx-seg button[aria-pressed="true"] { background: #2b6b55; colo
 @media (max-width: 560px) {
   .vx-tile-value { font-size: 1.3rem; }
   .vx-tile-note { font-size: 0.82rem; }
+}
+
+/* Performance per watt page (tech-value/efficiency.qmd) */
+.ef-rated { margin: 0 0 16px; padding: 10px 14px; border-left: 4px solid #e0a526; background: var(--vx-card); border-radius: 6px; font-size: 0.92rem; color: var(--tv-ink); }
+.ef-inline { flex-direction: row; align-items: center; }
+.ef-dash { display: inline-block; width: 18px; border-top: 2px dotted var(--tv-muted); }
+.ef-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+.ef-tag { font-size: 0.72rem; padding: 1px 6px; border-radius: 999px; background: var(--vx-mint); color: var(--tv-ink); font-weight: 600; white-space: nowrap; }
+.ef-alpha { display: inline-flex; align-items: center; gap: 8px; font-size: 0.875rem; margin: 0; }
+.ef-alpha input { width: 110px; accent-color: #1baf7a; }
+.ef-alpha span { font-variant-numeric: tabular-nums; min-width: 2em; }
+.ef-table-wrap { overflow-x: auto; }
+.ef-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+.ef-table th { text-align: left; font-weight: 600; color: var(--tv-muted); border-bottom: 1px solid var(--vx-card-line); padding: 6px 8px; white-space: nowrap; }
+.ef-table td { padding: 6px 8px; border-bottom: 1px solid var(--vx-card-line); }
+.ef-table td:nth-child(2) { white-space: nowrap; }
+.ef-table .num { text-align: right; }
+.ef-calc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 18px; margin: 10px 0 4px; }
+@media (max-width: 720px) {
+  .ef-calc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ef-table { font-size: 0.85rem; }
+  .ef-table th:nth-child(3), .ef-table td:nth-child(3), .ef-table th:nth-child(7), .ef-table td:nth-child(7) { display: none; }
 }
