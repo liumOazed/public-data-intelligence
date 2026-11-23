@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_power_estimates",
   "description": "Power figure each chip's specifications predict, from models refitted without it, with an 80% range. 'Estimated' rows have no figure of their own; 'Held-out check' rows show how close the estimate comes where the figure is known.",
-  "generated_at": "2026-11-22T17:20:59+00:00",
+  "generated_at": "2026-11-23T00:39:25+00:00",
   "rows": 319,
   "columns": [
    "kind",

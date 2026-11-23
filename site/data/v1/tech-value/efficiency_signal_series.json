@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "efficiency_signal_series",
   "description": "The yearly values each efficiency signal is computed from, and the fitted line for turning points.",
-  "generated_at": "2026-11-22T17:20:59+00:00",
-  "rows": 296,
+  "generated_at": "2026-11-23T00:39:25+00:00",
+  "rows": 298,
   "columns": [
    "signal",
    "kind",
@@ -705,6 +705,14 @@
    "kind": "gpu",
    "group": "Cheapest per point per watt",
    "x": 8.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 9.0,
    "y": 11.56499839747004,
    "fit": null
   },
@@ -2185,6 +2193,14 @@
    "kind": "cpu",
    "group": "Cheapest per point per watt",
    "x": 8.0,
+   "y": 39.346319691513415,
+   "fit": null
+  },
+  {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 9.0,
    "y": 39.346319691513415,
    "fit": null
   },

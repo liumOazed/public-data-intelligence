@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "concentration",
   "description": "Per fiscal year: suppliers with net obligations above zero, the share of the largest 4 and 10, the Herfindahl-Hirschman index, and suppliers with no action in the 4 years before.",
-  "generated_at": "2026-11-22T17:22:08+00:00",
+  "generated_at": "2026-11-23T00:41:20+00:00",
   "rows": 10,
   "columns": [
    "fiscal_year",

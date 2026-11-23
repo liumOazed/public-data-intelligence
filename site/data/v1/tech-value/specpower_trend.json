@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "specpower_trend",
   "description": "Best and median measured ssj_ops per watt, and median idle share, by year of publication.",
-  "generated_at": "2026-11-22T17:20:22+00:00",
+  "generated_at": "2026-11-23T00:38:22+00:00",
   "rows": 0,
   "columns": [
    "year",
