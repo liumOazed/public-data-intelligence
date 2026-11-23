@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "specpower_processors",
   "description": "Per processor: median measured ssj_ops per watt, idle power as a share of full-load power, and the median efficiency curve across target loads.",
-  "generated_at": "2026-11-23T17:34:20+00:00",
+  "generated_at": "2026-11-23T21:40:51+00:00",
   "rows": 264,
   "columns": [
    "processor_key",
@@ -46,7 +46,7 @@
    "SPEC and SPECpower are registered trademarks of the Standard Performance Evaluation Corporation. Every row links to its SPEC disclosure."
   ],
   "status": null,
-  "doubling_years": 5.009208420071463,
+  "doubling_years": 5.009208420071407,
   "n_results": 1125
  },
  "data": [
@@ -4275,6 +4275,28 @@
    "ppw_10": 838.0
   },
   {
+   "processor_key": "amd opteron 6176 ()",
+   "processor": "AMD Opteron 6176 ()",
+   "cpu_vendor": "AMD",
+   "n_results": 1,
+   "n_vendors": 1,
+   "ops_per_watt": 2716.0,
+   "best_ops_per_watt": 2716.0,
+   "idle_share": 0.2531405546337995,
+   "first_published": "2011-07-01T00:00:00",
+   "year": 2011,
+   "ppw_100": 3506.0,
+   "ppw_90": 3401.0,
+   "ppw_80": 3407.0,
+   "ppw_70": 3272.0,
+   "ppw_60": 3028.0,
+   "ppw_50": 2749.0,
+   "ppw_40": 2420.0,
+   "ppw_30": 1969.0,
+   "ppw_20": 1474.0,
+   "ppw_10": 827.0
+  },
+  {
    "processor_key": "intel xeon e5-2609",
    "processor": "Intel Xeon E5-2609",
    "cpu_vendor": "Intel",
@@ -4317,28 +4339,6 @@
    "ppw_30": 1967.0,
    "ppw_20": 1441.0,
    "ppw_10": 799.0
-  },
-  {
-   "processor_key": "amd opteron 6176 ()",
-   "processor": "AMD Opteron 6176 ()",
-   "cpu_vendor": "AMD",
-   "n_results": 1,
-   "n_vendors": 1,
-   "ops_per_watt": 2716.0,
-   "best_ops_per_watt": 2716.0,
-   "idle_share": 0.2531405546337995,
-   "first_published": "2011-07-01T00:00:00",
-   "year": 2011,
-   "ppw_100": 3506.0,
-   "ppw_90": 3401.0,
-   "ppw_80": 3407.0,
-   "ppw_70": 3272.0,
-   "ppw_60": 3028.0,
-   "ppw_50": 2749.0,
-   "ppw_40": 2420.0,
-   "ppw_30": 1969.0,
-   "ppw_20": 1474.0,
-   "ppw_10": 827.0
   },
   {
    "processor_key": "intel xeon e5-2670 ()",

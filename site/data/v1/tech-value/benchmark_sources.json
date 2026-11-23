@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "benchmark_sources",
   "description": "Benchmark sources behind the Tech Value pages, collected or planned, with the metric each reports and the configuration details recorded for every result.",
-  "generated_at": "2026-11-23T17:36:38+00:00",
+  "generated_at": "2026-11-23T21:44:24+00:00",
   "rows": 11,
   "columns": [
    "source",

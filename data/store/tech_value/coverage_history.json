@@ -87,10 +87,10 @@
   {
    "date": "2026-11-23",
    "kind": "gpu",
-   "tracked": 59,
-   "assessed": 59,
+   "tracked": 57,
+   "assessed": 57,
    "assessed_spec": 13,
-   "assessed_blender": 58,
+   "assessed_blender": 56,
    "assessed_spec_only": 1,
    "measured_only": 0,
    "no_measurement": 0,

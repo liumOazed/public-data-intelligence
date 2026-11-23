@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coverage_history",
   "description": "Tracked CPUs and GPUs (those on Value ranking or Fair price) per update, with how many the over- and under-performer models assess, how many have a SPEC measurement that is not assessed, and how many have none.",
-  "generated_at": "2026-11-23T17:36:38+00:00",
+  "generated_at": "2026-11-23T21:44:24+00:00",
   "rows": 8,
   "columns": [
    "date",
@@ -141,10 +141,10 @@
   {
    "date": "2026-11-23",
    "kind": "gpu",
-   "tracked": 59,
-   "assessed": 59,
+   "tracked": 57,
+   "assessed": 57,
    "assessed_spec": 13,
-   "assessed_blender": 58,
+   "assessed_blender": 56,
    "assessed_spec_only": 1,
    "measured_only": 0,
    "no_measurement": 0,

@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coefficients",
   "description": "Plain regression fitted on all results. Features are in logs, so a coefficient on log_cores is an elasticity.",
-  "generated_at": "2026-11-23T17:31:32+00:00",
+  "generated_at": "2026-11-23T21:36:33+00:00",
   "rows": 10,
   "columns": [
    "term",
@@ -40,63 +40,63 @@
  "data": [
   {
    "term": "const",
-   "coefficient": -3.679207129467023,
-   "std_error": 0.054874777989964915,
+   "coefficient": -3.6792071294670308,
+   "std_error": 0.05487477798996498,
    "p_value": 0.0
   },
   {
    "term": "log_cores",
-   "coefficient": 0.9478806752776257,
-   "std_error": 0.0019439292400504756,
+   "coefficient": 0.9478806752776259,
+   "std_error": 0.0019439292400504759,
    "p_value": 0.0
   },
   {
    "term": "log_mhz",
-   "coefficient": 0.6159503756211168,
-   "std_error": 0.006733828674071274,
+   "coefficient": 0.6159503756211179,
+   "std_error": 0.006733828674071282,
    "p_value": 0.0
   },
   {
    "term": "log_chips",
-   "coefficient": 0.04034609783301824,
-   "std_error": 0.0036696160126923195,
-   "p_value": 5.343177487022425e-28
+   "coefficient": 0.04034609783301904,
+   "std_error": 0.003669616012692317,
+   "p_value": 5.34317748700914e-28
   },
   {
    "term": "smt",
-   "coefficient": 0.35930705280473396,
+   "coefficient": 0.35930705280473446,
    "std_error": 0.005426703979090105,
    "p_value": 0.0
   },
   {
    "term": "log1p_l2_mb_per_core",
-   "coefficient": 0.26015930608964566,
-   "std_error": 0.009056960152801996,
-   "p_value": 3.894826508107646e-176
+   "coefficient": 0.2601593060896434,
+   "std_error": 0.009056960152802001,
+   "p_value": 3.894826508135921e-176
   },
   {
    "term": "log1p_l3_mb_per_core",
-   "coefficient": 0.08394835102674754,
-   "std_error": 0.003249713242482059,
-   "p_value": 1.2286394980506884e-143
+   "coefficient": 0.08394835102674784,
+   "std_error": 0.003249713242482056,
+   "p_value": 1.2286394980472173e-143
   },
   {
    "term": "vintage_years",
-   "coefficient": 0.08272648676618471,
-   "std_error": 0.0008168137136730412,
+   "coefficient": 0.08272648676618528,
+   "std_error": 0.0008168137136730419,
    "p_value": 0.0
   },
   {
    "term": "vendor_AMD",
-   "coefficient": 0.04288372319279455,
-   "std_error": 0.005267560503060464,
-   "p_value": 4.2613360957779575e-16
+   "coefficient": 0.04288372319279214,
+   "std_error": 0.005267560503060462,
+   "p_value": 4.2613360957938555e-16
   },
   {
    "term": "vendor_Other",
-   "coefficient": -0.4335296721909457,
-   "std_error": 0.0207514700433788,
-   "p_value": 2.114745092549397e-95
+   "coefficient": -0.4335296721909458,
+   "std_error": 0.02075147004337879,
+   "p_value": 2.114745092548624e-95
   }
  ]
 }
