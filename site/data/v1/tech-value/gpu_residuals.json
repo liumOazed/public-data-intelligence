@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_residuals",
   "description": "Per GPU: median leave-one-GPU-out residual of three models across SPEC GWPG disclosures (SPECviewperf, SPECworkstation, SPECapc), predicted calibrated scores with 80% ranges, evidence counts and spread across submitted configurations.",
-  "generated_at": "2026-11-23T00:37:30+00:00",
+  "generated_at": "2026-11-23T17:33:40+00:00",
   "rows": 30,
   "columns": [
    "processor",
@@ -74,7 +74,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC, SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are compared only within the same benchmark release and resolution, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-20T05:37:37+00:00"
+    "retrieved_at": "2026-11-23T16:29:33+00:00"
    }
   ],
   "preliminary": false,
@@ -487,7 +487,7 @@
    "residual_pct_min": 18.004301603188754,
    "residual_pct_max": 18.825948578566454,
    "tuning_spread_pct": 0.8216469753776998,
-   "workload_specialization_pct": 116.8362716257981,
+   "workload_specialization_pct": 116.83627162579815,
    "compiler_family": "SPECviewperf 15 (DX12 / Vulkan / OpenGL)",
    "config_chips": 1,
    "config_cores": 4096,
@@ -1768,7 +1768,7 @@
    "residual_pct_min": -26.05425040283087,
    "residual_pct_max": -21.85429418798266,
    "tuning_spread_pct": 4.199956214848211,
-   "workload_specialization_pct": 130.05076581533146,
+   "workload_specialization_pct": 130.05076581533152,
    "compiler_family": "SPECviewperf 15 (DX12 / Vulkan / OpenGL)",
    "config_chips": 1,
    "config_cores": 7680,

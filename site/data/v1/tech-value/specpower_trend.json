@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "specpower_trend",
   "description": "Best and median measured ssj_ops per watt, and median idle share, by year of publication.",
-  "generated_at": "2026-11-23T00:38:22+00:00",
-  "rows": 0,
+  "generated_at": "2026-11-23T17:34:20+00:00",
+  "rows": 20,
   "columns": [
    "year",
    "n",
@@ -20,7 +20,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse), the same general rules as SPEC CPU 2017: state the source and retrieval date, name the licensee of each result, acknowledge the SPEC trademarks, compare SPEC metrics only within the same benchmark, and label derived values. The SPECpower section of those rules has not been re-read for this entry, because spec.org could not be reached from the build machine on 22 November 2026.",
     "frequency": "weekly collection; SPEC publishes new results every few weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": null
+    "retrieved_at": "2026-11-23T16:29:48+00:00"
    }
   ],
   "preliminary": false,
@@ -30,7 +30,148 @@
    "ssj_ops per watt is SPEC's own overall metric. Per-processor medians are this site's summaries and are not SPEC metrics.",
    "SPEC and SPECpower are registered trademarks of the Standard Performance Evaluation Corporation. Every row links to its SPEC disclosure."
   ],
-  "status": "SPECpower results have not been collected yet."
+  "status": null
  },
- "data": []
+ "data": [
+  {
+   "year": 2007,
+   "n": 12,
+   "best": 698.0,
+   "median": 461.0,
+   "idle_share": 0.6189220183486238
+  },
+  {
+   "year": 2008,
+   "n": 49,
+   "best": 1135.0,
+   "median": 810.0,
+   "idle_share": 0.5762081784386617
+  },
+  {
+   "year": 2009,
+   "n": 70,
+   "best": 2316.0,
+   "median": 1527.0,
+   "idle_share": 0.4172036230222426
+  },
+  {
+   "year": 2010,
+   "n": 80,
+   "best": 3212.0,
+   "median": 2475.5,
+   "idle_share": 0.2884905660377358
+  },
+  {
+   "year": 2011,
+   "n": 76,
+   "best": 4697.0,
+   "median": 2708.0,
+   "idle_share": 0.32023861003861004
+  },
+  {
+   "year": 2012,
+   "n": 123,
+   "best": 6109.0,
+   "median": 4708.0,
+   "idle_share": 0.22914979757085022
+  },
+  {
+   "year": 2013,
+   "n": 29,
+   "best": 7336.0,
+   "median": 4893.0,
+   "idle_share": 0.25742574257425743
+  },
+  {
+   "year": 2014,
+   "n": 6,
+   "best": 10654.0,
+   "median": 7607.5,
+   "idle_share": 0.3004437119675456
+  },
+  {
+   "year": 2015,
+   "n": 16,
+   "best": 10700.0,
+   "median": 9610.5,
+   "idle_share": 0.17996293748196807
+  },
+  {
+   "year": 2016,
+   "n": 19,
+   "best": 12212.0,
+   "median": 10950.0,
+   "idle_share": 0.17098039215686275
+  },
+  {
+   "year": 2017,
+   "n": 30,
+   "best": 13398.0,
+   "median": 11817.5,
+   "idle_share": 0.13752906976744184
+  },
+  {
+   "year": 2018,
+   "n": 49,
+   "best": 13478.0,
+   "median": 10916.0,
+   "idle_share": 0.1568241469816273
+  },
+  {
+   "year": 2019,
+   "n": 102,
+   "best": 20176.0,
+   "median": 11938.5,
+   "idle_share": 0.1582872075278257
+  },
+  {
+   "year": 2020,
+   "n": 35,
+   "best": 24507.0,
+   "median": 20184.0,
+   "idle_share": 0.23277467411545624
+  },
+  {
+   "year": 2021,
+   "n": 50,
+   "best": 23505.0,
+   "median": 12244.0,
+   "idle_share": 0.2262207948313425
+  },
+  {
+   "year": 2022,
+   "n": 57,
+   "best": 30602.0,
+   "median": 11765.0,
+   "idle_share": 0.24370639975735517
+  },
+  {
+   "year": 2023,
+   "n": 106,
+   "best": 34597.0,
+   "median": 14394.0,
+   "idle_share": 0.22231284059312617
+  },
+  {
+   "year": 2024,
+   "n": 114,
+   "best": 42312.0,
+   "median": 17499.0,
+   "idle_share": 0.20674457461483164
+  },
+  {
+   "year": 2025,
+   "n": 64,
+   "best": 44168.0,
+   "median": 21698.5,
+   "idle_share": 0.2506712491513917
+  },
+  {
+   "year": 2026,
+   "n": 38,
+   "best": 47723.0,
+   "median": 24065.5,
+   "idle_share": 0.22867383162032917
+  }
+ ]
 }

@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "totals_check",
   "description": "Monthly obligations summed from the downloaded transactions against the monthly figure USAspending's own search gives for the same filters.",
-  "generated_at": "2026-11-23T00:41:20+00:00",
+  "generated_at": "2026-11-23T17:36:43+00:00",
   "rows": 121,
   "columns": [
    "period",
@@ -20,7 +20,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T21:05:51+00:00"
+    "retrieved_at": "2026-11-23T17:02:21+00:00"
    }
   ],
   "preliminary": false,
@@ -40,9 +40,9 @@
   "tolerance_pct": 1.0,
   "months": 121,
   "months_within_limit": 95,
-  "worst_month_gap_pct": 14.200067532633359,
-  "ours_total": 64426614550.46001,
-  "published_total": 64954289282.01,
+  "worst_month_gap_pct": 14.197190970227178,
+  "ours_total": 64433048121.549995,
+  "published_total": 64960722853.1,
   "reconciliation": [
    {
     "period": "2017-03",
@@ -64,12 +64,12 @@
     "download_rows": 3776,
     "search": 575879543.9599999,
     "search_rows": 3780,
-    "extra_copies": 13,
-    "extra_copies_sum": 19264217.76,
+    "extra_copies": 6,
+    "extra_copies_sum": 19261762.3,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 9,
-    "download_rows_not_in_search_sum": 2455.46,
-    "gap_after_copies_share": 4.411393385089557e-06,
+    "download_rows_not_in_search": 2,
+    "download_rows_not_in_search_sum": 0.0,
+    "gap_after_copies_share": 0.0,
     "reconciled": true
    },
    {
@@ -78,12 +78,12 @@
     "download_rows": 2015,
     "search": 96232331.64000002,
     "search_rows": 2016,
-    "extra_copies": 1,
-    "extra_copies_sum": -4867200.0,
+    "extra_copies": 3,
+    "extra_copies_sum": -4865786.0,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 0,
-    "download_rows_not_in_search_sum": 0.0,
-    "gap_after_copies_share": 1.47391001245272e-16,
+    "download_rows_not_in_search": 2,
+    "download_rows_not_in_search_sum": 1414.0,
+    "gap_after_copies_share": 1.3986217117406014e-05,
     "reconciled": true
    },
    {
@@ -134,10 +134,10 @@
     "download_rows": 3013,
     "search": 673563568.4300001,
     "search_rows": 3018,
-    "extra_copies": 27,
+    "extra_copies": 5,
     "extra_copies_sum": 6831671.68,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 22,
+    "download_rows_not_in_search": 0,
     "download_rows_not_in_search_sum": 0.0,
     "gap_after_copies_share": 1.7879643996615384e-16,
     "reconciled": true
@@ -201,9 +201,9 @@
    {
     "period": "2023-05",
     "download": 597557917.22,
-    "download_rows": 2916,
+    "download_rows": 2917,
     "search": 619918017.1700001,
-    "search_rows": 2923,
+    "search_rows": 2924,
     "extra_copies": 7,
     "extra_copies_sum": 22360099.95,
     "search_rows_not_in_download": 0,
@@ -218,46 +218,46 @@
     "download_rows": 5172,
     "search": 1240790305.25,
     "search_rows": 5188,
-    "extra_copies": 19,
+    "extra_copies": 23,
     "extra_copies_sum": 18928880.46,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 3,
+    "download_rows_not_in_search": 7,
     "download_rows_not_in_search_sum": 0.0,
     "gap_after_copies_share": 0.0,
     "reconciled": true
    },
    {
     "period": "2024-01",
-    "download": 322971717.14000005,
+    "download": 322971717.14,
     "download_rows": 1900,
     "search": 327568727.12999994,
     "search_rows": 1908,
-    "extra_copies": 9,
+    "extra_copies": 8,
     "extra_copies_sum": 4597009.99,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 1,
+    "download_rows_not_in_search": 0,
     "download_rows_not_in_search_sum": 0.0,
-    "gap_after_copies_share": 3.69101327529268e-16,
+    "gap_after_copies_share": 1.8455066376463403e-16,
     "reconciled": true
    },
    {
     "period": "2024-09",
-    "download": 1983997733.86,
-    "download_rows": 6599,
-    "search": 2018473829.5400002,
-    "search_rows": 6630,
-    "extra_copies": 31,
-    "extra_copies_sum": 34476095.68,
-    "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 0,
-    "download_rows_not_in_search_sum": 0.0,
-    "gap_after_copies_share": 1.2017079204909336e-16,
-    "reconciled": true
+    "reconciled": false,
+    "error": "USAspending /api/v2/search/spending_by_transaction/ failed: ConnectionError"
    },
    {
     "period": "2024-10",
-    "reconciled": false,
-    "error": "USAspending /api/v2/search/spending_by_transaction/ failed: ConnectionError"
+    "download": 117230115.99000001,
+    "download_rows": 1906,
+    "search": 124658813.01000002,
+    "search_rows": 1914,
+    "extra_copies": 8,
+    "extra_copies_sum": 7428697.02,
+    "search_rows_not_in_download": 0,
+    "download_rows_not_in_search": 0,
+    "download_rows_not_in_search_sum": 0.0,
+    "gap_after_copies_share": 1.271103510220766e-16,
+    "reconciled": true
    },
    {
     "period": "2024-12",
@@ -275,7 +275,7 @@
    },
    {
     "period": "2025-01",
-    "download": 387338241.42,
+    "download": 387338241.4200001,
     "download_rows": 1476,
     "search": 435238963.42,
     "search_rows": 1485,
@@ -284,7 +284,7 @@
     "search_rows_not_in_download": 0,
     "download_rows_not_in_search": 0,
     "download_rows_not_in_search_sum": 0.0,
-    "gap_after_copies_share": 0.0,
+    "gap_after_copies_share": 1.5388267514428013e-16,
     "reconciled": true
    },
    {
@@ -293,10 +293,10 @@
     "download_rows": 1889,
     "search": 431792789.11999995,
     "search_rows": 1910,
-    "extra_copies": 22,
+    "extra_copies": 21,
     "extra_copies_sum": 8958815.57,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 1,
+    "download_rows_not_in_search": 0,
     "download_rows_not_in_search_sum": 0.0,
     "gap_after_copies_share": 1.4096465398692092e-16,
     "reconciled": true
@@ -317,24 +317,24 @@
    },
    {
     "period": "2025-10",
-    "download": 74944966.82,
-    "download_rows": 1056,
-    "search": 76710851.11999999,
-    "search_rows": 1058,
-    "extra_copies": 4,
+    "download": 77001601.91,
+    "download_rows": 1080,
+    "search": 78767486.21000001,
+    "search_rows": 1082,
+    "extra_copies": 3,
     "extra_copies_sum": 1765884.3,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 2,
+    "download_rows_not_in_search": 1,
     "download_rows_not_in_search_sum": 0.0,
-    "gap_after_copies_share": 0.0,
+    "gap_after_copies_share": 1.935175480019784e-16,
     "reconciled": true
    },
    {
     "period": "2025-12",
     "download": 425101794.28,
-    "download_rows": 1290,
+    "download_rows": 1291,
     "search": 431594457.02,
-    "search_rows": 1310,
+    "search_rows": 1311,
     "extra_copies": 20,
     "extra_copies_sum": 6492662.74,
     "search_rows_not_in_download": 0,
@@ -345,14 +345,14 @@
    },
    {
     "period": "2026-01",
-    "download": 334451154.35,
-    "download_rows": 1241,
-    "search": 389803517.01,
-    "search_rows": 1251,
-    "extra_copies": 12,
+    "download": 334530134.35,
+    "download_rows": 1242,
+    "search": 389882497.01,
+    "search_rows": 1252,
+    "extra_copies": 10,
     "extra_copies_sum": 55352362.66,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 2,
+    "download_rows_not_in_search": 0,
     "download_rows_not_in_search_sum": 0.0,
     "gap_after_copies_share": 0.0,
     "reconciled": true
@@ -360,9 +360,9 @@
    {
     "period": "2026-05",
     "download": 471703761.75,
-    "download_rows": 1829,
+    "download_rows": 1828,
     "search": 477009333.21000004,
-    "search_rows": 1841,
+    "search_rows": 1840,
     "extra_copies": 12,
     "extra_copies_sum": 5305571.46,
     "search_rows_not_in_download": 0,
@@ -373,28 +373,28 @@
    },
    {
     "period": "2026-06",
-    "download": 929108541.19,
-    "download_rows": 2320,
-    "search": 987918942.85,
-    "search_rows": 2342,
+    "download": 929354380.3199999,
+    "download_rows": 2322,
+    "search": 988164781.98,
+    "search_rows": 2344,
     "extra_copies": 22,
     "extra_copies_sum": 58810401.66,
     "search_rows_not_in_download": 0,
     "download_rows_not_in_search": 0,
     "download_rows_not_in_search_sum": 0.0,
-    "gap_after_copies_share": 0.0,
+    "gap_after_copies_share": 1.2827107944521068e-16,
     "reconciled": true
    },
    {
     "period": "2026-07",
-    "download": 484440445.6,
-    "download_rows": 2222,
-    "search": 502032941.76000005,
-    "search_rows": 2235,
-    "extra_copies": 13,
+    "download": 485936740.06,
+    "download_rows": 2235,
+    "search": 503529236.22,
+    "search_rows": 2248,
+    "extra_copies": 16,
     "extra_copies_sum": 17592496.16,
     "search_rows_not_in_download": 0,
-    "download_rows_not_in_search": 0,
+    "download_rows_not_in_search": 3,
     "download_rows_not_in_search_sum": 0.0,
     "gap_after_copies_share": 0.0,
     "reconciled": true
@@ -655,9 +655,9 @@
   },
   {
    "period": "2019-09-01T00:00:00",
-   "ours": 1887986405.1200001,
+   "ours": 1887986405.12,
    "published": 1889002389.12,
-   "gap_pct": 0.05378415643365397,
+   "gap_pct": 0.05378415643366659,
    "within_limit": true
   },
   {
@@ -1138,9 +1138,9 @@
   },
   {
    "period": "2025-06-01T00:00:00",
-   "ours": 426512348.65000004,
-   "published": 430112049.18,
-   "gap_pct": 0.8369215735440866,
+   "ours": 426713929.25,
+   "published": 430313629.78,
+   "gap_pct": 0.8365295172826239,
    "within_limit": true
   },
   {
@@ -1166,9 +1166,9 @@
   },
   {
    "period": "2025-10-01T00:00:00",
-   "ours": 74944966.82,
-   "published": 76710851.12,
-   "gap_pct": 2.302000661207123,
+   "ours": 77001601.91,
+   "published": 78767486.21,
+   "gap_pct": 2.2418949556064516,
    "within_limit": false
   },
   {
@@ -1187,9 +1187,9 @@
   },
   {
    "period": "2026-01-01T00:00:00",
-   "ours": 334451154.35,
-   "published": 389803517.01,
-   "gap_pct": 14.200067532633359,
+   "ours": 334530134.35,
+   "published": 389882497.01,
+   "gap_pct": 14.197190970227178,
    "within_limit": false
   },
   {
@@ -1222,36 +1222,36 @@
   },
   {
    "period": "2026-06-01T00:00:00",
-   "ours": 929108541.19,
-   "published": 987918942.85,
-   "gap_pct": 5.952958194155145,
+   "ours": 929354380.3199999,
+   "published": 988164781.98,
+   "gap_pct": 5.951477196157592,
    "within_limit": false
   },
   {
    "period": "2026-07-01T00:00:00",
-   "ours": 484440445.6,
-   "published": 502032941.76,
-   "gap_pct": 3.50425135416914,
+   "ours": 485936740.06,
+   "published": 503529236.22,
+   "gap_pct": 3.493838072257155,
    "within_limit": false
   },
   {
    "period": "2026-08-01T00:00:00",
-   "ours": 254938047.21,
-   "published": 254938047.21,
+   "ours": 256571870.1,
+   "published": 256571870.1,
    "gap_pct": 0.0,
    "within_limit": true
   },
   {
    "period": "2026-09-01T00:00:00",
-   "ours": 1485110770.44,
-   "published": 1485110770.44,
+   "ours": 1485841299.91,
+   "published": 1485841299.91,
    "gap_pct": 0.0,
    "within_limit": true
   },
   {
    "period": "2026-10-01T00:00:00",
-   "ours": 18741696.65,
-   "published": 18741696.65,
+   "ours": 18731586.1,
+   "published": 18731586.1,
    "gap_pct": 0.0,
    "within_limit": true
   }

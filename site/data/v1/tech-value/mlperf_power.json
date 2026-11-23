@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "mlperf_power",
   "description": "MLPerf\u00ae Inference Closed-division results with measured system power, and the work per joule derived from them.",
-  "generated_at": "2026-11-23T00:38:21+00:00",
+  "generated_at": "2026-11-23T17:34:20+00:00",
   "rows": 23,
   "columns": [
    "round",
@@ -32,7 +32,7 @@
     "licence": "Repositories are Apache 2.0. Use of the MLPerf name follows the MLPerf Results Messaging Guidelines (https://github.com/mlcommons/policies/blob/master/MLPerf_Results_Messaging_Guidelines.adoc): \u00ae on every use of the name, the trademark legend, the submitter, benchmark, version and system named beside each result, perf per watt only from MLPerf measured system power, comparisons only between compatible results (same benchmark and scenario), and derived metrics labelled as not official. Non-submitters may publish two weeks after a round's publication. The site does all of these.",
     "frequency": "weekly collection; MLCommons publishes two inference rounds a year",
     "typical_lag": "published on the round's release date",
-    "retrieved_at": "2026-11-22T14:11:25+00:00"
+    "retrieved_at": "2026-11-23T16:29:50+00:00"
    }
   ],
   "preliminary": false,

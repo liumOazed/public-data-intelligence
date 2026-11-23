@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "holdout",
   "description": "Error on the newest generation, scored once after the pick was made on validation.",
-  "generated_at": "2026-11-23T00:34:40+00:00",
+  "generated_at": "2026-11-23T17:31:32+00:00",
   "rows": 3,
   "columns": [
    "model",
@@ -22,7 +22,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC publishes new results about every two weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-16T13:58:45+00:00"
+    "retrieved_at": "2026-11-23T16:27:53+00:00"
    }
   ],
   "preliminary": false,
@@ -46,25 +46,25 @@
     "processors": 130
    },
    "holdout": {
-    "results": 1628,
-    "processors": 113
+    "results": 1635,
+    "processors": 115
    }
   },
   "automl": {
-   "trained_at": "2026-11-16T14:36:27+00:00",
+   "trained_at": "2026-11-23T17:15:51+00:00",
    "autogluon_version": "1.6.3",
    "python_version": "3.12.16",
    "preset": "medium_quality",
    "time_limit_s": 900,
-   "n_spec_results": 13388,
+   "n_spec_results": 13395,
    "valid_start": "2023-01-01",
    "holdout_start": "2024-06-01"
   },
   "verdict": {
    "picked_on_validation": "AutoGluon: WeightedEnsemble_L2",
-   "holdout_mae_log_baseline": 0.48840348530045175,
-   "holdout_mae_log_picked": 0.22197473919010294,
-   "holdout_improvement": 0.26642874611034884,
+   "holdout_mae_log_baseline": 0.4882354793294417,
+   "holdout_mae_log_picked": 0.2242017513623722,
+   "holdout_improvement": 0.26403372796706953,
    "fold_spread": 0.14283701465673218,
    "beats_baseline": true,
    "published_model": "AutoGluon: WeightedEnsemble_L2",
@@ -79,27 +79,27 @@
   {
    "model": "Naive baseline (cores x clock)",
    "period": "holdout",
-   "n_results": 1628,
-   "mae_log": 0.48840348530045175,
-   "median_abs_pct_error": 38.80074518015215,
+   "n_results": 1635,
+   "mae_log": 0.4882354793294417,
+   "median_abs_pct_error": 38.74910023937596,
    "kind": "baseline",
    "published": false
   },
   {
    "model": "Plain regression (OLS)",
    "period": "holdout",
-   "n_results": 1628,
-   "mae_log": 0.10201665899437573,
-   "median_abs_pct_error": 7.772981139875829,
+   "n_results": 1635,
+   "mae_log": 0.10210646755866691,
+   "median_abs_pct_error": 7.800711674291643,
    "kind": "plain",
    "published": false
   },
   {
    "model": "AutoGluon: WeightedEnsemble_L2",
    "period": "holdout",
-   "n_results": 1628,
-   "mae_log": 0.22197473919010294,
-   "median_abs_pct_error": 16.619745491547835,
+   "n_results": 1635,
+   "mae_log": 0.2242017513623722,
+   "median_abs_pct_error": 16.70645011598015,
    "kind": "automl",
    "published": true
   }

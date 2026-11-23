@@ -1,10 +1,10 @@
 {
- "trained_at": "2026-11-16T14:36:27+00:00",
+ "trained_at": "2026-11-23T17:15:51+00:00",
  "autogluon_version": "1.6.3",
  "python_version": "3.12.16",
  "preset": "medium_quality",
  "time_limit_s": 900,
- "n_spec_results": 13388,
+ "n_spec_results": 13395,
  "valid_start": "2023-01-01",
  "holdout_start": "2024-06-01",
  "leaderboard": [
@@ -15,7 +15,7 @@
    "mae_log": 0.08260101700848327,
    "median_abs_pct_error": 4.638472546085597,
    "kind": "automl",
-   "fit_time_s": 6.5
+   "fit_time_s": 7.7
   },
   {
    "model": "AutoGluon: XGBoost",
@@ -24,7 +24,7 @@
    "mae_log": 0.0970718756313481,
    "median_abs_pct_error": 5.059424861606473,
    "kind": "automl",
-   "fit_time_s": 0.3
+   "fit_time_s": 0.4
   },
   {
    "model": "AutoGluon: CatBoost",
@@ -33,7 +33,7 @@
    "mae_log": 0.10680132314404053,
    "median_abs_pct_error": 6.93271347164564,
    "kind": "automl",
-   "fit_time_s": 5.7
+   "fit_time_s": 6.6
   },
   {
    "model": "AutoGluon: LightGBM",
@@ -42,7 +42,7 @@
    "mae_log": 0.1106815533141005,
    "median_abs_pct_error": 6.375840337147706,
    "kind": "automl",
-   "fit_time_s": 0.3
+   "fit_time_s": 0.5
   },
   {
    "model": "AutoGluon: LightGBMXT",
@@ -51,7 +51,7 @@
    "mae_log": 0.11369491836487852,
    "median_abs_pct_error": 6.70817667460318,
    "kind": "automl",
-   "fit_time_s": 0.3
+   "fit_time_s": 0.4
   },
   {
    "model": "AutoGluon: ExtraTreesMSE",
@@ -60,7 +60,7 @@
    "mae_log": 0.11794668546789479,
    "median_abs_pct_error": 7.604383726336855,
    "kind": "automl",
-   "fit_time_s": 0.5
+   "fit_time_s": 0.6
   },
   {
    "model": "AutoGluon: LightGBMLarge",
@@ -69,7 +69,7 @@
    "mae_log": 0.13810349173009084,
    "median_abs_pct_error": 8.46437057710063,
    "kind": "automl",
-   "fit_time_s": 0.6
+   "fit_time_s": 0.9
   },
   {
    "model": "AutoGluon: RandomForestMSE",
@@ -84,9 +84,9 @@
  "holdout": {
   "model": "AutoGluon: WeightedEnsemble_L2",
   "period": "holdout",
-  "n_results": 1628,
-  "mae_log": 0.22197473919010294,
-  "median_abs_pct_error": 16.619745491547835,
+  "n_results": 1635,
+  "mae_log": 0.2242017513623722,
+  "median_abs_pct_error": 16.70645011598015,
   "kind": "automl"
  }
 }

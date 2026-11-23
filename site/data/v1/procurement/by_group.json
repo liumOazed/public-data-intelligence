@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "by_group",
   "description": "Net obligations by fiscal year and kind of hardware.",
-  "generated_at": "2026-11-23T00:41:20+00:00",
+  "generated_at": "2026-11-23T17:36:43+00:00",
   "rows": 42,
   "columns": [
    "fiscal_year",
@@ -19,7 +19,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T21:05:51+00:00"
+    "retrieved_at": "2026-11-23T17:02:21+00:00"
    }
   ],
   "preliminary": false,
@@ -238,7 +238,7 @@
   {
    "fiscal_year": 2025,
    "group": "Computers and servers",
-   "obligations": 2367568622.23,
+   "obligations": 2367770202.83,
    "provisional": false
   },
   {
@@ -268,19 +268,19 @@
   {
    "fiscal_year": 2026,
    "group": "Computers and servers",
-   "obligations": 2158395426.27,
+   "obligations": 2160160626.48,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "group": "Data centre equipment",
-   "obligations": 1186577563.9,
+   "obligations": 1186595657.9,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "group": "Desktops, laptops and printers",
-   "obligations": 1790514328.05,
+   "obligations": 1794585774.2,
    "provisional": true
   },
   {
@@ -292,7 +292,7 @@
   {
    "fiscal_year": 2026,
    "group": "Storage",
-   "obligations": 332361328.89,
+   "obligations": 332748689.57,
    "provisional": true
   }
  ]

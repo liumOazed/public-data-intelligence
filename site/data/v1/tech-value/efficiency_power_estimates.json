@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_power_estimates",
   "description": "Power figure each chip's specifications predict, from models refitted without it, with an 80% range. 'Estimated' rows have no figure of their own; 'Held-out check' rows show how close the estimate comes where the figure is known.",
-  "generated_at": "2026-11-23T00:39:25+00:00",
+  "generated_at": "2026-11-23T17:35:10+00:00",
   "rows": 319,
   "columns": [
    "kind",
@@ -31,7 +31,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    }
   ],
   "preliminary": false,
@@ -1617,6 +1617,24 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core i7-12700f",
+   "name": "Intel Core i7-12700F",
+   "vendor": "intel",
+   "year": 2022,
+   "arch": "Alder Lake",
+   "node": "Intel 7",
+   "status": "Held-out check",
+   "model": "Gradient boosting",
+   "estimate_w": 74.44001727861304,
+   "estimate_lo_w": 53.00452642025821,
+   "estimate_hi_w": 97.45043121987621,
+   "rated_w": 65.0,
+   "gap_pct": -12.681374378623634,
+   "score": 231.84197472414897,
+   "est_score_per_watt": 3.1144803991167023
+  },
+  {
+   "kind": "cpu",
    "model_key": "amd threadripper pro 7985wx",
    "name": "AMD Threadripper Pro 7985WX",
    "vendor": "amd",
@@ -1632,24 +1650,6 @@
    "gap_pct": 14.679756121524878,
    "score": 418.90168744894135,
    "est_score_per_watt": 1.3725583815868523
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-12700f",
-   "name": "Intel Core i7-12700F",
-   "vendor": "intel",
-   "year": 2022,
-   "arch": "Alder Lake",
-   "node": "Intel 7",
-   "status": "Held-out check",
-   "model": "Gradient boosting",
-   "estimate_w": 74.44001727861304,
-   "estimate_lo_w": 53.00452642025821,
-   "estimate_hi_w": 97.45043121987621,
-   "rated_w": 65.0,
-   "gap_pct": -12.681374378623634,
-   "score": 236.15468817119347,
-   "est_score_per_watt": 3.172415816177434
   },
   {
    "kind": "cpu",
@@ -4024,8 +4024,8 @@
    "estimate_hi_w": 659.2872113310744,
    "rated_w": 575.0,
    "gap_pct": 5.027614313771744,
-   "score": 14965.979744308945,
-   "est_score_per_watt": 27.336367798486958
+   "score": 14966.126594971964,
+   "est_score_per_watt": 27.33663603109213
   },
   {
    "kind": "gpu",
@@ -4132,8 +4132,8 @@
    "estimate_hi_w": 170.4055091070982,
    "rated_w": 170.0,
    "gap_pct": 20.13667218610653,
-   "score": 2155.052340575554,
-   "est_score_per_watt": 15.229459799036876
+   "score": 2154.863853931395,
+   "est_score_per_watt": 15.228127789732126
   },
   {
    "kind": "gpu",
@@ -4204,8 +4204,8 @@
    "estimate_hi_w": 257.17940435929677,
    "rated_w": 220.0,
    "gap_pct": 3.0141307321241317,
-   "score": 6249.543127088609,
-   "est_score_per_watt": 29.263238759543356
+   "score": 6251.069876224321,
+   "est_score_per_watt": 29.270387702046143
   },
   {
    "kind": "gpu",
@@ -4888,8 +4888,8 @@
    "estimate_hi_w": 147.13747517516018,
    "rated_w": 130.0,
    "gap_pct": 6.397239526446907,
-   "score": 2863.340017046521,
-   "est_score_per_watt": 23.434728741489174
+   "score": 2863.0583629119683,
+   "est_score_per_watt": 23.432423570533974
   },
   {
    "kind": "gpu",

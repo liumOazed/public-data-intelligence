@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_residual_validation",
   "description": "Held-out error of the residual models for GPUs: one median residual per ranked GPU, compared with the shaders-times-clock baseline, overall and by vendor, form factor, architecture and release year.",
-  "generated_at": "2026-11-23T00:37:30+00:00",
+  "generated_at": "2026-11-23T17:33:40+00:00",
   "rows": 92,
   "columns": [
    "slice",
@@ -22,7 +22,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC, SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are compared only within the same benchmark release and resolution, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-20T05:37:37+00:00"
+    "retrieved_at": "2026-11-23T16:29:33+00:00"
    }
   ],
   "preliminary": false,

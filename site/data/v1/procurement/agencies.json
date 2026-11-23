@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "agencies",
   "description": "Net obligations by fiscal year and awarding agency.",
-  "generated_at": "2026-11-23T00:41:20+00:00",
+  "generated_at": "2026-11-23T17:36:43+00:00",
   "rows": 613,
   "columns": [
    "fiscal_year",
@@ -20,7 +20,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T21:05:51+00:00"
+    "retrieved_at": "2026-11-23T17:02:21+00:00"
    }
   ],
   "preliminary": false,
@@ -47,820 +47,820 @@
   {
    "fiscal_year": 2026,
    "agency": "Department of Defense",
-   "obligations": 2006415629.56,
-   "share_pct": 36.41013939805916,
+   "obligations": 2011778187.18,
+   "share_pct": 36.46614611710844,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Homeland Security",
    "obligations": 701626619.95,
-   "share_pct": 12.73231859909843,
+   "share_pct": 12.717912444718433,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Justice",
    "obligations": 485236073.26,
-   "share_pct": 8.805510088773516,
+   "share_pct": 8.795546975084036,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of the Treasury",
    "obligations": 465893459.8,
-   "share_pct": 8.454502430128125,
+   "share_pct": 8.44493646880957,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Social Security Administration",
    "obligations": 360532557.21,
-   "share_pct": 6.542533098405714,
+   "share_pct": 6.535130460691437,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Veterans Affairs",
    "obligations": 310043654.56,
-   "share_pct": 5.626318154473747,
+   "share_pct": 5.6199521805709205,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Health and Human Services",
    "obligations": 234387862.45,
-   "share_pct": 4.2534032427215065,
+   "share_pct": 4.2485906719962205,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Transportation",
    "obligations": 229687142.16,
-   "share_pct": 4.16809993940358,
+   "share_pct": 4.163383886256546,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Commerce",
-   "obligations": 133143750.57000001,
-   "share_pct": 2.4161407271818454,
+   "obligations": 133292764.52,
+   "share_pct": 2.4161080273730735,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Aeronautics and Space Administration",
    "obligations": 102671908.9,
-   "share_pct": 1.8631725452286407,
+   "share_pct": 1.861064433409554,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "General Services Administration",
    "obligations": 82631140.55,
-   "share_pct": 1.499495568974359,
+   "share_pct": 1.4977989443972535,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of State",
-   "obligations": 74101745.7,
-   "share_pct": 1.3447138523179294,
+   "obligations": 74832275.17,
+   "share_pct": 1.3564341725217879,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Housing and Urban Development",
    "obligations": 51982939.129999995,
-   "share_pct": 0.9433270116915846,
+   "share_pct": 0.9422596715637453,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of the Interior",
    "obligations": 51695270.29000001,
-   "share_pct": 0.9381067261183634,
+   "share_pct": 0.9370452925533619,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Agriculture",
    "obligations": 40622419.87,
-   "share_pct": 0.7371692825566468,
+   "share_pct": 0.7363352023845204,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Energy",
    "obligations": 26196201.34,
-   "share_pct": 0.4753787442825048,
+   "share_pct": 0.47484087056172086,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "U.S. Agency for Global Media",
    "obligations": 24101005.770000003,
-   "share_pct": 0.4373575279173666,
+   "share_pct": 0.43686267381696114,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Labor",
    "obligations": 12948916.56,
-   "share_pct": 0.23498214929018912,
+   "share_pct": 0.2347162755537702,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Environmental Protection Agency",
    "obligations": 12558680.49,
-   "share_pct": 0.22790059076486668,
+   "share_pct": 0.2276427295537842,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Equal Employment Opportunity Commission",
    "obligations": 10722108.48,
-   "share_pct": 0.19457257940296455,
+   "share_pct": 0.1943524276218748,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "District of Columbia Courts",
    "obligations": 10259355.629999999,
-   "share_pct": 0.18617506917272172,
+   "share_pct": 0.18596441886835383,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Science Foundation",
    "obligations": 9742840.63,
-   "share_pct": 0.17680194484388434,
+   "share_pct": 0.17660189988802802,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Department of Education",
    "obligations": 8897378.15,
-   "share_pct": 0.16145945732579242,
+   "share_pct": 0.1612767718353028,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Executive Office of the President",
    "obligations": 7916819.42,
-   "share_pct": 0.14366539735073466,
+   "share_pct": 0.14350284519048281,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Federal Communications Commission",
    "obligations": 6211548.5600000005,
-   "share_pct": 0.11272008930523059,
+   "share_pct": 0.11259255063302258,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Nuclear Regulatory Commission",
    "obligations": 6008231.66,
-   "share_pct": 0.1090305264041458,
+   "share_pct": 0.10890716233786946,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "",
    "obligations": 5687229.609999999,
-   "share_pct": 0.1032053478043729,
+   "share_pct": 0.10308857471534445,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Archives and Records Administration",
    "obligations": 5655012.6,
-   "share_pct": 0.10262071030065395,
+   "share_pct": 0.1025045987076499,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Gallery of Art",
    "obligations": 3963400.64,
-   "share_pct": 0.07192326837306542,
+   "share_pct": 0.07184188981662797,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Smithsonian Institution",
    "obligations": 3040273.91,
-   "share_pct": 0.05517141874321314,
+   "share_pct": 0.05510899429399816,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Consumer Financial Protection Bureau",
    "obligations": 2945468.91,
-   "share_pct": 0.053451005876219086,
+   "share_pct": 0.05339052801145111,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Commodity Futures Trading Commission",
    "obligations": 2761257.61,
-   "share_pct": 0.05010814958419122,
+   "share_pct": 0.05005145403946482,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Government Accountability Office",
    "obligations": 2505433.62,
-   "share_pct": 0.04546574798003787,
+   "share_pct": 0.04541430514350306,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Securities and Exchange Commission",
    "obligations": 2336395.5300000003,
-   "share_pct": 0.04239823777437258,
+   "share_pct": 0.04235026571381946,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Railroad Retirement Board",
    "obligations": 2332931.3,
-   "share_pct": 0.04233537288469136,
+   "share_pct": 0.04228747195346939,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Federal Trade Commission",
    "obligations": 2208984.46,
-   "share_pct": 0.04008612718710945,
+   "share_pct": 0.040040771195405424,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "U.S. International Development Finance Corporation",
    "obligations": 2032687.34,
-   "share_pct": 0.03688688839525254,
+   "share_pct": 0.03684515222562375,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Court Services and Offender Supervision Agency",
    "obligations": 1247460.57,
-   "share_pct": 0.022637489749440815,
+   "share_pct": 0.022611876254964705,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Export-Import Bank of the United States",
    "obligations": 1163527.54,
-   "share_pct": 0.021114368977563826,
+   "share_pct": 0.021090478838720724,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "American Battle Monuments Commission",
    "obligations": 861248.16,
-   "share_pct": 0.01562894801053693,
+   "share_pct": 0.015611264425565003,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Endowment for the Arts",
    "obligations": 774544.6,
-   "share_pct": 0.014055550824331655,
+   "share_pct": 0.014039647480922892,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Office of Personnel Management",
    "obligations": 713316.88,
-   "share_pct": 0.012944460087506496,
+   "share_pct": 0.012929813902765284,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Selective Service System",
    "obligations": 534586.77,
-   "share_pct": 0.009701070171750337,
+   "share_pct": 0.009690093764471672,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Federal Election Commission",
    "obligations": 469227.30000000005,
-   "share_pct": 0.008515001154631918,
+   "share_pct": 0.00850536674121187,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Federal Maritime Commission",
    "obligations": 442404.62,
-   "share_pct": 0.008028253791104,
+   "share_pct": 0.008019170114583007,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Consumer Product Safety Commission",
    "obligations": 434884.42,
-   "share_pct": 0.00789178579002422,
+   "share_pct": 0.007882856522071954,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Peace Corps",
    "obligations": 412350.0,
-   "share_pct": 0.007482856871525743,
+   "share_pct": 0.007474390291738596,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Federal Labor Relations Authority",
    "obligations": 401748.7,
-   "share_pct": 0.007290476586447276,
+   "share_pct": 0.007282227677940104,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Defense Nuclear Facilities Safety Board",
    "obligations": 272822.89,
-   "share_pct": 0.004950878227588242,
+   "share_pct": 0.004945276489341741,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Endowment for the Humanities",
    "obligations": 187084.98,
-   "share_pct": 0.0033950045547526523,
+   "share_pct": 0.0033911632308526968,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "United States Chemical Safety Board",
    "obligations": 168534.38999999998,
-   "share_pct": 0.003058369633320964,
+   "share_pct": 0.003054909199563687,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Council of the Inspectors General on Integrity and Efficiency",
    "obligations": 127428.94,
-   "share_pct": 0.002312434871614506,
+   "share_pct": 0.002309818435849497,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Transportation Safety Board",
    "obligations": 114811.2,
-   "share_pct": 0.002083462536311668,
+   "share_pct": 0.0020811051743976194,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Pension Benefit Guaranty Corporation",
    "obligations": 112367.9,
-   "share_pct": 0.0020391243183070632,
+   "share_pct": 0.0020368171234704823,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Agency for International Development",
    "obligations": 99397.25,
-   "share_pct": 0.0018037477753686483,
+   "share_pct": 0.001801706900510523,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "International Trade Commission",
    "obligations": 86835.41,
-   "share_pct": 0.001575789849424652,
+   "share_pct": 0.0015740069006502744,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "National Labor Relations Board",
    "obligations": 83475.78,
-   "share_pct": 0.0015148231210839606,
+   "share_pct": 0.0015131091539403586,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Corporation for National and Community Service",
    "obligations": 79797.57,
-   "share_pct": 0.0014480751667407701,
+   "share_pct": 0.0014464367224744298,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Institute of Museum and Library Services",
    "obligations": 36150.62,
-   "share_pct": 0.0006560201655800072,
+   "share_pct": 0.0006552779026757152,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Occupational Safety and Health Review Commission",
    "obligations": 28914.66,
-   "share_pct": 0.0005247102274010683,
+   "share_pct": 0.000524116536905353,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "United States Trade and Development Agency",
    "obligations": 28871.5,
-   "share_pct": 0.0005239270090123814,
+   "share_pct": 0.0005233342046997233,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Committee for Purchase from People Who Are Blind or Severely Disabled",
    "obligations": 27688.5,
-   "share_pct": 0.0005024592760694568,
+   "share_pct": 0.0005018907617140878,
    "provisional": true
   },
   {
    "fiscal_year": 2026,
    "agency": "Small Business Administration",
    "obligations": -17970.32,
-   "share_pct": -0.0003261048441748914,
+   "share_pct": -0.0003257358684307892,
    "provisional": true
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Defense",
    "obligations": 3013035992.4500003,
-   "share_pct": 50.058704179185014,
+   "share_pct": 50.05702773508828,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Homeland Security",
    "obligations": 596540445.48,
-   "share_pct": 9.910947551250706,
+   "share_pct": 9.910615637954352,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of the Treasury",
    "obligations": 592571434.62,
-   "share_pct": 9.84500624121572,
+   "share_pct": 9.844676536264984,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Justice",
    "obligations": 392293001.63,
-   "share_pct": 6.517572099825022,
+   "share_pct": 6.517353829187559,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Transportation",
    "obligations": 294956303.24,
-   "share_pct": 4.900416180448987,
+   "share_pct": 4.900252067655578,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Health and Human Services",
    "obligations": 237994124.79999998,
-   "share_pct": 3.954044199803877,
+   "share_pct": 3.9539117805939576,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Social Security Administration",
    "obligations": 209763492.17000002,
-   "share_pct": 3.485019305591675,
+   "share_pct": 3.4849025938202125,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Veterans Affairs",
    "obligations": 201004881.14,
-   "share_pct": 3.339503380899782,
+   "share_pct": 3.3393915423929585,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Commerce",
-   "obligations": 138232179.39000002,
-   "share_pct": 2.2965951264662423,
+   "obligations": 138433759.99,
+   "share_pct": 2.299867170739408,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of State",
    "obligations": 119620420.85,
-   "share_pct": 1.9873786028857519,
+   "share_pct": 1.9873120464460394,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Aeronautics and Space Administration",
    "obligations": 54770946.1,
-   "share_pct": 0.9099667562233695,
+   "share_pct": 0.9099362818349148,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of the Interior",
    "obligations": 37685087.620000005,
-   "share_pct": 0.6261015991389797,
+   "share_pct": 0.6260806312704134,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Agriculture",
    "obligations": 22081704.7,
-   "share_pct": 0.36686635211768476,
+   "share_pct": 0.366854065924097,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Energy",
    "obligations": 17307838.82,
-   "share_pct": 0.28755314760342093,
+   "share_pct": 0.28754351757434404,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Environmental Protection Agency",
    "obligations": 10828724.729999999,
-   "share_pct": 0.17990887903603112,
+   "share_pct": 0.17990285396640227,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Office of Personnel Management",
    "obligations": 10461332.93,
-   "share_pct": 0.17380501652654157,
+   "share_pct": 0.17379919587259704,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Equal Employment Opportunity Commission",
    "obligations": 10081239.67,
-   "share_pct": 0.167490131437044,
+   "share_pct": 0.16748452226583765,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Science Foundation",
    "obligations": 9757135.63,
-   "share_pct": 0.16210545355656297,
+   "share_pct": 0.16210002471586246,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "District of Columbia Courts",
    "obligations": 8049663.09,
-   "share_pct": 0.13373743439312774,
+   "share_pct": 0.13373295558497483,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Smithsonian Institution",
    "obligations": 6090500.71,
-   "share_pct": 0.10118782985300356,
+   "share_pct": 0.10118444111686266,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Consumer Financial Protection Bureau",
    "obligations": 5238051.3,
-   "share_pct": 0.08702520021637172,
+   "share_pct": 0.08702228578049963,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Nuclear Regulatory Commission",
    "obligations": 4513350.43,
-   "share_pct": 0.07498499008923364,
+   "share_pct": 0.0749824788747298,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Gallery of Art",
    "obligations": 3253623.12,
-   "share_pct": 0.054055828633563785,
+   "share_pct": 0.05405401832751826,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Archives and Records Administration",
    "obligations": 3219918.4899999998,
-   "share_pct": 0.05349585852140228,
+   "share_pct": 0.05349406696851076,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Consumer Product Safety Commission",
    "obligations": 2561851.71,
-   "share_pct": 0.04256270991225387,
+   "share_pct": 0.04256128450572481,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Labor Relations Board",
    "obligations": 2144864.46,
-   "share_pct": 0.03563486655208589,
+   "share_pct": 0.03563367315599926,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Housing and Urban Development",
    "obligations": 2012153.35,
-   "share_pct": 0.03342999870004959,
+   "share_pct": 0.033428879144022455,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Federal Trade Commission",
    "obligations": 1777629.33,
-   "share_pct": 0.029533606964434408,
+   "share_pct": 0.029532617896861395,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Education",
    "obligations": 1627406.54,
-   "share_pct": 0.027037799339027616,
+   "share_pct": 0.027036893854959783,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Government Accountability Office",
    "obligations": 1410998.6300000001,
-   "share_pct": 0.02344238940171819,
+   "share_pct": 0.02344160432635577,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "U.S. Agency for Global Media",
    "obligations": 1383583.3,
-   "share_pct": 0.02298690997900847,
+   "share_pct": 0.02298614015745259,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "General Services Administration",
    "obligations": 1250001.129999999,
-   "share_pct": 0.020767570300226117,
+   "share_pct": 0.020766874803384874,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Securities and Exchange Commission",
    "obligations": 1054060.96,
-   "share_pct": 0.017512212238979214,
+   "share_pct": 0.017511625762654862,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Department of Labor",
    "obligations": 677363.01,
-   "share_pct": 0.011253736969780001,
+   "share_pct": 0.011253360087053639,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Commodity Futures Trading Commission",
    "obligations": 506735.18000000005,
-   "share_pct": 0.008418919168695268,
+   "share_pct": 0.008418637222776517,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Export-Import Bank of the United States",
    "obligations": 506174.58999999997,
-   "share_pct": 0.008409605503327137,
+   "share_pct": 0.008409323869318964,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Peace Corps",
    "obligations": 504879.19999999995,
-   "share_pct": 0.008388083840469752,
+   "share_pct": 0.00838780292721265,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "U.S. International Development Finance Corporation",
    "obligations": 424057.83999999997,
-   "share_pct": 0.007045314433885388,
+   "share_pct": 0.007045078489388103,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Court Services and Offender Supervision Agency",
    "obligations": 362896.27,
-   "share_pct": 0.006029173588758951,
+   "share_pct": 0.0060289716743738946,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Defense Nuclear Facilities Safety Board",
    "obligations": 298976.85,
-   "share_pct": 0.004967213710050936,
+   "share_pct": 0.004967047360237493,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Council of the Inspectors General on Integrity and Efficiency",
    "obligations": 265123.4,
-   "share_pct": 0.004404771096274908,
+   "share_pct": 0.004404623582418469,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "United States Chemical Safety Board",
    "obligations": 183272.32,
-   "share_pct": 0.0030448938791643653,
+   "share_pct": 0.00304479190700083,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Selective Service System",
    "obligations": 145767.62999999998,
-   "share_pct": 0.0024217894135202516,
+   "share_pct": 0.0024217083088525935,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Agency for International Development",
    "obligations": 132681.02,
-   "share_pct": 0.002204367935535954,
+   "share_pct": 0.0022042941122184475,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Occupational Safety and Health Review Commission",
    "obligations": 129094.16,
-   "share_pct": 0.002144775695641684,
+   "share_pct": 0.0021447038680422136,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Transportation Safety Board",
    "obligations": 121891.33000000002,
-   "share_pct": 0.002025107581113197,
+   "share_pct": 0.0020250397611465145,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Executive Office of the President",
    "obligations": 121740.41,
-   "share_pct": 0.0020226001900121105,
+   "share_pct": 0.0020225324540168585,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Pension Benefit Guaranty Corporation",
    "obligations": 110953.81,
-   "share_pct": 0.0018433911729767265,
+   "share_pct": 0.0018433294386130312,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Federal Election Commission",
    "obligations": 69794.74,
-   "share_pct": 0.0011595726873750948,
+   "share_pct": 0.001159533853793236,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "International Trade Commission",
    "obligations": 60386.689999999995,
-   "share_pct": 0.0010032669568650408,
+   "share_pct": 0.0010032333578936959,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Merit Systems Protection Board",
    "obligations": 51494.62,
-   "share_pct": 0.0008555337393442441,
+   "share_pct": 0.0008555050878937043,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Railroad Retirement Board",
    "obligations": 26800.0,
-   "share_pct": 0.00044525630472514886,
+   "share_pct": 0.0004452413932863525,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "United States Trade and Development Agency",
    "obligations": 16224.71,
-   "share_pct": 0.0002695580007401929,
+   "share_pct": 0.00026954897336070957,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Morris K. Udall and Stewart L. Udall Foundation",
    "obligations": 14035.21,
-   "share_pct": 0.0002331815574866215,
+   "share_pct": 0.00023317374833830402,
    "provisional": false
   },
   {
@@ -881,35 +881,35 @@
    "fiscal_year": 2025,
    "agency": "Federal Maritime Commission",
    "obligations": -7026.1,
-   "share_pct": -0.0001167319150234839,
+   "share_pct": -0.0001167280057227329,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "National Endowment for the Arts",
    "obligations": -20423.34,
-   "share_pct": -0.0003393142126322881,
+   "share_pct": -0.0003393028491477946,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Federal Communications Commission",
    "obligations": -28512.03,
-   "share_pct": -0.0004737000417168875,
+   "share_pct": -0.00047368417770978665,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Small Business Administration",
    "obligations": -58562.8,
-   "share_pct": -0.0009729647732223115,
+   "share_pct": -0.000972932189057836,
    "provisional": false
   },
   {
    "fiscal_year": 2025,
    "agency": "Millennium Challenge Corporation",
    "obligations": -184591.5,
-   "share_pct": -0.0030668107900623997,
+   "share_pct": -0.00306670808391111,
    "provisional": false
   },
   {
@@ -3085,8 +3085,8 @@
   {
    "fiscal_year": 2019,
    "agency": "Department of State",
-   "obligations": 243395827.71,
-   "share_pct": 3.860512138274993,
+   "obligations": 243395827.70999998,
+   "share_pct": 3.8605121382749927,
    "provisional": false
   },
   {

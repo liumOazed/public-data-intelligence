@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "concentration",
   "description": "Per fiscal year: suppliers with net obligations above zero, the share of the largest 4 and 10, the Herfindahl-Hirschman index, and suppliers with no action in the 4 years before.",
-  "generated_at": "2026-11-23T00:41:20+00:00",
+  "generated_at": "2026-11-23T17:36:43+00:00",
   "rows": 10,
   "columns": [
    "fiscal_year",
@@ -25,7 +25,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T21:05:51+00:00"
+    "retrieved_at": "2026-11-23T17:02:21+00:00"
    }
   ],
   "preliminary": false,
@@ -51,11 +51,11 @@
    "reason": "Shares of net obligations by supplier after name cleaning. Arithmetic on reported figures; the rules were fixed before the figures were computed."
   },
   "cleaning": {
-   "transactions": 415312,
-   "names_as_written": 10227,
-   "registrations": 10536,
-   "after_parent_grouping": 10698,
-   "suppliers": 9975,
+   "transactions": 415513,
+   "names_as_written": 10230,
+   "registrations": 10539,
+   "after_parent_grouping": 10701,
+   "suppliers": 9978,
    "transactions_without_registration": 0
   },
   "entrant_lookback_years": 4,
@@ -161,25 +161,25 @@
   {
    "fiscal_year": 2025,
    "suppliers": 1875,
-   "obligations": 6052044026.68,
-   "hhi": 194.03073292222714,
-   "top4_share_pct": 19.474685477570123,
-   "top10_share_pct": 34.67057331803752,
+   "obligations": 6052245607.280001,
+   "hhi": 194.0199613869873,
+   "top4_share_pct": 19.474036839190564,
+   "top10_share_pct": 34.66941855409942,
    "entrants": 527.0,
    "entrant_share_of_suppliers_pct": 28.10666666666667,
-   "entrant_share_of_dollars_pct": 2.2693200421964117,
+   "entrant_share_of_dollars_pct": 2.2692444585328624,
    "provisional": false
   },
   {
    "fiscal_year": 2026,
-   "suppliers": 1492,
-   "obligations": 5578555258.87,
-   "hhi": 200.86490870079592,
-   "top4_share_pct": 19.528470867754237,
-   "top10_share_pct": 36.350954091665045,
-   "entrants": 337.0,
-   "entrant_share_of_suppliers_pct": 22.587131367292226,
-   "entrant_share_of_dollars_pct": 4.39605746685165,
+   "suppliers": 1494,
+   "obligations": 5584797359.91,
+   "hhi": 200.60971493852432,
+   "top4_share_pct": 19.50706530321731,
+   "top10_share_pct": 36.31226674055513,
+   "entrants": 338.0,
+   "entrant_share_of_suppliers_pct": 22.623828647925034,
+   "entrant_share_of_dollars_pct": 4.391457480633681,
    "provisional": true
   }
  ]

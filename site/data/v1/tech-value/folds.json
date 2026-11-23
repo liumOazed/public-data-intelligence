@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "folds",
   "description": "Expanding-window folds before the holdout. The spread of the improvement column is the noise level the holdout result has to clear.",
-  "generated_at": "2026-11-23T00:34:40+00:00",
+  "generated_at": "2026-11-23T17:31:32+00:00",
   "rows": 4,
   "columns": [
    "fold",
@@ -22,7 +22,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC publishes new results about every two weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-16T13:58:45+00:00"
+    "retrieved_at": "2026-11-23T16:27:53+00:00"
    }
   ],
   "preliminary": false,

@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_missing",
   "description": "Benchmarked models left off the efficiency page, with the reason.",
-  "generated_at": "2026-11-23T00:38:21+00:00",
+  "generated_at": "2026-11-23T17:34:20+00:00",
   "rows": 4,
   "columns": [
    "kind",
@@ -19,7 +19,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    },
    {
     "id": "fred",

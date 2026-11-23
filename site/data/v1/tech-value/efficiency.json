@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency",
   "description": "Blender score per rated watt, energy and EDP for a fixed render job, per model with both a score and a rated power figure.",
-  "generated_at": "2026-11-23T00:38:21+00:00",
+  "generated_at": "2026-11-23T17:34:20+00:00",
   "rows": 319,
   "columns": [
    "kind",
@@ -36,7 +36,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    },
    {
     "id": "fred",
@@ -61,7 +61,7 @@
    "kinds": {
     "cpu": {
      "n": 220,
-     "n_priced": 72,
+     "n_priced": 77,
      "best_key": "amd threadripper pro 7995wx",
      "best_name": "AMD Threadripper Pro 7995WX",
      "best_score_per_watt": 8.553466247312144,
@@ -80,7 +80,7 @@
     },
     "gpu": {
      "n": 99,
-     "n_priced": 56,
+     "n_priced": 58,
      "best_key": "nvidia rtx pro 4000 blackwell",
      "best_name": "NVIDIA RTX Pro 4000 Blackwell",
      "best_score_per_watt": 44.68362860779906,
@@ -505,7 +505,7 @@
    "energy_kj_per_job": 126.09229149018027,
    "edp": 244604091.8960706,
    "on_frontier": false,
-   "price_usd": 254.99
+   "price_usd": 254.5
   },
   {
    "kind": "cpu",
@@ -528,7 +528,7 @@
    "energy_kj_per_job": 130.03532863571087,
    "edp": 260141333.74457425,
    "on_frontier": false,
-   "price_usd": 359.99
+   "price_usd": 344.99
   },
   {
    "kind": "cpu",
@@ -666,7 +666,7 @@
    "energy_kj_per_job": 143.7055962609284,
    "edp": 172094153.30590793,
    "on_frontier": false,
-   "price_usd": 295.0
+   "price_usd": 270.0
   },
   {
    "kind": "cpu",
@@ -758,7 +758,7 @@
    "energy_kj_per_job": 147.75700816670752,
    "edp": 174657067.6990118,
    "on_frontier": false,
-   "price_usd": 349.99
+   "price_usd": 369.99
   },
   {
    "kind": "cpu",
@@ -781,7 +781,7 @@
    "energy_kj_per_job": 148.48601682437916,
    "edp": 339201495.2672278,
    "on_frontier": false,
-   "price_usd": 158.99
+   "price_usd": 159.99
   },
   {
    "kind": "cpu",
@@ -804,7 +804,7 @@
    "energy_kj_per_job": 151.21088184118952,
    "edp": 182917846.2975214,
    "on_frontier": false,
-   "price_usd": 355.0
+   "price_usd": 325.0
   },
   {
    "kind": "cpu",
@@ -850,7 +850,7 @@
    "energy_kj_per_job": 153.7313210611706,
    "edp": 139019523.9718395,
    "on_frontier": true,
-   "price_usd": 579.0
+   "price_usd": 570.0
   },
   {
    "kind": "cpu",
@@ -896,7 +896,7 @@
    "energy_kj_per_job": 154.8377179499704,
    "edp": 191797751.19963667,
    "on_frontier": false,
-   "price_usd": 370.0
+   "price_usd": 425.0
   },
   {
    "kind": "cpu",
@@ -1103,7 +1103,7 @@
    "energy_kj_per_job": 162.6505750488584,
    "edp": 407003224.05729717,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 249.99
   },
   {
    "kind": "cpu",
@@ -1135,19 +1135,19 @@
    "name": "Intel Core i7-12700F",
    "vendor": "intel",
    "year": 2022,
-   "score": 236.15468817119347,
-   "p25_score": 217.7326816555751,
-   "p75_score": 286.3904335880743,
-   "n_runs": 26,
+   "score": 231.84197472414897,
+   "p25_score": 207.6657091794038,
+   "p75_score": 285.1086569698933,
+   "n_runs": 27,
    "backend": "CPU",
    "watts": 65.0,
    "power_label": "TDP",
    "power_kind": "rated",
-   "score_per_watt": 3.6331490487875917,
-   "pct_of_best": 42.47575127720039,
-   "seconds_per_job": 2540.7075533687794,
-   "energy_kj_per_job": 165.14599096897066,
-   "edp": 419587666.663436,
+   "score_per_watt": 3.566799611140753,
+   "pct_of_best": 41.70004893935941,
+   "seconds_per_job": 2587.9696750939693,
+   "energy_kj_per_job": 168.218028881108,
+   "edp": 435343157.548389,
    "on_frontier": false,
    "price_usd": null
   },
@@ -1218,7 +1218,7 @@
    "energy_kj_per_job": 172.43281289501465,
    "edp": 198220499.75258085,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 569.99
   },
   {
    "kind": "cpu",
@@ -1287,7 +1287,7 @@
    "energy_kj_per_job": 173.8069765083185,
    "edp": 464751770.50712585,
    "on_frontier": false,
-   "price_usd": 495.0
+   "price_usd": 343.49
   },
   {
    "kind": "cpu",
@@ -1448,7 +1448,7 @@
    "energy_kj_per_job": 181.91210394487055,
    "edp": 509107900.9484521,
    "on_frontier": false,
-   "price_usd": 159.0
+   "price_usd": 152.99
   },
   {
    "kind": "cpu",
@@ -1494,7 +1494,7 @@
    "energy_kj_per_job": 185.20912787526186,
    "edp": 201778947.34303,
    "on_frontier": false,
-   "price_usd": 475.0
+   "price_usd": 488.98
   },
   {
    "kind": "cpu",
@@ -1540,7 +1540,7 @@
    "energy_kj_per_job": 192.68078539851024,
    "edp": 571167462.489027,
    "on_frontier": false,
-   "price_usd": 159.99
+   "price_usd": 149.99
   },
   {
    "kind": "cpu",
@@ -1563,7 +1563,7 @@
    "energy_kj_per_job": 194.1048016306512,
    "edp": 301413392.1285956,
    "on_frontier": false,
-   "price_usd": 308.99
+   "price_usd": 298.99
   },
   {
    "kind": "cpu",
@@ -1586,7 +1586,7 @@
    "energy_kj_per_job": 195.68004894961447,
    "edp": 109401947.30549578,
    "on_frontier": false,
-   "price_usd": 4757.65
+   "price_usd": 4107.08
   },
   {
    "kind": "cpu",
@@ -1609,7 +1609,7 @@
    "energy_kj_per_job": 196.1696290694747,
    "edp": 592038821.065466,
    "on_frontier": false,
-   "price_usd": 184.99
+   "price_usd": 179.99
   },
   {
    "kind": "cpu",
@@ -1770,7 +1770,7 @@
    "energy_kj_per_job": 206.70254638714948,
    "edp": 341807541.4634535,
    "on_frontier": false,
-   "price_usd": 450.99
+   "price_usd": null
   },
   {
    "kind": "cpu",
@@ -1839,7 +1839,7 @@
    "energy_kj_per_job": 208.60170012758132,
    "edp": 362622244.1343114,
    "on_frontier": false,
-   "price_usd": 449.99
+   "price_usd": 445.99
   },
   {
    "kind": "cpu",
@@ -1908,7 +1908,7 @@
    "energy_kj_per_job": 212.12521893860423,
    "edp": 359976868.0780062,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 304.99
   },
   {
    "kind": "cpu",
@@ -1977,7 +1977,7 @@
    "energy_kj_per_job": 216.6902863317286,
    "edp": 375637441.5242122,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 245.99
   },
   {
    "kind": "cpu",
@@ -2391,7 +2391,7 @@
    "energy_kj_per_job": 248.0751222281287,
    "edp": 492330130.1480079,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 250.0
   },
   {
    "kind": "cpu",
@@ -2437,7 +2437,7 @@
    "energy_kj_per_job": 250.08568840384024,
    "edp": 500342812.35538137,
    "on_frontier": false,
-   "price_usd": 249.89
+   "price_usd": 249.95
   },
   {
    "kind": "cpu",
@@ -2506,7 +2506,7 @@
    "energy_kj_per_job": 252.69207213411838,
    "edp": 982358204.9143767,
    "on_frontier": false,
-   "price_usd": 128.99
+   "price_usd": 129.99
   },
   {
    "kind": "cpu",
@@ -2575,7 +2575,7 @@
    "energy_kj_per_job": 255.6837930159392,
    "edp": 1005756954.0156559,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 179.99
   },
   {
    "kind": "cpu",
@@ -2621,7 +2621,7 @@
    "energy_kj_per_job": 257.8531248572244,
    "edp": 1022895907.6713128,
    "on_frontier": false,
-   "price_usd": 145.0
+   "price_usd": 129.0
   },
   {
    "kind": "cpu",
@@ -2920,7 +2920,7 @@
    "energy_kj_per_job": 300.71469402969774,
    "edp": 861231687.6702354,
    "on_frontier": false,
-   "price_usd": 334.99
+   "price_usd": 319.0
   },
   {
    "kind": "cpu",
@@ -5312,7 +5312,7 @@
    "energy_kj_per_job": 17.54486905528033,
    "edp": 2367864.847437949,
    "on_frontier": true,
-   "price_usd": 1450.0
+   "price_usd": 1449.97
   },
   {
    "kind": "gpu",
@@ -5321,19 +5321,19 @@
    "name": "NVIDIA RTX 4070 Super",
    "vendor": "nvidia",
    "year": 2024,
-   "score": 6249.543127088609,
-   "p25_score": 5964.189073387548,
-   "p75_score": 6426.453045196155,
-   "n_runs": 469,
+   "score": 6251.069876224321,
+   "p25_score": 5964.321514070062,
+   "p75_score": 6424.17738451754,
+   "n_runs": 470,
    "backend": "OPTIX",
    "watts": 220.0,
    "power_label": "Board power",
    "power_kind": "rated",
-   "score_per_watt": 28.407014214039133,
-   "pct_of_best": 63.573651243446655,
-   "seconds_per_job": 96.00701808093834,
-   "energy_kj_per_job": 21.121543977806436,
-   "edp": 2027816.4545745966,
+   "score_per_watt": 28.41395398283782,
+   "pct_of_best": 63.58918214148451,
+   "seconds_per_job": 95.98356951376827,
+   "energy_kj_per_job": 21.11638529302902,
+   "edp": 2026826.0356529648,
    "on_frontier": false,
    "price_usd": 1001.53
   },
@@ -5450,7 +5450,7 @@
    "energy_kj_per_job": 22.993091909784187,
    "edp": 2643411.377858915,
    "on_frontier": false,
-   "price_usd": 569.99
+   "price_usd": 880.22
   },
   {
    "kind": "gpu",
@@ -5459,21 +5459,21 @@
    "name": "NVIDIA RTX 5090",
    "vendor": "nvidia",
    "year": 2025,
-   "score": 14965.979744308945,
-   "p25_score": 14505.364467133515,
-   "p75_score": 15326.120389091053,
-   "n_runs": 1555,
+   "score": 14966.126594971964,
+   "p25_score": 14505.793255442166,
+   "p75_score": 15326.923310367709,
+   "n_runs": 1556,
    "backend": "OPTIX",
    "watts": 575.0,
    "power_label": "Board power",
    "power_kind": "rated",
-   "score_per_watt": 26.02779085966773,
-   "pct_of_best": 58.24905378236192,
-   "seconds_per_job": 40.090926905614694,
-   "energy_kj_per_job": 23.05228297072845,
-   "edp": 924187.3915870205,
+   "score_per_watt": 26.028046252125154,
+   "pct_of_best": 58.249625339474406,
+   "seconds_per_job": 40.09053352532624,
+   "energy_kj_per_job": 23.052056777062585,
+   "edp": 924169.2550485515,
    "on_frontier": true,
-   "price_usd": 6499.95
+   "price_usd": 6550.0
   },
   {
    "kind": "gpu",
@@ -5496,7 +5496,7 @@
    "energy_kj_per_job": 23.63715059837407,
    "edp": 1551985.8011394881,
    "on_frontier": false,
-   "price_usd": 1899.99
+   "price_usd": 1699.97
   },
   {
    "kind": "gpu",
@@ -5519,7 +5519,7 @@
    "energy_kj_per_job": 23.640601770201204,
    "edp": 3854331.3934982084,
    "on_frontier": false,
-   "price_usd": 449.99
+   "price_usd": 450.99
   },
   {
    "kind": "gpu",
@@ -5634,7 +5634,7 @@
    "energy_kj_per_job": 24.2973023918357,
    "edp": 2361435.6140812193,
    "on_frontier": false,
-   "price_usd": 874.0
+   "price_usd": 869.98
   },
   {
    "kind": "gpu",
@@ -5680,7 +5680,7 @@
    "energy_kj_per_job": 24.40907035372721,
    "edp": 1324006.0345182323,
    "on_frontier": true,
-   "price_usd": 2083.48
+   "price_usd": 4229.9
   },
   {
    "kind": "gpu",
@@ -5781,19 +5781,19 @@
    "name": "NVIDIA RTX 5050",
    "vendor": "nvidia",
    "year": 2025,
-   "score": 2863.340017046521,
-   "p25_score": 2821.3451490239277,
-   "p75_score": 2895.7600306793274,
-   "n_runs": 59,
+   "score": 2863.0583629119683,
+   "p25_score": 2821.393645524548,
+   "p75_score": 2895.6706565361455,
+   "n_runs": 60,
    "backend": "OPTIX",
    "watts": 130.0,
    "power_label": "Board power",
    "power_kind": "rated",
-   "score_per_watt": 22.025692438819394,
-   "pct_of_best": 49.292533138132484,
-   "seconds_per_job": 209.5454945720656,
-   "energy_kj_per_job": 27.240914294368526,
-   "edp": 5708210.8584087035,
+   "score_per_watt": 22.0235258685536,
+   "pct_of_best": 49.28768444895191,
+   "seconds_per_job": 209.566108666311,
+   "energy_kj_per_job": 27.243594126620433,
+   "edp": 5709334.007200209,
    "on_frontier": false,
    "price_usd": 349.99
   },
@@ -5887,7 +5887,7 @@
    "energy_kj_per_job": 34.98654069649994,
    "edp": 4080193.433026154,
    "on_frontier": false,
-   "price_usd": 5195.0
+   "price_usd": 7899.0
   },
   {
    "kind": "gpu",
@@ -5979,7 +5979,7 @@
    "energy_kj_per_job": 42.39184424296963,
    "edp": 5615838.932250616,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 1150.96
   },
   {
    "kind": "gpu",
@@ -6034,19 +6034,19 @@
    "name": "NVIDIA RTX 3060",
    "vendor": "nvidia",
    "year": 2021,
-   "score": 2155.052340575554,
-   "p25_score": 2082.8547198505594,
-   "p75_score": 2210.650157639882,
-   "n_runs": 632,
+   "score": 2154.863853931395,
+   "p25_score": 2082.920566148784,
+   "p75_score": 2210.552498785468,
+   "n_runs": 633,
    "backend": "OPTIX",
    "watts": 170.0,
    "power_label": "Board power",
    "power_kind": "rated",
-   "score_per_watt": 12.676778473973846,
-   "pct_of_best": 28.370073937462738,
-   "seconds_per_job": 278.4155116342821,
-   "energy_kj_per_job": 47.33063697782796,
-   "edp": 13177583.510158442,
+   "score_per_watt": 12.675669729008208,
+   "pct_of_best": 28.367592614884018,
+   "seconds_per_job": 278.439864729896,
+   "energy_kj_per_job": 47.33477700408232,
+   "edp": 13179888.906036472,
    "on_frontier": false,
    "price_usd": 259.99
   },
@@ -6071,7 +6071,7 @@
    "energy_kj_per_job": 48.03864971682988,
    "edp": 12145851.929559367,
    "on_frontier": false,
-   "price_usd": 299.99
+   "price_usd": 249.99
   },
   {
    "kind": "gpu",
@@ -6347,7 +6347,7 @@
    "energy_kj_per_job": 55.59720974045204,
    "edp": 14050226.049653705,
    "on_frontier": false,
-   "price_usd": 739.9
+   "price_usd": 729.99
   },
   {
    "kind": "gpu",
@@ -6370,7 +6370,7 @@
    "energy_kj_per_job": 55.623206282697474,
    "edp": 10177437.753840512,
    "on_frontier": false,
-   "price_usd": 789.99
+   "price_usd": 949.99
   },
   {
    "kind": "gpu",
@@ -6508,7 +6508,7 @@
    "energy_kj_per_job": 59.44260831205205,
    "edp": 22083898.018375248,
    "on_frontier": false,
-   "price_usd": 459.99
+   "price_usd": 629.99
   },
   {
    "kind": "gpu",
@@ -6761,7 +6761,7 @@
    "energy_kj_per_job": 84.8602675327705,
    "edp": 54555037.922222584,
    "on_frontier": false,
-   "price_usd": 349.95
+   "price_usd": 219.99
   },
   {
    "kind": "gpu",
@@ -6784,7 +6784,7 @@
    "energy_kj_per_job": 85.59677663082348,
    "edp": 44404897.997497514,
    "on_frontier": false,
-   "price_usd": 408.49
+   "price_usd": 299.99
   },
   {
    "kind": "gpu",
@@ -6807,7 +6807,7 @@
    "energy_kj_per_job": 86.4968171458681,
    "edp": 99755991.68487656,
    "on_frontier": false,
-   "price_usd": 198.99
+   "price_usd": 189.99
   },
   {
    "kind": "gpu",
@@ -7152,7 +7152,7 @@
    "energy_kj_per_job": 154.50975166490988,
    "edp": 223114610.83693573,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 149.0
   },
   {
    "kind": "gpu",

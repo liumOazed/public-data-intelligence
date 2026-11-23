@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "benchmark_sources",
   "description": "Benchmark sources behind the Tech Value pages, collected or planned, with the metric each reports and the configuration details recorded for every result.",
-  "generated_at": "2026-11-23T00:41:14+00:00",
+  "generated_at": "2026-11-23T17:36:38+00:00",
   "rows": 11,
   "columns": [
    "source",
@@ -25,7 +25,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC trademarks are acknowledged, SPEC metrics are compared only with SPEC metrics of the same benchmark release, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC publishes new results about every two weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-16T13:58:45+00:00"
+    "retrieved_at": "2026-11-23T16:27:53+00:00"
    },
    {
     "id": "spec_gwpg",
@@ -34,7 +34,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse). Public use is allowed when the source and retrieval date are stated, the licensee of each result is identifiable, the SPEC, SPECviewperf, SPECworkstation and SPECapc trademarks are acknowledged, SPEC metrics are compared only within the same benchmark release and resolution, and derived values and estimates are clearly labelled and never called SPEC metrics. The site does all of these.",
     "frequency": "weekly collection; SPEC/GWPG publishes new workstation and GPU results periodically",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": "2026-11-20T05:37:37+00:00"
+    "retrieved_at": "2026-11-23T16:29:33+00:00"
    },
    {
     "id": "blender_opendata",
@@ -43,7 +43,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    }
   ],
   "preliminary": false,
@@ -60,9 +60,9 @@
    "benchmark": "SPECrate 2017 Integer",
    "metric": "SPECrate2017_int_base and _peak; this site uses base per socket",
    "status": "Collected",
-   "results": 13388,
-   "products": 644,
-   "last_collected": "2026-11-16T13:58:45+00:00",
+   "results": 13395,
+   "products": 646,
+   "last_collected": "2026-11-23T16:27:53+00:00",
    "recorded": "OEM, system, chips, cores, threads per core, clock, cache, memory, compiler, OS, test and publication dates, disclosure link",
    "used_for": "Over & under performers (CPU)"
   },
@@ -74,7 +74,7 @@
    "status": "Collected",
    "results": 537,
    "products": 103,
-   "last_collected": "2026-11-20T05:37:37+00:00",
+   "last_collected": "2026-11-23T16:29:33+00:00",
    "recorded": "OEM, system, CPU, GPU as written, OS, resolution, anti-aliasing, test date, metric, number of viewsets, composite, best and worst viewset, disclosure link",
    "used_for": "Over & under performers (GPU), results by workload"
   },
@@ -86,7 +86,7 @@
    "status": "Collected",
    "results": 54,
    "products": 40,
-   "last_collected": "2026-11-20T05:36:48+00:00",
+   "last_collected": "2026-11-23T16:28:56+00:00",
    "recorded": "Submitter, system, CPU and GPU as written, suite version, disclosure link",
    "used_for": "Catalogue measurements for desktop and workstation CPUs SPEC CPU 2017 does not cover"
   },
@@ -96,9 +96,9 @@
    "benchmark": "Blender Benchmark",
    "metric": "Median samples per minute over runs, per device and Blender version",
    "status": "Collected",
-   "results": 327371,
-   "products": 1359,
-   "last_collected": "2026-11-16T13:58:49+00:00",
+   "results": 328138,
+   "products": 1360,
+   "last_collected": "2026-11-23T16:29:35+00:00",
    "recorded": "Device, CPU or GPU, Blender version, number of runs, median and interquartile range",
    "used_for": "Value ranking, Fair price, comparisons, and its own over & under performer models (CPU and GPU), kept apart from the SPEC ones"
   },

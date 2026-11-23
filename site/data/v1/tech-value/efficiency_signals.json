@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "efficiency_signals",
   "description": "Rates of change in efficiency, rated power, the vendor gap and the price of efficiency, recent pace against the pace before, and turning points. No forecasts.",
-  "generated_at": "2026-11-23T00:39:25+00:00",
-  "rows": 14,
+  "generated_at": "2026-11-23T17:35:10+00:00",
+  "rows": 16,
   "columns": [
    "signal",
    "kind",
@@ -31,7 +31,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    },
    {
     "id": "spec_power",
@@ -202,6 +202,24 @@
    "label_reason": "A fitted slope that describes how fast the past moved. It is not a forecast."
   },
   {
+   "signal": "specpower_pace",
+   "kind": "cpu",
+   "title": "Measured server frontier",
+   "direction": "slowing",
+   "sentence": "The best measured server result improved +13% a year in 2021\u20132026 (doubling every 5.6 years), against +18% a year in 2015\u20132020 (doubling every 4.2 years): slowing.",
+   "value": 13.05470230703866,
+   "unit": "% per year",
+   "recent": 13.05470230703866,
+   "prior": 18.026974511945916,
+   "lo": 8.048813620720823,
+   "hi": 21.646914977408866,
+   "n": 20,
+   "window": "2021\u20132026 vs 2015\u20132020",
+   "method": "Theil-Sen slope of log best ssj_ops per watt on year published (SPECpower).",
+   "label": "explanation",
+   "label_reason": "A fitted slope that describes how fast the past moved. It is not a forecast."
+  },
+  {
    "signal": "tdp_creep",
    "kind": "cpu",
    "title": "TDP creep",
@@ -242,12 +260,12 @@
    "kind": "cpu",
    "title": "Price of efficiency",
    "direction": "no clear change",
-   "sentence": "At today's prices, one point per rated watt costs 3% less with each newer launch year (2020\u20132026): no clear change.",
-   "value": -3.406999108935992,
+   "sentence": "At today's prices, one point per rated watt costs 2% less with each newer launch year (2020\u20132026): no clear change.",
+   "value": -2.4924163243655055,
    "unit": "% per launch year",
    "recent": null,
    "prior": null,
-   "lo": -14.168924164656174,
+   "lo": -12.783034962730136,
    "hi": 9.792561951167613,
    "n": 7,
    "window": "2020\u20132026",
@@ -306,6 +324,24 @@
    "n": 14,
    "window": "2012\u20132026",
    "method": "Straight line against a line with one change of slope, by BIC (bend counted as a parameter): 'strong' at a BIC gain of 6 or more, 'possible' at 2. Gain here: -4.9.",
+   "label": "explanation",
+   "label_reason": "A fitted slope that describes how fast the past moved. It is not a forecast."
+  },
+  {
+   "signal": "turn_specpower",
+   "kind": "cpu",
+   "title": "Turning point: measured servers",
+   "direction": "bends down",
+   "sentence": "Strong bend in best measured ssj_ops per watt at 2011: +67% a year before, +16% after.",
+   "value": 2011.0,
+   "unit": "year",
+   "recent": 16.300967804501457,
+   "prior": 66.80930415019131,
+   "lo": null,
+   "hi": null,
+   "n": 20,
+   "window": "2007\u20132026",
+   "method": "Straight line against a line with one change of slope, by BIC (bend counted as a parameter): 'strong' at a BIC gain of 6 or more, 'possible' at 2. Gain here: 42.3.",
    "label": "explanation",
    "label_reason": "A fitted slope that describes how fast the past moved. It is not a forecast."
   }

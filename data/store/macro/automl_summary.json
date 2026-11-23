@@ -1,5 +1,5 @@
 {
- "trained_at": "2026-11-16T14:48:26+00:00",
+ "trained_at": "2026-11-23T17:31:30+00:00",
  "autogluon_version": "1.6.3",
  "python_version": "3.12.16",
  "time_limit_s": 1200,
@@ -22,44 +22,44 @@
  "picked": "WeightedEnsemble",
  "baseline": "SeasonalAverage",
  "published": "WeightedEnsemble",
- "holdout_scaled_mae_picked": 0.6048463713642586,
- "holdout_scaled_mae_baseline": 0.631475775049234,
- "holdout_n_forecasts": 1582,
- "holdout_improvement": 0.02662940368497546,
- "fold_spread": 0.018617573795581932,
+ "holdout_scaled_mae_picked": 0.6037502282414472,
+ "holdout_scaled_mae_baseline": 0.6299173844124211,
+ "holdout_n_forecasts": 1592,
+ "holdout_improvement": 0.02616715617097387,
+ "fold_spread": 0.016956187402466287,
  "passed": true,
  "folds": [
   {
    "fold": 1,
    "months": "Nov 2023 to Jan 2024",
    "n_forecasts": 210,
-   "baseline_scaled_mae": 0.5901364238947466,
-   "picked_scaled_mae": 0.5691971172599803,
-   "improvement": 0.020939306634766286
+   "baseline_scaled_mae": 0.5901377497246016,
+   "picked_scaled_mae": 0.5674929183602272,
+   "improvement": 0.02264483136437445
   },
   {
    "fold": 2,
    "months": "Feb 2024 to Apr 2024",
    "n_forecasts": 210,
-   "baseline_scaled_mae": 0.5738285662799754,
-   "picked_scaled_mae": 0.5404620671582451,
-   "improvement": 0.033366499121730286
+   "baseline_scaled_mae": 0.5738306775649256,
+   "picked_scaled_mae": 0.5395083718637201,
+   "improvement": 0.034322305701205424
   },
   {
    "fold": 3,
    "months": "May 2024 to Jul 2024",
    "n_forecasts": 210,
-   "baseline_scaled_mae": 0.49856171541924604,
-   "picked_scaled_mae": 0.5000880773713339,
-   "improvement": -0.001526361952087829
+   "baseline_scaled_mae": 0.4985635532334056,
+   "picked_scaled_mae": 0.4972693408806513,
+   "improvement": 0.0012942123527543425
   },
   {
    "fold": 4,
    "months": "Aug 2024 to Oct 2024",
    "n_forecasts": 210,
-   "baseline_scaled_mae": 0.6984174865159538,
-   "picked_scaled_mae": 0.6573213992451041,
-   "improvement": 0.04109608727084968
+   "baseline_scaled_mae": 0.6984207956174625,
+   "picked_scaled_mae": 0.6589499278966452,
+   "improvement": 0.039470867720817315
   }
  ]
 }

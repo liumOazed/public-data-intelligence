@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "competition",
   "description": "Per fiscal year, of newly obligated dollars: the share on competed awards that drew one offer, and the share not competed.",
-  "generated_at": "2026-11-23T00:41:20+00:00",
+  "generated_at": "2026-11-23T17:36:43+00:00",
   "rows": 10,
   "columns": [
    "fiscal_year",
@@ -21,7 +21,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T21:05:51+00:00"
+    "retrieved_at": "2026-11-23T17:02:21+00:00"
    }
   ],
   "preliminary": false,
@@ -113,18 +113,18 @@
   },
   {
    "fiscal_year": 2025,
-   "new_dollars": 6163219544.06,
-   "single_bidder_share_pct": 27.62894151219196,
-   "not_competed_share_pct": 14.158231090128842,
-   "competed_with_offers_recorded_pct": 68.91174734434631,
+   "new_dollars": 6163421124.660001,
+   "single_bidder_share_pct": 27.627630244176274,
+   "not_competed_share_pct": 14.157768031600085,
+   "competed_with_offers_recorded_pct": 68.91276411547008,
    "provisional": false
   },
   {
    "fiscal_year": 2026,
-   "new_dollars": 5696938584.39,
-   "single_bidder_share_pct": 25.663139115013355,
-   "not_competed_share_pct": 13.388241008950041,
-   "competed_with_offers_recorded_pct": 71.15184206332857,
+   "new_dollars": 5703398941.070001,
+   "single_bidder_share_pct": 25.678743817936077,
+   "not_competed_share_pct": 13.37307587441723,
+   "competed_with_offers_recorded_pct": 71.18118230088882,
    "provisional": true
   }
  ]

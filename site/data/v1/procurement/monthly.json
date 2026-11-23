@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "monthly",
   "description": "Net obligations on federal contracts for computer hardware, by month of the action, with the sum over twelve months.",
-  "generated_at": "2026-11-23T00:41:20+00:00",
+  "generated_at": "2026-11-23T17:36:43+00:00",
   "rows": 121,
   "columns": [
    "period",
@@ -20,7 +20,7 @@
     "licence": "No licence or terms-of-use statement was found on the pages read (the API tutorial at https://api.usaspending.gov/docs/intro-tutorial and \"About the data\" at https://www.usaspending.gov/data/about-the-data-download.pdf). The site is the US government's official open data source for federal spending, published under the DATA Act, and works of the US federal government are not subject to copyright in the United States. The API needs no key and states no request limit; this pipeline asks for about a dozen files at most once every six days. Only sums are stored and published, and suppliers outside the largest 25 of a fiscal year are never named.",
     "frequency": "fetched at most once every six days, in the weekly run; the source updates daily",
     "typical_lag": "about five days for civilian agencies; 90 days for the Department of Defense",
-    "retrieved_at": "2026-11-15T21:05:51+00:00"
+    "retrieved_at": "2026-11-23T17:02:21+00:00"
    }
   ],
   "preliminary": false,
@@ -291,7 +291,7 @@
   },
   {
    "period": "2019-09-01T00:00:00",
-   "obligations": 1887986405.1200001,
+   "obligations": 1887986405.12,
    "actions": 10857,
    "obligations_12m": 6304754887.2300005,
    "provisional": false
@@ -600,7 +600,7 @@
   {
    "period": "2023-05-01T00:00:00",
    "obligations": 597557917.22,
-   "actions": 2916,
+   "actions": 2917,
    "obligations_12m": 7170924248.16,
    "provisional": false
   },
@@ -628,7 +628,7 @@
   {
    "period": "2023-09-01T00:00:00",
    "obligations": 2108972218.2,
-   "actions": 7544,
+   "actions": 7545,
    "obligations_12m": 7428764369.339999,
    "provisional": false
   },
@@ -774,121 +774,121 @@
   },
   {
    "period": "2025-06-01T00:00:00",
-   "obligations": 426512348.65000004,
-   "actions": 1991,
-   "obligations_12m": 6450698701.58,
+   "obligations": 426713929.25,
+   "actions": 1992,
+   "obligations_12m": 6450900282.18,
    "provisional": false
   },
   {
    "period": "2025-07-01T00:00:00",
    "obligations": 592355226.27,
    "actions": 2525,
-   "obligations_12m": 6466345197.969999,
+   "obligations_12m": 6466546778.57,
    "provisional": false
   },
   {
    "period": "2025-08-01T00:00:00",
    "obligations": 698667052.35,
    "actions": 2964,
-   "obligations_12m": 6219973403.3,
+   "obligations_12m": 6220174983.900001,
    "provisional": false
   },
   {
    "period": "2025-09-01T00:00:00",
    "obligations": 1783029500.3,
    "actions": 5550,
-   "obligations_12m": 6019005169.74,
+   "obligations_12m": 6019206750.34,
    "provisional": false
   },
   {
    "period": "2025-10-01T00:00:00",
-   "obligations": 74944966.82,
-   "actions": 1056,
-   "obligations_12m": 5976720020.570001,
+   "obligations": 77001601.91,
+   "actions": 1080,
+   "obligations_12m": 5978978236.26,
    "provisional": false
   },
   {
    "period": "2025-11-01T00:00:00",
    "obligations": 105635111.71,
    "actions": 792,
-   "obligations_12m": 5868094462.240001,
+   "obligations_12m": 5870352677.93,
    "provisional": false
   },
   {
    "period": "2025-12-01T00:00:00",
    "obligations": 425101794.28,
-   "actions": 1290,
-   "obligations_12m": 6048760260.7300005,
+   "actions": 1291,
+   "obligations_12m": 6051018476.42,
    "provisional": false
   },
   {
    "period": "2026-01-01T00:00:00",
-   "obligations": 334451154.35,
-   "actions": 1241,
-   "obligations_12m": 5995873173.660001,
+   "obligations": 334530134.35,
+   "actions": 1242,
+   "obligations_12m": 5998210369.35,
    "provisional": false
   },
   {
    "period": "2026-02-01T00:00:00",
    "obligations": 195452134.1,
    "actions": 1138,
-   "obligations_12m": 5941192048.76,
+   "obligations_12m": 5943529244.450001,
    "provisional": false
   },
   {
    "period": "2026-03-01T00:00:00",
    "obligations": 333331662.44,
-   "actions": 1559,
-   "obligations_12m": 5851689737.650001,
+   "actions": 1560,
+   "obligations_12m": 5854026933.34,
    "provisional": false
   },
   {
    "period": "2026-04-01T00:00:00",
    "obligations": 416377457.12,
    "actions": 1779,
-   "obligations_12m": 5932615492.18,
+   "obligations_12m": 5934952687.87,
    "provisional": false
   },
   {
    "period": "2026-05-01T00:00:00",
    "obligations": 471703761.75,
-   "actions": 1829,
-   "obligations_12m": 5857562170.14,
+   "actions": 1828,
+   "obligations_12m": 5859899365.83,
    "provisional": false
   },
   {
    "period": "2026-06-01T00:00:00",
-   "obligations": 929108541.19,
-   "actions": 2320,
-   "obligations_12m": 6360158362.68,
+   "obligations": 929354380.3199999,
+   "actions": 2322,
+   "obligations_12m": 6362539816.9,
    "provisional": false
   },
   {
    "period": "2026-07-01T00:00:00",
-   "obligations": 484440445.6,
-   "actions": 2222,
-   "obligations_12m": 6252243582.01,
+   "obligations": 485936740.06,
+   "actions": 2235,
+   "obligations_12m": 6256121330.69,
    "provisional": false
   },
   {
    "period": "2026-08-01T00:00:00",
-   "obligations": 254938047.21,
-   "actions": 1324,
-   "obligations_12m": 5808514576.87,
+   "obligations": 256571870.1,
+   "actions": 1362,
+   "obligations_12m": 5814026148.440001,
    "provisional": true
   },
   {
    "period": "2026-09-01T00:00:00",
-   "obligations": 1485110770.44,
-   "actions": 2054,
-   "obligations_12m": 5510595847.01,
+   "obligations": 1485841299.91,
+   "actions": 2060,
+   "obligations_12m": 5516837948.05,
    "provisional": true
   },
   {
    "period": "2026-10-01T00:00:00",
-   "obligations": 18741696.65,
-   "actions": 369,
-   "obligations_12m": 5454392576.84,
+   "obligations": 18731586.1,
+   "actions": 371,
+   "obligations_12m": 5458567932.24,
    "provisional": true
   }
  ]

@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "benchmarks",
   "description": "Blender benchmark median per recognised model, whether or not it has a price.",
-  "generated_at": "2026-11-23T00:38:21+00:00",
+  "generated_at": "2026-11-23T17:34:20+00:00",
   "rows": 323,
   "columns": [
    "kind",
@@ -24,7 +24,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    }
   ],
   "preliminary": false,
@@ -42,10 +42,10 @@
    "device_name": "NVIDIA GeForce RTX 5090",
    "device_type": "OPTIX",
    "blender_version": "4.5",
-   "n_runs": 1555,
-   "median_score": 14965.979744308945,
-   "p25_score": 14505.364467133515,
-   "p75_score": 15326.120389091053
+   "n_runs": 1556,
+   "median_score": 14966.126594971964,
+   "p25_score": 14505.793255442166,
+   "p75_score": 15326.923310367709
   },
   {
    "kind": "gpu",
@@ -130,10 +130,10 @@
    "device_name": "NVIDIA GeForce RTX 3060",
    "device_type": "OPTIX",
    "blender_version": "4.5",
-   "n_runs": 632,
-   "median_score": 2155.052340575554,
-   "p25_score": 2082.8547198505594,
-   "p75_score": 2210.650157639882
+   "n_runs": 633,
+   "median_score": 2154.863853931395,
+   "p25_score": 2082.920566148784,
+   "p75_score": 2210.552498785468
   },
   {
    "kind": "gpu",
@@ -196,10 +196,10 @@
    "device_name": "NVIDIA GeForce RTX 4070 SUPER",
    "device_type": "OPTIX",
    "blender_version": "4.5",
-   "n_runs": 469,
-   "median_score": 6249.543127088609,
-   "p25_score": 5964.189073387548,
-   "p75_score": 6426.453045196155
+   "n_runs": 470,
+   "median_score": 6251.069876224321,
+   "p25_score": 5964.321514070062,
+   "p75_score": 6424.17738451754
   },
   {
    "kind": "cpu",
@@ -1153,10 +1153,10 @@
    "device_name": "NVIDIA GeForce RTX 5050",
    "device_type": "OPTIX",
    "blender_version": "4.5",
-   "n_runs": 59,
-   "median_score": 2863.340017046521,
-   "p25_score": 2821.3451490239277,
-   "p75_score": 2895.7600306793274
+   "n_runs": 60,
+   "median_score": 2863.0583629119683,
+   "p25_score": 2821.393645524548,
+   "p75_score": 2895.6706565361455
   },
   {
    "kind": "cpu",
@@ -1732,6 +1732,17 @@
   },
   {
    "kind": "cpu",
+   "model_key": "intel core i7-12700f",
+   "device_name": "12th Gen Intel Core i7-12700F",
+   "device_type": "CPU",
+   "blender_version": "4.5",
+   "n_runs": 27,
+   "median_score": 231.84197472414897,
+   "p25_score": 207.6657091794038,
+   "p75_score": 285.1086569698933
+  },
+  {
+   "kind": "cpu",
    "model_key": "amd threadripper pro 7985wx",
    "device_name": "AMD Ryzen Threadripper PRO 7985WX 64-Cores",
    "device_type": "CPU",
@@ -1740,17 +1751,6 @@
    "median_score": 418.90168744894135,
    "p25_score": 400.5378849641277,
    "p75_score": 616.1229318257338
-  },
-  {
-   "kind": "cpu",
-   "model_key": "intel core i7-12700f",
-   "device_name": "12th Gen Intel Core i7-12700F",
-   "device_type": "CPU",
-   "blender_version": "4.5",
-   "n_runs": 26,
-   "median_score": 236.15468817119347,
-   "p25_score": 217.7326816555751,
-   "p75_score": 286.3904335880743
   },
   {
    "kind": "cpu",

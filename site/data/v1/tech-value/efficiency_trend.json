@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_trend",
   "description": "Median and best Blender score per rated watt by launch year.",
-  "generated_at": "2026-11-23T00:38:21+00:00",
+  "generated_at": "2026-11-23T17:34:20+00:00",
   "rows": 28,
   "columns": [
    "kind",
@@ -21,7 +21,7 @@
     "licence": "CC0 (Creative Commons Zero), stated on https://opendata.blender.org/download/ and in the LICENSE.txt shipped in each snapshot. No conditions on reuse; the site credits it anyway.",
     "frequency": "weekly collection; snapshots are regenerated daily",
     "typical_lag": "about one day",
-    "retrieved_at": "2026-11-16T13:58:49+00:00"
+    "retrieved_at": "2026-11-23T16:29:35+00:00"
    },
    {
     "id": "fred",
@@ -232,7 +232,7 @@
    "kind": "gpu",
    "year": 2021,
    "n": 10,
-   "median": 13.942792995356333,
+   "median": 13.942238622873514,
    "best": 25.016728306188035,
    "median_watts": 185.0
   },
