@@ -420,7 +420,11 @@ def export_value(blender: pd.DataFrame, prices: pd.DataFrame) -> None:
     )
     ranked = export_efficiency(bench, table, version, got)
     sp_trend = export_measured_power()
-    export_efficiency_ml(bench, ranked, history, sp_trend, version, got)
+    # The efficiency signals cite SPECpower too, so they need its retrieval date as well as
+    # Blender's; without it the heartbeat reads the source as never retrieved.
+    sp = specpower.load()
+    sp_got = {"spec_power": sp["retrieved_at"].max() if len(sp) else None}
+    export_efficiency_ml(bench, ranked, history, sp_trend, version, {**got, **sp_got})
 
 
 def export_efficiency(
