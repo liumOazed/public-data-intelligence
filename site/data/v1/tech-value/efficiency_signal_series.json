@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_signal_series",
   "description": "The yearly values each efficiency signal is computed from, and the fitted line for turning points.",
-  "generated_at": "2026-11-24T04:37:21+00:00",
+  "generated_at": "2026-11-24T20:22:00+00:00",
   "rows": 340,
   "columns": [
    "signal",
@@ -30,7 +30,7 @@
     "licence": "SPEC Fair Use Rules (https://www.spec.org/products/fairuse), the same general rules as SPEC CPU 2017: state the source and retrieval date, name the licensee of each result, acknowledge the SPEC trademarks, compare SPEC metrics only within the same benchmark, and label derived values. The SPECpower section of those rules has not been re-read for this entry, because spec.org could not be reached from the build machine on 22 November 2026.",
     "frequency": "weekly collection; SPEC publishes new results every few weeks",
     "typical_lag": "results appear weeks to months after the test date",
-    "retrieved_at": null
+    "retrieved_at": "2026-11-23T16:29:48+00:00"
    }
   ],
   "preliminary": false,
@@ -2257,7 +2257,7 @@
    "kind": "cpu",
    "group": "Cheapest per point per watt",
    "x": 2022.0,
-   "y": 44.50903487234863,
+   "y": 44.04046939311557,
    "fit": null
   },
   {
@@ -2265,7 +2265,7 @@
    "kind": "cpu",
    "group": "Cheapest per point per watt",
    "x": 2023.0,
-   "y": 44.85669320048206,
+   "y": 45.84157813306966,
    "fit": null
   },
   {

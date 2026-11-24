@@ -379,6 +379,10 @@
   "baseline": false,
   "first_seen": "2026-11-23T00:41:21+00:00"
  },
+ "tech-value|amd ryzen 7 7800x3d|price move|2026-11-24": {
+  "baseline": false,
+  "first_seen": "2026-11-24T20:23:15+00:00"
+ },
  "tech-value|amd ryzen 7 9700x|price move|2026-11-16": {
   "baseline": true,
   "first_seen": "2026-11-16T13:05:47+00:00"
@@ -1134,6 +1138,10 @@
  "tech-value|nvidia rtx 3060|price move|2026-11-23": {
   "baseline": false,
   "first_seen": "2026-11-23T00:41:21+00:00"
+ },
+ "tech-value|nvidia rtx 3060|price move|2026-11-24": {
+  "baseline": false,
+  "first_seen": "2026-11-24T20:23:15+00:00"
  },
  "tech-value|nvidia rtx 3080|price move|2026-11-23": {
   "baseline": false,

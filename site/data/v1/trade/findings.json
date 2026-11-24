@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: the change in US imports from a partner from the month before, in its latest month, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
-  "generated_at": "2026-11-24T04:39:15+00:00",
+  "generated_at": "2026-11-24T20:23:14+00:00",
   "rows": 1,
   "columns": [
    "key",

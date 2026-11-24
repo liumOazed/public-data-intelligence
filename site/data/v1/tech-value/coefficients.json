@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coefficients",
   "description": "Plain regression fitted on all results. Features are in logs, so a coefficient on log_cores is an elasticity.",
-  "generated_at": "2026-11-24T04:32:31+00:00",
+  "generated_at": "2026-11-24T20:19:01+00:00",
   "rows": 10,
   "columns": [
    "term",
@@ -41,31 +41,31 @@
   {
    "term": "const",
    "coefficient": -3.679207129467023,
-   "std_error": 0.054874777989964915,
+   "std_error": 0.0548747779899649,
    "p_value": 0.0
   },
   {
    "term": "log_cores",
    "coefficient": 0.9478806752776257,
-   "std_error": 0.0019439292400504756,
+   "std_error": 0.0019439292400504754,
    "p_value": 0.0
   },
   {
    "term": "log_mhz",
    "coefficient": 0.6159503756211168,
-   "std_error": 0.006733828674071274,
+   "std_error": 0.006733828674071275,
    "p_value": 0.0
   },
   {
    "term": "log_chips",
    "coefficient": 0.04034609783301824,
-   "std_error": 0.0036696160126923195,
-   "p_value": 5.343177487022425e-28
+   "std_error": 0.003669616012692319,
+   "p_value": 5.343177487022351e-28
   },
   {
    "term": "smt",
    "coefficient": 0.35930705280473396,
-   "std_error": 0.005426703979090105,
+   "std_error": 0.005426703979090103,
    "p_value": 0.0
   },
   {
@@ -77,8 +77,8 @@
   {
    "term": "log1p_l3_mb_per_core",
    "coefficient": 0.08394835102674754,
-   "std_error": 0.003249713242482059,
-   "p_value": 1.2286394980506884e-143
+   "std_error": 0.0032497132424820583,
+   "p_value": 1.2286394980505304e-143
   },
   {
    "term": "vintage_years",
@@ -89,14 +89,14 @@
   {
    "term": "vendor_AMD",
    "coefficient": 0.04288372319279455,
-   "std_error": 0.005267560503060464,
-   "p_value": 4.2613360957779575e-16
+   "std_error": 0.005267560503060467,
+   "p_value": 4.26133609577809e-16
   },
   {
    "term": "vendor_Other",
    "coefficient": -0.4335296721909457,
-   "std_error": 0.0207514700433788,
-   "p_value": 2.114745092549397e-95
+   "std_error": 0.020751470043378798,
+   "p_value": 2.114745092549176e-95
   }
  ]
 }

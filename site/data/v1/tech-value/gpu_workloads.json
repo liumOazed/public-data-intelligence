@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_workloads",
   "description": "Raw SPEC GWPG composite scores per card within one suite and version, OS family and resolution. No calibration: each group uses its suite's own metric.",
-  "generated_at": "2026-11-24T04:35:18+00:00",
+  "generated_at": "2026-11-24T20:20:46+00:00",
   "rows": 205,
   "columns": [
    "suite",

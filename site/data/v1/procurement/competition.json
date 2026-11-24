@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "competition",
   "description": "Per fiscal year, of newly obligated dollars: the share on competed awards that drew one offer, and the share not competed.",
-  "generated_at": "2026-11-24T04:39:16+00:00",
+  "generated_at": "2026-11-24T20:23:15+00:00",
   "rows": 10,
   "columns": [
    "fiscal_year",

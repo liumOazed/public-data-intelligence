@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "gpu_calibration",
   "description": "Held-out check of the SPEC GWPG suite calibration: for each suite, OS and resolution, how far a card's calibrated score there sits from the same card's calibrated score in the other suites, with the calibration refitted without that card.",
-  "generated_at": "2026-11-24T04:35:18+00:00",
+  "generated_at": "2026-11-24T20:20:46+00:00",
   "rows": 29,
   "columns": [
    "cohort",

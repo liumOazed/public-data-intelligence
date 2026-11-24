@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "specpower_processors",
   "description": "Per processor: median measured ssj_ops per watt, idle power as a share of full-load power, and the median efficiency curve across target loads.",
-  "generated_at": "2026-11-24T04:36:18+00:00",
+  "generated_at": "2026-11-24T20:21:22+00:00",
   "rows": 264,
   "columns": [
    "processor_key",

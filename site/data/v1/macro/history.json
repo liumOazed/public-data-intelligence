@@ -3,8 +3,8 @@
   "module": "macro",
   "table": "history",
   "description": "Ten years of monthly values, moves and surprises for every series.",
-  "generated_at": "2026-11-24T04:39:14+00:00",
-  "rows": 8352,
+  "generated_at": "2026-11-24T20:23:13+00:00",
+  "rows": 8353,
   "columns": [
    "series_id",
    "period",
@@ -21,7 +21,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-24T04:32:12+00:00"
+    "retrieved_at": "2026-11-24T20:18:39+00:00"
    },
    {
     "id": "bis",
@@ -30,7 +30,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-24T04:32:15+00:00"
+    "retrieved_at": "2026-11-24T20:18:44+00:00"
    },
    {
     "id": "opendosm",
@@ -39,7 +39,7 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-24T04:32:23+00:00"
+    "retrieved_at": "2026-11-24T20:18:54+00:00"
    },
    {
     "id": "imf",
@@ -48,7 +48,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-24T04:32:26+00:00"
+    "retrieved_at": "2026-11-24T20:18:57+00:00"
    },
    {
     "id": "indeed_postings",
@@ -57,7 +57,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-24T04:32:26+00:00"
+    "retrieved_at": "2026-11-24T20:18:57+00:00"
    }
   ],
   "preliminary": false,
@@ -38378,970 +38378,970 @@
   {
    "series_id": "US.capacity_use",
    "period": "2016-10-01T00:00:00",
-   "value": 75.2918,
-   "move": -0.0227,
-   "expected": -0.0085,
-   "z": -0.0334
+   "value": 75.1809,
+   "move": -0.0188,
+   "expected": -0.0053,
+   "z": -0.0304
   },
   {
    "series_id": "US.capacity_use",
    "period": "2016-11-01T00:00:00",
-   "value": 74.9498,
-   "move": -0.342,
-   "expected": -0.0075,
-   "z": -0.7841
+   "value": 74.8232,
+   "move": -0.3577,
+   "expected": -0.0053,
+   "z": -0.7934
   },
   {
    "series_id": "US.capacity_use",
    "period": "2016-12-01T00:00:00",
-   "value": 75.4424,
-   "move": 0.4926,
-   "expected": -0.0075,
-   "z": 1.1398
+   "value": 75.3052,
+   "move": 0.482,
+   "expected": -0.0053,
+   "z": 1.062
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-01-01T00:00:00",
-   "value": 75.2339,
-   "move": -0.2085,
-   "expected": -0.0075,
-   "z": -0.4581
+   "value": 75.1091,
+   "move": -0.1961,
+   "expected": -0.0053,
+   "z": -0.4158
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-02-01T00:00:00",
-   "value": 74.9346,
-   "move": -0.2993,
-   "expected": -0.0075,
-   "z": -0.684
+   "value": 74.8154,
+   "move": -0.2937,
+   "expected": -0.0053,
+   "z": -0.6493
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-03-01T00:00:00",
-   "value": 75.4439,
-   "move": 0.5093,
-   "expected": -0.0237,
-   "z": 1.2347
+   "value": 75.3426,
+   "move": 0.5272,
+   "expected": -0.0185,
+   "z": 1.2474
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-04-01T00:00:00",
-   "value": 76.2392,
-   "move": 0.7953,
-   "expected": -0.0075,
-   "z": 1.8669
+   "value": 76.1375,
+   "move": 0.7949,
+   "expected": -0.0053,
+   "z": 1.8015
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-05-01T00:00:00",
-   "value": 76.368,
-   "move": 0.1288,
-   "expected": -0.0075,
-   "z": 0.317
+   "value": 76.2646,
+   "move": 0.1271,
+   "expected": -0.0053,
+   "z": 0.2981
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-06-01T00:00:00",
-   "value": 76.5758,
-   "move": 0.2078,
-   "expected": 0.015,
-   "z": 0.4357
+   "value": 76.4436,
+   "move": 0.179,
+   "expected": 0.0124,
+   "z": 0.3743
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-07-01T00:00:00",
-   "value": 76.4534,
-   "move": -0.1224,
-   "expected": 0.0267,
-   "z": -0.3398
+   "value": 76.3012,
+   "move": -0.1424,
+   "expected": 0.0194,
+   "z": -0.3635
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-08-01T00:00:00",
-   "value": 76.2067,
-   "move": -0.2467,
-   "expected": 0.0267,
-   "z": -0.6229
+   "value": 76.0593,
+   "move": -0.2419,
+   "expected": 0.0194,
+   "z": -0.587
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-09-01T00:00:00",
-   "value": 76.3591,
-   "move": 0.1524,
-   "expected": 0.015,
-   "z": 0.3105
+   "value": 76.2175,
+   "move": 0.1582,
+   "expected": 0.0124,
+   "z": 0.3276
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-10-01T00:00:00",
-   "value": 77.3753,
-   "move": 1.0162,
-   "expected": 0.015,
-   "z": 2.2623
+   "value": 77.2509,
+   "move": 1.0334,
+   "expected": 0.0124,
+   "z": 2.2933
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-11-01T00:00:00",
-   "value": 77.6337,
-   "move": 0.2584,
-   "expected": 0.0267,
-   "z": 0.5206
+   "value": 77.4994,
+   "move": 0.2485,
+   "expected": 0.0194,
+   "z": 0.5037
   },
   {
    "series_id": "US.capacity_use",
    "period": "2017-12-01T00:00:00",
-   "value": 77.8538,
-   "move": 0.2201,
-   "expected": 0.0267,
-   "z": 0.4404
+   "value": 77.7072,
+   "move": 0.2078,
+   "expected": 0.0194,
+   "z": 0.423
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-01-01T00:00:00",
-   "value": 77.9138,
-   "move": 0.06,
-   "expected": 0.0267,
-   "z": 0.0757
+   "value": 77.7879,
+   "move": 0.0807,
+   "expected": 0.0237,
+   "z": 0.1288
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-02-01T00:00:00",
-   "value": 78.1508,
-   "move": 0.237,
-   "expected": 0.0427,
-   "z": 0.4475
+   "value": 78.0158,
+   "move": 0.2279,
+   "expected": 0.042,
+   "z": 0.432
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-03-01T00:00:00",
-   "value": 78.5697,
-   "move": 0.4189,
-   "expected": 0.0549,
-   "z": 0.8347
+   "value": 78.4506,
+   "move": 0.4348,
+   "expected": 0.0592,
+   "z": 0.8562
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-04-01T00:00:00",
-   "value": 79.4597,
-   "move": 0.89,
-   "expected": 0.0578,
-   "z": 1.8217
+   "value": 79.3344,
+   "move": 0.8838,
+   "expected": 0.0627,
+   "z": 1.8275
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-05-01T00:00:00",
-   "value": 78.7526,
-   "move": -0.7071,
-   "expected": 0.0617,
-   "z": -1.6645
+   "value": 78.5946,
+   "move": -0.7398,
+   "expected": 0.0711,
+   "z": -1.7699
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-06-01T00:00:00",
-   "value": 79.356,
-   "move": 0.6034,
-   "expected": 0.0617,
-   "z": 1.1726
+   "value": 79.178,
+   "move": 0.5834,
+   "expected": 0.0711,
+   "z": 1.1184
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-07-01T00:00:00",
-   "value": 79.4588,
-   "move": 0.1028,
-   "expected": 0.0724,
-   "z": 0.0648
+   "value": 79.2686,
+   "move": 0.0906,
+   "expected": 0.0788,
+   "z": 0.0257
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-08-01T00:00:00",
-   "value": 79.9322,
-   "move": 0.4734,
-   "expected": 0.0876,
-   "z": 0.8388
+   "value": 79.7567,
+   "move": 0.4881,
+   "expected": 0.0853,
+   "z": 0.902
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-09-01T00:00:00",
-   "value": 79.9314,
-   "move": -0.0008,
-   "expected": 0.096,
-   "z": -0.2134
+   "value": 79.7674,
+   "move": 0.0107,
+   "expected": 0.0903,
+   "z": -0.1786
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-10-01T00:00:00",
-   "value": 79.7802,
-   "move": -0.1512,
-   "expected": 0.096,
-   "z": -0.5534
+   "value": 79.6274,
+   "move": -0.14,
+   "expected": 0.0903,
+   "z": -0.5215
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-11-01T00:00:00",
-   "value": 79.7722,
-   "move": -0.008,
-   "expected": 0.0876,
-   "z": -0.2163
+   "value": 79.6054,
+   "move": -0.022,
+   "expected": 0.0853,
+   "z": -0.2434
   },
   {
    "series_id": "US.capacity_use",
    "period": "2018-12-01T00:00:00",
-   "value": 79.7142,
-   "move": -0.058,
-   "expected": 0.0876,
-   "z": -0.3357
+   "value": 79.5091,
+   "move": -0.0963,
+   "expected": 0.0853,
+   "z": -0.415
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-01-01T00:00:00",
-   "value": 79.1024,
-   "move": -0.6118,
-   "expected": 0.0876,
-   "z": -1.6554
+   "value": 78.949,
+   "move": -0.5601,
+   "expected": 0.0853,
+   "z": -1.5134
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-02-01T00:00:00",
-   "value": 78.5877,
-   "move": -0.5147,
-   "expected": 0.0876,
-   "z": -1.4256
+   "value": 78.3737,
+   "move": -0.5753,
+   "expected": 0.0853,
+   "z": -1.549
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-03-01T00:00:00",
-   "value": 78.5337,
-   "move": -0.054,
-   "expected": 0.0876,
-   "z": -0.3351
+   "value": 78.3168,
+   "move": -0.0569,
+   "expected": 0.0853,
+   "z": -0.3334
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-04-01T00:00:00",
-   "value": 77.9898,
-   "move": -0.5439,
-   "expected": 0.0876,
-   "z": -1.5184
+   "value": 77.7561,
+   "move": -0.5607,
+   "expected": 0.0853,
+   "z": -1.5891
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-05-01T00:00:00",
-   "value": 77.9962,
-   "move": 0.0064,
-   "expected": 0.0876,
-   "z": -0.1951
+   "value": 77.7434,
+   "move": -0.0127,
+   "expected": 0.0853,
+   "z": -0.2411
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-06-01T00:00:00",
-   "value": 77.9493,
-   "move": -0.0469,
-   "expected": 0.0876,
-   "z": -0.3269
+   "value": 77.6698,
+   "move": -0.0736,
+   "expected": 0.0853,
+   "z": -0.4042
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-07-01T00:00:00",
-   "value": 77.4935,
-   "move": -0.4558,
-   "expected": 0.0876,
-   "z": -1.383
+   "value": 77.1897,
+   "move": -0.4801,
+   "expected": 0.0853,
+   "z": -1.4807
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-08-01T00:00:00",
-   "value": 77.9497,
-   "move": 0.4562,
-   "expected": 0.0724,
-   "z": 1.0058
+   "value": 77.646,
+   "move": 0.4563,
+   "expected": 0.0788,
+   "z": 0.9936
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-09-01T00:00:00",
-   "value": 77.6205,
-   "move": -0.3292,
-   "expected": 0.0724,
-   "z": -1.0522
+   "value": 77.3126,
+   "move": -0.3334,
+   "expected": 0.0788,
+   "z": -1.085
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-10-01T00:00:00",
-   "value": 76.9099,
-   "move": -0.7106,
-   "expected": 0.0617,
-   "z": -2.0318
+   "value": 76.6288,
+   "move": -0.6838,
+   "expected": 0.0711,
+   "z": -1.9784
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-11-01T00:00:00",
-   "value": 77.252,
-   "move": 0.3421,
-   "expected": 0.0578,
-   "z": 0.7265
+   "value": 76.9792,
+   "move": 0.3504,
+   "expected": 0.0627,
+   "z": 0.7303
   },
   {
    "series_id": "US.capacity_use",
    "period": "2019-12-01T00:00:00",
-   "value": 77.0416,
-   "move": -0.2104,
-   "expected": 0.0578,
-   "z": -0.6856
+   "value": 76.7396,
+   "move": -0.2396,
+   "expected": 0.0627,
+   "z": -0.7674
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-01-01T00:00:00",
-   "value": 76.519,
-   "move": -0.5226,
-   "expected": 0.0549,
-   "z": -1.476
+   "value": 76.345,
+   "move": -0.3946,
+   "expected": 0.0592,
+   "z": -1.137
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-02-01T00:00:00",
-   "value": 76.7764,
-   "move": 0.2574,
-   "expected": 0.0427,
-   "z": 0.5497
+   "value": 76.5358,
+   "move": 0.1908,
+   "expected": 0.042,
+   "z": 0.3771
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-03-01T00:00:00",
-   "value": 73.7887,
-   "move": -2.9877,
-   "expected": 0.0427,
-   "z": -7.9998
+   "value": 73.5812,
+   "move": -2.9546,
+   "expected": 0.042,
+   "z": -7.8174
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-04-01T00:00:00",
-   "value": 64.0847,
-   "move": -9.704,
-   "expected": 0.0267,
-   "z": -26.0655
+   "value": 63.8851,
+   "move": -9.6961,
+   "expected": 0.0237,
+   "z": -25.5593
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-05-01T00:00:00",
-   "value": 65.1874,
-   "move": 1.1027,
-   "expected": 0.015,
-   "z": 2.9171
+   "value": 64.9959,
+   "move": 1.1108,
+   "expected": 0.0194,
+   "z": 2.8626
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-06-01T00:00:00",
-   "value": 69.5218,
-   "move": 4.3344,
-   "expected": 0.015,
-   "z": 11.5841
+   "value": 69.3605,
+   "move": 4.3646,
+   "expected": 0.0194,
+   "z": 11.3971
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-07-01T00:00:00",
-   "value": 72.2103,
-   "move": 2.6885,
-   "expected": 0.015,
-   "z": 7.17
+   "value": 72.0714,
+   "move": 2.7109,
+   "expected": 0.0194,
+   "z": 7.0091
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-08-01T00:00:00",
-   "value": 73.0192,
-   "move": 0.8089,
-   "expected": 0.015,
-   "z": 2.1291
+   "value": 72.8916,
+   "move": 0.8202,
+   "expected": 0.0194,
+   "z": 2.0853
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-09-01T00:00:00",
-   "value": 73.1451,
-   "move": 0.1259,
-   "expected": 0.015,
-   "z": 0.2974
+   "value": 73.0301,
+   "move": 0.1385,
+   "expected": 0.0194,
+   "z": 0.31
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-10-01T00:00:00",
-   "value": 73.8636,
-   "move": 0.7185,
-   "expected": 0.015,
-   "z": 1.936
+   "value": 73.7776,
+   "move": 0.7475,
+   "expected": 0.0194,
+   "z": 1.9145
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-11-01T00:00:00",
-   "value": 74.2637,
-   "move": 0.4001,
-   "expected": 0.0267,
-   "z": 0.9843
+   "value": 74.2065,
+   "move": 0.4289,
+   "expected": 0.0237,
+   "z": 1.0476
   },
   {
    "series_id": "US.capacity_use",
    "period": "2020-12-01T00:00:00",
-   "value": 75.3903,
-   "move": 1.1266,
-   "expected": 0.0267,
-   "z": 2.7889
+   "value": 75.322,
+   "move": 1.1155,
+   "expected": 0.0237,
+   "z": 2.784
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-01-01T00:00:00",
-   "value": 75.9401,
-   "move": 0.5498,
-   "expected": 0.0267,
-   "z": 1.3263
+   "value": 76.0416,
+   "move": 0.7196,
+   "expected": 0.0237,
+   "z": 1.7745
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-02-01T00:00:00",
-   "value": 73.5725,
-   "move": -2.3676,
-   "expected": 0.0427,
-   "z": -5.9386
+   "value": 73.5741,
+   "move": -2.4675,
+   "expected": 0.042,
+   "z": -6.0646
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-03-01T00:00:00",
-   "value": 75.8472,
-   "move": 2.2747,
-   "expected": 0.0427,
-   "z": 5.4995
+   "value": 75.9077,
+   "move": 2.3336,
+   "expected": 0.042,
+   "z": 5.538
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-04-01T00:00:00",
-   "value": 76.1216,
-   "move": 0.2744,
-   "expected": 0.0427,
-   "z": 0.571
+   "value": 76.13,
+   "move": 0.2223,
+   "expected": 0.042,
+   "z": 0.4357
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-05-01T00:00:00",
-   "value": 76.931,
-   "move": 0.8094,
-   "expected": 0.0549,
-   "z": 1.8961
+   "value": 76.9012,
+   "move": 0.7712,
+   "expected": 0.0592,
+   "z": 1.7585
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-06-01T00:00:00",
-   "value": 77.3367,
-   "move": 0.4057,
-   "expected": 0.057,
-   "z": 0.8715
+   "value": 77.3502,
+   "move": 0.449,
+   "expected": 0.0617,
+   "z": 0.9479
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-07-01T00:00:00",
-   "value": 77.7972,
-   "move": 0.4605,
-   "expected": 0.057,
-   "z": 0.9827
+   "value": 77.9041,
+   "move": 0.5539,
+   "expected": 0.0617,
+   "z": 1.1748
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-08-01T00:00:00",
-   "value": 77.7308,
-   "move": -0.0664,
-   "expected": 0.057,
-   "z": -0.2929
+   "value": 77.8171,
+   "move": -0.087,
+   "expected": 0.0617,
+   "z": -0.3429
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-09-01T00:00:00",
-   "value": 76.8871,
-   "move": -0.8437,
-   "expected": 0.0427,
-   "z": -2.142
+   "value": 76.9273,
+   "move": -0.8898,
+   "expected": 0.042,
+   "z": -2.2228
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-10-01T00:00:00",
-   "value": 77.9838,
-   "move": 1.0967,
-   "expected": 0.0427,
-   "z": 2.5011
+   "value": 78.0523,
+   "move": 1.125,
+   "expected": 0.042,
+   "z": 2.5545
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-11-01T00:00:00",
-   "value": 78.562,
-   "move": 0.5782,
-   "expected": 0.0427,
-   "z": 1.2708
+   "value": 78.6287,
+   "move": 0.5764,
+   "expected": 0.042,
+   "z": 1.2605
   },
   {
    "series_id": "US.capacity_use",
    "period": "2021-12-01T00:00:00",
-   "value": 78.3687,
-   "move": -0.1933,
-   "expected": 0.057,
-   "z": -0.5885
+   "value": 78.3735,
+   "move": -0.2552,
+   "expected": 0.0617,
+   "z": -0.7153
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-01-01T00:00:00",
-   "value": 78.088,
-   "move": -0.2807,
-   "expected": 0.0427,
-   "z": -0.7598
+   "value": 78.2247,
+   "move": -0.1488,
+   "expected": 0.042,
+   "z": -0.4365
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-02-01T00:00:00",
-   "value": 78.5777,
-   "move": 0.4897,
-   "expected": 0.0267,
-   "z": 1.0374
+   "value": 78.5861,
+   "move": 0.3614,
+   "expected": 0.0237,
+   "z": 0.772
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-03-01T00:00:00",
-   "value": 79.0253,
-   "move": 0.4476,
-   "expected": 0.0267,
-   "z": 0.9325
+   "value": 79.0368,
+   "move": 0.4507,
+   "expected": 0.0237,
+   "z": 0.9335
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-04-01T00:00:00",
-   "value": 79.0418,
-   "move": 0.0165,
-   "expected": 0.0427,
-   "z": -0.0572
+   "value": 79.0329,
+   "move": -0.0039,
+   "expected": 0.042,
+   "z": -0.1033
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-05-01T00:00:00",
-   "value": 78.9224,
-   "move": -0.1194,
-   "expected": 0.0267,
-   "z": -0.3275
+   "value": 78.8566,
+   "move": -0.1763,
+   "expected": 0.0237,
+   "z": -0.4574
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-06-01T00:00:00",
-   "value": 78.6259,
-   "move": -0.2965,
-   "expected": 0.0194,
-   "z": -0.7019
+   "value": 78.5574,
+   "move": -0.2992,
+   "expected": 0.0215,
+   "z": -0.7333
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-07-01T00:00:00",
-   "value": 78.7204,
-   "move": 0.0945,
-   "expected": 0.0194,
-   "z": 0.1647
+   "value": 78.6547,
+   "move": 0.0973,
+   "expected": 0.0215,
+   "z": 0.1645
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-08-01T00:00:00",
-   "value": 78.5438,
-   "move": -0.1766,
-   "expected": 0.0353,
-   "z": -0.4635
+   "value": 78.4221,
+   "move": -0.2326,
+   "expected": 0.0377,
+   "z": -0.6133
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-09-01T00:00:00",
-   "value": 78.6087,
-   "move": 0.0649,
-   "expected": 0.0353,
-   "z": 0.0667
+   "value": 78.4166,
+   "move": -0.0055,
+   "expected": 0.0377,
+   "z": -0.0988
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-10-01T00:00:00",
-   "value": 78.4843,
-   "move": -0.1244,
-   "expected": 0.057,
-   "z": -0.413
+   "value": 78.3279,
+   "move": -0.0887,
+   "expected": 0.0377,
+   "z": -0.2891
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-11-01T00:00:00",
-   "value": 78.1544,
-   "move": -0.3299,
-   "expected": 0.0353,
-   "z": -0.8226
+   "value": 78.0167,
+   "move": -0.3112,
+   "expected": 0.014,
+   "z": -0.7542
   },
   {
    "series_id": "US.capacity_use",
    "period": "2022-12-01T00:00:00",
-   "value": 77.1334,
-   "move": -1.021,
-   "expected": 0.0121,
-   "z": -2.2478
+   "value": 76.89,
+   "move": -1.1267,
+   "expected": 0.0034,
+   "z": -2.5421
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-01-01T00:00:00",
-   "value": 77.601,
-   "move": 0.4676,
-   "expected": 0.007,
-   "z": 0.9948
+   "value": 77.5544,
+   "move": 0.6644,
+   "expected": -0.0047,
+   "z": 1.5018
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-02-01T00:00:00",
-   "value": 77.6078,
-   "move": 0.0068,
-   "expected": 0.0121,
-   "z": -0.0114
+   "value": 77.3567,
+   "move": -0.1977,
+   "expected": 0.0034,
+   "z": -0.4274
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-03-01T00:00:00",
-   "value": 77.8036,
-   "move": 0.1958,
-   "expected": 0.0072,
-   "z": 0.399
+   "value": 77.6897,
+   "move": 0.333,
+   "expected": -0.0047,
+   "z": 0.7365
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-04-01T00:00:00",
-   "value": 77.888,
-   "move": 0.0844,
-   "expected": 0.0072,
-   "z": 0.1633
+   "value": 77.8121,
+   "move": 0.1224,
+   "expected": -0.0047,
+   "z": 0.2676
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-05-01T00:00:00",
-   "value": 77.5496,
-   "move": -0.3384,
-   "expected": 0.0121,
-   "z": -0.751
+   "value": 77.4476,
+   "move": -0.3645,
+   "expected": 0.0034,
+   "z": -0.7674
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-06-01T00:00:00",
-   "value": 76.8467,
-   "move": -0.7029,
-   "expected": 0.0121,
-   "z": -1.5106
+   "value": 76.8073,
+   "move": -0.6403,
+   "expected": 0.0034,
+   "z": -1.3233
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-07-01T00:00:00",
-   "value": 77.3773,
-   "move": 0.5306,
-   "expected": 0.0072,
-   "z": 1.0778
+   "value": 77.5026,
+   "move": 0.6953,
+   "expected": -0.0047,
+   "z": 1.4098
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-08-01T00:00:00",
-   "value": 77.2588,
-   "move": -0.1185,
-   "expected": 0.0121,
-   "z": -0.2624
+   "value": 77.443,
+   "move": -0.0596,
+   "expected": 0.0034,
+   "z": -0.1272
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-09-01T00:00:00",
-   "value": 77.3375,
-   "move": 0.0787,
-   "expected": 0.0072,
-   "z": 0.1472
+   "value": 77.6128,
+   "move": 0.1698,
+   "expected": -0.0047,
+   "z": 0.3514
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-10-01T00:00:00",
-   "value": 76.859,
-   "move": -0.4785,
-   "expected": 0.0072,
-   "z": -1.0019
+   "value": 77.2816,
+   "move": -0.3312,
+   "expected": -0.0047,
+   "z": -0.6639
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-11-01T00:00:00",
-   "value": 77.1081,
-   "move": 0.2491,
-   "expected": 0.0072,
-   "z": 0.486
+   "value": 77.7302,
+   "move": 0.4486,
+   "expected": -0.0047,
+   "z": 0.9218
   },
   {
    "series_id": "US.capacity_use",
    "period": "2023-12-01T00:00:00",
-   "value": 76.858,
-   "move": -0.2501,
-   "expected": 0.0072,
-   "z": -0.5171
+   "value": 77.4906,
+   "move": -0.2396,
+   "expected": -0.0047,
+   "z": -0.4731
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-01-01T00:00:00",
-   "value": 75.7542,
-   "move": -1.1038,
-   "expected": 0.0066,
-   "z": -2.2314
+   "value": 76.6287,
+   "move": -0.8619,
+   "expected": -0.0091,
+   "z": -1.7206
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-02-01T00:00:00",
-   "value": 76.5157,
-   "move": 0.7615,
-   "expected": 0.0066,
-   "z": 1.517
+   "value": 77.2353,
+   "move": 0.6066,
+   "expected": -0.0091,
+   "z": 1.2417
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-03-01T00:00:00",
-   "value": 76.5964,
-   "move": 0.0807,
-   "expected": 0.0066,
-   "z": 0.1489
+   "value": 77.4681,
+   "move": 0.2328,
+   "expected": -0.0091,
+   "z": 0.4878
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-04-01T00:00:00",
-   "value": 76.3803,
-   "move": -0.2161,
-   "expected": 0.0066,
-   "z": -0.4584
+   "value": 77.2522,
+   "move": -0.2159,
+   "expected": -0.0091,
+   "z": -0.4259
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-05-01T00:00:00",
-   "value": 76.7961,
-   "move": 0.4158,
-   "expected": 0.0028,
-   "z": 0.8498
+   "value": 77.6343,
+   "move": 0.3821,
+   "expected": -0.0158,
+   "z": 0.8364
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-06-01T00:00:00",
-   "value": 76.7586,
-   "move": -0.0375,
-   "expected": 0.0028,
-   "z": -0.0818
+   "value": 77.6923,
+   "move": 0.058,
+   "expected": -0.0158,
+   "z": 0.1518
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-07-01T00:00:00",
-   "value": 75.9946,
-   "move": -0.764,
-   "expected": -0.0044,
-   "z": -1.5613
+   "value": 76.9047,
+   "move": -0.7876,
+   "expected": -0.0158,
+   "z": -1.5882
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-08-01T00:00:00",
-   "value": 76.2697,
-   "move": 0.2751,
-   "expected": -0.0153,
-   "z": 0.6054
+   "value": 77.1587,
+   "move": 0.254,
+   "expected": -0.0204,
+   "z": 0.563
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-09-01T00:00:00",
-   "value": 75.7216,
-   "move": -0.5481,
-   "expected": -0.0044,
-   "z": -1.1033
+   "value": 76.647,
+   "move": -0.5117,
+   "expected": -0.0158,
+   "z": -1.0033
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-10-01T00:00:00",
-   "value": 75.3852,
-   "move": -0.3364,
-   "expected": -0.0153,
-   "z": -0.6655
+   "value": 76.3523,
+   "move": -0.2947,
+   "expected": -0.0204,
+   "z": -0.554
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-11-01T00:00:00",
-   "value": 75.1681,
-   "move": -0.2171,
-   "expected": -0.0153,
-   "z": -0.4182
+   "value": 76.2877,
+   "move": -0.0646,
+   "expected": -0.0204,
+   "z": -0.0893
   },
   {
    "series_id": "US.capacity_use",
    "period": "2024-12-01T00:00:00",
-   "value": 75.8651,
-   "move": 0.697,
-   "expected": -0.0301,
-   "z": 1.5879
+   "value": 76.851,
+   "move": 0.5633,
+   "expected": -0.0349,
+   "z": 1.2839
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-01-01T00:00:00",
-   "value": 75.5781,
-   "move": -0.287,
-   "expected": -0.0153,
-   "z": -0.5631
+   "value": 76.8814,
+   "move": 0.0304,
+   "expected": -0.0204,
+   "z": 0.1026
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-02-01T00:00:00",
-   "value": 76.2685,
-   "move": 0.6904,
-   "expected": -0.0153,
-   "z": 1.471
+   "value": 77.2639,
+   "move": 0.3825,
+   "expected": -0.0158,
+   "z": 0.8057
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-03-01T00:00:00",
-   "value": 76.1318,
-   "move": -0.1367,
-   "expected": -0.0044,
-   "z": -0.268
+   "value": 77.2234,
+   "move": -0.0405,
+   "expected": -0.0091,
+   "z": -0.0625
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-04-01T00:00:00",
-   "value": 76.1048,
-   "move": -0.027,
-   "expected": -0.0044,
-   "z": -0.0458
+   "value": 77.0706,
+   "move": -0.1528,
+   "expected": -0.0091,
+   "z": -0.2862
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-05-01T00:00:00",
-   "value": 75.8894,
-   "move": -0.2154,
-   "expected": -0.0044,
-   "z": -0.4294
+   "value": 76.821,
+   "move": -0.2496,
+   "expected": -0.0091,
+   "z": -0.485
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-06-01T00:00:00",
-   "value": 76.181,
-   "move": 0.2916,
-   "expected": -0.0044,
-   "z": 0.6084
+   "value": 77.1234,
+   "move": 0.3024,
+   "expected": -0.0091,
+   "z": 0.6343
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-07-01T00:00:00",
-   "value": 76.3997,
-   "move": 0.2187,
-   "expected": 0.0028,
-   "z": 0.4382
+   "value": 77.2486,
+   "move": 0.1252,
+   "expected": -0.0047,
+   "z": 0.2641
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-08-01T00:00:00",
-   "value": 76.1055,
-   "move": -0.2942,
-   "expected": 0.0028,
-   "z": -0.6111
+   "value": 76.9123,
+   "move": -0.3363,
+   "expected": -0.0047,
+   "z": -0.6827
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-09-01T00:00:00",
-   "value": 76.0461,
-   "move": -0.0594,
-   "expected": 0.0028,
-   "z": -0.128
+   "value": 76.9133,
+   "move": 0.001,
+   "expected": -0.0047,
+   "z": 0.0116
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-10-01T00:00:00",
-   "value": 75.6194,
-   "move": -0.4267,
-   "expected": 0.0028,
-   "z": -0.8838
+   "value": 76.5364,
+   "move": -0.3769,
+   "expected": -0.0014,
+   "z": -0.7635
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-11-01T00:00:00",
-   "value": 75.3901,
-   "move": -0.2293,
-   "expected": 0.0028,
-   "z": -0.4776
+   "value": 76.3729,
+   "move": -0.1635,
+   "expected": -0.0014,
+   "z": -0.3295
   },
   {
    "series_id": "US.capacity_use",
    "period": "2025-12-01T00:00:00",
-   "value": 75.6422,
-   "move": 0.2521,
-   "expected": 0.0028,
-   "z": 0.5375
+   "value": 76.5077,
+   "move": 0.1348,
+   "expected": -0.0014,
+   "z": 0.278
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-01-01T00:00:00",
-   "value": 75.242,
-   "move": -0.4002,
-   "expected": 0.0066,
-   "z": -0.9011
+   "value": 76.1551,
+   "move": -0.3526,
+   "expected": 0.0059,
+   "z": -0.7541
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-02-01T00:00:00",
-   "value": 75.8142,
-   "move": 0.5722,
-   "expected": 0.0028,
-   "z": 1.2772
+   "value": 76.6021,
+   "move": 0.447,
+   "expected": -0.0014,
+   "z": 0.946
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-03-01T00:00:00",
-   "value": 75.6178,
-   "move": -0.1964,
-   "expected": 0.0066,
-   "z": -0.4497
+   "value": 76.6273,
+   "move": 0.0252,
+   "expected": 0.0059,
+   "z": 0.0407
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-04-01T00:00:00",
-   "value": 76.1792,
-   "move": 0.5614,
-   "expected": 0.0066,
-   "z": 1.2393
+   "value": 76.9061,
+   "move": 0.2788,
+   "expected": 0.018,
+   "z": 0.5606
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-05-01T00:00:00",
-   "value": 76.1997,
-   "move": 0.0205,
-   "expected": 0.0066,
-   "z": 0.0308
+   "value": 76.9213,
+   "move": 0.0152,
+   "expected": 0.018,
+   "z": -0.0059
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-06-01T00:00:00",
-   "value": 76.3367,
-   "move": 0.137,
-   "expected": 0.0116,
-   "z": 0.2731
+   "value": 76.9808,
+   "move": 0.0595,
+   "expected": 0.0202,
+   "z": 0.0843
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-07-01T00:00:00",
-   "value": 76.4164,
-   "move": 0.0797,
-   "expected": 0.0116,
-   "z": 0.1495
+   "value": 77.0516,
+   "move": 0.0708,
+   "expected": 0.0202,
+   "z": 0.1086
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-08-01T00:00:00",
-   "value": 76.2918,
-   "move": -0.1246,
-   "expected": 0.0116,
-   "z": -0.2993
+   "value": 76.8404,
+   "move": -0.2112,
+   "expected": 0.0202,
+   "z": -0.4964
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-09-01T00:00:00",
-   "value": 76.7729,
-   "move": 0.4811,
-   "expected": 0.0116,
-   "z": 1.0314
+   "value": 77.1966,
+   "move": 0.3562,
+   "expected": 0.0202,
+   "z": 0.7208
   },
   {
    "series_id": "US.capacity_use",
    "period": "2026-10-01T00:00:00",
-   "value": 76.3633,
-   "move": -0.4096,
-   "expected": 0.0185,
-   "z": -0.9126
+   "value": 76.7608,
+   "move": -0.4358,
+   "expected": 0.0278,
+   "z": -0.9694
   },
   {
    "series_id": "US.construction_spending",
@@ -48010,970 +48010,970 @@
   {
    "series_id": "US.industrial_output",
    "period": "2016-10-01T00:00:00",
-   "value": 98.7611,
-   "move": 0.0156,
-   "expected": 0.0913,
-   "z": -0.1351
+   "value": 97.682,
+   "move": 0.0217,
+   "expected": 0.0911,
+   "z": -0.1236
   },
   {
    "series_id": "US.industrial_output",
    "period": "2016-11-01T00:00:00",
-   "value": 98.3491,
-   "move": -0.418,
-   "expected": 0.0913,
-   "z": -0.9096
+   "value": 97.2544,
+   "move": -0.4387,
+   "expected": 0.0911,
+   "z": -0.9442
   },
   {
    "series_id": "US.industrial_output",
    "period": "2016-12-01T00:00:00",
-   "value": 99.0214,
-   "move": 0.6813,
-   "expected": 0.0913,
-   "z": 1.0252
+   "value": 97.9072,
+   "move": 0.669,
+   "expected": 0.0911,
+   "z": 0.9978
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-01-01T00:00:00",
-   "value": 98.7611,
-   "move": -0.2632,
-   "expected": 0.0913,
-   "z": -0.616
+   "value": 97.6657,
+   "move": -0.247,
+   "expected": 0.0911,
+   "z": -0.5836
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-02-01T00:00:00",
-   "value": 98.3646,
-   "move": -0.4023,
-   "expected": 0.0913,
-   "z": -0.8814
+   "value": 97.2802,
+   "move": -0.3955,
+   "expected": 0.0911,
+   "z": -0.8672
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-03-01T00:00:00",
-   "value": 99.0137,
-   "move": 0.6577,
-   "expected": 0.0825,
-   "z": 1.0056
+   "value": 97.9466,
+   "move": 0.6827,
+   "expected": 0.0809,
+   "z": 1.0596
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-04-01T00:00:00",
-   "value": 100.0224,
-   "move": 1.0136,
-   "expected": 0.0825,
-   "z": 1.618
+   "value": 98.9451,
+   "move": 1.0143,
+   "expected": 0.0809,
+   "z": 1.6114
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-05-01T00:00:00",
-   "value": 100.1408,
-   "move": 0.1183,
-   "expected": 0.0825,
-   "z": 0.0622
+   "value": 99.0601,
+   "move": 0.1162,
+   "expected": 0.0809,
+   "z": 0.0608
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-06-01T00:00:00",
-   "value": 100.3471,
-   "move": 0.2058,
-   "expected": 0.0825,
-   "z": 0.2143
+   "value": 99.2272,
+   "move": 0.1685,
+   "expected": 0.0809,
+   "z": 0.1513
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-07-01T00:00:00",
-   "value": 100.1068,
-   "move": -0.2398,
-   "expected": 0.0918,
-   "z": -0.5762
+   "value": 98.9632,
+   "move": -0.2664,
+   "expected": 0.0993,
+   "z": -0.6314
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-08-01T00:00:00",
-   "value": 99.6925,
-   "move": -0.4147,
-   "expected": 0.0918,
-   "z": -0.8802
+   "value": 98.5595,
+   "move": -0.4088,
+   "expected": 0.0993,
+   "z": -0.8772
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-09-01T00:00:00",
-   "value": 99.7954,
-   "move": 0.1032,
-   "expected": 0.0825,
-   "z": 0.0357
+   "value": 98.6692,
+   "move": 0.1112,
+   "expected": 0.0809,
+   "z": 0.0516
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-10-01T00:00:00",
-   "value": 101.0247,
-   "move": 1.2243,
-   "expected": 0.0825,
-   "z": 1.9698
+   "value": 99.9096,
+   "move": 1.2493,
+   "expected": 0.0809,
+   "z": 1.9875
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-11-01T00:00:00",
-   "value": 101.2664,
-   "move": 0.239,
-   "expected": 0.0918,
-   "z": 0.2474
+   "value": 100.137,
+   "move": 0.2273,
+   "expected": 0.0993,
+   "z": 0.209
   },
   {
    "series_id": "US.industrial_output",
    "period": "2017-12-01T00:00:00",
-   "value": 101.4644,
-   "move": 0.1953,
-   "expected": 0.0918,
-   "z": 0.1753
+   "value": 100.3183,
+   "move": 0.1809,
+   "expected": 0.0993,
+   "z": 0.1351
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-01-01T00:00:00",
-   "value": 101.4625,
-   "move": -0.0019,
-   "expected": 0.0999,
-   "z": -0.1724
+   "value": 100.3445,
+   "move": 0.0261,
+   "expected": 0.11,
+   "z": -0.1397
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-02-01T00:00:00",
-   "value": 101.7085,
-   "move": 0.2422,
-   "expected": 0.0999,
-   "z": 0.2408
+   "value": 100.5784,
+   "move": 0.2328,
+   "expected": 0.11,
+   "z": 0.2046
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-03-01T00:00:00",
-   "value": 102.2067,
-   "move": 0.4886,
-   "expected": 0.1102,
-   "z": 0.6516
+   "value": 101.0951,
+   "move": 0.5124,
+   "expected": 0.1137,
+   "z": 0.6912
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-04-01T00:00:00",
-   "value": 103.3329,
-   "move": 1.0959,
-   "expected": 0.1177,
-   "z": 1.7128
+   "value": 102.2064,
+   "move": 1.0933,
+   "expected": 0.121,
+   "z": 1.6853
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-05-01T00:00:00",
-   "value": 102.4024,
-   "move": -0.9046,
-   "expected": 0.1194,
-   "z": -1.793
+   "value": 101.2473,
+   "move": -0.9428,
+   "expected": 0.1455,
+   "z": -1.8473
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-06-01T00:00:00",
-   "value": 103.198,
-   "move": 0.7739,
-   "expected": 0.1194,
-   "z": 1.1461
+   "value": 102.0162,
+   "move": 0.7566,
+   "expected": 0.1455,
+   "z": 1.0372
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-07-01T00:00:00",
-   "value": 103.3646,
-   "move": 0.1613,
-   "expected": 0.1526,
-   "z": 0.0151
+   "value": 102.1736,
+   "move": 0.1542,
+   "expected": 0.1668,
+   "z": -0.0206
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-08-01T00:00:00",
-   "value": 104.0327,
-   "move": 0.6443,
-   "expected": 0.173,
-   "z": 0.8109
+   "value": 102.8644,
+   "move": 0.6738,
+   "expected": 0.1668,
+   "z": 0.8464
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-09-01T00:00:00",
-   "value": 104.1004,
-   "move": 0.0651,
-   "expected": 0.19,
-   "z": -0.2141
+   "value": 102.9581,
+   "move": 0.091,
+   "expected": 0.1735,
+   "z": -0.1377
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-10-01T00:00:00",
-   "value": 103.9856,
-   "move": -0.1103,
-   "expected": 0.19,
-   "z": -0.5293
+   "value": 102.8723,
+   "move": -0.0834,
+   "expected": 0.1735,
+   "z": -0.4465
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-11-01T00:00:00",
-   "value": 104.0681,
-   "move": 0.0793,
-   "expected": 0.173,
-   "z": -0.1758
+   "value": 102.9512,
+   "move": 0.0767,
+   "expected": 0.1668,
+   "z": -0.1612
   },
   {
    "series_id": "US.industrial_output",
    "period": "2018-12-01T00:00:00",
-   "value": 104.0936,
-   "move": 0.0245,
-   "expected": 0.173,
-   "z": -0.2809
+   "value": 102.9434,
+   "move": -0.0076,
+   "expected": 0.1668,
+   "z": -0.3237
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-01-01T00:00:00",
-   "value": 103.4021,
-   "move": -0.6665,
-   "expected": 0.173,
-   "z": -1.6046
+   "value": 102.342,
+   "move": -0.5859,
+   "expected": 0.1668,
+   "z": -1.4541
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-02-01T00:00:00",
-   "value": 102.8371,
-   "move": -0.5479,
-   "expected": 0.173,
-   "z": -1.3779
+   "value": 101.7207,
+   "move": -0.6089,
+   "expected": 0.1668,
+   "z": -1.4986
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-03-01T00:00:00",
-   "value": 102.8757,
-   "move": 0.0375,
-   "expected": 0.173,
-   "z": -0.259
+   "value": 101.773,
+   "move": 0.0514,
+   "expected": 0.1668,
+   "z": -0.2229
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-04-01T00:00:00",
-   "value": 102.274,
-   "move": -0.5866,
-   "expected": 0.173,
-   "z": -1.4986
+   "value": 101.1714,
+   "move": -0.5929,
+   "expected": 0.1668,
+   "z": -1.4869
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-05-01T00:00:00",
-   "value": 102.392,
-   "move": 0.1153,
-   "expected": 0.173,
-   "z": -0.1139
+   "value": 101.2796,
+   "move": 0.1069,
+   "expected": 0.1668,
+   "z": -0.1173
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-06-01T00:00:00",
-   "value": 102.4375,
-   "move": 0.0444,
-   "expected": 0.173,
-   "z": -0.2637
+   "value": 101.3043,
+   "move": 0.0244,
+   "expected": 0.1668,
+   "z": -0.2797
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-07-01T00:00:00",
-   "value": 101.9408,
-   "move": -0.4861,
-   "expected": 0.173,
-   "z": -1.3842
+   "value": 100.7916,
+   "move": -0.5074,
+   "expected": 0.1668,
+   "z": -1.3267
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-08-01T00:00:00",
-   "value": 102.639,
-   "move": 0.6826,
-   "expected": 0.1409,
-   "z": 1.1067
+   "value": 101.494,
+   "move": 0.6945,
+   "expected": 0.1596,
+   "z": 1.075
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-09-01T00:00:00",
-   "value": 102.2917,
-   "move": -0.3389,
-   "expected": 0.1409,
-   "z": -0.9804
+   "value": 101.1497,
+   "move": -0.3398,
+   "expected": 0.1596,
+   "z": -1.0038
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-10-01T00:00:00",
-   "value": 101.4281,
-   "move": -0.8478,
-   "expected": 0.1194,
-   "z": -1.9282
+   "value": 100.33,
+   "move": -0.8137,
+   "expected": 0.14,
+   "z": -1.9527
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-11-01T00:00:00",
-   "value": 101.9372,
-   "move": 0.5007,
-   "expected": 0.1177,
-   "z": 0.7448
+   "value": 100.845,
+   "move": 0.512,
+   "expected": 0.121,
+   "z": 0.7471
   },
   {
    "series_id": "US.industrial_output",
    "period": "2019-12-01T00:00:00",
-   "value": 101.7003,
-   "move": -0.2327,
-   "expected": 0.1177,
-   "z": -0.6729
+   "value": 100.5666,
+   "move": -0.2764,
+   "expected": 0.121,
+   "z": -0.7406
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-01-01T00:00:00",
-   "value": 101.0338,
-   "move": -0.6575,
-   "expected": 0.1162,
-   "z": -1.4797
+   "value": 100.0637,
+   "move": -0.5013,
+   "expected": 0.1137,
+   "z": -1.135
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-02-01T00:00:00",
-   "value": 101.3735,
-   "move": 0.3357,
-   "expected": 0.1092,
-   "z": 0.4324
+   "value": 100.3008,
+   "move": 0.2367,
+   "expected": 0.11,
+   "z": 0.2338
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-03-01T00:00:00",
-   "value": 97.4078,
-   "move": -3.9905,
-   "expected": 0.1092,
-   "z": -7.8297
+   "value": 96.392,
+   "move": -3.975,
+   "expected": 0.11,
+   "z": -7.5386
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-04-01T00:00:00",
-   "value": 84.5619,
-   "move": -14.1422,
-   "expected": 0.0999,
-   "z": -27.3347
+   "value": 83.6378,
+   "move": -14.1928,
+   "expected": 0.1078,
+   "z": -26.4226
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-05-01T00:00:00",
-   "value": 85.9604,
-   "move": 1.6403,
-   "expected": 0.0918,
-   "z": 2.8758
+   "value": 85.0161,
+   "move": 1.6345,
+   "expected": 0.099,
+   "z": 2.8442
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-06-01T00:00:00",
-   "value": 91.5934,
-   "move": 6.3472,
-   "expected": 0.0918,
-   "z": 11.6176
+   "value": 90.6188,
+   "move": 6.3821,
+   "expected": 0.099,
+   "z": 11.638
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-07-01T00:00:00",
-   "value": 95.0256,
-   "move": 3.6787,
-   "expected": 0.0918,
-   "z": 6.4853
+   "value": 94.0242,
+   "move": 3.689,
+   "expected": 0.099,
+   "z": 6.615
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-08-01T00:00:00",
-   "value": 95.9549,
-   "move": 0.9732,
-   "expected": 0.0918,
-   "z": 1.5845
+   "value": 94.9311,
+   "move": 0.9599,
+   "expected": 0.099,
+   "z": 1.5649
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-09-01T00:00:00",
-   "value": 95.9669,
-   "move": 0.0125,
-   "expected": 0.0918,
-   "z": -0.1417
+   "value": 94.9289,
+   "move": -0.0023,
+   "expected": 0.099,
+   "z": -0.1813
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-10-01T00:00:00",
-   "value": 96.7394,
-   "move": 0.8017,
-   "expected": 0.0831,
-   "z": 1.2563
+   "value": 95.7013,
+   "move": 0.8104,
+   "expected": 0.0905,
+   "z": 1.2811
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-11-01T00:00:00",
-   "value": 97.0816,
-   "move": 0.3531,
-   "expected": 0.0918,
-   "z": 0.4541
+   "value": 96.0477,
+   "move": 0.3613,
+   "expected": 0.099,
+   "z": 0.4482
   },
   {
    "series_id": "US.industrial_output",
    "period": "2020-12-01T00:00:00",
-   "value": 98.363,
-   "move": 1.3113,
-   "expected": 0.0999,
-   "z": 2.1273
+   "value": 97.2734,
+   "move": 1.2681,
+   "expected": 0.1078,
+   "z": 1.9891
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-01-01T00:00:00",
-   "value": 98.8822,
-   "move": 0.5265,
-   "expected": 0.0999,
-   "z": 0.749
+   "value": 97.9801,
+   "move": 0.7239,
+   "expected": 0.1078,
+   "z": 1.0561
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-02-01T00:00:00",
-   "value": 95.6149,
-   "move": -3.3601,
-   "expected": 0.1092,
-   "z": -6.07
+   "value": 94.5956,
+   "move": -3.5153,
+   "expected": 0.11,
+   "z": -6.0948
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-03-01T00:00:00",
-   "value": 98.3856,
-   "move": 2.8566,
-   "expected": 0.1092,
-   "z": 4.8069
+   "value": 97.393,
+   "move": 2.9143,
+   "expected": 0.11,
+   "z": 4.7145
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-04-01T00:00:00",
-   "value": 98.5587,
-   "move": 0.1758,
-   "expected": 0.1092,
-   "z": 0.1164
+   "value": 97.4827,
+   "move": 0.0921,
+   "expected": 0.11,
+   "z": -0.0302
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-05-01T00:00:00",
-   "value": 99.4333,
-   "move": 0.8835,
-   "expected": 0.1162,
-   "z": 1.3714
+   "value": 98.2893,
+   "move": 0.824,
+   "expected": 0.11,
+   "z": 1.2241
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-06-01T00:00:00",
-   "value": 99.7987,
-   "move": 0.3668,
-   "expected": 0.1162,
-   "z": 0.4425
+   "value": 98.7018,
+   "move": 0.4188,
+   "expected": 0.11,
+   "z": 0.5191
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-07-01T00:00:00",
-   "value": 100.2519,
-   "move": 0.4531,
-   "expected": 0.1162,
-   "z": 0.5949
+   "value": 99.2709,
+   "move": 0.5749,
+   "expected": 0.11,
+   "z": 0.7816
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-08-01T00:00:00",
-   "value": 100.0437,
-   "move": -0.2079,
-   "expected": 0.1162,
-   "z": -0.5724
+   "value": 99.0463,
+   "move": -0.2265,
+   "expected": 0.11,
+   "z": -0.5643
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-09-01T00:00:00",
-   "value": 98.8579,
-   "move": -1.1924,
-   "expected": 0.1092,
-   "z": -2.3353
+   "value": 97.8272,
+   "move": -1.2385,
+   "expected": 0.1078,
+   "z": -2.3034
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-10-01T00:00:00",
-   "value": 100.1861,
-   "move": 1.3346,
-   "expected": 0.1092,
-   "z": 2.152
+   "value": 99.194,
+   "move": 1.3875,
+   "expected": 0.1078,
+   "z": 2.1344
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-11-01T00:00:00",
-   "value": 100.8654,
-   "move": 0.6757,
-   "expected": 0.1092,
-   "z": 0.9949
+   "value": 99.885,
+   "move": 0.6942,
+   "expected": 0.1078,
+   "z": 0.9781
   },
   {
    "series_id": "US.industrial_output",
    "period": "2021-12-01T00:00:00",
-   "value": 100.5726,
-   "move": -0.2907,
-   "expected": 0.1162,
-   "z": -0.708
+   "value": 99.5412,
+   "move": -0.3448,
+   "expected": 0.11,
+   "z": -0.7556
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-01-01T00:00:00",
-   "value": 100.1856,
-   "move": -0.3855,
-   "expected": 0.1092,
-   "z": -0.8555
+   "value": 99.3527,
+   "move": -0.1895,
+   "expected": 0.1078,
+   "z": -0.4914
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-02-01T00:00:00",
-   "value": 100.8064,
-   "move": 0.6177,
-   "expected": 0.0999,
-   "z": 0.8963
+   "value": 99.8332,
+   "move": 0.4825,
+   "expected": 0.0995,
+   "z": 0.6259
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-03-01T00:00:00",
-   "value": 101.3907,
-   "move": 0.578,
-   "expected": 0.0999,
-   "z": 0.8148
+   "value": 100.446,
+   "move": 0.6119,
+   "expected": 0.0995,
+   "z": 0.8375
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-04-01T00:00:00",
-   "value": 101.44,
-   "move": 0.0486,
-   "expected": 0.1092,
-   "z": -0.1036
+   "value": 100.4987,
+   "move": 0.0525,
+   "expected": 0.1078,
+   "z": -0.0924
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-05-01T00:00:00",
-   "value": 101.3335,
-   "move": -0.105,
-   "expected": 0.0999,
-   "z": -0.3548
+   "value": 100.3495,
+   "move": -0.1486,
+   "expected": 0.0995,
+   "z": -0.4206
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-06-01T00:00:00",
-   "value": 101.018,
-   "move": -0.3118,
-   "expected": 0.088,
-   "z": -0.6898
+   "value": 100.0593,
+   "move": -0.2896,
+   "expected": 0.0916,
+   "z": -0.644
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-07-01T00:00:00",
-   "value": 101.223,
-   "move": 0.2027,
-   "expected": 0.088,
-   "z": 0.1938
+   "value": 100.288,
+   "move": 0.2283,
+   "expected": 0.0916,
+   "z": 0.2311
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-08-01T00:00:00",
-   "value": 101.0963,
-   "move": -0.1252,
-   "expected": 0.088,
-   "z": -0.3603
+   "value": 100.1079,
+   "move": -0.1797,
+   "expected": 0.0916,
+   "z": -0.4584
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-09-01T00:00:00",
-   "value": 101.2918,
-   "move": 0.1932,
-   "expected": 0.088,
-   "z": 0.1815
+   "value": 100.2232,
+   "move": 0.1151,
+   "expected": 0.0916,
+   "z": 0.0409
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-10-01T00:00:00",
-   "value": 101.2529,
-   "move": -0.0384,
-   "expected": 0.0999,
-   "z": -0.2395
+   "value": 100.2358,
+   "move": 0.0126,
+   "expected": 0.0995,
+   "z": -0.1518
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-11-01T00:00:00",
-   "value": 100.9552,
-   "move": -0.2944,
-   "expected": 0.088,
-   "z": -0.6598
+   "value": 99.9636,
+   "move": -0.2719,
+   "expected": 0.0916,
+   "z": -0.6315
   },
   {
    "series_id": "US.industrial_output",
    "period": "2022-12-01T00:00:00",
-   "value": 99.7664,
-   "move": -1.1845,
-   "expected": 0.0787,
-   "z": -2.185
+   "value": 98.6422,
+   "move": -1.3307,
+   "expected": 0.0905,
+   "z": -2.4622
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-01-01T00:00:00",
-   "value": 100.505,
-   "move": 0.7376,
-   "expected": 0.0716,
-   "z": 1.1495
+   "value": 99.6143,
+   "move": 0.9807,
+   "expected": 0.0833,
+   "z": 1.5162
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-02-01T00:00:00",
-   "value": 100.6416,
-   "move": 0.1358,
-   "expected": 0.0787,
-   "z": 0.098
+   "value": 99.4685,
+   "move": -0.1465,
+   "expected": 0.0905,
+   "z": -0.3919
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-03-01T00:00:00",
-   "value": 101.0205,
-   "move": 0.3758,
-   "expected": 0.0787,
-   "z": 0.5097
+   "value": 99.9966,
+   "move": 0.5295,
+   "expected": 0.0833,
+   "z": 0.7514
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-04-01T00:00:00",
-   "value": 101.253,
-   "move": 0.2299,
-   "expected": 0.0787,
-   "z": 0.2594
+   "value": 100.2466,
+   "move": 0.2497,
+   "expected": 0.0833,
+   "z": 0.2784
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-05-01T00:00:00",
-   "value": 100.9286,
-   "move": -0.3209,
-   "expected": 0.088,
-   "z": -0.6891
+   "value": 99.8582,
+   "move": -0.3882,
+   "expected": 0.0905,
+   "z": -0.7868
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-06-01T00:00:00",
-   "value": 100.1196,
-   "move": -0.8048,
-   "expected": 0.088,
-   "z": -1.4986
+   "value": 99.1015,
+   "move": -0.7607,
+   "expected": 0.0839,
+   "z": -1.375
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-07-01T00:00:00",
-   "value": 100.9067,
-   "move": 0.7831,
-   "expected": 0.0722,
-   "z": 1.1892
+   "value": 100.0559,
+   "move": 0.9584,
+   "expected": 0.0646,
+   "z": 1.4521
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-08-01T00:00:00",
-   "value": 100.8393,
-   "move": -0.0668,
-   "expected": 0.088,
-   "z": -0.2542
+   "value": 100.0263,
+   "move": -0.0296,
+   "expected": 0.0839,
+   "z": -0.1786
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-09-01T00:00:00",
-   "value": 101.0211,
-   "move": 0.1801,
-   "expected": 0.0722,
-   "z": 0.1806
+   "value": 100.285,
+   "move": 0.2583,
+   "expected": 0.0646,
+   "z": 0.3147
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-10-01T00:00:00",
-   "value": 100.4689,
-   "move": -0.5481,
-   "expected": 0.0722,
-   "z": -1.0563
+   "value": 99.8911,
+   "move": -0.3936,
+   "expected": 0.0646,
+   "z": -0.7519
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-11-01T00:00:00",
-   "value": 100.8639,
-   "move": 0.3924,
-   "expected": 0.0722,
-   "z": 0.5356
+   "value": 100.5026,
+   "move": 0.6103,
+   "expected": 0.0646,
+   "z": 0.8865
   },
   {
    "series_id": "US.industrial_output",
    "period": "2023-12-01T00:00:00",
-   "value": 100.6031,
-   "move": -0.2589,
-   "expected": 0.0722,
-   "z": -0.5538
+   "value": 100.2232,
+   "move": -0.2784,
+   "expected": 0.0646,
+   "z": -0.5443
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-01-01T00:00:00",
-   "value": 99.2223,
-   "move": -1.382,
-   "expected": 0.0568,
-   "z": -2.4507
+   "value": 99.1395,
+   "move": -1.0872,
+   "expected": 0.0519,
+   "z": -1.7958
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-02-01T00:00:00",
-   "value": 100.285,
-   "move": 1.0653,
-   "expected": 0.0568,
-   "z": 1.7177
+   "value": 99.9593,
+   "move": 0.8235,
+   "expected": 0.0519,
+   "z": 1.1955
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-03-01T00:00:00",
-   "value": 100.4575,
-   "move": 0.1719,
-   "expected": 0.0568,
-   "z": 0.1959
+   "value": 100.3004,
+   "move": 0.3407,
+   "expected": 0.0519,
+   "z": 0.4474
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-04-01T00:00:00",
-   "value": 100.2434,
-   "move": -0.2134,
-   "expected": 0.0568,
-   "z": -0.4627
+   "value": 100.0667,
+   "move": -0.2333,
+   "expected": 0.0519,
+   "z": -0.4496
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-05-01T00:00:00",
-   "value": 100.863,
-   "move": 0.6162,
-   "expected": 0.0465,
-   "z": 1.0017
+   "value": 100.6152,
+   "move": 0.5466,
+   "expected": 0.0388,
+   "z": 0.7973
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-06-01T00:00:00",
-   "value": 100.894,
-   "move": 0.0307,
-   "expected": 0.0465,
-   "z": -0.0269
+   "value": 100.7524,
+   "move": 0.1363,
+   "expected": 0.0388,
+   "z": 0.1518
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-07-01T00:00:00",
-   "value": 99.9757,
-   "move": -0.9143,
-   "expected": 0.041,
-   "z": -1.6271
+   "value": 99.8015,
+   "move": -0.9483,
+   "expected": 0.0388,
+   "z": -1.5365
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-08-01T00:00:00",
-   "value": 100.4309,
-   "move": 0.4543,
-   "expected": 0.0341,
-   "z": 0.6758
+   "value": 100.2101,
+   "move": 0.4086,
+   "expected": 0.0252,
+   "z": 0.605
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-09-01T00:00:00",
-   "value": 99.8084,
-   "move": -0.6218,
-   "expected": 0.041,
-   "z": -1.0645
+   "value": 99.6301,
+   "move": -0.5805,
+   "expected": 0.0388,
+   "z": -0.9573
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-10-01T00:00:00",
-   "value": 99.4695,
-   "move": -0.3401,
-   "expected": 0.0341,
-   "z": -0.5894
+   "value": 99.3356,
+   "move": -0.296,
+   "expected": 0.0252,
+   "z": -0.4893
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-11-01T00:00:00",
-   "value": 99.2925,
-   "move": -0.1781,
-   "expected": 0.0341,
-   "z": -0.3342
+   "value": 99.3425,
+   "move": 0.0069,
+   "expected": 0.0252,
+   "z": -0.0279
   },
   {
    "series_id": "US.industrial_output",
    "period": "2024-12-01T00:00:00",
-   "value": 100.3273,
-   "move": 1.0368,
-   "expected": 0.0276,
-   "z": 1.5976
+   "value": 100.1684,
+   "move": 0.8279,
+   "expected": 0.023,
+   "z": 1.2769
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-01-01T00:00:00",
-   "value": 100.0647,
-   "move": -0.2621,
-   "expected": 0.0341,
-   "z": -0.4665
+   "value": 100.3001,
+   "move": 0.1314,
+   "expected": 0.0252,
+   "z": 0.1616
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-02-01T00:00:00",
-   "value": 101.0993,
-   "move": 1.0286,
-   "expected": 0.0341,
-   "z": 1.5974
+   "value": 100.8885,
+   "move": 0.5849,
+   "expected": 0.0388,
+   "z": 0.8444
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-03-01T00:00:00",
-   "value": 101.0404,
-   "move": -0.0583,
-   "expected": 0.041,
-   "z": -0.1594
+   "value": 100.9221,
+   "move": 0.0333,
+   "expected": 0.0519,
+   "z": -0.0284
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-04-01T00:00:00",
-   "value": 101.1279,
-   "move": 0.0866,
-   "expected": 0.041,
-   "z": 0.0732
+   "value": 100.8063,
+   "move": -0.1148,
+   "expected": 0.0519,
+   "z": -0.254
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-05-01T00:00:00",
-   "value": 100.9655,
-   "move": -0.1607,
-   "expected": 0.0465,
-   "z": -0.3433
+   "value": 100.5608,
+   "move": -0.2438,
+   "expected": 0.0519,
+   "z": -0.4582
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-06-01T00:00:00",
-   "value": 101.4785,
-   "move": 0.5068,
-   "expected": 0.0465,
-   "z": 0.7828
+   "value": 101.0358,
+   "move": 0.4712,
+   "expected": 0.0519,
+   "z": 0.661
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-07-01T00:00:00",
-   "value": 101.894,
-   "move": 0.4086,
-   "expected": 0.0568,
-   "z": 0.5974
+   "value": 101.2766,
+   "move": 0.238,
+   "expected": 0.0646,
+   "z": 0.2818
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-08-01T00:00:00",
-   "value": 101.6247,
-   "move": -0.2646,
-   "expected": 0.0568,
-   "z": -0.5467
+   "value": 100.9114,
+   "move": -0.3612,
+   "expected": 0.0646,
+   "z": -0.6989
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-09-01T00:00:00",
-   "value": 101.668,
-   "move": 0.0426,
-   "expected": 0.0568,
-   "z": -0.0242
+   "value": 100.9893,
+   "move": 0.0772,
+   "expected": 0.0646,
+   "z": 0.0205
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-10-01T00:00:00",
-   "value": 101.2195,
-   "move": -0.4421,
-   "expected": 0.0568,
-   "z": -0.8485
+   "value": 100.5732,
+   "move": -0.4129,
+   "expected": 0.0769,
+   "z": -0.788
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-11-01T00:00:00",
-   "value": 101.0344,
-   "move": -0.183,
-   "expected": 0.0568,
-   "z": -0.4079
+   "value": 100.4411,
+   "move": -0.1314,
+   "expected": 0.0769,
+   "z": -0.3352
   },
   {
    "series_id": "US.industrial_output",
    "period": "2025-12-01T00:00:00",
-   "value": 101.4941,
-   "move": 0.454,
-   "expected": 0.0568,
-   "z": 0.6764
+   "value": 100.7055,
+   "move": 0.2629,
+   "expected": 0.0769,
+   "z": 0.3051
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-01-01T00:00:00",
-   "value": 101.0388,
-   "move": -0.4496,
-   "expected": 0.0722,
-   "z": -0.9188
+   "value": 100.3329,
+   "move": -0.3707,
+   "expected": 0.0841,
+   "z": -0.7753
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-02-01T00:00:00",
-   "value": 101.9053,
-   "move": 0.8539,
-   "expected": 0.0568,
-   "z": 1.3576
+   "value": 101.0208,
+   "move": 0.6833,
+   "expected": 0.0769,
+   "z": 1.0152
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-03-01T00:00:00",
-   "value": 101.7336,
-   "move": -0.1686,
-   "expected": 0.0722,
-   "z": -0.424
+   "value": 101.1593,
+   "move": 0.137,
+   "expected": 0.0841,
+   "z": 0.0902
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-04-01T00:00:00",
-   "value": 102.5768,
-   "move": 0.8254,
-   "expected": 0.0722,
-   "z": 1.3302
+   "value": 101.6393,
+   "move": 0.4734,
+   "expected": 0.0916,
+   "z": 0.6662
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-05-01T00:00:00",
-   "value": 102.6925,
-   "move": 0.1127,
-   "expected": 0.0722,
-   "z": 0.0714
+   "value": 101.7781,
+   "move": 0.1365,
+   "expected": 0.0916,
+   "z": 0.0784
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-06-01T00:00:00",
-   "value": 102.9673,
-   "move": 0.2672,
-   "expected": 0.0829,
-   "z": 0.3247
+   "value": 101.9827,
+   "move": 0.2008,
+   "expected": 0.0995,
+   "z": 0.1771
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-07-01T00:00:00",
-   "value": 103.1675,
-   "move": 0.1942,
-   "expected": 0.0829,
-   "z": 0.1999
+   "value": 102.2082,
+   "move": 0.2209,
+   "expected": 0.0995,
+   "z": 0.2121
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-08-01T00:00:00",
-   "value": 103.0954,
-   "move": -0.0699,
-   "expected": 0.0829,
-   "z": -0.2745
+   "value": 102.0644,
+   "move": -0.1408,
+   "expected": 0.0995,
+   "z": -0.4198
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-09-01T00:00:00",
-   "value": 103.8458,
-   "move": 0.7252,
-   "expected": 0.0829,
-   "z": 1.1537
+   "value": 102.6785,
+   "move": 0.5999,
+   "expected": 0.0995,
+   "z": 0.8743
   },
   {
    "series_id": "US.industrial_output",
    "period": "2026-10-01T00:00:00",
-   "value": 103.3954,
-   "move": -0.4347,
-   "expected": 0.0949,
-   "z": -0.9122
+   "value": 102.2421,
+   "move": -0.4259,
+   "expected": 0.1091,
+   "z": -0.9003
   },
   {
    "series_id": "US.job_openings",
@@ -51474,18 +51474,18 @@
   {
    "series_id": "US.money_supply",
    "period": "2026-01-01T00:00:00",
-   "value": 22386.6,
-   "move": 0.2585,
+   "value": 22386.7,
+   "move": 0.259,
    "expected": 0.3779,
-   "z": -0.3622
+   "z": -0.3609
   },
   {
    "series_id": "US.money_supply",
    "period": "2026-02-01T00:00:00",
    "value": 22572.3,
-   "move": 0.8261,
+   "move": 0.8256,
    "expected": 0.3751,
-   "z": 1.412
+   "z": 1.4106
   },
   {
    "series_id": "US.money_supply",
@@ -51506,15 +51506,15 @@
   {
    "series_id": "US.money_supply",
    "period": "2026-05-01T00:00:00",
-   "value": 22980.9,
-   "move": 1.1066,
+   "value": 22980.8,
+   "move": 1.1061,
    "expected": 0.3687,
-   "z": 2.4133
+   "z": 2.4119
   },
   {
    "series_id": "US.money_supply",
    "period": "2026-06-01T00:00:00",
-   "value": 23077.7,
+   "value": 23077.6,
    "move": 0.4203,
    "expected": 0.3687,
    "z": 0.1634
@@ -51522,7 +51522,7 @@
   {
    "series_id": "US.money_supply",
    "period": "2026-07-01T00:00:00",
-   "value": 23177.4,
+   "value": 23177.3,
    "move": 0.4311,
    "expected": 0.3687,
    "z": 0.1974
@@ -51530,7 +51530,7 @@
   {
    "series_id": "US.money_supply",
    "period": "2026-08-01T00:00:00",
-   "value": 23300.9,
+   "value": 23300.8,
    "move": 0.5314,
    "expected": 0.3687,
    "z": 0.515
@@ -51538,10 +51538,18 @@
   {
    "series_id": "US.money_supply",
    "period": "2026-09-01T00:00:00",
-   "value": 23413.9,
-   "move": 0.4838,
+   "value": 23414.3,
+   "move": 0.4859,
    "expected": 0.3687,
-   "z": 0.3763
+   "z": 0.3833
+  },
+  {
+   "series_id": "US.money_supply",
+   "period": "2026-10-01T00:00:00",
+   "value": 23532.8,
+   "move": 0.5048,
+   "expected": 0.3687,
+   "z": 0.4451
   },
   {
    "series_id": "US.participation",
