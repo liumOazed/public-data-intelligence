@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-23T21:40:51+00:00",
-  "rows": 1034,
+  "generated_at": "2026-11-24T04:36:18+00:00",
+  "rows": 1170,
   "columns": [
    "date",
    "kind",
@@ -38,7 +38,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-23T21:34:30+00:00"
+    "retrieved_at": "2026-11-24T04:30:30+00:00"
    },
    {
     "id": "ebay_browse",
@@ -47,7 +47,7 @@
     "licence": "eBay API License Agreement (https://developer.ebay.com/join/api-license-agreement). Public display of derived lowest-price comparisons with a link back to the listing is permitted; raw listing feeds are not redistributed in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-23T21:35:51+00:00"
+    "retrieved_at": "2026-11-24T04:31:54+00:00"
    },
    {
     "id": "blender_opendata",
@@ -125,6 +125,13 @@
    "n_listings": 4
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd radeon ai pro r9700",
+   "price_usd": 1799.99,
+   "n_listings": 4
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "amd rx 6500 xt",
@@ -147,6 +154,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "amd rx 6500 xt",
+   "price_usd": 149.0,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "amd rx 6500 xt",
    "price_usd": 149.0,
@@ -189,6 +203,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "amd rx 6600",
+   "price_usd": 219.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "amd rx 6600",
    "price_usd": 219.99,
@@ -244,6 +265,13 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 6600 xt",
+   "price_usd": 499.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "amd rx 6700 xt",
@@ -293,6 +321,13 @@
    "n_listings": 4
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 6700 xt",
+   "price_usd": 389.99,
+   "n_listings": 4
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "amd rx 6750 xt",
@@ -336,6 +371,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "amd rx 6750 xt",
+   "price_usd": 517.46,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "amd rx 6750 xt",
    "price_usd": 517.46,
@@ -433,6 +475,13 @@
    "n_listings": 11
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 7600",
+   "price_usd": 299.99,
+   "n_listings": 11
+  },
+  {
    "date": "2026-11-20",
    "kind": "gpu",
    "model_key": "amd rx 7650 gre",
@@ -489,6 +538,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 7700 xt",
+   "price_usd": 1081.54,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "amd rx 7800 xt",
@@ -532,6 +588,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "amd rx 7800 xt",
+   "price_usd": 772.65,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "amd rx 7800 xt",
    "price_usd": 772.65,
@@ -581,6 +644,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "amd rx 7900 xtx",
+   "price_usd": 2100.0,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "amd rx 7900 xtx",
    "price_usd": 2100.0,
@@ -657,6 +727,13 @@
    "n_listings": 17
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 9060 xt",
+   "price_usd": 629.99,
+   "n_listings": 16
+  },
+  {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "amd rx 9070",
@@ -727,6 +804,13 @@
    "n_listings": 5
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 9070",
+   "price_usd": 699.99,
+   "n_listings": 5
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "amd rx 9070 gre",
@@ -770,6 +854,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "amd rx 9070 gre",
+   "price_usd": 729.99,
+   "n_listings": 10
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "amd rx 9070 gre",
    "price_usd": 729.99,
@@ -846,6 +937,13 @@
    "n_listings": 18
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "amd rx 9070 xt",
+   "price_usd": 949.99,
+   "n_listings": 18
+  },
+  {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5500",
@@ -910,6 +1008,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 5500",
+   "price_usd": 94.99,
+   "n_listings": 7
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5500",
    "price_usd": 94.99,
@@ -986,6 +1091,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 5600",
+   "price_usd": 104.99,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5600g",
@@ -1049,6 +1161,13 @@
    "n_listings": 6
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 5600x",
+   "price_usd": 129.0,
+   "n_listings": 6
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5600x3d",
@@ -1089,6 +1208,13 @@
    "model_key": "amd ryzen 5 5600x3d",
    "price_usd": 239.9,
    "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 5600x3d",
+   "price_usd": 235.0,
+   "n_listings": 2
   },
   {
    "date": "2026-11-20",
@@ -1141,6 +1267,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 7500f",
+   "price_usd": 136.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 5 7500f",
    "price_usd": 136.99,
@@ -1217,6 +1350,13 @@
    "n_listings": 9
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 7600x",
+   "price_usd": 119.0,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-23",
    "kind": "cpu",
    "model_key": "amd ryzen 5 7600x3d",
@@ -1224,6 +1364,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 7600x3d",
+   "price_usd": 249.99,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 5 8400f",
@@ -1273,6 +1420,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 8400f",
+   "price_usd": 149.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 5 8600g",
@@ -1316,6 +1470,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 8600g",
+   "price_usd": 229.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 5 8600g",
    "price_usd": 229.99,
@@ -1392,6 +1553,13 @@
    "n_listings": 11
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 5 9600x",
+   "price_usd": 159.99,
+   "n_listings": 11
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5700",
@@ -1441,6 +1609,13 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5700",
+   "price_usd": 149.99,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5700g",
@@ -1456,6 +1631,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5700g",
+   "price_usd": 274.3,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5700g",
    "price_usd": 274.3,
@@ -1532,6 +1714,13 @@
    "n_listings": 12
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5700x",
+   "price_usd": 152.99,
+   "n_listings": 12
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5800x",
@@ -1575,6 +1764,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5800x",
+   "price_usd": 199.99,
+   "n_listings": 3
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5800x",
    "price_usd": 199.99,
@@ -1651,6 +1847,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5800x3d",
+   "price_usd": 319.0,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5800xt",
@@ -1721,6 +1924,13 @@
    "n_listings": 11
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 5800xt",
+   "price_usd": 169.99,
+   "n_listings": 11
+  },
+  {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 7 7700",
@@ -1791,6 +2001,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 7700",
+   "price_usd": 339.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-16",
    "kind": "cpu",
    "model_key": "amd ryzen 7 7700x",
@@ -1841,6 +2058,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 7700x",
+   "price_usd": 199.95,
+   "n_listings": 11
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 7 7700x",
    "price_usd": 199.95,
@@ -1917,6 +2141,13 @@
    "n_listings": 13
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 7800x3d",
+   "price_usd": 314.95,
+   "n_listings": 12
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 7 8700g",
@@ -1960,6 +2191,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 8700g",
+   "price_usd": 279.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 7 8700g",
    "price_usd": 279.99,
@@ -2036,6 +2274,13 @@
    "n_listings": 12
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 9700x",
+   "price_usd": 254.5,
+   "n_listings": 12
+  },
+  {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "amd ryzen 7 9800x3d",
@@ -2106,6 +2351,13 @@
    "n_listings": 13
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 9800x3d",
+   "price_usd": 359.99,
+   "n_listings": 13
+  },
+  {
    "date": "2026-11-16",
    "kind": "cpu",
    "model_key": "amd ryzen 7 9850x3d",
@@ -2162,6 +2414,13 @@
    "n_listings": 4
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 7 9850x3d",
+   "price_usd": 445.99,
+   "n_listings": 4
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 9 5900x",
@@ -2198,6 +2457,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 5900x",
+   "price_usd": 349.0,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 9 5900x",
    "price_usd": 349.0,
@@ -2260,6 +2526,13 @@
    "n_listings": 7
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 5900xt",
+   "price_usd": 285.0,
+   "n_listings": 8
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 9 5950x",
@@ -2303,6 +2576,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 5950x",
+   "price_usd": 397.99,
+   "n_listings": 5
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 9 5950x",
    "price_usd": 397.99,
@@ -2356,6 +2636,13 @@
    "model_key": "amd ryzen 9 7900x",
    "price_usd": 255.0,
    "n_listings": 7
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 7900x",
+   "price_usd": 255.0,
+   "n_listings": 8
   },
   {
    "date": "2026-11-14",
@@ -2428,6 +2715,13 @@
    "n_listings": 7
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 7950x",
+   "price_usd": 488.98,
+   "n_listings": 7
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd ryzen 9 7950x3d",
@@ -2471,6 +2765,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 7950x3d",
+   "price_usd": 549.99,
+   "n_listings": 4
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 9 7950x3d",
    "price_usd": 549.99,
@@ -2547,6 +2848,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 9900x",
+   "price_usd": 270.0,
+   "n_listings": 11
+  },
+  {
    "date": "2026-11-16",
    "kind": "cpu",
    "model_key": "amd ryzen 9 9900x3d",
@@ -2597,6 +2905,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 9900x3d",
+   "price_usd": 450.0,
+   "n_listings": 8
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 9 9900x3d",
    "price_usd": 450.0,
@@ -2667,6 +2982,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 9950x",
+   "price_usd": 399.0,
+   "n_listings": 9
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd ryzen 9 9950x",
    "price_usd": 399.0,
@@ -2743,6 +3065,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd ryzen 9 9950x3d",
+   "price_usd": 525.0,
+   "n_listings": 8
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper 7960x",
@@ -2786,6 +3115,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd threadripper 7960x",
+   "price_usd": 1199.0,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd threadripper 7960x",
    "price_usd": 1199.0,
@@ -2862,6 +3198,13 @@
    "n_listings": 6
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper 7970x",
+   "price_usd": 1915.99,
+   "n_listings": 6
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper 7980x",
@@ -2911,6 +3254,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper 7980x",
+   "price_usd": 2099.9,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper 9960x",
@@ -2960,6 +3310,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper 9960x",
+   "price_usd": 1449.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper 9970x",
@@ -3009,6 +3366,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper 9970x",
+   "price_usd": 2399.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper 9980x",
@@ -3052,6 +3416,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd threadripper 9980x",
+   "price_usd": 4899.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd threadripper 9980x",
    "price_usd": 4899.99,
@@ -3107,6 +3478,13 @@
    "n_listings": 3
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 7975wx",
+   "price_usd": 4164.48,
+   "n_listings": 3
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper pro 9955wx",
@@ -3156,6 +3534,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9955wx",
+   "price_usd": 1529.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper pro 9965wx",
@@ -3205,6 +3590,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9965wx",
+   "price_usd": 2899.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper pro 9975wx",
@@ -3254,6 +3646,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9975wx",
+   "price_usd": 3899.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper pro 9985wx",
@@ -3303,6 +3702,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9985wx",
+   "price_usd": 7899.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "amd threadripper pro 9995wx",
@@ -3346,6 +3752,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "amd threadripper pro 9995wx",
+   "price_usd": 11449.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "amd threadripper pro 9995wx",
    "price_usd": 11449.99,
@@ -3395,6 +3808,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "intel arc a380",
+   "price_usd": 189.99,
+   "n_listings": 9
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "intel arc a380",
    "price_usd": 189.99,
@@ -3471,6 +3891,13 @@
    "n_listings": 3
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "intel arc a750",
+   "price_usd": 225.0,
+   "n_listings": 3
+  },
+  {
    "date": "2026-11-20",
    "kind": "gpu",
    "model_key": "intel arc a770",
@@ -3493,6 +3920,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "intel arc a770",
+   "price_usd": 772.95,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "intel arc a770",
    "price_usd": 772.95,
@@ -3542,6 +3976,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "intel arc b570",
+   "price_usd": 303.99,
+   "n_listings": 4
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "intel arc b570",
    "price_usd": 303.99,
@@ -3618,6 +4059,13 @@
    "n_listings": 4
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "intel arc b580",
+   "price_usd": 249.99,
+   "n_listings": 4
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "intel arc pro b50",
@@ -3667,6 +4115,13 @@
    "n_listings": 4
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "intel arc pro b50",
+   "price_usd": 599.99,
+   "n_listings": 4
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "intel arc pro b60",
@@ -3710,6 +4165,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "intel arc pro b60",
+   "price_usd": 899.32,
+   "n_listings": 7
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "intel arc pro b60",
    "price_usd": 899.32,
@@ -3772,6 +4234,13 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-12400",
+   "price_usd": 128.99,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i5-12400f",
@@ -3821,6 +4290,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-12400f",
+   "price_usd": 119.99,
+   "n_listings": 8
+  },
+  {
    "date": "2026-11-20",
    "kind": "cpu",
    "model_key": "intel core i5-12600k",
@@ -3849,6 +4325,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-12600k",
+   "price_usd": 215.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i5-12600kf",
@@ -3898,6 +4381,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-12600kf",
+   "price_usd": 179.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i5-13400f",
@@ -3941,6 +4431,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i5-13400f",
+   "price_usd": 199.0,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i5-13400f",
    "price_usd": 199.0,
@@ -3954,7 +4451,21 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-13500",
+   "price_usd": 299.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i5-13600k",
+   "price_usd": 250.0,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i5-13600k",
    "price_usd": 250.0,
@@ -4010,6 +4521,13 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-14400",
+   "price_usd": 179.99,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i5-14400f",
@@ -4053,6 +4571,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i5-14400f",
+   "price_usd": 149.99,
+   "n_listings": 3
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i5-14400f",
    "price_usd": 149.99,
@@ -4129,6 +4654,13 @@
    "n_listings": 12
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-14600k",
+   "price_usd": 249.95,
+   "n_listings": 11
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i5-14600kf",
@@ -4178,6 +4710,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i5-14600kf",
+   "price_usd": 236.99,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-22",
    "kind": "cpu",
    "model_key": "intel core i7-12700",
@@ -4186,6 +4725,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i7-12700",
+   "price_usd": 343.49,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i7-12700",
    "price_usd": 343.49,
@@ -4262,6 +4808,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i7-12700k",
+   "price_usd": 251.93,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i7-13700",
@@ -4305,6 +4858,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i7-13700",
+   "price_usd": 249.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i7-13700",
    "price_usd": 249.99,
@@ -4375,6 +4935,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i7-13700k",
+   "price_usd": 298.99,
+   "n_listings": 6
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i7-13700k",
    "price_usd": 298.99,
@@ -4479,6 +5046,13 @@
    "n_listings": 3
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i7-14700",
+   "price_usd": 344.99,
+   "n_listings": 3
+  },
+  {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "intel core i7-14700k",
@@ -4549,6 +5123,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i7-14700k",
+   "price_usd": 319.99,
+   "n_listings": 8
+  },
+  {
    "date": "2026-11-14",
    "kind": "cpu",
    "model_key": "intel core i7-14700kf",
@@ -4612,6 +5193,13 @@
    "n_listings": 7
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i7-14700kf",
+   "price_usd": 295.99,
+   "n_listings": 7
+  },
+  {
    "date": "2026-11-18",
    "kind": "cpu",
    "model_key": "intel core i9-12900k",
@@ -4640,7 +5228,21 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i9-12900k",
+   "price_usd": 309.99,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i9-12900kf",
+   "price_usd": 245.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i9-12900kf",
    "price_usd": 245.99,
@@ -4696,6 +5298,13 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i9-13900k",
+   "price_usd": 425.0,
+   "n_listings": 2
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i9-13900ks",
@@ -4739,6 +5348,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i9-13900ks",
+   "price_usd": 519.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i9-13900ks",
    "price_usd": 519.99,
@@ -4792,6 +5408,13 @@
    "model_key": "intel core i9-14900",
    "price_usd": 589.99,
    "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i9-14900",
+   "price_usd": 589.99,
+   "n_listings": 2
   },
   {
    "date": "2026-11-19",
@@ -4871,6 +5494,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i9-14900k",
+   "price_usd": 369.99,
+   "n_listings": 7
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i9-14900kf",
@@ -4920,6 +5550,13 @@
    "n_listings": 3
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core i9-14900kf",
+   "price_usd": 344.99,
+   "n_listings": 3
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core i9-14900ks",
@@ -4935,6 +5572,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core i9-14900ks",
+   "price_usd": 569.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core i9-14900ks",
    "price_usd": 569.99,
@@ -4990,6 +5634,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core ultra 5 225f",
+   "price_usd": 159.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core ultra 5 245k",
@@ -5067,6 +5718,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core ultra 5 245kf",
+   "price_usd": 159.99,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core ultra 5 250k",
@@ -5110,6 +5768,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core ultra 5 250k",
+   "price_usd": 209.99,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core ultra 5 250k",
    "price_usd": 209.99,
@@ -5172,6 +5837,13 @@
    "n_listings": 5
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core ultra 7 265k",
+   "price_usd": 249.99,
+   "n_listings": 5
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core ultra 7 265kf",
@@ -5221,6 +5893,13 @@
    "n_listings": 5
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core ultra 7 265kf",
+   "price_usd": 245.0,
+   "n_listings": 5
+  },
+  {
    "date": "2026-11-17",
    "kind": "cpu",
    "model_key": "intel core ultra 7 270k",
@@ -5264,6 +5943,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "cpu",
+   "model_key": "intel core ultra 7 270k",
+   "price_usd": 329.99,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "cpu",
    "model_key": "intel core ultra 7 270k",
    "price_usd": 329.99,
@@ -5340,6 +6026,13 @@
    "n_listings": 9
   },
   {
+   "date": "2026-11-24",
+   "kind": "cpu",
+   "model_key": "intel core ultra 9 285k",
+   "price_usd": 469.99,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 2000 ada",
@@ -5383,6 +6076,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 2000 ada",
+   "price_usd": 689.99,
+   "n_listings": 10
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 2000 ada",
    "price_usd": 689.99,
@@ -5453,6 +6153,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 2060",
+   "price_usd": 279.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 2060",
    "price_usd": 279.99,
@@ -5529,6 +6236,13 @@
    "n_listings": 20
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 3050",
+   "price_usd": 179.99,
+   "n_listings": 20
+  },
+  {
    "date": "2026-11-16",
    "kind": "gpu",
    "model_key": "nvidia rtx 3060",
@@ -5585,6 +6299,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 3060",
+   "price_usd": 259.99,
+   "n_listings": 11
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 3060 ti",
@@ -5634,6 +6355,13 @@
    "n_listings": 2
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 3060 ti",
+   "price_usd": 400.0,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 3070",
@@ -5659,6 +6387,13 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 3080",
    "price_usd": 720.0,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 3080",
+   "price_usd": 1150.96,
    "n_listings": 1
   },
   {
@@ -5718,6 +6453,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4000 ada",
+   "price_usd": 1449.97,
+   "n_listings": 8
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 4060",
@@ -5767,6 +6509,13 @@
    "n_listings": 4
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4060",
+   "price_usd": 319.99,
+   "n_listings": 4
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 4060 ti",
@@ -5810,6 +6559,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4060 ti",
+   "price_usd": 719.9,
+   "n_listings": 3
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 4060 ti",
    "price_usd": 719.9,
@@ -5863,6 +6619,13 @@
    "model_key": "nvidia rtx 4070",
    "price_usd": 569.99,
    "n_listings": 3
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4070",
+   "price_usd": 569.99,
+   "n_listings": 2
   },
   {
    "date": "2026-11-17",
@@ -5914,6 +6677,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4070 super",
+   "price_usd": 1001.53,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 4070 ti",
@@ -5957,6 +6727,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4070 ti",
+   "price_usd": 769.99,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 4070 ti",
    "price_usd": 769.99,
@@ -6012,6 +6789,13 @@
    "n_listings": 3
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4070 ti super",
+   "price_usd": 1299.95,
+   "n_listings": 3
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 4080",
@@ -6061,6 +6845,13 @@
    "n_listings": 3
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4080",
+   "price_usd": 1400.0,
+   "n_listings": 3
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 4080 super",
@@ -6104,6 +6895,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4080 super",
+   "price_usd": 1749.98,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 4080 super",
    "price_usd": 1749.98,
@@ -6159,6 +6957,13 @@
    "n_listings": 7
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4090",
+   "price_usd": 2083.48,
+   "n_listings": 6
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 4500 ada",
@@ -6208,6 +7013,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 4500 ada",
+   "price_usd": 2690.0,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 5000 ada",
@@ -6251,6 +7063,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5000 ada",
+   "price_usd": 6549.0,
+   "n_listings": 2
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 5000 ada",
    "price_usd": 6549.0,
@@ -6300,6 +7119,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5050",
+   "price_usd": 349.99,
+   "n_listings": 9
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 5050",
    "price_usd": 349.99,
@@ -6376,6 +7202,13 @@
    "n_listings": 14
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5060",
+   "price_usd": 481.99,
+   "n_listings": 13
+  },
+  {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5060 ti",
@@ -6440,6 +7273,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5060 ti",
+   "price_usd": 499.99,
+   "n_listings": 21
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 5060 ti",
    "price_usd": 499.99,
@@ -6516,6 +7356,13 @@
    "n_listings": 11
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5070",
+   "price_usd": 899.99,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5070 ti",
@@ -6584,6 +7431,13 @@
    "model_key": "nvidia rtx 5070 ti",
    "price_usd": 1007.98,
    "n_listings": 16
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5070 ti",
+   "price_usd": 1007.98,
+   "n_listings": 15
   },
   {
    "date": "2026-11-14",
@@ -6656,6 +7510,13 @@
    "n_listings": 20
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5080",
+   "price_usd": 1899.99,
+   "n_listings": 18
+  },
+  {
    "date": "2026-11-14",
    "kind": "gpu",
    "model_key": "nvidia rtx 5090",
@@ -6726,6 +7587,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 5090",
+   "price_usd": 6550.0,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx 6000 ada",
@@ -6769,6 +7637,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx 6000 ada",
+   "price_usd": 8999.99,
+   "n_listings": 1
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx 6000 ada",
    "price_usd": 8999.99,
@@ -6824,6 +7699,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a1000",
+   "price_usd": 519.99,
+   "n_listings": 9
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx a2000",
@@ -6873,6 +7755,13 @@
    "n_listings": 10
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a2000",
+   "price_usd": 379.99,
+   "n_listings": 10
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx a400",
@@ -6920,6 +7809,13 @@
    "model_key": "nvidia rtx a400",
    "price_usd": 179.99,
    "n_listings": 9
+  },
+  {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a400",
+   "price_usd": 179.99,
+   "n_listings": 8
   },
   {
    "date": "2026-11-17",
@@ -6965,6 +7861,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a4000",
+   "price_usd": 1200.26,
+   "n_listings": 7
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx a4000",
    "price_usd": 1200.26,
@@ -7020,6 +7923,13 @@
    "n_listings": 1
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a4500",
+   "price_usd": 1899.0,
+   "n_listings": 1
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx a5000",
@@ -7063,6 +7973,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a5000",
+   "price_usd": 3449.0,
+   "n_listings": 5
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx a5000",
    "price_usd": 3449.0,
@@ -7118,6 +8035,13 @@
    "n_listings": 5
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx a6000",
+   "price_usd": 7899.0,
+   "n_listings": 5
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx pro 4000 blackwell",
@@ -7161,6 +8085,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx pro 4000 blackwell",
+   "price_usd": 2949.95,
+   "n_listings": 8
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx pro 4000 blackwell",
    "price_usd": 2949.95,
@@ -7210,6 +8141,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx pro 4500 blackwell",
+   "price_usd": 3999.99,
+   "n_listings": 8
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx pro 4500 blackwell",
    "price_usd": 3999.99,
@@ -7265,6 +8203,13 @@
    "n_listings": 8
   },
   {
+   "date": "2026-11-24",
+   "kind": "gpu",
+   "model_key": "nvidia rtx pro 5000 blackwell",
+   "price_usd": 6999.0,
+   "n_listings": 8
+  },
+  {
    "date": "2026-11-17",
    "kind": "gpu",
    "model_key": "nvidia rtx pro 6000 blackwell",
@@ -7308,6 +8253,13 @@
   },
   {
    "date": "2026-11-23",
+   "kind": "gpu",
+   "model_key": "nvidia rtx pro 6000 blackwell",
+   "price_usd": 15000.0,
+   "n_listings": 4
+  },
+  {
+   "date": "2026-11-24",
    "kind": "gpu",
    "model_key": "nvidia rtx pro 6000 blackwell",
    "price_usd": 15000.0,
