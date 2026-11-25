@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_tiers",
   "description": "Efficiency tiers of the current line-up from a Gaussian mixture on log points per rated watt, with the number of tiers chosen by BIC.",
-  "generated_at": "2026-11-24T20:22:00+00:00",
+  "generated_at": "2026-11-25T03:20:08+00:00",
   "rows": 3,
   "columns": [
    "kind",

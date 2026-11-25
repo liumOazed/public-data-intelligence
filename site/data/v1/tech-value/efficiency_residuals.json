@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_residuals",
   "description": "Per chip: points per rated watt its specifications, process node, architecture and rated power predict, from models refitted without it, and the verdict when the measured value sits outside the 80% range.",
-  "generated_at": "2026-11-24T20:22:00+00:00",
+  "generated_at": "2026-11-25T03:20:08+00:00",
   "rows": 318,
   "columns": [
    "kind",
