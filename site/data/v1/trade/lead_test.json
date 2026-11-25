@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "lead_test",
   "description": "Lead-time test: does the growth of US imports from an economy improve a same-month estimate of that economy's own total export growth over a persistence baseline, on months after the fitting period?",
-  "generated_at": "2026-11-25T03:21:46+00:00",
+  "generated_at": "2026-11-25T19:41:19+00:00",
   "rows": 6,
   "columns": [
    "country",
@@ -45,7 +45,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-25T03:15:59+00:00"
+    "retrieved_at": "2026-11-25T19:35:44+00:00"
    }
   ],
   "preliminary": false,

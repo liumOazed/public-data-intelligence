@@ -59,6 +59,10 @@
   "baseline": false,
   "first_seen": "2026-11-25T03:21:47+00:00"
  },
+ "tech-value|amd rx 6900 xt|price move|2026-11-25": {
+  "baseline": false,
+  "first_seen": "2026-11-25T19:41:20+00:00"
+ },
  "tech-value|amd rx 7600|price move|2026-11-22": {
   "baseline": false,
   "first_seen": "2026-11-22T17:22:08+00:00"
@@ -202,6 +206,10 @@
  "tech-value|amd ryzen 5 5600x3d|price move|2026-11-20": {
   "baseline": false,
   "first_seen": "2026-11-20T01:35:51+00:00"
+ },
+ "tech-value|amd ryzen 5 5600x3d|price move|2026-11-25": {
+  "baseline": false,
+  "first_seen": "2026-11-25T19:41:20+00:00"
  },
  "tech-value|amd ryzen 5 5600x|price move|2026-11-20": {
   "baseline": false,
@@ -370,6 +378,10 @@
  "tech-value|amd ryzen 7 5800xt|price move|2026-11-25": {
   "baseline": false,
   "first_seen": "2026-11-25T03:21:47+00:00"
+ },
+ "tech-value|amd ryzen 7 5800x|price move|2026-11-25": {
+  "baseline": false,
+  "first_seen": "2026-11-25T19:41:20+00:00"
  },
  "tech-value|amd ryzen 7 7700x|price move|2026-11-17": {
   "baseline": false,
@@ -1506,6 +1518,10 @@
  "tech-value|nvidia rtx a1000|price move|2026-11-25": {
   "baseline": false,
   "first_seen": "2026-11-25T03:21:47+00:00"
+ },
+ "tech-value|nvidia rtx a400|price move|2026-11-25": {
+  "baseline": false,
+  "first_seen": "2026-11-25T19:41:20+00:00"
  },
  "tech-value|nvidia rtx a4500|price move|2026-11-20": {
   "baseline": false,

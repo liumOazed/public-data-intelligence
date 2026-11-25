@@ -3,8 +3,8 @@
   "module": "macro",
   "table": "history",
   "description": "Ten years of monthly values, moves and surprises for every series.",
-  "generated_at": "2026-11-25T03:21:45+00:00",
-  "rows": 8353,
+  "generated_at": "2026-11-25T19:41:18+00:00",
+  "rows": 8360,
   "columns": [
    "series_id",
    "period",
@@ -21,7 +21,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-25T03:15:39+00:00"
+    "retrieved_at": "2026-11-25T19:35:27+00:00"
    },
    {
     "id": "bis",
@@ -30,7 +30,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-25T03:15:45+00:00"
+    "retrieved_at": "2026-11-25T19:35:32+00:00"
    },
    {
     "id": "opendosm",
@@ -39,7 +39,7 @@
     "licence": "DOSM Open Data License as shown in the OpenDOSM FAQ. It permits copying, publishing, adapting and commercial use; the datasets must not be used in a way that suggests official status or endorsement. The text was read on an archived copy of the FAQ (opendosm.netlify.app), not on open.dosm.gov.my itself, so re-read it there.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "five to eight weeks",
-    "retrieved_at": "2026-11-25T03:15:55+00:00"
+    "retrieved_at": "2026-11-25T19:35:40+00:00"
    },
    {
     "id": "imf",
@@ -48,7 +48,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-25T03:15:59+00:00"
+    "retrieved_at": "2026-11-25T19:35:44+00:00"
    },
    {
     "id": "indeed_postings",
@@ -57,7 +57,7 @@
     "licence": "Creative Commons Attribution 4.0 International, stated in the repository README: free for public use as long as Indeed Hiring Lab is cited as a source.",
     "frequency": "weekly collection; daily index refreshed weekly",
     "typical_lag": "about one week",
-    "retrieved_at": "2026-11-25T03:15:59+00:00"
+    "retrieved_at": "2026-11-25T19:35:44+00:00"
    }
   ],
   "preliminary": false,
@@ -8690,10 +8690,18 @@
   {
    "series_id": "MY.exports",
    "period": "2026-09-01T00:00:00",
-   "value": 215112665290.0,
-   "move": 11.8715,
+   "value": 215755791490.0,
+   "move": 12.17,
    "expected": 1.7781,
-   "z": 1.4606
+   "z": 1.5038
+  },
+  {
+   "series_id": "MY.exports",
+   "period": "2026-10-01T00:00:00",
+   "value": 239203680277.0,
+   "move": 10.3168,
+   "expected": 3.4242,
+   "z": 0.9974
   },
   {
    "series_id": "MY.exports_usd",
@@ -11554,10 +11562,18 @@
   {
    "series_id": "MY.imports",
    "period": "2026-09-01T00:00:00",
-   "value": 181388948021.0,
-   "move": 10.7214,
+   "value": 181400900592.0,
+   "move": 10.7279,
    "expected": 0.0066,
-   "z": 1.9755
+   "z": 1.9767
+  },
+  {
+   "series_id": "MY.imports",
+   "period": "2026-10-01T00:00:00",
+   "value": 197407978186.0,
+   "move": 8.4563,
+   "expected": 4.3004,
+   "z": 0.7463
   },
   {
    "series_id": "MY.imports_usd",
@@ -38370,10 +38386,10 @@
   {
    "series_id": "US.building_permits",
    "period": "2026-10-01T00:00:00",
-   "value": 1295.0,
-   "move": -7.6532,
+   "value": 1297.0,
+   "move": -7.4989,
    "expected": -0.2778,
-   "z": -1.5078
+   "z": -1.4763
   },
   {
    "series_id": "US.capacity_use",
@@ -41242,26 +41258,34 @@
   {
    "series_id": "US.consumer_spending",
    "period": "2026-07-01T00:00:00",
-   "value": 22146.0,
-   "move": 0.2283,
+   "value": 22147.6,
+   "move": 0.2355,
    "expected": 0.4305,
-   "z": -0.6556
+   "z": -0.6322
   },
   {
    "series_id": "US.consumer_spending",
    "period": "2026-08-01T00:00:00",
-   "value": 22339.7,
-   "move": 0.8708,
+   "value": 22361.2,
+   "move": 0.9598,
    "expected": 0.4305,
-   "z": 1.4296
+   "z": 1.7184
   },
   {
    "series_id": "US.consumer_spending",
    "period": "2026-09-01T00:00:00",
-   "value": 22452.8,
-   "move": 0.505,
+   "value": 22498.3,
+   "move": 0.6112,
    "expected": 0.4351,
-   "z": 0.2233
+   "z": 0.5625
+  },
+  {
+   "series_id": "US.consumer_spending",
+   "period": "2026-10-01T00:00:00",
+   "value": 22562.2,
+   "move": 0.2836,
+   "expected": 0.4351,
+   "z": -0.4835
   },
   {
    "series_id": "US.core_cpi",
@@ -43170,18 +43194,26 @@
   {
    "series_id": "US.core_pce_prices",
    "period": "2026-08-01T00:00:00",
-   "value": 130.489,
-   "move": 0.2617,
+   "value": 130.505,
+   "move": 0.2739,
    "expected": 0.2027,
-   "z": 0.4554
+   "z": 0.5501
   },
   {
    "series_id": "US.core_pce_prices",
    "period": "2026-09-01T00:00:00",
-   "value": 130.902,
-   "move": 0.316,
+   "value": 130.929,
+   "move": 0.3244,
    "expected": 0.2089,
-   "z": 0.8032
+   "z": 0.8659
+  },
+  {
+   "series_id": "US.core_pce_prices",
+   "period": "2026-10-01T00:00:00",
+   "value": 131.312,
+   "move": 0.2921,
+   "expected": 0.2134,
+   "z": 0.5826
   },
   {
    "series_id": "US.cpi",
@@ -46066,10 +46098,18 @@
   {
    "series_id": "US.durable_orders",
    "period": "2026-09-01T00:00:00",
-   "value": 345672.0,
-   "move": 1.8945,
+   "value": 345942.0,
+   "move": 1.9725,
    "expected": 0.5577,
-   "z": 0.5511
+   "z": 0.5833
+  },
+  {
+   "series_id": "US.durable_orders",
+   "period": "2026-10-01T00:00:00",
+   "value": 346717.0,
+   "move": 0.2238,
+   "expected": 0.5772,
+   "z": -0.1457
   },
   {
    "series_id": "US.hourly_earnings",
@@ -54418,26 +54458,34 @@
   {
    "series_id": "US.pce_prices",
    "period": "2026-07-01T00:00:00",
-   "value": 131.187,
-   "move": 0.0618,
+   "value": 131.185,
+   "move": 0.0602,
    "expected": 0.2054,
-   "z": -0.9351
+   "z": -0.945
   },
   {
    "series_id": "US.pce_prices",
    "period": "2026-08-01T00:00:00",
-   "value": 131.611,
-   "move": 0.3227,
+   "value": 131.625,
+   "move": 0.3348,
    "expected": 0.2054,
-   "z": 0.7631
+   "z": 0.8422
   },
   {
    "series_id": "US.pce_prices",
    "period": "2026-09-01T00:00:00",
-   "value": 132.257,
-   "move": 0.4896,
+   "value": 132.283,
+   "move": 0.4987,
    "expected": 0.2099,
-   "z": 1.7467
+   "z": 1.803
+  },
+  {
+   "series_id": "US.pce_prices",
+   "period": "2026-10-01T00:00:00",
+   "value": 132.703,
+   "move": 0.317,
+   "expected": 0.2192,
+   "z": 0.582
   },
   {
    "series_id": "US.policy_rate",
@@ -58250,50 +58298,58 @@
   {
    "series_id": "US.real_income",
    "period": "2026-04-01T00:00:00",
-   "value": 18231.9,
-   "move": -0.3816,
+   "value": 18221.3,
+   "move": -0.4397,
    "expected": 0.1915,
-   "z": -2.0366
+   "z": -2.2433
   },
   {
    "series_id": "US.real_income",
    "period": "2026-05-01T00:00:00",
-   "value": 18292.8,
-   "move": 0.3335,
+   "value": 18274.6,
+   "move": 0.2921,
    "expected": 0.1915,
-   "z": 0.5045
+   "z": 0.3574
   },
   {
    "series_id": "US.real_income",
    "period": "2026-06-01T00:00:00",
-   "value": 18358.4,
-   "move": 0.358,
+   "value": 18335.3,
+   "move": 0.3316,
    "expected": 0.2019,
-   "z": 0.562
+   "z": 0.4671
   },
   {
    "series_id": "US.real_income",
    "period": "2026-07-01T00:00:00",
-   "value": 18414.1,
-   "move": 0.3029,
+   "value": 18394.0,
+   "move": 0.3196,
    "expected": 0.2139,
-   "z": 0.3258
+   "z": 0.3868
   },
   {
    "series_id": "US.real_income",
    "period": "2026-08-01T00:00:00",
-   "value": 18416.2,
-   "move": 0.0114,
+   "value": 18401.5,
+   "move": 0.0408,
    "expected": 0.2139,
-   "z": -0.7411
+   "z": -0.6337
   },
   {
    "series_id": "US.real_income",
    "period": "2026-09-01T00:00:00",
-   "value": 18366.1,
-   "move": -0.2724,
+   "value": 18367.5,
+   "move": -0.1849,
    "expected": 0.2139,
-   "z": -1.7017
+   "z": -1.4596
+  },
+  {
+   "series_id": "US.real_income",
+   "period": "2026-10-01T00:00:00",
+   "value": 18460.3,
+   "move": 0.504,
+   "expected": 0.2019,
+   "z": 1.0875
   },
   {
    "series_id": "US.retail_sales",
