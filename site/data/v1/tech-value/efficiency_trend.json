@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_trend",
   "description": "Median and best Blender score per rated watt by launch year.",
-  "generated_at": "2026-11-26T02:35:26+00:00",
+  "generated_at": "2026-11-26T19:15:29+00:00",
   "rows": 28,
   "columns": [
    "kind",
@@ -30,7 +30,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-26T02:31:39+00:00"
+    "retrieved_at": "2026-11-26T19:11:51+00:00"
    }
   ],
   "preliminary": false,

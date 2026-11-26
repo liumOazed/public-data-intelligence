@@ -3,8 +3,8 @@
   "module": "macro",
   "table": "neighbours",
   "description": "For measures the BIS or IMF defines the same way in each country: each economy's surprise beside the median surprise of the other Southeast Asian economies.",
-  "generated_at": "2026-11-26T02:37:59+00:00",
-  "rows": 448,
+  "generated_at": "2026-11-26T19:17:59+00:00",
+  "rows": 454,
   "columns": [
    "period",
    "country",
@@ -24,7 +24,7 @@
     "licence": "Terms of permitted use of BIS statistics (https://www.bis.org/terms_statistics.htm). Use is unrestricted provided the BIS is cited as the source, the use does not imply endorsement, and inclusion in a commercial product brings no additional charge to users. The statistics are not investment advice. The site cites the BIS under every table.",
     "frequency": "weekly collection; series are monthly",
     "typical_lag": "one to three months",
-    "retrieved_at": "2026-11-26T02:31:59+00:00"
+    "retrieved_at": "2026-11-26T19:12:09+00:00"
    },
    {
     "id": "imf",
@@ -33,7 +33,7 @@
     "licence": "IMF Copyright and Usage, Special Terms for Statistical Data (https://www.imf.org/en/about/copyright-and-terms). Users may download, copy, create derivative works, publish and distribute IMF data, with attribution in the form \"Source: International Monetary Fund, <dataset>, <link>\", saying so when the data are materially transformed, and without altering the data in a way that affects their accuracy. Commercial reuse needs the IMF's permission (copyright@imf.org). The general site terms also forbid bulk download by automated means without permission; this pipeline asks the public SDMX API for 19 series a day, which is not a bulk download of the database, but the IMF has not been asked to confirm that. The site is non-commercial and cites the IMF under every table.",
     "frequency": "daily collection; series are monthly",
     "typical_lag": "one to five months (trade is slowest)",
-    "retrieved_at": "2026-11-26T02:32:13+00:00"
+    "retrieved_at": "2026-11-26T19:12:20+00:00"
    }
   ],
   "preliminary": false,
@@ -171,10 +171,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.541,
-   "neighbours_median_z": 0.996,
-   "n_neighbours": 4,
-   "gap": 0.545,
-   "z": 0.561
+   "neighbours_median_z": 0.936,
+   "n_neighbours": 5,
+   "gap": 0.605,
+   "z": 0.593
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -182,10 +182,21 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.047,
-   "neighbours_median_z": 0.77,
-   "n_neighbours": 4,
-   "gap": 0.277,
-   "z": 0.412
+   "neighbours_median_z": 0.757,
+   "n_neighbours": 5,
+   "gap": 0.289,
+   "z": 0.419
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Indonesia",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 0.704,
+   "neighbours_median_z": 1.451,
+   "n_neighbours": 3,
+   "gap": -0.747,
+   "z": -0.14
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -303,10 +314,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.936,
-   "neighbours_median_z": 1.299,
-   "n_neighbours": 4,
-   "gap": -0.362,
-   "z": -0.254
+   "neighbours_median_z": 1.056,
+   "n_neighbours": 5,
+   "gap": -0.12,
+   "z": -0.062
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -314,10 +325,21 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": -0.034,
-   "neighbours_median_z": 0.915,
-   "n_neighbours": 4,
-   "gap": -0.949,
-   "z": -0.697
+   "neighbours_median_z": 0.783,
+   "n_neighbours": 5,
+   "gap": -0.817,
+   "z": -0.594
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Malaysia",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": -0.649,
+   "neighbours_median_z": 1.451,
+   "n_neighbours": 3,
+   "gap": -2.1,
+   "z": -1.601
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -435,10 +457,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.817,
-   "neighbours_median_z": 1.299,
-   "n_neighbours": 4,
-   "gap": -0.482,
-   "z": -0.546
+   "neighbours_median_z": 1.056,
+   "n_neighbours": 5,
+   "gap": -0.239,
+   "z": -0.37
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -446,10 +468,21 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 2.583,
-   "neighbours_median_z": 0.77,
-   "n_neighbours": 4,
-   "gap": 1.813,
-   "z": 1.128
+   "neighbours_median_z": 0.757,
+   "n_neighbours": 5,
+   "gap": 1.826,
+   "z": 1.138
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Philippines",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 1.451,
+   "neighbours_median_z": 0.704,
+   "n_neighbours": 3,
+   "gap": 0.747,
+   "z": 0.343
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -560,6 +593,28 @@
    "n_neighbours": 5,
    "gap": 2.076,
    "z": 1.178
+  },
+  {
+   "period": "2026-08-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 0.237,
+   "neighbours_median_z": 1.056,
+   "n_neighbours": 5,
+   "gap": -0.819,
+   "z": -1.021
+  },
+  {
+   "period": "2026-09-01T00:00:00",
+   "country": "Singapore",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": -0.373,
+   "neighbours_median_z": 0.783,
+   "n_neighbours": 5,
+   "gap": -1.156,
+   "z": -1.241
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -677,10 +732,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 2.027,
-   "neighbours_median_z": 0.996,
-   "n_neighbours": 4,
-   "gap": 1.031,
-   "z": 0.985
+   "neighbours_median_z": 0.936,
+   "n_neighbours": 5,
+   "gap": 1.091,
+   "z": 1.032
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -688,10 +743,21 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.783,
-   "neighbours_median_z": 0.902,
-   "n_neighbours": 4,
-   "gap": -0.119,
-   "z": 0.086
+   "neighbours_median_z": 0.757,
+   "n_neighbours": 5,
+   "gap": 0.026,
+   "z": 0.199
+  },
+  {
+   "period": "2026-10-01T00:00:00",
+   "country": "Thailand",
+   "indicator": "cpi",
+   "name": "Consumer prices (CPI)",
+   "own_z": 3.318,
+   "neighbours_median_z": 0.704,
+   "n_neighbours": 3,
+   "gap": 2.613,
+   "z": 2.223
   },
   {
    "period": "2025-10-01T00:00:00",
@@ -809,10 +875,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 1.056,
-   "neighbours_median_z": 1.239,
-   "n_neighbours": 4,
-   "gap": -0.183,
-   "z": -0.032
+   "neighbours_median_z": 0.936,
+   "n_neighbours": 5,
+   "gap": 0.12,
+   "z": 0.239
   },
   {
    "period": "2026-09-01T00:00:00",
@@ -820,10 +886,10 @@
    "indicator": "cpi",
    "name": "Consumer prices (CPI)",
    "own_z": 0.757,
-   "neighbours_median_z": 0.915,
-   "n_neighbours": 4,
-   "gap": -0.158,
-   "z": -0.01
+   "neighbours_median_z": 0.783,
+   "n_neighbours": 5,
+   "gap": -0.026,
+   "z": 0.09
   },
   {
    "period": "2025-10-01T00:00:00",

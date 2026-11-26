@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "specpower",
   "description": "SPECpower_ssj2008 results that name their processor: measured server power at full load and active idle, and ssj_ops per watt at each target load.",
-  "generated_at": "2026-11-26T02:35:26+00:00",
+  "generated_at": "2026-11-26T19:15:29+00:00",
   "rows": 1125,
   "columns": [
    "system",

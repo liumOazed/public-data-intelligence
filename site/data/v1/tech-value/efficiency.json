@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency",
   "description": "Blender score per rated watt, energy and EDP for a fixed render job, per model with both a score and a rated power figure.",
-  "generated_at": "2026-11-26T02:35:26+00:00",
+  "generated_at": "2026-11-26T19:15:29+00:00",
   "rows": 319,
   "columns": [
    "kind",
@@ -45,7 +45,7 @@
     "licence": "FRED API Terms of Use (https://fred.stlouisfed.org/docs/api/terms_of_use.html). The terms require the notice \"This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis\", which the site prints. Series owned by third parties carry the word \"Copyright\" in their notes and need the owner's permission beyond personal use, so the catalogue holds only series published by US federal agencies (public domain) and the collector stops on any series whose notes say Copyright. The terms do not address storing data.",
     "frequency": "weekly collection; most series are monthly",
     "typical_lag": "two to eight weeks after the month ends, depending on the series",
-    "retrieved_at": "2026-11-26T02:31:39+00:00"
+    "retrieved_at": "2026-11-26T19:11:51+00:00"
    }
   ],
   "preliminary": false,
@@ -61,7 +61,7 @@
    "kinds": {
     "cpu": {
      "n": 220,
-     "n_priced": 76,
+     "n_priced": 78,
      "best_key": "amd threadripper pro 7995wx",
      "best_name": "AMD Threadripper Pro 7995WX",
      "best_score_per_watt": 8.553466247312144,
@@ -80,7 +80,7 @@
     },
     "gpu": {
      "n": 99,
-     "n_priced": 57,
+     "n_priced": 56,
      "best_key": "nvidia rtx pro 4000 blackwell",
      "best_name": "NVIDIA RTX Pro 4000 Blackwell",
      "best_score_per_watt": 44.68362860779906,
@@ -101,7 +101,7 @@
    "electricity": {
     "usd_per_kwh": 0.19,
     "period": "2026-10",
-    "retrieved_at": "2026-11-26T02:31:39+00:00"
+    "retrieved_at": "2026-11-26T19:11:51+00:00"
    },
    "tco_defaults": {
     "hours_per_day": 4.0,
@@ -781,7 +781,7 @@
    "energy_kj_per_job": 148.48601682437916,
    "edp": 339201495.2672278,
    "on_frontier": false,
-   "price_usd": 159.99
+   "price_usd": 140.0
   },
   {
    "kind": "cpu",
@@ -850,7 +850,7 @@
    "energy_kj_per_job": 153.7313210611706,
    "edp": 139019523.9718395,
    "on_frontier": true,
-   "price_usd": 535.0
+   "price_usd": 519.99
   },
   {
    "kind": "cpu",
@@ -1287,7 +1287,7 @@
    "energy_kj_per_job": 173.8069765083185,
    "edp": 464751770.50712585,
    "on_frontier": false,
-   "price_usd": 495.0
+   "price_usd": null
   },
   {
    "kind": "cpu",
@@ -1954,7 +1954,7 @@
    "energy_kj_per_job": 215.63607916764678,
    "edp": 387490988.65663034,
    "on_frontier": false,
-   "price_usd": 377.99
+   "price_usd": 350.0
   },
   {
    "kind": "cpu",
@@ -2414,7 +2414,7 @@
    "energy_kj_per_job": 248.11838899816672,
    "edp": 947118999.369932,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 199.0
   },
   {
    "kind": "cpu",
@@ -2575,7 +2575,7 @@
    "energy_kj_per_job": 255.6837930159392,
    "edp": 1005756954.0156559,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 179.99
   },
   {
    "kind": "cpu",
@@ -2598,7 +2598,7 @@
    "energy_kj_per_job": 256.49196484922345,
    "edp": 526305024.2577222,
    "on_frontier": false,
-   "price_usd": null
+   "price_usd": 269.0
   },
   {
    "kind": "cpu",
@@ -2851,7 +2851,7 @@
    "energy_kj_per_job": 281.1392875398377,
    "edp": 1215989215.360116,
    "on_frontier": false,
-   "price_usd": 93.99
+   "price_usd": 87.0
   },
   {
    "kind": "cpu",
@@ -2920,7 +2920,7 @@
    "energy_kj_per_job": 300.71469402969774,
    "edp": 861231687.6702354,
    "on_frontier": false,
-   "price_usd": 319.99
+   "price_usd": 329.0
   },
   {
    "kind": "cpu",
@@ -5473,7 +5473,7 @@
    "energy_kj_per_job": 23.052056777062585,
    "edp": 924169.2550485515,
    "on_frontier": true,
-   "price_usd": 6550.0
+   "price_usd": 6899.0
   },
   {
    "kind": "gpu",
@@ -5496,7 +5496,7 @@
    "energy_kj_per_job": 23.63715059837407,
    "edp": 1551985.8011394881,
    "on_frontier": false,
-   "price_usd": 1849.0
+   "price_usd": 1855.0
   },
   {
    "kind": "gpu",
@@ -5519,7 +5519,7 @@
    "energy_kj_per_job": 23.640601770201204,
    "edp": 3854331.3934982084,
    "on_frontier": false,
-   "price_usd": 460.99
+   "price_usd": 460.0
   },
   {
    "kind": "gpu",
@@ -5703,7 +5703,7 @@
    "energy_kj_per_job": 25.062154118369527,
    "edp": 3489508.716960592,
    "on_frontier": false,
-   "price_usd": 499.99
+   "price_usd": 495.0
   },
   {
    "kind": "gpu",
@@ -5772,7 +5772,7 @@
    "energy_kj_per_job": 27.16660989337977,
    "edp": 10543209.901415424,
    "on_frontier": false,
-   "price_usd": 599.99
+   "price_usd": 638.99
   },
   {
    "kind": "gpu",
@@ -6370,7 +6370,7 @@
    "energy_kj_per_job": 55.623206282697474,
    "edp": 10177437.753840512,
    "on_frontier": false,
-   "price_usd": 939.95
+   "price_usd": 949.99
   },
   {
    "kind": "gpu",
@@ -6393,7 +6393,7 @@
    "energy_kj_per_job": 56.24839297763143,
    "edp": 15819408.562830284,
    "on_frontier": false,
-   "price_usd": 903.99
+   "price_usd": 907.42
   },
   {
    "kind": "gpu",
@@ -6623,7 +6623,7 @@
    "energy_kj_per_job": 69.13970056512417,
    "edp": 15934327.314116776,
    "on_frontier": false,
-   "price_usd": 749.99
+   "price_usd": null
   },
   {
    "kind": "gpu",

@@ -11,6 +11,10 @@
   "baseline": true,
   "first_seen": "2026-11-16T13:05:47+00:00"
  },
+ "macro|TH.cpi|own history|2026-10-01": {
+  "baseline": false,
+  "first_seen": "2026-11-26T19:18:01+00:00"
+ },
  "macro|US.construction_spending|own history|2026-09-01": {
   "baseline": true,
   "first_seen": "2026-11-16T13:05:47+00:00"
@@ -231,6 +235,10 @@
   "baseline": false,
   "first_seen": "2026-11-25T03:21:47+00:00"
  },
+ "tech-value|amd ryzen 5 5500|price move|2026-11-26": {
+  "baseline": false,
+  "first_seen": "2026-11-26T19:18:01+00:00"
+ },
  "tech-value|amd ryzen 5 5600x3d|price move|2026-11-20": {
   "baseline": false,
   "first_seen": "2026-11-20T01:35:51+00:00"
@@ -338,6 +346,10 @@
  "tech-value|amd ryzen 5 9600x|price move|2026-11-23": {
   "baseline": false,
   "first_seen": "2026-11-23T00:41:21+00:00"
+ },
+ "tech-value|amd ryzen 5 9600x|price move|2026-11-26": {
+  "baseline": false,
+  "first_seen": "2026-11-26T19:18:01+00:00"
  },
  "tech-value|amd ryzen 7 5700g|price move|2026-11-23": {
   "baseline": false,
@@ -898,6 +910,10 @@
  "tech-value|intel arc b580|price move|2026-11-26": {
   "baseline": false,
   "first_seen": "2026-11-26T02:38:01+00:00"
+ },
+ "tech-value|intel arc pro b50|price move|2026-11-26": {
+  "baseline": false,
+  "first_seen": "2026-11-26T19:18:01+00:00"
  },
  "tech-value|intel arc pro b60|price move|2026-11-18": {
   "baseline": false,
@@ -1615,6 +1631,10 @@
   "baseline": false,
   "first_seen": "2026-11-25T03:21:47+00:00"
  },
+ "tech-value|nvidia rtx 5090|price move|2026-11-26": {
+  "baseline": false,
+  "first_seen": "2026-11-26T19:18:01+00:00"
+ },
  "tech-value|nvidia rtx a1000|price move|2026-11-18": {
   "baseline": false,
   "first_seen": "2026-11-18T01:57:06+00:00"
@@ -1718,6 +1738,10 @@
  "tech-value|nvidia rtx pro 6000 blackwell|price move|2026-11-25": {
   "baseline": false,
   "first_seen": "2026-11-25T03:21:47+00:00"
+ },
+ "tech-value|nvidia rtx pro 6000 blackwell|price move|2026-11-26": {
+  "baseline": false,
+  "first_seen": "2026-11-26T19:18:01+00:00"
  },
  "trade|VN|same calendar month|2026-09-01": {
   "baseline": true,
