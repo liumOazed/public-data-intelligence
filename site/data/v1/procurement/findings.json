@@ -3,7 +3,7 @@
   "module": "procurement",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: the change in net obligations from the month before, in the latest month that is not provisional, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
-  "generated_at": "2026-11-25T19:41:20+00:00",
+  "generated_at": "2026-11-26T02:38:01+00:00",
   "rows": 1,
   "columns": [
    "key",

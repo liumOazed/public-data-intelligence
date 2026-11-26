@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "blender_version_check",
   "description": "The Blender residual model refitted on other Blender versions: for products ranked in both, the median gap between their residuals. A source is used for assessment only when the gap is at most 15% on every version checked, over at least 3 shared products.",
-  "generated_at": "2026-11-25T19:41:14+00:00",
+  "generated_at": "2026-11-26T02:37:55+00:00",
   "rows": 4,
   "columns": [
    "kind",

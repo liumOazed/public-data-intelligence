@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "share_history",
   "description": "Each partner's share of all US goods imports, twelve months to each month.",
-  "generated_at": "2026-11-25T19:41:19+00:00",
+  "generated_at": "2026-11-26T02:38:00+00:00",
   "rows": 1078,
   "columns": [
    "partner",

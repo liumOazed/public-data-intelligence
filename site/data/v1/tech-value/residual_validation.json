@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "residual_validation",
   "description": "Held-out error of the residual models for processors: one median residual per ranked processor, compared with the cores-times-clock baseline, overall and by vendor, family and first-available year.",
-  "generated_at": "2026-11-25T19:38:00+00:00",
+  "generated_at": "2026-11-26T02:34:34+00:00",
   "rows": 108,
   "columns": [
    "slice",

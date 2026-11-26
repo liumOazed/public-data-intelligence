@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "coefficients",
   "description": "Plain regression fitted on all results. Features are in logs, so a coefficient on log_cores is an elasticity.",
-  "generated_at": "2026-11-25T19:35:48+00:00",
+  "generated_at": "2026-11-26T02:32:18+00:00",
   "rows": 10,
   "columns": [
    "term",
