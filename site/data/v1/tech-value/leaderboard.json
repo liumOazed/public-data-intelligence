@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "leaderboard",
   "description": "Validation-period error of every model tried. The naive baseline is always a row. Lower is better.",
-  "generated_at": "2026-11-27T02:29:33+00:00",
+  "generated_at": "2026-11-27T19:11:57+00:00",
   "rows": 10,
   "columns": [
    "rank",
@@ -78,8 +78,8 @@
    "model": "Plain regression (OLS)",
    "period": "validation",
    "n_results": 2355,
-   "mae_log": 0.08307238513930855,
-   "median_abs_pct_error": 6.236230101385551,
+   "mae_log": 0.08307238513930837,
+   "median_abs_pct_error": 6.23623010138489,
    "kind": "plain",
    "fit_time_s": null
   },
@@ -159,7 +159,7 @@
    "period": "validation",
    "n_results": 2355,
    "mae_log": 0.4556707252687942,
-   "median_abs_pct_error": 38.3077134894379,
+   "median_abs_pct_error": 38.30771348943791,
    "kind": "baseline",
    "fit_time_s": null
   }

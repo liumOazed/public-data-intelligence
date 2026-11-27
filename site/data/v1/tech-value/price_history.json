@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "price_history",
   "description": "Daily lowest new, online-available listing price per model.",
-  "generated_at": "2026-11-27T02:33:59+00:00",
-  "rows": 1564,
+  "generated_at": "2026-11-27T19:15:01+00:00",
+  "rows": 1561,
   "columns": [
    "date",
    "kind",
@@ -38,7 +38,7 @@
     "licence": "No data licence and no website-use terms found. The store's \"Terms and Conditions\" pages cover orders, returns and warranty; none of the text read mentions automated access or reuse. Public search pages are crawled only where robots.txt allows it. The site shows a lowest price per model with a link back, never the store's listings in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-27T02:27:34+00:00"
+    "retrieved_at": "2026-11-27T19:06:12+00:00"
    },
    {
     "id": "ebay_browse",
@@ -47,7 +47,7 @@
     "licence": "eBay API License Agreement (https://developer.ebay.com/join/api-license-agreement). Public display of derived lowest-price comparisons with a link back to the listing is permitted; raw listing feeds are not redistributed in bulk.",
     "frequency": "daily collection",
     "typical_lag": "same day",
-    "retrieved_at": "2026-11-27T02:28:54+00:00"
+    "retrieved_at": "2026-11-27T19:07:36+00:00"
    },
    {
     "id": "blender_opendata",
@@ -409,7 +409,7 @@
    "kind": "gpu",
    "model_key": "amd rx 6700 xt",
    "price_usd": 500.0,
-   "n_listings": 4
+   "n_listings": 3
   },
   {
    "date": "2026-11-17",
@@ -591,7 +591,7 @@
    "kind": "gpu",
    "model_key": "amd rx 7600",
    "price_usd": 299.99,
-   "n_listings": 11
+   "n_listings": 10
   },
   {
    "date": "2026-11-20",
@@ -672,13 +672,6 @@
   },
   {
    "date": "2026-11-26",
-   "kind": "gpu",
-   "model_key": "amd rx 7700 xt",
-   "price_usd": 1068.38,
-   "n_listings": 1
-  },
-  {
-   "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "amd rx 7700 xt",
    "price_usd": 1068.38,
@@ -1060,7 +1053,7 @@
    "kind": "gpu",
    "model_key": "amd rx 9070",
    "price_usd": 699.99,
-   "n_listings": 5
+   "n_listings": 7
   },
   {
    "date": "2026-11-17",
@@ -1235,7 +1228,7 @@
    "kind": "gpu",
    "model_key": "amd rx 9070 xt",
    "price_usd": 949.99,
-   "n_listings": 15
+   "n_listings": 16
   },
   {
    "date": "2026-11-14",
@@ -1332,8 +1325,8 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5500",
-   "price_usd": 87.0,
-   "n_listings": 7
+   "price_usd": 98.99,
+   "n_listings": 8
   },
   {
    "date": "2026-11-14",
@@ -1451,7 +1444,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5600gt",
-   "price_usd": 228.99,
+   "price_usd": 199.0,
    "n_listings": 1
   },
   {
@@ -1536,7 +1529,7 @@
    "kind": "cpu",
    "model_key": "amd ryzen 5 5600x",
    "price_usd": 129.0,
-   "n_listings": 8
+   "n_listings": 7
   },
   {
    "date": "2026-11-17",
@@ -1617,13 +1610,6 @@
   },
   {
    "date": "2026-11-26",
-   "kind": "cpu",
-   "model_key": "amd ryzen 5 5600xt",
-   "price_usd": 179.99,
-   "n_listings": 1
-  },
-  {
-   "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 5 5600xt",
    "price_usd": 179.99,
@@ -2074,8 +2060,8 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 5 9600x",
-   "price_usd": 140.0,
-   "n_listings": 10
+   "price_usd": 159.99,
+   "n_listings": 11
   },
   {
    "date": "2026-11-17",
@@ -2452,8 +2438,8 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5800x3d",
-   "price_usd": 321.87,
-   "n_listings": 13
+   "price_usd": 329.0,
+   "n_listings": 11
   },
   {
    "date": "2026-11-14",
@@ -2550,7 +2536,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 7 5800xt",
-   "price_usd": 179.0,
+   "price_usd": 175.0,
    "n_listings": 11
   },
   {
@@ -2732,7 +2718,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 7 7700x",
-   "price_usd": 209.95,
+   "price_usd": 223.98,
    "n_listings": 10
   },
   {
@@ -2830,7 +2816,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 7 7800x3d",
-   "price_usd": 314.99,
+   "price_usd": 317.0,
    "n_listings": 12
   },
   {
@@ -3096,7 +3082,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 7 9800x3d",
-   "price_usd": 350.0,
+   "price_usd": 379.99,
    "n_listings": 13
   },
   {
@@ -3181,7 +3167,7 @@
    "kind": "cpu",
    "model_key": "amd ryzen 7 9850x3d",
    "price_usd": 445.99,
-   "n_listings": 5
+   "n_listings": 4
   },
   {
    "date": "2026-11-17",
@@ -3223,13 +3209,6 @@
    "kind": "cpu",
    "model_key": "amd ryzen 9 5900x",
    "price_usd": 349.0,
-   "n_listings": 1
-  },
-  {
-   "date": "2026-11-27",
-   "kind": "cpu",
-   "model_key": "amd ryzen 9 5900x",
-   "price_usd": 399.98,
    "n_listings": 1
   },
   {
@@ -3313,7 +3292,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd ryzen 9 5900xt",
-   "price_usd": 285.0,
+   "price_usd": 289.99,
    "n_listings": 10
   },
   {
@@ -3741,7 +3720,7 @@
    "kind": "cpu",
    "model_key": "amd ryzen 9 9900x",
    "price_usd": 330.0,
-   "n_listings": 11
+   "n_listings": 10
   },
   {
    "date": "2026-11-16",
@@ -4580,7 +4559,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "amd threadripper pro 7975wx",
-   "price_usd": 4107.08,
+   "price_usd": 3549.99,
    "n_listings": 3
   },
   {
@@ -5546,7 +5525,7 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "intel arc pro b60",
-   "price_usd": 907.42,
+   "price_usd": 905.38,
    "n_listings": 6
   },
   {
@@ -5630,8 +5609,8 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "intel core i5-12400",
-   "price_usd": 179.99,
-   "n_listings": 1
+   "price_usd": 132.99,
+   "n_listings": 2
   },
   {
    "date": "2026-11-17",
@@ -6449,7 +6428,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "intel core i7-12700k",
-   "price_usd": 250.42,
+   "price_usd": 265.99,
    "n_listings": 10
   },
   {
@@ -6463,8 +6442,8 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "intel core i7-12700kf",
-   "price_usd": 209.0,
-   "n_listings": 8
+   "price_usd": 219.99,
+   "n_listings": 7
   },
   {
    "date": "2026-11-17",
@@ -7346,7 +7325,7 @@
    "kind": "cpu",
    "model_key": "intel core i9-14900k",
    "price_usd": 369.99,
-   "n_listings": 7
+   "n_listings": 8
   },
   {
    "date": "2026-11-17",
@@ -7793,7 +7772,7 @@
    "date": "2026-11-27",
    "kind": "cpu",
    "model_key": "intel core ultra 7 265k",
-   "price_usd": 248.89,
+   "price_usd": 259.99,
    "n_listings": 5
   },
   {
@@ -7941,7 +7920,7 @@
    "kind": "cpu",
    "model_key": "intel core ultra 7 270k",
    "price_usd": 329.99,
-   "n_listings": 2
+   "n_listings": 1
   },
   {
    "date": "2026-11-14",
@@ -8039,7 +8018,7 @@
    "kind": "cpu",
    "model_key": "intel core ultra 9 285k",
    "price_usd": 469.99,
-   "n_listings": 9
+   "n_listings": 8
   },
   {
    "date": "2026-11-17",
@@ -8396,7 +8375,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 3060",
    "price_usd": 259.99,
-   "n_listings": 9
+   "n_listings": 10
   },
   {
    "date": "2026-11-17",
@@ -8472,8 +8451,8 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "nvidia rtx 3060 ti",
-   "price_usd": 419.91,
-   "n_listings": 2
+   "price_usd": 370.0,
+   "n_listings": 3
   },
   {
    "date": "2026-11-17",
@@ -8893,7 +8872,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 4070 super",
    "price_usd": 980.73,
-   "n_listings": 3
+   "n_listings": 2
   },
   {
    "date": "2026-11-17",
@@ -9278,7 +9257,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 4090",
    "price_usd": 2083.48,
-   "n_listings": 7
+   "n_listings": 6
   },
   {
    "date": "2026-11-17",
@@ -9606,8 +9585,8 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "nvidia rtx 5060",
-   "price_usd": 450.99,
-   "n_listings": 14
+   "price_usd": 460.99,
+   "n_listings": 12
   },
   {
    "date": "2026-11-14",
@@ -9704,8 +9683,8 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "nvidia rtx 5060 ti",
-   "price_usd": 495.0,
-   "n_listings": 21
+   "price_usd": 499.99,
+   "n_listings": 22
   },
   {
    "date": "2026-11-14",
@@ -9901,7 +9880,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx 5070 ti",
    "price_usd": 1007.98,
-   "n_listings": 16
+   "n_listings": 17
   },
   {
    "date": "2026-11-14",
@@ -9998,7 +9977,7 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "nvidia rtx 5080",
-   "price_usd": 1869.99,
+   "price_usd": 1855.0,
    "n_listings": 21
   },
   {
@@ -10096,8 +10075,8 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "nvidia rtx 5090",
-   "price_usd": 6500.0,
-   "n_listings": 13
+   "price_usd": 6899.0,
+   "n_listings": 12
   },
   {
    "date": "2026-11-17",
@@ -10328,7 +10307,7 @@
    "kind": "gpu",
    "model_key": "nvidia rtx a2000",
    "price_usd": 379.99,
-   "n_listings": 9
+   "n_listings": 10
   },
   {
    "date": "2026-11-17",
@@ -11020,8 +10999,8 @@
    "date": "2026-11-27",
    "kind": "gpu",
    "model_key": "nvidia rtx pro 6000 blackwell",
-   "price_usd": 17999.95,
-   "n_listings": 3
+   "price_usd": 15000.0,
+   "n_listings": 4
   }
  ]
 }

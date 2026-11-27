@@ -263,6 +263,10 @@
   "baseline": false,
   "first_seen": "2026-11-26T19:18:01+00:00"
  },
+ "tech-value|amd ryzen 5 5500|price move|2026-11-27": {
+  "baseline": false,
+  "first_seen": "2026-11-27T19:17:32+00:00"
+ },
  "tech-value|amd ryzen 5 5600gt|price move|2026-11-27": {
   "baseline": false,
   "first_seen": "2026-11-27T02:37:40+00:00"
@@ -618,6 +622,10 @@
  "tech-value|amd ryzen 7 9800x3d|price move|2026-11-26": {
   "baseline": false,
   "first_seen": "2026-11-26T02:38:01+00:00"
+ },
+ "tech-value|amd ryzen 7 9800x3d|price move|2026-11-27": {
+  "baseline": false,
+  "first_seen": "2026-11-27T19:17:32+00:00"
  },
  "tech-value|amd ryzen 9 5900xt|price move|2026-11-17": {
   "baseline": false,
@@ -1439,6 +1447,10 @@
   "baseline": false,
   "first_seen": "2026-11-23T00:41:21+00:00"
  },
+ "tech-value|intel core ultra 7 265k|price move|2026-11-27": {
+  "baseline": false,
+  "first_seen": "2026-11-27T19:17:32+00:00"
+ },
  "tech-value|intel core ultra 9 285k|price move|2026-11-17": {
   "baseline": false,
   "first_seen": "2026-11-17T18:46:56+00:00"
@@ -1526,6 +1538,10 @@
  "tech-value|nvidia rtx 3060 ti|price move|2026-11-26": {
   "baseline": false,
   "first_seen": "2026-11-26T02:38:01+00:00"
+ },
+ "tech-value|nvidia rtx 3060 ti|price move|2026-11-27": {
+  "baseline": false,
+  "first_seen": "2026-11-27T19:17:32+00:00"
  },
  "tech-value|nvidia rtx 3060|price move|2026-11-17": {
   "baseline": false,
@@ -1894,6 +1910,10 @@
  "tech-value|nvidia rtx pro 6000 blackwell|price move|2026-11-26": {
   "baseline": false,
   "first_seen": "2026-11-26T19:18:01+00:00"
+ },
+ "tech-value|nvidia rtx pro 6000 blackwell|price move|2026-11-27": {
+  "baseline": false,
+  "first_seen": "2026-11-27T19:17:32+00:00"
  },
  "trade|VN|same calendar month|2026-09-01": {
   "baseline": true,

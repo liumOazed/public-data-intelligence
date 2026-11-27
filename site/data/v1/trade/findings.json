@@ -3,7 +3,7 @@
   "module": "trade",
   "table": "findings",
   "description": "Items this module's fixed rule marks as unusual. Rule: the change in US imports from a partner from the month before, in its latest month, is 2.5 spreads or more from what that calendar month brought in up to ten earlier years (the Macro Monitor's rule).",
-  "generated_at": "2026-11-27T02:37:38+00:00",
+  "generated_at": "2026-11-27T19:17:31+00:00",
   "rows": 1,
   "columns": [
    "key",
@@ -28,7 +28,7 @@
     "licence": "Census Bureau Data API Terms of Service (https://www.census.gov/data/developers/terms-of-service.html). Products must show the notice \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau\", must not misrepresent the data while naming the Bureau as its source, and must not use the data to identify a person or business. The trade pages carry the notice. The terms set no numeric request limit; this pipeline makes sixteen calls at most once every six days.",
     "frequency": "fetched at most once every six days; Census publishes once a month",
     "typical_lag": "about five weeks after the month ends",
-    "retrieved_at": "2026-11-21T16:59:36+00:00"
+    "retrieved_at": "2026-11-27T19:11:53+00:00"
    }
   ],
   "preliminary": false,

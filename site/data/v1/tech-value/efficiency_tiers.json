@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_tiers",
   "description": "Efficiency tiers of the current line-up from a Gaussian mixture on log points per rated watt, with the number of tiers chosen by BIC.",
-  "generated_at": "2026-11-27T02:35:13+00:00",
+  "generated_at": "2026-11-27T19:15:54+00:00",
   "rows": 5,
   "columns": [
    "kind",
@@ -48,15 +48,15 @@
    "kind": "cpu",
    "tier": 1,
    "n_tiers": 1,
-   "n": 93,
+   "n": 92,
    "min_ppw": 1.3757266225449112,
    "max_ppw": 7.558323299768814,
-   "median_ppw": 3.15995174565848,
+   "median_ppw": 3.199766449252934,
    "median_year": 2024.0,
    "examples": "AMD Threadripper Pro 9995WX, Intel Core Ultra 9 285, AMD Threadripper Pro 9985WX",
-   "bic_lead": 9.159817902599741,
+   "bic_lead": 9.090552049897198,
    "clear": true,
-   "bic_by_k": "1: 70.2, 2: 79.4, 3: 87.5, 4: 95.5, 5: 103.9, 6: 111.2"
+   "bic_by_k": "1: 70.5, 2: 79.6, 3: 87.4, 4: 95.3, 5: 102.6, 6: 111.0"
   },
   {
    "kind": "gpu",
@@ -68,7 +68,7 @@
    "median_ppw": 37.20624822783212,
    "median_year": 2024.5,
    "examples": "NVIDIA RTX Pro 4000 Blackwell, NVIDIA RTX Pro 4500 Blackwell, NVIDIA RTX 2000 Ada",
-   "bic_lead": 2.2476673548744515,
+   "bic_lead": 2.2476673548745083,
    "clear": false,
    "bic_by_k": "1: 100.6, 2: 85.5, 3: 92.7, 4: 83.3, 5: 87.7, 6: 90.9"
   },
@@ -82,7 +82,7 @@
    "median_ppw": 24.831404137141956,
    "median_year": 2023.0,
    "examples": "NVIDIA RTX 4070 Super, NVIDIA RTX 4060, NVIDIA RTX 4500 Ada",
-   "bic_lead": 2.2476673548744515,
+   "bic_lead": 2.2476673548745083,
    "clear": false,
    "bic_by_k": "1: 100.6, 2: 85.5, 3: 92.7, 4: 83.3, 5: 87.7, 6: 90.9"
   },
@@ -96,7 +96,7 @@
    "median_ppw": 10.791908493268238,
    "median_year": 2023.0,
    "examples": "NVIDIA RTX 3060 Ti, AMD RX 9070, NVIDIA RTX 3060",
-   "bic_lead": 2.2476673548744515,
+   "bic_lead": 2.2476673548745083,
    "clear": false,
    "bic_by_k": "1: 100.6, 2: 85.5, 3: 92.7, 4: 83.3, 5: 87.7, 6: 90.9"
   },
@@ -110,7 +110,7 @@
    "median_ppw": 6.973140588138137,
    "median_year": 2022.5,
    "examples": "AMD RX 7700 XT, NVIDIA RTX A400, AMD RX 6600",
-   "bic_lead": 2.2476673548744515,
+   "bic_lead": 2.2476673548745083,
    "clear": false,
    "bic_by_k": "1: 100.6, 2: 85.5, 3: 92.7, 4: 83.3, 5: 87.7, 6: 90.9"
   }

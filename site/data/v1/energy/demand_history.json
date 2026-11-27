@@ -3,7 +3,7 @@
   "module": "energy",
   "table": "demand_history",
   "description": "Monthly electricity demand for each economy: TWh, GWh per day, change on a year earlier, and an index with 2019 = 100.",
-  "generated_at": "2026-11-27T02:37:37+00:00",
+  "generated_at": "2026-11-27T19:17:31+00:00",
   "rows": 929,
   "columns": [
    "country",
@@ -24,7 +24,7 @@
     "licence": "Creative Commons Attribution 4.0 (CC BY 4.0), stated on the dataset page: \"All content is released under a Creative Commons Attribution Licence (CC-BY-4.0).\" Reuse, including derived figures, is allowed with credit to Ember; the site credits it under every table.",
     "frequency": "fetched at most once every six days; the publisher updates twice a month",
     "typical_lag": "one to six months, different for each country",
-    "retrieved_at": "2026-11-21T16:55:13+00:00"
+    "retrieved_at": "2026-11-27T19:08:13+00:00"
    }
   ],
   "preliminary": false,

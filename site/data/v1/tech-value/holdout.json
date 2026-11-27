@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "holdout",
   "description": "Error on the newest generation, scored once after the pick was made on validation.",
-  "generated_at": "2026-11-27T02:29:33+00:00",
+  "generated_at": "2026-11-27T19:11:57+00:00",
   "rows": 3,
   "columns": [
    "model",
@@ -65,7 +65,7 @@
    "holdout_mae_log_baseline": 0.4882354793294417,
    "holdout_mae_log_picked": 0.2242017513623722,
    "holdout_improvement": 0.26403372796706953,
-   "fold_spread": 0.14283701465673235,
+   "fold_spread": 0.14283701465673218,
    "beats_baseline": true,
    "published_model": "AutoGluon: WeightedEnsemble_L2",
    "statement": "AutoGluon: WeightedEnsemble_L2 beats the cores-times-clock baseline on the newest generation by more than the spread between folds.",
@@ -89,8 +89,8 @@
    "model": "Plain regression (OLS)",
    "period": "holdout",
    "n_results": 1635,
-   "mae_log": 0.10210646755866712,
-   "median_abs_pct_error": 7.800711674290589,
+   "mae_log": 0.10210646755866691,
+   "median_abs_pct_error": 7.800711674291643,
    "kind": "plain",
    "published": false
   },
