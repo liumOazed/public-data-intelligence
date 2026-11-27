@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "blender_version_check",
   "description": "The Blender residual model refitted on other Blender versions: for products ranked in both, the median gap between their residuals. A source is used for assessment only when the gap is at most 15% on every version checked, over at least 3 shared products.",
-  "generated_at": "2026-11-26T19:17:55+00:00",
+  "generated_at": "2026-11-27T02:37:31+00:00",
   "rows": 4,
   "columns": [
    "kind",
@@ -65,7 +65,7 @@
    "check_version": "4.3",
    "n_products": 164,
    "n_shared": 164,
-   "median_abs_gap_pct": 3.5640334618388407,
+   "median_abs_gap_pct": 3.564033461836612,
    "status": "Validated"
   },
   {
@@ -74,7 +74,7 @@
    "check_version": "4.0",
    "n_products": 159,
    "n_shared": 159,
-   "median_abs_gap_pct": 4.093195034672,
+   "median_abs_gap_pct": 4.093195034671744,
    "status": "Validated"
   },
   {
@@ -83,7 +83,7 @@
    "check_version": "4.4",
    "n_products": 86,
    "n_shared": 86,
-   "median_abs_gap_pct": 4.115413443249492,
+   "median_abs_gap_pct": 4.115413443252434,
    "status": "Validated"
   },
   {
@@ -92,7 +92,7 @@
    "check_version": "5.1",
    "n_products": 84,
    "n_shared": 84,
-   "median_abs_gap_pct": 5.179667371588256,
+   "median_abs_gap_pct": 5.179667371583304,
    "status": "Validated"
   }
  ]

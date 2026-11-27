@@ -3,8 +3,8 @@
   "module": "tech-value",
   "table": "efficiency_signal_series",
   "description": "The yearly values each efficiency signal is computed from, and the fitted line for turning points.",
-  "generated_at": "2026-11-26T19:16:23+00:00",
-  "rows": 344,
+  "generated_at": "2026-11-27T02:35:13+00:00",
+  "rows": 346,
   "columns": [
    "signal",
    "kind",
@@ -585,7 +585,7 @@
    "kind": "gpu",
    "group": "Cheapest per point per watt",
    "x": 2019.0,
-   "y": 28.672437680449484,
+   "y": 22.220093066802185,
    "fit": null
   },
   {
@@ -593,7 +593,7 @@
    "kind": "gpu",
    "group": "Cheapest per point per watt",
    "x": 2020.0,
-   "y": 28.938734153161498,
+   "y": 30.379159645635113,
    "fit": null
   },
   {
@@ -741,12 +741,20 @@
    "fit": null
   },
   {
+   "signal": "price_daily",
+   "kind": "gpu",
+   "group": "Cheapest per point per watt",
+   "x": 13.0,
+   "y": 11.56499839747004,
+   "fit": null
+  },
+  {
    "signal": "turn_frontier",
    "kind": "gpu",
    "group": "best points per rated watt",
    "x": 2014.0,
    "y": 1.7745683928810188,
-   "fit": 1.6357140463554916
+   "fit": 1.6357140463553057
   },
   {
    "signal": "turn_frontier",
@@ -754,7 +762,7 @@
    "group": "best points per rated watt",
    "x": 2015.0,
    "y": 2.0184603899133573,
-   "fit": 2.4555804775174237
+   "fit": 2.455580477517145
   },
   {
    "signal": "turn_frontier",
@@ -762,7 +770,7 @@
    "group": "best points per rated watt",
    "x": 2016.0,
    "y": 3.4708579946839624,
-   "fit": 3.6863872967281592
+   "fit": 3.68638729672774
   },
   {
    "signal": "turn_frontier",
@@ -770,7 +778,7 @@
    "group": "best points per rated watt",
    "x": 2018.0,
    "y": 12.030857843738849,
-   "fit": 8.307962710081988
+   "fit": 8.307962710081044
   },
   {
    "signal": "turn_frontier",
@@ -778,7 +786,7 @@
    "group": "best points per rated watt",
    "x": 2019.0,
    "y": 11.769839257938585,
-   "fit": 12.472150058425516
+   "fit": 12.472150058424097
   },
   {
    "signal": "turn_frontier",
@@ -786,7 +794,7 @@
    "group": "best points per rated watt",
    "x": 2020.0,
    "y": 17.149451990834407,
-   "fit": 18.723546615238536
+   "fit": 18.72354661523641
   },
   {
    "signal": "turn_frontier",
@@ -794,7 +802,7 @@
    "group": "best points per rated watt",
    "x": 2021.0,
    "y": 25.016728306188035,
-   "fit": 28.10832103612988
+   "fit": 28.108321036126682
   },
   {
    "signal": "turn_frontier",
@@ -802,7 +810,7 @@
    "group": "best points per rated watt",
    "x": 2022.0,
    "y": 35.5176408033282,
-   "fit": 31.464238893764783
+   "fit": 31.464238893761053
   },
   {
    "signal": "turn_frontier",
@@ -810,7 +818,7 @@
    "group": "best points per rated watt",
    "x": 2023.0,
    "y": 34.19803237684597,
-   "fit": 35.22082759377112
+   "fit": 35.22082759376678
   },
   {
    "signal": "turn_frontier",
@@ -818,7 +826,7 @@
    "group": "best points per rated watt",
    "x": 2024.0,
    "y": 37.98331917285507,
-   "fit": 39.4259241603959
+   "fit": 39.42592416039084
   },
   {
    "signal": "turn_frontier",
@@ -826,7 +834,7 @@
    "group": "best points per rated watt",
    "x": 2025.0,
    "y": 44.68362860779905,
-   "fit": 44.13307699152954
+   "fit": 44.13307699152366
   },
   {
    "signal": "turn_power",
@@ -834,7 +842,7 @@
    "group": "median rated power",
    "x": 2014.0,
    "y": 144.99999999999997,
-   "fit": 118.45808414527501
+   "fit": 118.45808414525817
   },
   {
    "signal": "turn_power",
@@ -842,7 +850,7 @@
    "group": "median rated power",
    "x": 2015.0,
    "y": 119.99999999999997,
-   "fit": 130.98983108998559
+   "fit": 130.98983108996697
   },
   {
    "signal": "turn_power",
@@ -850,7 +858,7 @@
    "group": "median rated power",
    "x": 2016.0,
    "y": 119.99999999999997,
-   "fit": 144.84731854974342
+   "fit": 144.84731854972694
   },
   {
    "signal": "turn_power",
@@ -858,7 +866,7 @@
    "group": "median rated power",
    "x": 2018.0,
    "y": 214.99999999999991,
-   "fit": 177.11535554906496
+   "fit": 177.11535554903978
   },
   {
    "signal": "turn_power",
@@ -866,7 +874,7 @@
    "group": "median rated power",
    "x": 2019.0,
    "y": 129.99999999999997,
-   "fit": 195.85248802742996
+   "fit": 195.85248802740767
   },
   {
    "signal": "turn_power",
@@ -874,7 +882,7 @@
    "group": "median rated power",
    "x": 2020.0,
    "y": 299.99999999999994,
-   "fit": 216.57183222551532
+   "fit": 216.5718322254907
   },
   {
    "signal": "turn_power",
@@ -882,7 +890,7 @@
    "group": "median rated power",
    "x": 2021.0,
    "y": 184.99999999999991,
-   "fit": 213.78281061627217
+   "fit": 213.78281061624142
   },
   {
    "signal": "turn_power",
@@ -890,7 +898,7 @@
    "group": "median rated power",
    "x": 2022.0,
    "y": 249.9999999999999,
-   "fit": 211.02970615034187
+   "fit": 211.02970615031694
   },
   {
    "signal": "turn_power",
@@ -898,7 +906,7 @@
    "group": "median rated power",
    "x": 2023.0,
    "y": 205.00000000000006,
-   "fit": 208.31205628517404
+   "fit": 208.31205628514905
   },
   {
    "signal": "turn_power",
@@ -906,7 +914,7 @@
    "group": "median rated power",
    "x": 2024.0,
    "y": 190.0,
-   "fit": 205.62940443486227
+   "fit": 205.62940443483123
   },
   {
    "signal": "turn_power",
@@ -914,7 +922,7 @@
    "group": "median rated power",
    "x": 2025.0,
    "y": 209.99999999999994,
-   "fit": 202.9812998934153
+   "fit": 202.98129989339006
   },
   {
    "signal": "frontier_pace",
@@ -2249,7 +2257,7 @@
    "kind": "cpu",
    "group": "Intel",
    "x": 2025.0,
-   "y": 5.1325074757986195,
+   "y": 5.13250747579862,
    "fit": null
   },
   {
@@ -2413,12 +2421,20 @@
    "fit": null
   },
   {
+   "signal": "price_daily",
+   "kind": "cpu",
+   "group": "Cheapest per point per watt",
+   "x": 13.0,
+   "y": 34.64673725902181,
+   "fit": null
+  },
+  {
    "signal": "turn_frontier",
    "kind": "cpu",
    "group": "best points per rated watt",
    "x": 2012.0,
    "y": 0.6301406468286159,
-   "fit": 0.6003652525563125
+   "fit": 0.6003652525562443
   },
   {
    "signal": "turn_frontier",
@@ -2426,7 +2442,7 @@
    "group": "best points per rated watt",
    "x": 2013.0,
    "y": 0.7994870839288107,
-   "fit": 0.7459871809190629
+   "fit": 0.7459871809189781
   },
   {
    "signal": "turn_frontier",
@@ -2434,7 +2450,7 @@
    "group": "best points per rated watt",
    "x": 2014.0,
    "y": 0.8634056472022855,
-   "fit": 0.9269305172576972
+   "fit": 0.926930517257539
   },
   {
    "signal": "turn_frontier",
@@ -2442,7 +2458,7 @@
    "group": "best points per rated watt",
    "x": 2015.0,
    "y": 1.0361192453756896,
-   "fit": 1.1517626653651485
+   "fit": 1.1517626653650175
   },
   {
    "signal": "turn_frontier",
@@ -2450,7 +2466,7 @@
    "group": "best points per rated watt",
    "x": 2017.0,
    "y": 1.793548997708561,
-   "fit": 1.7782574168295704
+   "fit": 1.778257416829267
   },
   {
    "signal": "turn_frontier",
@@ -2458,7 +2474,7 @@
    "group": "best points per rated watt",
    "x": 2018.0,
    "y": 1.9114417140884772,
-   "fit": 2.209583635429673
+   "fit": 2.209583635429422
   },
   {
    "signal": "turn_frontier",
@@ -2466,7 +2482,7 @@
    "group": "best points per rated watt",
    "x": 2019.0,
    "y": 3.8018597069780045,
-   "fit": 2.745530425321323
+   "fit": 2.745530425321011
   },
   {
    "signal": "turn_frontier",
@@ -2474,7 +2490,7 @@
    "group": "best points per rated watt",
    "x": 2020.0,
    "y": 4.072967071789271,
-   "fit": 3.411474087469546
+   "fit": 3.411474087468964
   },
   {
    "signal": "turn_frontier",
@@ -2482,15 +2498,15 @@
    "group": "best points per rated watt",
    "x": 2021.0,
    "y": 2.889515540597211,
-   "fit": 4.238946085659728
+   "fit": 4.238946085659245
   },
   {
    "signal": "turn_frontier",
    "kind": "cpu",
    "group": "best points per rated watt",
    "x": 2022.0,
-   "y": 4.608539488444028,
-   "fit": 5.267126015446058
+   "y": 4.608539488444029,
+   "fit": 5.267126015445459
   },
   {
    "signal": "turn_frontier",
@@ -2498,7 +2514,7 @@
    "group": "best points per rated watt",
    "x": 2023.0,
    "y": 8.553466247312143,
-   "fit": 6.544696701012878
+   "fit": 6.544696701011762
   },
   {
    "signal": "turn_frontier",
@@ -2506,7 +2522,7 @@
    "group": "best points per rated watt",
    "x": 2024.0,
    "y": 4.929031093803275,
-   "fit": 6.150137453822621
+   "fit": 6.150137453821918
   },
   {
    "signal": "turn_frontier",
@@ -2514,7 +2530,7 @@
    "group": "best points per rated watt",
    "x": 2025.0,
    "y": 7.558323299768812,
-   "fit": 5.779364946745377
+   "fit": 5.779364946744713
   },
   {
    "signal": "turn_frontier",
@@ -2522,7 +2538,7 @@
    "group": "best points per rated watt",
    "x": 2026.0,
    "y": 4.888995170722077,
-   "fit": 5.430945151788234
+   "fit": 5.430945151787298
   },
   {
    "signal": "turn_power",
@@ -2530,15 +2546,15 @@
    "group": "median rated power",
    "x": 2012.0,
    "y": 77.00000000000001,
-   "fit": 80.15516740240726
+   "fit": 80.15516740240555
   },
   {
    "signal": "turn_power",
    "kind": "cpu",
    "group": "median rated power",
    "x": 2013.0,
-   "y": 83.99999999999997,
-   "fit": 81.37875931457499
+   "y": 83.99999999999999,
+   "fit": 81.37875931457326
   },
   {
    "signal": "turn_power",
@@ -2546,7 +2562,7 @@
    "group": "median rated power",
    "x": 2014.0,
    "y": 85.99999999999997,
-   "fit": 82.62102971268496
+   "fit": 82.6210297126832
   },
   {
    "signal": "turn_power",
@@ -2554,7 +2570,7 @@
    "group": "median rated power",
    "x": 2015.0,
    "y": 78.0,
-   "fit": 83.88226372925037
+   "fit": 83.88226372924888
   },
   {
    "signal": "turn_power",
@@ -2562,7 +2578,7 @@
    "group": "median rated power",
    "x": 2017.0,
    "y": 90.99999999999997,
-   "fit": 86.46278497739787
+   "fit": 86.46278497739634
   },
   {
    "signal": "turn_power",
@@ -2570,7 +2586,7 @@
    "group": "median rated power",
    "x": 2018.0,
    "y": 95.0,
-   "fit": 87.78266450395057
+   "fit": 87.78266450394902
   },
   {
    "signal": "turn_power",
@@ -2578,7 +2594,7 @@
    "group": "median rated power",
    "x": 2019.0,
    "y": 64.99999999999999,
-   "fit": 89.12269237484666
+   "fit": 89.12269237484509
   },
   {
    "signal": "turn_power",
@@ -2586,7 +2602,7 @@
    "group": "median rated power",
    "x": 2020.0,
    "y": 104.99999999999997,
-   "fit": 93.17993503556951
+   "fit": 93.17993503556752
   },
   {
    "signal": "turn_power",
@@ -2594,7 +2610,7 @@
    "group": "median rated power",
    "x": 2021.0,
    "y": 125.00000000000004,
-   "fit": 97.4218805768867
+   "fit": 97.42188057688497
   },
   {
    "signal": "turn_power",
@@ -2602,7 +2618,7 @@
    "group": "median rated power",
    "x": 2022.0,
    "y": 104.99999999999997,
-   "fit": 101.85693745669788
+   "fit": 101.85693745669607
   },
   {
    "signal": "turn_power",
@@ -2610,7 +2626,7 @@
    "group": "median rated power",
    "x": 2023.0,
    "y": 119.99999999999997,
-   "fit": 106.49389692154114
+   "fit": 106.49389692153915
   },
   {
    "signal": "turn_power",
@@ -2618,7 +2634,7 @@
    "group": "median rated power",
    "x": 2024.0,
    "y": 64.99999999999999,
-   "fit": 111.34195043275449
+   "fit": 111.34195043275241
   },
   {
    "signal": "turn_power",
@@ -2626,7 +2642,7 @@
    "group": "median rated power",
    "x": 2025.0,
    "y": 144.99999999999997,
-   "fit": 116.41070788594963
+   "fit": 116.41070788594746
   },
   {
    "signal": "turn_power",
@@ -2634,7 +2650,7 @@
    "group": "median rated power",
    "x": 2026.0,
    "y": 125.00000000000004,
-   "fit": 121.71021665991348
+   "fit": 121.71021665991121
   },
   {
    "signal": "turn_specpower",
@@ -2642,7 +2658,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2007.0,
    "y": 698.0,
-   "fit": 716.8791039661274
+   "fit": 716.8791039659645
   },
   {
    "signal": "turn_specpower",
@@ -2650,7 +2666,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2008.0,
    "y": 1135.0000000000005,
-   "fit": 1195.8210449239855
+   "fit": 1195.8210449237138
   },
   {
    "signal": "turn_specpower",
@@ -2658,7 +2674,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2009.0,
    "y": 2315.999999999999,
-   "fit": 1994.7407639196367
+   "fit": 1994.740763919183
   },
   {
    "signal": "turn_specpower",
@@ -2666,7 +2682,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2010.0,
    "y": 3212.0000000000005,
-   "fit": 3327.41318789445
+   "fit": 3327.4131878936932
   },
   {
    "signal": "turn_specpower",
@@ -2674,7 +2690,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2011.0,
    "y": 4696.999999999997,
-   "fit": 5550.434784928252
+   "fit": 5550.43478492699
   },
   {
    "signal": "turn_specpower",
@@ -2682,7 +2698,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2012.0,
    "y": 6109.000000000001,
-   "fit": 6455.20937222905
+   "fit": 6455.209372227583
   },
   {
    "signal": "turn_specpower",
@@ -2690,7 +2706,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2013.0,
    "y": 7336.0,
-   "fit": 7507.47097370903
+   "fit": 7507.470973707323
   },
   {
    "signal": "turn_specpower",
@@ -2698,7 +2714,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2014.0,
    "y": 10654.000000000005,
-   "fit": 8731.261400065352
+   "fit": 8731.261400063368
   },
   {
    "signal": "turn_specpower",
@@ -2706,7 +2722,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2015.0,
    "y": 10699.99999999999,
-   "fit": 10154.541509816545
+   "fit": 10154.541509814235
   },
   {
    "signal": "turn_specpower",
@@ -2714,15 +2730,15 @@
    "group": "best measured ssj_ops per watt",
    "x": 2016.0,
    "y": 12212.000000000007,
-   "fit": 11809.830052028785
+   "fit": 11809.8300520261
   },
   {
    "signal": "turn_specpower",
    "kind": "cpu",
    "group": "best measured ssj_ops per watt",
    "x": 2017.0,
-   "y": 13398.000000000004,
-   "fit": 13734.946646575896
+   "y": 13398.000000000005,
+   "fit": 13734.946646572773
   },
   {
    "signal": "turn_specpower",
@@ -2730,7 +2746,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2018.0,
    "y": 13477.999999999995,
-   "fit": 15973.875877399176
+   "fit": 15973.875877395545
   },
   {
    "signal": "turn_specpower",
@@ -2738,7 +2754,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2019.0,
    "y": 20175.999999999996,
-   "fit": 18577.77224130445
+   "fit": 18577.772241300227
   },
   {
    "signal": "turn_specpower",
@@ -2746,7 +2762,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2020.0,
    "y": 24506.999999999985,
-   "fit": 21606.128913152406
+   "fit": 21606.128913147495
   },
   {
    "signal": "turn_specpower",
@@ -2754,7 +2770,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2021.0,
    "y": 23504.99999999999,
-   "fit": 25128.13703108366
+   "fit": 25128.137031077946
   },
   {
    "signal": "turn_specpower",
@@ -2762,7 +2778,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2022.0,
    "y": 30602.000000000007,
-   "fit": 29224.266558390635
+   "fit": 29224.266558384094
   },
   {
    "signal": "turn_specpower",
@@ -2770,7 +2786,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2023.0,
    "y": 34596.99999999998,
-   "fit": 33988.10484117449
+   "fit": 33988.10484116689
   },
   {
    "signal": "turn_specpower",
@@ -2778,7 +2794,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2024.0,
    "y": 42312.00000000001,
-   "fit": 39528.49486870228
+   "fit": 39528.49486869343
   },
   {
    "signal": "turn_specpower",
@@ -2786,7 +2802,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2025.0,
    "y": 44167.99999999999,
-   "fit": 45972.02209085198
+   "fit": 45972.02209084169
   },
   {
    "signal": "turn_specpower",
@@ -2794,7 +2810,7 @@
    "group": "best measured ssj_ops per watt",
    "x": 2026.0,
    "y": 47722.99999999996,
-   "fit": 53465.90661095835
+   "fit": 53465.90661094639
   }
  ]
 }

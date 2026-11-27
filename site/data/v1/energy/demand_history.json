@@ -3,7 +3,7 @@
   "module": "energy",
   "table": "demand_history",
   "description": "Monthly electricity demand for each economy: TWh, GWh per day, change on a year earlier, and an index with 2019 = 100.",
-  "generated_at": "2026-11-26T19:17:59+00:00",
+  "generated_at": "2026-11-27T02:37:37+00:00",
   "rows": 929,
   "columns": [
    "country",
