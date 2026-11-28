@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "efficiency_residuals",
   "description": "Per chip: points per rated watt its specifications, process node, architecture and rated power predict, from models refitted without it, and the verdict when the measured value sits outside the 80% range.",
-  "generated_at": "2026-11-27T19:15:54+00:00",
+  "generated_at": "2026-11-28T02:20:02+00:00",
   "rows": 318,
   "columns": [
    "kind",
@@ -3942,9 +3942,9 @@
    "residual_pct": -6.166090553641774,
    "gbdt_residual_pct": 2.3957601261710586,
    "verdict": "In line with its specs",
-   "tier": null,
-   "tier_prob": null,
-   "borderline": null
+   "tier": 1.0,
+   "tier_prob": 1.0,
+   "borderline": false
   },
   {
    "kind": "cpu",
@@ -4932,8 +4932,8 @@
    "residual_pct": 40.82155449333022,
    "gbdt_residual_pct": 104.46864221635511,
    "verdict": "Beats its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999962851267675,
+   "tier": 1.0,
+   "tier_prob": 0.9979259535516922,
    "borderline": false
   },
   {
@@ -4998,8 +4998,8 @@
    "residual_pct": 32.15301744021371,
    "gbdt_residual_pct": 235.87445238909618,
    "verdict": "Beats its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9997013094553223,
+   "tier": 1.0,
+   "tier_prob": 0.999798717392381,
    "borderline": false
   },
   {
@@ -5021,7 +5021,7 @@
    "gbdt_residual_pct": 64.9529911645881,
    "verdict": "Beats its specs",
    "tier": 1.0,
-   "tier_prob": 0.9986383457068579,
+   "tier_prob": 0.9999999194415355,
    "borderline": false
   },
   {
@@ -5108,8 +5108,8 @@
    "residual_pct": 24.647099779478204,
    "gbdt_residual_pct": 6.438701373382362,
    "verdict": "Beats its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9998275177380139,
+   "tier": 1.0,
+   "tier_prob": 0.9997304667190466,
    "borderline": false
   },
   {
@@ -5196,8 +5196,8 @@
    "residual_pct": 19.91165554539295,
    "gbdt_residual_pct": 23.682251475124946,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9897038354198028,
+   "tier": 1.0,
+   "tier_prob": 0.9999695181690135,
    "borderline": false
   },
   {
@@ -5218,9 +5218,9 @@
    "residual_pct": 18.631565404721467,
    "gbdt_residual_pct": 5.451641863223545,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.998556463654096,
-   "borderline": false
+   "tier": null,
+   "tier_prob": null,
+   "borderline": null
   },
   {
    "kind": "gpu",
@@ -5262,8 +5262,8 @@
    "residual_pct": 17.623170741037917,
    "gbdt_residual_pct": 0.5121403800428429,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9998783217242025,
+   "tier": 2.0,
+   "tier_prob": 0.9986894111452731,
    "borderline": false
   },
   {
@@ -5284,8 +5284,8 @@
    "residual_pct": 17.205780047155724,
    "gbdt_residual_pct": 7.331706872648583,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9741524849796974,
+   "tier": 1.0,
+   "tier_prob": 0.9999814718856035,
    "borderline": false
   },
   {
@@ -5307,7 +5307,7 @@
    "gbdt_residual_pct": 13.027169674874317,
    "verdict": "In line with its specs",
    "tier": 1.0,
-   "tier_prob": 0.9477939920621232,
+   "tier_prob": 0.9999994242119707,
    "borderline": false
   },
   {
@@ -5350,8 +5350,8 @@
    "residual_pct": 15.397086128161389,
    "gbdt_residual_pct": 9.374481307730969,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9900808441480319,
+   "tier": 2.0,
+   "tier_prob": 0.9998898662943955,
    "borderline": false
   },
   {
@@ -5372,8 +5372,8 @@
    "residual_pct": 14.221055419766387,
    "gbdt_residual_pct": 17.603103354670253,
    "verdict": "In line with its specs",
-   "tier": 4.0,
-   "tier_prob": 0.9979032973053891,
+   "tier": 2.0,
+   "tier_prob": 0.9999997401206138,
    "borderline": false
   },
   {
@@ -5460,8 +5460,8 @@
    "residual_pct": 9.28932524094176,
    "gbdt_residual_pct": 6.247893348331958,
    "verdict": "In line with its specs",
-   "tier": 4.0,
-   "tier_prob": 0.9998224236733096,
+   "tier": 2.0,
+   "tier_prob": 0.9999999351344208,
    "borderline": false
   },
   {
@@ -5482,8 +5482,8 @@
    "residual_pct": 9.19616925845669,
    "gbdt_residual_pct": -8.500897944360146,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999943780947761,
+   "tier": 1.0,
+   "tier_prob": 0.9983370544113733,
    "borderline": false
   },
   {
@@ -5526,8 +5526,8 @@
    "residual_pct": 8.849898031413119,
    "gbdt_residual_pct": 28.71701974271779,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9999969649249671,
+   "tier": 2.0,
+   "tier_prob": 0.9890452092711054,
    "borderline": false
   },
   {
@@ -5570,8 +5570,8 @@
    "residual_pct": 8.559524015769721,
    "gbdt_residual_pct": 13.45979470448688,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9999943569712583,
+   "tier": 2.0,
+   "tier_prob": 0.992623033767137,
    "borderline": false
   },
   {
@@ -5614,8 +5614,8 @@
    "residual_pct": 7.818099187835291,
    "gbdt_residual_pct": 0.6460471665693176,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9984533443700582,
+   "tier": 1.0,
+   "tier_prob": 0.9999160891109337,
    "borderline": false
   },
   {
@@ -5636,8 +5636,8 @@
    "residual_pct": 6.8805425670192415,
    "gbdt_residual_pct": 9.2016980704209,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999990955137507,
+   "tier": 1.0,
+   "tier_prob": 0.9951888827092911,
    "borderline": false
   },
   {
@@ -5658,8 +5658,8 @@
    "residual_pct": 6.035760811131107,
    "gbdt_residual_pct": 4.1856339893086325,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9955266372460303,
+   "tier": 1.0,
+   "tier_prob": 0.9999523680470908,
    "borderline": false
   },
   {
@@ -5680,8 +5680,8 @@
    "residual_pct": 5.843317168522443,
    "gbdt_residual_pct": 14.824391545970842,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9996430828957626,
+   "tier": 2.0,
+   "tier_prob": 0.9992836470404395,
    "borderline": false
   },
   {
@@ -5702,8 +5702,8 @@
    "residual_pct": 5.503212645506965,
    "gbdt_residual_pct": 11.341433605353094,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9999959011143782,
+   "tier": 2.0,
+   "tier_prob": 0.9910648875163628,
    "borderline": false
   },
   {
@@ -5724,9 +5724,9 @@
    "residual_pct": 5.4436296302332865,
    "gbdt_residual_pct": -13.110230009511351,
    "verdict": "In line with its specs",
-   "tier": 4.0,
-   "tier_prob": 0.5017248300852714,
-   "borderline": true
+   "tier": 2.0,
+   "tier_prob": 0.9999917354585908,
+   "borderline": false
   },
   {
    "kind": "gpu",
@@ -5746,8 +5746,8 @@
    "residual_pct": 5.038922069194717,
    "gbdt_residual_pct": -2.959173663456439,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9982388388699149,
+   "tier": 1.0,
+   "tier_prob": 0.9999216970053884,
    "borderline": false
   },
   {
@@ -5790,8 +5790,8 @@
    "residual_pct": 3.9818953802562276,
    "gbdt_residual_pct": -0.8562329534168377,
    "verdict": "In line with its specs",
-   "tier": 4.0,
-   "tier_prob": 0.9999395303207388,
+   "tier": 2.0,
+   "tier_prob": 0.9999999645864766,
    "borderline": false
   },
   {
@@ -5812,8 +5812,8 @@
    "residual_pct": 2.819938729184578,
    "gbdt_residual_pct": -4.167146023356361,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9986806202939094,
+   "tier": 1.0,
+   "tier_prob": 0.999908679125819,
    "borderline": false
   },
   {
@@ -5834,8 +5834,8 @@
    "residual_pct": 2.7227058801652126,
    "gbdt_residual_pct": 0.5561503694160068,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9935944150297287,
+   "tier": 2.0,
+   "tier_prob": 0.9998589225241298,
    "borderline": false
   },
   {
@@ -5878,8 +5878,8 @@
    "residual_pct": 1.866043492049196,
    "gbdt_residual_pct": 10.793993399320941,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9971657705116171,
+   "tier": 2.0,
+   "tier_prob": 0.9997765250848586,
    "borderline": false
   },
   {
@@ -5900,8 +5900,8 @@
    "residual_pct": 1.0800581082728922,
    "gbdt_residual_pct": -9.979729867247961,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9998848310026981,
+   "tier": 2.0,
+   "tier_prob": 0.931119264508026,
    "borderline": false
   },
   {
@@ -5944,8 +5944,8 @@
    "residual_pct": 0.7667428120697241,
    "gbdt_residual_pct": -12.385335245464162,
    "verdict": "In line with its specs",
-   "tier": 4.0,
-   "tier_prob": 0.9984274633528788,
+   "tier": 2.0,
+   "tier_prob": 0.9999997789655304,
    "borderline": false
   },
   {
@@ -5966,8 +5966,8 @@
    "residual_pct": -0.3490674489872109,
    "gbdt_residual_pct": 7.759997591775199,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999879893528693,
+   "tier": 1.0,
+   "tier_prob": 0.9806405231528836,
    "borderline": false
   },
   {
@@ -5988,8 +5988,8 @@
    "residual_pct": -0.5106785787256123,
    "gbdt_residual_pct": 22.614591141430864,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.999996971907614,
+   "tier": 2.0,
+   "tier_prob": 0.9797940694187028,
    "borderline": false
   },
   {
@@ -6010,8 +6010,8 @@
    "residual_pct": -0.6042338956382274,
    "gbdt_residual_pct": -22.870412969046168,
    "verdict": "In line with its specs",
-   "tier": 4.0,
-   "tier_prob": 0.9998119487984928,
+   "tier": 2.0,
+   "tier_prob": 0.9999999330116043,
    "borderline": false
   },
   {
@@ -6032,8 +6032,8 @@
    "residual_pct": -1.5413157005934695,
    "gbdt_residual_pct": -1.412004390037405,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9998109189981096,
+   "tier": 1.0,
+   "tier_prob": 0.9997433176120905,
    "borderline": false
   },
   {
@@ -6054,8 +6054,8 @@
    "residual_pct": -1.7073153552695612,
    "gbdt_residual_pct": -6.292916262690172,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9997208546397772,
+   "tier": 1.0,
+   "tier_prob": 0.9997913416240582,
    "borderline": false
   },
   {
@@ -6076,8 +6076,8 @@
    "residual_pct": -2.1904048118064336,
    "gbdt_residual_pct": 7.061332772961583,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999966347454076,
+   "tier": 1.0,
+   "tier_prob": 0.9978132777275742,
    "borderline": false
   },
   {
@@ -6120,8 +6120,8 @@
    "residual_pct": -2.4645007591354986,
    "gbdt_residual_pct": 8.365826370698269,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9997286624677207,
+   "tier": 2.0,
+   "tier_prob": 0.9991644401388066,
    "borderline": false
   },
   {
@@ -6142,8 +6142,8 @@
    "residual_pct": -2.7827190478809833,
    "gbdt_residual_pct": 2.599676592485308,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9996374768020404,
+   "tier": 2.0,
+   "tier_prob": 0.99928988909463,
    "borderline": false
   },
   {
@@ -6164,8 +6164,8 @@
    "residual_pct": -3.367050183675685,
    "gbdt_residual_pct": -13.601078262712049,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9601924545082543,
+   "tier": 2.0,
+   "tier_prob": 0.9999504032693411,
    "borderline": false
   },
   {
@@ -6230,8 +6230,8 @@
    "residual_pct": -4.966519158463704,
    "gbdt_residual_pct": -8.945896338896823,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9994738006224078,
+   "tier": 2.0,
+   "tier_prob": 0.9994239714394557,
    "borderline": false
   },
   {
@@ -6274,8 +6274,8 @@
    "residual_pct": -5.4682822848876915,
    "gbdt_residual_pct": -2.588425154837692,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999365471141249,
+   "tier": 1.0,
+   "tier_prob": 0.9995413465935882,
    "borderline": false
   },
   {
@@ -6297,7 +6297,7 @@
    "gbdt_residual_pct": 43.381258701972065,
    "verdict": "In line with its specs",
    "tier": 1.0,
-   "tier_prob": 0.9999724832145424,
+   "tier_prob": 0.9999999898890009,
    "borderline": false
   },
   {
@@ -6318,8 +6318,8 @@
    "residual_pct": -6.706919022992748,
    "gbdt_residual_pct": 0.5606194101812934,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9995011079060453,
+   "tier": 1.0,
+   "tier_prob": 0.9998467790412369,
    "borderline": false
   },
   {
@@ -6340,8 +6340,8 @@
    "residual_pct": -6.824699002808318,
    "gbdt_residual_pct": 12.71501950240993,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9995036662986555,
+   "tier": 1.0,
+   "tier_prob": 0.9998463594430612,
    "borderline": false
   },
   {
@@ -6384,8 +6384,8 @@
    "residual_pct": -7.023058972358317,
    "gbdt_residual_pct": -1.2922939207341306,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9998391452413815,
+   "tier": 1.0,
+   "tier_prob": 0.9997202772210435,
    "borderline": false
   },
   {
@@ -6406,8 +6406,8 @@
    "residual_pct": -7.407455388766835,
    "gbdt_residual_pct": -12.626900395945203,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9999976081685341,
+   "tier": 2.0,
+   "tier_prob": 0.9856057324770751,
    "borderline": false
   },
   {
@@ -6450,8 +6450,8 @@
    "residual_pct": -7.87820266401124,
    "gbdt_residual_pct": 7.850718565609164,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999462434076821,
+   "tier": 1.0,
+   "tier_prob": 0.9690561479855305,
    "borderline": false
   },
   {
@@ -6472,8 +6472,8 @@
    "residual_pct": -8.784794858338241,
    "gbdt_residual_pct": -12.971299005757661,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9996800672766516,
+   "tier": 2.0,
+   "tier_prob": 0.9992382635744681,
    "borderline": false
   },
   {
@@ -6495,7 +6495,7 @@
    "gbdt_residual_pct": 37.289820976380945,
    "verdict": "In line with its specs",
    "tier": 1.0,
-   "tier_prob": 0.9999955459500433,
+   "tier_prob": 0.9999999961605419,
    "borderline": false
   },
   {
@@ -6517,7 +6517,7 @@
    "gbdt_residual_pct": 30.769333631180395,
    "verdict": "In line with its specs",
    "tier": 1.0,
-   "tier_prob": 0.9856975684619147,
+   "tier_prob": 0.9999997167257304,
    "borderline": false
   },
   {
@@ -6560,8 +6560,8 @@
    "residual_pct": -9.992835024470391,
    "gbdt_residual_pct": -3.7248678820321963,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.996689169791918,
+   "tier": 2.0,
+   "tier_prob": 0.999795260981885,
    "borderline": false
   },
   {
@@ -6604,8 +6604,8 @@
    "residual_pct": -10.623995614324588,
    "gbdt_residual_pct": -20.37342713428816,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9995579375705584,
+   "tier": 1.0,
+   "tier_prob": 0.9998365988088191,
    "borderline": false
   },
   {
@@ -6648,8 +6648,8 @@
    "residual_pct": -11.514070526656582,
    "gbdt_residual_pct": -20.765078169894892,
    "verdict": "In line with its specs",
-   "tier": 3.0,
-   "tier_prob": 0.9985351323410754,
+   "tier": 2.0,
+   "tier_prob": 0.9996760036846101,
    "borderline": false
   },
   {
@@ -6714,8 +6714,8 @@
    "residual_pct": -12.8239626717405,
    "gbdt_residual_pct": 20.736983683050283,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9722952166292592,
+   "tier": 1.0,
+   "tier_prob": 0.807951417693917,
    "borderline": false
   },
   {
@@ -6802,8 +6802,8 @@
    "residual_pct": -19.101213070068937,
    "gbdt_residual_pct": 10.873330783690822,
    "verdict": "In line with its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9987943282222317,
+   "tier": 1.0,
+   "tier_prob": 0.9999041908711277,
    "borderline": false
   },
   {
@@ -6847,7 +6847,7 @@
    "gbdt_residual_pct": 23.664126015715954,
    "verdict": "In line with its specs",
    "tier": 1.0,
-   "tier_prob": 0.9940933349954042,
+   "tier_prob": 0.999999823791714,
    "borderline": false
   },
   {
@@ -6956,8 +6956,8 @@
    "residual_pct": -27.265680779476813,
    "gbdt_residual_pct": -28.99991736800483,
    "verdict": "Misses its specs",
-   "tier": 2.0,
-   "tier_prob": 0.9999901334962986,
+   "tier": 1.0,
+   "tier_prob": 0.9987668848664742,
    "borderline": false
   },
   {
@@ -7022,9 +7022,9 @@
    "residual_pct": -30.53416417702651,
    "gbdt_residual_pct": -18.057875460238456,
    "verdict": "Misses its specs",
-   "tier": 4.0,
-   "tier_prob": 0.6050129482590004,
-   "borderline": true
+   "tier": 2.0,
+   "tier_prob": 0.9999934705659905,
+   "borderline": false
   },
   {
    "kind": "gpu",
@@ -7044,8 +7044,8 @@
    "residual_pct": -35.78263608189913,
    "gbdt_residual_pct": -26.627632656773475,
    "verdict": "Misses its specs",
-   "tier": 4.0,
-   "tier_prob": 0.9988900561908678,
+   "tier": 2.0,
+   "tier_prob": 0.9999998183006865,
    "borderline": false
   }
  ]

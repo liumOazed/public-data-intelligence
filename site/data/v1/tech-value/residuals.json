@@ -3,7 +3,7 @@
   "module": "tech-value",
   "table": "residuals",
   "description": "Per processor: median leave-one-chip-out residual of three models, predicted scores per socket with 80% ranges, evidence counts, and the tested configuration of a typical result.",
-  "generated_at": "2026-11-27T19:14:10+00:00",
+  "generated_at": "2026-11-28T02:18:28+00:00",
   "rows": 537,
   "columns": [
    "processor",
